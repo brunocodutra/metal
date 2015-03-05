@@ -14,22 +14,22 @@ enable_testing()
 globally_disable_compiler_extensions()
 globally_enable_compiler_warnings()
 
-file(GLOB_RECURSE BOOST_MPL_TEST_HEADERS "*.hpp")
-file(GLOB_RECURSE BOOST_MPL_TEST_SOURCES "*.cpp")
+file(GLOB_RECURSE BOOST_MPL2_TEST_HEADERS "*.hpp")
+file(GLOB_RECURSE BOOST_MPL2_TEST_SOURCES "*.cpp")
 
-include_directories(${BOOST_MPL_INCLUDE_DIRS})
-link_directories(${BOOST_MPL_LIBRARY_DIRS})
+include_directories(${BOOST_MPL2_INCLUDE_DIRS})
+link_directories(${BOOST_MPL2_LIBRARY_DIRS})
 
 set(SUPPORTED_STANDARDS "C++98;C++03;C++11;C++14")
 foreach(DIALECT ${SUPPORTED_STANDARDS})
     language_dialect_flags("CXX" ${DIALECT} DIALECT_FLAGS)
-    foreach(SOURCE ${BOOST_MPL_TEST_SOURCES})
+    foreach(SOURCE ${BOOST_MPL2_TEST_SOURCES})
         string(REGEX REPLACE ".*[/\\](.*\)[.]cpp" "\\1_test_${DIALECT}" TARGET ${SOURCE})
         add_binary_target(
             EXECUTABLE ${TARGET}
             LANGUAGE "CXX"
-            SOURCES ${SOURCE} ${BOOST_MPL_TEST_HEADERS}
-            LIBRARIES ${BOOST_MPL_LIBRARIES}
+            SOURCES ${SOURCE} ${BOOST_MPL2_TEST_HEADERS}
+            LIBRARIES ${BOOST_MPL2_LIBRARIES}
             ADITIONAL_FLAGS ${DIALECT_FLAGS}
             DEPENDENCIES mpl2
         )

@@ -4,8 +4,8 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL_SEQ_HPP_
-#define _BOOST_MPL_SEQ_HPP_
+#ifndef _BOOST_MPL2_SEQ_HPP_
+#define _BOOST_MPL2_SEQ_HPP_
 
 #include <boost/mpl2/config.hpp>
 #include <boost/mpl2/type.hpp>
@@ -20,15 +20,15 @@ namespace boost
     namespace mpl2
     {
         template<
-                BOOST_MPL_OPTIONAL_PARAMS(1, h)
-                BOOST_MPL_TRAILING_VARIADIC_OPTIONAL_PARAMS(
-                    BOOST_PP_DEC(BOOST_MPL_LIMIT_METAFUNCTION_ARITY),
+                BOOST_MPL2_OPTIONAL_PARAMS(1, h)
+                BOOST_MPL2_TRAILING_VARIADIC_OPTIONAL_PARAMS(
+                    BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY),
                     tail
                 )
             >
         struct seq :
-                seq<BOOST_MPL_VARIADIC_ARGS(
-                        BOOST_PP_DEC(BOOST_MPL_LIMIT_METAFUNCTION_ARITY),
+                seq<BOOST_MPL2_VARIADIC_ARGS(
+                        BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY),
                         tail
                     )
                     >
@@ -36,8 +36,8 @@ namespace boost
             typedef seq type;
             enum
             {
-                size = 1 + BOOST_MPL_SEIZEOF(
-                        BOOST_PP_DEC(BOOST_MPL_LIMIT_METAFUNCTION_ARITY),
+                size = 1 + BOOST_MPL2_SEIZEOF(
+                        BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY),
                         tail
                     )
             };

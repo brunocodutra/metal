@@ -4,7 +4,7 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#define BOOST_MPL_LIMIT_METAFUNCTION_ARITY 5
+#define BOOST_MPL2_LIMIT_METAFUNCTION_ARITY 5
 
 #include <boost/mpl2/detail/preprocessor/typeof.hpp>
 #include <boost/mpl2/detail/preprocessor/sizeof.hpp>
@@ -18,7 +18,7 @@ typedef boost::mpl2::seq<int, void, float>::type seq;
 
 //test<seq> a;
 
-BOOST_MPL_TYPEOF(0+0) main()
+BOOST_MPL2_TYPEOF(0+0) main()
 {
     return seq::size + empty::size != 3;
 }
