@@ -7,7 +7,7 @@
 #ifndef _BOOST_MPL_DETAIL_PREPROCESSOR_ARGS_HPP_
 #define _BOOST_MPL_DETAIL_PREPROCESSOR_ARGS_HPP_
 
-#include "../na.hpp"
+#include <boost/mpl2/detail/na.hpp>
 
 #include <boost/preprocessor/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>

@@ -4,8 +4,8 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#include "preprocessor/args.hpp"
-#include "preprocessor/variadic_args.hpp"
+#include <boost/mpl2/detail/preprocessor/args.hpp>
+#include <boost/mpl2/detail/preprocessor/variadic_args.hpp>
 
 
 

@@ -4,5 +4,5 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#include "config/switches.hpp"
-#include "config/limits.hpp"
+#include <boost/mpl2/config/switches.hpp>
+#include <boost/mpl2/config/limits.hpp>

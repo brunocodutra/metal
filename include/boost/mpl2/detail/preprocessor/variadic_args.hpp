@@ -7,7 +7,7 @@
 #ifndef _BOOST_MPL_DETAIL_PREPROCESSOR_VARIADIC_ARGS_HPP_
 #define _BOOST_MPL_DETAIL_PREPROCESSOR_VARIADIC_ARGS_HPP_
 
-#include "args.hpp"
+#include <boost/mpl2/detail/preprocessor/args.hpp>
 
 #if defined(BOOST_MPL_CFG_NO_VARIADIC_TEMPLATES)
     #define BOOST_MPL_FOR_EACH_VARIADIC_ARG(N, PREFIX, MACRO, DATA) \

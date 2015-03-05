@@ -7,9 +7,9 @@
 #ifndef _BOOST_MPL_SEQ_HPP_
 #define _BOOST_MPL_SEQ_HPP_
 
-#include "config.hpp"
+#include <boost/mpl2/config.hpp>
 
-#include "detail/preprocessor.hpp"
+#include <boost/mpl2/detail/preprocessor.hpp>
 
 //#include <boost/preprocessor/arithmetic/dec.hpp>
 

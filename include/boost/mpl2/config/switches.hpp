@@ -4,4 +4,4 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#include "switches/variadic.hpp"
+#include <boost/mpl2/config/switches/variadic.hpp>

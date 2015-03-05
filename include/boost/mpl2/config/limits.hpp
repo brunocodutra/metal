@@ -4,4 +4,4 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#include "limits/arity.hpp"
+#include <boost/mpl2/config/limits/arity.hpp>
