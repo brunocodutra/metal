@@ -7,6 +7,7 @@
 #define BOOST_MPL_LIMIT_METAFUNCTION_ARITY 5
 
 #include <boost/mpl2/detail/preprocessor/typeof.hpp>
+#include <boost/mpl2/detail/preprocessor/sizeof.hpp>
 #include <boost/mpl2/seq.hpp>
 
 typedef boost::mpl2::seq<>::type empty;
@@ -19,5 +20,5 @@ typedef boost::mpl2::seq<int, void, float>::type seq;
 
 BOOST_MPL_TYPEOF(0+0) main()
 {
-    return 0;
+    return seq::size != 3;
 }
