@@ -9,10 +9,9 @@
 
 #include <boost/config.hpp>
 
-#if !defined(BOOST_MPL_CFG_NO_VARIADIC_TEMPLATES)
-    #if defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
-        #define BOOST_MPL_CFG_NO_VARIADIC_TEMPLATES
-    #endif
+#if !defined(BOOST_MPL_CFG_NO_VARIADIC_TEMPLATES) && \
+        defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
+    #define BOOST_MPL_CFG_NO_VARIADIC_TEMPLATES
 #endif
 
 #endif
