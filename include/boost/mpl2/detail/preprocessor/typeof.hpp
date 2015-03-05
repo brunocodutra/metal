@@ -12,8 +12,11 @@
 #if !defined(BOOST_MPL_CFG_NO_TYPEOF)
     #include <boost/typeof/typeof.hpp>
 
-    #define BOOST_MPL_TYPEOF(EXPR) BOOST_TYPEOF(EXPR)
-    #define BOOST_MPL_TYPEOF_TPL(EXPR) BOOST_TYPEOF_TPL(EXPR)
+    #define BOOST_MPL_TYPEOF(EXPR) \
+        BOOST_TYPEOF(EXPR)
+
+    #define BOOST_MPL_TYPEOF_TPL(EXPR) \
+        BOOST_TYPEOF_TPL(EXPR)
 #endif
 
 #endif
