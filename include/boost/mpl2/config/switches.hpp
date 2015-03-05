@@ -5,3 +5,4 @@
  */
 
 #include <boost/mpl2/config/switches/variadic.hpp>
+#include <boost/mpl2/config/switches/typeof.hpp>
