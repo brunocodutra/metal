@@ -47,6 +47,7 @@ namespace boost
         struct seq<>
         {
             typedef seq<> type;
+            enum {size = 0};
         };
     }
 }

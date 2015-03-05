@@ -20,5 +20,5 @@ typedef boost::mpl2::seq<int, void, float>::type seq;
 
 BOOST_MPL_TYPEOF(0+0) main()
 {
-    return seq::size != 3;
+    return seq::size + empty::size != 3;
 }
