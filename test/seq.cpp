@@ -4,11 +4,20 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#include "boost/mpl2/seq.hpp"
+#define BOOST_MPL_LIMIT_METAFUNCTION_ARITY 5
 
-int main()
+#include <boost/mpl2/detail/preprocessor/typeof.hpp>
+#include <boost/mpl2/seq.hpp>
+
+typedef boost::mpl2::seq<>::type empty;
+typedef boost::mpl2::seq<int, void, float>::type seq;
+
+//template<typename>
+//struct test;
+
+//test<seq> a;
+
+BOOST_MPL_TYPEOF(0+0) main()
 {
-    typedef boost::mpl2::seq<int, void, float> seq;
-
     return 0;
 }
