@@ -15,31 +15,39 @@
 
 #include <boost/preprocessor/arithmetic/dec.hpp>
 
+#define BOOST_MPL2_DETAIL_HEAD_DECL \
+    BOOST_MPL2_OPTIONAL_PARAMS(1, h)
+
+#define BOOST_MPL2_DETAIL_TAIL_DECL \
+    BOOST_MPL2_TRAILING_VARIADIC_OPTIONAL_PARAMS( \
+        BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY), \
+        tail \
+    )
+
+#define BOOST_MPL2_DETAIL_TAIL \
+    BOOST_MPL2_VARIADIC_ARGS( \
+        BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY), \
+        tail \
+    )
+
+#define BOOST_MPL2_DETAIL_SIZEOF_TAIL \
+    BOOST_MPL2_SEIZEOF( \
+        BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY), \
+        tail \
+    )
+
 namespace boost
 {
     namespace mpl2
     {
-        template<
-                BOOST_MPL2_OPTIONAL_PARAMS(1, h)
-                BOOST_MPL2_TRAILING_VARIADIC_OPTIONAL_PARAMS(
-                    BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY),
-                    tail
-                )
-            >
+        template<BOOST_MPL2_DETAIL_HEAD_DECL BOOST_MPL2_DETAIL_TAIL_DECL>
         struct seq :
-                seq<BOOST_MPL2_VARIADIC_ARGS(
-                        BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY),
-                        tail
-                    )
-                    >
+                seq<BOOST_MPL2_DETAIL_TAIL>
         {
             typedef seq type;
             enum
             {
-                size = 1 + BOOST_MPL2_SEIZEOF(
-                        BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY),
-                        tail
-                    )
+                size = 1U + BOOST_MPL2_DETAIL_SIZEOF_TAIL
             };
         };
 
@@ -47,9 +55,14 @@ namespace boost
         struct seq<>
         {
             typedef seq<> type;
-            enum {size = 0};
+            enum {size = 0U};
         };
     }
 }
+
+#undef BOOST_MPL2_DETAIL_HEAD_DECL
+#undef BOOST_MPL2_DETAIL_TAIL_DECL
+#undef BOOST_MPL2_DETAIL_TAIL
+#undef BOOST_MPL2_DETAIL_SIZEOF_TAIL
 
 #endif
