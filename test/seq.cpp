@@ -8,7 +8,7 @@
 
 #include <boost/mpl2/detail/preprocessor/typeof.hpp>
 #include <boost/mpl2/detail/preprocessor/sizeof.hpp>
-#include <boost/mpl2/seq.hpp>
+#include <boost/mpl2/sequences/seq.hpp>
 
 typedef boost::mpl2::seq<>::type empty;
 typedef boost::mpl2::seq<int, void, float>::type seq;
