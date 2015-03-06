@@ -16,15 +16,22 @@
     #include <boost/mpl2/config/limits/arity.hpp>
     #include <boost/mpl2/detail/preprocessor/args.hpp>
 
-    #include <boost/preprocessor/repeat.hpp>
+    #include <boost/preprocessor/dec.hpp>
 
-    #define BOOST_MPL2_DETAIL_SPECIALIZE_SEIZEOF(Z, N, _) \
-        template<BOOST_MPL2_PARAMS(N, items)> \
-        struct sizeof_<BOOST_MPL2_ARGS(N, items)> \
-        { \
-            enum {value = N}; \
-        };
+    #define BOOST_MPL2_DETAIL_HEAD_DECL \
+        BOOST_MPL2_OPTIONAL_PARAMS(1, h)
 
+    #define BOOST_MPL2_DETAIL_TAIL_DECL \
+        BOOST_MPL2_TRAILING_OPTIONAL_PARAMS( \
+            BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY), \
+            tail \
+        )
+
+    #define BOOST_MPL2_DETAIL_TAIL \
+        BOOST_MPL2_ARGS( \
+            BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY), \
+            tail \
+        )
 
     namespace boost
     {
@@ -32,25 +39,29 @@
         {
             namespace detail
             {
-                template<
-                        BOOST_MPL2_OPTIONAL_PARAMS(
-                            BOOST_MPL2_LIMIT_METAFUNCTION_ARITY,
-                            items
-                        )
-                    >
-                struct sizeof_
+                template<BOOST_MPL2_DETAIL_HEAD_DECL BOOST_MPL2_DETAIL_TAIL_DECL>
+                struct sizeof_ :
+                        sizeof_<BOOST_MPL2_DETAIL_TAIL>
                 {
-                    enum {value = BOOST_MPL2_LIMIT_METAFUNCTION_ARITY};
+                    enum
+                    {
+                        value = 1U +
+                            sizeof_<BOOST_MPL2_DETAIL_TAIL>::value
+                    };
                 };
 
-                BOOST_PP_REPEAT(
-                        BOOST_MPL2_LIMIT_METAFUNCTION_ARITY,
-                        BOOST_MPL2_DETAIL_SPECIALIZE_SEIZEOF,
-                        _
-                    )
+                template<>
+                struct sizeof_<>
+                {
+                    enum {value = 0U};
+                };
             }
         }
     }
+
+    #undef BOOST_MPL2_DETAIL_HEAD_DECL
+    #undef BOOST_MPL2_DETAIL_TAIL_DECL
+    #undef BOOST_MPL2_DETAIL_TAIL
 
     #define BOOST_MPL2_SEIZEOF(N, ARGS) \
         boost::mpl2::detail::sizeof_<BOOST_MPL2_ARGS(N,ARGS)>::value
