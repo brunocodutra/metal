@@ -7,6 +7,8 @@
 #ifndef _BOOST_MPL2_DATATYPES_INTEGRAL_C_HPP_
 #define _BOOST_MPL2_DATATYPES_INTEGRAL_C_HPP_
 
+#include <boost/config.hpp>
+
 namespace boost
 {
     namespace mpl2
@@ -20,6 +22,11 @@ namespace boost
 
             typedef integral_c<integer, constant + 1> next;
             typedef integral_c<integer, constant - 1> prior;
+
+            BOOST_CONSTEXPR operator integer () const
+            {
+                return constant;
+            }
         };
     }
 }
