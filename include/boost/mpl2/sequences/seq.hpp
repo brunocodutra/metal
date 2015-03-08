@@ -4,8 +4,8 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_SEQ_HPP_
-#define _BOOST_MPL2_SEQ_HPP_
+#ifndef _BOOST_MPL2_SEQUENCES_SEQ_HPP_
+#define _BOOST_MPL2_SEQUENCES_SEQ_HPP_
 
 #include <boost/mpl2/config.hpp>
 #include <boost/mpl2/type.hpp>
