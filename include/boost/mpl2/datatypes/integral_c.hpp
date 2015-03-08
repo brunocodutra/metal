@@ -20,8 +20,8 @@ namespace boost
             typedef integer value_type;
             enum {value = constant};
 
-            typedef integral_c<integer, constant + 1> next;
-            typedef integral_c<integer, constant - 1> prior;
+            typedef integral_c<integer, static_cast<integer>(constant + 1)> next;
+            typedef integral_c<integer, static_cast<integer>(constant - 1)> prior;
 
             BOOST_CONSTEXPR operator integer () const
             {
