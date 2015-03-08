@@ -2,17 +2,22 @@
 # Use, modification and distribution is subject to the BSD 2-clause license.
 # See accompanying file LICENSE for its full text.
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-
-include(CompilerFlags)
-include(CompilerWarnings)
-include(CompilerExtensions)
-include(TargetUtilities)
-
 enable_testing()
 
-globally_disable_compiler_extensions()
-globally_enable_compiler_warnings()
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
+include(CompilerUtilities)
+include(TargetUtilities)
+include(Warnings)
+include(Diagnostics)
+include(Strict)
+include(Dialects)
+
+warnings_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
+diagnostics_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
+strict_behavior_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
+
+add_compile_flags_globally("${BOOST_MPL2_EXTRA_COMPILE_FLAGS}")
 
 file(GLOB_RECURSE BOOST_MPL2_TEST_HEADERS "*.hpp")
 file(GLOB_RECURSE BOOST_MPL2_TEST_SOURCES "*.cpp")
@@ -20,25 +25,33 @@ file(GLOB_RECURSE BOOST_MPL2_TEST_SOURCES "*.cpp")
 include_directories(${BOOST_MPL2_INCLUDE_DIRS})
 link_directories(${BOOST_MPL2_LIBRARY_DIRS})
 
-set(SUPPORTED_STANDARDS "C++98;C++03;C++11;C++14")
-foreach(DIALECT ${SUPPORTED_STANDARDS})
-    language_dialect_flags("CXX" ${DIALECT} DIALECT_FLAGS)
-    foreach(SOURCE ${BOOST_MPL2_TEST_SOURCES})
-        string(REGEX REPLACE ".*[/\\](.*\)[.]cpp" "\\1_test_${DIALECT}" TARGET ${SOURCE})
-        add_binary_target(
-            EXECUTABLE ${TARGET}
-            LANGUAGE "CXX"
-            SOURCES ${SOURCE} ${BOOST_MPL2_TEST_HEADERS}
-            LIBRARIES ${BOOST_MPL2_LIBRARIES}
-            ADITIONAL_FLAGS ${DIALECT_FLAGS}
-            DEPENDENCIES mpl2
-        )
-        add_test(${TARGET} ${CMAKE_CURRENT_BINARY_DIR}/${TARGET})
-        set(TEST_TARGETS ${TEST_TARGETS} ${TARGET})
-    endforeach()
+set(BOOST_MPL2_TEST_DIALECTS c++98 c++03 c++11 c++14)
+
+option(BOOST_MPL2_TEST_GNU_DIALECTS "test gnu dialects" ON)
+if(BOOST_MPL2_TEST_GNU_DIALECTS)
+    set(BOOST_MPL2_TEST_DIALECTS ${BOOST_MPL2_TEST_DIALECTS} gnu++98 gnu++03 gnu++11 gnu++14)
+endif()
+foreach(dialect ${BOOST_MPL2_TEST_DIALECTS})
+    set(dialect_flag)
+    language_dialect_flags(CXX ${dialect} dialect_flag)
+    if(NOT "${dialect_flag}" STREQUAL "")
+        foreach(SOURCE ${BOOST_MPL2_TEST_SOURCES})
+            string(REGEX REPLACE ".*[/\\](.*\)[.]cpp" "\\1_test_${dialect}" target ${SOURCE})
+            add_binary_target(
+                EXECUTABLE ${target}
+                LANGUAGE CXX
+                SOURCES ${SOURCE} ${BOOST_MPL2_TEST_HEADERS}
+                LIBRARIES ${BOOST_MPL2_LIBRARIES}
+                ADITIONAL_FLAGS ${dialect_flag}
+                DEPENDENCIES mpl2
+            )
+            add_test(${target} ${CMAKE_CURRENT_BINARY_DIR}/${target})
+            set(BOOST_MPL2_TEST_TARGETS ${BOOST_MPL2_TEST_TARGETS} ${target})
+        endforeach()
+    endif()
 endforeach()
 
-add_custom_target(tests DEPENDS ${TEST_TARGETS})
+add_custom_target(tests DEPENDS ${BOOST_MPL2_TEST_TARGETS})
 add_custom_command(
     TARGET tests
     COMMENT "unity tests"
