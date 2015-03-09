@@ -7,7 +7,7 @@
 #ifndef _BOOST_MPL2_DATATYPES_CHARACTER_HPP_
 #define _BOOST_MPL2_DATATYPES_CHARACTER_HPP_
 
-#include <boost/mpl2/datatypes/integral.hpp>
+#include <boost/mpl2/datatypes/integral_concept.hpp>
 
 #include <boost/config.hpp>
 
@@ -17,35 +17,35 @@ namespace boost
     {
         template<char constant>
         struct char_ :
-                boost::mpl2::integral<char, constant>
+                integral_concept<char_<constant>, char, constant>
         {};
 
         template<unsigned char constant>
         struct uchar_ :
-                boost::mpl2::integral<unsigned char, constant>
+                integral_concept<uchar_<constant>, unsigned char, constant>
         {};
 
         template<signed char constant>
         struct schar_ :
-                boost::mpl2::integral<signed char, constant>
+                integral_concept<schar_<constant>, signed char, constant>
         {};
 
         template<wchar_t constant>
         struct wchar_t_ :
-                boost::mpl2::integral<wchar_t, constant>
+                integral_concept<wchar_t_<constant>, wchar_t, constant>
         {};
 
 #if defined(BOOST_HAS_CHAR16_T)
         template<char16_t constant>
         struct char16_t_ :
-                boost::mpl2::integral<char16_t, constant>
+                integral_concept<char16_t_<constant>, char16_t, constant>
         {};
 #endif
 
 #if defined(BOOST_HAS_CHAR16_T)
         template<char32_t constant>
         struct char32_t_ :
-                boost::mpl2::integral<char32_t, constant>
+                integral_concept<char32_t_<constant>, char32_t, constant>
         {};
 #endif
     }

@@ -7,7 +7,7 @@
 #ifndef _BOOST_MPL2_DATATYPES_BOOLEAN_HPP_
 #define _BOOST_MPL2_DATATYPES_BOOLEAN_HPP_
 
-#include <boost/mpl2/datatypes/integral.hpp>
+#include <boost/mpl2/datatypes/integral_concept.hpp>
 
 namespace boost
 {
@@ -15,7 +15,7 @@ namespace boost
     {
         template<bool constant>
         struct bool_ :
-                boost::mpl2::integral<bool, constant>
+                integral_concept<bool_<constant>, bool, constant>
         {};
 
         typedef bool_<true> true_;

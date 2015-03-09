@@ -7,7 +7,7 @@
 #ifndef _BOOST_MPL2_DATATYPES_SIZE_T_HPP_
 #define _BOOST_MPL2_DATATYPES_SIZE_T_HPP_
 
-#include <boost/mpl2/datatypes/integral.hpp>
+#include <boost/mpl2/datatypes/integral_concept.hpp>
 
 #include <cstddef>
 
@@ -17,7 +17,7 @@ namespace boost
     {
         template<std::size_t constant>
         struct size_t_ :
-                boost::mpl2::integral<std::size_t, constant>
+                integral_concept<size_t_<constant>, std::size_t, constant>
         {};
     }
 }
