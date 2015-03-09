@@ -7,16 +7,32 @@
 #ifndef _BOOST_MPL2_DATATYPES_INTEGRAL_HPP_
 #define _BOOST_MPL2_DATATYPES_INTEGRAL_HPP_
 
-#include <boost/mpl2/datatypes/integral_concept.hpp>
+#include <boost/config.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        template<typename integer, integer constant>
-        struct integral :
-                integral_concept<integral<integer, constant>, integer, constant>
-        {};
+        template<typename>
+        struct integral_tag;
+
+        template<typename integral_type, integral_type constant>
+        struct integral
+        {
+            typedef integral                    type;
+            typedef integral_type               value_type;
+            typedef integral_tag<value_type>    tag;
+
+            enum {value = constant};
+
+            typedef integral<value_type, static_cast<value_type>(value + 1)> next;
+            typedef integral<value_type, static_cast<value_type>(value - 1)> prior;
+
+            BOOST_CONSTEXPR operator value_type () const
+            {
+                return value;
+            }
+        };
     }
 }
 
