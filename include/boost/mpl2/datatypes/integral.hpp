@@ -13,11 +13,15 @@ namespace boost
 {
     namespace mpl2
     {
+        struct integral_tag;
+
         template<typename integer, integer constant>
         struct integral
         {
-            typedef integral type;
-            typedef integer value_type;
+            typedef integral_tag    tag;
+            typedef integral        type;
+            typedef integer         value_type;
+
             enum {value = constant};
 
             typedef integral<integer, static_cast<integer>(constant + 1)> next;
