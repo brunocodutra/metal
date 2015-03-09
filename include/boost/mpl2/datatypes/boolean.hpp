@@ -16,10 +16,7 @@ namespace boost
         template<bool constant>
         struct bool_ :
                 boost::mpl2::integral_c<bool, constant>
-        {
-            typedef bool_<!constant> next;
-            typedef next prior;
-        };
+        {};
 
         typedef bool_<true> true_;
         typedef bool_<false> false_;
