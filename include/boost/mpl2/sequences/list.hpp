@@ -4,19 +4,21 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_SEQUENCES_SEQ_HPP_
-#define _BOOST_MPL2_SEQUENCES_SEQ_HPP_
+#ifndef _BOOST_MPL2_SEQUENCES_LIST_HPP_
+#define _BOOST_MPL2_SEQUENCES_LIST_HPP_
 
-#include <boost/mpl2/config.hpp>
-#include <boost/mpl2/type.hpp>
+#include <boost/mpl2/config/limits/arity.hpp>
+#include <boost/mpl2/sequences/sequence.hpp>
 
 #include <boost/mpl2/detail/preprocessor/variadic_args.hpp>
-#include <boost/mpl2/detail/preprocessor/sizeof.hpp>
 
 #include <boost/preprocessor/arithmetic/dec.hpp>
 
 #define BOOST_MPL2_DETAIL_HEAD_DECL \
     BOOST_MPL2_OPTIONAL_PARAMS(1, h)
+
+#define BOOST_MPL2_DETAIL_HEAD \
+    BOOST_MPL2_ARGS(1, h)
 
 #define BOOST_MPL2_DETAIL_TAIL_DECL \
     BOOST_MPL2_TRAILING_VARIADIC_OPTIONAL_PARAMS( \
@@ -30,39 +32,24 @@
         tail \
     )
 
-#define BOOST_MPL2_DETAIL_SIZEOF_TAIL \
-    BOOST_MPL2_SEIZEOF( \
-        BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY), \
-        tail \
-    )
-
 namespace boost
 {
     namespace mpl2
     {
         template<BOOST_MPL2_DETAIL_HEAD_DECL BOOST_MPL2_DETAIL_TAIL_DECL>
-        struct seq :
-                seq<BOOST_MPL2_DETAIL_TAIL>
-        {
-            typedef seq type;
-            enum
-            {
-                size = 1U + BOOST_MPL2_DETAIL_SIZEOF_TAIL
-            };
-        };
+        struct list :
+                sequence<BOOST_MPL2_DETAIL_HEAD, list<BOOST_MPL2_DETAIL_TAIL> >
+        {};
 
         template<>
-        struct seq<>
-        {
-            typedef seq<> type;
-            enum {size = 0U};
-        };
+        struct list<> :
+                nil
+        {};
     }
 }
 
 #undef BOOST_MPL2_DETAIL_HEAD_DECL
 #undef BOOST_MPL2_DETAIL_TAIL_DECL
 #undef BOOST_MPL2_DETAIL_TAIL
-#undef BOOST_MPL2_DETAIL_SIZEOF_TAIL
 
 #endif

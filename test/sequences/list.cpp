@@ -6,12 +6,13 @@
 
 #define BOOST_MPL2_LIMIT_METAFUNCTION_ARITY 5
 
-#include <boost/mpl2/sequences/seq.hpp>
+#include <boost/mpl2/sequences/list.hpp>
 
-typedef boost::mpl2::seq<>::type empty;
-typedef boost::mpl2::seq<int, void, float>::type seq;
+typedef boost::mpl2::list<>::type empty;
+typedef boost::mpl2::list<void>::type single;
+typedef boost::mpl2::list<int, void, float>::type list;
 
 int main()
 {
-    return seq::size + empty::size != 3;
+    return single::size + list::size + empty::size - 4;
 }
