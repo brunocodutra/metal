@@ -8,8 +8,8 @@
 #define _BOOST_MPL2_SEQUENCES_LIST_HPP_
 
 #include <boost/mpl2/config/limits/arity.hpp>
-#include <boost/mpl2/sequences/sequence.hpp>
 
+#include <boost/mpl2/sequences/detail/link.hpp>
 #include <boost/mpl2/detail/preprocessor/variadic_args.hpp>
 
 #include <boost/preprocessor/arithmetic/dec.hpp>
@@ -38,7 +38,7 @@ namespace boost
     {
         template<BOOST_MPL2_DETAIL_HEAD_DECL BOOST_MPL2_DETAIL_TAIL_DECL>
         struct list :
-                sequence<BOOST_MPL2_DETAIL_HEAD, list<BOOST_MPL2_DETAIL_TAIL> >
+                link<BOOST_MPL2_DETAIL_HEAD, list<BOOST_MPL2_DETAIL_TAIL> >
         {};
 
         template<>

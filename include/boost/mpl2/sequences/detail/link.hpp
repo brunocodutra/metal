@@ -4,8 +4,8 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_SEQUENCES_SEQUENCE_HPP_
-#define _BOOST_MPL2_SEQUENCES_SEQUENCE_HPP_
+#ifndef _BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP_
+#define _BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP_
 
 namespace boost
 {
@@ -17,12 +17,12 @@ namespace boost
             enum {size = 0U};
         };
 
-        template<typename head, typename tail>
-        struct sequence :
-                tail::type
+        template<typename value, typename rest>
+        struct link :
+                rest::type
         {
-            typedef sequence type;
-            enum {size = 1U + tail::size};
+            typedef link type;
+            enum {size = 1U + rest::size};
         };
 
     }
