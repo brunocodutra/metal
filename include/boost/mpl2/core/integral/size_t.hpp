@@ -4,10 +4,10 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_DATATYPES_SIZE_T_HPP_
-#define _BOOST_MPL2_DATATYPES_SIZE_T_HPP_
+#ifndef _BOOST_MPL2_CORE_INTEGRAL_SIZE_T_HPP_
+#define _BOOST_MPL2_CORE_INTEGRAL_SIZE_T_HPP_
 
-#include <boost/mpl2/datatypes/integral_concept.hpp>
+#include <boost/mpl2/core/integral.hpp>
 
 #include <cstddef>
 
@@ -17,7 +17,7 @@ namespace boost
     {
         template<std::size_t constant>
         struct size_t_ :
-                integral_concept<size_t_<constant>, std::size_t, constant>
+                integral<std::size_t, constant>
         {};
     }
 }

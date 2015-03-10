@@ -4,10 +4,10 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_DATATYPES_BOOLEAN_HPP_
-#define _BOOST_MPL2_DATATYPES_BOOLEAN_HPP_
+#ifndef _BOOST_MPL2_CORE_INTEGRAL_BOOLEAN_HPP_
+#define _BOOST_MPL2_CORE_INTEGRAL_BOOLEAN_HPP_
 
-#include <boost/mpl2/datatypes/integral_concept.hpp>
+#include <boost/mpl2/core/integral.hpp>
 
 namespace boost
 {
@@ -15,7 +15,7 @@ namespace boost
     {
         template<bool constant>
         struct bool_ :
-                integral_concept<bool_<constant>, bool, constant>
+                integral<bool, constant>
         {};
 
         typedef bool_<true> true_;
