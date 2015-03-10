@@ -28,7 +28,7 @@ namespace boost
             typedef integral_type               value_type;
             typedef integral_tag<value_type>    tag;
 
-            enum {value = constant};
+            static value_type const value = constant;
 
             typedef inc<type> next;
             typedef dec<type> prior;
