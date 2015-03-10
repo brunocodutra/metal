@@ -7,6 +7,8 @@
 #ifndef _BOOST_MPL2_CORE_INTEGRAL_HPP_
 #define _BOOST_MPL2_CORE_INTEGRAL_HPP_
 
+#include <boost/mpl2/core/arithmetic.hpp>
+
 #include <boost/config.hpp>
 
 namespace boost
@@ -28,8 +30,8 @@ namespace boost
 
             enum {value = constant};
 
-            typedef integral<value_type, static_cast<value_type>(value + 1)> next;
-            typedef integral<value_type, static_cast<value_type>(value - 1)> prior;
+            typedef inc<type> next;
+            typedef dec<type> prior;
 
             BOOST_CONSTEXPR operator value_type () const
             {

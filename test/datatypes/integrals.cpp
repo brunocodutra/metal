@@ -10,6 +10,6 @@ int main()
 {
     return !(boost::mpl2::true_() &&
              boost::mpl2::integral<std::ptrdiff_t, -1>() &&
-             boost::mpl2::int_<42>() &&
-             boost::mpl2::char_<'a'>::type());
+             boost::mpl2::int_<41>::next() &&
+             boost::mpl2::char_<'b'>::prior::type());
 }
