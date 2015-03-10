@@ -4,8 +4,8 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#include <boost/mpl2/arithmetic.hpp>
-#include <boost/mpl2/datatypes/integer.hpp>
+#include <boost/mpl2/core/arithmetic.hpp>
+#include <boost/mpl2/core/integral.hpp>
 
 int main()
 {

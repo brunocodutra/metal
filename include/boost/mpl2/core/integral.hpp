@@ -4,8 +4,8 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_DATATYPES_INTEGRAL_HPP_
-#define _BOOST_MPL2_DATATYPES_INTEGRAL_HPP_
+#ifndef _BOOST_MPL2_CORE_INTEGRAL_HPP_
+#define _BOOST_MPL2_CORE_INTEGRAL_HPP_
 
 #include <boost/config.hpp>
 
@@ -35,5 +35,10 @@ namespace boost
         };
     }
 }
+
+#include <boost/mpl2/core/integral/boolean.hpp>
+#include <boost/mpl2/core/integral/character.hpp>
+#include <boost/mpl2/core/integral/integer.hpp>
+#include <boost/mpl2/core/integral/size_t.hpp>
 
 #endif

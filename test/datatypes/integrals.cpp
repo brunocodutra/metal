@@ -4,11 +4,7 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#include <boost/mpl2/datatypes/integral.hpp>
-#include <boost/mpl2/datatypes/boolean.hpp>
-#include <boost/mpl2/datatypes/integer.hpp>
-#include <boost/mpl2/datatypes/character.hpp>
-#include <boost/mpl2/datatypes/size_t.hpp>
+#include <boost/mpl2/core/integral.hpp>
 
 int main()
 {

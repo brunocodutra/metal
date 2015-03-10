@@ -4,10 +4,10 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_DATATYPES_SIZE_T_HPP_
-#define _BOOST_MPL2_DATATYPES_SIZE_T_HPP_
+#ifndef _BOOST_MPL2_CORE_INTEGRAL_SIZE_T_HPP_
+#define _BOOST_MPL2_CORE_INTEGRAL_SIZE_T_HPP_
 
-#include <boost/mpl2/datatypes/integral.hpp>
+#include <boost/mpl2/core/integral.hpp>
 
 #include <cstddef>
 

@@ -4,10 +4,10 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_DATATYPES_VOID_HPP_
-#define _BOOST_MPL2_DATATYPES_VOID_HPP_
+#ifndef _BOOST_MPL2_CORE_VOID_HPP_
+#define _BOOST_MPL2_CORE_VOID_HPP_
 
-#include <boost/mpl2/datatypes/boolean.hpp>
+#include <boost/mpl2/core/integral/boolean.hpp>
 
 namespace boost
 {

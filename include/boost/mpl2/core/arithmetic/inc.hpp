@@ -4,11 +4,11 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_ARITHMETIC_INC_HPP_
-#define _BOOST_MPL2_ARITHMETIC_INC_HPP_
+#ifndef _BOOST_MPL2_CORE_ARITHMETIC_INC_HPP_
+#define _BOOST_MPL2_CORE_ARITHMETIC_INC_HPP_
 
 #include <boost/mpl2/core/tag.hpp>
-#include <boost/mpl2/datatypes/integral.hpp>
+#include <boost/mpl2/core/integral.hpp>
 
 namespace boost
 {

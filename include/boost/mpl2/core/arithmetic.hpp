@@ -4,4 +4,9 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#include <boost/mpl2/arithmetic/inc.hpp>
+#ifndef _BOOST_MPL2_CORE_ARITHMETIC_HPP_
+#define _BOOST_MPL2_CORE_ARITHMETIC_HPP_
+
+#include <boost/mpl2/core/arithmetic/inc.hpp>
+
+#endif
