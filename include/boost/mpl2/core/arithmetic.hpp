@@ -7,6 +7,7 @@
 #ifndef _BOOST_MPL2_CORE_ARITHMETIC_HPP_
 #define _BOOST_MPL2_CORE_ARITHMETIC_HPP_
 
+#include <boost/mpl2/core/arithmetic/dec.hpp>
 #include <boost/mpl2/core/arithmetic/inc.hpp>
 
 #endif

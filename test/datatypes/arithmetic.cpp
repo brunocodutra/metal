@@ -9,5 +9,6 @@
 
 int main()
 {
-    return boost::mpl2::inc<boost::mpl2::int_<-1> >();
+    return (boost::mpl2::inc<boost::mpl2::int_<0> >() +
+            boost::mpl2::dec<boost::mpl2::int_<0> >());
 }
