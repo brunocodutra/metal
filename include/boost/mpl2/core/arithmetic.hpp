@@ -9,5 +9,6 @@
 
 #include <boost/mpl2/core/arithmetic/dec.hpp>
 #include <boost/mpl2/core/arithmetic/inc.hpp>
+#include <boost/mpl2/core/arithmetic/negate.hpp>
 
 #endif

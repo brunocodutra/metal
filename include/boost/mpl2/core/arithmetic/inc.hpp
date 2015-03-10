@@ -9,6 +9,7 @@
 
 #include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/integral_fwd.hpp>
+#include <boost/mpl2/core/arithmetic/negate.hpp>
 
 namespace boost
 {
@@ -26,6 +27,15 @@ namespace boost
                         typename n::value_type,
                         static_cast<typename n::value_type>(n::value + 1)
                     >
+            {};
+        };
+
+        template<>
+        struct inc_impl<integral_tag<bool> >
+        {
+            template<typename n>
+            struct apply :
+                    negate<n>
             {};
         };
 
