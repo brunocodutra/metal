@@ -12,10 +12,9 @@ namespace boost
     namespace mpl2
     {
         template<typename tagged>
-        struct tag
-        {
-            typedef typename tagged::tag type;
-        };
+        struct tag :
+                tagged::tag
+        {};
     }
 }
 
