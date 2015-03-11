@@ -13,7 +13,6 @@ namespace boost
 {
     namespace mpl2
     {
-        template<bool constant>
         struct void_
         {
             typedef void_ type;
