@@ -13,9 +13,8 @@ namespace boost
     {
         namespace detail
         {
-            // Not Available
-            struct na
-            {};
+            // not available
+            struct na;
         }
     }
 }
