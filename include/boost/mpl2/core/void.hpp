@@ -8,15 +8,15 @@
 #define _BOOST_MPL2_CORE_VOID_HPP_
 
 #include <boost/mpl2/core/integral/boolean.hpp>
+#include <boost/mpl2/core/identity.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        struct void_
-        {
-            typedef void_ type;
-        };
+        struct void_ :
+                identity<void_>
+        {};
 
         template<typename>
         struct is_void_ :
