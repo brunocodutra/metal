@@ -8,7 +8,6 @@
 #define _BOOST_MPL2_SEQUENCES_SEQ_HPP_
 
 #include <boost/mpl2/config.hpp>
-#include <boost/mpl2/type.hpp>
 
 #include <boost/mpl2/detail/preprocessor/variadic_args.hpp>
 #include <boost/mpl2/detail/preprocessor/sizeof.hpp>
