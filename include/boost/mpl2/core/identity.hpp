@@ -7,8 +7,6 @@
 #ifndef _BOOST_MPL2_CORE_IDENTITY_HPP_
 #define _BOOST_MPL2_CORE_IDENTITY_HPP_
 
-#include <boost/mpl2/detail/na.hpp>
-
 namespace boost
 {
     namespace mpl2
@@ -18,10 +16,6 @@ namespace boost
         {
             typedef x type;
         };
-
-        //safeguard
-        template<>
-        struct identity<detail::na>;
     }
 }
 
