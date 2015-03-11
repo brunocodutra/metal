@@ -44,7 +44,7 @@ namespace boost
     {
         template<BOOST_MPL2_DETAIL_HEAD_DECL BOOST_MPL2_DETAIL_TAIL_DECL>
         struct list :
-                link<
+                detail::link<
                     size_t_<BOOST_MPL2_DETAIL_SIZEOF_TAIL>,
                     BOOST_MPL2_DETAIL_HEAD,
                     list<BOOST_MPL2_DETAIL_TAIL>
@@ -53,7 +53,7 @@ namespace boost
 
         template<>
         struct list<> :
-                nil
+                detail::nil
         {};
     }
 }

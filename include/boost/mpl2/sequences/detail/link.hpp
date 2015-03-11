@@ -11,20 +11,24 @@ namespace boost
 {
     namespace mpl2
     {
-        struct nil
+        namespace detail
         {
-            typedef nil type;
-            enum {size = 0U};
-        };
+            struct nil
+            {
+                typedef nil type;
+                enum {size = 0U};
+            };
 
-        template<typename key, typename value, typename rest>
-        struct link :
-                rest::type
-        {
-            typedef link type;
-            enum {size = 1U + rest::size};
-        };
+            template<typename key, typename value, typename rest>
+            struct link :
+                    rest::type
+            {
+                typedef link type;
+                enum {size = 1U + rest::size};
 
+
+            };
+        }
     }
 }
 
