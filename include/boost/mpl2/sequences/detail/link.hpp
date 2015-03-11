@@ -17,7 +17,7 @@ namespace boost
             enum {size = 0U};
         };
 
-        template<typename value, typename rest>
+        template<typename key, typename value, typename rest>
         struct link :
                 rest::type
         {
