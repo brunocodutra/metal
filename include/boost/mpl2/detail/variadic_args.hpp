@@ -7,7 +7,7 @@
 #ifndef _BOOST_MPL2_DETAIL_VARIADIC_ARGS_HPP_
 #define _BOOST_MPL2_DETAIL_VARIADIC_ARGS_HPP_
 
-#include <boost/mpl2/config/switches/variadic.hpp>
+#include <boost/mpl2/config/switches/variadic_templates.hpp>
 #include <boost/mpl2/detail/args.hpp>
 
 #if defined(BOOST_MPL2_CFG_NO_VARIADIC_TEMPLATES)

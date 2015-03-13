@@ -16,7 +16,6 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
 
-
 // FOR EACH
 #define BOOST_MPL2_FORWARD_MACRO_FOR_EACH_ARG(Z, N, DATA) \
     BOOST_PP_SEQ_ELEM(1, DATA)( \

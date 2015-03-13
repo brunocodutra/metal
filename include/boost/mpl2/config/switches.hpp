@@ -4,5 +4,5 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#include <boost/mpl2/config/switches/variadic.hpp>
+#include <boost/mpl2/config/switches/variadic_templates.hpp>
 #include <boost/mpl2/config/switches/decltype.hpp>

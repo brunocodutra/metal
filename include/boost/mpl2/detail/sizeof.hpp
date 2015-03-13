@@ -7,7 +7,7 @@
 #ifndef _BOOST_MPL2_DETAIL_SIZEOF_HPP_
 #define _BOOST_MPL2_DETAIL_SIZEOF_HPP_
 
-#include <boost/mpl2/config/switches/variadic.hpp>
+#include <boost/mpl2/config/switches/variadic_templates.hpp>
 
 #if !defined(BOOST_MPL2_CFG_NO_VARIADIC_TEMPLATES)
     #define BOOST_MPL2_SEIZEOF(_, ARGS) \
