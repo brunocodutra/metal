@@ -11,13 +11,10 @@
     #include <boost/mpl2/config/switches/variadic_templates.hpp>
 
     #if defined(BOOST_MPL2_CFG_NO_VARIADIC_TEMPLATES)
-        #define BOOST_MPL2_LIMIT_METAFUNCTION_ARITY 20U
+        #define BOOST_MPL2_LIMIT_METAFUNCTION_ARITY 20
     #else
-        #include <cstdint>
-        #if !defined(SIZE_MAX)
-            #define SIZE_MAX UINT_MAX
-        #endif
-        #define BOOST_MPL2_LIMIT_METAFUNCTION_ARITY SIZE_MAX
+        #include <boost/preprocessor/config/limits.hpp>
+        #define BOOST_MPL2_LIMIT_METAFUNCTION_ARITY BOOST_PP_LIMIT_MAG
     #endif
 #endif
 
