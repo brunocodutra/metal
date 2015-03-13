@@ -49,12 +49,16 @@ namespace boost
                     BOOST_MPL2_DETAIL_HEAD,
                     list<BOOST_MPL2_DETAIL_TAIL>
                 >
-        {};
+        {
+            typedef list type;
+        };
 
         template<>
         struct list<> :
                 detail::nil
-        {};
+        {
+            typedef list type;
+        };
     }
 }
 

@@ -15,7 +15,6 @@ namespace boost
         {
             struct nil
             {
-                typedef nil type;
                 enum {size = 0U};
             };
 
@@ -23,10 +22,7 @@ namespace boost
             struct link :
                     rest::type
             {
-                typedef link type;
                 enum {size = 1U + rest::size};
-
-
             };
         }
     }
