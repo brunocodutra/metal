@@ -4,8 +4,8 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_DETAIL_PREPROCESSOR_TYPEOF_HPP_
-#define _BOOST_MPL2_DETAIL_PREPROCESSOR_TYPEOF_HPP_
+#ifndef _BOOST_MPL2_DETAIL_TYPEOF_HPP_
+#define _BOOST_MPL2_DETAIL_TYPEOF_HPP_
 
 #include <boost/mpl2/config/switches/typeof.hpp>
 

@@ -4,8 +4,8 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_DETAIL_PREPROCESSOR_SIZEOF_HPP_
-#define _BOOST_MPL2_DETAIL_PREPROCESSOR_SIZEOF_HPP_
+#ifndef _BOOST_MPL2_DETAIL_SIZEOF_HPP_
+#define _BOOST_MPL2_DETAIL_SIZEOF_HPP_
 
 #include <boost/mpl2/config/switches/variadic.hpp>
 
@@ -14,7 +14,7 @@
         sizeof...(ARGS)
 #else
     #include <boost/mpl2/config/limits/arity.hpp>
-    #include <boost/mpl2/detail/preprocessor/args.hpp>
+    #include <boost/mpl2/detail/args.hpp>
 
     #include <boost/preprocessor/dec.hpp>
 

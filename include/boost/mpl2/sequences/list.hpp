@@ -10,8 +10,8 @@
 #include <boost/mpl2/config/limits/arity.hpp>
 #include <boost/mpl2/core/integral/size_t.hpp>
 #include <boost/mpl2/sequences/detail/link.hpp>
-#include <boost/mpl2/detail/preprocessor/variadic_args.hpp>
-#include <boost/mpl2/detail/preprocessor/sizeof.hpp>
+#include <boost/mpl2/detail/variadic_args.hpp>
+#include <boost/mpl2/detail/sizeof.hpp>
 
 #include <boost/preprocessor/arithmetic/dec.hpp>
 
