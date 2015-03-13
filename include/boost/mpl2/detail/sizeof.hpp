@@ -64,7 +64,7 @@
     #undef BOOST_MPL2_DETAIL_TAIL
 
     #define BOOST_MPL2_SEIZEOF(N, ARGS) \
-        boost::mpl2::detail::sizeof_<BOOST_MPL2_ARGS(N,ARGS)>::value
+        boost::mpl2::detail::sizeof_<BOOST_MPL2_ARGS(N, ARGS)>::value
 #endif
 
 #endif

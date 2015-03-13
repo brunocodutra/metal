@@ -4,15 +4,13 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#define BOOST_MPL2_LIMIT_METAFUNCTION_ARITY 5
-
 #include <boost/mpl2/sequences/list.hpp>
 
 typedef boost::mpl2::list<>::type empty;
 typedef boost::mpl2::list<void>::type single;
-typedef boost::mpl2::list<int, void, float>::type list;
+typedef boost::mpl2::list<empty, int, void, single, float>::type list;
 
-int main()
+list::at<boost::mpl2::size_t_<3> >::type main()
 {
-    return single::size() + list::size() + empty::size() - 4;
+    return single::size() + list::size() + empty::size() - 6;
 }
