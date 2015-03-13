@@ -14,5 +14,5 @@ typedef boost::mpl2::list<int, void, float>::type list;
 
 int main()
 {
-    return single::size + list::size + empty::size - 4;
+    return single::size() + list::size() + empty::size() - 4;
 }

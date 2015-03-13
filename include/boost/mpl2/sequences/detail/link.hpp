@@ -7,6 +7,9 @@
 #ifndef _BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP_
 #define _BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP_
 
+#include <boost/mpl2/core/integral/size_t.hpp>
+#include <boost/mpl2/core/arithmetic/inc.hpp>
+
 namespace boost
 {
     namespace mpl2
@@ -15,14 +18,14 @@ namespace boost
         {
             struct nil
             {
-                enum {size = 0U};
+                typedef size_t_<0U> size;
             };
 
             template<typename key, typename value, typename rest>
             struct link :
                     rest::type
             {
-                enum {size = 1U + rest::size};
+                typedef inc<typename rest::size> size;
             };
         }
     }
