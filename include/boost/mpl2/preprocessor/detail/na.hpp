@@ -4,8 +4,8 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_DETAIL_NA_HPP_
-#define _BOOST_MPL2_DETAIL_NA_HPP_
+#ifndef _BOOST_MPL2_PREPROCESSOR_DETAIL_NA_HPP_
+#define _BOOST_MPL2_PREPROCESSOR_DETAIL_NA_HPP_
 
 namespace boost
 {

@@ -7,7 +7,7 @@
 #ifndef _BOOST_MPL2_SEQUENCES_DETAIL_REF_HPP_
 #define _BOOST_MPL2_SEQUENCES_DETAIL_REF_HPP_
 
-#include <boost/mpl2/detail/args.hpp>
+#include <boost/mpl2/preprocessor/args.hpp>
 #include <boost/mpl2/core/identity.hpp>
 
 namespace boost

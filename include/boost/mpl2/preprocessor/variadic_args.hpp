@@ -4,11 +4,11 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_DETAIL_VARIADIC_ARGS_HPP_
-#define _BOOST_MPL2_DETAIL_VARIADIC_ARGS_HPP_
+#ifndef _BOOST_MPL2_PREPROCESSOR_VARIADIC_ARGS_HPP_
+#define _BOOST_MPL2_PREPROCESSOR_VARIADIC_ARGS_HPP_
 
 #include <boost/mpl2/config/switches/variadic_templates.hpp>
-#include <boost/mpl2/detail/args.hpp>
+#include <boost/mpl2/preprocessor/args.hpp>
 
 #if defined(BOOST_MPL2_CFG_NO_VARIADIC_TEMPLATES)
     #define BOOST_MPL2_FOR_EACH_VARIADIC_ARG(N, PREFIX, MACRO, DATA) \

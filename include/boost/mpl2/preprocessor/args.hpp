@@ -4,10 +4,10 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_DETAIL_ARGS_HPP_
-#define _BOOST_MPL2_DETAIL_ARGS_HPP_
+#ifndef _BOOST_MPL2_PREPROCESSOR_ARGS_HPP_
+#define _BOOST_MPL2_PREPROCESSOR_ARGS_HPP_
 
-#include <boost/mpl2/detail/na.hpp>
+#include <boost/mpl2/preprocessor/detail/na.hpp>
 
 #include <boost/preprocessor/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
