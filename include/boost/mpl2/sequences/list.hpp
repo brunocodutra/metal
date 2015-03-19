@@ -15,25 +15,25 @@
 
 #include <boost/preprocessor/arithmetic/dec.hpp>
 
-#define BOOST_MPL2_DETAIL_HEAD_DECL \
+#define __BOOST_MPL2_HEAD_DECL \
     BOOST_MPL2_OPTIONAL_PARAMS(1, h)
 
-#define BOOST_MPL2_DETAIL_HEAD \
+#define __BOOST_MPL2_HEAD \
     BOOST_MPL2_ARGS(1, h)
 
-#define BOOST_MPL2_DETAIL_TAIL_DECL \
+#define __BOOST_MPL2_TAIL_DECL \
     BOOST_MPL2_TRAILING_VARIADIC_OPTIONAL_PARAMS( \
         BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY), \
         tail \
     )
 
-#define BOOST_MPL2_DETAIL_TAIL \
+#define __BOOST_MPL2_TAIL \
     BOOST_MPL2_VARIADIC_ARGS( \
         BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY), \
         tail \
     )
 
-#define BOOST_MPL2_DETAIL_SIZEOF_TAIL \
+#define __BOOST_MPL2_SIZEOF_TAIL \
     BOOST_MPL2_SEIZEOF( \
         BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY), \
         tail \
@@ -43,12 +43,12 @@ namespace boost
 {
     namespace mpl2
     {
-        template<BOOST_MPL2_DETAIL_HEAD_DECL BOOST_MPL2_DETAIL_TAIL_DECL>
+        template<__BOOST_MPL2_HEAD_DECL __BOOST_MPL2_TAIL_DECL>
         struct list :
                 detail::link<
-                    size_t_<BOOST_MPL2_DETAIL_SIZEOF_TAIL>,
-                    BOOST_MPL2_DETAIL_HEAD,
-                    list<BOOST_MPL2_DETAIL_TAIL>
+                    size_t_<__BOOST_MPL2_SIZEOF_TAIL>,
+                    __BOOST_MPL2_HEAD,
+                    list<__BOOST_MPL2_TAIL>
                 >
         {
             typedef list type;
@@ -63,9 +63,9 @@ namespace boost
     }
 }
 
-#undef BOOST_MPL2_DETAIL_HEAD_DECL
-#undef BOOST_MPL2_DETAIL_TAIL_DECL
-#undef BOOST_MPL2_DETAIL_TAIL
-#undef BOOST_MPL2_DETAIL_SIZEOF_TAIL
+#undef __BOOST_MPL2_HEAD_DECL
+#undef __BOOST_MPL2_TAIL_DECL
+#undef __BOOST_MPL2_TAIL
+#undef __BOOST_MPL2_SIZEOF_TAIL
 
 #endif

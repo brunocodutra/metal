@@ -18,16 +18,16 @@
 
     #include <boost/preprocessor/dec.hpp>
 
-    #define BOOST_MPL2_DETAIL_HEAD_DECL \
+    #define __BOOST_MPL2_HEAD_DECL \
         BOOST_MPL2_OPTIONAL_PARAMS(1, h)
 
-    #define BOOST_MPL2_DETAIL_TAIL_DECL \
+    #define __BOOST_MPL2_TAIL_DECL \
         BOOST_MPL2_TRAILING_OPTIONAL_PARAMS( \
             BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY), \
             tail \
         )
 
-    #define BOOST_MPL2_DETAIL_TAIL \
+    #define __BOOST_MPL2_TAIL \
         BOOST_MPL2_ARGS( \
             BOOST_PP_DEC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY), \
             tail \
@@ -39,14 +39,14 @@
         {
             namespace detail
             {
-                template<BOOST_MPL2_DETAIL_HEAD_DECL BOOST_MPL2_DETAIL_TAIL_DECL>
+                template<__BOOST_MPL2_HEAD_DECL __BOOST_MPL2_TAIL_DECL>
                 struct sizeof_ :
-                        sizeof_<BOOST_MPL2_DETAIL_TAIL>
+                        sizeof_<__BOOST_MPL2_TAIL>
                 {
                     enum
                     {
                         value = 1U +
-                            sizeof_<BOOST_MPL2_DETAIL_TAIL>::value
+                            sizeof_<__BOOST_MPL2_TAIL>::value
                     };
                 };
 
@@ -59,9 +59,9 @@
         }
     }
 
-    #undef BOOST_MPL2_DETAIL_HEAD_DECL
-    #undef BOOST_MPL2_DETAIL_TAIL_DECL
-    #undef BOOST_MPL2_DETAIL_TAIL
+    #undef __BOOST_MPL2_HEAD_DECL
+    #undef __BOOST_MPL2_TAIL_DECL
+    #undef __BOOST_MPL2_TAIL
 
     #define BOOST_MPL2_SEIZEOF(N, ARGS) \
         boost::mpl2::detail::sizeof_<BOOST_MPL2_ARGS(N, ARGS)>::value
