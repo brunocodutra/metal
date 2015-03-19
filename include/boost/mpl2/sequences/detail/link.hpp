@@ -8,7 +8,7 @@
 #define _BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP_
 
 #include <boost/mpl2/config/switches/decltype.hpp>
-#include <boost/mpl2/compat/args.hpp>
+#include <boost/mpl2/compat/numbered.hpp>
 #include <boost/mpl2/core/integral/size_t.hpp>
 #include <boost/mpl2/core/arithmetic/inc.hpp>
 #include <boost/mpl2/core/identity.hpp>

@@ -14,7 +14,7 @@
         sizeof...(ARGS)
 #else
     #include <boost/mpl2/config/limits/arity.hpp>
-    #include <boost/mpl2/compat/args.hpp>
+    #include <boost/mpl2/compat/numbered.hpp>
 
     #include <boost/preprocessor/dec.hpp>
 

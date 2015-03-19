@@ -5,7 +5,7 @@
  */
 
 #include <boost/mpl2/config/limits/arity.hpp>
-#include <boost/mpl2/compat/variadic_args.hpp>
+#include <boost/mpl2/compat/variadic.hpp>
 #include <boost/mpl2/core/trait.hpp>
 
 struct test01;

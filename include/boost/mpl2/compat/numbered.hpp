@@ -4,10 +4,8 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_COMPAT_ARGS_HPP_
-#define _BOOST_MPL2_COMPAT_ARGS_HPP_
-
-#include <boost/mpl2/compat/detail/na.hpp>
+#ifndef _BOOST_MPL2_COMPAT_NUMBERED_HPP_
+#define _BOOST_MPL2_COMPAT_NUMBERED_HPP_
 
 #include <boost/preprocessor/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
@@ -25,12 +23,6 @@
 
 #define BOOST_MPL2_FOR_EACH_ARG(N, PREFIX, MACRO, DATA) \
     BOOST_PP_ENUM(N, BOOST_MPL2_FORWARD_MACRO_FOR_EACH_ARG, (PREFIX)(MACRO)(DATA))
-
-#define BOOST_MPL2_FOR_EACH_LEADING_ARG(N, PREFIX, MACRO, DATA) \
-    BOOST_MPL2_FOR_EACH_ARG(N, PREFIX, MACRO, DATA) BOOST_PP_COMMA_IF(N)
-
-#define BOOST_MPL2_FOR_EACH_TRAILING_ARG(N, PREFIX, MACRO, DATA) \
-    BOOST_PP_COMMA_IF(N) BOOST_MPL2_FOR_EACH_ARG(N, PREFIX, MACRO, DATA)
 
 // CALL FOR EACH
 #define BOOST_MPL2_CALL_FOR_ARG(FUNC, ARG) \
@@ -79,8 +71,20 @@
     BOOST_PP_COMMA_IF(N) BOOST_MPL2_PARAMS(N, PREFIX)
 
 // OPTIONAL PARAMS
+namespace boost
+{
+    namespace mpl2
+    {
+        namespace detail
+        {
+            // not available
+            struct na;
+        }
+    }
+}
+
 #define BOOST_MPL2_OPTIONAL_PARAMS(N, PREFIX) \
-    BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(N, typename PREFIX, detail::na)
+    BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(N, typename PREFIX, boost::mpl2::detail::na)
 
 #define BOOST_MPL2_LEADING_OPTIONAL_PARAMS(N, PREFIX) \
     BOOST_MPL2_OPTIONAL_PARAMS(N, PREFIX) BOOST_PP_COMMA_IF(N)
