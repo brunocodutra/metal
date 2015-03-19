@@ -8,8 +8,8 @@
 #define _BOOST_MPL2_SEQUENCES_LIST_HPP_
 
 #include <boost/mpl2/config/limits/arity.hpp>
-#include <boost/mpl2/preprocessor/variadic_args.hpp>
-#include <boost/mpl2/preprocessor/sizeof.hpp>
+#include <boost/mpl2/compat/variadic_args.hpp>
+#include <boost/mpl2/compat/sizeof.hpp>
 #include <boost/mpl2/core/integral/size_t.hpp>
 #include <boost/mpl2/sequences/detail/link.hpp>
 

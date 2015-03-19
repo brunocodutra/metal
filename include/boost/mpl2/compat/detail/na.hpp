@@ -4,8 +4,8 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_PREPROCESSOR_DETAIL_WRAPPERS_HPP_
-#define _BOOST_MPL2_PREPROCESSOR_DETAIL_WRAPPERS_HPP_
+#ifndef _BOOST_MPL2_COMPAT_DETAIL_NA_HPP_
+#define _BOOST_MPL2_COMPAT_DETAIL_NA_HPP_
 
 namespace boost
 {
@@ -13,9 +13,8 @@ namespace boost
     {
         namespace detail
         {
-            template<typename>
-            struct type_wrapper
-            {};
+            // not available
+            struct na;
         }
     }
 }

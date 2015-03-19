@@ -4,11 +4,11 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_PREPROCESSOR_NESTED_TYPE_TRAIT_HPP_
-#define _BOOST_MPL2_PREPROCESSOR_NESTED_TYPE_TRAIT_HPP_
+#ifndef _BOOST_MPL2_CORE_TRAIT_HPP_
+#define _BOOST_MPL2_CORE_TRAIT_HPP_
 
 #include <boost/mpl2/core/integral/boolean.hpp>
-#include <boost/mpl2/preprocessor/detail/wrappers.hpp>
+#include <boost/mpl2/compat/detail/wrappers.hpp>
 
 #include <boost/preprocessor/cat.hpp>
 
