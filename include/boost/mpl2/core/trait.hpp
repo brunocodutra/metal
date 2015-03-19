@@ -8,9 +8,21 @@
 #define _BOOST_MPL2_CORE_TRAIT_HPP_
 
 #include <boost/mpl2/core/integral/boolean.hpp>
-#include <boost/mpl2/compat/detail/wrappers.hpp>
 
 #include <boost/preprocessor/cat.hpp>
+
+namespace boost
+{
+    namespace mpl2
+    {
+        namespace detail
+        {
+            template<typename>
+            struct type_wrapper
+            {};
+        }
+    }
+}
 
 #define BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(trait, nested) \
     struct BOOST_PP_CAT(trait, _impl) \
