@@ -9,6 +9,7 @@
 
 #include <boost/mpl2/core/integral/boolean.hpp>
 
+#include <boost/config.hpp>
 #include <boost/preprocessor/cat.hpp>
 
 namespace boost
@@ -28,18 +29,18 @@ namespace boost
     struct BOOST_PP_CAT(trait, _impl) \
     { \
         template<typename U> \
-        static char const (&check( \
+        static BOOST_CONSTEXPR char (&check( \
             boost::mpl2::detail::type_wrapper<U>, \
             boost::mpl2::detail::type_wrapper<typename U::nested>* = 0 \
         ))[1]; \
-        static char const (&check(...))[2]; \
+        static BOOST_CONSTEXPR char (&check(...))[2]; \
     }; \
     template<typename T> \
     struct trait : \
             boost::mpl2::bool_< \
                 sizeof(BOOST_PP_CAT(trait, _impl)::check( \
                     boost::mpl2::detail::type_wrapper<T>() \
-                )) == sizeof(char const(&)[1]) \
+                )) == sizeof(char(&)[1]) \
             > \
          \
     {};
