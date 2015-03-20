@@ -12,7 +12,7 @@
 #include <boost/mpl2/core/integral/size_t.hpp>
 #include <boost/mpl2/core/arithmetic/inc.hpp>
 #include <boost/mpl2/core/identity.hpp>
-#include <boost/mpl2/sequences/detail/ref.hpp>
+#include <boost/mpl2/core/ref.hpp>
 
 
 namespace boost

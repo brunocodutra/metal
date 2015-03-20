@@ -8,40 +8,29 @@
 #define _BOOST_MPL2_CORE_TRAIT_HPP_
 
 #include <boost/mpl2/core/integral/boolean.hpp>
+#include <boost/mpl2/core/ref.hpp>
 
 #include <boost/preprocessor/cat.hpp>
-
-namespace boost
-{
-    namespace mpl2
-    {
-        namespace detail
-        {
-            template<typename>
-            struct type_wrapper
-            {};
-        }
-    }
-}
 
 #define BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(trait, nested) \
     struct BOOST_PP_CAT(trait, _impl) \
     { \
-        template<typename U> \
+        template<typename T> \
         static char const (&check( \
-            boost::mpl2::detail::type_wrapper<U>, \
-            boost::mpl2::detail::type_wrapper<typename U::nested>* = 0 \
+            boost::mpl2::ref<typename T::nested>* \
         ))[1]; \
+        template<typename> \
         static char const (&check(...))[2]; \
+        template<typename T> \
+        struct apply : \
+                boost::mpl2::bool_< \
+                    sizeof(check<T>(0)) == sizeof(char const(&)[1]) \
+                > \
+        {}; \
     }; \
     template<typename T> \
     struct trait : \
-            boost::mpl2::bool_< \
-                sizeof(BOOST_PP_CAT(trait, _impl)::check( \
-                    boost::mpl2::detail::type_wrapper<T>() \
-                )) == sizeof(char const(&)[1]) \
-            > \
-         \
+            BOOST_PP_CAT(trait, _impl)::template apply<T> \
     {};
 
 #endif
