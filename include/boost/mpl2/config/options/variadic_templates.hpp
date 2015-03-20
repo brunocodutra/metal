@@ -4,8 +4,8 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_CONFIG_SWITCHES_VARIADIC_HPP_
-#define _BOOST_MPL2_CONFIG_SWITCHES_VARIADIC_HPP_
+#ifndef _BOOST_MPL2_CONFIG_OPTIONS_VARIADIC_HPP_
+#define _BOOST_MPL2_CONFIG_OPTIONS_VARIADIC_HPP_
 
 #include <boost/config.hpp>
 
