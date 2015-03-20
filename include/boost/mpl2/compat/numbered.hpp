@@ -7,6 +7,12 @@
 #ifndef _BOOST_MPL2_COMPAT_NUMBERED_HPP_
 #define _BOOST_MPL2_COMPAT_NUMBERED_HPP_
 
+#include <boost/mpl2/core/if.hpp>
+#include <boost/mpl2/core/identity.hpp>
+#include <boost/mpl2/compat/detail/na.hpp>
+
+#include <boost/type_traits/is_same.hpp>
+
 #include <boost/preprocessor/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -17,16 +23,20 @@
 // FOR EACH
 #define __BOOST_MPL2_FORWARD_MACRO_FOR_EACH_ARG(Z, N, DATA) \
     BOOST_PP_SEQ_ELEM(1, DATA)( \
-            BOOST_PP_SEQ_ELEM(2, DATA), \
-            BOOST_PP_CAT(BOOST_PP_SEQ_ELEM(0, DATA), N) \
-        )
+        BOOST_PP_SEQ_ELEM(2, DATA), \
+        BOOST_PP_CAT(BOOST_PP_SEQ_ELEM(0, DATA), N) \
+    )
 
 #define __BOOST_MPL2_FOR_EACH_ARG(N, PREFIX, MACRO, DATA) \
     BOOST_PP_ENUM(N, __BOOST_MPL2_FORWARD_MACRO_FOR_EACH_ARG, (PREFIX)(MACRO)(DATA))
 
 // CALL FOR EACH
 #define __BOOST_MPL2_CALL_FOR_ARG(FUNC, ARG) \
-    typename FUNC<ARG>::type
+    typename boost::mpl2::if_< \
+        boost::is_same<ARG, boost::mpl2::detail::na>, \
+        boost::mpl2::identity<ARG>, \
+        FUNC<ARG> \
+    >::type
 
 #define BOOST_MPL2_CALL_FOR_EACH_ARG(N, PREFIX, FUNC) \
     __BOOST_MPL2_FOR_EACH_ARG(N, PREFIX, __BOOST_MPL2_CALL_FOR_ARG, FUNC)
@@ -39,7 +49,11 @@
 
 // WRAP EACH
 #define __BOOST_MPL2_WRAP_ARG(WRAP, ARG) \
-    WRAP<ARG>
+    typename boost::mpl2::if_< \
+        boost::is_same<ARG, boost::mpl2::detail::na>, \
+        boost::mpl2::identity<ARG>, \
+        boost::mpl2::identity<WRAP<ARG> > \
+    >::type
 
 #define BOOST_MPL2_WRAP_EACH_ARG(N, PREFIX, WRAP) \
     __BOOST_MPL2_FOR_EACH_ARG(N, PREFIX, __BOOST_MPL2_WRAP_ARG, WRAP)
@@ -71,18 +85,6 @@
     BOOST_PP_COMMA_IF(N) BOOST_MPL2_PARAMS(N, PREFIX)
 
 // OPTIONAL PARAMS
-namespace boost
-{
-    namespace mpl2
-    {
-        namespace detail
-        {
-            // not available
-            struct na;
-        }
-    }
-}
-
 #define BOOST_MPL2_OPTIONAL_PARAMS(N, PREFIX) \
     BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(N, typename PREFIX, boost::mpl2::detail::na)
 
