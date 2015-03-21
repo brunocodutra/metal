@@ -4,13 +4,13 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_COMPAT_VARIADIC_HPP_
-#define _BOOST_MPL2_COMPAT_VARIADIC_HPP_
+#ifndef _BOOST_MPL2_CORE_COMPAT_VARIADIC_HPP_
+#define _BOOST_MPL2_CORE_COMPAT_VARIADIC_HPP_
 
 #include <boost/mpl2/config/options/variadic_templates.hpp>
 
 #if defined(BOOST_MPL2_CFG_NO_VARIADIC_TEMPLATES)
-    #include <boost/mpl2/compat/numbered.hpp>
+    #include <boost/mpl2/core/compat/numbered.hpp>
 
     #define __BOOST_MPL2_FOR_EACH_VARIADIC_NAME(N, PREFIX, MACRO, DATA) \
         __BOOST_MPL2_FOR_EACH_NAME(N, PREFIX, MACRO, DATA)

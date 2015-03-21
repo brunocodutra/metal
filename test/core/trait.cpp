@@ -5,7 +5,7 @@
  */
 
 #include <boost/mpl2/config/limits/arity.hpp>
-#include <boost/mpl2/compat/variadic.hpp>
+#include <boost/mpl2/core/compat/variadic.hpp>
 #include <boost/mpl2/core/trait.hpp>
 
 #include <boost/config.hpp>

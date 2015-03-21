@@ -7,7 +7,7 @@
 #ifndef _BOOST_MPL2_CORE_REF_HPP_
 #define _BOOST_MPL2_CORE_REF_HPP_
 
-#include <boost/mpl2/compat/numbered.hpp>
+#include <boost/mpl2/core/compat/numbered.hpp>
 #include <boost/mpl2/core/identity.hpp>
 
 namespace boost

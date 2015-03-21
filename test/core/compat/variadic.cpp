@@ -7,7 +7,7 @@
 #define BOOST_MPL2_LIMIT_METAFUNCTION_ARITY 5
 
 #include <boost/mpl2/config/options/variadic_templates.hpp>
-#include <boost/mpl2/compat/variadic.hpp>
+#include <boost/mpl2/core/compat/variadic.hpp>
 
 #include <boost/preprocessor/facilities/intercept.hpp>
 #include <boost/preprocessor/enum_params.hpp>

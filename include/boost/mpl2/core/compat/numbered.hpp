@@ -4,12 +4,12 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_COMPAT_NUMBERED_HPP_
-#define _BOOST_MPL2_COMPAT_NUMBERED_HPP_
+#ifndef _BOOST_MPL2_CORE_COMPAT_NUMBERED_HPP_
+#define _BOOST_MPL2_CORE_COMPAT_NUMBERED_HPP_
 
 #include <boost/mpl2/core/if_c.hpp>
 #include <boost/mpl2/core/identity.hpp>
-#include <boost/mpl2/compat/detail/na.hpp>
+#include <boost/mpl2/core/compat/detail/na.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 
