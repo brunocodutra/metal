@@ -4,8 +4,8 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_CORE_REF_HPP_
-#define _BOOST_MPL2_CORE_REF_HPP_
+#ifndef BOOST_MPL2_CORE_REF_HPP
+#define BOOST_MPL2_CORE_REF_HPP
 
 #include <boost/mpl2/core/compat/numbered.hpp>
 #include <boost/mpl2/core/identity.hpp>

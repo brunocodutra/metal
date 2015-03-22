@@ -4,8 +4,8 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_CONFIG_LIMITS_ARITY_HPP_
-#define _BOOST_MPL2_CONFIG_LIMITS_ARITY_HPP_
+#ifndef BOOST_MPL2_CONFIG_LIMITS_ARITY_HPP
+#define BOOST_MPL2_CONFIG_LIMITS_ARITY_HPP
 
 #if !defined(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY)
     #include <boost/mpl2/config/options/variadic_templates.hpp>

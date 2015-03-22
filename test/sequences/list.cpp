@@ -12,5 +12,5 @@ typedef boost::mpl2::list<empty, int, void, single, float>::type list;
 
 list::at<boost::mpl2::size_t_<3> >::type main()
 {
-    return single::size() + list::size() + empty::size() - 6;
+    return single::size() + list::size() + empty::size() != 6;
 }

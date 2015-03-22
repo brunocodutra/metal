@@ -4,8 +4,8 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_CONFIG_OPTIONS_DECLTYPE_HPP_
-#define _BOOST_MPL2_CONFIG_OPTIONS_DECLTYPE_HPP_
+#ifndef BOOST_MPL2_CONFIG_OPTIONS_DECLTYPE_HPP
+#define BOOST_MPL2_CONFIG_OPTIONS_DECLTYPE_HPP
 
 #include <boost/config.hpp>
 

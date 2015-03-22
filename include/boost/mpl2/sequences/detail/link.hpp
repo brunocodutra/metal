@@ -4,8 +4,8 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP_
-#define _BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP_
+#ifndef BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP
+#define BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP
 
 #include <boost/mpl2/config/options/decltype.hpp>
 #include <boost/mpl2/core/compat/numbered.hpp>

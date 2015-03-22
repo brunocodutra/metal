@@ -56,13 +56,13 @@ struct negate_all<votes<BOOST_MPL2_VARIADIC_ARGS(BOOST_MPL2_LIMIT_METAFUNCTION_A
 };
 
 template<BOOST_MPL2_VARIADIC_PARAMS(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY, args)>
-bool unanimity(votes<BOOST_MPL2_VARIADIC_ARGS(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY, args)>
-)
+bool unanimity(votes<BOOST_MPL2_VARIADIC_ARGS(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY, args)>)
 {
     return false;
 }
 
-#define __BOOST_MPL2_OVERLOAD_UNANIMITY(Z, N, _) \
+#define BOOST_MPL2_DETAIL_OVERLOAD_UNANIMITY(Z, N, _) \
+    template<> \
     bool unanimity(votes<BOOST_PP_ENUM_PARAMS(N, yes BOOST_PP_INTERCEPT)>) \
     { \
         return true; \
@@ -70,11 +70,11 @@ bool unanimity(votes<BOOST_MPL2_VARIADIC_ARGS(BOOST_MPL2_LIMIT_METAFUNCTION_ARIT
 
 BOOST_PP_REPEAT(
     BOOST_PP_INC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY),
-    __BOOST_MPL2_OVERLOAD_UNANIMITY,
+    BOOST_MPL2_DETAIL_OVERLOAD_UNANIMITY,
     _
 )
 
-#define __BOOST_MPL2_OVERLOAD_ABSTENTION(Z, N, _) \
+#define BOOST_MPL2_DETAIL_OVERLOAD_ABSTENTION(Z, N, _) \
     template<BOOST_MPL2_VARIADIC_PARAMS(N, T)> \
     bool unanimity(votes<BOOST_MPL2_WRAP_EACH_VARIADIC_PARAM(N, T, abstain)>) \
     { \
@@ -85,23 +85,23 @@ BOOST_PP_REPEAT(
     BOOST_PP_REPEAT_FROM_TO(
         1,
         BOOST_MPL2_LIMIT_METAFUNCTION_ARITY,
-        __BOOST_MPL2_OVERLOAD_ABSTENTION,
+        BOOST_MPL2_DETAIL_OVERLOAD_ABSTENTION,
         _
     )
 #endif
 
-__BOOST_MPL2_OVERLOAD_ABSTENTION(
+BOOST_MPL2_DETAIL_OVERLOAD_ABSTENTION(
     _, BOOST_MPL2_LIMIT_METAFUNCTION_ARITY, _
 )
 
-#define __BOOST_MPL2_TEST_NEGATE(Z, N, _) \
+#define BOOST_MPL2_DETAIL_TEST_NEGATE(Z, N, _) \
     !unanimity(negate_all<votes< \
         BOOST_PP_ENUM_PARAMS( \
             N, no BOOST_PP_INTERCEPT \
         ) \
     > >::type()) ||
 
-#define __BOOST_MPL2_TEST_ABSTAIN(Z, N, _) \
+#define BOOST_MPL2_DETAIL_TEST_ABSTAIN(Z, N, _) \
     !unanimity(votes< \
         BOOST_PP_ENUM_PARAMS( \
             N, abstain<no> BOOST_PP_INTERCEPT \
@@ -113,20 +113,20 @@ int main()
     return
             BOOST_PP_REPEAT(
                 BOOST_PP_INC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY),
-                __BOOST_MPL2_TEST_NEGATE,
+                BOOST_MPL2_DETAIL_TEST_NEGATE,
                 _
             )
             BOOST_PP_REPEAT_FROM_TO(
                 1,
                 BOOST_PP_INC(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY),
-                __BOOST_MPL2_TEST_ABSTAIN,
+                BOOST_MPL2_DETAIL_TEST_ABSTAIN,
                 _
             )
             unanimity(votes<no>());
 }
 
-#undef __BOOST_MPL2_OVERLOAD_UNANIMITY
-#undef __BOOST_MPL2_OVERLOAD_ABSTENTION
-#undef __BOOST_MPL2_TEST_NEGATE
-#undef __BOOST_MPL2_TEST_ABSTAIN
+#undef BOOST_MPL2_DETAIL_OVERLOAD_UNANIMITY
+#undef BOOST_MPL2_DETAIL_OVERLOAD_ABSTENTION
+#undef BOOST_MPL2_DETAIL_TEST_NEGATE
+#undef BOOST_MPL2_DETAIL_TEST_ABSTAIN
 

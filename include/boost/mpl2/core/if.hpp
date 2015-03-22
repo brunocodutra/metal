@@ -4,8 +4,8 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_CORE_IF_HPP_
-#define _BOOST_MPL2_CORE_IF_HPP_
+#ifndef BOOST_MPL2_CORE_IF_HPP
+#define BOOST_MPL2_CORE_IF_HPP
 
 #include <boost/mpl2/core/if_c.hpp>
 

@@ -11,10 +11,10 @@
 #include <boost/config.hpp>
 
 #if defined(BOOST_NO_SCOPED_ENUMS)
-    #define __BOOST_MPL2_SCOPED_ENUM \
+    #define BOOST_MPL2_DETAIL_SCOPED_ENUM \
         enum
 #else
-    #define __BOOST_MPL2_SCOPED_ENUM \
+    #define BOOST_MPL2_DETAIL_SCOPED_ENUM \
         enum struct
 #endif
 
@@ -33,7 +33,7 @@ struct test12 {typedef void (&nested)();};
 struct test13 {typedef char nested[1];};
 struct test14 {typedef char (&nested)[1];};
 struct test15 {enum nested {};};
-struct test16 {__BOOST_MPL2_SCOPED_ENUM nested {};};
+struct test16 {BOOST_MPL2_DETAIL_SCOPED_ENUM nested {};};
 struct test17 {template<typename> void nested();};
 struct test18 {template<typename> struct nested;};
 struct test19 {template<BOOST_MPL2_VARIADIC_PARAMS(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY, _)> struct nested;};
@@ -69,4 +69,4 @@ int main()
             has_nested<test22>();
 }
 
-#undef __BOOST_MPL2_SCOPED_ENUM
+#undef BOOST_MPL2_DETAIL_SCOPED_ENUM

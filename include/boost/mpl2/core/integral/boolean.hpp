@@ -4,8 +4,8 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_CORE_INTEGRAL_BOOLEAN_HPP_
-#define _BOOST_MPL2_CORE_INTEGRAL_BOOLEAN_HPP_
+#ifndef BOOST_MPL2_CORE_INTEGRAL_BOOLEAN_HPP
+#define BOOST_MPL2_CORE_INTEGRAL_BOOLEAN_HPP
 
 #include <boost/mpl2/core/integral.hpp>
 

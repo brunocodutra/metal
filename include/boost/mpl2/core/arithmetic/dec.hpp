@@ -4,8 +4,8 @@
  * See accompanying file LICENSE.txt for its full text.
  */
 
-#ifndef _BOOST_MPL2_CORE_ARITHMETIC_DEC_HPP_
-#define _BOOST_MPL2_CORE_ARITHMETIC_DEC_HPP_
+#ifndef BOOST_MPL2_CORE_ARITHMETIC_DEC_HPP
+#define BOOST_MPL2_CORE_ARITHMETIC_DEC_HPP
 
 #include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/integral_fwd.hpp>
