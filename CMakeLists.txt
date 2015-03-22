@@ -1,10 +1,10 @@
-# This file is part of mpl2, a free software.
-# Use, modification and distribution is subject to the BSD 2-clause license.
-# See accompanying file LICENSE for its full text.
+# Copyright Bruno Dutra 2015
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 cmake_minimum_required(VERSION 2.8.3)
 
-project(mpl2 CXX)
+project(Boost.MPL2 CXX)
 
 find_package(Boost 1.57 REQUIRED)
 
