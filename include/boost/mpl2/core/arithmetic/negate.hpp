@@ -7,6 +7,7 @@
 
 #include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/integral_fwd.hpp>
+#include <boost/mpl2/core/logical/not.hpp>
 
 namespace boost
 {
@@ -32,10 +33,7 @@ namespace boost
         {
             template<typename n>
             struct apply :
-                    integral<
-                        typename n::value_type,
-                        static_cast<typename n::value_type>(!n::value)
-                    >
+                    not_<n>
             {};
         };
 
