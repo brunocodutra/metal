@@ -7,11 +7,9 @@
 #ifndef _BOOST_MPL2_CORE_COMPAT_NUMBERED_HPP_
 #define _BOOST_MPL2_CORE_COMPAT_NUMBERED_HPP_
 
-#include <boost/mpl2/core/if_c.hpp>
+#include <boost/mpl2/core/if.hpp>
 #include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/core/compat/detail/na.hpp>
-
-#include <boost/type_traits/is_same.hpp>
 
 #include <boost/preprocessor/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
@@ -32,8 +30,8 @@
 
 // APPLY TO EACH ARG
 #define __BOOST_MPL2_APPLY_TO_ARG(TMPL, ARG) \
-    typename boost::mpl2::if_c< \
-        boost::is_same<ARG, boost::mpl2::detail::na>::type::value, \
+    typename boost::mpl2::if_< \
+        boost::mpl2::detail::is_na<ARG>, \
         boost::mpl2::identity<ARG>, \
         TMPL<ARG> \
     >::type
@@ -49,8 +47,8 @@
 
 // WRAP EACH ARG
 #define __BOOST_MPL2_WRAP_ARG(TMPL, ARG) \
-    typename boost::mpl2::if_c< \
-        boost::is_same<ARG, boost::mpl2::detail::na>::type::value, \
+    typename boost::mpl2::if_< \
+        boost::mpl2::detail::is_na<ARG>, \
         boost::mpl2::identity<ARG>, \
         boost::mpl2::identity<TMPL<ARG> > \
     >::type

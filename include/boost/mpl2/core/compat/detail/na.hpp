@@ -7,6 +7,8 @@
 #ifndef _BOOST_MPL2_CORE_COMPAT_DETAIL_NA_HPP_
 #define _BOOST_MPL2_CORE_COMPAT_DETAIL_NA_HPP_
 
+#include <boost/mpl2/core/integral/boolean.hpp>
+
 namespace boost
 {
     namespace mpl2
@@ -15,6 +17,17 @@ namespace boost
         {
             // not available
             struct na;
+
+            template<typename>
+            struct is_na :
+                    false_
+            {};
+
+            template<>
+            struct is_na<na> :
+                    true_
+            {};
+
         }
     }
 }
