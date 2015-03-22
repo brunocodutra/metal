@@ -4,8 +4,8 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_COMPAT_SIZEOF_HPP_
-#define _BOOST_MPL2_COMPAT_SIZEOF_HPP_
+#ifndef _BOOST_MPL2_CORE_COMPAT_SIZEOF_HPP_
+#define _BOOST_MPL2_CORE_COMPAT_SIZEOF_HPP_
 
 #include <boost/mpl2/config/options/variadic_templates.hpp>
 
@@ -14,9 +14,12 @@
         sizeof...(ARGS)
 #else
     #include <boost/mpl2/config/limits/arity.hpp>
-    #include <boost/mpl2/compat/numbered.hpp>
+    #include <boost/mpl2/core/compat/numbered.hpp>
 
+    #include <boost/config.hpp>
     #include <boost/preprocessor/dec.hpp>
+
+    #include <cstddef>
 
     #define __BOOST_MPL2_HEAD_DECL \
         BOOST_MPL2_OPTIONAL_PARAMS(1, h)
@@ -43,17 +46,14 @@
                 struct sizeof_ :
                         sizeof_<__BOOST_MPL2_TAIL>
                 {
-                    enum
-                    {
-                        value = 1U +
-                            sizeof_<__BOOST_MPL2_TAIL>::value
-                    };
+                    BOOST_STATIC_CONSTEXPR std::size_t value = 1U +
+                            sizeof_<__BOOST_MPL2_TAIL>::value;
                 };
 
                 template<>
                 struct sizeof_<>
                 {
-                    enum {value = 0U};
+                    BOOST_STATIC_CONSTEXPR std::size_t value = 0U;
                 };
             }
         }

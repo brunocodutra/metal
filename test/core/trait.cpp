@@ -5,8 +5,18 @@
  */
 
 #include <boost/mpl2/config/limits/arity.hpp>
-#include <boost/mpl2/compat/variadic.hpp>
+#include <boost/mpl2/core/compat/variadic.hpp>
 #include <boost/mpl2/core/trait.hpp>
+
+#include <boost/config.hpp>
+
+#if defined(BOOST_NO_SCOPED_ENUMS)
+    #define __BOOST_MPL2_SCOPED_ENUM \
+        enum
+#else
+    #define __BOOST_MPL2_SCOPED_ENUM \
+        enum struct
+#endif
 
 struct test01;
 struct test02 {};
@@ -22,12 +32,14 @@ struct test11 {typedef void (*nested)();};
 struct test12 {typedef void (&nested)();};
 struct test13 {typedef char nested[1];};
 struct test14 {typedef char (&nested)[1];};
-struct test15 {template<typename> void nested();};
-struct test16 {template<typename> struct nested;};
-struct test17 {template<BOOST_MPL2_VARIADIC_PARAMS(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY, _)> struct nested;};
-struct test18 {template<bool> struct nested;};
-struct test19 {template<typename T, T> struct nested;};
-struct test20 {template<template<typename> class> struct nested;};
+struct test15 {enum nested {};};
+struct test16 {__BOOST_MPL2_SCOPED_ENUM nested {};};
+struct test17 {template<typename> void nested();};
+struct test18 {template<typename> struct nested;};
+struct test19 {template<BOOST_MPL2_VARIADIC_PARAMS(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY, _)> struct nested;};
+struct test20 {template<bool> struct nested;};
+struct test21 {template<typename T, T> struct nested;};
+struct test22 {template<template<typename> class> struct nested;};
 
 BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_nested, nested)
 
@@ -47,10 +59,14 @@ int main()
            !has_nested<test12>() ||
            !has_nested<test13>() ||
            !has_nested<test14>() ||
-            has_nested<test15>() ||
-            has_nested<test16>() ||
+           !has_nested<test15>() ||
+           !has_nested<test16>() ||
             has_nested<test17>() ||
             has_nested<test18>() ||
             has_nested<test19>() ||
-            has_nested<test20>();
+            has_nested<test20>() ||
+            has_nested<test21>() ||
+            has_nested<test22>();
 }
+
+#undef __BOOST_MPL2_SCOPED_ENUM

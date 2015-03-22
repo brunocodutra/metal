@@ -4,14 +4,12 @@
  * See accompanying file LICENSE for its full text.
  */
 
-#ifndef _BOOST_MPL2_COMPAT_NUMBERED_HPP_
-#define _BOOST_MPL2_COMPAT_NUMBERED_HPP_
+#ifndef _BOOST_MPL2_CORE_COMPAT_NUMBERED_HPP_
+#define _BOOST_MPL2_CORE_COMPAT_NUMBERED_HPP_
 
 #include <boost/mpl2/core/if.hpp>
 #include <boost/mpl2/core/identity.hpp>
-#include <boost/mpl2/compat/detail/na.hpp>
-
-#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl2/core/compat/detail/na.hpp>
 
 #include <boost/preprocessor/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
@@ -21,48 +19,48 @@
 #include <boost/preprocessor/seq/elem.hpp>
 
 // FOR EACH
-#define __BOOST_MPL2_FORWARD_MACRO_FOR_EACH_ARG(Z, N, DATA) \
+#define __BOOST_MPL2_FOR_NAME(Z, N, DATA) \
     BOOST_PP_SEQ_ELEM(1, DATA)( \
         BOOST_PP_SEQ_ELEM(2, DATA), \
         BOOST_PP_CAT(BOOST_PP_SEQ_ELEM(0, DATA), N) \
     )
 
-#define __BOOST_MPL2_FOR_EACH_ARG(N, PREFIX, MACRO, DATA) \
-    BOOST_PP_ENUM(N, __BOOST_MPL2_FORWARD_MACRO_FOR_EACH_ARG, (PREFIX)(MACRO)(DATA))
+#define __BOOST_MPL2_FOR_EACH_NAME(N, PREFIX, MACRO, DATA) \
+    BOOST_PP_ENUM(N, __BOOST_MPL2_FOR_NAME, (PREFIX)(MACRO)(DATA))
 
-// CALL FOR EACH
-#define __BOOST_MPL2_CALL_FOR_ARG(FUNC, ARG) \
+// APPLY TO EACH ARG
+#define __BOOST_MPL2_APPLY_TO_ARG(TMPL, ARG) \
     typename boost::mpl2::if_< \
-        boost::is_same<ARG, boost::mpl2::detail::na>, \
+        boost::mpl2::detail::is_na<ARG>, \
         boost::mpl2::identity<ARG>, \
-        FUNC<ARG> \
+        TMPL<ARG> \
     >::type
 
-#define BOOST_MPL2_CALL_FOR_EACH_ARG(N, PREFIX, FUNC) \
-    __BOOST_MPL2_FOR_EACH_ARG(N, PREFIX, __BOOST_MPL2_CALL_FOR_ARG, FUNC)
+#define BOOST_MPL2_APPLY_TO_EACH_ARG(N, PREFIX, TMPL) \
+    __BOOST_MPL2_FOR_EACH_NAME(N, PREFIX, __BOOST_MPL2_APPLY_TO_ARG, TMPL)
 
-#define BOOST_MPL2_CALL_FOR_EACH_LEADING_ARG(N, PREFIX, FUNC) \
-    BOOST_MPL2_CALL_FOR_EACH_ARG(N, PREFIX, FUNC) BOOST_PP_COMMA_IF(N)
+#define BOOST_MPL2_APPLY_TO_EACH_LEADING_ARG(N, PREFIX, TMPL) \
+    BOOST_MPL2_APPLY_TO_EACH_ARG(N, PREFIX, TMPL) BOOST_PP_COMMA_IF(N)
 
-#define BOOST_MPL2_CALL_FOR_EACH_TRAILING_ARG(N, PREFIX, FUNC) \
-    BOOST_PP_COMMA_IF(N) BOOST_MPL2_CALL_FOR_EACH_ARG(N, PREFIX, FUNC)
+#define BOOST_MPL2_APPLY_TO_EACH_TRAILING_ARG(N, PREFIX, TMPL) \
+    BOOST_PP_COMMA_IF(N) BOOST_MPL2_APPLY_TO_EACH_ARG(N, PREFIX, TMPL)
 
-// WRAP EACH
-#define __BOOST_MPL2_WRAP_ARG(WRAP, ARG) \
+// WRAP EACH ARG
+#define __BOOST_MPL2_WRAP_ARG(TMPL, ARG) \
     typename boost::mpl2::if_< \
-        boost::is_same<ARG, boost::mpl2::detail::na>, \
+        boost::mpl2::detail::is_na<ARG>, \
         boost::mpl2::identity<ARG>, \
-        boost::mpl2::identity<WRAP<ARG> > \
+        boost::mpl2::identity<TMPL<ARG> > \
     >::type
 
-#define BOOST_MPL2_WRAP_EACH_ARG(N, PREFIX, WRAP) \
-    __BOOST_MPL2_FOR_EACH_ARG(N, PREFIX, __BOOST_MPL2_WRAP_ARG, WRAP)
+#define BOOST_MPL2_WRAP_EACH_ARG(N, PREFIX, TMPL) \
+    __BOOST_MPL2_FOR_EACH_NAME(N, PREFIX, __BOOST_MPL2_WRAP_ARG, TMPL)
 
-#define BOOST_MPL2_WRAP_EACH_LEADING_ARG(N, PREFIX, WRAP) \
-    BOOST_MPL2_WRAP_EACH_ARG(N, PREFIX, WRAP) BOOST_PP_COMMA_IF(N)
+#define BOOST_MPL2_WRAP_EACH_LEADING_ARG(N, PREFIX, TMPL) \
+    BOOST_MPL2_WRAP_EACH_ARG(N, PREFIX, TMPL) BOOST_PP_COMMA_IF(N)
 
-#define BOOST_MPL2_WRAP_EACH_TRAILING_ARG(N, PREFIX, WRAP) \
-    BOOST_PP_COMMA_IF(N) BOOST_MPL2_WRAP_EACH_ARG(N, PREFIX, WRAP)
+#define BOOST_MPL2_WRAP_EACH_TRAILING_ARG(N, PREFIX, TMPL) \
+    BOOST_PP_COMMA_IF(N) BOOST_MPL2_WRAP_EACH_ARG(N, PREFIX, TMPL)
 
 // ARGS
 #define BOOST_MPL2_ARGS(N, PREFIX) \
@@ -73,6 +71,19 @@
 
 #define BOOST_MPL2_TRAILING_ARGS(N, PREFIX) \
     BOOST_PP_COMMA_IF(N) BOOST_MPL2_ARGS(N, PREFIX)
+
+// WRAP EACH PARAM
+#define __BOOST_MPL2_WRAP_PARAM(TMPL, PARAM) \
+    TMPL<PARAM>
+
+#define BOOST_MPL2_WRAP_EACH_PARAM(N, PREFIX, TMPL) \
+    __BOOST_MPL2_FOR_EACH_NAME(N, PREFIX, __BOOST_MPL2_WRAP_PARAM, TMPL)
+
+#define BOOST_MPL2_WRAP_EACH_LEADING_PARAM(N, PREFIX, TMPL) \
+    BOOST_MPL2_WRAP_EACH_PARAM(N, PREFIX, TMPL) BOOST_PP_COMMA_IF(N)
+
+#define BOOST_MPL2_WRAP_EACH_TRAILING_PARAM(N, PREFIX, TMPL) \
+    BOOST_PP_COMMA_IF(N) BOOST_MPL2_WRAP_EACH_PARAM(N, PREFIX, TMPL)
 
 // PARAMS
 #define BOOST_MPL2_PARAMS(N, PREFIX) \

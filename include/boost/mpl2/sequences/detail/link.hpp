@@ -8,11 +8,11 @@
 #define _BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP_
 
 #include <boost/mpl2/config/options/decltype.hpp>
-#include <boost/mpl2/compat/numbered.hpp>
+#include <boost/mpl2/core/compat/numbered.hpp>
 #include <boost/mpl2/core/integral/size_t.hpp>
 #include <boost/mpl2/core/arithmetic/inc.hpp>
 #include <boost/mpl2/core/identity.hpp>
-#include <boost/mpl2/sequences/detail/ref.hpp>
+#include <boost/mpl2/core/ref.hpp>
 
 #include <boost/config.hpp>
 
@@ -26,7 +26,7 @@ namespace boost
             {
                 typedef size_t_<0U> size;
 #if !defined(BOOST_MPL2_CFG_NO_DECLTYPE)
-                static BOOST_CONSTEXPR ref<> item(...);
+                static ref<> item(...);
 #endif
             };
 
@@ -37,7 +37,7 @@ namespace boost
                 typedef inc<typename rest::size> size;
 
 #if !defined(BOOST_MPL2_CFG_NO_DECLTYPE)
-                static BOOST_CONSTEXPR ref<value> item(ref<index>);
+                static ref<value> item(ref<index>);
                 using rest::type::item;
 #endif
                 template<typename i, BOOST_MPL2_OPTIONAL_PARAMS(1, _)>
