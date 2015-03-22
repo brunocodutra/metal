@@ -13,7 +13,7 @@ include(Diagnostics)
 include(Strict)
 include(Dialects)
 
-warnings_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
+extra_warnings_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
 diagnostics_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
 strict_behavior_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
 
@@ -31,24 +31,28 @@ option(BOOST_MPL2_TEST_GNU_DIALECTS "test gnu dialects" ON)
 if(BOOST_MPL2_TEST_GNU_DIALECTS)
     set(BOOST_MPL2_TEST_DIALECTS ${BOOST_MPL2_TEST_DIALECTS} gnu++98 gnu++03 gnu++11 gnu++14)
 endif()
+
+option(BOOST_MPL2_TEST_MSVC_DIALECTS "test msvc dialects" OFF)
+if(BOOST_MPL2_TEST_MSVC_DIALECTS)
+    set(BOOST_MPL2_TEST_DIALECTS ${BOOST_MPL2_TEST_DIALECTS} msvc++)
+endif()
+
 foreach(dialect ${BOOST_MPL2_TEST_DIALECTS})
     set(dialect_flag)
     language_dialect_flags(CXX ${dialect} dialect_flag)
-    if(NOT "${dialect_flag}" STREQUAL "")
-        foreach(SOURCE ${BOOST_MPL2_TEST_SOURCES})
-            string(REGEX REPLACE ".*[/\\](.*\)[.]cpp" "\\1_test_${dialect}" target ${SOURCE})
-            add_binary_target(
-                EXECUTABLE ${target}
-                LANGUAGE CXX
-                SOURCES ${SOURCE} ${BOOST_MPL2_TEST_HEADERS}
-                LIBRARIES ${BOOST_MPL2_LIBRARIES}
-                ADITIONAL_FLAGS ${dialect_flag}
-                DEPENDENCIES mpl2
-            )
-            add_test(${target} ${CMAKE_CURRENT_BINARY_DIR}/${target})
-            set(BOOST_MPL2_TEST_TARGETS ${BOOST_MPL2_TEST_TARGETS} ${target})
-        endforeach()
-    endif()
+    foreach(SOURCE ${BOOST_MPL2_TEST_SOURCES})
+        string(REGEX REPLACE ".*[/\\](.*\)[.]cpp" "\\1_test_${dialect}" target ${SOURCE})
+        add_binary_target(
+            EXECUTABLE ${target}
+            LANGUAGE CXX
+            SOURCES ${SOURCE} ${BOOST_MPL2_TEST_HEADERS}
+            LIBRARIES ${BOOST_MPL2_LIBRARIES}
+            ADITIONAL_FLAGS ${dialect_flag}
+            DEPENDENCIES mpl2
+        )
+        add_test(${target} ${CMAKE_CURRENT_BINARY_DIR}/${target})
+        set(BOOST_MPL2_TEST_TARGETS ${BOOST_MPL2_TEST_TARGETS} ${target})
+    endforeach()
 endforeach()
 
 add_custom_target(tests DEPENDS ${BOOST_MPL2_TEST_TARGETS})
