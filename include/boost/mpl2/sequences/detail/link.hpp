@@ -5,7 +5,6 @@
 #ifndef BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP
 #define BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP
 
-#include <boost/mpl2/config/options/decltype.hpp>
 #include <boost/mpl2/core/compat/numbered.hpp>
 #include <boost/mpl2/core/integral/size_t.hpp>
 #include <boost/mpl2/core/arithmetic/inc.hpp>
@@ -23,7 +22,7 @@ namespace boost
             struct nil
             {
                 typedef size_t_<0U> size;
-#if !defined(BOOST_MPL2_CFG_NO_DECLTYPE)
+#if !defined(BOOST_NO_DECLTYPE)
                 static ref<> item(...);
 #endif
             };
@@ -34,7 +33,7 @@ namespace boost
             {
                 typedef inc<typename rest::size> size;
 
-#if !defined(BOOST_MPL2_CFG_NO_DECLTYPE)
+#if !defined(BOOST_NO_DECLTYPE)
                 static ref<value> item(ref<index>);
                 using rest::item;
 #endif
@@ -42,7 +41,7 @@ namespace boost
                 struct at;
             };
 
-#if defined(BOOST_MPL2_CFG_NO_DECLTYPE)
+#if defined(BOOST_NO_DECLTYPE)
             template<typename index, typename value, typename rest>
             template<typename i, typename _>
             struct link<index, value, rest>::at :

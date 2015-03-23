@@ -5,13 +5,13 @@
 #ifndef BOOST_MPL2_CORE_COMPAT_SIZEOF_HPP
 #define BOOST_MPL2_CORE_COMPAT_SIZEOF_HPP
 
-#include <boost/mpl2/config/options/variadic_templates.hpp>
+#include <boost/config.hpp>
 
-#if !defined(BOOST_MPL2_CFG_NO_VARIADIC_TEMPLATES)
+#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
     #define BOOST_MPL2_SEIZEOF(_, ARGS) \
         sizeof...(ARGS)
 #else
-    #include <boost/mpl2/config/limits/arity.hpp>
+    #include <boost/mpl2/core/limits/arity.hpp>
     #include <boost/mpl2/core/compat/numbered.hpp>
 
     #include <boost/config.hpp>

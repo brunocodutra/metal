@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_SEQUENCES_LIST_HPP
 #define BOOST_MPL2_SEQUENCES_LIST_HPP
 
-#include <boost/mpl2/config/limits/arity.hpp>
+#include <boost/mpl2/core/limits/arity.hpp>
 #include <boost/mpl2/core/compat/variadic.hpp>
 #include <boost/mpl2/core/compat/sizeof.hpp>
 #include <boost/mpl2/core/integral/size_t.hpp>

@@ -4,7 +4,6 @@
 
 #define BOOST_MPL2_LIMIT_METAFUNCTION_ARITY 5
 
-#include <boost/mpl2/config/options/variadic_templates.hpp>
 #include <boost/mpl2/core/compat/variadic.hpp>
 
 #include <boost/preprocessor/facilities/intercept.hpp>
@@ -12,6 +11,8 @@
 #include <boost/preprocessor/repeat_from_to.hpp>
 #include <boost/preprocessor/repeat.hpp>
 #include <boost/preprocessor/inc.hpp>
+
+#include <boost/config.hpp>
 
 struct yes;
 struct no;
@@ -79,7 +80,7 @@ BOOST_PP_REPEAT(
         return true; \
     }
 
-#if defined(BOOST_MPL2_CFG_NO_VARIADIC_TEMPLATES)
+#if defined(BOOST_NO_VARIADIC_TEMPLATES)
     BOOST_PP_REPEAT_FROM_TO(
         1,
         BOOST_MPL2_LIMIT_METAFUNCTION_ARITY,

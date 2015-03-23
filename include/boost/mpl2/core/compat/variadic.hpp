@@ -5,9 +5,9 @@
 #ifndef BOOST_MPL2_CORE_COMPAT_VARIADIC_HPP
 #define BOOST_MPL2_CORE_COMPAT_VARIADIC_HPP
 
-#include <boost/mpl2/config/options/variadic_templates.hpp>
+#include <boost/config.hpp>
 
-#if defined(BOOST_MPL2_CFG_NO_VARIADIC_TEMPLATES)
+#if defined(BOOST_NO_VARIADIC_TEMPLATES)
     #include <boost/mpl2/core/compat/numbered.hpp>
 
     #define BOOST_MPL2_DETAIL_FOR_EACH_VARIADIC_NAME(N, PREFIX, MACRO, DATA) \
