@@ -24,9 +24,10 @@ int main()
     BOOST_MPL2_ASSERT((equal<inc<dec<one> >, one>));
     BOOST_MPL2_ASSERT((equal<inc<dec<one> >, dec<inc<one> > >));
     BOOST_MPL2_ASSERT((equal<negate<zero>, zero>));
+    BOOST_MPL2_ASSERT((equal<inc<negate<one> >, zero>));
     BOOST_MPL2_ASSERT((equal<negate<negate<one> >, one>));
     BOOST_MPL2_ASSERT(negate<false_>);
     BOOST_MPL2_ASSERT(negate<negate<true_> >);
 
-    return zero();
+    return zero() || dec<one>() || inc<negate<one> >();
 }
