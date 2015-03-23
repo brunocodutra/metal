@@ -10,15 +10,13 @@ struct tautology :
         boost::mpl2::char_<'c'>
 {};
 
-struct contradiction
-{
-    typedef boost::mpl2::ulong_<0UL> type;
-};
+struct contradiction :
+        boost::mpl2::ulong_<0UL>
+{};
 
 int main()
 {
     return !boost::mpl2::if_<boost::mpl2::true_, boost::mpl2::true_, boost::mpl2::false_>() ||
-            boost::mpl2::if_<boost::mpl2::identity<boost::mpl2::false_>, boost::mpl2::true_, boost::mpl2::false_>()||
            !boost::mpl2::if_<tautology, boost::mpl2::true_, boost::mpl2::false_>() ||
             boost::mpl2::if_<contradiction, boost::mpl2::true_, boost::mpl2::false_>();
 }

@@ -13,7 +13,7 @@ namespace boost
     {
         template<typename cond, typename yes, typename no>
         struct if_ :
-                if_c<cond::type::value ? true : false, yes, no>
+                if_c<cond::value ? true : false, yes, no>
         {};
     }
 }
