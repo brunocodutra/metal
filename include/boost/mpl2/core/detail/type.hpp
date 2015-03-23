@@ -25,6 +25,6 @@ namespace boost
 }
 
 #define BOOST_MPL2_DETAIL_TYPE(T) \
-    boost::mpl2::detail::strip_parenthesis<void (T)>
+    boost::mpl2::detail::strip_parenthesis<void (T)>::type
 
 #endif
