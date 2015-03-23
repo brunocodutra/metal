@@ -6,6 +6,7 @@ enable_testing()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
+include(DetectToolchain)
 include(CompilerUtilities)
 include(TargetUtilities)
 include(Warnings)
@@ -16,6 +17,17 @@ include(Dialects)
 extra_warnings_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
 diagnostics_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
 strict_behavior_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
+list(APPEND BOOST_MPL2_EXTRA_COMPILE_FLAGS
+    -Wno-c++98-compat
+    -Wno-c++98-compat-pedantic
+    -Wno-disabled-macro-expansion
+)
+
+if(CXX_COMPILER_IS_CLANG)
+    list(APPEND BOOST_MPL2_EXTRA_COMPILE_FLAGS
+        -Wno-unused-local-typedef
+    )
+endif()
 
 add_compile_flags_globally("${BOOST_MPL2_EXTRA_COMPILE_FLAGS}")
 
@@ -27,14 +39,16 @@ link_directories(${BOOST_MPL2_LIBRARY_DIRS})
 
 set(BOOST_MPL2_TEST_DIALECTS c++98 c++03 c++11 c++14)
 
-option(BOOST_MPL2_TEST_GNU_DIALECTS "test gnu dialects" ON)
-if(BOOST_MPL2_TEST_GNU_DIALECTS)
-    set(BOOST_MPL2_TEST_DIALECTS ${BOOST_MPL2_TEST_DIALECTS} gnu++98 gnu++03 gnu++11 gnu++14)
-endif()
-
-option(BOOST_MPL2_TEST_MSVC_DIALECTS "test msvc dialects" OFF)
-if(BOOST_MPL2_TEST_MSVC_DIALECTS)
-    set(BOOST_MPL2_TEST_DIALECTS ${BOOST_MPL2_TEST_DIALECTS} msvc++)
+if(CXX_COMPILER_IS_MSVC)
+    option(BOOST_MPL2_TEST_MSVC_DIALECTS "test msvc dialects" ON)
+    if(BOOST_MPL2_TEST_MSVC_DIALECTS)
+        set(BOOST_MPL2_TEST_DIALECTS ${BOOST_MPL2_TEST_DIALECTS} msvc++)
+    endif()
+else()
+    option(BOOST_MPL2_TEST_GNU_DIALECTS "test gnu dialects" ON)
+    if(BOOST_MPL2_TEST_GNU_DIALECTS)
+        set(BOOST_MPL2_TEST_DIALECTS ${BOOST_MPL2_TEST_DIALECTS} gnu++98 gnu++03 gnu++11 gnu++14)
+    endif()
 endif()
 
 foreach(dialect ${BOOST_MPL2_TEST_DIALECTS})
