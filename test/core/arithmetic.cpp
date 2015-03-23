@@ -4,9 +4,29 @@
 
 #include <boost/mpl2/core/arithmetic.hpp>
 #include <boost/mpl2/core/integral.hpp>
+#include <boost/mpl2/core/comparison/equal.hpp>
+#include <boost/mpl2/core/assert.hpp>
 
 int main()
 {
-    return (boost::mpl2::inc<boost::mpl2::int_<0> >() +
-            boost::mpl2::dec<boost::mpl2::int_<0> >());
+    using boost::mpl2::inc;
+    using boost::mpl2::dec;
+    using boost::mpl2::negate;
+    using boost::mpl2::equal;
+    using boost::mpl2::true_;
+    using boost::mpl2::false_;
+
+    typedef boost::mpl2::int_<0> zero;
+    typedef boost::mpl2::int_<1> one;
+
+    BOOST_MPL2_ASSERT((equal<inc<zero>, one>));
+    BOOST_MPL2_ASSERT((equal<dec<zero>, negate<one> >));
+    BOOST_MPL2_ASSERT((equal<inc<dec<one> >, one>));
+    BOOST_MPL2_ASSERT((equal<inc<dec<one> >, dec<inc<one> > >));
+    BOOST_MPL2_ASSERT((equal<negate<zero>, zero>));
+    BOOST_MPL2_ASSERT((equal<negate<negate<one> >, one>));
+    BOOST_MPL2_ASSERT(negate<false_>);
+    BOOST_MPL2_ASSERT(negate<negate<true_> >);
+
+    return zero();
 }
