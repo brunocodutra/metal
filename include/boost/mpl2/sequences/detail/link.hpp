@@ -30,13 +30,13 @@ namespace boost
 
             template<typename index, typename value, typename rest>
             struct link :
-                    rest::type
+                    rest
             {
                 typedef inc<typename rest::size> size;
 
 #if !defined(BOOST_MPL2_CFG_NO_DECLTYPE)
                 static ref<value> item(ref<index>);
-                using rest::type::item;
+                using rest::item;
 #endif
                 template<typename i, BOOST_MPL2_OPTIONAL_PARAMS(1, _)>
                 struct at;
