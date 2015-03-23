@@ -10,12 +10,12 @@
 
 #include <boost/preprocessor/cat.hpp>
 
-#define BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(trait, nested) \
-    struct BOOST_PP_CAT(trait, _impl) \
+#define BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(TRAIT, NESTED) \
+    struct BOOST_PP_CAT(TRAIT, _impl) \
     { \
         template<typename T> \
         static char (&check( \
-            boost::mpl2::ref<typename T::nested>* \
+            boost::mpl2::ref<typename T::NESTED>* \
         ))[1]; \
         template<typename> \
         static char (&check(...))[2]; \
@@ -27,8 +27,8 @@
         {}; \
     }; \
     template<typename T> \
-    struct trait : \
-            BOOST_PP_CAT(trait, _impl)::template apply<T> \
+    struct TRAIT : \
+            BOOST_PP_CAT(TRAIT, _impl)::template apply<T> \
     {};
 
 #endif
