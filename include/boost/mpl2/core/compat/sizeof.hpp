@@ -8,7 +8,7 @@
 #include <boost/config.hpp>
 
 #if !defined(BOOST_NO_VARIADIC_TEMPLATES)
-    #define BOOST_MPL2_SEIZEOF(_, ARGS) \
+    #define BOOST_MPL2_SEIZEOF_VARIADIC_ARGS(_, ARGS) \
         sizeof...(ARGS)
 #else
     #include <boost/mpl2/core/limits/arity.hpp>
@@ -41,15 +41,15 @@
             namespace detail
             {
                 template<BOOST_MPL2_DETAIL_HEAD_DECL BOOST_MPL2_DETAIL_TAIL_DECL>
-                struct sizeof_ :
-                        sizeof_<BOOST_MPL2_DETAIL_TAIL>
+                struct sizeof_variadic_args :
+                        sizeof_variadic_args<BOOST_MPL2_DETAIL_TAIL>
                 {
                     BOOST_STATIC_CONSTEXPR std::size_t value = 1U +
-                            sizeof_<BOOST_MPL2_DETAIL_TAIL>::value;
+                            sizeof_variadic_args<BOOST_MPL2_DETAIL_TAIL>::value;
                 };
 
                 template<>
-                struct sizeof_<>
+                struct sizeof_variadic_args<>
                 {
                     BOOST_STATIC_CONSTEXPR std::size_t value = 0U;
                 };
@@ -61,8 +61,8 @@
     #undef BOOST_MPL2_DETAIL_TAIL_DECL
     #undef BOOST_MPL2_DETAIL_TAIL
 
-    #define BOOST_MPL2_SEIZEOF(N, ARGS) \
-        boost::mpl2::detail::sizeof_<BOOST_MPL2_ARGS(N, ARGS)>::value
+    #define BOOST_MPL2_SEIZEOF_VARIADIC_ARGS(N, ARGS) \
+        boost::mpl2::detail::sizeof_variadic_args<BOOST_MPL2_VARIADIC_ARGS(N, ARGS)>::value
 #endif
 
 #endif
