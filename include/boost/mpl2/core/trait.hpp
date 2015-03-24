@@ -29,6 +29,6 @@
     template<typename T> \
     struct TRAIT : \
             BOOST_PP_CAT(TRAIT, _impl)::template apply<T> \
-    {};
+    {}
 
 #endif
