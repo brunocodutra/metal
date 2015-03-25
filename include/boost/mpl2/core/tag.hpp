@@ -5,13 +5,15 @@
 #ifndef BOOST_MPL2_CORE_TAG_HPP
 #define BOOST_MPL2_CORE_TAG_HPP
 
+#include <boost/mpl2/core/identity.hpp>
+
 namespace boost
 {
     namespace mpl2
     {
         template<typename tagged>
         struct tag :
-                tagged::tag
+                identity<typename tagged::tag>
         {};
     }
 }

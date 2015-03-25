@@ -14,10 +14,7 @@ namespace boost
     namespace mpl2
     {
         template<typename>
-        struct integral_tag
-        {
-            typedef integral_tag type;
-        };
+        struct integral_tag;
 
         template<typename integral_type, integral_type constant>
         struct integral
