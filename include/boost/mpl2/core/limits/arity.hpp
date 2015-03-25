@@ -7,7 +7,7 @@
 
 #if !defined(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY)
     #include <boost/config.hpp>
-    #if defined(BOOST_NO_VARIADIC_TEMPLATES)
+    #if defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
         #define BOOST_MPL2_LIMIT_METAFUNCTION_ARITY 20
     #else
         #include <boost/preprocessor/config/limits.hpp>

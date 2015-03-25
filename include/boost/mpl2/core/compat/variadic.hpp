@@ -7,7 +7,7 @@
 
 #include <boost/config.hpp>
 
-#if defined(BOOST_NO_VARIADIC_TEMPLATES)
+#if defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
     #include <boost/mpl2/core/compat/numbered.hpp>
 
     #define BOOST_MPL2_DETAIL_FOR_EACH_VARIADIC_NAME(N, PREFIX, MACRO, DATA) \

@@ -33,14 +33,14 @@ namespace boost
                 integral<wchar_t, constant>
         {};
 
-#if defined(BOOST_HAS_CHAR16_T)
+#if !defined(BOOST_NO_CXX11_CHAR16_T)
         template<char16_t constant>
         struct char16_t_ :
                 integral<char16_t, constant>
         {};
 #endif
 
-#if defined(BOOST_HAS_CHAR16_T)
+#if !defined(BOOST_NO_CXX11_CHAR32_T)
         template<char32_t constant>
         struct char32_t_ :
                 integral<char32_t, constant>

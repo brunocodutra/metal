@@ -7,7 +7,7 @@
 
 #include <boost/config.hpp>
 
-#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
     #define BOOST_MPL2_SEIZEOF_VARIADIC_ARGS(_, ARGS) \
         sizeof...(ARGS) \
     /**/

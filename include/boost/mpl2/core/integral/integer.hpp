@@ -43,7 +43,7 @@ namespace boost
                 integral<unsigned long, constant>
         {};
 
-#if defined(BOOST_HAS_LONG_LONG)
+#if !defined(BOOST_NO_LONG_LONG)
         template<long_long_type constant>
         struct long_long_ :
                 integral<long_long_type, constant>

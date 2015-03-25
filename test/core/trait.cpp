@@ -8,7 +8,7 @@
 
 #include <boost/config.hpp>
 
-#if defined(BOOST_NO_SCOPED_ENUMS)
+#if defined(BOOST_NO_CXX11_SCOPED_ENUMS)
     #define BOOST_MPL2_DETAIL_SCOPED_ENUM \
         enum
 #else

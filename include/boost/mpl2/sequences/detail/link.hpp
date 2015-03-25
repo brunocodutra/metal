@@ -22,7 +22,7 @@ namespace boost
             struct nil
             {
                 typedef size_t_<0U> size;
-#if !defined(BOOST_NO_DECLTYPE)
+#if !defined(BOOST_NO_CXX11_DECLTYPE)
                 static ref<> item(...);
 #endif
             };
@@ -33,7 +33,7 @@ namespace boost
             {
                 typedef inc<typename rest::size> size;
 
-#if !defined(BOOST_NO_DECLTYPE)
+#if !defined(BOOST_NO_CXX11_DECLTYPE)
                 static ref<value> item(ref<index>);
                 using rest::item;
 #endif
@@ -41,7 +41,7 @@ namespace boost
                 struct at;
             };
 
-#if defined(BOOST_NO_DECLTYPE)
+#if defined(BOOST_NO_CXX11_DECLTYPE)
             template<typename index, typename value, typename rest>
             template<typename i, typename _>
             struct link<index, value, rest>::at :

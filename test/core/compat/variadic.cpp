@@ -80,7 +80,7 @@ BOOST_PP_REPEAT(
         return true; \
     }
 
-#if defined(BOOST_NO_VARIADIC_TEMPLATES)
+#if defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
     BOOST_PP_REPEAT_FROM_TO(
         1,
         BOOST_MPL2_LIMIT_METAFUNCTION_ARITY,
