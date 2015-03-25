@@ -11,13 +11,15 @@
 #if defined(BOOST_NO_CXX11_TEMPLATE_ALIASES) || !defined(BOOST_PP_VARIADICS)
     #include <boost/mpl2/core/detail/type.hpp>
     #define BOOST_MPL2_DECLARE_TEMPLATE_ALIAS(ALIAS, BASE) \
-        struct ALIAS : BOOST_MPL2_DETAIL_TYPE(BASE) {}
+        struct ALIAS : BOOST_MPL2_DETAIL_TYPE(BASE) {}  \
+    /**/
+
 #else
     #include <boost/preprocessor/tuple/enum.hpp>
     #define BOOST_MPL2_DECLARE_TEMPLATE_ALIAS(ALIAS, BASE) \
-        using ALIAS = BOOST_PP_TUPLE_ENUM(BASE)
+        using ALIAS = BOOST_PP_TUPLE_ENUM(BASE) \
+    /**/
+
 #endif
-
-
 
 #endif
