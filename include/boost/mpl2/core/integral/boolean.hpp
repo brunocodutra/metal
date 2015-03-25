@@ -6,15 +6,14 @@
 #define BOOST_MPL2_CORE_INTEGRAL_BOOLEAN_HPP
 
 #include <boost/mpl2/core/integral.hpp>
+#include <boost/mpl2/core/compat/alias.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
         template<bool constant>
-        struct bool_ :
-                integral<bool, constant>
-        {};
+        BOOST_MPL2_DECLARE_TEMPLATE_ALIAS(bool_, (integral<bool, constant>));
 
         typedef bool_<true> true_;
         typedef bool_<false> false_;
