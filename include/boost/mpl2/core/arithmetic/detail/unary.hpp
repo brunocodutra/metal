@@ -8,7 +8,7 @@
 #include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/core/logical/not.hpp>
-#include <boost/mpl2/core/compat/alias.hpp>
+#include <boost/mpl2/core/compat/template_alias.hpp>
 
 #include <boost/preprocessor/cat.hpp>
 

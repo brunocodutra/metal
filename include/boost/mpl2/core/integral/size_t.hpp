@@ -6,7 +6,7 @@
 #define BOOST_MPL2_CORE_INTEGRAL_SIZE_T_HPP
 
 #include <boost/mpl2/core/integral.hpp>
-#include <boost/mpl2/core/compat/alias.hpp>
+#include <boost/mpl2/core/compat/template_alias.hpp>
 
 #include <cstddef>
 
