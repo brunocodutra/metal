@@ -29,5 +29,5 @@ int main()
     BOOST_MPL2_ASSERT(negate<false_>);
     BOOST_MPL2_ASSERT(negate<negate<true_> >);
 
-    return zero() || dec<one>() || inc<negate<one> >();
+    return negate<zero>() || dec<one>() || inc<negate<one> >();
 }
