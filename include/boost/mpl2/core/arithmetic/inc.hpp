@@ -7,7 +7,7 @@
 
 #include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/integral_fwd.hpp>
-#include <boost/mpl2/core/arithmetic/negate.hpp>
+#include <boost/mpl2/core/logical/not.hpp>
 
 namespace boost
 {
@@ -33,7 +33,7 @@ namespace boost
         {
             template<typename n>
             struct apply :
-                    negate<n>
+                    not_<n>
             {};
         };
 
