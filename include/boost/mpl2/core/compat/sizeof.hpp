@@ -14,8 +14,8 @@
 #else
     #include <boost/mpl2/core/limits/arity.hpp>
     #include <boost/mpl2/core/compat/numbered.hpp>
+    #include <boost/mpl2/core/compat/static_constant.hpp>
 
-    #include <boost/config.hpp>
     #include <boost/preprocessor/dec.hpp>
 
     #include <cstddef>
@@ -48,14 +48,16 @@
                 struct sizeof_variadic_args :
                         sizeof_variadic_args<BOOST_MPL2_DETAIL_TAIL>
                 {
-                    BOOST_STATIC_CONSTEXPR std::size_t value = 1U +
-                            sizeof_variadic_args<BOOST_MPL2_DETAIL_TAIL>::value;
+                    BOOST_MPL2_DEFINE_STATIC_CONSTANT(
+                        std::size_t,
+                        value = 1U + sizeof_variadic_args<BOOST_MPL2_DETAIL_TAIL>::value
+                    );
                 };
 
                 template<>
                 struct sizeof_variadic_args<>
                 {
-                    BOOST_STATIC_CONSTEXPR std::size_t value = 0U;
+                    BOOST_MPL2_DEFINE_STATIC_CONSTANT(std::size_t, value = 0U);
                 };
             }
         }

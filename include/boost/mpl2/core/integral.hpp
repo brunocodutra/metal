@@ -5,6 +5,8 @@
 #ifndef BOOST_MPL2_CORE_INTEGRAL_HPP
 #define BOOST_MPL2_CORE_INTEGRAL_HPP
 
+#include <boost/mpl2/core/compat/static_constant.hpp>
+
 #include <boost/config.hpp>
 
 namespace boost
@@ -21,7 +23,7 @@ namespace boost
             typedef integral_type               value_type;
             typedef integral_tag<value_type>    tag;
 
-            BOOST_STATIC_CONSTEXPR value_type value = constant;
+            BOOST_MPL2_DEFINE_STATIC_CONSTANT(value_type, value = constant);
 
             BOOST_CONSTEXPR operator value_type () const
             {
