@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_CORE_IF_HPP
 #define BOOST_MPL2_CORE_IF_HPP
 
-#include <boost/mpl2/core/integral_fwd.hpp>
+#include <boost/mpl2/core/integral.hpp>
 
 namespace boost
 {
@@ -17,11 +17,11 @@ namespace boost
         {};
 
         template<typename yes, typename no>
-        struct if_<integral<bool, true>, yes, no> : yes
+        struct if_<true_, yes, no> : yes
         {};
 
         template<typename yes, typename no>
-        struct if_<integral<bool, false>, yes, no> : no
+        struct if_<false_, yes, no> : no
         {};
 
     }

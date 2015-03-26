@@ -6,7 +6,7 @@
 #define BOOST_MPL2_CORE_ARITHMETIC_NEGATE_HPP
 
 #include <boost/mpl2/core/tag.hpp>
-#include <boost/mpl2/core/integral_fwd.hpp>
+#include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/core/logical/not.hpp>
 
 namespace boost

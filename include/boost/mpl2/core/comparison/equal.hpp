@@ -6,7 +6,8 @@
 #define BOOST_MPL2_CORE_COMPARISON_EQUAL_HPP
 
 #include <boost/mpl2/core/tag.hpp>
-#include <boost/mpl2/core/integral_fwd.hpp>
+#include <boost/mpl2/core/integral.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 
 namespace boost

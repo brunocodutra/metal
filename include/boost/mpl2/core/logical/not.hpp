@@ -6,7 +6,7 @@
 #define BOOST_MPL2_CORE_LOGICAL_NOT_HPP
 
 #include <boost/mpl2/core/tag.hpp>
-#include <boost/mpl2/core/integral_fwd.hpp>
+#include <boost/mpl2/core/integral.hpp>
 
 namespace boost
 {
@@ -20,7 +20,7 @@ namespace boost
         {
             template<typename n>
             struct apply :
-                    integral<bool, !static_cast<bool>(n::value)>
+                    bool_<!static_cast<bool>(n::value)>
             {};
         };
 
