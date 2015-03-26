@@ -5,7 +5,7 @@
 #include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/assert.hpp>
-#include <boost/mpl2/core/comparison/equal.hpp>
+#include <boost/mpl2/core/equal.hpp>
 
 #include <boost/config.hpp>
 #include <climits>
