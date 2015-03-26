@@ -15,8 +15,8 @@ namespace boost
         template<bool constant>
         BOOST_MPL2_DECLARE_TEMPLATE_ALIAS(bool_, (integral<bool, constant>));
 
-        typedef bool_<true> true_;
-        typedef bool_<false> false_;
+        typedef integral<bool, true> true_;
+        typedef integral<bool, false> false_;
     }
 }
 
