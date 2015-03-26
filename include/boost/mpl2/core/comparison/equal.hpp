@@ -7,20 +7,27 @@
 
 #include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/integral_fwd.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
         template<typename tagX, typename tagY>
-        struct equal_impl;
+        struct equal_impl
+        {
+            template<typename x, typename y>
+            struct apply :
+                    bool_<boost::is_same<x, y>::type::value>
+            {};
+        };
 
         template<typename typeX, typename typeY>
         struct equal_impl<integral_tag<typeX>, integral_tag<typeY> >
         {
             template<typename x, typename y>
             struct apply :
-                    integral<bool, x::value == y::value>
+                    bool_<x::value == y::value>
             {};
         };
 
