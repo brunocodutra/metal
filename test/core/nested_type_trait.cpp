@@ -4,7 +4,7 @@
 
 #include <boost/mpl2/core/limits/arity.hpp>
 #include <boost/mpl2/core/compat/variadic.hpp>
-#include <boost/mpl2/core/trait.hpp>
+#include <boost/mpl2/core/nested_type_trait.hpp>
 
 #include <boost/config.hpp>
 

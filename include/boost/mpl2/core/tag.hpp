@@ -7,7 +7,7 @@
 
 #include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/core/integral/boolean.hpp>
-#include <boost/mpl2/core/trait.hpp>
+#include <boost/mpl2/core/nested_type_trait.hpp>
 
 namespace boost
 {
