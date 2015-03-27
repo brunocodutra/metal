@@ -18,8 +18,11 @@ namespace boost
             BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_tag, tag);
 
             template<typename type, typename = typename has_tag<type>::type>
-            struct tag :
-                    identity<tag<type> >
+            struct tag;
+
+            template<typename tagged>
+            struct tag<tagged, false_>:
+                    identity<tag<tagged> >
             {};
 
             template<typename tagged>
