@@ -39,10 +39,10 @@ int main()
             !test_integral(boost::mpl2::schar_<SCHAR_MIN>())        ||
             !test_integral(boost::mpl2::wchar_t_<L' '>())           ||
 #if !defined(BOOST_NO_CXX11_CHAR16_T)
-            !test_integral(boost::mpl2::wchar_t_<u' '>())           ||
+            !test_integral(boost::mpl2::char16_t_<u' '>())          ||
 #endif
 #if !defined(BOOST_NO_CXX11_CHAR32_T)
-            !test_integral(boost::mpl2::wchar_t_<U' '>())           ||
+            !test_integral(boost::mpl2::char32_t_<U' '>())          ||
 #endif
             !test_integral(boost::mpl2::short_<SHRT_MIN>())         ||
             !test_integral(boost::mpl2::ushort_<USHRT_MAX>())       ||
