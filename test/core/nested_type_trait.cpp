@@ -3,7 +3,6 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/core/limits/arity.hpp>
-#include <boost/mpl2/core/compat/variadic.hpp>
 #include <boost/mpl2/core/nested_type_trait.hpp>
 
 #include <boost/config.hpp>
@@ -34,7 +33,7 @@ struct test15 {enum nested {};};
 struct test16 {BOOST_MPL2_DETAIL_SCOPED_ENUM nested {};};
 struct test17 {template<typename> void nested();};
 struct test18 {template<typename> struct nested;};
-struct test19 {template<BOOST_MPL2_VARIADIC_PARAMS(BOOST_MPL2_LIMIT_METAFUNCTION_ARITY, _)> struct nested;};
+struct test19 {template<typename...> struct nested;};
 struct test20 {template<bool> struct nested;};
 struct test21 {template<typename T, T> struct nested;};
 struct test22 {template<template<typename> class> struct nested;};
