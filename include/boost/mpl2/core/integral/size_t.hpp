@@ -6,7 +6,6 @@
 #define BOOST_MPL2_CORE_INTEGRAL_SIZE_T_HPP
 
 #include <boost/mpl2/core/integral.hpp>
-#include <boost/mpl2/core/compat/template_alias.hpp>
 
 #include <cstddef>
 
@@ -15,7 +14,7 @@ namespace boost
     namespace mpl2
     {
         template<std::size_t constant>
-        BOOST_MPL2_DECLARE_TEMPLATE_ALIAS(size_t_, (integral<std::size_t, constant>));
+        using size_t_ = integral<std::size_t, constant>;
     }
 }
 

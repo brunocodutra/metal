@@ -7,7 +7,6 @@
 
 #include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/integral/boolean.hpp>
-#include <boost/mpl2/core/compat/template_alias.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 
@@ -18,14 +17,14 @@ namespace boost
         namespace detail
         {
             template<typename x, typename y>
-            BOOST_MPL2_DECLARE_TEMPLATE_ALIAS(is_same, (bool_<boost::is_same<x, y>::type::value>));
+            using is_same = bool_<boost::is_same<x, y>::type::value>;
         }
 
         template<typename tagX, typename tagY>
         struct equal_impl
         {
             template<typename x, typename y>
-            BOOST_MPL2_DECLARE_TEMPLATE_ALIAS(apply, (detail::is_same<x, y>));
+            using apply = detail::is_same<x, y>;
         };
 
         template<typename x, typename y>

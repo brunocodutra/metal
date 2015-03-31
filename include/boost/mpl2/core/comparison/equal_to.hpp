@@ -7,7 +7,6 @@
 
 #include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/integral.hpp>
-#include <boost/mpl2/core/compat/template_alias.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 
@@ -22,7 +21,7 @@ namespace boost
         struct equal_to_impl<integral_tag<typeX>, integral_tag<typeY> >
         {
             template<typename x, typename y>
-            BOOST_MPL2_DECLARE_TEMPLATE_ALIAS(apply, (bool_<x::value == y::value>));
+            using apply = bool_<x::value == y::value>;
         };
 
         template<typename x, typename y>
