@@ -5,14 +5,14 @@
 #ifndef BOOST_MPL2_CORE_ASSERT_HPP
 #define BOOST_MPL2_CORE_ASSERT_HPP
 
-#include <boost/mpl2/core/detail/type.hpp>
+#include <boost/mpl2/core/detail/strip_parenthesis.hpp>
 
 #include <boost/static_assert.hpp>
 
 #define BOOST_MPL2_ASSERT(PRED) \
-    BOOST_STATIC_ASSERT(BOOST_MPL2_DETAIL_TYPE(PRED)::value)
+    BOOST_STATIC_ASSERT(BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(PRED)::value)
 
 #define BOOST_MPL2_ASSERT_MSG(PRED, MSG) \
-    BOOST_STATIC_ASSERT_MSG(BOOST_MPL2_DETAIL_TYPE(PRED)::value, MSG)
+    BOOST_STATIC_ASSERT_MSG(BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(PRED)::value, MSG)
 
 #endif

@@ -9,9 +9,9 @@
 #include <boost/preprocessor/config/config.hpp>
 
 #if defined(BOOST_NO_CXX11_TEMPLATE_ALIASES) || !defined(BOOST_PP_VARIADICS)
-    #include <boost/mpl2/core/detail/type.hpp>
+    #include <boost/mpl2/core/detail/strip_parenthesis.hpp>
     #define BOOST_MPL2_DECLARE_TEMPLATE_ALIAS(ALIAS, BASE) \
-        struct ALIAS : BOOST_MPL2_DETAIL_TYPE(BASE) {}  \
+        struct ALIAS : BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(BASE) {}  \
     /**/
 
 #else
