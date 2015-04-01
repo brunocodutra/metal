@@ -8,8 +8,6 @@
 #include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/integral.hpp>
 
-#include <boost/type_traits/is_same.hpp>
-
 namespace boost
 {
     namespace mpl2

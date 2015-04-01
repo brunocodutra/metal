@@ -8,7 +8,7 @@
 #include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/integral/boolean.hpp>
 
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 
 namespace boost
 {
@@ -17,7 +17,7 @@ namespace boost
         namespace detail
         {
             template<typename x, typename y>
-            using is_same = bool_<boost::is_same<x, y>::type::value>;
+            using is_same = bool_<std::is_same<x, y>::type::value>;
         }
 
         template<typename tagX, typename tagY>
