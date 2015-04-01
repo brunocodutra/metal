@@ -5,7 +5,6 @@
 #ifndef BOOST_MPL2_SEQUENCES_LIST_HPP
 #define BOOST_MPL2_SEQUENCES_LIST_HPP
 
-#include <boost/mpl2/core/limits/arity.hpp>
 #include <boost/mpl2/core/integral/size_t.hpp>
 #include <boost/mpl2/sequences/detail/link.hpp>
 
