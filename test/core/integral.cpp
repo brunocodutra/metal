@@ -7,7 +7,6 @@
 #include <boost/mpl2/core/assert.hpp>
 #include <boost/mpl2/core/equal.hpp>
 
-#include <boost/config.hpp>
 #include <climits>
 
 template<typename integral>
@@ -38,21 +37,15 @@ int main()
             !test_integral(boost::mpl2::uchar_<255>())              ||
             !test_integral(boost::mpl2::schar_<SCHAR_MIN>())        ||
             !test_integral(boost::mpl2::wchar_t_<L' '>())           ||
-#if !defined(BOOST_NO_CXX11_CHAR16_T)
             !test_integral(boost::mpl2::char16_t_<u' '>())          ||
-#endif
-#if !defined(BOOST_NO_CXX11_CHAR32_T)
             !test_integral(boost::mpl2::char32_t_<U' '>())          ||
-#endif
             !test_integral(boost::mpl2::short_<SHRT_MIN>())         ||
             !test_integral(boost::mpl2::ushort_<USHRT_MAX>())       ||
             !test_integral(boost::mpl2::int_<INT_MIN>())            ||
             !test_integral(boost::mpl2::uint_<UINT_MAX>())          ||
             !test_integral(boost::mpl2::long_<LONG_MIN>())          ||
             !test_integral(boost::mpl2::ulong_<ULONG_MAX>())        ||
-#if !defined(BOOST_NO_LONG_LONG)
-            !test_integral(boost::mpl2::long_long_<LONG_MIN>())     ||
-            !test_integral(boost::mpl2::ulong_long_<ULONG_MAX>())   ||
-#endif
+            !test_integral(boost::mpl2::long_long_<LLONG_MIN>())     ||
+            !test_integral(boost::mpl2::ulong_long_<ULLONG_MAX>())   ||
             !test_integral(boost::mpl2::size_t_<SIZE_MAX>());
 }

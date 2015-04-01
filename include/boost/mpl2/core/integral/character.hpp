@@ -7,8 +7,6 @@
 
 #include <boost/mpl2/core/integral.hpp>
 
-#include <boost/config.hpp>
-
 namespace boost
 {
     namespace mpl2
@@ -25,15 +23,11 @@ namespace boost
         template<wchar_t constant>
         using wchar_t_ = integral<wchar_t, constant>;
 
-#if !defined(BOOST_NO_CXX11_CHAR16_T)
         template<char16_t constant>
         using char16_t_ = integral<char16_t, constant>;
-#endif
 
-#if !defined(BOOST_NO_CXX11_CHAR32_T)
         template<char32_t constant>
         using char32_t_ = integral<char32_t, constant>;
-#endif
     }
 }
 

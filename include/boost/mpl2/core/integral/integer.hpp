@@ -7,8 +7,6 @@
 
 #include <boost/mpl2/core/integral.hpp>
 
-#include <boost/config.hpp>
-
 namespace boost
 {
     namespace mpl2
@@ -31,13 +29,11 @@ namespace boost
         template<unsigned long constant>
         using ulong_ = integral<unsigned long, constant>;
 
-#if !defined(BOOST_NO_LONG_LONG)
-        template<long_long_type constant>
-        using long_long_ = integral<long_long_type, constant>;
+        template<long long constant>
+        using long_long_ = integral<long long, constant>;
 
-        template<ulong_long_type constant>
-        using ulong_long_ = integral<ulong_long_type, constant>;
-#endif
+        template<unsigned long long constant>
+        using ulong_long_ = integral<unsigned long long, constant>;
     }
 }
 
