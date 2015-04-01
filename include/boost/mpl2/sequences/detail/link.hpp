@@ -5,13 +5,11 @@
 #ifndef BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP
 #define BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP
 
-#include <boost/mpl2/core/compat/numbered.hpp>
 #include <boost/mpl2/core/integral/size_t.hpp>
 #include <boost/mpl2/core/arithmetic/inc.hpp>
-#include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/core/ref.hpp>
 
-#include <boost/config.hpp>
+#include <utility>
 
 namespace boost
 {
@@ -22,9 +20,9 @@ namespace boost
             struct nil
             {
                 typedef size_t_<0U> size;
-#if !defined(BOOST_NO_CXX11_DECLTYPE)
-                static ref<> item(...);
-#endif
+                static ref<> item(ref<>);
+                template<typename i>
+                struct at;
             };
 
             template<typename index, typename value, typename rest>
@@ -33,33 +31,19 @@ namespace boost
             {
                 typedef inc<typename rest::size> size;
 
-#if !defined(BOOST_NO_CXX11_DECLTYPE)
-                static ref<value> item(ref<index>);
+                static ref<value> item(ref<index>&&);
                 using rest::item;
-#endif
-                template<typename i, BOOST_MPL2_OPTIONAL_PARAMS(1, _)>
+
+                template<typename i>
                 struct at;
             };
 
-#if defined(BOOST_NO_CXX11_DECLTYPE)
             template<typename index, typename value, typename rest>
-            template<typename i, typename _>
+            template<typename i>
             struct link<index, value, rest>::at :
-                    rest::template at<i>
+                    decltype(item(std::declval<ref<i> >()))
             {};
 
-            template<typename index, typename value, typename rest>
-            template<typename _>
-            struct link<index, value, rest>::at<index, _> :
-                    identity<value>
-            {};
-#else
-            template<typename index, typename value, typename rest>
-            template<typename i, typename _>
-            struct link<index, value, rest>::at :
-                    decltype(item(ref<i>()))
-            {};
-#endif
         }
     }
 }

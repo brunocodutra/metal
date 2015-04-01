@@ -5,16 +5,16 @@
 #ifndef BOOST_MPL2_CORE_REF_HPP
 #define BOOST_MPL2_CORE_REF_HPP
 
-#include <boost/mpl2/core/compat/numbered.hpp>
 #include <boost/mpl2/core/identity.hpp>
+#include <boost/mpl2/core/detail/na.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        template<BOOST_MPL2_OPTIONAL_PARAMS(1, value)>
+        template<typename T = detail::na>
         struct ref :
-                identity<BOOST_MPL2_ARGS(1, value)>
+                identity<T>
         {};
 
         //NULL
