@@ -5,8 +5,8 @@
 #ifndef BOOST_MPL2_CORE_NESTED_TYPE_TRAIT_HPP
 #define BOOST_MPL2_CORE_NESTED_TYPE_TRAIT_HPP
 
-#include <boost/mpl2/core/integral/boolean.hpp>
 #include <boost/mpl2/core/ref.hpp>
+#include <boost/mpl2/core/integral/boolean.hpp>
 
 #include <boost/preprocessor/cat.hpp>
 
@@ -14,16 +14,12 @@
     struct BOOST_PP_CAT(TRAIT, _impl) \
     { \
         template<typename T> \
-        static char (&check( \
-            boost::mpl2::ref<typename T::NESTED>* \
-        ))[1]; \
-        template<typename> \
-        static char (&check(...))[2]; \
+        static boost::mpl2::true_ check(boost::mpl2::ref<typename T::NESTED>*); \
+        template<typename T> \
+        static boost::mpl2::false_ check(...); \
         template<typename T> \
         struct apply : \
-                boost::mpl2::bool_< \
-                    sizeof(check<T>(0)) == sizeof(char(&)[1]) \
-                > \
+                decltype(check<T>(0)) \
         {}; \
     }; \
     template<typename T> \

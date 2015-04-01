@@ -4,16 +4,6 @@
 
 #include <boost/mpl2/core/nested_type_trait.hpp>
 
-#include <boost/config.hpp>
-
-#if defined(BOOST_NO_CXX11_SCOPED_ENUMS)
-    #define BOOST_MPL2_DETAIL_SCOPED_ENUM \
-        enum
-#else
-    #define BOOST_MPL2_DETAIL_SCOPED_ENUM \
-        enum struct
-#endif
-
 struct test01;
 struct test02 {};
 struct test03 {void nested();};
@@ -29,7 +19,7 @@ struct test12 {typedef void (&nested)();};
 struct test13 {typedef char nested[1];};
 struct test14 {typedef char (&nested)[1];};
 struct test15 {enum nested {};};
-struct test16 {BOOST_MPL2_DETAIL_SCOPED_ENUM nested {};};
+struct test16 {enum class nested {};};
 struct test17 {template<typename> void nested();};
 struct test18 {template<typename> struct nested;};
 struct test19 {template<typename...> struct nested;};
@@ -64,5 +54,3 @@ int main()
             has_nested<test21>() ||
             has_nested<test22>();
 }
-
-#undef BOOST_MPL2_DETAIL_SCOPED_ENUM
