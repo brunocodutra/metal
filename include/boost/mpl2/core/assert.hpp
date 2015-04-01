@@ -7,12 +7,10 @@
 
 #include <boost/mpl2/core/detail/strip_parenthesis.hpp>
 
-#include <boost/static_assert.hpp>
+#define BOOST_MPL2_ASSERT_MSG(PRED, MSG) \
+    static_assert(BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(PRED)::value, MSG)
 
 #define BOOST_MPL2_ASSERT(PRED) \
-    BOOST_STATIC_ASSERT(BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(PRED)::value)
-
-#define BOOST_MPL2_ASSERT_MSG(PRED, MSG) \
-    BOOST_STATIC_ASSERT_MSG(BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(PRED)::value, MSG)
+    BOOST_MPL2_ASSERT_MSG(PRED, #PRED)
 
 #endif
