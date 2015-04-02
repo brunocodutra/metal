@@ -8,17 +8,16 @@
 #include <boost/mpl2/integrals/integer.hpp>
 #include <boost/mpl2/integrals/size_t.hpp>
 #include <boost/mpl2/core/assert.hpp>
-#include <boost/mpl2/core/equal.hpp>
 
+#include <type_traits>
 #include <climits>
 
 template<typename integral>
 bool test_integral(integral const& constant)
 {
-    using boost::mpl2::equal;
     using boost::mpl2::bool_;
 
-    BOOST_MPL2_ASSERT((equal<typename integral::type::value_type, typename integral::value_type>));
+    BOOST_MPL2_ASSERT((std::is_same<typename integral::type::value_type, typename integral::value_type>));
     BOOST_MPL2_ASSERT(bool_<integral::type::value == integral::value>);
 
     return integral::value == constant;

@@ -6,8 +6,9 @@
 #define BOOST_MPL2_CORE_VOID_HPP
 
 #include <boost/mpl2/integrals/logical/not.hpp>
-#include <boost/mpl2/core/equal.hpp>
 #include <boost/mpl2/core/identity.hpp>
+
+#include <type_traits>
 
 namespace boost
 {
@@ -18,7 +19,7 @@ namespace boost
         {};
 
         template<typename x>
-        using is_void_ = equal<x, void_>;
+        using is_void_ = std::is_same<x, void_>;
     }
 }
 

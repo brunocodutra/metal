@@ -2,11 +2,11 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_MPL2_CORE_EQUAL_HPP
-#define BOOST_MPL2_CORE_EQUAL_HPP
+#ifndef BOOST_MPL2_SEQUENCES_EQUAL_HPP
+#define BOOST_MPL2_SEQUENCES_EQUAL_HPP
 
-#include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/integrals/boolean.hpp>
+#include <boost/mpl2/sequences/tag.hpp>
 
 #include <type_traits>
 

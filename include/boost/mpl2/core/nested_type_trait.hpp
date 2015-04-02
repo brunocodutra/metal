@@ -5,8 +5,8 @@
 #ifndef BOOST_MPL2_CORE_NESTED_TYPE_TRAIT_HPP
 #define BOOST_MPL2_CORE_NESTED_TYPE_TRAIT_HPP
 
-#include <boost/mpl2/core/ref.hpp>
 #include <boost/mpl2/integrals/boolean.hpp>
+#include <boost/mpl2/core/ref.hpp>
 
 #define BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(TRAIT, NESTED) \
     struct TRAIT##_impl \
