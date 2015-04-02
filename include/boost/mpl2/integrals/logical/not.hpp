@@ -11,8 +11,8 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename n>
-        using not_ = integral<bool, !n::value>;
+        template<typename x>
+        using not_ = integral<bool, !x::value>;
     }
 }
 

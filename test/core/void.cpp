@@ -10,16 +10,12 @@ int main()
 {
     using boost::mpl2::void_;
     using boost::mpl2::is_void_;
-    using boost::mpl2::is_not_void_;
     using boost::mpl2::not_;
 
     BOOST_MPL2_ASSERT(is_void_<void_>);
     BOOST_MPL2_ASSERT(is_void_<void_::type>);
     BOOST_MPL2_ASSERT(not_<is_void_<void> >);
-    BOOST_MPL2_ASSERT(is_not_void_<void>);
-    BOOST_MPL2_ASSERT(not_<is_not_void_<void_> >);
-    BOOST_MPL2_ASSERT(not_<is_not_void_<void_::type> >);
 
 
-    return is_void_<void>() || is_not_void_<void_>();
+    return is_void_<void>();
 }

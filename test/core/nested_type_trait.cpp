@@ -24,7 +24,7 @@ struct test17 {template<typename> void nested();};
 struct test18 {template<typename> struct nested;};
 struct test19 {template<typename...> struct nested;};
 struct test20 {template<bool> struct nested;};
-struct test21 {template<typename T, T> struct nested;};
+struct test21 {template<typename type, type> struct nested;};
 struct test22 {template<template<typename> class> struct nested;};
 
 BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_nested, nested);

@@ -5,7 +5,8 @@
 #ifndef BOOST_MPL2_CORE_VOID_HPP
 #define BOOST_MPL2_CORE_VOID_HPP
 
-#include <boost/mpl2/integrals/boolean.hpp>
+#include <boost/mpl2/integrals/logical/not.hpp>
+#include <boost/mpl2/core/equal.hpp>
 #include <boost/mpl2/core/identity.hpp>
 
 namespace boost
@@ -16,25 +17,8 @@ namespace boost
                 identity<void_>
         {};
 
-        template<typename>
-        struct is_void_ :
-                false_
-        {};
-
-        template<>
-        struct is_void_<void_> :
-                true_
-        {};
-
-        template<typename>
-        struct is_not_void_ :
-                true_
-        {};
-
-        template<>
-        struct is_not_void_<void_> :
-                false_
-        {};
+        template<typename x>
+        using is_void_ = equal<x, void_>;
     }
 }
 

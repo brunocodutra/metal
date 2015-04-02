@@ -16,15 +16,15 @@ namespace boost
             template<typename>
             struct strip_parenthesis;
 
-            template<typename T>
-            struct strip_parenthesis<void (T)> :
-                identity<T>
+            template<typename x>
+            struct strip_parenthesis<void (x)> :
+                identity<x>
             {};
         }
     }
 }
 
-#define BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(T) \
-    boost::mpl2::detail::strip_parenthesis<void (T)>::type
+#define BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(x) \
+    boost::mpl2::detail::strip_parenthesis<void (x)>::type
 
 #endif

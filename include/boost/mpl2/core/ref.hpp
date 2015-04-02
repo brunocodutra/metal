@@ -12,9 +12,9 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename T = detail::na>
+        template<typename x = detail::na>
         struct ref :
-                identity<T>
+                identity<x>
         {};
 
         //NULL

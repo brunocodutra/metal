@@ -11,10 +11,10 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename n>
+        template<typename x>
         using inc = integral<
-            typename n::value_type,
-            static_cast<typename n::value_type>(n::value + 1)
+            typename x::value_type,
+            static_cast<typename x::value_type>(x::value + 1)
         >;
     }
 }

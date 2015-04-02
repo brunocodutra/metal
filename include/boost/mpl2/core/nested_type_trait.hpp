@@ -8,24 +8,18 @@
 #include <boost/mpl2/core/ref.hpp>
 #include <boost/mpl2/integrals/boolean.hpp>
 
-#include <boost/preprocessor/cat.hpp>
-
 #define BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(TRAIT, NESTED) \
-    struct BOOST_PP_CAT(TRAIT, _impl) \
+    struct TRAIT##_impl \
     { \
-        template<typename T> \
-        static boost::mpl2::true_ check(boost::mpl2::ref<typename T::NESTED>*); \
-        template<typename T> \
+        template<typename x> \
+        static boost::mpl2::true_ check(boost::mpl2::ref<typename x::NESTED>*); \
+        template<typename x> \
         static boost::mpl2::false_ check(...); \
-        template<typename T> \
-        struct apply : \
-                decltype(check<T>(0)) \
-        {}; \
+        template<typename x> \
+        using apply = decltype(check<x>(0)); \
     }; \
-    template<typename T> \
-    struct TRAIT : \
-            BOOST_PP_CAT(TRAIT, _impl)::template apply<T> \
-    {} \
+    template<typename x> \
+    using TRAIT = TRAIT##_impl::template apply<x> \
 /**/
 
 #endif
