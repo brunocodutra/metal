@@ -5,13 +5,17 @@
 #ifndef BOOST_MPL2_CORE_ARITHMETIC_INC_HPP
 #define BOOST_MPL2_CORE_ARITHMETIC_INC_HPP
 
-#include <boost/mpl2/core/arithmetic/detail/unary.hpp>
+#include <boost/mpl2/core/integral.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        BOOST_MPL2_DETAIL_DEFINE_UNARY_ARITHMETIC_OPERATION(inc, 1 + );
+        template<typename n>
+        using inc = integral<
+            typename n::value_type,
+            static_cast<typename n::value_type>(n::value + 1)
+        >;
     }
 }
 

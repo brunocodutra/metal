@@ -5,29 +5,14 @@
 #ifndef BOOST_MPL2_CORE_LOGICAL_NOT_HPP
 #define BOOST_MPL2_CORE_LOGICAL_NOT_HPP
 
-#include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/integral.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        template<typename tag>
-        struct not_impl;
-
-        template<typename type>
-        struct not_impl<integral_tag<type> >
-        {
-            template<typename n>
-            struct apply :
-                    bool_<!static_cast<bool>(n::value)>
-            {};
-        };
-
         template<typename n>
-        struct not_ :
-                not_impl<typename tag<n>::type>::template apply<n>
-        {};
+        using not_ = integral<bool, !n::value>;
     }
 }
 

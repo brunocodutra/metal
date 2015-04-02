@@ -13,8 +13,6 @@ int main()
     using boost::mpl2::dec;
     using boost::mpl2::negate;
     using boost::mpl2::equal_to;
-    using boost::mpl2::true_;
-    using boost::mpl2::false_;
 
     typedef boost::mpl2::int_<0> zero;
     typedef boost::mpl2::int_<1> one;
@@ -26,8 +24,6 @@ int main()
     BOOST_MPL2_ASSERT((equal_to<negate<zero>, zero>));
     BOOST_MPL2_ASSERT((equal_to<inc<negate<one> >, zero>));
     BOOST_MPL2_ASSERT((equal_to<negate<negate<one> >, one>));
-    BOOST_MPL2_ASSERT(negate<false_>);
-    BOOST_MPL2_ASSERT(negate<negate<true_> >);
 
     return negate<zero>() || dec<one>() || inc<negate<one> >();
 }

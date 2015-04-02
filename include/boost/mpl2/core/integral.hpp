@@ -5,27 +5,14 @@
 #ifndef BOOST_MPL2_CORE_INTEGRAL_HPP
 #define BOOST_MPL2_CORE_INTEGRAL_HPP
 
+#include <type_traits>
+
 namespace boost
 {
     namespace mpl2
     {
-        template<typename>
-        struct integral_tag;
-
-        template<typename integral_type, integral_type constant>
-        struct integral
-        {
-            typedef integral                    type;
-            typedef integral_type               value_type;
-            typedef integral_tag<value_type>    tag;
-
-            static constexpr value_type value = constant;
-
-            constexpr operator value_type () const
-            {
-                return value;
-            }
-        };
+        template<typename value_type, value_type value>
+        using integral = std::integral_constant<value_type, value>;
     }
 }
 

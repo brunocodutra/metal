@@ -14,17 +14,11 @@ namespace boost
 {
     namespace mpl2
     {
-        namespace detail
-        {
-            template<typename x, typename y>
-            using is_same = bool_<std::is_same<x, y>::type::value>;
-        }
-
         template<typename tagX, typename tagY>
         struct equal_impl
         {
             template<typename x, typename y>
-            using apply = detail::is_same<x, y>;
+            using apply = bool_<std::is_same<x, y>::value>;
         };
 
         template<typename x, typename y>

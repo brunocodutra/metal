@@ -3,7 +3,6 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/core/integral.hpp>
-#include <boost/mpl2/core/tag.hpp>
 #include <boost/mpl2/core/assert.hpp>
 #include <boost/mpl2/core/equal.hpp>
 
@@ -12,11 +11,9 @@
 template<typename integral>
 bool test_integral(integral const& constant)
 {
-    using boost::mpl2::tag;
     using boost::mpl2::equal;
     using boost::mpl2::bool_;
 
-    BOOST_MPL2_ASSERT((equal<typename tag<typename integral::type>::type, typename tag<integral>::type>));
     BOOST_MPL2_ASSERT((equal<typename integral::type::value_type, typename integral::value_type>));
     BOOST_MPL2_ASSERT(bool_<integral::type::value == integral::value>);
 
