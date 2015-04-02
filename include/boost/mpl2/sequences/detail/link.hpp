@@ -7,7 +7,7 @@
 
 #include <boost/mpl2/integrals/size_t.hpp>
 #include <boost/mpl2/integrals/arithmetic/inc.hpp>
-#include <boost/mpl2/core/ref.hpp>
+#include <boost/mpl2/sequences/detail/ref.hpp>
 
 #include <utility>
 
