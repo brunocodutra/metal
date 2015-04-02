@@ -4,7 +4,7 @@
 
 #include <boost/mpl2/core/void.hpp>
 #include <boost/mpl2/core/assert.hpp>
-#include <boost/mpl2/core/logical/not.hpp>
+#include <boost/mpl2/integrals/logical/not.hpp>
 
 int main()
 {

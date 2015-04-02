@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_CORE_VOID_HPP
 #define BOOST_MPL2_CORE_VOID_HPP
 
-#include <boost/mpl2/core/integral/boolean.hpp>
+#include <boost/mpl2/integrals/boolean.hpp>
 #include <boost/mpl2/core/identity.hpp>
 
 namespace boost

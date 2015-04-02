@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/core/identity.hpp>
-#include <boost/mpl2/core/integral/boolean.hpp>
+#include <boost/mpl2/integrals/boolean.hpp>
 
 int main()
 {

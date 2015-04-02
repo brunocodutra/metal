@@ -6,7 +6,7 @@
 #define BOOST_MPL2_CORE_TAG_HPP
 
 #include <boost/mpl2/core/identity.hpp>
-#include <boost/mpl2/core/integral/boolean.hpp>
+#include <boost/mpl2/integrals/boolean.hpp>
 #include <boost/mpl2/core/nested_type_trait.hpp>
 
 namespace boost

@@ -6,7 +6,7 @@
 #define BOOST_MPL2_CORE_NESTED_TYPE_TRAIT_HPP
 
 #include <boost/mpl2/core/ref.hpp>
-#include <boost/mpl2/core/integral/boolean.hpp>
+#include <boost/mpl2/integrals/boolean.hpp>
 
 #include <boost/preprocessor/cat.hpp>
 

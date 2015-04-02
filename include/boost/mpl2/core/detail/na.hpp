@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_CORE_DETAIL_NA_HPP
 #define BOOST_MPL2_CORE_DETAIL_NA_HPP
 
-#include <boost/mpl2/core/integral/boolean.hpp>
+#include <boost/mpl2/integrals/boolean.hpp>
 
 namespace boost
 {

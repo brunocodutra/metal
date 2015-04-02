@@ -6,7 +6,7 @@
 #define BOOST_MPL2_CORE_EQUAL_HPP
 
 #include <boost/mpl2/core/tag.hpp>
-#include <boost/mpl2/core/integral/boolean.hpp>
+#include <boost/mpl2/integrals/boolean.hpp>
 
 #include <type_traits>
 
