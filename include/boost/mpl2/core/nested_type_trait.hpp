@@ -8,19 +8,23 @@
 #include <boost/mpl2/integrals/boolean.hpp>
 
 #define BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(TRAIT, NESTED) \
-    struct TRAIT##_impl \
+    template<typename x> \
+    struct TRAIT \
     { \
         template<typename> \
         struct type_wrapper; \
-        template<typename x> \
-        static boost::mpl2::true_ check(type_wrapper<typename x::NESTED>*); \
-        template<typename x> \
+        template<typename y> \
+        static boost::mpl2::true_ check(type_wrapper<typename y::NESTED>*); \
+        template<typename> \
         static boost::mpl2::false_ check(...); \
-        template<typename x> \
-        using apply = decltype(check<x>(0)); \
+        using type = decltype(check<x>(0)); \
+        using value_type = typename type::value_type; \
+        static constexpr value_type value = type::value; \
+        constexpr operator value_type() const noexcept {return value;} \
+        constexpr value_type operator()() const noexcept {return value;} \
     }; \
     template<typename x> \
-    using TRAIT = TRAIT##_impl::template apply<x> \
+    using TRAIT##_t = typename TRAIT<x>::type \
 /**/
 
 #endif
