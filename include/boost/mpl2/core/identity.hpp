@@ -12,8 +12,11 @@ namespace boost
         template<typename x>
         struct identity
         {
-            typedef x type;
+            using type = x;
         };
+
+        template<typename x>
+        using identity_t = typename identity<x>::type;
     }
 }
 

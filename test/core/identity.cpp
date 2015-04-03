@@ -3,9 +3,19 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/core/identity.hpp>
-#include <boost/mpl2/integrals/boolean.hpp>
+#include <boost/mpl2/core/assert.hpp>
+
+#include <type_traits>
 
 int main()
 {
-    return !boost::mpl2::identity<boost::mpl2::true_>::type();
+    using boost::mpl2::identity;
+    using boost::mpl2::identity_t;
+
+    struct x;
+
+    BOOST_MPL2_ASSERT((std::is_same<identity<x>::type, x>));
+    BOOST_MPL2_ASSERT((std::is_same<identity_t<x>, x>));
+
+    return 0;
 }
