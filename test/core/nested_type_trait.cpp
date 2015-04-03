@@ -67,14 +67,20 @@ BOOST_MPL2_DETAIL_NO_NESTED(test_static_member);
 struct test_member_function {void nested();};
 BOOST_MPL2_DETAIL_NO_NESTED(test_member_function);
 
+struct test_template_member_function {template<typename> void nested();};
+BOOST_MPL2_DETAIL_NO_NESTED(test_template_member_function);
+
 struct test_static_member_function {static void nested();};
 BOOST_MPL2_DETAIL_NO_NESTED(test_static_member_function);
+
+struct test_static_template_member_function {template<typename...> static void nested();};
+BOOST_MPL2_DETAIL_NO_NESTED(test_static_template_member_function);
 
 struct test_nested_alias {using nested = void;};
 BOOST_MPL2_DETAIL_HAS_NESTED(test_nested_alias);
 
-struct test_nested_template_function_alias {template<typename> using nested = int;};
-BOOST_MPL2_DETAIL_NO_NESTED(test_nested_template_function_alias);
+struct test_nested_template_alias {template<typename> using nested = int;};
+BOOST_MPL2_DETAIL_NO_NESTED(test_nested_template_alias);
 
 struct test_nested_struct {struct nested;};
 BOOST_MPL2_DETAIL_HAS_NESTED(test_nested_struct);
@@ -82,11 +88,20 @@ BOOST_MPL2_DETAIL_HAS_NESTED(test_nested_struct);
 struct test_nested_function_alias {using nested = void();};
 BOOST_MPL2_DETAIL_HAS_NESTED(test_nested_function_alias);
 
+struct test_nested_template_function_alias {template<typename> using nested = void();};
+BOOST_MPL2_DETAIL_NO_NESTED(test_nested_template_function_alias);
+
 struct test_nested_function_pointer_alias {using nested = void(*)();};
 BOOST_MPL2_DETAIL_HAS_NESTED(test_nested_function_pointer_alias);
 
+struct test_nested_template_function_pointer_alias {template<typename> using nested = void(*)();};
+BOOST_MPL2_DETAIL_NO_NESTED(test_nested_template_function_pointer_alias);
+
 struct test_nested_function_reference_alias {using nested = void(&)();};
 BOOST_MPL2_DETAIL_HAS_NESTED(test_nested_function_reference_alias);
+
+struct test_nested_template_function_reference_alias {template<typename> using nested = void(&)();};
+BOOST_MPL2_DETAIL_NO_NESTED(test_nested_template_function_reference_alias);
 
 struct test_nested_array_alias {typedef char nested[1];};
 BOOST_MPL2_DETAIL_HAS_NESTED(test_nested_array_alias);
@@ -102,9 +117,6 @@ BOOST_MPL2_DETAIL_HAS_NESTED(test_nested_enum_class);
 
 struct test_nested_enum_value {enum {nested};};
 BOOST_MPL2_DETAIL_NO_NESTED(test_nested_enum_value);
-
-struct test_nested_template_function {template<typename> void nested();};
-BOOST_MPL2_DETAIL_NO_NESTED(test_nested_template_function);
 
 struct test_nested_template {template<typename> struct nested;};
 BOOST_MPL2_DETAIL_NO_NESTED(test_nested_template);
