@@ -14,6 +14,7 @@
 
 int main()
 {
+    using boost::mpl2::if_;
     using boost::mpl2::if_t;
     using boost::mpl2::true_;
     using boost::mpl2::false_;
@@ -24,6 +25,8 @@ int main()
     using tautology = boost::mpl2::char_<'c'>;
     using contradiction = boost::mpl2::ulong_<0UL>;
 
+    BOOST_MPL2_ASSERT((std::is_same<if_<true_, x, y>::type, x>));
+    BOOST_MPL2_ASSERT((std::is_same<if_<false_, x, y>::type, y>));
     BOOST_MPL2_ASSERT((std::is_same<if_t<true_, x, y>, x>));
     BOOST_MPL2_ASSERT((std::is_same<if_t<false_, x, y>, y>));
     BOOST_MPL2_ASSERT((if_t<tautology, true_, false_>));
