@@ -25,13 +25,6 @@ namespace boost
                 using type = apply<always<param>, args...>;
             };
 
-            template<typename param>
-            struct parse<protect<param> >
-            {
-                template<typename... args>
-                using type = apply<always<protect<param> >, args...>;
-            };
-
             template<std::size_t n>
             struct parse<arg<n> >
             {
