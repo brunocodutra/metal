@@ -11,12 +11,14 @@
     template<typename x> \
     struct TRAIT \
     { \
+    private: \
         template<typename> \
         struct type_wrapper; \
         template<typename y> \
         static boost::mpl2::true_ check(type_wrapper<typename y::NESTED>*); \
         template<typename> \
         static boost::mpl2::false_ check(...); \
+    public: \
         using type = decltype(check<x>(0)); \
         using value_type = typename type::value_type; \
         static constexpr value_type value = type::value; \
