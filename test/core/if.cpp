@@ -11,22 +11,22 @@
 
 #include <type_traits>
 
+using boost::mpl2::if_;
+using boost::mpl2::true_;
+using boost::mpl2::false_;
+
+struct x;
+struct y;
+
+using tautology = boost::mpl2::char_<'c'>;
+using contradiction = boost::mpl2::ulong_<0UL>;
+
+BOOST_MPL2_ASSERT((std::is_same<if_<true_, x, y>::type, x>));
+BOOST_MPL2_ASSERT((std::is_same<if_<false_, x, y>::type, y>));
+BOOST_MPL2_ASSERT((if_<tautology, true_, false_>::type));
+BOOST_MPL2_ASSERT((if_<contradiction, false_, true_>::type));
+
 int main()
 {
-    using boost::mpl2::if_;
-    using boost::mpl2::true_;
-    using boost::mpl2::false_;
-
-    struct x;
-    struct y;
-
-    using tautology = boost::mpl2::char_<'c'>;
-    using contradiction = boost::mpl2::ulong_<0UL>;
-
-    BOOST_MPL2_ASSERT((std::is_same<if_<true_, x, y>::type, x>));
-    BOOST_MPL2_ASSERT((std::is_same<if_<false_, x, y>::type, y>));
-    BOOST_MPL2_ASSERT((if_<tautology, true_, false_>::type));
-    BOOST_MPL2_ASSERT((if_<contradiction, false_, true_>::type));
-
     return 0;
 }

@@ -7,11 +7,11 @@
 
 #include <type_traits>
 
+using boost::mpl2::identity;
+
+BOOST_MPL2_ASSERT((std::is_same<identity<void>::type, void>));
+
 int main()
 {
-    using boost::mpl2::identity;
-
-    BOOST_MPL2_ASSERT((std::is_same<identity<void>::type, void>));
-
     return 0;
 }

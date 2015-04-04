@@ -12,15 +12,15 @@ BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_nested, nested);
 #define BOOST_MPL2_DETAIL_HAS_NESTED(X) \
     BOOST_MPL2_ASSERT(has_nested<X>); \
     BOOST_MPL2_ASSERT(has_nested<X>::type); \
-    static_assert(has_nested<X>{}, "has_nested<X>{}"); \
-    static_assert(has_nested<X>{}(), "has_nested<X>{}()") \
+    BOOST_MPL2_ASSERT_EXPR(has_nested<X>{}); \
+    BOOST_MPL2_ASSERT_EXPR(has_nested<X>{}()) \
 /**/
 
 #define BOOST_MPL2_DETAIL_NO_NESTED(X) \
     BOOST_MPL2_ASSERT(boost::mpl2::not_<has_nested<X> >); \
     BOOST_MPL2_ASSERT(boost::mpl2::not_<has_nested<X>::type>); \
-    static_assert(!has_nested<X>{}, "!has_nested<X>{}"); \
-    static_assert(!has_nested<X>{}(), "!has_nested<X>{}()") \
+    BOOST_MPL2_ASSERT_EXPR(!has_nested<X>{}); \
+    BOOST_MPL2_ASSERT_EXPR(!has_nested<X>{}()) \
 /**/
 
 BOOST_MPL2_DETAIL_NO_NESTED(int);

@@ -12,15 +12,15 @@ BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(has_nested_template, nested);
 #define BOOST_MPL2_DETAIL_HAS_NESTED_TEMPLATE(X) \
     BOOST_MPL2_ASSERT(has_nested_template<X>); \
     BOOST_MPL2_ASSERT(has_nested_template<X>::type); \
-    static_assert(has_nested_template<X>{}, "has_nested_template<X>{}"); \
-    static_assert(has_nested_template<X>{}(), "has_nested_template<X>{}()") \
+    BOOST_MPL2_ASSERT_EXPR(has_nested_template<X>{}); \
+    BOOST_MPL2_ASSERT_EXPR(has_nested_template<X>{}()) \
 /**/
 
 #define BOOST_MPL2_DETAIL_NO_NESTED_TEMPLATE(X) \
     BOOST_MPL2_ASSERT(boost::mpl2::not_<has_nested_template<X> >); \
     BOOST_MPL2_ASSERT(boost::mpl2::not_<has_nested_template<X>::type>); \
-    static_assert(!has_nested_template<X>{}, "!has_nested_template<X>{}"); \
-    static_assert(!has_nested_template<X>{}(), "!has_nested_template<X>{}()") \
+    BOOST_MPL2_ASSERT_EXPR(!has_nested_template<X>{}); \
+    BOOST_MPL2_ASSERT_EXPR(!has_nested_template<X>{}()) \
 /**/
 
 BOOST_MPL2_DETAIL_NO_NESTED_TEMPLATE(int);

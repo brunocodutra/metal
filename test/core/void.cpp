@@ -6,16 +6,15 @@
 #include <boost/mpl2/core/assert.hpp>
 #include <boost/mpl2/integrals/logical/not.hpp>
 
+using boost::mpl2::void_;
+using boost::mpl2::is_void_;
+using boost::mpl2::not_;
+
+BOOST_MPL2_ASSERT(is_void_<void_>);
+BOOST_MPL2_ASSERT(is_void_<void_::type>);
+BOOST_MPL2_ASSERT(not_<is_void_<void> >);
+
 int main()
 {
-    using boost::mpl2::void_;
-    using boost::mpl2::is_void_;
-    using boost::mpl2::not_;
-
-    BOOST_MPL2_ASSERT(is_void_<void_>);
-    BOOST_MPL2_ASSERT(is_void_<void_::type>);
-    BOOST_MPL2_ASSERT(not_<is_void_<void> >);
-
-
-    return is_void_<void>();
+    return 0;
 }

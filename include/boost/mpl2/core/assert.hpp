@@ -13,4 +13,10 @@
 #define BOOST_MPL2_ASSERT(PRED) \
     BOOST_MPL2_ASSERT_MSG(PRED, #PRED)
 
+#define BOOST_MPL2_ASSERT_EXPR_MSG(EXPR, MSG) \
+    static_assert(EXPR, MSG)
+
+#define BOOST_MPL2_ASSERT_EXPR(EXPR) \
+    static_assert(EXPR, #EXPR)
+
 #endif
