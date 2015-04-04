@@ -23,4 +23,6 @@ BOOST_MPL2_ASSERT((
 ));
 
 int main()
-{};
+{
+    return 0;
+}

@@ -30,4 +30,6 @@ using thrice = protect<bind<once, arg<1>, bind<twice, arg<1>, arg<2> > > >;
 BOOST_MPL2_ASSERT((std::is_same<apply<thrice, quote<std::add_pointer>, void>::type, void***>));
 
 int main()
-{};
+{
+    return 0;
+}
