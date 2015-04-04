@@ -7,7 +7,7 @@
 
 #include <boost/mpl2/core/arg.hpp>
 #include <boost/mpl2/core/protect.hpp>
-#include <boost/mpl2/core/invariant.hpp>
+#include <boost/mpl2/core/always.hpp>
 #include <boost/mpl2/core/apply.hpp>
 
 namespace boost
@@ -22,14 +22,14 @@ namespace boost
             struct parse
             {
                 template<typename... args>
-                using type = apply<invariant<param>, args...>;
+                using type = apply<always<param>, args...>;
             };
 
             template<typename param>
             struct parse<protect<param> >
             {
                 template<typename... args>
-                using type = apply<invariant<protect<param> >, args...>;
+                using type = apply<always<protect<param> >, args...>;
             };
 
             template<std::size_t n>
