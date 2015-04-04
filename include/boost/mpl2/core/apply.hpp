@@ -10,7 +10,9 @@ namespace boost
     namespace mpl2
     {
         template<typename f, typename... args>
-        using apply = typename f::template type<args...>;
+        struct apply :
+                f::template type<args...>
+        {};
     }
 }
 

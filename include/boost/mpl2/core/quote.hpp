@@ -12,8 +12,15 @@ namespace boost
         template<template<typename...> class f>
         struct quote
         {
+        private:
             template<typename... args>
-            using type = f<args...>;
+            struct type_ :
+                    f<args...>
+            {};
+
+        public:
+            template<typename... args>
+            using type = type_<args...>;
         };
     }
 }
