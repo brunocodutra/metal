@@ -14,9 +14,6 @@ namespace boost
         {
             using type = x;
         };
-
-        template<typename x>
-        using identity_t = typename identity<x>::type;
     }
 }
 

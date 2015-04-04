@@ -13,9 +13,6 @@ namespace boost
     {
         template<typename cond, typename yes, typename no>
         using if_ = std::conditional<!!cond::value, yes, no>;
-
-        template<typename cond, typename yes, typename no>
-        using if_t = typename if_<cond, yes, no>::type;
     }
 }
 

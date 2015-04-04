@@ -7,7 +7,6 @@
 #include <boost/mpl2/integrals/character.hpp>
 #include <boost/mpl2/integrals/logical/not.hpp>
 #include <boost/mpl2/core/if.hpp>
-#include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/core/assert.hpp>
 
 #include <type_traits>
@@ -15,7 +14,6 @@
 int main()
 {
     using boost::mpl2::if_;
-    using boost::mpl2::if_t;
     using boost::mpl2::true_;
     using boost::mpl2::false_;
 
@@ -27,10 +25,8 @@ int main()
 
     BOOST_MPL2_ASSERT((std::is_same<if_<true_, x, y>::type, x>));
     BOOST_MPL2_ASSERT((std::is_same<if_<false_, x, y>::type, y>));
-    BOOST_MPL2_ASSERT((std::is_same<if_t<true_, x, y>, x>));
-    BOOST_MPL2_ASSERT((std::is_same<if_t<false_, x, y>, y>));
-    BOOST_MPL2_ASSERT((if_t<tautology, true_, false_>));
-    BOOST_MPL2_ASSERT((if_t<contradiction, false_, true_>));
+    BOOST_MPL2_ASSERT((if_<tautology, true_, false_>::type));
+    BOOST_MPL2_ASSERT((if_<contradiction, false_, true_>::type));
 
     return 0;
 }

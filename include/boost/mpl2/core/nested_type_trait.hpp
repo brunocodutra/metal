@@ -22,9 +22,7 @@
         static constexpr value_type value = type::value; \
         constexpr operator value_type() const noexcept {return value;} \
         constexpr value_type operator()() const noexcept {return value;} \
-    }; \
-    template<typename x> \
-    using TRAIT##_t = typename TRAIT<x>::type \
+    } \
 /**/
 
 #endif

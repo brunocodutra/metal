@@ -10,12 +10,8 @@
 int main()
 {
     using boost::mpl2::identity;
-    using boost::mpl2::identity_t;
 
-    struct x;
-
-    BOOST_MPL2_ASSERT((std::is_same<identity<x>::type, x>));
-    BOOST_MPL2_ASSERT((std::is_same<identity_t<x>, x>));
+    BOOST_MPL2_ASSERT((std::is_same<identity<void>::type, void>));
 
     return 0;
 }
