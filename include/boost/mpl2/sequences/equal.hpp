@@ -6,6 +6,7 @@
 #define BOOST_MPL2_SEQUENCES_EQUAL_HPP
 
 #include <boost/mpl2/integrals/boolean.hpp>
+#include <boost/mpl2/core/apply.hpp>
 #include <boost/mpl2/sequences/tag.hpp>
 
 #include <type_traits>
@@ -18,12 +19,12 @@ namespace boost
         struct equal_impl
         {
             template<typename x, typename y>
-            using apply = bool_<std::is_same<x, y>::value>;
+            using type = bool_<std::is_same<x, y>::value>;
         };
 
         template<typename x, typename y>
         struct equal :
-                equal_impl<typename tag<x>::type, typename tag<y>::type>::template apply<x, y>
+                apply<equal_impl<typename tag<x>::type, typename tag<y>::type>, x, y>
         {};
     }
 }
