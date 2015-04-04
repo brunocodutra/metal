@@ -9,9 +9,9 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename f, typename... args>
+        template<typename nullfctnl, typename... args>
         struct apply :
-                f::template type<args...>
+                nullfctnl::template type<args...>
         {};
     }
 }

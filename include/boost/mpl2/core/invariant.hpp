@@ -14,7 +14,7 @@ namespace boost
         template<typename x>
         struct invariant
         {
-            template<typename... args>
+            template<typename...>
             using type = identity<x>;
         };
     }
