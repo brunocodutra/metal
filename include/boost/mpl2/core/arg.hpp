@@ -6,6 +6,7 @@
 #define BOOST_MPL2_CORE_ARG_HPP
 
 #include <boost/mpl2/core/identity.hpp>
+#include <boost/mpl2/core/apply.hpp>
 
 #include <cstddef>
 
@@ -16,20 +17,29 @@ namespace boost
         template<std::size_t n>
         struct arg
         {
+        private:
             template<typename head, typename... tail>
             struct type_ :
-                    arg<n - 1>::template type<tail...>
+                    apply<arg<n - 1>, tail...>
             {};
 
-            template<typename head, typename... tail>
-            using type = type_<head, tail...>;
+        public:
+            template<typename... args>
+            using type = type_<args...>;
         };
 
         template<>
         struct arg<1>
         {
+        private:
             template<typename head, typename... tail>
-            using type = identity<head>;
+            struct type_ :
+                    identity<head>
+            {};
+
+        public:
+            template<typename... args>
+            using type = type_<args...>;
         };
 
         template<>
