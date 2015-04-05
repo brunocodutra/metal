@@ -5,14 +5,14 @@
 #ifndef BOOST_MPL2_INTEGRALS_LOGICAL_NOT_HPP
 #define BOOST_MPL2_INTEGRALS_LOGICAL_NOT_HPP
 
-#include <boost/mpl2/integrals/integral.hpp>
+#include <boost/mpl2/integrals/boolean.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
         template<typename x>
-        using not_ = integral<bool, !x::value>;
+        using not_ = bool_<not x::value>;
     }
 }
 

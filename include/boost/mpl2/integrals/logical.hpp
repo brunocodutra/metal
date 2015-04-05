@@ -6,5 +6,7 @@
 #define BOOST_MPL2_INTEGRALS_LOGICAL_HPP
 
 #include <boost/mpl2/integrals/logical/not.hpp>
+#include <boost/mpl2/integrals/logical/or.hpp>
+#include <boost/mpl2/integrals/logical/and.hpp>
 
 #endif
