@@ -1,0 +1,42 @@
+# Copyright Bruno Dutra 2015
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+
+language: cpp   
+os: linux
+sudo: required
+
+env:
+     matrix:
+        - CXX=g++       GCC_VERSION=4.7
+        - CXX=g++       GCC_VERSION=4.8
+        - CXX=g++       GCC_VERSION=4.9
+        - CXX=clang++   CLANG_VERSION=3.2
+        - CXX=clang++   CLANG_VERSION=3.3
+        - CXX=clang++   CLANG_VERSION=3.4
+        - CXX=clang++   CLANG_VERSION=3.5
+        - CXX=clang++   CLANG_VERSION=3.6
+        - CXX=clang++   CLANG_VERSION=3.7
+    
+before_install:
+    - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+    - sudo add-apt-repository --yes ppa:h-rayflood/llvm
+    - sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.5 main'
+    - sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.6 main'
+    - sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise main'
+    - wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
+    - sudo apt-get -qq update
+    
+install:
+    - if [ "$CXX" == "g++" ]; then sudo apt-get -qq install g++-${GCC_VERSION}; fi
+    - if [ "$CXX" == "clang++" ]; then sudo apt-get -qq install clang-${CLANG_VERSION}; fi
+
+before_script:
+    - mkdir build
+    - cd build
+    - if [ "$CXX" == "g++" ]; then cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/g++-${GCC_VERSION} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=ON -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF -DBOOST_MPL2_ENABLE_CXX11=ON -DBOOST_MPL2_ENABLE_CXX14=OFF -DBOOST_MPL2_ENABLE_GNU_DIALECTS=ON; fi
+    
+    - if [ "$CXX" == "clang++" ]; then cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/clang++-${CLANG_VERSION} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=ON -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF -DBOOST_MPL2_ENABLE_CXX11=ON -DBOOST_MPL2_ENABLE_CXX14=ON -DBOOST_MPL2_ENABLE_GNU_DIALECTS=ON; fi
+    
+script:
+    - make tests
