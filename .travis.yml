@@ -1,0 +1,39 @@
+# Copyright Bruno Dutra 2015
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+
+language: c++   
+os: linux
+sudo: required
+
+env:
+     matrix:
+        - COMPILER=g++      COMPILER_VERSION=4.8 ENABLE_CXX11=ON ENABLE_CXX14=OFF
+        - COMPILER=g++      COMPILER_VERSION=4.9 ENABLE_CXX11=ON ENABLE_CXX14=ON
+        - COMPILER=clang    COMPILER_VERSION=3.2 ENABLE_CXX11=ON ENABLE_CXX14=ON
+        - COMPILER=clang    COMPILER_VERSION=3.3 ENABLE_CXX11=ON ENABLE_CXX14=OFF
+        - COMPILER=clang    COMPILER_VERSION=3.4 ENABLE_CXX11=ON ENABLE_CXX14=OFF
+        - COMPILER=clang    COMPILER_VERSION=3.5 ENABLE_CXX11=ON ENABLE_CXX14=OFF
+        - COMPILER=clang    COMPILER_VERSION=3.6 ENABLE_CXX11=ON ENABLE_CXX14=ON
+        - COMPILER=clang    COMPILER_VERSION=3.7 ENABLE_CXX11=ON ENABLE_CXX14=ON
+    
+before_install:
+    - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+    - sudo add-apt-repository --yes ppa:h-rayflood/llvm
+    - sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.5 main'
+    - sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.6 main'
+    - sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise main'
+    - wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
+    - sudo apt-get -qq update
+    
+install:
+    - sudo apt-get -qq install ${COMPILER}-${COMPILER_VERSION}
+
+before_script:
+    - mkdir build
+    - cd build
+    - if [ "$COMPILER" == "g++" ]; then (export CXX=g++ && cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/g++-${COMPILER_VERSION} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=ON -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF -DBOOST_MPL2_ENABLE_CXX11=${ENABLE_CXX11} -DBOOST_MPL2_ENABLE_CXX14=${ENABLE_CXX14} -DBOOST_MPL2_ENABLE_GNU_DIALECTS=ON); fi
+    - if [ "$COMPILER" == "clang" ]; then (export CXX=clang++ && cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/clang++-${COMPILER_VERSION} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=ON -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF -DBOOST_MPL2_ENABLE_CXX11=${ENABLE_CXX11} -DBOOST_MPL2_ENABLE_CXX14=${ENABLE_CXX14} -DBOOST_MPL2_ENABLE_GNU_DIALECTS=ON); fi
+    
+script:
+    - make tests
