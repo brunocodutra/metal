@@ -20,6 +20,7 @@ template<typename integral>
 constexpr bool test_integral(integral const& constant)
 {
     BOOST_MPL2_ASSERT((std::is_same<typename integral::type::value_type, typename integral::value_type>));
+    BOOST_MPL2_ASSERT((std::is_same<typename integral::value_type, typename std::remove_cv<decltype(integral::value)>::type>));
     BOOST_MPL2_ASSERT_EXPR(integral::type::value == integral::value);
 
     return integral::value == constant;
