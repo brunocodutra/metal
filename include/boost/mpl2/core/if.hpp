@@ -11,8 +11,18 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename cond, typename yes, typename no>
-        using if_ = std::conditional<!!cond::value, yes, no>;
+        template<typename cond, typename then, typename else_, typename... _>
+        struct if_;
+
+        template<typename cond, typename then, typename elsecond, typename elsethen, typename else_, typename... _>
+        struct if_<cond, then, elsecond, elsethen, else_, _...> :
+                if_<cond, then, if_<elsecond, elsethen, else_, _...> >
+        {};
+
+        template<typename cond, typename then, typename else_>
+        struct if_<cond, then, else_> :
+                std::conditional<!!cond::value, then, else_>::type
+        {};
     }
 }
 
