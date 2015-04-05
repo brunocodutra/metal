@@ -6,6 +6,7 @@
 #define BOOST_MPL2_CORE_BIND_HPP
 
 #include <boost/mpl2/core/arg.hpp>
+#include <boost/mpl2/core/quote.hpp>
 #include <boost/mpl2/core/protect.hpp>
 #include <boost/mpl2/core/always.hpp>
 #include <boost/mpl2/core/apply.hpp>
@@ -46,6 +47,9 @@ namespace boost
                 typename apply<parse<params>, args...>::type...
             >;
         };
+
+        template<template<typename...> class fctn, typename... params>
+        using bindf = bind<quote<fctn>, params...>;
     }
 }
 
