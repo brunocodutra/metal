@@ -63,19 +63,21 @@ endif()
 foreach(dialect ${BOOST_MPL2_ENABLED_DIALECTS})
     set(dialect_flag)
     language_dialect_flags(CXX ${dialect} dialect_flag)
-    foreach(SOURCE ${BOOST_MPL2_TEST_SOURCES})
-        string(REGEX REPLACE ".*[/\\](.*\)[.]cpp" "\\1_test_${dialect}" target ${SOURCE})
-        add_binary_target(
-            EXECUTABLE ${target}
-            LANGUAGE CXX
-            SOURCES ${SOURCE} ${BOOST_MPL2_TEST_HEADERS}
-            LIBRARIES ${BOOST_MPL2_LIBRARIES}
-            ADITIONAL_FLAGS ${dialect_flag}
-            DEPENDENCIES mpl2
-        )
-        add_test(${target} ${CMAKE_CURRENT_BINARY_DIR}/${target})
-        set(BOOST_MPL2_TEST_TARGETS ${BOOST_MPL2_TEST_TARGETS} ${target})
-    endforeach()
+    if(NOT "${dialect_flag}" MATCHES "-NOTFOUND$")
+        foreach(SOURCE ${BOOST_MPL2_TEST_SOURCES})
+            string(REGEX REPLACE ".*[/\\](.*\)[.]cpp" "\\1_test_${dialect}" target ${SOURCE})
+            add_binary_target(
+                EXECUTABLE ${target}
+                LANGUAGE CXX
+                SOURCES ${SOURCE} ${BOOST_MPL2_TEST_HEADERS}
+                LIBRARIES ${BOOST_MPL2_LIBRARIES}
+                ADITIONAL_FLAGS ${dialect_flag}
+                DEPENDENCIES mpl2
+            )
+            add_test(${target} ${CMAKE_CURRENT_BINARY_DIR}/${target})
+            set(BOOST_MPL2_TEST_TARGETS ${BOOST_MPL2_TEST_TARGETS} ${target})
+        endforeach()
+    endif()
 endforeach()
 
 add_custom_target(tests DEPENDS ${BOOST_MPL2_TEST_TARGETS})
