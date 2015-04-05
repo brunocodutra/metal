@@ -5,22 +5,29 @@
 #ifndef BOOST_MPL2_CORE_QUOTE_HPP
 #define BOOST_MPL2_CORE_QUOTE_HPP
 
+#include <boost/mpl2/core/trait.hpp>
+#include <boost/mpl2/core/identity.hpp>
+#include <boost/mpl2/core/if.hpp>
+
 namespace boost
 {
     namespace mpl2
     {
-        template<template<typename...> class f>
+        template<template<typename...> class fctn>
         struct quote
         {
         private:
             template<typename... args>
-            struct type_ :
-                    f<args...>
+            struct apply :
+                    if_<
+                        is_nullary_function<fctn<args...> >,
+                        fctn<args...>,
+                        identity<fctn<args...> >
+                    >::type
             {};
-
         public:
             template<typename... args>
-            using type = type_<args...>;
+            using type = apply<args...>;
         };
     }
 }
