@@ -5,8 +5,12 @@
 #ifndef BOOST_MPL2_INTEGRALS_ARITHMETIC_HPP
 #define BOOST_MPL2_INTEGRALS_ARITHMETIC_HPP
 
+#include <boost/mpl2/integrals/arithmetic/negate.hpp>
 #include <boost/mpl2/integrals/arithmetic/dec.hpp>
 #include <boost/mpl2/integrals/arithmetic/inc.hpp>
-#include <boost/mpl2/integrals/arithmetic/negate.hpp>
+#include <boost/mpl2/integrals/arithmetic/add.hpp>
+#include <boost/mpl2/integrals/arithmetic/sub.hpp>
+#include <boost/mpl2/integrals/arithmetic/mul.hpp>
+#include <boost/mpl2/integrals/arithmetic/div.hpp>
 
 #endif

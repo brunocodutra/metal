@@ -19,7 +19,7 @@
 using namespace boost::mpl2;
 
 template<typename integral>
-constexpr bool test_integral(integral const& constant)
+constexpr bool test_integral(integral constant)
 {
     BOOST_MPL2_ASSERT((std::is_same<typename integral::type::value_type, typename integral::value_type>));
     BOOST_MPL2_ASSERT((std::is_same<typename integral::value_type, typename std::remove_cv<decltype(integral::value)>::type>));
