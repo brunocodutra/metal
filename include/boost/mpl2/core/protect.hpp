@@ -9,9 +9,9 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename nullary>
+        template<typename callable>
         struct protect :
-                nullary
+                callable
         {};
     }
 }

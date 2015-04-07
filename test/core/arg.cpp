@@ -7,12 +7,12 @@
 
 #include <type_traits>
 
-using boost::mpl2::arg;
+using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT((std::is_same<arg<1>::type<short, int, long, long long>::type, short>));
-BOOST_MPL2_ASSERT((std::is_same<arg<2>::type<short, int, long, long long>::type, int>));
-BOOST_MPL2_ASSERT((std::is_same<arg<3>::type<short, int, long, long long>::type, long>));
-BOOST_MPL2_ASSERT((std::is_same<arg<4>::type<short, int, long, long long>::type, long long>));
+BOOST_MPL2_ASSERT((std::is_same<arg<1>::call<short, int, long, long long>::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<arg<2>::call<short, int, long, long long>::type, int>));
+BOOST_MPL2_ASSERT((std::is_same<arg<3>::call<short, int, long, long long>::type, long>));
+BOOST_MPL2_ASSERT((std::is_same<arg<4>::call<short, int, long, long long>::type, long long>));
 
 int main()
 {

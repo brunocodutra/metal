@@ -6,16 +6,16 @@
 #define BOOST_MPL2_CORE_BIND_HPP
 
 #include <boost/mpl2/core/arg.hpp>
-#include <boost/mpl2/core/quote.hpp>
+#include <boost/mpl2/core/function.hpp>
 #include <boost/mpl2/core/protect.hpp>
 #include <boost/mpl2/core/always.hpp>
-#include <boost/mpl2/core/apply.hpp>
+#include <boost/mpl2/core/call.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        template<typename nullfctnl, typename... params>
+        template<typename callable, typename... params>
         struct bind
         {
         private:
@@ -23,33 +23,30 @@ namespace boost
             struct parse
             {
                 template<typename... args>
-                using type = apply<always<param>, args...>;
+                using call = boost::mpl2::call<always<param>, args...>;
             };
 
             template<std::size_t n>
             struct parse<arg<n> >
             {
                 template<typename... args>
-                using type = apply<arg<n>, args...>;
+                using call = boost::mpl2::call<arg<n>, args...>;
             };
 
             template<typename nf, typename... prms>
             struct parse<bind<nf, prms...> >
             {
                 template<typename... args>
-                using type = apply<bind<nf, prms...>, args...>;
+                using call = boost::mpl2::call<bind<nf, prms...>, args...>;
             };
 
         public:
             template<typename... args>
-            using type = apply<
-                typename apply<parse<nullfctnl>, args...>::type,
-                typename apply<parse<params>, args...>::type...
+            using call = boost::mpl2::call<
+                typename boost::mpl2::call<parse<callable>, args...>::type,
+                typename boost::mpl2::call<parse<params>, args...>::type...
             >;
         };
-
-        template<template<typename...> class fctn, typename... params>
-        using bindf = bind<quote<fctn>, params...>;
     }
 }
 

@@ -18,21 +18,21 @@ namespace boost
         {
         private:
             template<std::size_t index, typename... args>
-            struct apply;
+            struct select;
 
             template<std::size_t index, typename head, typename... tail>
-            struct apply<index, head, tail...> :
-                    apply<index - 1, tail...>
+            struct select<index, head, tail...> :
+                    select<index - 1, tail...>
             {};
 
             template<typename head, typename... tail>
-            struct apply<1, head, tail...> :
+            struct select<1, head, tail...> :
                     identity<head>
             {};
 
         public:
             template<typename... args>
-            using type = apply<n, args...>;
+            using call = select<n, args...>;
         };
 
         template<>

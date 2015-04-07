@@ -15,7 +15,7 @@ namespace boost
         struct always
         {
             template<typename...>
-            using type = identity<x>;
+            using call = identity<x>;
         };
     }
 }

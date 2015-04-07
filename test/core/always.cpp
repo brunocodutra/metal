@@ -7,15 +7,13 @@
 
 #include <type_traits>
 
-using boost::mpl2::always;
+using namespace boost::mpl2;
 
-struct x;
-
-BOOST_MPL2_ASSERT((std::is_same<always<x>::type<>::type, x>));
-BOOST_MPL2_ASSERT((std::is_same<always<x>::type<short>::type, x>));
-BOOST_MPL2_ASSERT((std::is_same<always<x>::type<short, int>::type, x>));
-BOOST_MPL2_ASSERT((std::is_same<always<x>::type<short, int, long>::type, x>));
-BOOST_MPL2_ASSERT((std::is_same<always<x>::type<short, int, long, long long>::type, x>));
+BOOST_MPL2_ASSERT((std::is_same<always<void>::call<>::type, void>));
+BOOST_MPL2_ASSERT((std::is_same<always<void>::call<short>::type, void>));
+BOOST_MPL2_ASSERT((std::is_same<always<void>::call<short, int>::type, void>));
+BOOST_MPL2_ASSERT((std::is_same<always<void>::call<short, int, long>::type, void>));
+BOOST_MPL2_ASSERT((std::is_same<always<void>::call<short, int, long, long long>::type, void>));
 
 int main()
 {
