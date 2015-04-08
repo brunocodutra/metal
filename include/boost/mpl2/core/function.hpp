@@ -5,27 +5,26 @@
 #ifndef BOOST_MPL2_CORE_FUNCTION_HPP
 #define BOOST_MPL2_CORE_FUNCTION_HPP
 
-#include <boost/mpl2/core/nested_type_trait.hpp>
-#include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/core/if.hpp>
+#include <boost/mpl2/core/detail/traits.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        template<template<typename...> class signature>
+        template<template<typename...> class sig>
         struct function
         {
         private:
-            BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_type, type);
+            struct empty {};
 
         public:
             template<typename... args>
             struct call :
                     if_<
-                        has_type<signature<args...> >,
-                        signature<args...>,
-                        identity<signature<args...> >
+                        detail::has_type<sig<args...> >,
+                        sig<args...>,
+                        empty
                     >
             {};
         };

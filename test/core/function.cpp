@@ -21,26 +21,6 @@ using h = function<g>::call<x>;
 BOOST_MPL2_ASSERT((std::is_same<f<void>::type, g<void>::type>));
 BOOST_MPL2_ASSERT((std::is_same<g<void>::type, h<void>::type>));
 
-template<typename x>
-struct capture_void
-{
-    using type = x;
-};
-
-template<>
-struct capture_void<void>;
-
-template<typename x>
-using i = function<capture_void>::call<x>;
-
-template<typename x>
-using j = function<i>::call<x>;
-
-BOOST_MPL2_ASSERT((std::is_same<i<char>::type, char>));
-BOOST_MPL2_ASSERT((std::is_same<i<void>::type, capture_void<void> >));
-BOOST_MPL2_ASSERT((std::is_same<i<char>::type, j<char>::type>));
-BOOST_MPL2_ASSERT((std::is_same<i<void>::type, j<void>::type>));
-
 int main()
 {
     return 0;
