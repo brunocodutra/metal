@@ -26,7 +26,7 @@ namespace boost
                         has_type<signature<args...> >,
                         signature<args...>,
                         identity<signature<args...> >
-                    >::type
+                    >
             {};
         };
     }
