@@ -3,6 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/core/bind.hpp>
+#include <boost/mpl2/core/protect.hpp>
 #include <boost/mpl2/core/function.hpp>
 #include <boost/mpl2/core/arg.hpp>
 #include <boost/mpl2/core/call.hpp>

@@ -6,9 +6,8 @@
 #define BOOST_MPL2_CORE_BIND_HPP
 
 #include <boost/mpl2/core/arg.hpp>
+#include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/core/function.hpp>
-#include <boost/mpl2/core/protect.hpp>
-#include <boost/mpl2/core/always.hpp>
 #include <boost/mpl2/core/call.hpp>
 
 namespace boost
@@ -16,29 +15,24 @@ namespace boost
     namespace mpl2
     {
         template<typename callable, typename... params>
-        struct bind
+        struct bind :
+                identity<bind<callable, params...> >
         {
         private:
             template<typename param>
-            struct parse
-            {
-                template<typename... args>
-                using call = boost::mpl2::call<always<param>, args...>;
-            };
+            struct parse :
+                    nullary<identity<param> >
+            {};
 
             template<std::size_t n>
-            struct parse<arg<n> >
-            {
-                template<typename... args>
-                using call = boost::mpl2::call<arg<n>, args...>;
-            };
+            struct parse<arg<n> > :
+                    arg<n>
+            {};
 
             template<typename nf, typename... prms>
-            struct parse<bind<nf, prms...> >
-            {
-                template<typename... args>
-                using call = boost::mpl2::call<bind<nf, prms...>, args...>;
-            };
+            struct parse<bind<nf, prms...> > :
+                    bind<nf, prms...>
+            {};
 
         public:
             template<typename... args>
