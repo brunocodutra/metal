@@ -6,7 +6,6 @@
 #define BOOST_MPL2_CORE_ARG_HPP
 
 #include <boost/mpl2/core/identity.hpp>
-#include <boost/mpl2/core/apply.hpp>
 
 #include <cstddef>
 
@@ -15,31 +14,27 @@ namespace boost
     namespace mpl2
     {
         template<std::size_t n>
-        struct arg
+        struct arg :
+                identity<arg<n> >
         {
         private:
-            template<typename head, typename... tail>
-            struct type_ :
-                    apply<arg<n - 1>, tail...>
+            template<std::size_t index, typename... args>
+            struct select
             {};
 
-        public:
-            template<typename... args>
-            using type = type_<args...>;
-        };
+            template<std::size_t index, typename head, typename... tail>
+            struct select<index, head, tail...> :
+                    select<index - 1, tail...>
+            {};
 
-        template<>
-        struct arg<1>
-        {
-        private:
             template<typename head, typename... tail>
-            struct type_ :
+            struct select<1, head, tail...> :
                     identity<head>
             {};
 
         public:
             template<typename... args>
-            using type = type_<args...>;
+            using call = select<n, args...>;
         };
 
         template<>

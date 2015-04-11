@@ -9,10 +9,12 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename nullary>
+        template<typename function>
         struct protect :
-                nullary
-        {};
+                function
+        {
+            using type = protect<function>;
+        };
     }
 }
 
