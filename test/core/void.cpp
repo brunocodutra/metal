@@ -4,10 +4,18 @@
 
 #include <boost/mpl2/integrals/logical/not.hpp>
 #include <boost/mpl2/core/void.hpp>
+#include <boost/mpl2/core/traits.hpp>
 #include <boost/mpl2/core/assert.hpp>
 
 using namespace boost::mpl2;
 
+BOOST_MPL2_ASSERT(is_function<void_>);
+
+BOOST_MPL2_ASSERT((not_<is_evaluable<void_> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<void_, short> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<void_, short, int> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<void_, short, int, long> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<void_, short, int, long, long long> >));
 
 int main()
 {

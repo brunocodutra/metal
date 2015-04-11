@@ -14,17 +14,17 @@
 using namespace boost::mpl2;
 
 using compose = protect<bind<arg<1>, bind<arg<2>, arg<3> > > >;
-BOOST_MPL2_ASSERT((std::is_same<call<compose, function<std::add_pointer>, function<std::add_const>, void>::type, void const*>));
-BOOST_MPL2_ASSERT((std::is_same<call<compose, function<std::add_const>, function<std::add_pointer>, void>::type, void* const>));
+BOOST_MPL2_ASSERT((std::is_same<eval<compose, function<std::add_pointer>, function<std::add_const>, void>, void const*>));
+BOOST_MPL2_ASSERT((std::is_same<eval<compose, function<std::add_const>, function<std::add_pointer>, void>, void* const>));
 
 using once = protect<bind<compose, protect<arg<1> >, arg<1>, arg<2> > >;
-BOOST_MPL2_ASSERT((std::is_same<call<once, function<std::add_pointer>, void>::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<eval<once, function<std::add_pointer>, void>, void*>));
 
 using twice = protect<bind<compose, arg<1>, arg<1>, arg<2> > >;
-BOOST_MPL2_ASSERT((std::is_same<call<twice, function<std::add_pointer>, void>::type, void**>));
+BOOST_MPL2_ASSERT((std::is_same<eval<twice, function<std::add_pointer>, void>, void**>));
 
 using thrice = protect<bind<once, arg<1>, bind<twice, arg<1>, arg<2> > > >;
-BOOST_MPL2_ASSERT((std::is_same<call<thrice, function<std::add_pointer>, void>::type, void***>));
+BOOST_MPL2_ASSERT((std::is_same<eval<thrice, function<std::add_pointer>, void>, void***>));
 
 int main()
 {

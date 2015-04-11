@@ -14,11 +14,13 @@ namespace boost
     namespace mpl2
     {
         template<std::size_t n>
-        struct arg
+        struct arg :
+                identity<arg<n> >
         {
         private:
             template<std::size_t index, typename... args>
-            struct select;
+            struct select
+            {};
 
             template<std::size_t index, typename head, typename... tail>
             struct select<index, head, tail...> :

@@ -15,24 +15,24 @@ using namespace boost::mpl2;
 using f = function<std::add_pointer>;
 
 BOOST_MPL2_ASSERT(is_function<f>);
-BOOST_MPL2_ASSERT((is_callable<f, void>));
-BOOST_MPL2_ASSERT((std::is_same<call<f, void>::type, void*>));
+BOOST_MPL2_ASSERT((is_evaluable<f, void>));
+BOOST_MPL2_ASSERT((std::is_same<eval<f, void>, void*>));
 
 using h = nullary<std::add_pointer<void> >;
 
 BOOST_MPL2_ASSERT(is_function<h>);
 
-BOOST_MPL2_ASSERT((is_callable<h>));
-BOOST_MPL2_ASSERT((is_callable<h, short>));
-BOOST_MPL2_ASSERT((is_callable<h, short, void>));
-BOOST_MPL2_ASSERT((is_callable<h, short, void, long>));
-BOOST_MPL2_ASSERT((is_callable<h, short, void, long, long long>));
+BOOST_MPL2_ASSERT((is_evaluable<h>));
+BOOST_MPL2_ASSERT((is_evaluable<h, short>));
+BOOST_MPL2_ASSERT((is_evaluable<h, short, void>));
+BOOST_MPL2_ASSERT((is_evaluable<h, short, void, long>));
+BOOST_MPL2_ASSERT((is_evaluable<h, short, void, long, long long>));
 
-BOOST_MPL2_ASSERT((std::is_same<call<h>::type, void*>));
-BOOST_MPL2_ASSERT((std::is_same<call<h, short>::type, void*>));
-BOOST_MPL2_ASSERT((std::is_same<call<h, short, void>::type, void*>));
-BOOST_MPL2_ASSERT((std::is_same<call<h, short, void, long>::type, void*>));
-BOOST_MPL2_ASSERT((std::is_same<call<h, short, void, long, long long>::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<eval<h>, void*>));
+BOOST_MPL2_ASSERT((std::is_same<eval<h, short>, void*>));
+BOOST_MPL2_ASSERT((std::is_same<eval<h, short, void>, void*>));
+BOOST_MPL2_ASSERT((std::is_same<eval<h, short, void, long>, void*>));
+BOOST_MPL2_ASSERT((std::is_same<eval<h, short, void, long, long long>, void*>));
 
 struct empty {};
 
@@ -40,11 +40,11 @@ using g = nullary<empty>;
 
 BOOST_MPL2_ASSERT(is_function<g>);
 
-BOOST_MPL2_ASSERT((not_<is_callable<g> >));
-BOOST_MPL2_ASSERT((not_<is_callable<g, short> >));
-BOOST_MPL2_ASSERT((not_<is_callable<g, short, void> >));
-BOOST_MPL2_ASSERT((not_<is_callable<g, short, void, long> >));
-BOOST_MPL2_ASSERT((not_<is_callable<g, short, void, long, long long> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<g> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<g, short> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<g, short, void> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<g, short, void, long> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<g, short, void, long, long long> >));
 
 int main()
 {

@@ -2,17 +2,35 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
+#include <boost/mpl2/integrals/logical/not.hpp>
 #include <boost/mpl2/core/arg.hpp>
+#include <boost/mpl2/core/call.hpp>
+#include <boost/mpl2/core/traits.hpp>
 #include <boost/mpl2/core/assert.hpp>
 
 #include <type_traits>
 
 using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT((std::is_same<arg<1>::call<short, int, long, long long>::type, short>));
-BOOST_MPL2_ASSERT((std::is_same<arg<2>::call<short, int, long, long long>::type, int>));
-BOOST_MPL2_ASSERT((std::is_same<arg<3>::call<short, int, long, long long>::type, long>));
-BOOST_MPL2_ASSERT((std::is_same<arg<4>::call<short, int, long, long long>::type, long long>));
+BOOST_MPL2_ASSERT(is_function<arg<1> >);
+BOOST_MPL2_ASSERT(is_function<arg<2> >);
+BOOST_MPL2_ASSERT(is_function<arg<3> >);
+BOOST_MPL2_ASSERT(is_function<arg<4> >);
+
+BOOST_MPL2_ASSERT((is_evaluable<arg<1>, short>));
+BOOST_MPL2_ASSERT((is_evaluable<arg<2>, short, int>));
+BOOST_MPL2_ASSERT((is_evaluable<arg<3>, short, int, long>));
+BOOST_MPL2_ASSERT((is_evaluable<arg<4>, short, int, long, long long>));
+
+BOOST_MPL2_ASSERT((std::is_same<eval<arg<1>, short>, short>));
+BOOST_MPL2_ASSERT((std::is_same<eval<arg<2>, short, int>, int>));
+BOOST_MPL2_ASSERT((std::is_same<eval<arg<3>, short, int, long>, long>));
+BOOST_MPL2_ASSERT((std::is_same<eval<arg<4>, short, int, long, long long>, long long>));
+
+BOOST_MPL2_ASSERT((not_<is_evaluable<arg<1> > >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<arg<2>, int> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<arg<3>, int, long> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<arg<4>, int, long, long long> >));
 
 int main()
 {

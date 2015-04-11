@@ -14,9 +14,9 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename callable, typename... params>
+        template<typename function, typename... params>
         struct bind :
-                identity<bind<callable, params...> >
+                identity<bind<function, params...> >
         {
         private:
             template<typename param>
@@ -37,8 +37,8 @@ namespace boost
         public:
             template<typename... args>
             using call = boost::mpl2::call<
-                typename boost::mpl2::call<parse<callable>, args...>::type,
-                typename boost::mpl2::call<parse<params>, args...>::type...
+                eval<parse<function>, args...>,
+                eval<parse<params>, args...>...
             >;
         };
     }
