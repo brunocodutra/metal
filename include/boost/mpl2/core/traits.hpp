@@ -23,7 +23,7 @@ namespace boost
         namespace detail
         {
             BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_type, type);
-            BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(has_template_call, call);
+            BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(has_call, call);
         }
 
         template<typename x>
@@ -38,10 +38,30 @@ namespace boost
             >
         >;
 
+        namespace detail
+        {
+            template<typename x, typename... args>
+            struct is_call_defined :
+                    std::is_default_constructible<typename x::template call<args...> >
+            {};
+        }
+
+        template<typename x, typename... args>
+        using is_callable = and_<
+            detail::has_call<x>,
+            detail::is_call_defined<x, args...>
+        >;
+
+        template<typename x, typename... args>
+        using is_evaluable = and_<
+            is_callable<x, args...>,
+            detail::has_type<call<x, args...> >
+        >;
+
         template<typename x>
         struct is_function :
                 and_<
-                    detail::has_template_call<x>,
+                    detail::has_call<x>,
                     detail::has_type<x>,
                     or_<
                         is_identity<x>,
@@ -54,18 +74,6 @@ namespace boost
                     >
                 >
         {};
-
-        template<typename function, typename... args>
-        using is_callable = and_<
-            is_function<function>,
-            std::is_default_constructible<call<function, args...> >
-        >;
-
-        template<typename function, typename... args>
-        using is_evaluable = and_<
-            is_callable<function, args...>,
-            detail::has_type<call<function, args...> >
-        >;
     }
 }
 

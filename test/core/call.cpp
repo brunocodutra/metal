@@ -13,21 +13,20 @@
 
 using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT((is_evaluable<function<std::add_pointer>, void>));
-BOOST_MPL2_ASSERT((is_evaluable<bind<function<std::add_pointer>, void> >));
+BOOST_MPL2_ASSERT((
+    std::is_base_of<
+        std::add_pointer<void>,
+        call<function<std::add_pointer>, void>
+    >
+));
 
+BOOST_MPL2_ASSERT((std::is_same<call<function<std::add_pointer>, void>::type, void*>));
 BOOST_MPL2_ASSERT((std::is_same<eval<function<std::add_pointer>, void>, void*>));
 BOOST_MPL2_ASSERT((std::is_same<eval<bind<function<std::add_pointer>, void> >, void*>));
 
-struct unevaluable
-{
-    template<typename...>
-    struct call;
-};
-
-BOOST_MPL2_ASSERT(not_<is_evaluable<void> >);
-BOOST_MPL2_ASSERT(not_<is_evaluable<identity<void> > >);
-BOOST_MPL2_ASSERT(not_<is_evaluable<unevaluable> >);
+BOOST_MPL2_ASSERT((call<function<not_>, false_>));
+BOOST_MPL2_ASSERT((call<function<not_>, false_>::type));
+BOOST_MPL2_ASSERT((eval<function<not_>, false_>));
 
 int main()
 {
