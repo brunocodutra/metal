@@ -5,7 +5,27 @@
 #ifndef BOOST_MPL2_CORE_ASSERT_HPP
 #define BOOST_MPL2_CORE_ASSERT_HPP
 
-#include <boost/mpl2/core/detail/strip_parenthesis.hpp>
+#include <boost/mpl2/core/identity.hpp>
+
+namespace boost
+{
+    namespace mpl2
+    {
+        namespace detail
+        {
+            template<typename>
+            struct strip_parenthesis;
+
+            template<typename x>
+            struct strip_parenthesis<void (x)> :
+                identity<x>
+            {};
+        }
+    }
+}
+
+#define BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(x) \
+    boost::mpl2::detail::strip_parenthesis<void (x)>::type
 
 #define BOOST_MPL2_ASSERT_MSG(PRED, MSG) \
     static_assert(BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(PRED)::value, MSG)
