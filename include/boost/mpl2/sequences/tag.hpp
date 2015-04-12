@@ -7,7 +7,7 @@
 
 #include <boost/mpl2/lambda/integral/boolean.hpp>
 #include <boost/mpl2/lambda/identity.hpp>
-#include <boost/mpl2/lambda/nested_type_trait.hpp>
+#include <boost/mpl2/lambda/detail/nested_type_trait.hpp>
 
 namespace boost
 {

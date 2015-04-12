@@ -4,7 +4,7 @@
 
 #include <boost/mpl2/lambda/integral/boolean.hpp>
 #include <boost/mpl2/lambda/logical/not.hpp>
-#include <boost/mpl2/lambda/nested_template_trait.hpp>
+#include <boost/mpl2/lambda/detail/nested_template_trait.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
 BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(has_nested_template, nested);
