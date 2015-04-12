@@ -5,8 +5,8 @@
 #ifndef BOOST_MPL2_SEQUENCES_EQUAL_HPP
 #define BOOST_MPL2_SEQUENCES_EQUAL_HPP
 
-#include <boost/mpl2/integrals/boolean.hpp>
-#include <boost/mpl2/core/call.hpp>
+#include <boost/mpl2/lambda/integral/boolean.hpp>
+#include <boost/mpl2/lambda/call.hpp>
 #include <boost/mpl2/sequences/tag.hpp>
 
 #include <type_traits>

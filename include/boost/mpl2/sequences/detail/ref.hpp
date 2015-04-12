@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_SEQUENCES_DETAIL_REF_HPP
 #define BOOST_MPL2_SEQUENCES_DETAIL_REF_HPP
 
-#include <boost/mpl2/core/identity.hpp>
+#include <boost/mpl2/lambda/identity.hpp>
 #include <boost/mpl2/sequences/detail/na.hpp>
 
 namespace boost

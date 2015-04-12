@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#include <boost/mpl2/integrals/size_t.hpp>
-#include <boost/mpl2/core/assert.hpp>
+#include <boost/mpl2/lambda/integral/size_t.hpp>
+#include <boost/mpl2/lambda/assert.hpp>
 #include <boost/mpl2/sequences/list.hpp>
 
 #include <type_traits>

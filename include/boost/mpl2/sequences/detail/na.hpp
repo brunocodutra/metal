@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_SEQUENCES_DETAIL_NA_HPP
 #define BOOST_MPL2_SEQUENCES_DETAIL_NA_HPP
 
-#include <boost/mpl2/integrals/boolean.hpp>
+#include <boost/mpl2/lambda/integral/boolean.hpp>
 
 #include <type_traits>
 

@@ -5,8 +5,8 @@
 #ifndef BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP
 #define BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP
 
-#include <boost/mpl2/integrals/size_t.hpp>
-#include <boost/mpl2/integrals/arithmetic/inc.hpp>
+#include <boost/mpl2/lambda/integral/size_t.hpp>
+#include <boost/mpl2/lambda/arithmetic/inc.hpp>
 #include <boost/mpl2/sequences/detail/ref.hpp>
 
 #include <utility>
