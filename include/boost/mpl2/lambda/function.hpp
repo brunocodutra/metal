@@ -20,14 +20,6 @@ namespace boost
                     expr<args...>
             {};
         };
-
-        template<typename nullexpr>
-        struct nullary :
-                identity<nullary<nullexpr> >
-        {
-            template<typename...>
-            using call = nullexpr;
-        };
     }
 }
 

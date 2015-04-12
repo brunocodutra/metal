@@ -11,6 +11,7 @@
 #include <boost/mpl2/lambda/nested_template_trait.hpp>
 #include <boost/mpl2/lambda/identity.hpp>
 #include <boost/mpl2/lambda/function.hpp>
+#include <boost/mpl2/lambda/nullary.hpp>
 #include <boost/mpl2/lambda/bind.hpp>
 #include <boost/mpl2/lambda/call.hpp>
 
