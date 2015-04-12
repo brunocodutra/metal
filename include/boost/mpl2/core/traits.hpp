@@ -42,7 +42,7 @@ namespace boost
         {
             template<typename x, typename... args>
             struct is_call_defined :
-                    std::is_default_constructible<typename x::template call<args...> >
+                    std::is_constructible<typename x::template call<args...> >
             {};
         }
 
