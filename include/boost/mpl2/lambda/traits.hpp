@@ -25,22 +25,24 @@ namespace boost
         {
             BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_type, type);
             BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(has_call, call);
-        }
 
-        template<typename x>
-        using is_identity = and_<
-            detail::has_type<x>,
-            call<
-                bind<
-                    function<std::is_same>,
-                    bind<nullary<identity<x> > >,
-                    bind<nullary<x> >
-                >
-            >
-        >;
+            template<typename x, typename... args>
+            struct is_call_valid
+            {
+            private:
+                template<template<typename...> class y>
+                static boost::mpl2::true_ check(y<args...>*);
+                template<template<typename...> class>
+                static boost::mpl2::false_ check(...);
 
-        namespace detail
-        {
+            public:
+                using type = decltype(check<x::template call>(0));
+                using value_type = typename type::value_type;
+                static constexpr value_type value = type::value;
+                constexpr operator value_type() const noexcept {return value;}
+                constexpr value_type operator()() const noexcept {return value;}
+            };
+
             template<typename x, typename... args>
             struct is_call_defined :
                     std::is_constructible<typename x::template call<args...> >
@@ -50,12 +52,8 @@ namespace boost
         template<typename x, typename... args>
         using is_callable = and_<
             detail::has_call<x>,
-            detail::is_call_defined<x, args...>
-        >;
-
-        template<typename x, typename... args>
-        using is_evaluable = and_<
-            is_callable<x, args...>,
+            detail::is_call_valid<x, args...>,
+            detail::is_call_defined<x, args...>,
             detail::has_type<call<x, args...> >
         >;
 
@@ -65,7 +63,13 @@ namespace boost
                     detail::has_call<x>,
                     detail::has_type<x>,
                     or_<
-                        is_identity<x>,
+                        call<
+                            bind<
+                                function<std::is_same>,
+                                bind<nullary<identity<x> > >,
+                                bind<nullary<x> >
+                            >
+                        >,
                         call<
                             bind<
                                 function<is_function>,

@@ -15,8 +15,8 @@ using namespace boost::mpl2;
 using f = function<std::add_pointer>;
 
 BOOST_MPL2_ASSERT(is_function<f>);
-BOOST_MPL2_ASSERT((is_evaluable<f, void>));
-BOOST_MPL2_ASSERT((std::is_same<eval<f, void>, void*>));
+BOOST_MPL2_ASSERT((is_callable<f, void>));
+BOOST_MPL2_ASSERT((std::is_same<call<f, void>::type, void*>));
 
 int main()
 {

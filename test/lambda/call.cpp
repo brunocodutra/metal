@@ -21,12 +21,11 @@ BOOST_MPL2_ASSERT((
 ));
 
 BOOST_MPL2_ASSERT((std::is_same<call<function<std::add_pointer>, void>::type, void*>));
-BOOST_MPL2_ASSERT((std::is_same<eval<function<std::add_pointer>, void>, void*>));
-BOOST_MPL2_ASSERT((std::is_same<eval<bind<function<std::add_pointer>, void> >, void*>));
+BOOST_MPL2_ASSERT((std::is_same<call<bind<function<std::add_pointer>, void> >::type, void*>));
 
 BOOST_MPL2_ASSERT((call<function<not_>, false_>));
 BOOST_MPL2_ASSERT((call<function<not_>, false_>::type));
-BOOST_MPL2_ASSERT((eval<function<not_>, false_>));
+BOOST_MPL2_ASSERT((call<function<not_>, false_>));
 
 int main()
 {

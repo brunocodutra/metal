@@ -11,84 +11,59 @@
 
 using namespace boost::mpl2;
 
-struct a_model_of_identity
-{
-    using type = a_model_of_identity;
-};
+using built_in_type = void;
 
-struct not_a_model_of_identity {};
+struct undefined_struct;
+struct empty_struct;
+struct identity_struct {using type = identity_struct;};
 
-struct uncallable
-{
-    template<typename...>
-    struct call;
-};
+struct oneary_undefined_call {template<typename> struct call;};
+struct oneary_empty_call {template<typename> struct call{};};
+struct oneary_call {template<typename> struct call{using type = void;};};
 
-struct unevaluable
-{
-    template<typename...>
-    struct call
-    {};
-};
+struct oneary_undefined_function : oneary_undefined_call {using type = oneary_undefined_function;};
+struct oneary_empty_function : oneary_empty_call {using type = oneary_undefined_function;};
+struct oneary_function : oneary_call {using type = oneary_empty_function;};
 
-struct uncallable_function :
-        identity<uncallable_function>
-{
-    template<typename...>
-    struct call;
-};
+struct nullary_undefined_call {template<typename=void> struct call;};
+struct nullary_empty_call {template<typename=void> struct call{};};
+struct nullary_call {template<typename=void> struct call{using type = void;};};
 
-struct unevaluable_function :
-        identity<uncallable_function>
-{
-    template<typename...>
-    struct call
-    {};
-};
+struct nullary_undefined_function : nullary_undefined_call {using type = oneary_function;};
+struct nullary_empty_function : nullary_empty_call {using type = nullary_undefined_function;};
+struct nullary_function : nullary_call {using type = nullary_empty_function;};
 
-BOOST_MPL2_ASSERT(not_<is_identity<void> >);
-BOOST_MPL2_ASSERT(is_identity<a_model_of_identity>);
-BOOST_MPL2_ASSERT(not_<is_identity<not_a_model_of_identity> >);
-BOOST_MPL2_ASSERT(not_<is_identity<identity<void> > >);
-BOOST_MPL2_ASSERT((not_<is_identity<uncallable> >));
-BOOST_MPL2_ASSERT((not_<is_identity<unevaluable> >));
-BOOST_MPL2_ASSERT((is_identity<uncallable_function>));
-BOOST_MPL2_ASSERT((not_<is_identity<unevaluable_function> >));
-BOOST_MPL2_ASSERT((is_identity<function<std::add_pointer> >));
-BOOST_MPL2_ASSERT((is_identity<bind<function<std::add_pointer> > >));
+BOOST_MPL2_ASSERT((not_<is_callable<built_in_type> >));
+BOOST_MPL2_ASSERT((not_<is_callable<empty_struct> >));
+BOOST_MPL2_ASSERT((not_<is_callable<identity_struct> >));
+BOOST_MPL2_ASSERT((not_<is_callable<oneary_undefined_call> >));
+BOOST_MPL2_ASSERT((not_<is_callable<oneary_empty_call> >));
+BOOST_MPL2_ASSERT((not_<is_callable<oneary_call> >));
+BOOST_MPL2_ASSERT((not_<is_callable<oneary_undefined_function> >));
+BOOST_MPL2_ASSERT((not_<is_callable<oneary_empty_function> >));
+BOOST_MPL2_ASSERT((not_<is_callable<oneary_function> >));
+BOOST_MPL2_ASSERT((not_<is_callable<nullary_undefined_call> >));
+BOOST_MPL2_ASSERT((not_<is_callable<nullary_empty_call> >));
+BOOST_MPL2_ASSERT((is_callable<nullary_call>));
+BOOST_MPL2_ASSERT((not_<is_callable<nullary_undefined_function> >));
+BOOST_MPL2_ASSERT((not_<is_callable<nullary_empty_function> >));
+BOOST_MPL2_ASSERT((is_callable<nullary_function>));
 
-BOOST_MPL2_ASSERT((not_<is_callable<void> >));
-BOOST_MPL2_ASSERT((not_<is_callable<a_model_of_identity> >));
-BOOST_MPL2_ASSERT((not_<is_callable<not_a_model_of_identity> >));
-BOOST_MPL2_ASSERT((not_<is_callable<identity<void> > >));
-BOOST_MPL2_ASSERT((not_<is_callable<uncallable> >));
-BOOST_MPL2_ASSERT((is_callable<unevaluable>));
-BOOST_MPL2_ASSERT((not_<is_callable<uncallable_function> >));
-BOOST_MPL2_ASSERT((is_callable<unevaluable_function>));
-BOOST_MPL2_ASSERT((is_callable<function<std::add_pointer>, void>));
-BOOST_MPL2_ASSERT((is_callable<bind<function<std::add_pointer>, void> >));
-
-BOOST_MPL2_ASSERT((not_<is_evaluable<void> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<a_model_of_identity> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<not_a_model_of_identity> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<identity<void> > >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<uncallable> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<unevaluable> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<uncallable_function> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<unevaluable_function> >));
-BOOST_MPL2_ASSERT((is_evaluable<function<std::add_pointer>, void>));
-BOOST_MPL2_ASSERT((is_evaluable<bind<function<std::add_pointer>, void> >));
-
-BOOST_MPL2_ASSERT((not_<is_function<void> >));
-BOOST_MPL2_ASSERT((not_<is_function<a_model_of_identity> >));
-BOOST_MPL2_ASSERT((not_<is_function<not_a_model_of_identity> >));
-BOOST_MPL2_ASSERT((not_<is_function<identity<void> > >));
-BOOST_MPL2_ASSERT((not_<is_function<uncallable> >));
-BOOST_MPL2_ASSERT((not_<is_function<unevaluable> >));
-BOOST_MPL2_ASSERT((is_function<uncallable_function>));
-BOOST_MPL2_ASSERT((is_function<unevaluable_function>));
-BOOST_MPL2_ASSERT((is_function<function<std::add_pointer> >));
-BOOST_MPL2_ASSERT((is_function<bind<function<std::add_pointer> > >));
+BOOST_MPL2_ASSERT((not_<is_function<built_in_type> >));
+BOOST_MPL2_ASSERT((not_<is_function<empty_struct> >));
+BOOST_MPL2_ASSERT((not_<is_function<identity_struct> >));
+BOOST_MPL2_ASSERT((not_<is_function<oneary_undefined_call> >));
+BOOST_MPL2_ASSERT((not_<is_function<oneary_empty_call> >));
+BOOST_MPL2_ASSERT((not_<is_function<oneary_call> >));
+BOOST_MPL2_ASSERT((is_function<oneary_undefined_function>));
+BOOST_MPL2_ASSERT((is_function<oneary_empty_function>));
+BOOST_MPL2_ASSERT((is_function<oneary_function>));
+BOOST_MPL2_ASSERT((not_<is_function<nullary_undefined_call> >));
+BOOST_MPL2_ASSERT((not_<is_function<nullary_empty_call> >));
+BOOST_MPL2_ASSERT((not_<is_function<nullary_call> >));
+BOOST_MPL2_ASSERT((is_function<nullary_undefined_function>));
+BOOST_MPL2_ASSERT((is_function<nullary_empty_function>));
+BOOST_MPL2_ASSERT((is_function<nullary_function>));
 
 int main()
 {

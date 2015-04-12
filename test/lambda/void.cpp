@@ -11,11 +11,11 @@ using namespace boost::mpl2;
 
 BOOST_MPL2_ASSERT(is_function<void_>);
 
-BOOST_MPL2_ASSERT((not_<is_evaluable<void_> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<void_, short> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<void_, short, int> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<void_, short, int, long> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<void_, short, int, long, long long> >));
+BOOST_MPL2_ASSERT((not_<is_callable<void_> >));
+BOOST_MPL2_ASSERT((not_<is_callable<void_, short> >));
+BOOST_MPL2_ASSERT((not_<is_callable<void_, short, int> >));
+BOOST_MPL2_ASSERT((not_<is_callable<void_, short, int, long> >));
+BOOST_MPL2_ASSERT((not_<is_callable<void_, short, int, long, long long> >));
 
 int main()
 {

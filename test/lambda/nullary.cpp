@@ -16,17 +16,17 @@ using f = nullary<std::add_pointer<void> >;
 
 BOOST_MPL2_ASSERT(is_function<f>);
 
-BOOST_MPL2_ASSERT((is_evaluable<f>));
-BOOST_MPL2_ASSERT((is_evaluable<f, short>));
-BOOST_MPL2_ASSERT((is_evaluable<f, short, void>));
-BOOST_MPL2_ASSERT((is_evaluable<f, short, void, long>));
-BOOST_MPL2_ASSERT((is_evaluable<f, short, void, long, long long>));
+BOOST_MPL2_ASSERT((is_callable<f>));
+BOOST_MPL2_ASSERT((is_callable<f, short>));
+BOOST_MPL2_ASSERT((is_callable<f, short, void>));
+BOOST_MPL2_ASSERT((is_callable<f, short, void, long>));
+BOOST_MPL2_ASSERT((is_callable<f, short, void, long, long long>));
 
-BOOST_MPL2_ASSERT((std::is_same<eval<f>, void*>));
-BOOST_MPL2_ASSERT((std::is_same<eval<f, short>, void*>));
-BOOST_MPL2_ASSERT((std::is_same<eval<f, short, void>, void*>));
-BOOST_MPL2_ASSERT((std::is_same<eval<f, short, void, long>, void*>));
-BOOST_MPL2_ASSERT((std::is_same<eval<f, short, void, long, long long>, void*>));
+BOOST_MPL2_ASSERT((std::is_same<call<f>::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<call<f, short>::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<call<f, short, void>::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<call<f, short, void, long>::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<call<f, short, void, long, long long>::type, void*>));
 
 struct empty {};
 
@@ -34,11 +34,11 @@ using g = nullary<empty>;
 
 BOOST_MPL2_ASSERT(is_function<g>);
 
-BOOST_MPL2_ASSERT((not_<is_evaluable<g> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<g, short> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<g, short, void> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<g, short, void, long> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<g, short, void, long, long long> >));
+BOOST_MPL2_ASSERT((not_<is_callable<g> >));
+BOOST_MPL2_ASSERT((not_<is_callable<g, short> >));
+BOOST_MPL2_ASSERT((not_<is_callable<g, short, void> >));
+BOOST_MPL2_ASSERT((not_<is_callable<g, short, void, long> >));
+BOOST_MPL2_ASSERT((not_<is_callable<g, short, void, long, long long> >));
 
 int main()
 {

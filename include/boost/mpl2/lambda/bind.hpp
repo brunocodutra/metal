@@ -37,8 +37,8 @@ namespace boost
         public:
             template<typename... args>
             using call = boost::mpl2::call<
-                eval<parse<function>, args...>,
-                eval<parse<params>, args...>...
+                typename boost::mpl2::call<parse<function>, args...>::type,
+                typename boost::mpl2::call<parse<params>, args...>::type...
             >;
         };
     }

@@ -17,20 +17,20 @@ BOOST_MPL2_ASSERT(is_function<arg<2> >);
 BOOST_MPL2_ASSERT(is_function<arg<3> >);
 BOOST_MPL2_ASSERT(is_function<arg<4> >);
 
-BOOST_MPL2_ASSERT((is_evaluable<arg<1>, short>));
-BOOST_MPL2_ASSERT((is_evaluable<arg<2>, short, int>));
-BOOST_MPL2_ASSERT((is_evaluable<arg<3>, short, int, long>));
-BOOST_MPL2_ASSERT((is_evaluable<arg<4>, short, int, long, long long>));
+BOOST_MPL2_ASSERT((is_callable<arg<1>, short>));
+BOOST_MPL2_ASSERT((is_callable<arg<2>, short, int>));
+BOOST_MPL2_ASSERT((is_callable<arg<3>, short, int, long>));
+BOOST_MPL2_ASSERT((is_callable<arg<4>, short, int, long, long long>));
 
-BOOST_MPL2_ASSERT((std::is_same<eval<arg<1>, short>, short>));
-BOOST_MPL2_ASSERT((std::is_same<eval<arg<2>, short, int>, int>));
-BOOST_MPL2_ASSERT((std::is_same<eval<arg<3>, short, int, long>, long>));
-BOOST_MPL2_ASSERT((std::is_same<eval<arg<4>, short, int, long, long long>, long long>));
+BOOST_MPL2_ASSERT((std::is_same<call<arg<1>, short>::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<call<arg<2>, short, int>::type, int>));
+BOOST_MPL2_ASSERT((std::is_same<call<arg<3>, short, int, long>::type, long>));
+BOOST_MPL2_ASSERT((std::is_same<call<arg<4>, short, int, long, long long>::type, long long>));
 
-BOOST_MPL2_ASSERT((not_<is_evaluable<arg<1> > >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<arg<2>, int> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<arg<3>, int, long> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<arg<4>, int, long, long long> >));
+BOOST_MPL2_ASSERT((not_<is_callable<arg<1> > >));
+BOOST_MPL2_ASSERT((not_<is_callable<arg<2>, int> >));
+BOOST_MPL2_ASSERT((not_<is_callable<arg<3>, int, long> >));
+BOOST_MPL2_ASSERT((not_<is_callable<arg<4>, int, long, long long> >));
 
 int main()
 {

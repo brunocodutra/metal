@@ -13,31 +13,6 @@ using namespace boost::mpl2;
 
 BOOST_MPL2_ASSERT((std::is_same<identity<void>::type, void>));
 
-struct a_model_of_identity
-{
-    using type = a_model_of_identity;
-};
-
-struct another_model_of_identity :
-        identity<another_model_of_identity>
-{};
-
-BOOST_MPL2_ASSERT(is_identity<a_model_of_identity>);
-BOOST_MPL2_ASSERT(is_identity<another_model_of_identity>);
-
-struct not_a_model_of_identity
-{};
-
-struct not_a_model_of_identity_either
-{
-    using type = void;
-};
-
-BOOST_MPL2_ASSERT(not_<is_identity<not_a_model_of_identity> >);
-BOOST_MPL2_ASSERT(not_<is_identity<not_a_model_of_identity_either> >);
-BOOST_MPL2_ASSERT(not_<is_identity<identity<void> > >);
-
-
 int main()
 {
     return 0;
