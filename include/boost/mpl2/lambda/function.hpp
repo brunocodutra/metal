@@ -6,6 +6,8 @@
 #define BOOST_MPL2_LAMBDA_FUNCTION_HPP
 
 #include <boost/mpl2/lambda/identity.hpp>
+#include <boost/mpl2/lambda/quote.hpp>
+#include <boost/mpl2/lambda/call.hpp>
 
 namespace boost
 {
@@ -16,9 +18,7 @@ namespace boost
                 identity<function<expr> >
         {
             template<typename... args>
-            struct call :
-                    expr<args...>
-            {};
+            using call = typename call<quote<expr>, args...>::type;
         };
     }
 }
