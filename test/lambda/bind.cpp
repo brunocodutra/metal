@@ -13,20 +13,20 @@
 
 using namespace boost::mpl2;
 
-using compose = protect<bind<arg<1>, bind<arg<2>, arg<3> > > >;
+using compose = protect<bind<_1, bind<_2, _3> > >;
 BOOST_MPL2_ASSERT((std::is_same<call<compose, function<std::add_pointer>, function<std::add_const>, void>::type, void const*>));
 BOOST_MPL2_ASSERT((std::is_same<call<compose, function<std::add_const>, function<std::add_pointer>, void>::type, void* const>));
 
-using once = protect<bind<compose, protect<arg<1> >, arg<1>, arg<2> > >;
+using once = protect<bind<compose, protect<_1>, _1, _2> >;
 BOOST_MPL2_ASSERT((std::is_same<call<once, function<std::add_pointer>, void>::type, void*>));
 
-using twice = protect<bind<compose, arg<1>, arg<1>, arg<2> > >;
+using twice = protect<bind<compose, _1, _1, _2> >;
 BOOST_MPL2_ASSERT((std::is_same<call<twice, function<std::add_pointer>, void>::type, void**>));
 
-using thrice = protect<bind<once, arg<1>, bind<twice, arg<1>, arg<2> > > >;
+using thrice = protect<bind<once, _1, bind<twice, _1, _2> > >;
 BOOST_MPL2_ASSERT((std::is_same<call<thrice, function<std::add_pointer>, void>::type, void***>));
 
-using ptr2ptr2ptr = protect<bind<thrice, function<std::add_pointer>, arg<1> > >;
+using ptr2ptr2ptr = protect<bind<thrice, function<std::add_pointer>, _1> >;
 BOOST_MPL2_ASSERT((std::is_same<call<ptr2ptr2ptr, void>::type, void***>));
 BOOST_MPL2_ASSERT((std::is_same<call<bind<ptr2ptr2ptr, void> >::type, void***>));
 

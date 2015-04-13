@@ -6,6 +6,7 @@
 #include <boost/mpl2/lambda/call.hpp>
 #include <boost/mpl2/lambda/function.hpp>
 #include <boost/mpl2/lambda/bind.hpp>
+#include <boost/mpl2/lambda/arg.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
@@ -31,3 +32,4 @@ int main()
 {
     return 0;
 }
+
