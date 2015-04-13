@@ -5,15 +5,16 @@
 #ifndef BOOST_MPL2_LAMBDA_NULLARY_HPP
 #define BOOST_MPL2_LAMBDA_NULLARY_HPP
 
+#include <boost/mpl2/lambda/identity.hpp>
+
 namespace boost
 {
     namespace mpl2
     {
         template<typename nullexpr>
-        struct nullary
+        struct nullary :
+                identity<nullary<nullexpr> >
         {
-            using type = nullary;
-
             template<typename...>
             using call = nullexpr;
         };
