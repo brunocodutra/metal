@@ -9,8 +9,19 @@ namespace boost
 {
     namespace mpl2
     {
+        namespace detail
+        {
+            template<typename... args>
+            struct args_pack;
+        }
+
         template<typename function, typename... args>
         struct call :
+                call<function, typename detail::args_pack<args...> >
+        {};
+
+        template<typename function, typename... args>
+        struct call<function, detail::args_pack<args...> >  :
                 function::template call<args...>
         {};
     }

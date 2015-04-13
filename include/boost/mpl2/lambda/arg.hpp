@@ -6,6 +6,7 @@
 #define BOOST_MPL2_LAMBDA_ARG_HPP
 
 #include <boost/mpl2/lambda/identity.hpp>
+#include <boost/mpl2/lambda/call.hpp>
 
 #include <cstddef>
 
@@ -38,7 +39,14 @@ namespace boost
         };
 
         template<>
-        struct arg<0>;
+        struct arg<0> :
+                identity<arg<0> >
+        {
+            template<typename... args>
+            using call = identity<detail::args_pack<args...> >;
+        };
+
+        using _ = arg<0>;
         using _1 = arg<1>;
         using _2 = arg<2>;
         using _3 = arg<3>;

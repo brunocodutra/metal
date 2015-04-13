@@ -12,25 +12,34 @@
 
 using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT(is_function<arg<1> >);
-BOOST_MPL2_ASSERT(is_function<arg<2> >);
-BOOST_MPL2_ASSERT(is_function<arg<3> >);
-BOOST_MPL2_ASSERT(is_function<arg<4> >);
+BOOST_MPL2_ASSERT(is_function<_>);
+BOOST_MPL2_ASSERT(is_function<_1>);
+BOOST_MPL2_ASSERT(is_function<_2>);
+BOOST_MPL2_ASSERT(is_function<_3>);
+BOOST_MPL2_ASSERT(is_function<_4>);
 
-BOOST_MPL2_ASSERT((is_callable<arg<1>, short>));
-BOOST_MPL2_ASSERT((is_callable<arg<2>, short, int>));
-BOOST_MPL2_ASSERT((is_callable<arg<3>, short, int, long>));
-BOOST_MPL2_ASSERT((is_callable<arg<4>, short, int, long, long long>));
+BOOST_MPL2_ASSERT((is_callable<_, short, int, long, long long>));
+BOOST_MPL2_ASSERT((is_callable<_1, short, int, long, long long>));
+BOOST_MPL2_ASSERT((is_callable<_2, short, int, long, long long>));
+BOOST_MPL2_ASSERT((is_callable<_3, short, int, long, long long>));
+BOOST_MPL2_ASSERT((is_callable<_4, short, int, long, long long>));
 
-BOOST_MPL2_ASSERT((std::is_same<call<arg<1>, short>::type, short>));
-BOOST_MPL2_ASSERT((std::is_same<call<arg<2>, short, int>::type, int>));
-BOOST_MPL2_ASSERT((std::is_same<call<arg<3>, short, int, long>::type, long>));
-BOOST_MPL2_ASSERT((std::is_same<call<arg<4>, short, int, long, long long>::type, long long>));
+BOOST_MPL2_ASSERT((is_callable<_>));
+BOOST_MPL2_ASSERT((not_<is_callable<_1> >));
+BOOST_MPL2_ASSERT((not_<is_callable<_2, int> >));
+BOOST_MPL2_ASSERT((not_<is_callable<_3, int, long> >));
+BOOST_MPL2_ASSERT((not_<is_callable<_4, int, long, long long> >));
 
-BOOST_MPL2_ASSERT((not_<is_callable<arg<1> > >));
-BOOST_MPL2_ASSERT((not_<is_callable<arg<2>, int> >));
-BOOST_MPL2_ASSERT((not_<is_callable<arg<3>, int, long> >));
-BOOST_MPL2_ASSERT((not_<is_callable<arg<4>, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<call<_>::type, detail::args_pack<> >));
+BOOST_MPL2_ASSERT((std::is_same<call<_, short>::type, detail::args_pack<short> >));
+BOOST_MPL2_ASSERT((std::is_same<call<_, short, int>::type, detail::args_pack<short, int> >));
+BOOST_MPL2_ASSERT((std::is_same<call<_, short, int, long>::type, detail::args_pack<short, int, long> >));
+BOOST_MPL2_ASSERT((std::is_same<call<_, short, int, long, long long>::type, detail::args_pack<short, int, long, long long> >));
+
+BOOST_MPL2_ASSERT((std::is_same<call<_1, short, int, long, long long>::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<call<_2, short, int, long, long long>::type, int>));
+BOOST_MPL2_ASSERT((std::is_same<call<_3, short, int, long, long long>::type, long>));
+BOOST_MPL2_ASSERT((std::is_same<call<_4, short, int, long, long long>::type, long long>));
 
 int main()
 {
