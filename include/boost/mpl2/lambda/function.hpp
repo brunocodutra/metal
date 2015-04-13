@@ -5,7 +5,6 @@
 #ifndef BOOST_MPL2_LAMBDA_FUNCTION_HPP
 #define BOOST_MPL2_LAMBDA_FUNCTION_HPP
 
-#include <boost/mpl2/lambda/identity.hpp>
 #include <boost/mpl2/lambda/quote.hpp>
 #include <boost/mpl2/lambda/call.hpp>
 
@@ -14,8 +13,7 @@ namespace boost
     namespace mpl2
     {
         template<template<typename...> class expr>
-        struct function :
-                identity<function<expr> >
+        struct function
         {
             template<typename... args>
             using call = typename call<quote<expr>, args...>::type;

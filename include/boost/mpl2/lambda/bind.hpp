@@ -15,8 +15,7 @@ namespace boost
     namespace mpl2
     {
         template<typename function, typename... params>
-        struct bind :
-                identity<bind<function, params...> >
+        struct bind
         {
         private:
             template<typename param>

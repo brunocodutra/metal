@@ -12,8 +12,7 @@ namespace boost
     namespace mpl2
     {
         template<template<typename...> class expr>
-        struct quote :
-                identity<quote<expr> >
+        struct quote
         {
             template<typename... args>
             struct call :
