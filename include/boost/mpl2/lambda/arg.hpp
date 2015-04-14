@@ -39,8 +39,7 @@ namespace boost
         };
 
         template<>
-        struct arg<0> :
-                identity<arg<0> >
+        struct arg<0>
         {
             template<typename... args>
             using call = identity<detail::args_pack<args...> >;
