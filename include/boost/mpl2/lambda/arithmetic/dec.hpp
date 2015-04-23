@@ -12,10 +12,12 @@ namespace boost
     namespace mpl2
     {
         template<typename x>
-        using dec = integral<
-            typename x::value_type,
-            static_cast<typename x::value_type>(x::value - 1)
-        >;
+        struct dec :
+                integral<
+                    typename x::value_type,
+                    static_cast<typename x::value_type>(x::value - 1)
+                >
+        {};
     }
 }
 

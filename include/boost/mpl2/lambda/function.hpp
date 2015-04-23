@@ -5,9 +5,6 @@
 #ifndef BOOST_MPL2_LAMBDA_FUNCTION_HPP
 #define BOOST_MPL2_LAMBDA_FUNCTION_HPP
 
-#include <boost/mpl2/lambda/quote.hpp>
-#include <boost/mpl2/lambda/call.hpp>
-
 namespace boost
 {
     namespace mpl2
@@ -16,7 +13,9 @@ namespace boost
         struct function
         {
             template<typename... args>
-            using call = typename call<quote<expr>, args...>::type;
+            struct call :
+                    expr<args...>
+            {};
         };
     }
 }

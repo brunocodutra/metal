@@ -12,7 +12,9 @@ namespace boost
     namespace mpl2
     {
         template<typename x, typename y>
-        using equal_to = integral<bool, x::value == y::value>;
+        struct equal_to :
+                integral<bool, x::value == y::value>
+        {};
     }
 }
 

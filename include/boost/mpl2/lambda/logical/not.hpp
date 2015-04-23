@@ -12,7 +12,9 @@ namespace boost
     namespace mpl2
     {
         template<typename x>
-        using not_ = bool_<not x::value>;
+        struct not_ :
+            bool_<not x::value>
+        {};
     }
 }
 

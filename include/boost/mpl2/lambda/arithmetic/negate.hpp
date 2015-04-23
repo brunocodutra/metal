@@ -12,10 +12,12 @@ namespace boost
     namespace mpl2
     {
         template<typename x>
-        using negate = integral<
-            typename x::value_type,
-            static_cast<typename x::value_type>(-x::value)
-        >;
+        struct negate :
+                integral<
+                    typename x::value_type,
+                    static_cast<typename x::value_type>(-x::value)
+                >
+        {};
     }
 }
 
