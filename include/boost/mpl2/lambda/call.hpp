@@ -5,24 +5,15 @@
 #ifndef BOOST_MPL2_LAMBDA_CALL_HPP
 #define BOOST_MPL2_LAMBDA_CALL_HPP
 
+#include <boost/mpl2/lambda/pack.hpp>
+
 namespace boost
 {
     namespace mpl2
     {
-        namespace detail
-        {
-            template<typename... args>
-            struct args_pack;
-        }
-
         template<typename function, typename... args>
         struct call :
-                call<function, typename detail::args_pack<args...> >
-        {};
-
-        template<typename function, typename... args>
-        struct call<function, detail::args_pack<args...> >  :
-                function::template call<args...>
+                unpack<function::template call, pack<args...> >
         {};
     }
 }
