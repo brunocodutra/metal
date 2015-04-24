@@ -44,6 +44,18 @@ BOOST_MPL2_ASSERT((equal_to<sizeof_<tail<p2> >, sizeof_<p1> >));
 BOOST_MPL2_ASSERT((equal_to<sizeof_<tail<p3> >, sizeof_<p2> >));
 BOOST_MPL2_ASSERT((equal_to<sizeof_<tail<p4> >, sizeof_<p3> >));
 
+template<typename...>
+struct wrapper
+{
+    using type = wrapper;
+};
+
+BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p0>::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p1>::type, wrapper<short> >));
+BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p2>::type, wrapper<int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p3>::type, wrapper<long, int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p4>::type, wrapper<long long, long, int, short> >));
+
 int main()
 {
     return 0;

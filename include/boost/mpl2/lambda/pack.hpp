@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_MPL2_LAMBDA_ARGS_PACK_HPP
-#define BOOST_MPL2_LAMBDA_ARGS_PACK_HPP
+#ifndef BOOST_MPL2_LAMBDA_PACK_HPP
+#define BOOST_MPL2_LAMBDA_PACK_HPP
 
 #include <boost/mpl2/lambda/integral/size_t.hpp>
 #include <boost/mpl2/lambda/arithmetic/inc.hpp>
