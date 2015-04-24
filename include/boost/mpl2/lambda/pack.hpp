@@ -14,7 +14,7 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename pack>
+        template<typename...>
         struct sizeof_;
 
         template<typename... args>
@@ -64,9 +64,14 @@ namespace boost
         template<typename... args>
         using tail = typename pack<args...>::tail;
 
-        template<typename pack>
+        template<typename... args>
         struct sizeof_ :
-                pack::size
+                sizeof_<pack<args...> >
+        {};
+
+        template<typename... args>
+        struct sizeof_<pack<args...> > :
+                pack<args...>::size
         {};
 
         template<template<typename...> class tmpl, typename pack, typename... unpacked>
