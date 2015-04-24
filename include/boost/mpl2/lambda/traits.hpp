@@ -19,17 +19,13 @@ namespace boost
 {
     namespace mpl2
     {
-        namespace detail
-        {
-            BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_type, type);
-        }
-
+        BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(is_evaluable, type);
         BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(is_function, call);
 
         template<typename x, typename... args>
         using is_callable = and_<
             is_function<x>,
-            detail::has_type<call<x, args...> >
+            is_evaluable<call<x, args...> >
         >;
     }
 }

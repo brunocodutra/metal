@@ -11,39 +11,51 @@
 
 using namespace boost::mpl2;
 
-using built_in_type = void;
+using fundamental = void;
 
-struct undefined_struct;
-struct empty_struct;
-struct identity_struct {using type = identity_struct;};
+struct incomplete;
+struct empty {};
+struct evaluable {struct type;};
 
-struct oneary_undefined_call {template<typename> struct call;};
+struct oneary_incomplete_call {template<typename> struct call;};
 struct oneary_empty_call {template<typename> struct call{};};
-struct oneary_call {template<typename> struct call{using type = void;};};
+struct oneary_evaluable_call {template<typename> struct call{using type = void;};};
 
-struct nullary_undefined_call {template<typename=void> struct call;};
+struct nullary_incomplete_call {template<typename=void> struct call;};
 struct nullary_empty_call {template<typename=void> struct call{};};
-struct nullary_call {template<typename=void> struct call{using type = void;};};
+struct nullary_evaluable_call {template<typename=void> struct call{enum type{};};};
 
-BOOST_MPL2_ASSERT((not_<is_function<built_in_type> >));
-BOOST_MPL2_ASSERT((not_<is_function<empty_struct> >));
-BOOST_MPL2_ASSERT((not_<is_function<identity_struct> >));
-BOOST_MPL2_ASSERT((is_function<oneary_undefined_call>));
+BOOST_MPL2_ASSERT((not_<is_evaluable<fundamental> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<incomplete> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<empty> >));
+BOOST_MPL2_ASSERT((is_evaluable<evaluable>));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_incomplete_call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_empty_call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_evaluable_call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_incomplete_call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_empty_call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_evaluable_call> >));
+
+BOOST_MPL2_ASSERT((not_<is_function<fundamental> >));
+BOOST_MPL2_ASSERT((not_<is_function<incomplete> >));
+BOOST_MPL2_ASSERT((not_<is_function<empty> >));
+BOOST_MPL2_ASSERT((not_<is_function<evaluable> >));
+BOOST_MPL2_ASSERT((is_function<oneary_incomplete_call>));
 BOOST_MPL2_ASSERT((is_function<oneary_empty_call>));
-BOOST_MPL2_ASSERT((is_function<oneary_call>));
-BOOST_MPL2_ASSERT((is_function<nullary_undefined_call>));
+BOOST_MPL2_ASSERT((is_function<oneary_evaluable_call>));
+BOOST_MPL2_ASSERT((is_function<nullary_incomplete_call>));
 BOOST_MPL2_ASSERT((is_function<nullary_empty_call>));
-BOOST_MPL2_ASSERT((is_function<nullary_call>));
+BOOST_MPL2_ASSERT((is_function<nullary_evaluable_call>));
 
-BOOST_MPL2_ASSERT((not_<is_callable<built_in_type> >));
-BOOST_MPL2_ASSERT((not_<is_callable<empty_struct> >));
-BOOST_MPL2_ASSERT((not_<is_callable<identity_struct> >));
-BOOST_MPL2_ASSERT((not_<is_callable<oneary_undefined_call> >));
+BOOST_MPL2_ASSERT((not_<is_callable<fundamental> >));
+BOOST_MPL2_ASSERT((not_<is_callable<empty> >));
+BOOST_MPL2_ASSERT((not_<is_callable<evaluable> >));
+BOOST_MPL2_ASSERT((not_<is_callable<oneary_incomplete_call> >));
 BOOST_MPL2_ASSERT((not_<is_callable<oneary_empty_call> >));
-BOOST_MPL2_ASSERT((not_<is_callable<oneary_call> >));
-BOOST_MPL2_ASSERT((not_<is_callable<nullary_undefined_call> >));
+BOOST_MPL2_ASSERT((not_<is_callable<oneary_evaluable_call> >));
+BOOST_MPL2_ASSERT((not_<is_callable<nullary_incomplete_call> >));
 BOOST_MPL2_ASSERT((not_<is_callable<nullary_empty_call> >));
-BOOST_MPL2_ASSERT((is_callable<nullary_call>));
+BOOST_MPL2_ASSERT((is_callable<nullary_evaluable_call>));
 
 int main()
 {
