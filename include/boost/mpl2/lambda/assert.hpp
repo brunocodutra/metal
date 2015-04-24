@@ -5,8 +5,6 @@
 #ifndef BOOST_MPL2_LAMBDA_ASSERT_HPP
 #define BOOST_MPL2_LAMBDA_ASSERT_HPP
 
-#include <boost/mpl2/lambda/identity.hpp>
-
 namespace boost
 {
     namespace mpl2
@@ -17,9 +15,10 @@ namespace boost
             struct strip_parenthesis;
 
             template<typename x>
-            struct strip_parenthesis<void (x)> :
-                identity<x>
-            {};
+            struct strip_parenthesis<void (x)>
+            {
+                    using type = x;
+            };
         }
     }
 }

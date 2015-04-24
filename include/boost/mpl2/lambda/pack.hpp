@@ -27,14 +27,14 @@ namespace boost
         {};
 
         template<typename h, typename... t>
-        struct pack<h, pack<t...> > :
-                identity<pack<h, pack<t...> > >
+        struct pack<h, pack<t...> >
         {
             template<typename p>
             struct sizeof_ :
                     p::size
             {};
 
+            using type = pack;
             using head = identity<h>;
             using tail = pack<t...>;
             using size = inc<sizeof_<tail> >;
@@ -51,9 +51,9 @@ namespace boost
         {};
 
         template<>
-        struct pack<> :
-                identity<pack<> >
+        struct pack<>
         {
+            using type = pack;
             struct head {};
             using tail = pack<>;
             using size = size_t_<0>;

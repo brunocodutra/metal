@@ -6,7 +6,6 @@
 #define BOOST_MPL2_SEQUENCES_TAG_HPP
 
 #include <boost/mpl2/lambda/integral/boolean.hpp>
-#include <boost/mpl2/lambda/identity.hpp>
 #include <boost/mpl2/lambda/detail/nested_type_trait.hpp>
 
 namespace boost
@@ -24,14 +23,16 @@ namespace boost
             struct tag_impl;
 
             template<typename tagged>
-            struct tag_impl<tagged, false_>:
-                    identity<tag<tagged> >
-            {};
+            struct tag_impl<tagged, false_>
+            {
+                using type = tag<tagged>;
+            };
 
             template<typename tagged>
-            struct tag_impl<tagged, true_> :
-                    identity<typename tagged::tag>
-            {};
+            struct tag_impl<tagged, true_>
+            {
+                using type = typename tagged::tag;
+            };
         }
 
         template<typename type>

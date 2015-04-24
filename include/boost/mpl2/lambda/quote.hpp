@@ -5,8 +5,6 @@
 #ifndef BOOST_MPL2_LAMBDA_QUOTE_HPP
 #define BOOST_MPL2_LAMBDA_QUOTE_HPP
 
-#include <boost/mpl2/lambda/identity.hpp>
-
 namespace boost
 {
     namespace mpl2
@@ -15,9 +13,10 @@ namespace boost
         struct quote
         {
             template<typename... args>
-            struct call :
-                    identity<expr<args...> >
-            {};
+            struct call
+            {
+                using type = expr<args...>;
+            };
         };
     }
 }
