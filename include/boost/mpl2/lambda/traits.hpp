@@ -6,11 +6,6 @@
 #define BOOST_MPL2_LAMBDA_TRAITS_HPP
 
 #include <boost/mpl2/lambda/logical/and.hpp>
-#include <boost/mpl2/lambda/logical/or.hpp>
-#include <boost/mpl2/lambda/identity.hpp>
-#include <boost/mpl2/lambda/function.hpp>
-#include <boost/mpl2/lambda/nullary.hpp>
-#include <boost/mpl2/lambda/bind.hpp>
 #include <boost/mpl2/lambda/call.hpp>
 #include <boost/mpl2/lambda/detail/nested_type_trait.hpp>
 #include <boost/mpl2/lambda/detail/nested_template_trait.hpp>

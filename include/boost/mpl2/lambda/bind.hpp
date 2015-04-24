@@ -7,7 +7,6 @@
 
 #include <boost/mpl2/lambda/arg.hpp>
 #include <boost/mpl2/lambda/identity.hpp>
-#include <boost/mpl2/lambda/nullary.hpp>
 #include <boost/mpl2/lambda/call.hpp>
 
 namespace boost
@@ -19,9 +18,11 @@ namespace boost
         {
         private:
             template<typename param>
-            struct parse :
-                    nullary<identity<param> >
-            {};
+            struct parse
+            {
+                template<typename...>
+                using call = identity<param>;
+            };
 
             template<std::size_t n>
             struct parse<arg<n> > :
