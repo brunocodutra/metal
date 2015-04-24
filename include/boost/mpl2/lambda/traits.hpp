@@ -22,23 +22,6 @@ namespace boost
         namespace detail
         {
             BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_type, type);
-
-            template<typename x, typename... args>
-            struct is_call_valid
-            {
-            private:
-                template<template<typename...> class y>
-                static boost::mpl2::true_ check(int(*)[sizeof(y<args...>)]);
-                template<template<typename...> class>
-                static boost::mpl2::false_ check(...);
-
-            public:
-                using type = decltype(check<x::template call>(0));
-                using value_type = typename type::value_type;
-                static constexpr value_type value = type::value;
-                constexpr operator value_type() const noexcept {return value;}
-                constexpr value_type operator()() const noexcept {return value;}
-            };
         }
 
         BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(is_function, call);
@@ -46,7 +29,6 @@ namespace boost
         template<typename x, typename... args>
         using is_callable = and_<
             is_function<x>,
-            detail::is_call_valid<x, args...>,
             detail::has_type<call<x, args...> >
         >;
     }

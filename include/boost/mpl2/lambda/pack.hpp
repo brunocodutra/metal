@@ -74,6 +74,33 @@ namespace boost
                 pack<args...>::size
         {};
 
+        namespace detail
+        {
+            template<template<typename...> class x, typename... args>
+            struct is_instantiable
+            {
+            private:
+                template<template<typename...> class y>
+                static boost::mpl2::true_ check(int(*)[sizeof(y<args...>)]);
+                template<template<typename...> class>
+                static boost::mpl2::false_ check(...);
+
+            public:
+                using type = decltype(check<x>(0));
+                using value_type = typename type::value_type;
+                static constexpr value_type value = type::value;
+                constexpr operator value_type() const noexcept {return value;}
+                constexpr value_type operator()() const noexcept {return value;}
+            };
+
+            template<template<typename...> class tmpl, typename... args>
+            struct instantiate :
+                    tmpl<args...>
+            {};
+
+            struct empty{};
+        }
+
         template<template<typename...> class tmpl, typename pack, typename... unpacked>
         struct unpack;
 
@@ -87,7 +114,9 @@ namespace boost
                         unpacked...,
                         head<pack<args...> >
                     >,
-                    tmpl<typename unpacked::type...>
+                    detail::is_instantiable<tmpl, typename unpacked::type...>,
+                    detail::instantiate<tmpl, typename unpacked::type...>,
+                    detail::empty
                 >
         {};
     }
