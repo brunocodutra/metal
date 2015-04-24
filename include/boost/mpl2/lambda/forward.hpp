@@ -37,26 +37,29 @@ namespace boost
             {};
 
             struct empty{};
+
+            template<template<typename...> class tmpl, typename pack, typename... unpacked>
+            struct forward;
+
+            template<template<typename...> class tmpl, typename... args, typename... unpacked>
+            struct forward<tmpl, pack<args...>, unpacked...> :
+                    if_<
+                        sizeof_<pack<args...> >,
+                        forward<
+                            tmpl,
+                            tail<pack<args...> >,
+                            unpacked...,
+                            head<pack<args...> >
+                        >,
+                        is_instantiable<tmpl, typename unpacked::type...>,
+                        instantiate<tmpl, typename unpacked::type...>,
+                        empty
+                    >
+            {};
         }
 
-        template<template<typename...> class tmpl, typename pack, typename... forwarded>
-        struct forward;
-
-        template<template<typename...> class tmpl, typename... args, typename... forwarded>
-        struct forward<tmpl, pack<args...>, forwarded...> :
-                if_<
-                    sizeof_<pack<args...> >,
-                    forward<
-                        tmpl,
-                        tail<pack<args...> >,
-                        forwarded...,
-                        head<pack<args...> >
-                    >,
-                    detail::is_instantiable<tmpl, typename forwarded::type...>,
-                    detail::instantiate<tmpl, typename forwarded::type...>,
-                    detail::empty
-                >
-        {};
+        template<template<typename...> class tmpl, typename... args>
+        using forward = detail::forward<tmpl, pack<args...> >;
     }
 }
 

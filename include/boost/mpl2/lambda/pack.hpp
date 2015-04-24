@@ -13,9 +13,6 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename...>
-        struct sizeof_;
-
         template<typename... args>
         struct pack;
 
@@ -33,6 +30,11 @@ namespace boost
         struct pack<h, pack<t...> > :
                 identity<pack<h, pack<t...> > >
         {
+            template<typename p>
+            struct sizeof_ :
+                    p::size
+            {};
+
             using head = identity<h>;
             using tail = pack<t...>;
             using size = inc<sizeof_<tail> >;
@@ -64,14 +66,7 @@ namespace boost
         using tail = typename pack<args...>::tail;
 
         template<typename... args>
-        struct sizeof_ :
-                sizeof_<pack<args...> >
-        {};
-
-        template<typename... args>
-        struct sizeof_<pack<args...> > :
-                pack<args...>::size
-        {};
+        using sizeof_ = typename pack<args...>::size;
     }
 }
 
