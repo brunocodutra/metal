@@ -8,7 +8,6 @@
 #include <boost/mpl2/lambda/integral/size_t.hpp>
 #include <boost/mpl2/lambda/arithmetic/inc.hpp>
 #include <boost/mpl2/lambda/identity.hpp>
-#include <boost/mpl2/lambda/if.hpp>
 
 namespace boost
 {
@@ -72,52 +71,6 @@ namespace boost
         template<typename... args>
         struct sizeof_<pack<args...> > :
                 pack<args...>::size
-        {};
-
-        namespace detail
-        {
-            template<template<typename...> class x, typename... args>
-            struct is_instantiable
-            {
-            private:
-                template<template<typename...> class y>
-                static boost::mpl2::true_ check(int(*)[sizeof(y<args...>)]);
-                template<template<typename...> class>
-                static boost::mpl2::false_ check(...);
-
-            public:
-                using type = decltype(check<x>(0));
-                using value_type = typename type::value_type;
-                static constexpr value_type value = type::value;
-                constexpr operator value_type() const noexcept {return value;}
-                constexpr value_type operator()() const noexcept {return value;}
-            };
-
-            template<template<typename...> class tmpl, typename... args>
-            struct instantiate :
-                    tmpl<args...>
-            {};
-
-            struct empty{};
-        }
-
-        template<template<typename...> class tmpl, typename pack, typename... unpacked>
-        struct unpack;
-
-        template<template<typename...> class tmpl, typename... args, typename... unpacked>
-        struct unpack<tmpl, pack<args...>, unpacked...> :
-                if_<
-                    sizeof_<pack<args...> >,
-                    unpack<
-                        tmpl,
-                        tail<pack<args...> >,
-                        unpacked...,
-                        head<pack<args...> >
-                    >,
-                    detail::is_instantiable<tmpl, typename unpacked::type...>,
-                    detail::instantiate<tmpl, typename unpacked::type...>,
-                    detail::empty
-                >
         {};
     }
 }

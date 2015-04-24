@@ -6,6 +6,7 @@
 #define BOOST_MPL2_LAMBDA_CALL_HPP
 
 #include <boost/mpl2/lambda/pack.hpp>
+#include <boost/mpl2/lambda/forward.hpp>
 
 namespace boost
 {
@@ -13,7 +14,7 @@ namespace boost
     {
         template<typename function, typename... args>
         struct call :
-                unpack<function::template call, pack<args...> >
+                forward<function::template call, pack<args...> >
         {};
     }
 }
