@@ -5,6 +5,7 @@
 #include <boost/mpl2/lambda/logical/not.hpp>
 #include <boost/mpl2/lambda/arg.hpp>
 #include <boost/mpl2/lambda/call.hpp>
+#include <boost/mpl2/lambda/forward.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
@@ -30,11 +31,17 @@ BOOST_MPL2_ASSERT((not_<is_callable<_2, int> >));
 BOOST_MPL2_ASSERT((not_<is_callable<_3, int, long> >));
 BOOST_MPL2_ASSERT((not_<is_callable<_4, int, long, long long> >));
 
-BOOST_MPL2_ASSERT((std::is_same<call<_>::type, pack<> >));
-//BOOST_MPL2_ASSERT((std::is_same<call<_, short>::type, pack<short> >));
-//BOOST_MPL2_ASSERT((std::is_same<call<_, short, int>::type, pack<short, int> >));
-//BOOST_MPL2_ASSERT((std::is_same<call<_, short, int, long>::type, pack<short, int, long> >));
-//BOOST_MPL2_ASSERT((std::is_same<call<_, short, int, long, long long>::type, pack<short, int, long, long long> >));
+template<typename...>
+struct wrapper
+{
+    using type = wrapper;
+};
+
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, call<_>::type>::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, call<_, short>::type>::type, wrapper<short> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, call<_, short, int>::type>::type, wrapper<short, int> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, call<_, short, int, long>::type>::type, wrapper<short, int, long> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, call<_, short, int, long, long long>::type>::type, wrapper<short, int, long, long long> >));
 
 BOOST_MPL2_ASSERT((std::is_same<call<_1, short, int, long, long long>::type, short>));
 BOOST_MPL2_ASSERT((std::is_same<call<_2, short, int, long, long long>::type, int>));
