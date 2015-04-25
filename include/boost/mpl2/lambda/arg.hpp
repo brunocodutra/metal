@@ -25,7 +25,7 @@ namespace boost
                 pack<args...>,
                 bool_<n == 1>,
                 head<args...>,
-                boost::mpl2::call<arg<n - 1>, tail<args...> >
+                call<arg<n - 1>, tail<args...> >
             >;
         };
 
