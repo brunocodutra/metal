@@ -27,12 +27,12 @@ before_install:
     - sudo apt-get -qq update
     
 install:
-    - sudo apt-get -qq install ${PACKAGE}
+    - sudo apt-get -qq install ${PACKAGES}
 
 before_script:
     - mkdir build
     - cd build
-    - export CXX=${COMPILER} && cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER}-${VERSION} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=OFF -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF -DBOOST_MPL2_CXX_DIALECTS=${CXX_DIALECTS}
+    - export CXX=${COMPILER} && cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=OFF -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF -DBOOST_MPL2_CXX_DIALECTS=${CXX_DIALECTS}
     
 script:
     - make tests
