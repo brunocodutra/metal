@@ -8,8 +8,8 @@ sudo: required
 
 matrix:
     include:
-        - env: COMPILER=g++-4.8     PACKAGES=gcc-4.8   CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
-        - env: COMPILER=g++-4.9     PACKAGES=gcc-4.9   CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
+        - env: COMPILER=g++-4.8     PACKAGES=g++-4.8   CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
+        - env: COMPILER=g++-4.9     PACKAGES=g++-4.9   CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
         - env: COMPILER=clang++-3.2 PACKAGES=clang-3.2 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
         - env: COMPILER=clang++-3.3 PACKAGES=clang-3.3 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
         - env: COMPILER=clang++-3.4 PACKAGES=clang-3.4 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
@@ -32,7 +32,7 @@ install:
 before_script:
     - mkdir build
     - cd build
-    - export CXX=${COMPILER} && cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=OFF -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF -DBOOST_MPL2_CXX_DIALECTS=${CXX_DIALECTS}
+    - cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=OFF -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF -DBOOST_MPL2_CXX_DIALECTS=${CXX_DIALECTS}
     
 script:
     - make tests
