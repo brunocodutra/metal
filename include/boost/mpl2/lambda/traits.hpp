@@ -7,15 +7,14 @@
 
 #include <boost/mpl2/lambda/logical/and.hpp>
 #include <boost/mpl2/lambda/call.hpp>
-#include <boost/mpl2/lambda/detail/nested_type_trait.hpp>
-#include <boost/mpl2/lambda/detail/nested_template_trait.hpp>
+#include <boost/mpl2/lambda/detail/traits_factory.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(is_evaluable, type);
-        BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(is_function, call);
+        BOOST_MPL2_DETAIL_DEFINE_NESTED_TYPE_TRAIT(is_evaluable, type);
+        BOOST_MPL2_DETAIL_DEFINE_NESTED_TEMPLATE_TRAIT(is_function, call);
 
         template<typename x, typename... args>
         using is_callable = and_<

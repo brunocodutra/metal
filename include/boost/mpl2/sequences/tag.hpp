@@ -17,7 +17,7 @@ namespace boost
 
         namespace detail
         {
-            BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_tag, tag);
+            BOOST_MPL2_DETAIL_DEFINE_NESTED_TYPE_TRAIT(has_tag, tag);
 
             template<typename type, typename = typename has_tag<type>::type>
             struct tag_impl;
