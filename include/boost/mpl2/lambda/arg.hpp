@@ -20,15 +20,13 @@ namespace boost
         struct arg
         {
             template<typename... args>
-            struct call :
-                    if_<
-                        bool_<n == 0>,
-                        pack<args...>,
-                        bool_<n == 1>,
-                        head<args...>,
-                        boost::mpl2::call<arg<n - 1>, tail<args...> >
-                    >
-            {};
+            using call = if_<
+                bool_<n == 0>,
+                pack<args...>,
+                bool_<n == 1>,
+                head<args...>,
+                boost::mpl2::call<arg<n - 1>, tail<args...> >
+            >;
         };
 
         using _ = arg<0>;
