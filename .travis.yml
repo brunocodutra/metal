@@ -2,20 +2,20 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-language: cpp.   
+language: cpp
 os: linux
 sudo: required
 
-env:
-     matrix:
-        - COMPILER=g++      COMPILER_VERSION=4.8    CXX11=ON   CXX14=OFF   GNU_DIALECTS=ON
-        - COMPILER=g++      COMPILER_VERSION=4.9    CXX11=ON   CXX14=ON    GNU_DIALECTS=ON
-        - COMPILER=clang    COMPILER_VERSION=3.2    CXX11=ON   CXX14=ON    GNU_DIALECTS=ON
-        - COMPILER=clang    COMPILER_VERSION=3.3    CXX11=ON   CXX14=ON    GNU_DIALECTS=ON
-        - COMPILER=clang    COMPILER_VERSION=3.4    CXX11=ON   CXX14=ON    GNU_DIALECTS=ON
-        - COMPILER=clang    COMPILER_VERSION=3.5    CXX11=ON   CXX14=ON    GNU_DIALECTS=ON
-        - COMPILER=clang    COMPILER_VERSION=3.6    CXX11=ON   CXX14=ON    GNU_DIALECTS=ON
-        - COMPILER=clang    COMPILER_VERSION=3.7    CXX11=ON   CXX14=ON    GNU_DIALECTS=ON
+matrix:
+    include:
+        - env: COMPILER=g++-4.8     PACKAGES=gcc-4.8   CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
+        - env: COMPILER=g++-4.9     PACKAGES=gcc-4.9   CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
+        - env: COMPILER=clang++-3.2 PACKAGES=clang-3.2 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
+        - env: COMPILER=clang++-3.3 PACKAGES=clang-3.3 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
+        - env: COMPILER=clang++-3.4 PACKAGES=clang-3.4 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
+        - env: COMPILER=clang++-3.5 PACKAGES=clang-3.5 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
+        - env: COMPILER=clang++-3.6 PACKAGES=clang-3.6 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
+        - env: COMPILER=clang++-3.7 PACKAGES=clang-3.7 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
     
 before_install:
     - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
@@ -27,13 +27,12 @@ before_install:
     - sudo apt-get -qq update
     
 install:
-    - sudo apt-get -qq install ${COMPILER}-${COMPILER_VERSION}
+    - sudo apt-get -qq install ${PACKAGE}
 
 before_script:
     - mkdir build
     - cd build
-    - if [ "$COMPILER" == "g++" ]; then (export CXX=g++ && cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/g++-${COMPILER_VERSION} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=OFF -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF -DBOOST_MPL2_ENABLE_CXX11=${CXX11} -DBOOST_MPL2_ENABLE_CXX14=${CXX14} -DBOOST_MPL2_ENABLE_GNU_DIALECTS=${GNU_DIALECTS}); fi
-    - if [ "$COMPILER" == "clang" ]; then (export CXX=clang++ && cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/clang++-${COMPILER_VERSION} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=OFF -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF -DBOOST_MPL2_ENABLE_CXX11=${CXX11} -DBOOST_MPL2_ENABLE_CXX14=${CXX14} -DBOOST_MPL2_ENABLE_GNU_DIALECTS=${GNU_DIALECTS}); fi
+    - export CXX=${COMPILER} && cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER}-${VERSION} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=OFF -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF -DBOOST_MPL2_CXX_DIALECTS=${CXX_DIALECTS}
     
 script:
     - make tests
