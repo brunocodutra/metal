@@ -22,14 +22,7 @@ if(BOOST_MPL2_ENABLE_EXTRA_WARNINGS)
     list(APPEND BOOST_MPL2_EXTRA_COMPILE_FLAGS
         -Wno-c++98-compat
         -Wno-c++98-compat-pedantic
-        -Wno-disabled-macro-expansion
     )
-
-    if(CXX_COMPILER_IS_CLANG)
-        list(APPEND BOOST_MPL2_EXTRA_COMPILE_FLAGS
-            -Wno-unused-local-typedef
-        )
-    endif()
 endif()
 
 option(BOOST_MPL2_ENABLE_STRICT_BEHAVIOR "enable strict behavior" OFF)
