@@ -29,9 +29,9 @@ namespace boost
             };
 
             template<typename function>
-            struct parse<protect<function> >
+            struct parse<lambda<function> >
             {
-                using type = protect<function>;
+                using type = lambda<function>;
             };
 
             template<template<typename...> class parametric, typename... args>
@@ -42,7 +42,7 @@ namespace boost
                         bind<
                             function<if_>,
                             bind<function<is_callable>, function<parametric>, _>,
-                            bind<quote<call>, function<parametric>, _>,
+                            bind<quote<parametric>, _>,
                             bind<quote<call>, quote<parametric>, _>
                         >
                     >,
