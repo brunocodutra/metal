@@ -12,10 +12,16 @@ namespace boost
 {
     namespace mpl2
     {
+        namespace detail
+        {
+            template<typename function, typename... args>
+            struct invoke :
+                    forward<function::template call, pack<args...> >
+            {};
+        }
+
         template<typename function, typename... args>
-        struct call :
-                forward<function::template call, pack<args...> >
-        {};
+        using call = detail::invoke<function, args...>;
     }
 }
 

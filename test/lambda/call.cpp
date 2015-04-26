@@ -14,6 +14,9 @@
 
 using namespace boost::mpl2;
 
+BOOST_MPL2_ASSERT((not_<is_function<call<function<std::add_pointer>, void> > >));
+BOOST_MPL2_ASSERT((is_callable<function<std::add_pointer>, void>));
+BOOST_MPL2_ASSERT((is_evaluable<call<function<std::add_pointer>, void> >));
 BOOST_MPL2_ASSERT((
     std::is_base_of<
         std::add_pointer<void>,
@@ -26,7 +29,6 @@ BOOST_MPL2_ASSERT((std::is_same<call<bind<function<std::add_pointer>, void> >::t
 
 BOOST_MPL2_ASSERT((call<function<not_>, false_>));
 BOOST_MPL2_ASSERT((call<function<not_>, false_>::type));
-BOOST_MPL2_ASSERT((call<function<not_>, false_>));
 
 int main()
 {

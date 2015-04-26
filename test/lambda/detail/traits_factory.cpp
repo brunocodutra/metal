@@ -177,6 +177,22 @@ struct test_nested_template_template {template<template<typename> class> struct 
 BOOST_MPL2_ASSERT_TRAIT(!has_nested<test_nested_template_template>);
 BOOST_MPL2_ASSERT_TRAIT(!has_nested_template<test_nested_template_template>);
 
+namespace test_eponym {struct nested{};}
+BOOST_MPL2_ASSERT_TRAIT(has_nested<test_eponym::nested>);
+BOOST_MPL2_ASSERT_TRAIT(!has_nested_template<test_eponym::nested>);
+
+struct test_derived_eponym final : test_eponym::nested {};
+BOOST_MPL2_ASSERT_TRAIT(has_nested<test_derived_eponym>);
+BOOST_MPL2_ASSERT_TRAIT(!has_nested_template<test_derived_eponym>);
+
+namespace test_template_eponym {template<typename> struct nested{};}
+BOOST_MPL2_ASSERT_TRAIT(has_nested<test_template_eponym::nested<void> >);
+BOOST_MPL2_ASSERT_TRAIT(has_nested_template<test_template_eponym::nested<void> >);
+
+struct test_derived_template_eponym final : test_template_eponym::nested<void> {};
+BOOST_MPL2_ASSERT_TRAIT(has_nested<test_derived_template_eponym>);
+BOOST_MPL2_ASSERT_TRAIT(has_nested_template<test_derived_template_eponym>);
+
 int main()
 {
     return 0;
