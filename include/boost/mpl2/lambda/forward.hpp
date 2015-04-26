@@ -34,7 +34,12 @@ namespace boost
             template<template<typename...> class tmpl, typename... args>
             struct instantiate :
                     tmpl<args...>
-            {};
+            {
+            private:
+                //prevents instantiate from being detected as a function
+                //in case a template<...> call is inherited
+                using call = void;
+            };
 
             struct empty{};
 
