@@ -23,19 +23,20 @@ namespace boost
         {
         private:
             template<typename invariant>
-            struct parse
+            struct parse_expr
             {
                 using type = bind<protect<_1>, invariant>;
             };
 
             template<typename function>
-            struct parse<lambda<function> >
-            {
-                using type = lambda<function>;
-            };
+            using parse = if_<
+                is_function<function>,
+                identity<function>,
+                parse_expr<function>
+            >;
 
             template<template<typename...> class parametric, typename... args>
-            struct parse<parametric<args...> >
+            struct parse_expr<parametric<args...> >
             {
                 using type = bind<
                     protect<

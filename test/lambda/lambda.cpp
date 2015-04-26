@@ -16,15 +16,19 @@ using namespace boost::mpl2;
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<void> >::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<_1>, void>::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<std::add_pointer<_1> >, void>::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<call<protect<lambda<std::add_pointer<_1> > >, void>::type, void*>));
 
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<lambda<_1> >, void>::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<lambda<lambda<_1> > >, void>::type, void>));
 
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<lambda<_1> >, protect<_1> >::type, protect<_1> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<protect<_1> >, lambda<_1> >::type, protect<lambda<_1> > >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<protect<_1> >, lambda<_1> >::type, lambda<_1> >));
 
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<call<protect<lambda<std::add_pointer<_1> > >, void> > >::type, void*>));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<call<protect<_1>, void> >, lambda<std::add_pointer<_1> > >::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<quote<protect> >, _1>::type, protect<_1> >));
+
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<call<lambda<std::add_pointer<_1> >, void> > >::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<call<_1, void> >, lambda<std::add_pointer<_1> > >::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<apply<_1, void> >, std::add_pointer<_1> >::type, void*>));
 
 using compose = lambda<apply<_1, apply<_2, _3> > >;
 BOOST_MPL2_ASSERT((std::is_same<call<compose, std::add_pointer<_1>, std::add_const<_1>, void>::type, void const*>));
@@ -43,7 +47,7 @@ using ptr2ptr2ptr = lambda<call<thrice, lambda<std::add_pointer<_1> > , _1> >;
 BOOST_MPL2_ASSERT((std::is_same<call<ptr2ptr2ptr, void>::type, void***>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<ptr2ptr2ptr>, void>::type, void***>));
 BOOST_MPL2_ASSERT((std::is_same<call<bind<ptr2ptr2ptr, void> >::type, void***>));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<bind<ptr2ptr2ptr, void> > >::type, bind<ptr2ptr2ptr, void> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<bind<ptr2ptr2ptr, void> > >::type, void***>));
 
 int main()
 {
