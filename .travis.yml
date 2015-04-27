@@ -8,14 +8,17 @@ sudo: required
 
 matrix:
     include:
-        - env: COMPILER=g++-4.8     PACKAGES=g++-4.8   CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
-        - env: COMPILER=g++-4.9     PACKAGES=g++-4.9   CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
-        - env: COMPILER=clang++-3.2 PACKAGES=clang-3.2 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
-        - env: COMPILER=clang++-3.3 PACKAGES=clang-3.3 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
-        - env: COMPILER=clang++-3.4 PACKAGES=clang-3.4 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
-        - env: COMPILER=clang++-3.5 PACKAGES=clang-3.5 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
-        - env: COMPILER=clang++-3.6 PACKAGES=clang-3.6 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
-        - env: COMPILER=clang++-3.7 PACKAGES=clang-3.7 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
+        - env: COMPILER=g++-4.7   CXX_DIALECTS='c++11;gnu++11'
+        - env: COMPILER=g++-4.8   CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
+        - env: COMPILER=g++-4.9   CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
+        - env: COMPILER=g++-5     CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
+        - env: COMPILER=clang-3.1 CXX_DIALECTS='c++11;gnu++11'
+        - env: COMPILER=clang-3.2 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
+        - env: COMPILER=clang-3.3 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
+        - env: COMPILER=clang-3.4 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
+        - env: COMPILER=clang-3.5 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
+        - env: COMPILER=clang-3.6 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
+        - env: COMPILER=clang-3.7 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
     
 before_install:
     - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
@@ -27,7 +30,7 @@ before_install:
     - sudo apt-get -qq update
     
 install:
-    - sudo apt-get -qq install ${PACKAGES}
+    - sudo apt-get -qq install ${COMPILER}
 
 before_script:
     - mkdir build
