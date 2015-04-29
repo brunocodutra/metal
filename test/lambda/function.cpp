@@ -4,7 +4,7 @@
 
 #include <boost/mpl2/lambda/logical/not.hpp>
 #include <boost/mpl2/lambda/function.hpp>
-#include <boost/mpl2/lambda/call.hpp>
+#include <boost/mpl2/lambda/invoke.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
@@ -16,7 +16,7 @@ using f = function<std::add_pointer>;
 
 BOOST_MPL2_ASSERT(is_function<f>);
 BOOST_MPL2_ASSERT((is_callable<f, void>));
-BOOST_MPL2_ASSERT((std::is_same<call<f, void>::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<f, void>::type, void*>));
 
 int main()
 {

@@ -4,7 +4,7 @@
 
 #include <boost/mpl2/lambda/logical/not.hpp>
 #include <boost/mpl2/lambda/arg.hpp>
-#include <boost/mpl2/lambda/call.hpp>
+#include <boost/mpl2/lambda/invoke.hpp>
 #include <boost/mpl2/lambda/forward.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
@@ -37,16 +37,16 @@ struct wrapper
     using type = wrapper;
 };
 
-BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, call<_>::type>::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, call<_, short>::type>::type, wrapper<short> >));
-BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, call<_, short, int>::type>::type, wrapper<short, int> >));
-BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, call<_, short, int, long>::type>::type, wrapper<short, int, long> >));
-BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, call<_, short, int, long, long long>::type>::type, wrapper<short, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_>::type>::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_, short>::type>::type, wrapper<short> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_, short, int>::type>::type, wrapper<short, int> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_, short, int, long>::type>::type, wrapper<short, int, long> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_, short, int, long, long long>::type>::type, wrapper<short, int, long, long long> >));
 
-BOOST_MPL2_ASSERT((std::is_same<call<_1, short, int, long, long long>::type, short>));
-BOOST_MPL2_ASSERT((std::is_same<call<_2, short, int, long, long long>::type, int>));
-BOOST_MPL2_ASSERT((std::is_same<call<_3, short, int, long, long long>::type, long>));
-BOOST_MPL2_ASSERT((std::is_same<call<_4, short, int, long, long long>::type, long long>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<_1, short, int, long, long long>::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<_2, short, int, long, long long>::type, int>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<_3, short, int, long, long long>::type, long>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<_4, short, int, long, long long>::type, long long>));
 
 int main()
 {

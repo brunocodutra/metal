@@ -6,7 +6,7 @@
 #define BOOST_MPL2_LAMBDA_TRAITS_HPP
 
 #include <boost/mpl2/lambda/logical/and.hpp>
-#include <boost/mpl2/lambda/call.hpp>
+#include <boost/mpl2/lambda/invoke.hpp>
 #include <boost/mpl2/lambda/detail/traits_factory.hpp>
 
 namespace boost
@@ -19,7 +19,7 @@ namespace boost
         template<typename x, typename... args>
         using is_callable = and_<
             is_function<x>,
-            is_evaluable<call<x, args...> >
+            is_evaluable<invoke<x, args...> >
         >;
     }
 }

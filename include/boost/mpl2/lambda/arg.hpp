@@ -8,7 +8,7 @@
 #include <boost/mpl2/lambda/integral/boolean.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
 #include <boost/mpl2/lambda/if.hpp>
-#include <boost/mpl2/lambda/call.hpp>
+#include <boost/mpl2/lambda/invoke.hpp>
 
 #include <cstddef>
 
@@ -25,7 +25,7 @@ namespace boost
                 pack<args...>,
                 bool_<n == 1>,
                 head<args...>,
-                call<arg<n - 1>, tail<args...> >
+                invoke<arg<n - 1>, tail<args...> >
             >;
         };
 

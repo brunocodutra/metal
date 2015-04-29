@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/lambda/logical/not.hpp>
-#include <boost/mpl2/lambda/call.hpp>
+#include <boost/mpl2/lambda/invoke.hpp>
 #include <boost/mpl2/lambda/function.hpp>
 #include <boost/mpl2/lambda/bind.hpp>
 #include <boost/mpl2/lambda/arg.hpp>
@@ -14,22 +14,22 @@
 
 using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT((not_<is_function<call<_1, void> > >));
-BOOST_MPL2_ASSERT((not_<is_function<call<function<std::add_pointer>, void> > >));
+BOOST_MPL2_ASSERT((not_<is_function<invoke<_1, void> > >));
+BOOST_MPL2_ASSERT((not_<is_function<invoke<function<std::add_pointer>, void> > >));
 BOOST_MPL2_ASSERT((is_callable<function<std::add_pointer>, void>));
-BOOST_MPL2_ASSERT((is_evaluable<call<function<std::add_pointer>, void> >));
+BOOST_MPL2_ASSERT((is_evaluable<invoke<function<std::add_pointer>, void> >));
 BOOST_MPL2_ASSERT((
     std::is_base_of<
         std::add_pointer<void>,
-        call<function<std::add_pointer>, void>
+        invoke<function<std::add_pointer>, void>
     >
 ));
 
-BOOST_MPL2_ASSERT((std::is_same<call<function<std::add_pointer>, void>::type, void*>));
-BOOST_MPL2_ASSERT((std::is_same<call<bind<function<std::add_pointer>, void> >::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<function<std::add_pointer>, void>::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<bind<function<std::add_pointer>, void> >::type, void*>));
 
-BOOST_MPL2_ASSERT((call<function<not_>, false_>));
-BOOST_MPL2_ASSERT((call<function<not_>, false_>::type));
+BOOST_MPL2_ASSERT((invoke<function<not_>, false_>));
+BOOST_MPL2_ASSERT((invoke<function<not_>, false_>::type));
 
 int main()
 {

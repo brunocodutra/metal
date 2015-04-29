@@ -6,7 +6,7 @@
 #define BOOST_MPL2_LAMBDA_APPLY_HPP
 
 #include <boost/mpl2/lambda/lambda.hpp>
-#include <boost/mpl2/lambda/call.hpp>
+#include <boost/mpl2/lambda/invoke.hpp>
 
 namespace boost
 {
@@ -14,7 +14,7 @@ namespace boost
     {
         template<typename expr, typename... args>
         struct apply :
-                call<lambda<expr>, args...>
+                invoke<lambda<expr>, args...>
         {};
     }
 }

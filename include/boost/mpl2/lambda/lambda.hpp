@@ -11,7 +11,7 @@
 #include <boost/mpl2/lambda/quote.hpp>
 #include <boost/mpl2/lambda/bind.hpp>
 #include <boost/mpl2/lambda/protect.hpp>
-#include <boost/mpl2/lambda/call.hpp>
+#include <boost/mpl2/lambda/invoke.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
 
 namespace boost
@@ -44,7 +44,7 @@ namespace boost
                             function<if_>,
                             bind<function<is_callable>, function<parametric>, _>,
                             bind<quote<parametric>, _>,
-                            bind<quote<call>, quote<parametric>, _>
+                            bind<quote<invoke>, quote<parametric>, _>
                         >
                     >,
                     typename parse<args>::type...
@@ -53,7 +53,7 @@ namespace boost
 
         public:
             template<typename... args>
-            using call = call<typename parse<expr>::type, args...>;
+            using call = invoke<typename parse<expr>::type, args...>;
         };
     }
 }

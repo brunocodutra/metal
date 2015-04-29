@@ -7,7 +7,7 @@
 
 #include <boost/mpl2/lambda/arg.hpp>
 #include <boost/mpl2/lambda/identity.hpp>
-#include <boost/mpl2/lambda/call.hpp>
+#include <boost/mpl2/lambda/invoke.hpp>
 
 namespace boost
 {
@@ -36,9 +36,9 @@ namespace boost
 
         public:
             template<typename... args>
-            using call = call<
-                typename call<parse<function>, args...>::type,
-                typename call<parse<params>, args...>::type...
+            using call = invoke<
+                typename invoke<parse<function>, args...>::type,
+                typename invoke<parse<params>, args...>::type...
             >;
         };
     }
