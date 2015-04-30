@@ -6,7 +6,7 @@
 #define BOOST_MPL2_LAMBDA_BIND_HPP
 
 #include <boost/mpl2/lambda/arg.hpp>
-#include <boost/mpl2/lambda/identity.hpp>
+#include <boost/mpl2/lambda/call.hpp>
 #include <boost/mpl2/lambda/invoke.hpp>
 
 namespace boost
@@ -17,28 +17,27 @@ namespace boost
         struct bind
         {
         private:
-            template<typename param>
+            template<typename param, typename...>
             struct parse
             {
-                template<typename...>
-                using call = identity<param>;
+                using type = param;
             };
 
-            template<std::size_t n>
-            struct parse<arg<n> > :
-                    arg<n>
+            template<std::size_t n, typename... args>
+            struct parse<arg<n>, args...> :
+                    call<arg<n>, args...>
             {};
 
-            template<typename nf, typename... prms>
-            struct parse<bind<nf, prms...> > :
-                    bind<nf, prms...>
+            template<typename nf, typename... prms, typename... args>
+            struct parse<bind<nf, prms...>, args...> :
+                    call<bind<nf, prms...>, args...>
             {};
 
         public:
             template<typename... args>
             using call = invoke<
-                typename invoke<parse<function>, args...>::type,
-                typename invoke<parse<params>, args...>::type...
+                typename parse<function, args...>::type,
+                typename parse<params, args...>::type...
             >;
         };
     }
