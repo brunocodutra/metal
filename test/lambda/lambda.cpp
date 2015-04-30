@@ -18,6 +18,22 @@ BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<_1>, void>::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<std::add_pointer<_1> >, void>::type, void*>));
 BOOST_MPL2_ASSERT((std::is_same<invoke<protect<lambda<std::add_pointer<_1> > >, void>::type, void*>));
 
+struct voider
+{
+    template<typename...>
+    struct call
+    {
+        using type = void;
+    };
+};
+
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<voider> >::type, void>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<voider>, short>::type, void>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<voider>, short, int>::type, void>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<voider>, short, int, long>::type, void>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<voider>, short, int, long>::type, void>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<voider>, short, int, long, long>::type, void>));
+
 BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<lambda<_1> >, void>::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<lambda<lambda<_1> > >, void>::type, void>));
 
