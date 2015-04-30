@@ -7,7 +7,7 @@
 
 #include <boost/mpl2/lambda/if.hpp>
 #include <boost/mpl2/lambda/arg.hpp>
-#include <boost/mpl2/lambda/quote.hpp>
+#include <boost/mpl2/lambda/quoter.hpp>
 #include <boost/mpl2/lambda/evaluator.hpp>
 #include <boost/mpl2/lambda/bind.hpp>
 #include <boost/mpl2/lambda/protect.hpp>
@@ -41,10 +41,10 @@ namespace boost
                 using type = bind<
                     protect<
                         bind<
-                            bind<quote<parametric>, _>,
-                            bind<quote<invoke>, quote<parametric>, _>
                             evaluator<if_>,
                             bind<evaluator<is_invocable>, evaluator<parametric>, _>,
+                            bind<quoter<parametric>, _>,
+                            bind<quoter<invoke>, quoter<parametric>, _>
                         >
                     >,
                     typename parse<args>::type...
