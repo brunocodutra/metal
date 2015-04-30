@@ -5,16 +5,26 @@
 #ifndef BOOST_MPL2_LAMBDA_INVOKE_HPP
 #define BOOST_MPL2_LAMBDA_INVOKE_HPP
 
+#include <boost/mpl2/lambda/logical/and.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
-#include <boost/mpl2/lambda/forward.hpp>
+#include <boost/mpl2/lambda/eval.hpp>
+#include <boost/mpl2/lambda/traits.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        template<typename function, typename... args>
+        template<typename... args>
         struct invoke :
-                forward<function::template call, args...>
+                eval<head<args...>::type::template call, tail<args...> >
+        {};
+
+        template<typename function, typename... args>
+        struct is_invocable :
+                and_<
+                    is_function<function>,
+                    is_evaluable<invoke, function, args...>
+                >
         {};
     }
 }

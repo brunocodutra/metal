@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/lambda/logical/not.hpp>
-#include <boost/mpl2/lambda/function.hpp>
+#include <boost/mpl2/lambda/evaluator.hpp>
 #include <boost/mpl2/lambda/invoke.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
@@ -12,11 +12,9 @@
 
 using namespace boost::mpl2;
 
-using f = function<std::add_pointer>;
-
-BOOST_MPL2_ASSERT(is_function<f>);
-BOOST_MPL2_ASSERT((is_callable<f, void>));
-BOOST_MPL2_ASSERT((std::is_same<invoke<f, void>::type, void*>));
+BOOST_MPL2_ASSERT(is_function<evaluator<std::add_pointer> >);
+BOOST_MPL2_ASSERT((is_invocable<evaluator<std::add_pointer>, void>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<evaluator<std::add_pointer>, void>::type, void*>));
 
 int main()
 {

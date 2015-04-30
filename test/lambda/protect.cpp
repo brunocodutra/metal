@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/lambda/protect.hpp>
-#include <boost/mpl2/lambda/function.hpp>
+#include <boost/mpl2/lambda/evaluator.hpp>
 #include <boost/mpl2/lambda/bind.hpp>
 #include <boost/mpl2/lambda/invoke.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
@@ -13,7 +13,7 @@
 
 using namespace boost::mpl2;
 
-using bound = bind<function<std::add_pointer>, void>;
+using bound = bind<evaluator<std::add_pointer>, void>;
 
 BOOST_MPL2_ASSERT(is_function<bound>);
 BOOST_MPL2_ASSERT(is_function<protect<bound> >);
@@ -21,8 +21,8 @@ BOOST_MPL2_ASSERT(is_function<protect<bound> >);
 BOOST_MPL2_ASSERT((std::is_same<invoke<bound>::type, void*>));
 BOOST_MPL2_ASSERT((std::is_same<invoke<protect<bound> >::type, void*>));
 
-BOOST_MPL2_ASSERT((std::is_same<invoke<bind<function<std::add_pointer>, bound> >::type, void**>));
-BOOST_MPL2_ASSERT((std::is_same<invoke<bind<function<std::add_pointer>, protect<bound> > >::type, protect<bound>*>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<bind<evaluator<std::add_pointer>, bound> >::type, void**>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<bind<evaluator<std::add_pointer>, protect<bound> > >::type, protect<bound>*>));
 
 int main()
 {
