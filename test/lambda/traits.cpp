@@ -24,12 +24,12 @@ struct nullary_incomplete_call {template<typename=void> struct call;};
 struct nullary_empty_call {template<typename=void> struct call{};};
 struct nullary_evaluable_call {template<typename=void> struct call{enum type{};};};
 
-BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_incomplete_call::template call> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_empty_call::template call> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_evaluable_call::template call> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_incomplete_call::template call> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_empty_call::template call> >));
-BOOST_MPL2_ASSERT((is_evaluable<nullary_evaluable_call::template call>));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_incomplete_call::call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_empty_call::call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_evaluable_call::call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_incomplete_call::call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_empty_call::call> >));
+BOOST_MPL2_ASSERT((is_evaluable<nullary_evaluable_call::call>));
 
 BOOST_MPL2_ASSERT((not_<is_function<fundamental> >));
 BOOST_MPL2_ASSERT((not_<is_function<incomplete> >));
