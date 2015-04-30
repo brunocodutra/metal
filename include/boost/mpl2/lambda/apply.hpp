@@ -6,15 +6,16 @@
 #define BOOST_MPL2_LAMBDA_APPLY_HPP
 
 #include <boost/mpl2/lambda/lambda.hpp>
+#include <boost/mpl2/lambda/pack.hpp>
 #include <boost/mpl2/lambda/invoke.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        template<typename expr, typename... args>
+        template<typename... args>
         struct apply :
-                invoke<lambda<expr>, args...>
+                invoke<lambda<typename head<args...>::type>, tail<args...> >
         {};
     }
 }
