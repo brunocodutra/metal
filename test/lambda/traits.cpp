@@ -13,6 +13,7 @@
 using namespace boost::mpl2;
 
 using fundamental = void;
+using func = void();
 struct incomplete;
 struct empty {};
 
@@ -32,6 +33,7 @@ BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_empty_call::call> >));
 BOOST_MPL2_ASSERT((is_evaluable<nullary_evaluable_call::call>));
 
 BOOST_MPL2_ASSERT((not_<is_function<fundamental> >));
+BOOST_MPL2_ASSERT((not_<is_function<func> >));
 BOOST_MPL2_ASSERT((not_<is_function<incomplete> >));
 BOOST_MPL2_ASSERT((not_<is_function<empty> >));
 BOOST_MPL2_ASSERT((is_function<oneary_incomplete_call>));
@@ -42,6 +44,7 @@ BOOST_MPL2_ASSERT((is_function<nullary_empty_call>));
 BOOST_MPL2_ASSERT((is_function<nullary_evaluable_call>));
 
 BOOST_MPL2_ASSERT((not_<is_invocable<fundamental> >));
+BOOST_MPL2_ASSERT((not_<is_invocable<func> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<empty> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<oneary_incomplete_call> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<oneary_empty_call> >));
