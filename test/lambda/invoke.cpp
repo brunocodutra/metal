@@ -4,9 +4,7 @@
 
 #include <boost/mpl2/lambda/logical/not.hpp>
 #include <boost/mpl2/lambda/invoke.hpp>
-#include <boost/mpl2/lambda/evaluator.hpp>
-#include <boost/mpl2/lambda/bind.hpp>
-#include <boost/mpl2/lambda/arg.hpp>
+#include <boost/mpl2/lambda/pack.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
@@ -14,13 +12,52 @@
 
 using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT((not_<is_function<invoke<_1, void> > >));
-BOOST_MPL2_ASSERT((not_<is_function<invoke<evaluator<std::add_pointer>, void> > >));
-BOOST_MPL2_ASSERT((is_invocable<evaluator<std::add_pointer>, void>));
+struct incomplete;
+struct empty {};
 
-BOOST_MPL2_ASSERT((std::is_same<invoke<evaluator<std::add_pointer>, void>::type, void*>));
-BOOST_MPL2_ASSERT((std::is_same<invoke<bind<evaluator<std::add_pointer>, void> >::type, void*>));
+template<typename...>
+struct wrap;
 
+struct wrapper
+{
+    template<typename... args>
+    struct call
+    {
+        using type = wrap<args...>;
+    };
+};
+
+BOOST_MPL2_ASSERT((not_<is_function<invoke<void> > >));
+BOOST_MPL2_ASSERT((not_<is_invocable<void> >));
+
+BOOST_MPL2_ASSERT((not_<is_function<invoke<void()> > >));
+BOOST_MPL2_ASSERT((not_<is_invocable<void()> >));
+
+BOOST_MPL2_ASSERT((not_<is_function<invoke<incomplete> > >));
+BOOST_MPL2_ASSERT((not_<is_invocable<incomplete> >));
+
+BOOST_MPL2_ASSERT((not_<is_function<invoke<empty> > >));
+BOOST_MPL2_ASSERT((not_<is_invocable<empty> >));
+
+BOOST_MPL2_ASSERT((not_<is_function<invoke<wrapper, void> > >));
+BOOST_MPL2_ASSERT((is_invocable<wrapper, void>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<wrapper, void>::type, wrap<void> >));
+
+BOOST_MPL2_ASSERT((not_<is_function<invoke<wrapper, short, int, long, long long> > >));
+BOOST_MPL2_ASSERT((is_invocable<wrapper, short, int, long, long long>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<wrapper, short, int, long, long long>::type, wrap<short, int, long, long long> >));
+
+BOOST_MPL2_ASSERT((not_<is_function<invoke<wrapper, short, int, long, long long> > >));
+BOOST_MPL2_ASSERT((is_invocable<wrapper, short, int, long, long long>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<wrapper, short, int, long, long long>::type, wrap<short, int, long, long long> >));
+
+BOOST_MPL2_ASSERT((not_<is_function<invoke<wrapper, pack<short, int, long, long long> > > >));
+BOOST_MPL2_ASSERT((is_invocable<wrapper, pack<short, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<invoke<wrapper, pack<short, int, long, long long> >::type, wrap<short, int, long, long long> >));
+
+BOOST_MPL2_ASSERT((not_<is_function<invoke<pack<wrapper, short, int, long, long long> > > >));
+BOOST_MPL2_ASSERT((is_invocable<pack<wrapper, short, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<invoke<pack<wrapper, short, int, long, long long> >::type, wrap<short, int, long, long long> >));
 
 int main()
 {

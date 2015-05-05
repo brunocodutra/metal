@@ -14,18 +14,25 @@ namespace boost
 {
     namespace mpl2
     {
+        namespace detail
+        {
+            template<typename pack, typename = typename is_function<typename head<pack>::type>::type>
+            struct invoke_pack
+            {};
+
+            template<typename... args>
+            struct invoke_pack<pack<args...>, true_> :
+                    eval<head<pack<args...> >::type::template call, tail<pack<args...> > >
+            {};
+        }
+
         template<typename... args>
         struct invoke :
-                eval<head<args...>::type::template call, tail<args...> >
+                detail::invoke_pack<pack<args...> >
         {};
 
-        template<typename function, typename... args>
-        struct is_invocable :
-                and_<
-                    is_function<function>,
-                    is_evaluable<invoke, function, args...>
-                >
-        {};
+        template<typename... args>
+        using is_invocable = is_evaluable<invoke, args...>;
     }
 }
 
