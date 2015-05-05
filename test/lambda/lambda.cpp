@@ -13,11 +13,6 @@
 
 using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<void> >::type, void>));
-BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<_1>, void>::type, void>));
-BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<std::add_pointer<_1> >, void>::type, void*>));
-BOOST_MPL2_ASSERT((std::is_same<invoke<protect<lambda<std::add_pointer<_1> > >, void>::type, void*>));
-
 struct voider
 {
     template<typename...>
@@ -26,6 +21,11 @@ struct voider
         using type = void;
     };
 };
+
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<void> >::type, void>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<_1>, void>::type, void>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<std::add_pointer<_1> >, void>::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<protect<lambda<std::add_pointer<_1> > >, void>::type, void*>));
 
 BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<voider> >::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<voider>, short>::type, void>));
@@ -44,7 +44,13 @@ BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<quoter<protect> >, _1>::type, prot
 
 BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<invoke<lambda<std::add_pointer<_1> >, void> > >::type, void*>));
 BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<invoke<_1, void> >, lambda<std::add_pointer<_1> > >::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<invoke<_1, pack<void> > >, lambda<std::add_pointer<_1> > >::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<invoke<_1, pack<>, pack<pack<void>, pack<> > > >, lambda<std::add_pointer<_1> > >::type, void*>));
+
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<apply<lambda<std::add_pointer<_1> >, void> > >::type, void*>));
 BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<apply<_1, void> >, std::add_pointer<_1> >::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<apply<_1, pack<void> > >, std::add_pointer<_1> >::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<invoke<lambda<apply<_1, pack<>, pack<pack<void>, pack<> > > >, std::add_pointer<_1> >::type, void*>));
 
 using compose = lambda<apply<_1, apply<_2, _3> > >;
 BOOST_MPL2_ASSERT((std::is_same<invoke<compose, std::add_pointer<_1>, std::add_const<_1>, void>::type, void const*>));

@@ -11,7 +11,8 @@
 #include <boost/mpl2/lambda/evaluator.hpp>
 #include <boost/mpl2/lambda/bind.hpp>
 #include <boost/mpl2/lambda/protect.hpp>
-#include <boost/mpl2/lambda/invoke.hpp>
+#include <boost/mpl2/lambda/pack.hpp>
+#include <boost/mpl2/lambda/call.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
 
 namespace boost
@@ -35,6 +36,12 @@ namespace boost
                 parse_expr<function>
             >;
 
+            template<typename... args>
+            struct parse_expr<pack<args...> >
+            {
+                using type = bind<protect<_>, typename parse<args>::type...>;
+            };
+
             template<template<typename...> class parametric, typename... args>
             struct parse_expr<parametric<args...> >
             {
@@ -53,7 +60,7 @@ namespace boost
 
         public:
             template<typename... args>
-            using call = invoke<typename parse<expr>::type, args...>;
+            using call = call<typename parse<expr>::type, args...>;
         };
     }
 }
