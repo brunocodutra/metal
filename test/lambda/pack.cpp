@@ -11,19 +11,19 @@
 
 using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT((std::is_same<typename head<short>::type, short>));
-BOOST_MPL2_ASSERT((std::is_same<typename head<int, short>::type, int>));
-BOOST_MPL2_ASSERT((std::is_same<typename head<long, int, short>::type, long>));
-BOOST_MPL2_ASSERT((std::is_same<typename head<long long, long, int, short>::type, long long>));
+BOOST_MPL2_ASSERT((std::is_same<head<short>::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<head<int, short>::type, int>));
+BOOST_MPL2_ASSERT((std::is_same<head<long, int, short>::type, long>));
+BOOST_MPL2_ASSERT((std::is_same<head<long long, long, int, short>::type, long long>));
 
-BOOST_MPL2_ASSERT((std::is_same<typename head<tail<int, short> >::type, short>));
-BOOST_MPL2_ASSERT((std::is_same<typename head<tail<long, int, short> >::type, int>));
-BOOST_MPL2_ASSERT((std::is_same<typename head<tail<long long, long, int, short> >::type, long>));
+BOOST_MPL2_ASSERT((std::is_same<head<tail<int, short> >::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<head<tail<long, int, short> >::type, int>));
+BOOST_MPL2_ASSERT((std::is_same<head<tail<long long, long, int, short> >::type, long>));
 
-BOOST_MPL2_ASSERT((std::is_same<typename head<tail<tail<long, int, short> > >::type, short>));
-BOOST_MPL2_ASSERT((std::is_same<typename head<tail<tail<long long, long, int, short> > >::type, int>));
+BOOST_MPL2_ASSERT((std::is_same<head<tail<tail<long, int, short> > >::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<head<tail<tail<long long, long, int, short> > >::type, int>));
 
-BOOST_MPL2_ASSERT((std::is_same<typename head<tail<tail<tail<long long, long, int, short> > > >::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<head<tail<tail<tail<long long, long, int, short> > > >::type, short>));
 
 BOOST_MPL2_ASSERT((equal_to<sizeof_<>, size_t_<0> >));
 BOOST_MPL2_ASSERT((equal_to<sizeof_<short>, size_t_<1> >));
@@ -61,19 +61,19 @@ using p2 = pack<int, p1>;
 using p3 = pack<pack<long>, pack<pack<p2> > >;
 using p4 = pack<p0, p0, p0, long long, pack<pack<p3> > >;
 
-BOOST_MPL2_ASSERT((std::is_same<typename head<p1>::type, short>));
-BOOST_MPL2_ASSERT((std::is_same<typename head<p2>::type, int>));
-BOOST_MPL2_ASSERT((std::is_same<typename head<p3>::type, long>));
-BOOST_MPL2_ASSERT((std::is_same<typename head<p4>::type, long long>));
+BOOST_MPL2_ASSERT((std::is_same<head<p1>::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<head<p2>::type, int>));
+BOOST_MPL2_ASSERT((std::is_same<head<p3>::type, long>));
+BOOST_MPL2_ASSERT((std::is_same<head<p4>::type, long long>));
 
-BOOST_MPL2_ASSERT((std::is_same<typename head<tail<p2> >::type, short>));
-BOOST_MPL2_ASSERT((std::is_same<typename head<tail<p3> >::type, int>));
-BOOST_MPL2_ASSERT((std::is_same<typename head<tail<p4> >::type, long>));
+BOOST_MPL2_ASSERT((std::is_same<head<tail<p2> >::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<head<tail<p3> >::type, int>));
+BOOST_MPL2_ASSERT((std::is_same<head<tail<p4> >::type, long>));
 
-BOOST_MPL2_ASSERT((std::is_same<typename head<tail<tail<p3> > >::type, short>));
-BOOST_MPL2_ASSERT((std::is_same<typename head<tail<tail<p4> > >::type, int>));
+BOOST_MPL2_ASSERT((std::is_same<head<tail<tail<p3> > >::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<head<tail<tail<p4> > >::type, int>));
 
-BOOST_MPL2_ASSERT((std::is_same<typename head<tail<tail<tail<p4> > > >::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<head<tail<tail<tail<p4> > > >::type, short>));
 
 BOOST_MPL2_ASSERT((equal_to<sizeof_<p0>, size_t_<0> >));
 BOOST_MPL2_ASSERT((equal_to<sizeof_<p1>, size_t_<1> >));

@@ -22,41 +22,41 @@ using p2 = pack<int, p1>;
 using p3 = pack<pack<long>, pack<pack<p2> > >;
 using p4 = pack<p0, p0, p0, long long, pack<pack<p3> > >;
 
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p0>::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p1>::type, wrapper<short> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p2>::type, wrapper<int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p3>::type, wrapper<long, int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p4>::type, wrapper<long long, long, int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, p0>::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, p1>::type, wrapper<short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, p2>::type, wrapper<int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, p3>::type, wrapper<long, int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, p4>::type, wrapper<long long, long, int, short> >));
 
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p0>::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p1>::type, wrapper<short> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p2>::type, wrapper<int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p3>::type, wrapper<long, int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, p4>::type, wrapper<long long, long, int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, p0>::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, p1>::type, wrapper<short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, p2>::type, wrapper<int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, p3>::type, wrapper<long, int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, p4>::type, wrapper<long long, long, int, short> >));
 
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<p0> >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<p1> >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<p2> >::type, wrapper<short> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<p3> >::type, wrapper<int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<p4> >::type, wrapper<long, int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<p0> >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<p1> >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<p2> >::type, wrapper<short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<p3> >::type, wrapper<int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<p4> >::type, wrapper<long, int, short> >));
 
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<p0> > >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<p1> > >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<p2> > >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<p3> > >::type, wrapper<short> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<p4> > >::type, wrapper<int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<p0> > >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<p1> > >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<p2> > >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<p3> > >::type, wrapper<short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<p4> > >::type, wrapper<int, short> >));
 
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<tail<p0> > > >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<tail<p1> > > >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<tail<p2> > > >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<tail<p3> > > >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<tail<p4> > > >::type, wrapper<short> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<tail<p0> > > >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<tail<p1> > > >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<tail<p2> > > >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<tail<p3> > > >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<tail<p4> > > >::type, wrapper<short> >));
 
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<tail<tail<p0> > > > >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<tail<tail<p1> > > > >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<tail<tail<p2> > > > >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<tail<tail<p3> > > > >::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<typename unpack<wrapper, tail<tail<tail<tail<p4> > > > >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<tail<tail<p0> > > > >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<tail<tail<p1> > > > >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<tail<tail<p2> > > > >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<tail<tail<p3> > > > >::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, tail<tail<tail<tail<p4> > > > >::type, wrapper<> >));
 
 int main()
 {
