@@ -27,6 +27,9 @@ struct wrapper
     };
 };
 
+BOOST_MPL2_ASSERT((not_<is_function<invoke<> > >));
+BOOST_MPL2_ASSERT((not_<is_invocable<> >));
+
 BOOST_MPL2_ASSERT((not_<is_function<invoke<void> > >));
 BOOST_MPL2_ASSERT((not_<is_invocable<void> >));
 
