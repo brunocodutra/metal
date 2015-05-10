@@ -4,7 +4,7 @@
 
 #include <boost/mpl2/lambda/logical/not.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
-#include <boost/mpl2/lambda/call.hpp>
+#include <boost/mpl2/lambda/pack.hpp>
 #include <boost/mpl2/lambda/invoke.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
@@ -49,6 +49,12 @@ BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_incomplete> >));
 BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_empty> >));
 BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_eponym> >));
 BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_evaluable> >));
+BOOST_MPL2_ASSERT((is_evaluable<pack<oneary_fundamental, void> >));
+BOOST_MPL2_ASSERT((is_evaluable<pack<oneary_func, void> >));
+BOOST_MPL2_ASSERT((is_evaluable<pack<oneary_incomplete, void> >));
+BOOST_MPL2_ASSERT((is_evaluable<pack<oneary_empty, void> >));
+BOOST_MPL2_ASSERT((is_evaluable<pack<oneary_eponym, void> >));
+BOOST_MPL2_ASSERT((is_evaluable<pack<oneary_evaluable, void> >));
 BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_fundamental> >));
 BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_func> >));
 BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_incomplete> >));
@@ -68,6 +74,12 @@ BOOST_MPL2_ASSERT((is_function<oneary_incomplete>));
 BOOST_MPL2_ASSERT((is_function<oneary_empty>));
 BOOST_MPL2_ASSERT((is_function<oneary_eponym>));
 BOOST_MPL2_ASSERT((is_function<oneary_evaluable>));
+BOOST_MPL2_ASSERT((not_<is_function<pack<oneary_fundamental, void> > >));
+BOOST_MPL2_ASSERT((not_<is_function<pack<oneary_func, void> > >));
+BOOST_MPL2_ASSERT((not_<is_function<pack<oneary_incomplete, void> > >));
+BOOST_MPL2_ASSERT((not_<is_function<pack<oneary_empty, void> > >));
+BOOST_MPL2_ASSERT((not_<is_function<pack<oneary_eponym, void> > >));
+BOOST_MPL2_ASSERT((not_<is_function<pack<oneary_evaluable, void> > >));
 BOOST_MPL2_ASSERT((is_function<nullary_fundamental>));
 BOOST_MPL2_ASSERT((is_function<nullary_func>));
 BOOST_MPL2_ASSERT((is_function<nullary_incomplete>));
@@ -88,6 +100,12 @@ BOOST_MPL2_ASSERT((not_<is_invocable<oneary_incomplete> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<oneary_empty> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<oneary_eponym> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<oneary_evaluable> >));
+BOOST_MPL2_ASSERT((not_<is_invocable<pack<oneary_fundamental, void> > >));
+BOOST_MPL2_ASSERT((not_<is_invocable<pack<oneary_func, void> > >));
+BOOST_MPL2_ASSERT((not_<is_invocable<pack<oneary_incomplete, void> > >));
+BOOST_MPL2_ASSERT((not_<is_invocable<pack<oneary_empty, void> > >));
+BOOST_MPL2_ASSERT((not_<is_invocable<pack<oneary_eponym, void> > >));
+BOOST_MPL2_ASSERT((is_invocable<pack<oneary_evaluable, void> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<nullary_fundamental> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<nullary_func> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<nullary_incomplete> >));
