@@ -6,5 +6,6 @@
 #define BOOST_MPL2_LAMBDA_COMPARISON_HPP
 
 #include <boost/mpl2/lambda/comparison/equal_to.hpp>
+#include <boost/mpl2/lambda/comparison/greater.hpp>
 
 #endif
