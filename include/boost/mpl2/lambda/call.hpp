@@ -5,12 +5,19 @@
 #ifndef BOOST_MPL2_LAMBDA_CALL_HPP
 #define BOOST_MPL2_LAMBDA_CALL_HPP
 
+#include <boost/mpl2/lambda/traits.hpp>
+
 namespace boost
 {
     namespace mpl2
     {
         template<typename function, typename... args>
-        using call = typename function::template call<args...>;
+        struct call :
+                function::template call<args...>
+        {};
+
+        template<typename... args>
+        using is_callable = detail::has_type<call<args...> >;
     }
 }
 
