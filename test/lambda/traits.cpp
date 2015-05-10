@@ -37,6 +37,25 @@ struct nullary_evaluable {template<typename=void> using call = evaluable;};
 
 using namespace boost::mpl2;
 
+BOOST_MPL2_ASSERT((not_<is_evaluable<fundamental> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<func> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<incomplete> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<empty> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<eponym> >));
+BOOST_MPL2_ASSERT((is_evaluable<evaluable>));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_fundamental> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_func> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_incomplete> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_empty> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_eponym> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary_evaluable> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_fundamental> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_func> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_incomplete> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_empty> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_eponym> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary_evaluable> >));
+
 BOOST_MPL2_ASSERT((not_<is_function<fundamental> >));
 BOOST_MPL2_ASSERT((not_<is_function<func> >));
 BOOST_MPL2_ASSERT((not_<is_function<incomplete> >));

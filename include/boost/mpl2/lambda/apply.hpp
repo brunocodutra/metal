@@ -33,7 +33,7 @@ namespace boost
         {};
 
         template<typename... args>
-        using is_applicable = detail::has_type<apply<args...> >;
+        using is_applicable = is_evaluable<apply<args...> >;
     }
 }
 

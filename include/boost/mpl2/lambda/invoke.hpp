@@ -31,7 +31,7 @@ namespace boost
         {};
 
         template<typename... args>
-        using is_invocable = detail::has_type<invoke<args...> >;
+        using is_invocable = is_evaluable<invoke<args...> >;
     }
 }
 

@@ -15,10 +15,11 @@ namespace boost
     {
         namespace detail
         {
-            BOOST_MPL2_DETAIL_DEFINE_NESTED_TYPE_TRAIT(has_type, type);
             BOOST_MPL2_DETAIL_DEFINE_NESTED_TYPE_TRAIT(has_call, call);
             BOOST_MPL2_DETAIL_DEFINE_NESTED_TEMPLATE_TRAIT(has_template_call, call);
         }
+
+        BOOST_MPL2_DETAIL_DEFINE_NESTED_TYPE_TRAIT(is_evaluable, type);
 
         template<typename func>
         using is_function = and_<

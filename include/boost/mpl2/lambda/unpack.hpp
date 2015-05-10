@@ -53,7 +53,7 @@ namespace boost
                 typename packed,
                 typename... args
             >
-            struct unpack_impl<expr, packed, pack<args...>, size_t_<0>, typename has_type<expr<args...> >::type> :
+            struct unpack_impl<expr, packed, pack<args...>, size_t_<0>, typename is_evaluable<expr<args...> >::type> :
                     expr<args...>
             {};
         }
