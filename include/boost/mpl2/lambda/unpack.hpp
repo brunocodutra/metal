@@ -49,7 +49,9 @@ namespace boost
         }
 
         template<template<typename...> class expr, typename... args>
-        using unpack = detail::unpack_impl<expr, pack<args...> >;
+        struct unpack :
+                detail::unpack_impl<expr, pack<args...> >
+        {};
     }
 }
 
