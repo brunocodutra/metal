@@ -51,9 +51,6 @@ BOOST_MPL2_ASSERT((std::is_same<apply<wrapper, void>::type, wrap<void> >));
 BOOST_MPL2_ASSERT((is_applicable<wrapper, short, int, long, long long>));
 BOOST_MPL2_ASSERT((std::is_same<apply<wrapper, short, int, long, long long>::type, wrap<short, int, long, long long> >));
 
-BOOST_MPL2_ASSERT((is_applicable<wrapper, short, int, long, long long>));
-BOOST_MPL2_ASSERT((std::is_same<apply<wrapper, short, int, long, long long>::type, wrap<short, int, long, long long> >));
-
 BOOST_MPL2_ASSERT((is_applicable<wrapper, pack<short, int, long, long long> >));
 BOOST_MPL2_ASSERT((std::is_same<apply<wrapper, pack<short, int, long, long long> >::type, wrap<short, int, long, long long> >));
 
