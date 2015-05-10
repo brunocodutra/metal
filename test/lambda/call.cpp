@@ -15,7 +15,7 @@ struct function
     struct call{struct type {};};
 };
 
-BOOST_MPL2_ASSERT((std::is_same<call<function, void>::type, function::template call<void>::type >));
+BOOST_MPL2_ASSERT((std::is_same<call<function, void>::type, function::call<void>::type >));
 
 int main()
 {
