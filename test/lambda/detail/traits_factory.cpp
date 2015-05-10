@@ -105,9 +105,11 @@ struct test_nested_alias {using nested = void;};
 BOOST_MPL2_ASSERT_TRAIT(has_nested<test_nested_alias>);
 BOOST_MPL2_ASSERT_TRAIT(!has_nested_template<test_nested_alias>);
 
-struct test_nested_template_alias {template<typename> using nested = int;};
-BOOST_MPL2_ASSERT_TRAIT(!has_nested<test_nested_template_alias>);
-BOOST_MPL2_ASSERT_TRAIT(has_nested_template<test_nested_template_alias>);
+#if !defined(__GNUC__) || !defined(__GNUC_MINOR__) || (__GNUC__ >= 4 && __GNUC_MINOR__ >= 8)
+    struct test_nested_template_alias {template<typename> using nested = int;};
+    BOOST_MPL2_ASSERT_TRAIT(!has_nested<test_nested_template_alias>);
+    BOOST_MPL2_ASSERT_TRAIT(has_nested_template<test_nested_template_alias>);
+#endif
 
 struct test_nested_struct {struct nested;};
 BOOST_MPL2_ASSERT_TRAIT(has_nested<test_nested_struct>);
