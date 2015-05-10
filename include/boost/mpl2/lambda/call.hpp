@@ -17,12 +17,18 @@ namespace boost
             template<typename...>
             struct args_pack;
 
-            template<typename function, typename args, typename = typename is_function<function>::type>
+            template<typename...>
+            struct voider
+            {
+                using type = void;
+            };
+
+            template<typename function, typename args, typename = void>
             struct call_impl
             {};
 
             template<typename function, typename... args>
-            struct call_impl<function, args_pack<args...>, true_> :
+            struct call_impl<function, args_pack<args...>, typename voider<typename function::template call<args...>::type>::type> :
                     function::template call<args...>
             {};
         }

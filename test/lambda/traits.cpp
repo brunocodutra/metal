@@ -4,12 +4,11 @@
 
 #include <boost/mpl2/lambda/logical/not.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
+#include <boost/mpl2/lambda/call.hpp>
 #include <boost/mpl2/lambda/invoke.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
 #include <type_traits>
-
-using namespace boost::mpl2;
 
 using fundamental = void;
 using func = void();
@@ -18,15 +17,17 @@ struct empty {};
 
 template<typename...>
 struct call {};
-struct eponym : call<> {};
+struct eponym : ::call<> {};
 
 struct oneary_incomplete_function {template<typename> struct call;};
 struct oneary_empty_function {template<typename> struct call{};};
-struct oneary_evaluable_function {template<typename> struct call{using type = void;};};
+struct oneary_evaluable_function {template<typename> struct call{struct type{};};};
 
 struct nullary_incomplete_function {template<typename=void> struct call;};
 struct nullary_empty_function {template<typename=void> struct call{};};
 struct nullary_evaluable_function {template<typename=void> struct call{enum type{};};};
+
+using namespace boost::mpl2;
 
 BOOST_MPL2_ASSERT((not_<is_function<fundamental> >));
 BOOST_MPL2_ASSERT((not_<is_function<func> >));
@@ -39,6 +40,17 @@ BOOST_MPL2_ASSERT((is_function<oneary_evaluable_function>));
 BOOST_MPL2_ASSERT((is_function<nullary_incomplete_function>));
 BOOST_MPL2_ASSERT((is_function<nullary_empty_function>));
 BOOST_MPL2_ASSERT((is_function<nullary_evaluable_function>));
+
+BOOST_MPL2_ASSERT((not_<is_callable<fundamental> >));
+BOOST_MPL2_ASSERT((not_<is_callable<func> >));
+BOOST_MPL2_ASSERT((not_<is_callable<empty> >));
+BOOST_MPL2_ASSERT((not_<is_callable<eponym> >));
+BOOST_MPL2_ASSERT((not_<is_callable<oneary_incomplete_function> >));
+BOOST_MPL2_ASSERT((not_<is_callable<oneary_empty_function> >));
+BOOST_MPL2_ASSERT((not_<is_callable<oneary_evaluable_function> >));
+BOOST_MPL2_ASSERT((not_<is_callable<nullary_incomplete_function> >));
+BOOST_MPL2_ASSERT((not_<is_callable<nullary_empty_function> >));
+BOOST_MPL2_ASSERT((is_callable<nullary_evaluable_function>));
 
 BOOST_MPL2_ASSERT((not_<is_invocable<fundamental> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<func> >));
