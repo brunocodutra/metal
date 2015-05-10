@@ -21,7 +21,7 @@ struct eponym : ::call<> {};
 
 struct evaluable {struct type{};};
 
-struct oneary_fundamental {template<typename> using call = fundamental();};
+struct oneary_fundamental {template<typename> using call = fundamental;};
 struct oneary_func {template<typename> using call = func;};
 struct oneary_incomplete {template<typename> using call = incomplete;};
 struct oneary_empty {template<typename> using call = empty;};
@@ -56,25 +56,7 @@ BOOST_MPL2_ASSERT((is_function<nullary_empty>));
 BOOST_MPL2_ASSERT((is_function<nullary_eponym>));
 BOOST_MPL2_ASSERT((is_function<nullary_evaluable>));
 
-BOOST_MPL2_ASSERT((not_<is_callable<fundamental> >));
-BOOST_MPL2_ASSERT((not_<is_callable<func> >));
-BOOST_MPL2_ASSERT((not_<is_callable<incomplete> >));
-BOOST_MPL2_ASSERT((not_<is_callable<empty> >));
-BOOST_MPL2_ASSERT((not_<is_callable<eponym> >));
-BOOST_MPL2_ASSERT((not_<is_callable<evaluable> >));
-BOOST_MPL2_ASSERT((not_<is_callable<oneary_fundamental> >));
-BOOST_MPL2_ASSERT((not_<is_callable<oneary_func> >));
-BOOST_MPL2_ASSERT((not_<is_callable<oneary_incomplete> >));
-BOOST_MPL2_ASSERT((not_<is_callable<oneary_empty> >));
-BOOST_MPL2_ASSERT((not_<is_callable<oneary_eponym> >));
-BOOST_MPL2_ASSERT((not_<is_callable<oneary_evaluable> >));
-BOOST_MPL2_ASSERT((not_<is_callable<nullary_fundamental> >));
-BOOST_MPL2_ASSERT((not_<is_callable<nullary_func> >));
-BOOST_MPL2_ASSERT((not_<is_callable<nullary_incomplete> >));
-BOOST_MPL2_ASSERT((not_<is_callable<nullary_empty> >));
-BOOST_MPL2_ASSERT((not_<is_callable<nullary_eponym> >));
-BOOST_MPL2_ASSERT((is_callable<nullary_evaluable>));
-
+BOOST_MPL2_ASSERT((not_<is_invocable<> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<fundamental> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<func> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<incomplete> >));

@@ -7,6 +7,7 @@
 
 #include <boost/mpl2/lambda/integral/size_t.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
+#include <boost/mpl2/lambda/traits.hpp>
 
 namespace boost
 {
@@ -14,37 +15,46 @@ namespace boost
     {
         namespace detail
         {
-            template<typename...>
-            struct unpacked;
-
             template<
                 template<typename...> class expr,
-                typename packed, typename = unpacked<>,
-                typename = typename sizeof_<packed>::type
+                typename packed,
+                typename = pack<>,
+                typename size = typename sizeof_<packed>::type,
+                typename evaluable = true_
             >
             struct unpack_impl;
 
             template<
                 template<typename...> class expr,
+                typename packed,
                 typename... args,
-                typename... unpacked_args,
-                std::size_t size
+                typename size,
+                typename evaluable
             >
-            struct unpack_impl<expr, pack<args...>, unpacked<unpacked_args...>, size_t_<size> > :
+            struct unpack_impl<expr, packed, pack<args...>, size, evaluable> :
                     unpack_impl<
                         expr,
-                        tail<args...>,
-                        unpacked<unpacked_args..., typename head<args...>::type>
+                        tail<packed>,
+                        pack<args..., typename head<packed>::type>
                     >
             {};
 
             template<
                 template<typename...> class expr,
+                typename packed,
                 typename... args,
-                typename... unpacked_args
+                typename evaluable
             >
-            struct unpack_impl<expr, pack<args...>, unpacked<unpacked_args...>, size_t_<0> > :
-                    expr<unpacked_args...>
+            struct unpack_impl<expr, packed, pack<args...>, size_t_<0>, evaluable>
+            {};
+
+            template<
+                template<typename...> class expr,
+                typename packed,
+                typename... args
+            >
+            struct unpack_impl<expr, packed, pack<args...>, size_t_<0>, typename has_type<expr<args...> >::type> :
+                    expr<args...>
             {};
         }
 

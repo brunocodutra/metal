@@ -7,15 +7,27 @@
 
 #include <boost/mpl2/lambda/pack.hpp>
 #include <boost/mpl2/lambda/unpack.hpp>
-#include <boost/mpl2/lambda/call.hpp>
+#include <boost/mpl2/lambda/traits.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
+        namespace detail
+        {
+            template<typename args, typename function = true_>
+            struct invoke_impl
+            {};
+
+            template<typename args>
+            struct invoke_impl<args, typename is_function<typename head<args>::type>::type> :
+                    unpack<head<args>::type::template call, tail<args> >
+            {};
+        }
+
         template<typename... args>
         struct invoke :
-                unpack<call, pack<args...> >
+                detail::invoke_impl<pack<args...> >
         {};
 
         template<typename... args>

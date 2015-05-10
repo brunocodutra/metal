@@ -49,9 +49,9 @@ namespace boost
                     protect<
                         bind<
                             evaluator<if_>,
-                            bind<evaluator<is_callable>, evaluator<parametric>, _>,
+                            bind<evaluator<is_invocable>, evaluator<parametric>, _>,
                             bind<quoter<parametric>, _>,
-                            bind<quoter<call>, quoter<parametric>, _>
+                            bind<quoter<invoke>, quoter<parametric>, _>
                         >
                     >,
                     typename parse<args>::type...
