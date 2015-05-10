@@ -6,9 +6,12 @@
 #include <boost/mpl2/lambda/traits.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
 #include <boost/mpl2/lambda/invoke.hpp>
+#include <boost/mpl2/lambda/apply.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
 #include <type_traits>
+
+using namespace boost::mpl2;
 
 using fundamental = void;
 using func = void();
@@ -34,8 +37,6 @@ struct nullary_incomplete {template<typename=void> using call = incomplete;};
 struct nullary_empty {template<typename=void> using call = empty;};
 struct nullary_eponym {template<typename=void> using call = eponym;};
 struct nullary_evaluable {template<typename=void> using call = evaluable;};
-
-using namespace boost::mpl2;
 
 BOOST_MPL2_ASSERT((not_<is_evaluable<fundamental> >));
 BOOST_MPL2_ASSERT((not_<is_evaluable<func> >));
@@ -112,6 +113,32 @@ BOOST_MPL2_ASSERT((not_<is_invocable<nullary_incomplete> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<nullary_empty> >));
 BOOST_MPL2_ASSERT((not_<is_invocable<nullary_eponym> >));
 BOOST_MPL2_ASSERT((is_invocable<nullary_evaluable>));
+
+BOOST_MPL2_ASSERT((not_<is_applicable<> >));
+BOOST_MPL2_ASSERT((is_applicable<fundamental>));
+BOOST_MPL2_ASSERT((is_applicable<func>));
+BOOST_MPL2_ASSERT((is_applicable<incomplete>));
+BOOST_MPL2_ASSERT((is_applicable<empty>));
+BOOST_MPL2_ASSERT((is_applicable<eponym>));
+BOOST_MPL2_ASSERT((is_applicable<evaluable>));
+BOOST_MPL2_ASSERT((not_<is_applicable<oneary_fundamental> >));
+BOOST_MPL2_ASSERT((not_<is_applicable<oneary_func> >));
+BOOST_MPL2_ASSERT((not_<is_applicable<oneary_incomplete> >));
+BOOST_MPL2_ASSERT((not_<is_applicable<oneary_empty> >));
+BOOST_MPL2_ASSERT((not_<is_applicable<oneary_eponym> >));
+BOOST_MPL2_ASSERT((not_<is_applicable<oneary_evaluable> >));
+BOOST_MPL2_ASSERT((not_<is_applicable<pack<oneary_fundamental, void> > >));
+BOOST_MPL2_ASSERT((not_<is_applicable<pack<oneary_func, void> > >));
+BOOST_MPL2_ASSERT((not_<is_applicable<pack<oneary_incomplete, void> > >));
+BOOST_MPL2_ASSERT((not_<is_applicable<pack<oneary_empty, void> > >));
+BOOST_MPL2_ASSERT((not_<is_applicable<pack<oneary_eponym, void> > >));
+BOOST_MPL2_ASSERT((is_applicable<pack<oneary_evaluable, void> >));
+BOOST_MPL2_ASSERT((not_<is_applicable<nullary_fundamental> >));
+BOOST_MPL2_ASSERT((not_<is_applicable<nullary_func> >));
+BOOST_MPL2_ASSERT((not_<is_applicable<nullary_incomplete> >));
+BOOST_MPL2_ASSERT((not_<is_applicable<nullary_empty> >));
+BOOST_MPL2_ASSERT((not_<is_applicable<nullary_eponym> >));
+BOOST_MPL2_ASSERT((is_applicable<nullary_evaluable>));
 
 int main()
 {

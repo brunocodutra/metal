@@ -12,7 +12,6 @@
 #include <boost/mpl2/lambda/bind.hpp>
 #include <boost/mpl2/lambda/protect.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
-#include <boost/mpl2/lambda/call.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
 
 namespace boost
@@ -60,7 +59,7 @@ namespace boost
 
         public:
             template<typename... args>
-            using call = call<typename parse<expr>::type, args...>;
+            using call = invoke<typename parse<expr>::type, args...>;
         };
     }
 }

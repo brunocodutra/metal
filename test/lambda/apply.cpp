@@ -12,17 +12,18 @@ using namespace boost::mpl2;
 
 struct incomplete;
 struct empty {};
+struct voider {using type = void;};
 
-template<typename...>
-struct wrap;
+template<typename... args>
+struct wrap
+{
+    using type = wrap<args...>;
+};
 
 struct wrapper
 {
     template<typename... args>
-    struct call
-    {
-        using type = wrap<args...>;
-    };
+    using call = wrap<args...>;
 };
 
 using compose = apply<_1, apply<_2, _3> >;
@@ -44,6 +45,18 @@ BOOST_MPL2_ASSERT((std::is_same<apply<incomplete>::type, incomplete>));
 
 BOOST_MPL2_ASSERT((is_applicable<empty>));
 BOOST_MPL2_ASSERT((std::is_same<apply<empty>::type, empty>));
+
+BOOST_MPL2_ASSERT((is_applicable<wrap<_>, void>));
+BOOST_MPL2_ASSERT((std::is_same<apply<wrap<_>, void>::type, wrap<void> >));
+
+BOOST_MPL2_ASSERT((is_applicable<wrap<_>, short, int, long, long long>));
+BOOST_MPL2_ASSERT((std::is_same<apply<wrap<_>, short, int, long, long long>::type, wrap<short, int, long, long long> >));
+
+BOOST_MPL2_ASSERT((is_applicable<wrap<_>, pack<short, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<apply<wrap<_>, pack<short, int, long, long long> >::type, wrap<short, int, long, long long> >));
+
+BOOST_MPL2_ASSERT((is_applicable<pack<wrap<_>, short, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<apply<pack<wrap<_>, short, int, long, long long> >::type, wrap<short, int, long, long long> >));
 
 BOOST_MPL2_ASSERT((is_applicable<wrapper, void>));
 BOOST_MPL2_ASSERT((std::is_same<apply<wrapper, void>::type, wrap<void> >));
