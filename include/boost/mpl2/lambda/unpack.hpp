@@ -5,29 +5,51 @@
 #ifndef BOOST_MPL2_LAMBDA_UNPACK_HPP
 #define BOOST_MPL2_LAMBDA_UNPACK_HPP
 
+#include <boost/mpl2/lambda/integral/size_t.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
-#include <boost/mpl2/lambda/if.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        template<template<typename...> class expr, typename pack, typename... unpacked>
-        struct unpack;
+        namespace detail
+        {
+            template<typename...>
+            struct unpacked;
 
-        template<template<typename...> class expr, typename... args, typename... unpacked>
-        struct unpack<expr, pack<args...>, unpacked...> :
-                if_<
-                    sizeof_<pack<args...> >,
-                    unpack<
+            template<
+                template<typename...> class expr,
+                typename packed, typename = unpacked<>,
+                typename = typename sizeof_<packed>::type
+            >
+            struct unpack_impl;
+
+            template<
+                template<typename...> class expr,
+                typename... args,
+                typename... unpacked_args,
+                std::size_t size
+            >
+            struct unpack_impl<expr, pack<args...>, unpacked<unpacked_args...>, size_t_<size> > :
+                    unpack_impl<
                         expr,
-                        tail<pack<args...> >,
-                        unpacked...,
-                        head<pack<args...> >
-                    >,
-                    expr<typename unpacked::type...>
-                >
-        {};
+                        tail<args...>,
+                        unpacked<unpacked_args..., typename head<args...>::type>
+                    >
+            {};
+
+            template<
+                template<typename...> class expr,
+                typename... args,
+                typename... unpacked_args
+            >
+            struct unpack_impl<expr, pack<args...>, unpacked<unpacked_args...>, size_t_<0> > :
+                    expr<unpacked_args...>
+            {};
+        }
+
+        template<template<typename...> class expr, typename... args>
+        using unpack = detail::unpack_impl<expr, pack<args...> >;
     }
 }
 

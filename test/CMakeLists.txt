@@ -30,10 +30,6 @@ if(BOOST_MPL2_ENABLE_STRICT_BEHAVIOR)
     strict_behavior_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
 endif()
 
-list(APPEND BOOST_MPL2_EXTRA_COMPILE_FLAGS
-    -ftemplate-depth=1024
-)
-
 add_compile_flags_globally("${BOOST_MPL2_EXTRA_COMPILE_FLAGS}")
 
 file(GLOB_RECURSE BOOST_MPL2_TEST_HEADERS "*.hpp")
