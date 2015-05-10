@@ -15,9 +15,9 @@ namespace boost
             struct strip_parenthesis;
 
             template<typename x>
-            struct strip_parenthesis<void (x)>
+            struct strip_parenthesis<void(x)>
             {
-                    using type = x;
+                using type = x;
             };
         }
     }

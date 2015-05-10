@@ -29,11 +29,13 @@ namespace boost
         template<typename h, typename... t>
         struct pack<h, pack<t...> >
         {
+        private:
             template<typename p>
             struct sizeof_ :
                     p::size
             {};
 
+        public:
             using type = pack;
             using head = identity<h>;
             using tail = pack<t...>;
