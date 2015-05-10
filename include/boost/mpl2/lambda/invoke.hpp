@@ -5,30 +5,17 @@
 #ifndef BOOST_MPL2_LAMBDA_INVOKE_HPP
 #define BOOST_MPL2_LAMBDA_INVOKE_HPP
 
-#include <boost/mpl2/lambda/integral/boolean.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
-#include <boost/mpl2/lambda/eval.hpp>
-#include <boost/mpl2/lambda/traits.hpp>
+#include <boost/mpl2/lambda/unpack.hpp>
+#include <boost/mpl2/lambda/call.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        namespace detail
-        {
-            template<typename pack, typename = true_>
-            struct invoke_impl
-            {};
-
-            template<typename pack>
-            struct invoke_impl<pack, typename is_function<typename head<pack>::type>::type> :
-                    eval<head<pack>::type::template call, tail<pack> >
-            {};
-        }
-
         template<typename... args>
         struct invoke :
-                detail::invoke_impl<pack<args...> >
+                unpack<call, pack<args...> >
         {};
 
         template<typename... args>

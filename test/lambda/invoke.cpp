@@ -12,9 +12,6 @@
 
 using namespace boost::mpl2;
 
-struct incomplete;
-struct empty {};
-
 template<typename...>
 struct wrap;
 
@@ -26,12 +23,6 @@ struct wrapper
         using type = wrap<args...>;
     };
 };
-
-BOOST_MPL2_ASSERT((not_<is_invocable<> >));
-BOOST_MPL2_ASSERT((not_<is_invocable<void> >));
-BOOST_MPL2_ASSERT((not_<is_invocable<void()> >));
-BOOST_MPL2_ASSERT((not_<is_invocable<incomplete> >));
-BOOST_MPL2_ASSERT((not_<is_invocable<empty> >));
 
 BOOST_MPL2_ASSERT((is_invocable<wrapper, void>));
 BOOST_MPL2_ASSERT((std::is_same<invoke<wrapper, void>::type, wrap<void> >));
