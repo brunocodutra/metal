@@ -6,7 +6,7 @@
 #include <boost/mpl2/lambda/evaluator.hpp>
 #include <boost/mpl2/lambda/bind.hpp>
 #include <boost/mpl2/lambda/invoke.hpp>
-#include <boost/mpl2/lambda/traits.hpp>
+#include <boost/mpl2/lambda/traits/is_function.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
 #include <type_traits>

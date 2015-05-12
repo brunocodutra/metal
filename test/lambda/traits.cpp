@@ -5,8 +5,6 @@
 #include <boost/mpl2/lambda/logical/not.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
-#include <boost/mpl2/lambda/invoke.hpp>
-#include <boost/mpl2/lambda/apply.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
 #include <type_traits>

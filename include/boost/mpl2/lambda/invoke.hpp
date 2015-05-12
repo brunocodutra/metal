@@ -7,7 +7,7 @@
 
 #include <boost/mpl2/lambda/pack.hpp>
 #include <boost/mpl2/lambda/unpack.hpp>
-#include <boost/mpl2/lambda/traits.hpp>
+#include <boost/mpl2/lambda/traits/is_function.hpp>
 
 namespace boost
 {
@@ -29,9 +29,6 @@ namespace boost
         struct invoke :
                 detail::invoke_impl<pack<args...> >
         {};
-
-        template<typename... args>
-        using is_invocable = is_evaluable<invoke<args...> >;
     }
 }
 

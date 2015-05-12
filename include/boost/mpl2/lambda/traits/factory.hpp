@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_LAMBDA_TRAITS_FACTORY_HPP
 #define BOOST_MPL2_LAMBDA_TRAITS_FACTORY_HPP
 
-#include <boost/mpl2/lambda/integral/boolean.hpp>
+#include <boost/mpl2/lambda/integral.hpp>
 
 #define BOOST_MPL2_DETAIL_IMPLEMENT_INTEGRAL(PRIMARY) \
     using value_type = typename PRIMARY::value_type; \
@@ -15,7 +15,7 @@
     using type = PRIMARY \
 /**/
 
-#define BOOST_MPL2_DETAIL_DEFINE_NESTED_TYPE_TRAIT(TRAIT, NESTED) \
+#define BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(TRAIT, NESTED) \
     template<typename x> \
     struct TRAIT \
     { \
@@ -30,7 +30,7 @@
     } \
 /**/
 
-#define BOOST_MPL2_DETAIL_DEFINE_NESTED_TEMPLATE_TRAIT(TRAIT, NESTED) \
+#define BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(TRAIT, NESTED) \
     template<typename x> \
     struct TRAIT \
     { \

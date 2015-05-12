@@ -12,7 +12,8 @@
 #include <boost/mpl2/lambda/bind.hpp>
 #include <boost/mpl2/lambda/protect.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
-#include <boost/mpl2/lambda/traits.hpp>
+#include <boost/mpl2/lambda/traits/is_function.hpp>
+#include <boost/mpl2/lambda/traits/is_invocable.hpp>
 
 namespace boost
 {

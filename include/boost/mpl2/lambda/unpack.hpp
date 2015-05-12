@@ -7,7 +7,7 @@
 
 #include <boost/mpl2/lambda/integral.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
-#include <boost/mpl2/lambda/traits.hpp>
+#include <boost/mpl2/lambda/traits/is_evaluable.hpp>
 
 namespace boost
 {

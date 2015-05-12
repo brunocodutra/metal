@@ -9,7 +9,6 @@
 #include <boost/mpl2/lambda/pack.hpp>
 #include <boost/mpl2/lambda/lambda.hpp>
 #include <boost/mpl2/lambda/invoke.hpp>
-#include <boost/mpl2/lambda/traits.hpp>
 
 namespace boost
 {
@@ -31,9 +30,6 @@ namespace boost
         struct apply :
                 detail::apply_impl<pack<args...> >
         {};
-
-        template<typename... args>
-        using is_applicable = is_evaluable<apply<args...> >;
     }
 }
 

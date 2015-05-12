@@ -2,12 +2,12 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#include <boost/mpl2/lambda/integral/boolean.hpp>
-#include <boost/mpl2/lambda/detail/traits_factory.hpp>
+#include <boost/mpl2/lambda/traits/factory.hpp>
+#include <boost/mpl2/lambda/integral.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
-BOOST_MPL2_DETAIL_DEFINE_NESTED_TYPE_TRAIT(has_nested, nested);
-BOOST_MPL2_DETAIL_DEFINE_NESTED_TEMPLATE_TRAIT(has_nested_template, nested);
+BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_nested, nested);
+BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(has_nested_template, nested);
 
 #define BOOST_MPL2_ASSERT_TRAIT(TRAIT) \
     BOOST_MPL2_ASSERT_EXPR(TRAIT::value); \
