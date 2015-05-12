@@ -5,8 +5,8 @@
 #ifndef BOOST_MPL2_SEQUENCES_TAG_HPP
 #define BOOST_MPL2_SEQUENCES_TAG_HPP
 
-#include <boost/mpl2/lambda/integral/boolean.hpp>
-#include <boost/mpl2/lambda/detail/nested_type_trait.hpp>
+#include <boost/mpl2/lambda/integral.hpp>
+#include <boost/mpl2/lambda/detail/traits_factory.hpp>
 
 namespace boost
 {

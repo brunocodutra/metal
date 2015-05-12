@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_LAMBDA_PACK_HPP
 #define BOOST_MPL2_LAMBDA_PACK_HPP
 
-#include <boost/mpl2/lambda/integral/size_t.hpp>
+#include <boost/mpl2/lambda/integral.hpp>
 #include <boost/mpl2/lambda/arithmetic/inc.hpp>
 #include <boost/mpl2/lambda/identity.hpp>
 

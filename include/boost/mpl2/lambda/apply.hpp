@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_LAMBDA_APPLY_HPP
 #define BOOST_MPL2_LAMBDA_APPLY_HPP
 
-#include <boost/mpl2/lambda/integral/size_t.hpp>
+#include <boost/mpl2/lambda/integral.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
 #include <boost/mpl2/lambda/lambda.hpp>
 #include <boost/mpl2/lambda/invoke.hpp>
