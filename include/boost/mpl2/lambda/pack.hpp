@@ -14,43 +14,24 @@ namespace boost
     namespace mpl2
     {
         template<typename... args>
+        struct sizeof_;
+
+        template<typename... args>
         struct pack;
 
-        template<typename h, typename... t>
-        struct pack<h, t...> :
-                pack<h, pack<t...> >
-        {};
-
-        template<typename... largs, typename... rargs>
-        struct pack<pack<largs...>, pack<rargs...> > :
-                pack<largs..., rargs...>
+        template<typename... args, typename... tail>
+        struct pack<pack<args...>, tail...> :
+                pack<args..., tail...>
         {};
 
         template<typename h, typename... t>
-        struct pack<h, pack<t...> >
+        struct pack<h, t...>
         {
-        private:
-            template<typename p>
-            struct sizeof_ :
-                    p::size
-            {};
-
-        public:
             using type = pack;
             using head = identity<h>;
             using tail = pack<t...>;
             using size = inc<sizeof_<tail> >;
         };
-
-        template<typename... args>
-        struct pack<pack<args...> > :
-                pack<args...>
-        {};
-
-        template<typename h>
-        struct pack<h> :
-                pack<h, pack<> >
-        {};
 
         template<>
         struct pack<>
@@ -68,7 +49,9 @@ namespace boost
         using tail = typename pack<args...>::tail;
 
         template<typename... args>
-        using sizeof_ = typename pack<args...>::size;
+        struct sizeof_ :
+                pack<args...>::size
+        {};
     }
 }
 
