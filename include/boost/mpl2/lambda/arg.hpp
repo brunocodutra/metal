@@ -5,8 +5,8 @@
 #ifndef BOOST_MPL2_LAMBDA_ARG_HPP
 #define BOOST_MPL2_LAMBDA_ARG_HPP
 
-#include <boost/mpl2/lambda/identity.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
+#include <boost/mpl2/lambda/call.hpp>
 
 #include <cstddef>
 
@@ -17,32 +17,22 @@ namespace boost
         template<std::size_t n>
         struct arg
         {
-        private:
-            template<std::size_t index, typename... args>
-            struct select
-            {};
-
-            template<std::size_t index, typename head, typename... tail>
-            struct select<index, head, tail...> :
-                    select<index - 1, tail...>
-            {};
-
-            template<typename head, typename... tail>
-            struct select<1, head, tail...>
-            {
-                using type = head;
-            };
-
-        public:
             template<typename... args>
-            using call = select<n, args...>;
+            using call = call<arg<n-1>, tail<args...> >;
         };
 
         template<>
-        struct arg<0>
+        struct arg<1U>
         {
             template<typename... args>
-            using call = identity<pack<args...> >;
+            using call = head<args...>;
+        };
+
+        template<>
+        struct arg<0U>
+        {
+            template<typename... args>
+            using call = pack<args...>;
         };
 
         using _ = arg<0>;
