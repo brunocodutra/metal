@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_LAMBDA_APPLY_HPP
 #define BOOST_MPL2_LAMBDA_APPLY_HPP
 
-#include <boost/mpl2/lambda/integral/size_t.hpp>
+#include <boost/mpl2/lambda/integral.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
 #include <boost/mpl2/lambda/lambda.hpp>
 #include <boost/mpl2/lambda/invoke.hpp>
@@ -17,13 +17,13 @@ namespace boost
     {
         namespace detail
         {
-            template<typename pack, typename = typename sizeof_<pack>::type>
-            struct apply_impl :
-                    invoke<lambda<typename head<pack>::type>, tail<pack> >
+            template<typename pack, typename = typename is_evaluable<head<pack> >::type>
+            struct apply_impl
             {};
 
             template<typename pack>
-            struct apply_impl<pack, size_t_<0> >
+            struct apply_impl<pack, true_> :
+                    invoke<lambda<typename head<pack>::type>, tail<pack> >
             {};
         }
 

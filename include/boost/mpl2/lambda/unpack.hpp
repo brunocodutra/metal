@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_LAMBDA_UNPACK_HPP
 #define BOOST_MPL2_LAMBDA_UNPACK_HPP
 
-#include <boost/mpl2/lambda/integral/size_t.hpp>
+#include <boost/mpl2/lambda/integral.hpp>
 #include <boost/mpl2/lambda/pack.hpp>
 #include <boost/mpl2/lambda/traits.hpp>
 
@@ -19,7 +19,7 @@ namespace boost
                 template<typename...> class expr,
                 typename packed,
                 typename = pack<>,
-                typename size = typename sizeof_<packed>::type,
+                typename headed = typename is_evaluable<head<packed> >::type,
                 typename evaluable = true_
             >
             struct unpack_impl;
@@ -28,10 +28,10 @@ namespace boost
                 template<typename...> class expr,
                 typename packed,
                 typename... args,
-                typename size,
+                typename headed,
                 typename evaluable
             >
-            struct unpack_impl<expr, packed, pack<args...>, size, evaluable> :
+            struct unpack_impl<expr, packed, pack<args...>, headed, evaluable> :
                     unpack_impl<
                         expr,
                         tail<packed>,
@@ -45,7 +45,7 @@ namespace boost
                 typename... args,
                 typename evaluable
             >
-            struct unpack_impl<expr, packed, pack<args...>, size_t_<0>, evaluable>
+            struct unpack_impl<expr, packed, pack<args...>, false_, evaluable>
             {};
 
             template<
@@ -53,7 +53,7 @@ namespace boost
                 typename packed,
                 typename... args
             >
-            struct unpack_impl<expr, packed, pack<args...>, size_t_<0>, typename is_evaluable<expr<args...> >::type> :
+            struct unpack_impl<expr, packed, pack<args...>, false_, typename is_evaluable<expr<args...> >::type> :
                     expr<args...>
             {};
         }

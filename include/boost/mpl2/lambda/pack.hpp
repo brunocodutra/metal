@@ -5,17 +5,12 @@
 #ifndef BOOST_MPL2_LAMBDA_PACK_HPP
 #define BOOST_MPL2_LAMBDA_PACK_HPP
 
-#include <boost/mpl2/lambda/integral/size_t.hpp>
-#include <boost/mpl2/lambda/arithmetic/inc.hpp>
 #include <boost/mpl2/lambda/identity.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        template<typename... args>
-        struct sizeof_;
-
         template<typename... args>
         struct pack;
 
@@ -30,7 +25,6 @@ namespace boost
             using type = pack;
             using head = identity<h>;
             using tail = pack<t...>;
-            using size = inc<sizeof_<tail> >;
         };
 
         template<>
@@ -39,7 +33,6 @@ namespace boost
             using type = pack;
             struct head {};
             using tail = pack<>;
-            using size = size_t_<0>;
         };
 
         template<typename... args>
@@ -47,11 +40,6 @@ namespace boost
 
         template<typename... args>
         using tail = typename pack<args...>::tail;
-
-        template<typename... args>
-        struct sizeof_ :
-                pack<args...>::size
-        {};
     }
 }
 
