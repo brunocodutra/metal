@@ -3,6 +3,8 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/lambda/pack.hpp>
+#include <boost/mpl2/lambda/comparison/equal_to.hpp>
+#include <boost/mpl2/lambda/integral.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
 #include <type_traits>

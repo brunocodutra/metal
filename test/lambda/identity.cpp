@@ -2,9 +2,7 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#include <boost/mpl2/lambda/logical/not.hpp>
 #include <boost/mpl2/lambda/identity.hpp>
-#include <boost/mpl2/lambda/traits.hpp>
 #include <boost/mpl2/lambda/assert.hpp>
 
 #include <type_traits>

@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/lambda/assert.hpp>
-#include <boost/mpl2/lambda/integral/boolean.hpp>
+#include <boost/mpl2/lambda/integral.hpp>
 
 using boost::mpl2::true_;
 

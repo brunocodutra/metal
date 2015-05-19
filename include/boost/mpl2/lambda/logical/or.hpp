@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_LAMBDA_LOGICAL_OR_HPP
 #define BOOST_MPL2_LAMBDA_LOGICAL_OR_HPP
 
-#include <boost/mpl2/lambda/integral/boolean.hpp>
+#include <boost/mpl2/lambda/integral.hpp>
 
 namespace boost
 {
