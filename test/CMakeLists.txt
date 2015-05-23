@@ -2,8 +2,6 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-enable_testing()
-
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 include(DetectToolchain)
@@ -39,35 +37,33 @@ include_directories(${BOOST_MPL2_INCLUDE_DIRS})
 link_directories(${BOOST_MPL2_LIBRARY_DIRS})
 
 if(NOT BOOST_MPL2_CXX_DIALECTS)
-    set(BOOST_MPL2_CXX_DIALECTS c++11)
+    set(BOOST_MPL2_CXX_DIALECTS
+        c++11
+        c++14
+        c++17
+    )
 endif()
 
+add_custom_target(mpl2.test)
+add_dependencies(mpl2 mpl2.test)
 foreach(dialect ${BOOST_MPL2_CXX_DIALECTS})
-    set(dialect_flag)
+    unset(dialect_flag)
     language_dialect_flags(CXX ${dialect} dialect_flag)
     if(NOT "${dialect_flag}" MATCHES "-NOTFOUND$")
+        add_custom_target(mpl2.test.${dialect})
+        add_dependencies(mpl2.test mpl2.test.${dialect})
         foreach(SOURCE ${BOOST_MPL2_TEST_SOURCES})
-            string(REGEX REPLACE ".*[/\\](.*\)[.]cpp" "\\1_test_${dialect}" target ${SOURCE})
+            string(REGEX REPLACE ".*[/\\](.*\)[.]cpp" "mpl2.test.${dialect}.\\1" test_target ${SOURCE})
             add_binary_target(
-                EXECUTABLE ${target}
+                EXECUTABLE ${test_target}
                 LANGUAGE CXX
                 SOURCES ${SOURCE} ${BOOST_MPL2_TEST_HEADERS}
                 LIBRARIES ${BOOST_MPL2_LIBRARIES}
                 ADITIONAL_FLAGS ${dialect_flag}
-                DEPENDENCIES mpl2
+                DEPENDENCIES
             )
-            add_test(${target} ${CMAKE_CURRENT_BINARY_DIR}/${target})
-            set(BOOST_MPL2_TEST_TARGETS ${BOOST_MPL2_TEST_TARGETS} ${target})
+            add_test(${test_target} ${CMAKE_CURRENT_BINARY_DIR}/${test_target})
+            add_dependencies(mpl2.test.${dialect} ${test_target})
         endforeach()
     endif()
 endforeach()
-
-add_custom_target(tests DEPENDS ${BOOST_MPL2_TEST_TARGETS})
-add_custom_command(
-    TARGET tests
-    COMMENT "unity tests"
-    POST_BUILD
-    COMMAND ${CMAKE_CTEST_COMMAND}
-    ARGS --output-on-failure
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)

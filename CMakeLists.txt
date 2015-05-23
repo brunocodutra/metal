@@ -16,6 +16,6 @@ install(FILES ${BOOST_MPL2_HEADERS} DESTINATION include)
 
 option(BOOST_MPL2_BUILD_TESTS "build test scripts" ON)
 if(BOOST_MPL2_BUILD_TESTS)
-    add_subdirectory(test EXCLUDE_FROM_ALL)
+    enable_testing()
+    add_subdirectory(test)
 endif()
-

@@ -8,17 +8,17 @@ sudo: required
 
 matrix:
     include:
-        - env: COMPILER=g++-4.7   CXX_DIALECTS='c++11;gnu++11'
-        - env: COMPILER=g++-4.8   CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
-        - env: COMPILER=g++-4.9   CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
-        - env: COMPILER=g++-5     CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
-        - env: COMPILER=clang-3.1 CXX_DIALECTS='c++11;gnu++11'
-        - env: COMPILER=clang-3.2 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
-        - env: COMPILER=clang-3.3 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
-        - env: COMPILER=clang-3.4 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14'
-        - env: COMPILER=clang-3.5 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
-        - env: COMPILER=clang-3.6 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
-        - env: COMPILER=clang-3.7 CXX_DIALECTS='c++11;gnu++11;c++14;gnu++14;c++17;gnu++17'
+        - env: COMPILER=g++-4.7
+        - env: COMPILER=g++-4.8
+        - env: COMPILER=g++-4.9
+        - env: COMPILER=g++-5
+        - env: COMPILER=clang-3.1
+        - env: COMPILER=clang-3.2
+        - env: COMPILER=clang-3.3
+        - env: COMPILER=clang-3.4
+        - env: COMPILER=clang-3.5
+        - env: COMPILER=clang-3.6
+        - env: COMPILER=clang-3.7
     
 before_install:
     - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
@@ -35,7 +35,8 @@ install:
 before_script:
     - mkdir build
     - cd build
-    - cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=OFF -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF -DBOOST_MPL2_CXX_DIALECTS=${CXX_DIALECTS}
+    - cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=OFF -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF
     
 script:
-    - make tests
+    - make mpl2.test
+    - ctest --output-on-failure
