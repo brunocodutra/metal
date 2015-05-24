@@ -13,7 +13,7 @@
 #include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/pack.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
-#include <boost/mpl2/metafunctional/traits/is_invocable.hpp>
+#include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 
 namespace boost
 {
@@ -24,7 +24,7 @@ namespace boost
         {
         private:
             template<typename invariant>
-            struct parse_expr
+            struct adapt
             {
                 using type = bind<protect<_1>, invariant>;
             };
@@ -33,23 +33,23 @@ namespace boost
             using parse = if_<
                 is_function<function>,
                 identity<function>,
-                parse_expr<function>
+                adapt<function>
             >;
 
             template<typename... args>
-            struct parse_expr<pack<args...> >
+            struct adapt<pack<args...> >
             {
                 using type = bind<protect<_>, typename parse<args>::type...>;
             };
 
             template<template<typename...> class parametric, typename... args>
-            struct parse_expr<parametric<args...> >
+            struct adapt<parametric<args...> >
             {
                 using type = bind<
                     protect<
                         bind<
                             function<if_>,
-                            bind<function<is_invocable>, function<parametric>, _>,
+                            bind<function<is_evaluable>, bind<quote<parametric>, _> >,
                             bind<quote<parametric>, _>,
                             bind<quote<invoke>, quote<parametric>, _>
                         >
