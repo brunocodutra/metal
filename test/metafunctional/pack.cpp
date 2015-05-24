@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/metafunctional/pack.hpp>
-#include <boost/mpl2/metafunctional/comparison/equal_to.hpp>
+#include <boost/mpl2/core/comparison/equal_to.hpp>
 #include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/core/assert.hpp>
 

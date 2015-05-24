@@ -6,7 +6,7 @@
 #define BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP
 
 #include <boost/mpl2/core/integral.hpp>
-#include <boost/mpl2/metafunctional/arithmetic/inc.hpp>
+#include <boost/mpl2/core/arithmetic/inc.hpp>
 #include <boost/mpl2/sequences/detail/ref.hpp>
 
 #include <utility>

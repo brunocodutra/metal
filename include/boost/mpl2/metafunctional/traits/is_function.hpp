@@ -6,8 +6,8 @@
 #define BOOST_MPL2_METAFUNCTIONAL_TRAITS_IS_FUNCTION_HPP
 
 #include <boost/mpl2/core/traits_factory.hpp>
-#include <boost/mpl2/metafunctional/logical/and.hpp>
-#include <boost/mpl2/metafunctional/logical/not.hpp>
+#include <boost/mpl2/core/logical/and.hpp>
+#include <boost/mpl2/core/logical/not.hpp>
 
 namespace boost
 {
