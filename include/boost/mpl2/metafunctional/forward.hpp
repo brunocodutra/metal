@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_MPL2_METAFUNCTIONAL_UNPACK_HPP
-#define BOOST_MPL2_METAFUNCTIONAL_UNPACK_HPP
+#ifndef BOOST_MPL2_METAFUNCTIONAL_FORWARD_HPP
+#define BOOST_MPL2_METAFUNCTIONAL_FORWARD_HPP
 
 #include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/metafunctional/pack.hpp>
@@ -22,7 +22,7 @@ namespace boost
                 typename headed = typename is_evaluable<head<packed> >::type,
                 typename evaluable = true_
             >
-            struct unpack_impl;
+            struct forward_impl;
 
             template<
                 template<typename...> class expr,
@@ -31,8 +31,8 @@ namespace boost
                 typename headed,
                 typename evaluable
             >
-            struct unpack_impl<expr, packed, pack<args...>, headed, evaluable> :
-                    unpack_impl<
+            struct forward_impl<expr, packed, pack<args...>, headed, evaluable> :
+                    forward_impl<
                         expr,
                         tail<packed>,
                         pack<args..., typename head<packed>::type>
@@ -45,7 +45,7 @@ namespace boost
                 typename... args,
                 typename evaluable
             >
-            struct unpack_impl<expr, packed, pack<args...>, false_, evaluable>
+            struct forward_impl<expr, packed, pack<args...>, false_, evaluable>
             {};
 
             template<
@@ -53,14 +53,14 @@ namespace boost
                 typename packed,
                 typename... args
             >
-            struct unpack_impl<expr, packed, pack<args...>, false_, typename is_evaluable<expr<args...> >::type> :
+            struct forward_impl<expr, packed, pack<args...>, false_, typename is_evaluable<expr<args...> >::type> :
                     expr<args...>
             {};
         }
 
         template<template<typename...> class expr, typename... args>
-        struct unpack :
-                detail::unpack_impl<expr, pack<args...> >
+        struct forward :
+                detail::forward_impl<expr, pack<args...> >
         {};
     }
 }

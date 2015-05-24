@@ -6,7 +6,7 @@
 #define BOOST_MPL2_METAFUNCTIONAL_INVOKE_HPP
 
 #include <boost/mpl2/metafunctional/pack.hpp>
-#include <boost/mpl2/metafunctional/unpack.hpp>
+#include <boost/mpl2/metafunctional/forward.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
 
 namespace boost
@@ -21,7 +21,7 @@ namespace boost
 
             template<typename args>
             struct invoke_impl<args, typename is_function<typename head<args>::type>::type> :
-                    unpack<head<args>::type::template call, tail<args> >
+                    forward<head<args>::type::template call, tail<args> >
             {};
         }
 

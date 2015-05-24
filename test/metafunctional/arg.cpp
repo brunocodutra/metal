@@ -4,7 +4,7 @@
 
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/invoke.hpp>
-#include <boost/mpl2/metafunctional/unpack.hpp>
+#include <boost/mpl2/metafunctional/forward.hpp>
 #include <boost/mpl2/metafunctional/traits.hpp>
 #include <boost/mpl2/core/logical/not.hpp>
 #include <boost/mpl2/core/assert.hpp>
@@ -37,11 +37,11 @@ struct wrapper
     using type = wrapper;
 };
 
-BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, invoke<_>::type>::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, invoke<_, short>::type>::type, wrapper<short> >));
-BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, invoke<_, short, int>::type>::type, wrapper<short, int> >));
-BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, invoke<_, short, int, long>::type>::type, wrapper<short, int, long> >));
-BOOST_MPL2_ASSERT((std::is_same<unpack<wrapper, invoke<_, short, int, long, long long>::type>::type, wrapper<short, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_>::type>::type, wrapper<> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_, short>::type>::type, wrapper<short> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_, short, int>::type>::type, wrapper<short, int> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_, short, int, long>::type>::type, wrapper<short, int, long> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_, short, int, long, long long>::type>::type, wrapper<short, int, long, long long> >));
 
 BOOST_MPL2_ASSERT((std::is_same<invoke<_1, short, int, long, long long>::type, short>));
 BOOST_MPL2_ASSERT((std::is_same<invoke<_2, short, int, long, long long>::type, int>));
