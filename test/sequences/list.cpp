@@ -3,8 +3,8 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/sequences/list.hpp>
-#include <boost/mpl2/lambda/integral.hpp>
-#include <boost/mpl2/lambda/assert.hpp>
+#include <boost/mpl2/core/integral.hpp>
+#include <boost/mpl2/core/assert.hpp>
 
 #include <type_traits>
 
