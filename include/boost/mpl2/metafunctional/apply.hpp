@@ -5,7 +5,6 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_APPLY_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_APPLY_HPP
 
-#include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/metafunctional/pack.hpp>
 #include <boost/mpl2/metafunctional/lambda.hpp>
 #include <boost/mpl2/metafunctional/invoke.hpp>

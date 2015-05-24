@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_TRAITS_IS_EVALUABLE_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_TRAITS_IS_EVALUABLE_HPP
 
-#include <boost/mpl2/metafunctional/traits/factory.hpp>
+#include <boost/mpl2/core/traits_factory.hpp>
 
 namespace boost
 {
