@@ -13,6 +13,12 @@
 
 using namespace boost::mpl2;
 
+BOOST_MPL2_ASSERT(is_evaluable<_>);
+BOOST_MPL2_ASSERT(is_evaluable<_1>);
+BOOST_MPL2_ASSERT(is_evaluable<_2>);
+BOOST_MPL2_ASSERT(is_evaluable<_3>);
+BOOST_MPL2_ASSERT(is_evaluable<_4>);
+
 BOOST_MPL2_ASSERT(is_function<_>);
 BOOST_MPL2_ASSERT(is_function<_1>);
 BOOST_MPL2_ASSERT(is_function<_2>);

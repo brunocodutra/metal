@@ -13,7 +13,7 @@
 #include <boost/mpl2/metafunctional/bind.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/pack.hpp>
-#include <boost/mpl2/metafunctional/invoke.hpp>
+#include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 
@@ -25,45 +25,54 @@ namespace boost
         struct lambda
         {
         private:
-            template<typename invariant>
-            struct adapt
-            {
-                using type = bind<protect<_1>, invariant>;
-            };
+            template<typename function, typename = typename is_function<function>::type>
+            struct parse;
 
-            template<typename function>
-            using parse = if_<
-                is_function<function>,
-                identity<function>,
-                adapt<function>
-            >;
+            template<typename invariant>
+            struct adapt :
+                    bind<protect<_1>, invariant>
+            {};
 
             template<typename... args>
-            struct adapt<pack<args...> >
-            {
-                using type = bind<protect<_>, typename parse<args>::type...>;
-            };
+            struct adapt<pack<args...> > :
+                    bind<protect<_>, typename parse<args>::type...>
+            {};
 
             template<template<typename...> class parametric, typename... args>
-            struct adapt<parametric<args...> >
-            {
-                using type = bind<
-                    protect<
-                        bind<
-                            function<if_>,
-                            bind<function<is_evaluable>, bind<quote<parametric>, _> >,
-                            bind<quote<parametric>, _>,
-                            bind<quote<identity>, bind<quote<parametric>, _> >
-                        >
-                    >,
-                    typename parse<args>::type...
-                >;
-            };
+            struct adapt<parametric<args...> > :
+                    bind<
+                        protect<
+                            bind<
+                                function<if_>,
+                                bind<function<is_evaluable>, bind<quote<parametric>, _> >,
+                                bind<quote<parametric>, _>,
+                                bind<quote<identity>, bind<quote<parametric>, _> >
+                            >
+                        >,
+                        typename parse<args>::type...
+                    >
+            {};
 
+            template<typename function, typename>
+            struct parse :
+                    protect<bind<protect<function>, _> >
+            {};
+
+            template<typename lexpr>
+            struct parse<lexpr, false_> :
+                    adapt<lexpr>
+            {};
+
+            template<std::size_t n, typename _>
+            struct parse<arg<n>, _> :
+                    arg<n>
+            {};
 
         public:
+            using type = lambda;
+
             template<typename... args>
-            using call = invoke<typename parse<expr>::type, args...>;
+            using call = call<parse<expr>, args...>;
         };
     }
 }

@@ -14,6 +14,8 @@ namespace boost
         template<template<typename...> class expr>
         struct quote
         {
+            using type = quote;
+
             template<typename... args>
             using call = identity<expr<args...> >;
         };

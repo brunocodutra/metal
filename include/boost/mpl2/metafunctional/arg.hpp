@@ -17,6 +17,8 @@ namespace boost
         template<std::size_t n>
         struct arg
         {
+            using type = arg;
+
             template<typename... args>
             using call = call<arg<n-1>, tail<args...> >;
         };
@@ -24,6 +26,8 @@ namespace boost
         template<>
         struct arg<1U>
         {
+            using type = arg;
+
             template<typename... args>
             using call = head<args...>;
         };
@@ -31,6 +35,8 @@ namespace boost
         template<>
         struct arg<0U>
         {
+            using type = arg;
+
             template<typename... args>
             using call = pack<args...>;
         };

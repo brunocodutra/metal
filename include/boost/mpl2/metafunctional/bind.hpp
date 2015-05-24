@@ -5,6 +5,7 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_BIND_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_BIND_HPP
 
+#include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/metafunctional/invoke.hpp>
@@ -21,10 +22,7 @@ namespace boost
             struct parse
             {
                 template<typename...>
-                struct call
-                {
-                    using type = param;
-                };
+                using call = identity<param>;
             };
 
             template<std::size_t n>
@@ -38,6 +36,8 @@ namespace boost
             {};
 
         public:
+            using type = bind;
+
             template<typename... args>
             using call = invoke<
                 typename call<parse<function>, args...>::type,

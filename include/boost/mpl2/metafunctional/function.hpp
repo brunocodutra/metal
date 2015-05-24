@@ -12,6 +12,8 @@ namespace boost
         template<template<typename...> class expr>
         struct function
         {
+            using type = function;
+
             template<typename... args>
             using call = expr<args...>;
         };

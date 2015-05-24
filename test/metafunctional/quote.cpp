@@ -12,6 +12,7 @@
 
 using namespace boost::mpl2;
 
+BOOST_MPL2_ASSERT(is_evaluable<quote<std::add_pointer> >);
 BOOST_MPL2_ASSERT(is_function<quote<std::add_pointer> >);
 BOOST_MPL2_ASSERT((is_invocable<quote<std::add_pointer>, void>));
 BOOST_MPL2_ASSERT((std::is_same<invoke<quote<std::add_pointer>, void>::type, std::add_pointer<void> >));

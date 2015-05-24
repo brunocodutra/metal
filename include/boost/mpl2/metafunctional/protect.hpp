@@ -12,7 +12,9 @@ namespace boost
         template<typename function>
         struct protect :
                 function
-        {};
+        {
+            using type = protect;
+        };
     }
 }
 
