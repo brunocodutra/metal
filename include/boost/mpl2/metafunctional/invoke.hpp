@@ -15,13 +15,13 @@ namespace boost
     {
         namespace detail
         {
-            template<typename args, typename function = true_>
+            template<typename pack, typename = true_>
             struct invoke_impl
             {};
 
-            template<typename args>
-            struct invoke_impl<args, typename is_function<typename head<args>::type>::type> :
-                    forward<head<args>::type::template call, tail<args> >
+            template<typename pack>
+            struct invoke_impl<pack, typename is_function<typename head<pack>::type>::type> :
+                    forward<head<pack>::type::template call, tail<pack> >
             {};
         }
 

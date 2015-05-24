@@ -17,27 +17,31 @@ namespace boost
         struct bind
         {
         private:
-            template<typename param, typename...>
+            template<typename param>
             struct parse
             {
-                using type = param;
+                template<typename...>
+                struct call
+                {
+                    using type = param;
+                };
             };
 
-            template<std::size_t n, typename... args>
-            struct parse<arg<n>, args...> :
-                    call<arg<n>, args...>
+            template<std::size_t n>
+            struct parse<arg<n> > :
+                    arg<n>
             {};
 
-            template<typename nf, typename... prms, typename... args>
-            struct parse<bind<nf, prms...>, args...> :
-                    call<bind<nf, prms...>, args...>
+            template<typename nf, typename... prms>
+            struct parse<bind<nf, prms...> > :
+                    bind<nf, prms...>
             {};
 
         public:
             template<typename... args>
             using call = invoke<
-                typename parse<function, args...>::type,
-                typename parse<params, args...>::type...
+                typename call<parse<function>, args...>::type,
+                typename call<parse<params>, args...>::type...
             >;
         };
     }

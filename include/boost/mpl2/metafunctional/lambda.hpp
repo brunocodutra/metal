@@ -6,12 +6,14 @@
 #define BOOST_MPL2_METAFUNCTIONAL_LAMBDA_HPP
 
 #include <boost/mpl2/core/if.hpp>
-#include <boost/mpl2/metafunctional/arg.hpp>
+#include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/metafunctional/quote.hpp>
 #include <boost/mpl2/metafunctional/function.hpp>
-#include <boost/mpl2/metafunctional/bind.hpp>
 #include <boost/mpl2/metafunctional/protect.hpp>
+#include <boost/mpl2/metafunctional/bind.hpp>
+#include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/pack.hpp>
+#include <boost/mpl2/metafunctional/invoke.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 
@@ -51,12 +53,13 @@ namespace boost
                             function<if_>,
                             bind<function<is_evaluable>, bind<quote<parametric>, _> >,
                             bind<quote<parametric>, _>,
-                            bind<quote<invoke>, quote<parametric>, _>
+                            bind<quote<identity>, bind<quote<parametric>, _> >
                         >
                     >,
                     typename parse<args>::type...
                 >;
             };
+
 
         public:
             template<typename... args>

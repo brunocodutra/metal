@@ -15,16 +15,15 @@ namespace boost
             struct strip_parenthesis;
 
             template<typename x>
-            struct strip_parenthesis<void(x)>
-            {
-                using type = x;
-            };
+            struct strip_parenthesis<void(x)> :
+                x
+            {};
         }
     }
 }
 
 #define BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(x) \
-    boost::mpl2::detail::strip_parenthesis<void (x)>::type
+    boost::mpl2::detail::strip_parenthesis<void (x)>
 
 #define BOOST_MPL2_ASSERT_MSG(PRED, MSG) \
     static_assert(BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(PRED)::value, MSG)
