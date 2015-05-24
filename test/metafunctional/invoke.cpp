@@ -4,6 +4,7 @@
 
 #include <boost/mpl2/metafunctional/invoke.hpp>
 #include <boost/mpl2/metafunctional/pack.hpp>
+#include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/core/assert.hpp>
 
 #include <type_traits>
@@ -16,10 +17,7 @@ struct wrap;
 struct wrapper
 {
     template<typename... args>
-    struct call
-    {
-        using type = wrap<args...>;
-    };
+    using call = identity<wrap<args...> >;
 };
 
 BOOST_MPL2_ASSERT((std::is_same<invoke<wrapper, void>::type, wrap<void> >));
