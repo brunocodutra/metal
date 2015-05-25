@@ -3,31 +3,34 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/metafunctional/call.hpp>
-#include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/core/assert.hpp>
 
 #include <type_traits>
 
 using namespace boost::mpl2;
 
-template<typename...> struct result;
+template<typename...>
+struct result
+{
+    using type = result;
+};
 
 struct f1
 {
     template<typename x>
-    using call = identity<result<x> >;
+    using call = result<x>;
 };
 
 struct f2
 {
     template<typename x, typename y>
-    using call = identity<result<x, y> >;
+    using call = result<x, y>;
 };
 
 struct fn
 {
     template<typename... args>
-    using call = identity<result<args...> >;
+    using call = result<args...>;
 };
 
 BOOST_MPL2_ASSERT((std::is_same<call<f1, void>::type, f1::call<void>::type >));

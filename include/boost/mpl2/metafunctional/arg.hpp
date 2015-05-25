@@ -6,7 +6,6 @@
 #define BOOST_MPL2_METAFUNCTIONAL_ARG_HPP
 
 #include <boost/mpl2/metafunctional/call.hpp>
-#include <boost/mpl2/metafunctional/pack.hpp>
 
 #include <cstddef>
 
@@ -14,6 +13,15 @@ namespace boost
 {
     namespace mpl2
     {
+        namespace detail
+        {
+            template<typename...>
+            struct args
+            {
+                using type = args;
+            };
+        }
+
         template<std::size_t n>
         struct arg
         {
@@ -43,7 +51,7 @@ namespace boost
             using type = arg;
 
             template<typename... args>
-            using call = pack<args...>;
+            using call = detail::args<args...>;
         };
 
         using _0 = arg<0>;

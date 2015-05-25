@@ -5,9 +5,7 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_FORWARD_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_FORWARD_HPP
 
-#include <boost/mpl2/core/integral.hpp>
-#include <boost/mpl2/metafunctional/pack.hpp>
-#include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
+#include <boost/mpl2/metafunctional/arg.hpp>
 
 namespace boost
 {
@@ -15,52 +13,43 @@ namespace boost
     {
         namespace detail
         {
-            template<
-                template<typename...> class expr,
-                typename packed,
-                typename = pack<>,
-                typename headed = typename is_evaluable<head<packed> >::type,
-                typename evaluable = true_
-            >
-            struct forward_impl;
+            template<typename...>
+            struct pack;
 
-            template<
-                template<typename...> class expr,
-                typename packed,
-                typename... args,
-                typename headed,
-                typename evaluable
-            >
-            struct forward_impl<expr, packed, pack<args...>, headed, evaluable> :
-                    forward_impl<
-                        expr,
-                        tail<packed>,
-                        pack<args..., typename head<packed>::type>
-                    >
+            template<typename x, typename pack>
+            struct cons;
+
+            template<typename x, typename... args>
+            struct cons<x, pack<args...> >
+            {
+                using type = pack<x, args...>;
+            };
+
+            template<typename... args, typename... tail>
+            struct pack<detail::args<args...>, tail...> :
+                    pack<args..., tail...>
             {};
 
-            template<
-                template<typename...> class expr,
-                typename packed,
-                typename... args,
-                typename evaluable
-            >
-            struct forward_impl<expr, packed, pack<args...>, false_, evaluable>
+            template<typename head, typename... tail>
+            struct pack<head, tail...> :
+                    cons<head, typename pack<tail...>::type>
             {};
 
-            template<
-                template<typename...> class expr,
-                typename packed,
-                typename... args
-            >
-            struct forward_impl<expr, packed, pack<args...>, false_, typename is_evaluable<expr<args...> >::type> :
-                    expr<args...>
-            {};
+            template<>
+            struct pack<>
+            {
+                using type = pack;
+            };
         }
 
         template<template<typename...> class expr, typename... args>
         struct forward :
-                detail::forward_impl<expr, pack<args...> >
+                forward<expr, typename detail::pack<args...>::type>
+        {};
+
+        template<template<typename...> class expr, typename... args>
+        struct forward<expr, detail::pack<args...> > :
+                expr<args...>
         {};
     }
 }
