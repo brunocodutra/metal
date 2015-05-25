@@ -7,8 +7,9 @@
 
 #include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
+#include <boost/mpl2/metafunctional/forward.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
-#include <boost/mpl2/metafunctional/invoke.hpp>
+
 
 namespace boost
 {
@@ -39,7 +40,8 @@ namespace boost
             using type = bind;
 
             template<typename... args>
-            using call = invoke<
+            using call = forward<
+                call,
                 typename call<parse<function>, args...>::type,
                 typename call<parse<params>, args...>::type...
             >;

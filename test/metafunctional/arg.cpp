@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/metafunctional/arg.hpp>
-#include <boost/mpl2/metafunctional/invoke.hpp>
+#include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/metafunctional/forward.hpp>
 #include <boost/mpl2/metafunctional/traits.hpp>
 #include <boost/mpl2/core/logical/not.hpp>
@@ -25,34 +25,34 @@ BOOST_MPL2_ASSERT(is_function<_2>);
 BOOST_MPL2_ASSERT(is_function<_3>);
 BOOST_MPL2_ASSERT(is_function<_4>);
 
-BOOST_MPL2_ASSERT((is_invocable<_0, short, int, long, long long>));
-BOOST_MPL2_ASSERT((is_invocable<_1, short, int, long, long long>));
-BOOST_MPL2_ASSERT((is_invocable<_2, short, int, long, long long>));
-BOOST_MPL2_ASSERT((is_invocable<_3, short, int, long, long long>));
-BOOST_MPL2_ASSERT((is_invocable<_4, short, int, long, long long>));
+BOOST_MPL2_ASSERT((is_callable<_0, short, int, long, long long>));
+BOOST_MPL2_ASSERT((is_callable<_1, short, int, long, long long>));
+BOOST_MPL2_ASSERT((is_callable<_2, short, int, long, long long>));
+BOOST_MPL2_ASSERT((is_callable<_3, short, int, long, long long>));
+BOOST_MPL2_ASSERT((is_callable<_4, short, int, long, long long>));
 
-BOOST_MPL2_ASSERT((is_invocable<_0>));
-BOOST_MPL2_ASSERT((not_<is_invocable<_1> >));
-BOOST_MPL2_ASSERT((not_<is_invocable<_2, int> >));
-BOOST_MPL2_ASSERT((not_<is_invocable<_3, int, long> >));
-BOOST_MPL2_ASSERT((not_<is_invocable<_4, int, long, long long> >));
+BOOST_MPL2_ASSERT((is_callable<_0>));
+BOOST_MPL2_ASSERT((not_<is_callable<_1> >));
+BOOST_MPL2_ASSERT((not_<is_callable<_2, int> >));
+BOOST_MPL2_ASSERT((not_<is_callable<_3, int, long> >));
+BOOST_MPL2_ASSERT((not_<is_callable<_4, int, long, long long> >));
 
 template<typename...>
-struct wrapper
+struct wrap
 {
-    using type = wrapper;
+    using type = wrap;
 };
 
-BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_0>::type>::type, wrapper<> >));
-BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_0, short>::type>::type, wrapper<short> >));
-BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_0, short, int>::type>::type, wrapper<short, int> >));
-BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_0, short, int, long>::type>::type, wrapper<short, int, long> >));
-BOOST_MPL2_ASSERT((std::is_same<forward<wrapper, invoke<_0, short, int, long, long long>::type>::type, wrapper<short, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrap, call<_0>::type>::type, wrap<> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrap, call<_0, short>::type>::type, wrap<short> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrap, call<_0, short, int>::type>::type, wrap<short, int> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrap, call<_0, short, int, long>::type>::type, wrap<short, int, long> >));
+BOOST_MPL2_ASSERT((std::is_same<forward<wrap, call<_0, short, int, long, long long>::type>::type, wrap<short, int, long, long long> >));
 
-BOOST_MPL2_ASSERT((std::is_same<invoke<_1, short, int, long, long long>::type, short>));
-BOOST_MPL2_ASSERT((std::is_same<invoke<_2, short, int, long, long long>::type, int>));
-BOOST_MPL2_ASSERT((std::is_same<invoke<_3, short, int, long, long long>::type, long>));
-BOOST_MPL2_ASSERT((std::is_same<invoke<_4, short, int, long, long long>::type, long long>));
+BOOST_MPL2_ASSERT((std::is_same<call<_1, short, int, long, long long>::type, short>));
+BOOST_MPL2_ASSERT((std::is_same<call<_2, short, int, long, long long>::type, int>));
+BOOST_MPL2_ASSERT((std::is_same<call<_3, short, int, long, long long>::type, long>));
+BOOST_MPL2_ASSERT((std::is_same<call<_4, short, int, long, long long>::type, long long>));
 
 int main()
 {

@@ -5,8 +5,8 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_ARG_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_ARG_HPP
 
-#include <boost/mpl2/metafunctional/pack.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
+#include <boost/mpl2/metafunctional/pack.hpp>
 
 #include <cstddef>
 
@@ -19,8 +19,10 @@ namespace boost
         {
             using type = arg;
 
-            template<typename... args>
-            using call = call<arg<n-1>, tail<args...> >;
+            template<typename h, typename... t>
+            struct call :
+                    ::boost::mpl2::call<arg<n-1>, t...>
+            {};
         };
 
         template<>
@@ -28,8 +30,11 @@ namespace boost
         {
             using type = arg;
 
-            template<typename... args>
-            using call = head<args...>;
+            template<typename h, typename... t>
+            struct call
+            {
+                using type = h;
+            };
         };
 
         template<>

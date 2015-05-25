@@ -4,7 +4,6 @@
 
 #include <boost/mpl2/metafunctional/apply.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
-#include <boost/mpl2/metafunctional/pack.hpp>
 #include <boost/mpl2/core/assert.hpp>
 
 #include <type_traits>
@@ -31,14 +30,12 @@ BOOST_MPL2_ASSERT((std::is_same<apply<void>::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<apply<void()>::type, void()>));
 BOOST_MPL2_ASSERT((std::is_same<apply<incomplete>::type, incomplete>));
 BOOST_MPL2_ASSERT((std::is_same<apply<empty>::type, empty>));
-BOOST_MPL2_ASSERT((std::is_same<apply<wrap<_0>, void>::type, wrap<void> >));
-BOOST_MPL2_ASSERT((std::is_same<apply<wrap<_0>, short, int, long, long long>::type, wrap<short, int, long, long long> >));
-BOOST_MPL2_ASSERT((std::is_same<apply<wrap<_0>, pack<short, int, long, long long> >::type, wrap<short, int, long, long long> >));
-BOOST_MPL2_ASSERT((std::is_same<apply<pack<wrap<_0>, short, int, long, long long> >::type, wrap<short, int, long, long long> >));
 BOOST_MPL2_ASSERT((std::is_same<apply<wrapper, void>::type, wrap<void> >));
 BOOST_MPL2_ASSERT((std::is_same<apply<wrapper, short, int, long, long long>::type, wrap<short, int, long, long long> >));
-BOOST_MPL2_ASSERT((std::is_same<apply<wrapper, pack<short, int, long, long long> >::type, wrap<short, int, long, long long> >));
-BOOST_MPL2_ASSERT((std::is_same<apply<pack<wrapper, short, int, long, long long> >::type, wrap<short, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<apply<wrap<_0>, void>::type, wrap<void> >));
+BOOST_MPL2_ASSERT((std::is_same<apply<wrap<_0, _0>, void>::type, wrap<void, void> >));
+BOOST_MPL2_ASSERT((std::is_same<apply<wrap<_0>, short, int, long, long long>::type, wrap<short, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<apply<wrap<_0, _0>, short, int, long, long long>::type, wrap<short, int, long, long long, short, int, long, long long> >));
 
 using compose = apply<_1, apply<_2, _3> >;
 BOOST_MPL2_ASSERT((std::is_same<apply<compose, std::add_pointer<_1>, std::add_const<_1>, void>::type, void const*>));

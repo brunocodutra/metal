@@ -8,6 +8,6 @@
 #include <boost/mpl2/metafunctional/traits/is_applicable.hpp>
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
-#include <boost/mpl2/metafunctional/traits/is_invocable.hpp>
+#include <boost/mpl2/metafunctional/traits/is_callable.hpp>
 
 #endif

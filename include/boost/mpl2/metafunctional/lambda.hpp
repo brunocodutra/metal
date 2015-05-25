@@ -7,7 +7,6 @@
 
 #include <boost/mpl2/core/if.hpp>
 #include <boost/mpl2/core/identity.hpp>
-#include <boost/mpl2/metafunctional/pack.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/quote.hpp>
 #include <boost/mpl2/metafunctional/function.hpp>
@@ -31,11 +30,6 @@ namespace boost
             template<typename invariant>
             struct adapt :
                     bind<protect<_1>, invariant>
-            {};
-
-            template<typename... args>
-            struct adapt<pack<args...> > :
-                    bind<protect<_0>, typename parse<args>::type...>
             {};
 
             template<template<typename...> class parametric, typename... args>

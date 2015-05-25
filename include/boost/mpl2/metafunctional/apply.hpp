@@ -5,29 +5,20 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_APPLY_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_APPLY_HPP
 
-#include <boost/mpl2/metafunctional/pack.hpp>
 #include <boost/mpl2/metafunctional/lambda.hpp>
-#include <boost/mpl2/metafunctional/invoke.hpp>
+#include <boost/mpl2/metafunctional/call.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        namespace detail
-        {
-            template<typename pack, typename = typename is_evaluable<head<pack> >::type>
-            struct apply_impl
-            {};
+        template<typename...>
+        struct apply
+        {};
 
-            template<typename pack>
-            struct apply_impl<pack, true_> :
-                    invoke<lambda<typename head<pack>::type>, tail<pack> >
-            {};
-        }
-
-        template<typename... args>
-        struct apply :
-                detail::apply_impl<pack<args...> >
+        template<typename function, typename... args>
+        struct apply<function, args...> :
+                call<lambda<function>, args...>
         {};
     }
 }
