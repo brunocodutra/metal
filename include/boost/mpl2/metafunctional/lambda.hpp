@@ -7,6 +7,7 @@
 
 #include <boost/mpl2/core/if.hpp>
 #include <boost/mpl2/core/identity.hpp>
+#include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/quote.hpp>
 #include <boost/mpl2/metafunctional/function.hpp>
@@ -15,6 +16,8 @@
 #include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
+
+#include <cstddef>
 
 namespace boost
 {
@@ -66,7 +69,7 @@ namespace boost
             using type = lambda;
 
             template<typename... args>
-            using call = call<parse<expr>, args...>;
+            using call = ::boost::mpl2::call<parse<expr>, args...>;
         };
     }
 }

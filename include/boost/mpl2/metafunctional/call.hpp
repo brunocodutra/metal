@@ -14,15 +14,15 @@ namespace boost
     {
         namespace detail
         {
-            template<typename...> struct args;
+            template<typename...> struct pack;
 
             template<typename function, typename args, typename = true_>
-            struct call_impl
+            struct _call
             {};
 
-            template<typename function, typename... a>
-            struct call_impl<function, args<a...>, typename is_evaluable<typename function::template call<a...> >::type> :
-                    function::template call<a...>
+            template<typename function, typename... args>
+            struct _call<function, pack<args...>, typename is_evaluable<typename function::template call<args...> >::type> :
+                    function::template call<args...>
             {};
         }
 
@@ -32,7 +32,7 @@ namespace boost
 
         template<typename function, typename... args>
         struct call<function, args...> :
-                detail::call_impl<function, detail::args<args...> >
+                detail::_call<function, detail::pack<args...> >
         {};
     }
 }

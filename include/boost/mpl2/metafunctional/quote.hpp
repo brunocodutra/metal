@@ -5,8 +5,6 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_QUOTE_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_QUOTE_HPP
 
-#include <boost/mpl2/core/identity.hpp>
-
 namespace boost
 {
     namespace mpl2
@@ -17,7 +15,10 @@ namespace boost
             using type = quote;
 
             template<typename... args>
-            using call = identity<expr<args...> >;
+            struct call
+            {
+                using type = expr<args...>;
+            };
         };
     }
 }

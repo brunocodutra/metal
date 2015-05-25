@@ -16,10 +16,7 @@ namespace boost
         namespace detail
         {
             template<typename...>
-            struct args
-            {
-                using type = args;
-            };
+            struct args;
         }
 
         template<std::size_t n>
@@ -51,7 +48,10 @@ namespace boost
             using type = arg;
 
             template<typename... args>
-            using call = detail::args<args...>;
+            struct call
+            {
+                using type = detail::args<args...>;
+            };
         };
 
         using _0 = arg<0>;

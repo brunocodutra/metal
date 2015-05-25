@@ -5,7 +5,6 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_BIND_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_BIND_HPP
 
-#include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/forward.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
@@ -15,7 +14,7 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename function, typename... params>
+        template<typename function, typename... parameters>
         struct bind
         {
         private:
@@ -23,7 +22,10 @@ namespace boost
             struct parse
             {
                 template<typename...>
-                using call = identity<param>;
+                struct call
+                {
+                    using type = param;
+                };
             };
 
             template<std::size_t n>
@@ -31,9 +33,9 @@ namespace boost
                     arg<n>
             {};
 
-            template<typename nf, typename... prms>
-            struct parse<bind<nf, prms...> > :
-                    bind<nf, prms...>
+            template<typename func, typename... params>
+            struct parse<bind<func, params...> > :
+                    bind<func, params...>
             {};
 
         public:
@@ -41,9 +43,9 @@ namespace boost
 
             template<typename... args>
             using call = forward<
-                call,
-                typename call<parse<function>, args...>::type,
-                typename call<parse<params>, args...>::type...
+                ::boost::mpl2::call,
+                typename ::boost::mpl2::call<parse<function>, args...>::type,
+                typename ::boost::mpl2::call<parse<parameters>, args...>::type...
             >;
         };
     }
