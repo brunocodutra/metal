@@ -41,7 +41,7 @@ namespace boost
             using call = pack<args...>;
         };
 
-        using _ = arg<0>;
+        using _0 = arg<0>;
         using _1 = arg<1>;
         using _2 = arg<2>;
         using _3 = arg<3>;

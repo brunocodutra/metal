@@ -7,12 +7,12 @@
 
 #include <boost/mpl2/core/if.hpp>
 #include <boost/mpl2/core/identity.hpp>
+#include <boost/mpl2/metafunctional/pack.hpp>
+#include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/quote.hpp>
 #include <boost/mpl2/metafunctional/function.hpp>
 #include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/bind.hpp>
-#include <boost/mpl2/metafunctional/arg.hpp>
-#include <boost/mpl2/metafunctional/pack.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
@@ -35,7 +35,7 @@ namespace boost
 
             template<typename... args>
             struct adapt<pack<args...> > :
-                    bind<protect<_>, typename parse<args>::type...>
+                    bind<protect<_0>, typename parse<args>::type...>
             {};
 
             template<template<typename...> class parametric, typename... args>
@@ -44,9 +44,9 @@ namespace boost
                         protect<
                             bind<
                                 function<if_>,
-                                bind<function<is_evaluable>, bind<quote<parametric>, _> >,
-                                bind<quote<parametric>, _>,
-                                bind<quote<identity>, bind<quote<parametric>, _> >
+                                bind<function<is_evaluable>, bind<quote<parametric>, _0> >,
+                                bind<quote<parametric>, _0>,
+                                bind<quote<identity>, bind<quote<parametric>, _0> >
                             >
                         >,
                         typename parse<args>::type...
@@ -55,17 +55,17 @@ namespace boost
 
             template<typename function, typename>
             struct parse :
-                    protect<bind<protect<function>, _> >
+                    protect<bind<protect<function>, _0> >
+            {};
+
+            template<std::size_t n>
+            struct parse<arg<n>, true_> :
+                    arg<n>
             {};
 
             template<typename lexpr>
             struct parse<lexpr, false_> :
                     adapt<lexpr>
-            {};
-
-            template<std::size_t n, typename _>
-            struct parse<arg<n>, _> :
-                    arg<n>
             {};
 
         public:
