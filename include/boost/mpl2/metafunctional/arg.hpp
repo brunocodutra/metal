@@ -24,9 +24,13 @@ namespace boost
         {
             using type = arg;
 
-            template<typename h, typename... t>
-            struct call :
-                    ::boost::mpl2::call<arg<n-1>, t...>
+            template<typename...>
+            struct call
+            {};
+
+            template<typename head, typename... tail>
+            struct call<head, tail...> :
+                    ::boost::mpl2::call<arg<n-1>, tail...>
             {};
         };
 
@@ -35,10 +39,14 @@ namespace boost
         {
             using type = arg;
 
-            template<typename h, typename... t>
+            template<typename...>
             struct call
+            {};
+
+            template<typename head, typename... tail>
+            struct call<head, tail...>
             {
-                using type = h;
+                using type = head;
             };
         };
 
