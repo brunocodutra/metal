@@ -5,48 +5,80 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_BIND_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_BIND_HPP
 
+#include <boost/mpl2/core/integral.hpp>
+#include <boost/mpl2/core/arithmetic/inc.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/forward.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
 
+#include <cstddef>
 
 namespace boost
 {
     namespace mpl2
     {
-        template<typename function, typename... parameters>
+        template<typename...>
         struct bind
+        {};
+
+        namespace detail
         {
-        private:
-            template<typename param>
-            struct parse
+            template<typename... params>
+            struct _bind
             {
-                template<typename...>
-                struct call
+            private:
+                template<typename param>
+                struct parse
                 {
-                    using type = param;
+                    template<typename...>
+                    struct call
+                    {
+                        using type = param;
+                    };
                 };
+
+                template<std::size_t n>
+                struct parse<arg<n> > :
+                        arg<n>
+                {};
+
+                template<typename... _>
+                struct parse<bind<_...> > :
+                        bind<_...>
+                {};
+
+            public:
+                template<typename... args>
+                using call = forward<
+                    ::boost::mpl2::call,
+                    typename ::boost::mpl2::call<parse<params>, args...>::type...
+                >;
             };
 
-            template<std::size_t n>
-            struct parse<arg<n> > :
-                    arg<n>
+            template<typename rank, typename... params>
+            struct autocomplete;
+
+            template<typename rank, typename head, typename... tail>
+            struct autocomplete<rank, head, tail...> :
+                    cons<head, typename autocomplete<rank, tail...>::type>
             {};
 
-            template<typename func, typename... params>
-            struct parse<bind<func, params...> > :
-                    bind<func, params...>
+            template<typename rank, typename... tail>
+            struct autocomplete<rank, placeholders::_, tail...> :
+                    cons<arg<rank::value>, typename autocomplete<inc<rank>, tail...>::type>
             {};
 
-        public:
+            template<typename rank>
+            struct autocomplete<rank> :
+                    pack<>
+            {};
+        }
+
+        template<typename function, typename... params>
+        struct bind<function, params...> :
+            forward<detail::_bind, typename detail::autocomplete<size_t_<1>, function, params...>::type>
+        {
             using type = bind;
-
-            template<typename... args>
-            using call = forward<
-                ::boost::mpl2::call,
-                typename ::boost::mpl2::call<parse<function>, args...>::type,
-                typename ::boost::mpl2::call<parse<parameters>, args...>::type...
-            >;
         };
     }
 }

@@ -66,17 +66,17 @@ BOOST_MPL2_ASSERT((is_function<compose>));
 BOOST_MPL2_ASSERT((std::is_same<call<compose, std::add_pointer<_1>, std::add_const<_1>, void>::type, void const*>));
 BOOST_MPL2_ASSERT((std::is_same<call<compose, std::add_const<_1>, std::add_pointer<_1>, void>::type, void* const>));
 
-using once = lambda<call<compose, lambda<_1>, _1, _2> >;
+using once = lambda<call<compose, lambda<_>, _, _> >;
 BOOST_MPL2_ASSERT((is_evaluable<once>));
 BOOST_MPL2_ASSERT((is_function<once>));
 BOOST_MPL2_ASSERT((std::is_same<call<once, std::add_pointer<_1>, void>::type, void*>));
 
-using twice = lambda<call<compose, _1, _1, _2> >;
+using twice = lambda<call<compose, _, _1, _> >;
 BOOST_MPL2_ASSERT((is_evaluable<twice>));
 BOOST_MPL2_ASSERT((is_function<twice>));
 BOOST_MPL2_ASSERT((std::is_same<call<twice, std::add_pointer<_1>, void>::type, void**>));
 
-using thrice = lambda<call<once, _1, call<twice, _1, _2> > >;
+using thrice = lambda<call<once, _, call<twice, _, _> > >;
 BOOST_MPL2_ASSERT((is_evaluable<thrice>));
 BOOST_MPL2_ASSERT((is_function<thrice>));
 BOOST_MPL2_ASSERT((std::is_same<call<thrice, std::add_pointer<_1>, void>::type, void***>));

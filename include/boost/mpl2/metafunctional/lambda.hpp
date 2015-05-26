@@ -32,7 +32,7 @@ namespace boost
 
             template<typename invariant>
             struct adapt :
-                    bind<protect<_1>, invariant>
+                    bind<protect<placeholders::_1>, invariant>
             {};
 
             template<template<typename...> class parametric, typename... args>
@@ -41,28 +41,34 @@ namespace boost
                         protect<
                             bind<
                                 function<if_>,
-                                bind<function<is_evaluable>, bind<quote<parametric>, _0> >,
-                                bind<quote<parametric>, _0>,
-                                bind<quote<identity>, bind<quote<parametric>, _0> >
+                                bind<function<is_evaluable>, bind<quote<parametric>, placeholders::_0> >,
+                                bind<quote<parametric>, placeholders::_0>,
+                                bind<quote<identity>, bind<quote<parametric>, placeholders::_0> >
                             >
                         >,
                         typename parse<args>::type...
                     >
             {};
 
-            template<typename function, typename>
+            template<typename lexpr, typename>
             struct parse :
-                    protect<bind<protect<function>, _0> >
+                    adapt<lexpr>
             {};
+
+            template<typename cond>
+            struct parse<placeholders::_, cond>
+            {
+                using type = placeholders::_;
+            };
 
             template<std::size_t n>
             struct parse<arg<n>, true_> :
                     arg<n>
             {};
 
-            template<typename lexpr>
-            struct parse<lexpr, false_> :
-                    adapt<lexpr>
+            template<typename function>
+            struct parse<function, true_> :
+                    protect<bind<protect<function>, placeholders::_0> >
             {};
 
         public:
@@ -71,6 +77,11 @@ namespace boost
             template<typename... args>
             using call = ::boost::mpl2::call<parse<expr>, args...>;
         };
+
+        template<>
+        struct lambda<placeholders::_> :
+                placeholders::_1
+        {};
     }
 }
 
