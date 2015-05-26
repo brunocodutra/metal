@@ -6,6 +6,7 @@
 #define BOOST_MPL2_METAFUNCTIONAL_CALL_HPP
 
 #include <boost/mpl2/core/integral.hpp>
+#include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 
 namespace boost
@@ -14,25 +15,19 @@ namespace boost
     {
         namespace detail
         {
-            template<typename...> struct pack;
-
-            template<typename function, typename args, typename = true_>
+            template<typename args, typename = true_>
             struct _call
             {};
 
             template<typename function, typename... args>
-            struct _call<function, pack<args...>, typename is_evaluable<typename function::template call<args...> >::type> :
+            struct _call<detail::args<function, args...>, typename is_evaluable<typename function::template call<args...> >::type> :
                     function::template call<args...>
             {};
         }
 
-        template<typename...>
-        struct call
-        {};
-
-        template<typename function, typename... args>
-        struct call<function, args...> :
-                detail::_call<function, detail::pack<args...> >
+        template<typename... args>
+        struct call :
+                detail::_call<typename detail::args<args...>::type>
         {};
     }
 }

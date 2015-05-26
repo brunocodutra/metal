@@ -26,7 +26,7 @@ struct wrapper
     using call = wrap<args...>;
 };
 
-BOOST_MPL2_ASSERT((std::is_same<call<bind<wrapper>, void>::type, wrap<> >));
+BOOST_MPL2_ASSERT((std::is_same<call<bind<wrapper>, void, void*>::type, wrap<> >));
 
 BOOST_MPL2_ASSERT((std::is_same<call<bind<wrapper, _0>, void, void*>::type, wrap<void, void*> >));
 BOOST_MPL2_ASSERT((std::is_same<call<bind<wrapper, _0, _0>, void, void*>::type, wrap<void, void*, void, void*> >));

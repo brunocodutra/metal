@@ -8,7 +8,6 @@
 #include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/core/arithmetic/inc.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
-#include <boost/mpl2/metafunctional/forward.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
 
 #include <cstddef>
@@ -18,13 +17,15 @@ namespace boost
     namespace mpl2
     {
         template<typename...>
-        struct bind
-        {};
+        struct bind;
 
         namespace detail
         {
+            template<typename params>
+            struct _bind;
+
             template<typename... params>
-            struct _bind
+            struct _bind<detail::args<params...> >
             {
             private:
                 template<typename param>
@@ -49,9 +50,8 @@ namespace boost
 
             public:
                 template<typename... args>
-                using call = forward<
-                    ::boost::mpl2::call,
-                    typename ::boost::mpl2::call<parse<params>, args...>::type...
+                using call = ::boost::mpl2::call<
+                    typename parse<params>::template call<args...>::type...
                 >;
             };
 
@@ -70,13 +70,13 @@ namespace boost
 
             template<typename rank>
             struct autocomplete<rank> :
-                    pack<>
+                    detail::args<>
             {};
         }
 
-        template<typename function, typename... params>
-        struct bind<function, params...> :
-            forward<detail::_bind, typename detail::autocomplete<size_t_<1>, function, params...>::type>
+        template<typename... params>
+        struct bind :
+            detail::_bind<typename detail::autocomplete<size_t_<1>, params...>::type>
         {
             using type = bind;
         };

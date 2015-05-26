@@ -13,7 +13,6 @@
 #include <boost/mpl2/metafunctional/function.hpp>
 #include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/bind.hpp>
-#include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 
@@ -75,7 +74,7 @@ namespace boost
             using type = lambda;
 
             template<typename... args>
-            using call = ::boost::mpl2::call<parse<expr>, args...>;
+            using call = typename parse<expr>::template call<args...>;
         };
 
         template<>
