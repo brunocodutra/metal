@@ -8,52 +8,36 @@
 #include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/traits.hpp>
-#include <boost/mpl2/core/assert.hpp>
 
-#include <type_traits>
+#include "test.hpp"
 
 using namespace boost::mpl2;
 
-struct incomplete;
-struct empty {};
-
-template<typename... args>
-struct wrap
-{
-    using type = wrap<args...>;
-};
-
-struct wrapper
-{
-    template<typename... args>
-    using call = wrap<args...>;
-};
-
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<void> >::type, void>));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<void()> >::type, void()>));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<incomplete> >::type, incomplete>));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<empty> >::type, empty>));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::fundamental> >::type, test::fundamental>));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::function> >::type, test::function>));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::incomplete> >::type, test::incomplete>));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::empty> >::type, test::empty>));
 
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<_1>, void>::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<std::add_pointer<_1> >, void>::type, void*>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<protect<lambda<std::add_pointer<_1> > > >, void>::type, void*>));
 
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrapper>, void>::type, wrap<void> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrapper>, short, int, long, long long>::type, wrap<short, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrapper>, void>::type, test::wrap<void> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrapper>, short, int, long, long long>::type, test::wrap<short, int, long, long long> >));
 
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrap<_0> >, void, void*>::type, wrap<void, void*> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrap<_0, _0> >, void, void*>::type, wrap<void, void*, void, void*> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrap<_0, _0, _0> >, void, void*>::type, wrap<void, void*, void, void*, void, void*> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_0> >, void, void*>::type, test::wrap<void, void*> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_0, _0> >, void, void*>::type, test::wrap<void, void*, void, void*> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_0, _0, _0> >, void, void*>::type, test::wrap<void, void*, void, void*, void, void*> >));
 
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrap<_1> >, short, int, long, long long>::type, wrap<short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrap<_1, _2> >, short, int, long, long long>::type, wrap<short, int> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrap<_1, _2, _3> >, short, int, long, long long>::type, wrap<short, int, long> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrap<_1, _2, _3, _4> >, short, int, long, long long>::type, wrap<short, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_1> >, short, int, long, long long>::type, test::wrap<short> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_1, _2> >, short, int, long, long long>::type, test::wrap<short, int> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_1, _2, _3> >, short, int, long, long long>::type, test::wrap<short, int, long> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_1, _2, _3, _4> >, short, int, long, long long>::type, test::wrap<short, int, long, long long> >));
 
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrap<_> >, short, int, long, long long>::type, wrap<short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrap<_, _> >, short, int, long, long long>::type, wrap<short, int> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrap<_, _, _> >, short, int, long, long long>::type, wrap<short, int, long> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<wrap<_, _, _, _> >, short, int, long, long long>::type, wrap<short, int, long, long long> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_> >, short, int, long, long long>::type, test::wrap<short> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_, _> >, short, int, long, long long>::type, test::wrap<short, int> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_, _, _> >, short, int, long, long long>::type, test::wrap<short, int, long> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_, _, _, _> >, short, int, long, long long>::type, test::wrap<short, int, long, long long> >));
 
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<lambda<_1> >, void>::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<lambda<lambda<_1> > >, void>::type, void>));

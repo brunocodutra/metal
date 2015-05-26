@@ -3,46 +3,32 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/metafunctional/call.hpp>
-#include <boost/mpl2/core/assert.hpp>
 
-#include <type_traits>
+#include "test.hpp"
 
 using namespace boost::mpl2;
 
-
-template<typename... args>
-struct wrap
-{
-    using type = wrap<args...>;
-};
-
-struct wrapper
-{
-    template<typename... args>
-    using call = wrap<args...>;
-};
-
 struct f0
 {
-    template<typename x=void>
+    template<typename = void>
     struct call :
-            wrap<>
+            test::wrap<>
     {};
 };
 
 struct f1
 {
     template<typename x>
-    using call = wrap<x>;
+    using call = test::wrap<x>;
 };
 
 struct f2
 {
     template<typename x, typename y>
-    using call = wrap<x, y>;
+    using call = test::wrap<x, y>;
 };
 
-using fn = wrapper;
+using fn = test::wrapper;
 
 BOOST_MPL2_ASSERT((std::is_same<call<f0>::type, f0::call<>::type>));
 BOOST_MPL2_ASSERT((std::is_same<call<f1, void>::type, f1::call<void>::type>));
@@ -54,29 +40,23 @@ BOOST_MPL2_ASSERT((std::is_same<call<fn, short, int>::type, fn::call<short, int>
 BOOST_MPL2_ASSERT((std::is_same<call<fn, short, int, long>::type, fn::call<short, int, long> >));
 BOOST_MPL2_ASSERT((std::is_same<call<fn, short, int, long, long long>::type, fn::call<short, int, long, long long> >));
 
-using p0 = detail::args<detail::args<>, detail::args<detail::args<>, detail::args<>, detail::args<> > >;
-using p1 = detail::args<p0, short, p0>;
-using p2 = detail::args<int, p1>;
-using p3 = detail::args<detail::args<long>, detail::args<detail::args<p2> > >;
-using p4 = detail::args<p0, p0, p0, long long, detail::args<detail::args<p3> > >;
+BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, test::args0>::type, test::wrap<> >));
+BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, test::args1>::type, test::wrap<short> >));
+BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, test::args2>::type, test::wrap<int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, test::args3>::type, test::wrap<long, int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, test::args4>::type, test::wrap<long long, long, int, short> >));
 
-BOOST_MPL2_ASSERT((std::is_same<call<wrapper, p0>::type, wrap<> >));
-BOOST_MPL2_ASSERT((std::is_same<call<wrapper, p1>::type, wrap<short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<wrapper, p2>::type, wrap<int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<wrapper, p3>::type, wrap<long, int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<wrapper, p4>::type, wrap<long long, long, int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, long long, long, int, short, test::args0, char>::type, test::wrap<long long, long, int, short, char> >));
+BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, long long, long, int, test::args1, char>::type, test::wrap<long long, long, int, short, char> >));
+BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, long long, long, test::args2, char>::type, test::wrap<long long, long, int, short, char> >));
+BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, long long, test::args3, char>::type, test::wrap<long long, long, int, short, char> >));
+BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, test::args4, char>::type, test::wrap<long long, long, int, short, char> >));
 
-BOOST_MPL2_ASSERT((std::is_same<call<wrapper, long long, long, int, short, p0, char>::type, wrap<long long, long, int, short, char> >));
-BOOST_MPL2_ASSERT((std::is_same<call<wrapper, long long, long, int, p1, char>::type, wrap<long long, long, int, short, char> >));
-BOOST_MPL2_ASSERT((std::is_same<call<wrapper, long long, long, p2, char>::type, wrap<long long, long, int, short, char> >));
-BOOST_MPL2_ASSERT((std::is_same<call<wrapper, long long, p3, char>::type, wrap<long long, long, int, short, char> >));
-BOOST_MPL2_ASSERT((std::is_same<call<wrapper, p4, char>::type, wrap<long long, long, int, short, char> >));
-
-BOOST_MPL2_ASSERT((std::is_same<call<detail::args<wrapper, p0> >::type, wrap<> >));
-BOOST_MPL2_ASSERT((std::is_same<call<detail::args<wrapper, p1> >::type, wrap<short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<detail::args<wrapper, p2> >::type, wrap<int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<detail::args<wrapper, p3> >::type, wrap<long, int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<detail::args<wrapper, p4> >::type, wrap<long long, long, int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<call<detail::args<test::wrapper, test::args0> >::type, test::wrap<> >));
+BOOST_MPL2_ASSERT((std::is_same<call<detail::args<test::wrapper, test::args1> >::type, test::wrap<short> >));
+BOOST_MPL2_ASSERT((std::is_same<call<detail::args<test::wrapper, test::args2> >::type, test::wrap<int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<call<detail::args<test::wrapper, test::args3> >::type, test::wrap<long, int, short> >));
+BOOST_MPL2_ASSERT((std::is_same<call<detail::args<test::wrapper, test::args4> >::type, test::wrap<long long, long, int, short> >));
 
 int main()
 {

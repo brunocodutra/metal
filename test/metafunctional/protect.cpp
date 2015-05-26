@@ -5,11 +5,9 @@
 #include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/function.hpp>
 #include <boost/mpl2/metafunctional/bind.hpp>
-#include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/metafunctional/traits.hpp>
-#include <boost/mpl2/core/assert.hpp>
 
-#include <type_traits>
+#include "test.hpp"
 
 using namespace boost::mpl2;
 
@@ -19,11 +17,11 @@ BOOST_MPL2_ASSERT(is_function<bound>);
 BOOST_MPL2_ASSERT(is_function<protect<bound> >);
 BOOST_MPL2_ASSERT(is_evaluable<protect<bound> >);
 
-BOOST_MPL2_ASSERT((std::is_same<call<bound>::type, void*>));
-BOOST_MPL2_ASSERT((std::is_same<call<protect<bound> >::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<bound::call<>::type, void*>));
+BOOST_MPL2_ASSERT((std::is_same<protect<bound>::call<>::type, void*>));
 
-BOOST_MPL2_ASSERT((std::is_same<call<bind<function<std::add_pointer>, bound> >::type, void**>));
-BOOST_MPL2_ASSERT((std::is_same<call<bind<function<std::add_pointer>, protect<bound> > >::type, protect<bound>*>));
+BOOST_MPL2_ASSERT((std::is_same<bind<function<std::add_pointer>, bound>::call<>::type, void**>));
+BOOST_MPL2_ASSERT((std::is_same<bind<function<std::add_pointer>, protect<bound> >::call<>::type, protect<bound>*>));
 
 int main()
 {
