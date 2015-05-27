@@ -12,9 +12,12 @@ include(Diagnostics)
 include(Strict)
 include(Dialects)
 
-diagnostics_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
+option(BOOST_MPL2_ENHANCE_DIAGNOSTICS "increase compiler verbosity" ON)
+if(BOOST_MPL2_ENHANCE_DIAGNOSTICS)
+    diagnostics_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
+endif()
 
-option(BOOST_MPL2_ENABLE_EXTRA_WARNINGS "enable extra warnings" ON)
+option(BOOST_MPL2_ENABLE_EXTRA_WARNINGS "enable extra warnings" OFF)
 if(BOOST_MPL2_ENABLE_EXTRA_WARNINGS)
     extra_warnings_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
     list(APPEND BOOST_MPL2_EXTRA_COMPILE_FLAGS
