@@ -8,6 +8,7 @@
 #include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/core/arithmetic/inc.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
+#include <boost/mpl2/metafunctional/placeholders.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
 
 #include <cstddef>

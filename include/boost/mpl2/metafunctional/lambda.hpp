@@ -9,6 +9,7 @@
 #include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
+#include <boost/mpl2/metafunctional/placeholders.hpp>
 #include <boost/mpl2/metafunctional/quote.hpp>
 #include <boost/mpl2/metafunctional/function.hpp>
 #include <boost/mpl2/metafunctional/protect.hpp>
@@ -32,7 +33,7 @@ namespace boost
 
             template<typename invariant>
             struct adapt :
-                    bind<protect<placeholders::_1>, invariant>
+                    bind<protect<arg<1> >, invariant>
             {};
 
             template<template<typename...> class parametric, typename... args>
@@ -57,7 +58,7 @@ namespace boost
 
             template<typename cond>
             struct parse<placeholders::_, cond> :
-                    placeholders::_1
+                    arg<1>
             {
                 using type = placeholders::_;
             };
