@@ -8,6 +8,7 @@
 #include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
+#include <boost/mpl2/metafunctional/traits/is_function.hpp>
 
 namespace boost
 {
@@ -15,13 +16,22 @@ namespace boost
     {
         namespace detail
         {
+            template<template<typename...> class expr, typename args, typename = true_>
+            struct forward
+            {};
+
+            template<template<typename...> class expr, typename... args>
+            struct forward<expr, detail::args<args...>, typename is_evaluable<expr<args...> >::type> :
+                    expr<args...>
+            {};
+
             template<typename args, typename = true_>
             struct _call
             {};
 
             template<typename function, typename... args>
-            struct _call<detail::args<function, args...>, typename is_evaluable<typename function::template call<args...> >::type> :
-                    function::template call<args...>
+            struct _call<detail::args<function, args...>, typename is_function<function>::type> :
+                    forward<function::template call, detail::args<args...> >
             {};
         }
 

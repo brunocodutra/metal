@@ -7,6 +7,7 @@
 
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/lambda.hpp>
+#include <boost/mpl2/metafunctional/call.hpp>
 
 namespace boost
 {
@@ -20,7 +21,7 @@ namespace boost
 
             template<typename expr, typename... args>
             struct _apply<detail::args<expr, args...> > :
-                    lambda<expr>::template call<args...>
+                    detail::_call<detail::args<lambda<expr>, args...> >
             {};
         }
 

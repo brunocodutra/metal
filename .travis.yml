@@ -38,5 +38,4 @@ before_script:
     - cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER} -DBOOST_MPL2_ENABLE_EXTRA_WARNINGS=OFF -DBOOST_MPL2_ENABLE_STRICT_BEHAVIOR=OFF
     
 script:
-    - time make mpl2.test
-    - ctest --output-on-failure
+    - time make mpl2.test && ctest --output-on-failure
