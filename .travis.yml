@@ -30,7 +30,7 @@ before_install:
     - sudo apt-get -qq update
     
 install:
-    - sudo apt-get -qq install ${COMPILER}
+    - sudo apt-get -qq install ${COMPILER} libc++-dev
 
 before_script:
     - mkdir build

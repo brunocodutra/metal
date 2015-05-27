@@ -31,6 +31,12 @@ if(BOOST_MPL2_ENABLE_STRICT_BEHAVIOR)
     strict_behavior_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
 endif()
 
+if(CXX_COMPILER_IS_CLANG)
+    list(APPEND BOOST_MPL2_EXTRA_COMPILE_FLAGS
+        "-stdlib=libc++ -include cstddef"
+    )
+endif()
+
 add_compile_flags_globally("${BOOST_MPL2_EXTRA_COMPILE_FLAGS}")
 
 file(GLOB_RECURSE BOOST_MPL2_TEST_HEADERS "*.hpp")
