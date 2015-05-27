@@ -13,6 +13,7 @@
 #include <boost/mpl2/metafunctional/function.hpp>
 #include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/bind.hpp>
+#include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 
@@ -55,7 +56,8 @@ namespace boost
             {};
 
             template<typename cond>
-            struct parse<placeholders::_, cond>
+            struct parse<placeholders::_, cond> :
+                    placeholders::_1
             {
                 using type = placeholders::_;
             };
@@ -67,20 +69,15 @@ namespace boost
 
             template<typename function>
             struct parse<function, true_> :
-                    protect<bind<protect<function>, placeholders::_0> >
+                    protect<function>
             {};
 
         public:
             using type = lambda;
 
             template<typename... args>
-            using call = typename parse<expr>::template call<args...>;
+            using call = ::boost::mpl2::call<parse<expr>, args...>;
         };
-
-        template<>
-        struct lambda<placeholders::_> :
-                placeholders::_1
-        {};
     }
 }
 
