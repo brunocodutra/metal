@@ -23,10 +23,10 @@ namespace boost
         namespace detail
         {
             template<typename params>
-            struct _bind;
+            struct bind_impl;
 
             template<typename... params>
-            struct _bind<detail::args<params...> >
+            struct bind_impl<detail::args<params...> >
             {
             private:
                 template<typename param>
@@ -77,7 +77,7 @@ namespace boost
 
         template<typename... params>
         struct bind :
-            detail::_bind<typename detail::autocomplete<size_t_<1>, params...>::type>
+            detail::bind_impl<typename detail::autocomplete<size_t_<1>, params...>::type>
         {
             using type = bind;
         };

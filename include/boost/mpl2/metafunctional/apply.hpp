@@ -16,18 +16,18 @@ namespace boost
         namespace detail
         {
             template<typename args>
-            struct _apply
+            struct apply_impl
             {};
 
             template<typename expr, typename... args>
-            struct _apply<detail::args<expr, args...> > :
-                    detail::_call<detail::args<lambda<expr>, args...> >
+            struct apply_impl<detail::args<expr, args...> > :
+                    detail::call_impl<detail::args<lambda<expr>, args...> >
             {};
         }
 
         template<typename... args>
         struct apply :
-                detail::_apply<typename detail::args<args...>::type>
+                detail::apply_impl<typename detail::args<args...>::type>
         {};
     }
 }

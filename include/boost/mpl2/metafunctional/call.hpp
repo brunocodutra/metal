@@ -26,18 +26,18 @@ namespace boost
             {};
 
             template<typename args, typename = true_>
-            struct _call
+            struct call_impl
             {};
 
             template<typename function, typename... args>
-            struct _call<detail::args<function, args...>, typename is_function<function>::type> :
+            struct call_impl<detail::args<function, args...>, typename is_function<function>::type> :
                     forward<function::template call, detail::args<args...> >
             {};
         }
 
         template<typename... args>
         struct call :
-                detail::_call<typename detail::args<args...>::type>
+                detail::call_impl<typename detail::args<args...>::type>
         {};
     }
 }
