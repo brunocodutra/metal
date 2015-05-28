@@ -18,7 +18,7 @@ namespace boost
 
         template<typename x, typename y>
         struct and_<x, y> :
-                and_<integral<bool, !!x::value>, y>
+                and_<typename bool_<!!x::value>::type, y>
         {};
 
         template<typename y> struct and_<true_, y> : y {};

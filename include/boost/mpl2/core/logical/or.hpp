@@ -18,7 +18,7 @@ namespace boost
 
         template<typename x, typename y>
         struct or_<x, y> :
-                or_<integral<bool, !!x::value>, y>
+                or_<typename bool_<!!x::value>::type, y>
         {};
 
         template<typename y> struct or_<false_, y> : y {};

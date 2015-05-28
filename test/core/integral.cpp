@@ -14,35 +14,39 @@
 
 using namespace boost::mpl2;
 
-template<typename integral>
-constexpr bool test_integral(integral constant)
-{
-    BOOST_MPL2_ASSERT((std::is_same<typename integral::type::value_type, typename integral::value_type>));
-    BOOST_MPL2_ASSERT((std::is_same<typename integral::value_type, typename std::remove_cv<decltype(integral::value)>::type>));
-    BOOST_MPL2_ASSERT_EXPR(integral::type::value == integral::value);
+typedef integral<int, 42> number;
 
-    return integral::value == constant;
-}
+BOOST_MPL2_ASSERT((std::is_same<number::type::type, number::type>));
+BOOST_MPL2_ASSERT((std::is_same<number::type::value_type, number::value_type>));
+BOOST_MPL2_ASSERT((std::is_same<number::value_type, std::decay<decltype(number::value)>::type>));
+BOOST_MPL2_ASSERT_EXPR(number::type::value == number::value);
+BOOST_MPL2_ASSERT_EXPR(number::value == number{});
 
-BOOST_MPL2_ASSERT_EXPR(test_integral(true_{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(false_{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(bool_<true>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(bool_<false>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(char_<' '>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(uchar_<255>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(schar_<SCHAR_MIN>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(wchar_t_<L' '>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(char16_t_<u' '>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(char32_t_<U' '>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(short_<SHRT_MIN>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(ushort_<USHRT_MAX>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(int_<INT_MIN>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(uint_<UINT_MAX>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(long_<LONG_MIN>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(ulong_<ULONG_MAX>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(long_long_<LLONG_MIN>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(ulong_long_<ULLONG_MAX>{}));
-BOOST_MPL2_ASSERT_EXPR(test_integral(size_t_<SIZE_MAX>{}));
+BOOST_MPL2_ASSERT((std::is_same<true_, bool_<true>::type>));
+BOOST_MPL2_ASSERT((std::is_same<true_, integral<bool, true>::type>));
+BOOST_MPL2_ASSERT((std::is_same<true_, std::true_type>));
+
+BOOST_MPL2_ASSERT((std::is_same<false_, bool_<false>::type>));
+BOOST_MPL2_ASSERT((std::is_same<false_, integral<bool, false>::type>));
+BOOST_MPL2_ASSERT((std::is_same<false_, std::false_type>));
+
+BOOST_MPL2_ASSERT((std::is_same<bool_<true>::type, integral<bool, true>::type>));
+BOOST_MPL2_ASSERT((std::is_same<bool_<false>::type, integral<bool, false>::type>));
+BOOST_MPL2_ASSERT((std::is_same<char_<' '>::type, integral<char, ' '>::type>));
+BOOST_MPL2_ASSERT((std::is_same<uchar_<255>::type, integral<unsigned char, 255>::type>));
+BOOST_MPL2_ASSERT((std::is_same<schar_<SCHAR_MIN>::type, integral<signed char, SCHAR_MIN>::type>));
+BOOST_MPL2_ASSERT((std::is_same<wchar_t_<L' '>::type, integral<wchar_t, L' '>::type>));
+BOOST_MPL2_ASSERT((std::is_same<char16_t_<u' '>::type, integral<char16_t, u' '>::type>));
+BOOST_MPL2_ASSERT((std::is_same<char32_t_<U' '>::type, integral<char32_t, U' '>::type>));
+BOOST_MPL2_ASSERT((std::is_same<short_<SHRT_MIN>::type, integral<short, SHRT_MIN>::type>));
+BOOST_MPL2_ASSERT((std::is_same<ushort_<USHRT_MAX>::type, integral<unsigned short, USHRT_MAX>::type>));
+BOOST_MPL2_ASSERT((std::is_same<int_<INT_MIN>::type, integral<int, INT_MIN>::type>));
+BOOST_MPL2_ASSERT((std::is_same<uint_<UINT_MAX>::type, integral<unsigned int, UINT_MAX>::type>));
+BOOST_MPL2_ASSERT((std::is_same<long_<LONG_MIN>::type, integral<long, LONG_MIN>::type>));
+BOOST_MPL2_ASSERT((std::is_same<ulong_<ULONG_MAX>::type, integral<unsigned long, ULONG_MAX>::type>));
+BOOST_MPL2_ASSERT((std::is_same<long_long_<LLONG_MIN>::type, integral<long long, LLONG_MIN>::type>));
+BOOST_MPL2_ASSERT((std::is_same<ulong_long_<ULLONG_MAX>::type, integral<unsigned long long, ULLONG_MAX>::type>));
+BOOST_MPL2_ASSERT((std::is_same<size_t_<SIZE_MAX>::type, integral<size_t, SIZE_MAX>::type>));
 
 int main()
 {

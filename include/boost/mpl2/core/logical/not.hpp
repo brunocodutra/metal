@@ -13,7 +13,7 @@ namespace boost
     {
         template<typename x>
         struct not_ :
-            bool_<not x::value>
+            bool_<!x::value>
         {};
     }
 }

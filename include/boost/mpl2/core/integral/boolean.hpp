@@ -14,8 +14,8 @@ namespace boost
         template<bool constant>
         using bool_ = integral<bool, constant>;
 
-        typedef integral<bool, true> true_;
-        typedef integral<bool, false> false_;
+        typedef integral<bool, true>::type true_;
+        typedef integral<bool, false>::type false_;
     }
 }
 
