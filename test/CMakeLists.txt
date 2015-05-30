@@ -17,13 +17,15 @@ if(BOOST_MPL2_ENHANCE_DIAGNOSTICS)
     diagnostics_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
 endif()
 
+warnings_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
+
 option(BOOST_MPL2_ENABLE_EXTRA_WARNINGS "enable extra warnings" OFF)
 if(BOOST_MPL2_ENABLE_EXTRA_WARNINGS)
     extra_warnings_flags(CXX BOOST_MPL2_EXTRA_COMPILE_FLAGS)
     list(APPEND BOOST_MPL2_EXTRA_COMPILE_FLAGS
         -Wno-c++98-compat
         -Wno-c++98-compat-pedantic
-    )
+    )  
 endif()
 
 option(BOOST_MPL2_ENABLE_STRICT_BEHAVIOR "enable strict behavior" OFF)
@@ -32,9 +34,12 @@ if(BOOST_MPL2_ENABLE_STRICT_BEHAVIOR)
 endif()
 
 if(CXX_COMPILER_IS_CLANG)
-    list(APPEND BOOST_MPL2_EXTRA_COMPILE_FLAGS
-        "-stdlib=libc++ -include cstddef"
-    )
+    check_flag(CXX "-stdlib=libc++ -include cstddef" result)
+    if(result)
+        list(APPEND BOOST_MPL2_EXTRA_COMPILE_FLAGS
+            -stdlib=libc++
+        )
+    endif()
 endif()
 
 add_compile_flags_globally("${BOOST_MPL2_EXTRA_COMPILE_FLAGS}")
@@ -56,9 +61,16 @@ endif()
 add_custom_target(mpl2.test)
 add_dependencies(mpl2 mpl2.test)
 foreach(dialect ${BOOST_MPL2_CXX_DIALECTS})
-    unset(dialect_flag)
-    language_dialect_flags(CXX ${dialect} dialect_flag)
-    if(NOT "${dialect_flag}" MATCHES "-NOTFOUND$")
+    unset(dialect_flags)
+    language_dialect_flags(CXX ${dialect} dialect_flags)
+    foreach(flag ${dialect_flags})
+        check_flag(CXX "${flag}" flag)
+        if(flag)
+            set(dialect_flags "${flag}")
+            break()
+        endif()
+    endforeach()
+    if(NOT "${dialect_flags}" MATCHES "-NOTFOUND$")
         add_custom_target(mpl2.test.${dialect})
         add_dependencies(mpl2.test mpl2.test.${dialect})
         foreach(SOURCE ${BOOST_MPL2_TEST_SOURCES})
@@ -68,7 +80,7 @@ foreach(dialect ${BOOST_MPL2_CXX_DIALECTS})
                 LANGUAGE CXX
                 SOURCES ${SOURCE} ${BOOST_MPL2_TEST_HEADERS}
                 LIBRARIES ${BOOST_MPL2_LIBRARIES}
-                ADITIONAL_FLAGS ${dialect_flag}
+                ADITIONAL_FLAGS ${dialect_flags}
                 DEPENDENCIES
             )
             add_test(${test_target} ${CMAKE_CURRENT_BINARY_DIR}/${test_target})
