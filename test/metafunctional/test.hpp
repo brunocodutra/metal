@@ -54,6 +54,8 @@ namespace test
     struct wrapper
     {
         template<typename... args>
-        using call = wrap<args...>;
+        struct call :
+                wrap<args...>
+        {};
     };
 }

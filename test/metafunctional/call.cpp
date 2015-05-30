@@ -19,13 +19,17 @@ struct f0
 struct f1
 {
     template<typename x>
-    using call = test::wrap<x>;
+    struct call :
+            test::wrap<x>
+    {};
 };
 
 struct f2
 {
     template<typename x, typename y>
-    using call = test::wrap<x, y>;
+    struct call :
+            test::wrap<x, y>
+    {};
 };
 
 using fn = test::wrapper;

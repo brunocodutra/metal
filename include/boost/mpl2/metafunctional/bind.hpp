@@ -51,9 +51,11 @@ namespace boost
 
             public:
                 template<typename... args>
-                using call = ::boost::mpl2::call<
-                    typename parse<params>::template call<args...>::type...
-                >;
+                struct call :
+                        ::boost::mpl2::call<
+                            typename parse<params>::template call<args...>::type...
+                        >
+                {};
             };
 
             template<typename rank, typename... params>

@@ -28,7 +28,7 @@ namespace boost
         struct lambda
         {
         private:
-            template<typename function, typename = typename is_function<function>::type>
+            template<typename function, typename = true_>
             struct parse;
 
             template<typename invariant>
@@ -56,20 +56,20 @@ namespace boost
                     adapt<lexpr>
             {};
 
-            template<typename cond>
-            struct parse<placeholders::_, cond> :
+            template<typename _>
+            struct parse<placeholders::_, _> :
                     arg<1>
             {
                 using type = placeholders::_;
             };
 
             template<std::size_t n>
-            struct parse<arg<n>, true_> :
+            struct parse<arg<n>, typename is_function<arg<n> >::type> :
                     arg<n>
             {};
 
             template<typename function>
-            struct parse<function, true_> :
+            struct parse<function, typename is_function<function>::type> :
                     protect<function>
             {};
 
@@ -77,7 +77,9 @@ namespace boost
             using type = lambda;
 
             template<typename... args>
-            using call = ::boost::mpl2::call<parse<expr>, args...>;
+            struct call :
+                    ::boost::mpl2::call<parse<expr>, args...>
+            {};
         };
     }
 }

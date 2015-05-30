@@ -10,20 +10,28 @@
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
 
+#include <type_traits>
+
 namespace boost
 {
     namespace mpl2
     {
         namespace detail
         {
-            template<template<typename...> class expr, typename args, typename = true_>
-            struct forward
-            {};
-
             template<template<typename...> class expr, typename... args>
-            struct forward<expr, detail::args<args...>, typename is_evaluable<expr<args...> >::type> :
-                    expr<args...>
-            {};
+            struct instantiate
+            {
+            private:
+                struct empty{};
+
+                template<typename...>
+                static empty eval(...);
+                template<typename... _>
+                static typename std::enable_if<is_evaluable<expr<_...> >::value, expr<_...> >::type eval(int);
+
+            public:
+                using type = decltype(eval<args...>(0));
+            };
 
             template<typename args, typename = true_>
             struct call_impl
@@ -31,7 +39,7 @@ namespace boost
 
             template<typename function, typename... args>
             struct call_impl<detail::args<function, args...>, typename is_function<function>::type> :
-                    forward<function::template call, detail::args<args...> >
+                    instantiate<function::template call, args...>::type
             {};
         }
 
