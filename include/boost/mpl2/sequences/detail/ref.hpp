@@ -19,7 +19,8 @@ namespace boost
 
         //NULL
         template<>
-        struct ref<>;
+        struct ref<>
+        {};
     }
 }
 

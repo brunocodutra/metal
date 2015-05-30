@@ -9,8 +9,6 @@
 #include <boost/mpl2/core/arithmetic/inc.hpp>
 #include <boost/mpl2/sequences/detail/ref.hpp>
 
-#include <utility>
-
 namespace boost
 {
     namespace mpl2
@@ -20,7 +18,7 @@ namespace boost
             struct nil
             {
                 typedef size_t_<0U> size;
-                static ref<> item(ref<>);
+                static ref<> item(...);
                 template<typename i>
                 struct at;
             };
@@ -31,7 +29,7 @@ namespace boost
             {
                 typedef inc<typename rest::size> size;
 
-                static ref<value> item(ref<index>&&);
+                static ref<value> item(ref<index>);
                 using rest::item;
 
                 template<typename i>
@@ -41,7 +39,7 @@ namespace boost
             template<typename index, typename value, typename rest>
             template<typename i>
             struct link<index, value, rest>::at :
-                    decltype(item(std::declval<ref<i> >()))
+                    decltype(item(ref<i>{}))
             {};
 
         }
