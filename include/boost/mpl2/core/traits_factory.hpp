@@ -7,17 +7,9 @@
 
 #include <boost/mpl2/core/integral.hpp>
 
-#define BOOST_MPL2_DETAIL_IMPLEMENT_INTEGRAL(PRIMARY) \
-    using value_type = typename PRIMARY::value_type; \
-    static constexpr value_type value = PRIMARY::value; \
-    constexpr operator value_type() const noexcept {return value;} \
-    constexpr value_type operator()() const noexcept {return value;} \
-    using type = PRIMARY \
-/**/
-
 #define BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(TRAIT, NESTED) \
     template<typename x> \
-    struct TRAIT \
+    struct TRAIT##_impl \
     { \
     private: \
         template<typename> struct type_wrapper; \
@@ -26,13 +18,17 @@
         template<typename> \
         static boost::mpl2::false_ check(...); \
     public: \
-        BOOST_MPL2_DETAIL_IMPLEMENT_INTEGRAL(decltype(check<x>(0))); \
-    } \
+        using type = decltype(check<x>(0)); \
+    }; \
+    template<typename x> \
+    struct TRAIT : \
+            TRAIT##_impl<x>::type \
+    {} \
 /**/
 
 #define BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(TRAIT, NESTED) \
     template<typename x> \
-    struct TRAIT \
+    struct TRAIT##_impl \
     { \
     private: \
         template<template<typename...> class> struct template_wrapper; \
@@ -41,8 +37,12 @@
         template<typename> \
         static boost::mpl2::false_ check(...); \
     public: \
-        BOOST_MPL2_DETAIL_IMPLEMENT_INTEGRAL(decltype(check<x>(0))); \
-    } \
+        using type = decltype(check<x>(0)); \
+    }; \
+    template<typename x> \
+    struct TRAIT : \
+            TRAIT##_impl<x>::type \
+    {} \
 /**/
 
 #endif
