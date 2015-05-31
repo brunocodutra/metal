@@ -21,9 +21,9 @@ BOOST_MPL2_ASSERT((std::is_same<many::at<size_t_<2> >::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<many::at<size_t_<3> >::type, int>));
 BOOST_MPL2_ASSERT((std::is_same<many::at<size_t_<4> >::type, empty>));
 
-BOOST_MPL2_ASSERT_EXPR(empty::size{} == 0);
-BOOST_MPL2_ASSERT_EXPR(single::size{} == 1);
-BOOST_MPL2_ASSERT_EXPR(many::size{} == 5);
+BOOST_MPL2_ASSERT_EXPR(empty::size::value == 0);
+BOOST_MPL2_ASSERT_EXPR(single::size::value == 1);
+BOOST_MPL2_ASSERT_EXPR(many::size::value == 5);
 
 int main()
 {

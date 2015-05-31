@@ -20,7 +20,6 @@ BOOST_MPL2_ASSERT((std::is_same<number::type::type, number::type>));
 BOOST_MPL2_ASSERT((std::is_same<number::type::value_type, number::value_type>));
 BOOST_MPL2_ASSERT((std::is_same<number::value_type, std::decay<decltype(number::value)>::type>));
 BOOST_MPL2_ASSERT_EXPR(number::type::value == number::value);
-BOOST_MPL2_ASSERT_EXPR(number::value == number{});
 
 BOOST_MPL2_ASSERT((std::is_same<true_, bool_<true>::type>));
 BOOST_MPL2_ASSERT((std::is_same<true_, integral<bool, true>::type>));

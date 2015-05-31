@@ -59,10 +59,6 @@ BOOST_MPL2_ASSERT((not_<and_<false_, undefined, undefined, undefined, undefined,
 BOOST_MPL2_ASSERT((not_<and_<false_, undefined, undefined, undefined, undefined, undefined, undefined> >));
 BOOST_MPL2_ASSERT((not_<and_<false_, undefined, undefined, undefined, undefined, undefined, undefined, undefined> >));
 
-BOOST_MPL2_ASSERT_EXPR((or_<false_, true_>{}));
-BOOST_MPL2_ASSERT_EXPR((and_<true_, true_>{}));
-BOOST_MPL2_ASSERT_EXPR((not_<or_<false_, false_> >{}));
-
 int main()
 {
     return 0;
