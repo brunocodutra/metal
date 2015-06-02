@@ -23,7 +23,7 @@ namespace boost
 }
 
 #define BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(x) \
-    boost::mpl2::detail::strip_parenthesis<void (x)>
+    boost::mpl2::detail::strip_parenthesis<void x>
 
 #define BOOST_MPL2_ASSERT_MSG(PRED, MSG) \
     static_assert(BOOST_MPL2_DETAIL_STRIP_PARENTHESIS(PRED)::value, MSG)

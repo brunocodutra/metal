@@ -7,25 +7,10 @@
 
 using boost::mpl2::true_;
 
-BOOST_MPL2_ASSERT(true_);
 BOOST_MPL2_ASSERT((true_));
-BOOST_MPL2_ASSERT(((true_)));
-BOOST_MPL2_ASSERT((((true_))));
-
-BOOST_MPL2_ASSERT_MSG(true_, "");
 BOOST_MPL2_ASSERT_MSG((true_), "");
-BOOST_MPL2_ASSERT_MSG(((true_)), "");
-BOOST_MPL2_ASSERT_MSG((((true_))), "");
-
-BOOST_MPL2_ASSERT_EXPR(true);
 BOOST_MPL2_ASSERT_EXPR((true));
-BOOST_MPL2_ASSERT_EXPR(((true)));
-BOOST_MPL2_ASSERT_EXPR((((true))));
-
-BOOST_MPL2_ASSERT_EXPR_MSG(true, "");
 BOOST_MPL2_ASSERT_EXPR_MSG((true), "");
-BOOST_MPL2_ASSERT_EXPR_MSG(((true)), "");
-BOOST_MPL2_ASSERT_EXPR_MSG((((true))), "");
 
 int main()
 {
