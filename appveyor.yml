@@ -1,0 +1,26 @@
+# Copyright Bruno Dutra 2015
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+
+os: Visual Studio 2015 RC
+platform: x64
+
+environment:
+    matrix:
+    - GENERATOR: "Visual Studio 14 2015 Win64"
+      CONFIG: Debug
+
+    - GENERATOR: "Visual Studio 14 2015 Win64"
+      CONFIG: Release
+
+before_build:
+    - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+
+build_script:
+    - cmd: mkdir build
+    - cmd: cd build
+    - cmd: cmake .. -G"%GENERATOR%"
+    - cmd: cmake --build . --config %CONFIG% --target mpl2
+
+test_script:
+    - cmd: ctest --output-on-failure
