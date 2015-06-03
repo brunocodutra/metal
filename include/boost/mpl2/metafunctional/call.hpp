@@ -24,13 +24,13 @@ namespace boost
             private:
                 struct empty{};
 
-                template<typename...>
+                template<template<typename...> class>
                 static empty eval(...);
-                template<typename... _>
-                static typename std::enable_if<is_evaluable<expr<_...> >::value, expr<_...> >::type eval(int);
+                template<template<typename...> class e>
+                static typename std::enable_if<is_evaluable<e<args...> >::value, e<args...> >::type eval(int);
 
             public:
-                using type = decltype(eval<args...>(0));
+                using type = decltype(eval<expr>(0));
             };
 
             template<typename args, typename = true_>
