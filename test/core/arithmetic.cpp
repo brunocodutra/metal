@@ -50,13 +50,13 @@ BOOST_MPL2_ASSERT((equal_to<mul<two, two, two, two, two, two>, int_<64>>));
 BOOST_MPL2_ASSERT((equal_to<mul<two, two, two, two, two, two, two>, int_<128>>));
 BOOST_MPL2_ASSERT((equal_to<mul<two, two, two, two, two, two, two, two>, int_<256>>));
 
-BOOST_MPL2_ASSERT((equal_to<div<int_<2>, two>, one>));
-BOOST_MPL2_ASSERT((equal_to<div<int_<4>, two, two>, one>));
-BOOST_MPL2_ASSERT((equal_to<div<int_<8>, two, two, two>, one>));
-BOOST_MPL2_ASSERT((equal_to<div<int_<16>, two, two, two, two>, one>));
-BOOST_MPL2_ASSERT((equal_to<div<int_<32>, two, two, two, two, two>, one>));
-BOOST_MPL2_ASSERT((equal_to<div<int_<64>, two, two, two, two, two, two>, one>));
-BOOST_MPL2_ASSERT((equal_to<div<int_<128>, two, two, two, two, two, two, two>, one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<int_<2>, two>, one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<int_<4>, two, two>, one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<int_<8>, two, two, two>, one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<int_<16>, two, two, two, two>, one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<int_<32>, two, two, two, two, two>, one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<int_<64>, two, two, two, two, two, two>, one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<int_<128>, two, two, two, two, two, two, two>, one>));
 
 int main()
 {
