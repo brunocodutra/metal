@@ -5,6 +5,9 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_PROTECT_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_PROTECT_HPP
 
+#include <boost/mpl2/core/assert.hpp>
+#include <boost/mpl2/metafunctional/traits/is_function.hpp>
+
 namespace boost
 {
     namespace mpl2
@@ -13,7 +16,10 @@ namespace boost
         struct protect :
                 function
         {
+            BOOST_MPL2_ASSERT_MSG((is_function<function>), "not a function");
+
             using type = protect;
+            using function::call;
         };
     }
 }
