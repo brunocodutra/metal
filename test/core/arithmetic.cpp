@@ -21,11 +21,11 @@ typedef std::integral_constant<unsigned long long, 7> seven;
 
 BOOST_MPL2_ASSERT((equal_to<inc<zero>, one>));
 BOOST_MPL2_ASSERT((equal_to<dec<zero>, neg<one>>));
-BOOST_MPL2_ASSERT((equal_to<inc<dec<one> >, one>));
-BOOST_MPL2_ASSERT((equal_to<inc<dec<one> >, dec<inc<one> >>));
+BOOST_MPL2_ASSERT((equal_to<inc<dec<one>>, one>));
+BOOST_MPL2_ASSERT((equal_to<inc<dec<one>>, dec<inc<one>>>));
 BOOST_MPL2_ASSERT((equal_to<neg<zero>, zero>));
-BOOST_MPL2_ASSERT((equal_to<inc<neg<one> >, zero>));
-BOOST_MPL2_ASSERT((equal_to<neg<neg<one> >, one>));
+BOOST_MPL2_ASSERT((equal_to<inc<neg<one>>, zero>));
+BOOST_MPL2_ASSERT((equal_to<neg<neg<one>>, one>));
 
 BOOST_MPL2_ASSERT((equal_to<add<zero, one>, mul<one, one>>));
 BOOST_MPL2_ASSERT((equal_to<add<zero, one, two>, mul<one, three>>));

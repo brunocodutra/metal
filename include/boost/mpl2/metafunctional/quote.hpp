@@ -22,7 +22,7 @@ namespace boost
                 template<template<typename...> class>
                 static empty impl(...);
                 template<template<typename...> class e>
-                static identity<e<args...> > impl(int);
+                static identity<e<args...>> impl(int);
 
             public:
                 using type = decltype(impl<expr>(0));

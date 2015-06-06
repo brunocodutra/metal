@@ -14,13 +14,13 @@ using namespace boost::mpl2;
 using bound = bind<function<std::add_pointer>, void>;
 
 BOOST_MPL2_ASSERT((is_function<bound>));
-BOOST_MPL2_ASSERT((is_function<protect<bound> >));
+BOOST_MPL2_ASSERT((is_function<protect<bound>>));
 
 BOOST_MPL2_ASSERT((std::is_same<bound::call<>::type, void*>));
 BOOST_MPL2_ASSERT((std::is_same<protect<bound>::call<>::type, void*>));
 
 BOOST_MPL2_ASSERT((std::is_same<bind<function<std::add_pointer>, bound>::call<>::type, void**>));
-BOOST_MPL2_ASSERT((std::is_same<bind<function<std::add_pointer>, protect<bound> >::call<>::type, protect<bound>*>));
+BOOST_MPL2_ASSERT((std::is_same<bind<function<std::add_pointer>, protect<bound>>::call<>::type, protect<bound>*>));
 
 int main()
 {

@@ -8,12 +8,12 @@
 
 using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT((is_quotable<test::fundamental >));
-BOOST_MPL2_ASSERT((is_quotable<test::function >));
-BOOST_MPL2_ASSERT((is_quotable<test::incomplete >));
-BOOST_MPL2_ASSERT((is_quotable<test::empty >));
-BOOST_MPL2_ASSERT((is_quotable<test::eponym >));
-BOOST_MPL2_ASSERT((is_quotable<test::evaluable >));
+BOOST_MPL2_ASSERT((is_quotable<test::fundamental>));
+BOOST_MPL2_ASSERT((is_quotable<test::function>));
+BOOST_MPL2_ASSERT((is_quotable<test::incomplete>));
+BOOST_MPL2_ASSERT((is_quotable<test::empty>));
+BOOST_MPL2_ASSERT((is_quotable<test::eponym>));
+BOOST_MPL2_ASSERT((is_quotable<test::evaluable>));
 
 BOOST_MPL2_ASSERT((is_quotable<test::fundamental, void>));
 BOOST_MPL2_ASSERT((is_quotable<test::function, void>));
@@ -29,30 +29,30 @@ BOOST_MPL2_ASSERT((is_quotable<test::empty, void, void*>));
 BOOST_MPL2_ASSERT((is_quotable<test::eponym, void, void*>));
 BOOST_MPL2_ASSERT((is_quotable<test::evaluable, void, void*>));
 
-BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::incomplete>::call> >));
-BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::empty>::call> >));
-BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::eponym>::call> >));
-BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::evaluable>::call> >));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::incomplete>::call>>));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::empty>::call>>));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::eponym>::call>>));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::evaluable>::call>>));
 
 BOOST_MPL2_ASSERT((is_quotable<test::unary<test::incomplete>::call, void>));
 BOOST_MPL2_ASSERT((is_quotable<test::unary<test::empty>::call, void>));
 BOOST_MPL2_ASSERT((is_quotable<test::unary<test::eponym>::call, void>));
 BOOST_MPL2_ASSERT((is_quotable<test::unary<test::evaluable>::call, void>));
 
-BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::incomplete>::call, void, void*> >));
-BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::empty>::call, void, void*> >));
-BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::eponym>::call, void, void*> >));
-BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::evaluable>::call, void, void*> >));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::incomplete>::call, void, void*>>));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::empty>::call, void, void*>>));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::eponym>::call, void, void*>>));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::unary<test::evaluable>::call, void, void*>>));
 
-BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::incomplete>::call> >));
-BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::empty>::call> >));
-BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::eponym>::call> >));
-BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::evaluable>::call> >));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::incomplete>::call>>));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::empty>::call>>));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::eponym>::call>>));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::evaluable>::call>>));
 
-BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::incomplete>::call, void> >));
-BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::empty>::call, void> >));
-BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::eponym>::call, void> >));
-BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::evaluable>::call, void> >));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::incomplete>::call, void>>));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::empty>::call, void>>));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::eponym>::call, void>>));
+BOOST_MPL2_ASSERT((not_<is_quotable<test::binary<test::evaluable>::call, void>>));
 
 BOOST_MPL2_ASSERT((is_quotable<test::binary<test::incomplete>::call, void, void*>));
 BOOST_MPL2_ASSERT((is_quotable<test::binary<test::empty>::call, void, void*>));

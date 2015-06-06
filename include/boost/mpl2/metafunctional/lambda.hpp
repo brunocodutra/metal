@@ -26,21 +26,21 @@ namespace boost
         private:
             template<typename invariant>
             struct parse :
-                    bind<protect<arg<1> >, invariant>
+                    bind<protect<arg<1>>, invariant>
             {};
 
             template<std::size_t n>
-            struct parse<arg<n> > :
+            struct parse<arg<n>> :
                     arg<n>
             {};
 
             template<typename function>
-            struct parse<protect<function> > :
+            struct parse<protect<function>> :
                     protect<function>
             {};
 
             template<template<typename...> class parametric, typename... args>
-            struct parse<parametric<args...> > :
+            struct parse<parametric<args...>> :
                     bind<
                         function<if_>,
                         bind<function<is_callable>, function<parametric>, typename parse<args>::type...>,

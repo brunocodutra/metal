@@ -28,11 +28,11 @@ struct exprn :
         test::wrap<args...>
 {};
 
-BOOST_MPL2_ASSERT((std::is_same<quote<expr0>::type, expr0<> >));
+BOOST_MPL2_ASSERT((std::is_same<quote<expr0>::type, expr0<>>));
 BOOST_MPL2_ASSERT((std::is_same<quote<expr1, void>::type, expr1<void>>));
-BOOST_MPL2_ASSERT((std::is_same<quote<expr2, void, void*>::type, expr2<void, void*> >));
+BOOST_MPL2_ASSERT((std::is_same<quote<expr2, void, void*>::type, expr2<void, void*>>));
 
-BOOST_MPL2_ASSERT((std::is_same<quote<exprn>::type, exprn<> >));
+BOOST_MPL2_ASSERT((std::is_same<quote<exprn>::type, exprn<>>));
 BOOST_MPL2_ASSERT((std::is_same<quote<exprn, short>::type, exprn<short>>));
 BOOST_MPL2_ASSERT((std::is_same<quote<exprn, short, int>::type, exprn<short, int>>));
 BOOST_MPL2_ASSERT((std::is_same<quote<exprn, short, int, long>::type, exprn<short, int, long>>));

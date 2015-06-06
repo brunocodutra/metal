@@ -22,7 +22,7 @@ namespace boost
         template<typename func>
         struct is_function :
                 and_<
-                    not_<detail::has_call<func> >,
+                    not_<detail::has_call<func>>,
                     detail::has_template_call<func>
                 >
         {};

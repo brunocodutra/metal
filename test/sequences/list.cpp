@@ -13,11 +13,11 @@ typedef list<>::type empty;
 typedef list<void>::type single;
 typedef list<empty, int, void, single, float>::type many;
 
-BOOST_MPL2_ASSERT((std::is_same<many::at<std::integral_constant<std::size_t, 0> >::type, float>));
-BOOST_MPL2_ASSERT((std::is_same<many::at<std::integral_constant<std::size_t, 1> >::type, single>));
-BOOST_MPL2_ASSERT((std::is_same<many::at<std::integral_constant<std::size_t, 2> >::type, void>));
-BOOST_MPL2_ASSERT((std::is_same<many::at<std::integral_constant<std::size_t, 3> >::type, int>));
-BOOST_MPL2_ASSERT((std::is_same<many::at<std::integral_constant<std::size_t, 4> >::type, empty>));
+BOOST_MPL2_ASSERT((std::is_same<many::at<std::integral_constant<std::size_t, 0>>::type, float>));
+BOOST_MPL2_ASSERT((std::is_same<many::at<std::integral_constant<std::size_t, 1>>::type, single>));
+BOOST_MPL2_ASSERT((std::is_same<many::at<std::integral_constant<std::size_t, 2>>::type, void>));
+BOOST_MPL2_ASSERT((std::is_same<many::at<std::integral_constant<std::size_t, 3>>::type, int>));
+BOOST_MPL2_ASSERT((std::is_same<many::at<std::integral_constant<std::size_t, 4>>::type, empty>));
 
 BOOST_MPL2_ASSERT_EXPR(empty::size::value == 0);
 BOOST_MPL2_ASSERT_EXPR(single::size::value == 1);

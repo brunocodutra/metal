@@ -13,7 +13,7 @@ namespace boost
     {
         template<typename x, typename y, typename... _>
         struct and_ :
-                and_<x, and_<y, _...> >
+                and_<x, and_<y, _...>>
         {};
 
         template<typename x, typename y>

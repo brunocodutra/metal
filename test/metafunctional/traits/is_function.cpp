@@ -8,27 +8,27 @@
 
 using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT((not_<is_function<test::fundamental<> > >));
-BOOST_MPL2_ASSERT((not_<is_function<test::function<> > >));
-BOOST_MPL2_ASSERT((not_<is_function<test::incomplete<> > >));
-BOOST_MPL2_ASSERT((not_<is_function<test::empty<> > >));
-BOOST_MPL2_ASSERT((not_<is_function<test::eponym<> > >));
-BOOST_MPL2_ASSERT((not_<is_function<test::evaluable<> > >));
+BOOST_MPL2_ASSERT((not_<is_function<test::fundamental<>>>));
+BOOST_MPL2_ASSERT((not_<is_function<test::function<>>>));
+BOOST_MPL2_ASSERT((not_<is_function<test::incomplete<>>>));
+BOOST_MPL2_ASSERT((not_<is_function<test::empty<>>>));
+BOOST_MPL2_ASSERT((not_<is_function<test::eponym<>>>));
+BOOST_MPL2_ASSERT((not_<is_function<test::evaluable<>>>));
 
-BOOST_MPL2_ASSERT((is_function<test::unary<test::incomplete> >));
-BOOST_MPL2_ASSERT((is_function<test::unary<test::empty> >));
-BOOST_MPL2_ASSERT((is_function<test::unary<test::eponym> >));
-BOOST_MPL2_ASSERT((is_function<test::unary<test::evaluable> >));
+BOOST_MPL2_ASSERT((is_function<test::unary<test::incomplete>>));
+BOOST_MPL2_ASSERT((is_function<test::unary<test::empty>>));
+BOOST_MPL2_ASSERT((is_function<test::unary<test::eponym>>));
+BOOST_MPL2_ASSERT((is_function<test::unary<test::evaluable>>));
 
-BOOST_MPL2_ASSERT((is_function<test::binary<test::incomplete> >));
-BOOST_MPL2_ASSERT((is_function<test::binary<test::empty> >));
-BOOST_MPL2_ASSERT((is_function<test::binary<test::eponym> >));
-BOOST_MPL2_ASSERT((is_function<test::binary<test::evaluable> >));
+BOOST_MPL2_ASSERT((is_function<test::binary<test::incomplete>>));
+BOOST_MPL2_ASSERT((is_function<test::binary<test::empty>>));
+BOOST_MPL2_ASSERT((is_function<test::binary<test::eponym>>));
+BOOST_MPL2_ASSERT((is_function<test::binary<test::evaluable>>));
 
-BOOST_MPL2_ASSERT((is_function<test::n_ary<test::incomplete> >));
-BOOST_MPL2_ASSERT((is_function<test::n_ary<test::empty> >));
-BOOST_MPL2_ASSERT((is_function<test::n_ary<test::eponym> >));
-BOOST_MPL2_ASSERT((is_function<test::n_ary<test::evaluable> >));
+BOOST_MPL2_ASSERT((is_function<test::n_ary<test::incomplete>>));
+BOOST_MPL2_ASSERT((is_function<test::n_ary<test::empty>>));
+BOOST_MPL2_ASSERT((is_function<test::n_ary<test::eponym>>));
+BOOST_MPL2_ASSERT((is_function<test::n_ary<test::evaluable>>));
 
 int main()
 {

@@ -9,7 +9,7 @@
 
 using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT((is_function<function<std::add_pointer> >));
+BOOST_MPL2_ASSERT((is_function<function<std::add_pointer>>));
 BOOST_MPL2_ASSERT((is_callable<function<std::add_pointer>, void>));
 BOOST_MPL2_ASSERT((std::is_same<function<std::add_pointer>::call<void>::type, void*>));
 

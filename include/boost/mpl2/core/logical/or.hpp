@@ -13,7 +13,7 @@ namespace boost
     {
         template<typename x, typename y, typename... _>
         struct or_ :
-                or_<x, or_<y, _...> >
+                or_<x, or_<y, _...>>
         {};
 
         template<typename x, typename y>
