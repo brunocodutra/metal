@@ -5,21 +5,35 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_PROTECT_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_PROTECT_HPP
 
-#include <boost/mpl2/core/assert.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
+
+#include <type_traits>
 
 namespace boost
 {
     namespace mpl2
     {
+        namespace detail
+        {
+            template<typename function, typename = typename is_function<function>::type>
+            struct forward :
+                    function
+            {};
+
+            template<typename not_a_function>
+            struct forward<not_a_function, std::false_type>
+            {
+                template<typename...>
+                struct call
+                {};
+            };
+        }
+
         template<typename function>
         struct protect :
-                function
+                detail::forward<function>
         {
-            BOOST_MPL2_ASSERT_MSG((is_function<function>), "not a function");
-
             using type = protect;
-            using function::call;
         };
     }
 }
