@@ -13,7 +13,9 @@ namespace boost
     namespace mpl2
     {
         template<typename... args>
-        using is_applicable = is_evaluable<apply<args...> >;
+        struct is_applicable :
+                is_evaluable<apply, args...>
+        {};
     }
 }
 

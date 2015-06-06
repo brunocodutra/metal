@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_CALL_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_CALL_HPP
 
-#include <boost/mpl2/core/identity.hpp>
+#include <boost/mpl2/metafunctional/eval.hpp>
 
 namespace boost
 {
@@ -17,17 +17,16 @@ namespace boost
             struct call_impl
             {
             private:
-                struct empty{};
+                struct empty {};
 
                 template<typename>
-                static empty eval(...);
+                static empty impl(...);
                 template<typename f>
-                static identity<typename f::template call<args...>::type> eval(int);
+                static eval<f::template call, args...> impl(int);
 
             public:
-                using type = decltype(eval<function>(0));
+                using type = decltype(impl<function>(0));
             };
-
         }
 
         template<typename...>

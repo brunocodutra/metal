@@ -6,12 +6,21 @@
 #define BOOST_MPL2_METAFUNCTIONAL_TRAITS_IS_EVALUABLE_HPP
 
 #include <boost/mpl2/core/traits_factory.hpp>
+#include <boost/mpl2/metafunctional/eval.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(is_evaluable, type);
+        namespace detail
+        {
+            BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_type, type);
+        }
+
+        template<template<typename...> class expr, typename... args>
+        struct is_evaluable :
+                detail::has_type<eval<expr, args...> >
+        {};
     }
 }
 

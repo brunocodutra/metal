@@ -37,20 +37,14 @@ struct nullary<test::incomplete>
     struct call;
 };
 
-BOOST_MPL2_ASSERT((not_<is_evaluable<test::fundamental> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<test::function> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<test::incomplete> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<test::empty> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<test::eponym> >));
-BOOST_MPL2_ASSERT((is_evaluable<test::evaluable>));
-BOOST_MPL2_ASSERT((not_<is_evaluable<oneary<test::incomplete> > >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<oneary<test::empty> > >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<oneary<test::eponym> > >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<oneary<test::evaluable> > >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<nullary<test::incomplete> > >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<nullary<test::empty> > >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<nullary<test::eponym> > >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<nullary<test::evaluable> > >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary<test::incomplete>::call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary<test::empty>::call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary<test::eponym>::call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<oneary<test::evaluable>::call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary<test::incomplete>::call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary<test::empty>::call> >));
+BOOST_MPL2_ASSERT((not_<is_evaluable<nullary<test::eponym>::call> >));
+BOOST_MPL2_ASSERT((is_evaluable<nullary<test::evaluable>::call>));
 
 BOOST_MPL2_ASSERT((not_<is_function<test::fundamental> >));
 BOOST_MPL2_ASSERT((not_<is_function<test::function> >));

@@ -14,7 +14,7 @@
 #include <boost/mpl2/metafunctional/bind.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
-#include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
+#include <boost/mpl2/metafunctional/traits/is_callable.hpp>
 
 #include <cstddef>
 #include <type_traits>
@@ -39,7 +39,7 @@ namespace boost
             struct adapt<parametric<args...> > :
                     bind<
                         function<if_>,
-                        bind<function<is_evaluable>, bind<quote<parametric>, typename parse<args>::type...> >,
+                        bind<function<is_callable>, function<parametric>, typename parse<args>::type...>,
                         bind<quote<parametric>, typename parse<args>::type...>,
                         bind<quote<identity>, bind<quote<parametric>, typename parse<args>::type...> >
                     >

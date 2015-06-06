@@ -12,12 +12,6 @@
 
 using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT((not_<is_evaluable<arg<0> > >));
-BOOST_MPL2_ASSERT((is_evaluable<arg<1> >));
-BOOST_MPL2_ASSERT((is_evaluable<arg<2> >));
-BOOST_MPL2_ASSERT((is_evaluable<arg<3> >));
-BOOST_MPL2_ASSERT((is_evaluable<arg<4> >));
-
 BOOST_MPL2_ASSERT((not_<is_function<arg<0> > >));
 BOOST_MPL2_ASSERT((is_function<arg<1> >));
 BOOST_MPL2_ASSERT((is_function<arg<2> >));

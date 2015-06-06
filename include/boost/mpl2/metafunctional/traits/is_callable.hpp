@@ -13,7 +13,9 @@ namespace boost
     namespace mpl2
     {
         template<typename... args>
-        using is_callable = is_evaluable<call<args...> >;
+        struct is_callable :
+                is_evaluable<call, args...>
+        {};
     }
 }
 
