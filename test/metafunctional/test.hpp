@@ -9,16 +9,26 @@
 
 namespace test
 {
+    template<typename...>
     using fundamental = void;
+
+    template<typename...>
     using function = void();
+
+    template<typename...>
     struct incomplete;
+
+    template<typename...>
     struct empty {};
 
     template<typename...>
     struct call {};
-    struct eponym : ::test::call<> {};
 
-    struct evaluable {struct type{};};
+    template<typename... _>
+    struct eponym : ::test::call<_...> {};
+
+    template<typename...>
+    struct evaluable {struct type;};
 
     template<typename... args>
     struct wrap
@@ -32,5 +42,53 @@ namespace test
         struct call :
                 wrap<args...>
         {};
+    };
+
+    template<template<typename...> class expr>
+    struct unary
+    {
+        template<typename args>
+        struct call :
+                expr<args>
+        {};
+    };
+
+    template<>
+    struct unary<incomplete>
+    {
+        template<typename>
+        struct call;
+    };
+
+    template<template<typename...> class expr>
+    struct binary
+    {
+        template<typename x, typename y>
+        struct call :
+                expr<x, y>
+        {};
+    };
+
+    template<>
+    struct binary<incomplete>
+    {
+        template<typename x, typename y>
+        struct call;
+    };
+
+    template<template<typename...> class expr>
+    struct n_ary
+    {
+        template<typename... args>
+        struct call :
+                expr<args...>
+        {};
+    };
+
+    template<>
+    struct n_ary<incomplete>
+    {
+        template<typename...>
+        struct call;
     };
 }

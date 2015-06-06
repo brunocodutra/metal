@@ -13,10 +13,12 @@
 using namespace boost::mpl2;
 using namespace boost::mpl2::placeholders;
 
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::fundamental> >::type, test::fundamental>));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::function> >::type, test::function>));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::incomplete> >::type, test::incomplete>));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::empty> >::type, test::empty>));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::fundamental<> > >::type, test::fundamental<> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::function<> > >::type, test::function<> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::incomplete<> > >::type, test::incomplete<> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::empty<> > >::type, test::empty<> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::eponym<> > >::type, test::eponym<> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::evaluable<> > >::type, test::evaluable<>::type>));
 
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<_1>, void>::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<std::add_pointer<_1> >, void>::type, void*>));
