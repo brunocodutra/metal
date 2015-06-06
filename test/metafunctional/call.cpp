@@ -44,24 +44,6 @@ BOOST_MPL2_ASSERT((std::is_same<call<fn, short, int>::type, fn::call<short, int>
 BOOST_MPL2_ASSERT((std::is_same<call<fn, short, int, long>::type, fn::call<short, int, long>::type>));
 BOOST_MPL2_ASSERT((std::is_same<call<fn, short, int, long, long long>::type, fn::call<short, int, long, long long>::type>));
 
-BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, test::args0>::type, test::wrap<> >));
-BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, test::args1>::type, test::wrap<short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, test::args2>::type, test::wrap<int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, test::args3>::type, test::wrap<long, int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, test::args4>::type, test::wrap<long long, long, int, short> >));
-
-BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, long long, long, int, short, test::args0, char>::type, test::wrap<long long, long, int, short, char> >));
-BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, long long, long, int, test::args1, char>::type, test::wrap<long long, long, int, short, char> >));
-BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, long long, long, test::args2, char>::type, test::wrap<long long, long, int, short, char> >));
-BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, long long, test::args3, char>::type, test::wrap<long long, long, int, short, char> >));
-BOOST_MPL2_ASSERT((std::is_same<call<test::wrapper, test::args4, char>::type, test::wrap<long long, long, int, short, char> >));
-
-BOOST_MPL2_ASSERT((std::is_same<call<detail::args<test::wrapper, test::args0> >::type, test::wrap<> >));
-BOOST_MPL2_ASSERT((std::is_same<call<detail::args<test::wrapper, test::args1> >::type, test::wrap<short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<detail::args<test::wrapper, test::args2> >::type, test::wrap<int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<detail::args<test::wrapper, test::args3> >::type, test::wrap<long, int, short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<detail::args<test::wrapper, test::args4> >::type, test::wrap<long long, long, int, short> >));
-
 int main()
 {
     return 0;

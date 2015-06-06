@@ -5,13 +5,10 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_BIND_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_BIND_HPP
 
-#include <boost/mpl2/core/arithmetic/inc.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
-#include <boost/mpl2/metafunctional/placeholders.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
 
 #include <cstddef>
-#include <type_traits>
 
 namespace boost
 {
@@ -21,24 +18,20 @@ namespace boost
         struct bind
         {
         private:
-            template<typename param>
+            template<typename token, typename... args>
             struct parse
             {
-                template<typename...>
-                struct call
-                {
-                    using type = param;
-                };
+                using type = token;
             };
 
-            template<std::size_t n>
-            struct parse<arg<n> > :
-                    arg<n>
+            template<std::size_t n, typename... args>
+            struct parse<arg<n>, args...> :
+                    ::boost::mpl2::call<arg<n>, args...>
             {};
 
-            template<typename... _>
-            struct parse<bind<_...> > :
-                    bind<_...>
+            template<typename... _, typename... args>
+            struct parse<bind<_...>, args...> :
+                    ::boost::mpl2::call<bind<_...>, args...>
             {};
 
         public:
@@ -47,7 +40,7 @@ namespace boost
             template<typename... args>
             struct call :
                     ::boost::mpl2::call<
-                        typename parse<params>::template call<args...>::type...
+                        typename parse<params, args...>::type...
                     >
             {};
         };

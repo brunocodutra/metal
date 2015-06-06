@@ -8,7 +8,6 @@
 #include <boost/mpl2/core/if.hpp>
 #include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
-#include <boost/mpl2/metafunctional/placeholders.hpp>
 #include <boost/mpl2/metafunctional/quote.hpp>
 #include <boost/mpl2/metafunctional/function.hpp>
 #include <boost/mpl2/metafunctional/protect.hpp>
@@ -39,15 +38,10 @@ namespace boost
             template<template<typename...> class parametric, typename... args>
             struct adapt<parametric<args...> > :
                     bind<
-                        protect<
-                            bind<
-                                function<if_>,
-                                bind<function<is_evaluable>, bind<quote<parametric>, placeholders::_0> >,
-                                bind<quote<parametric>, placeholders::_0>,
-                                bind<quote<identity>, bind<quote<parametric>, placeholders::_0> >
-                            >
-                        >,
-                        typename parse<args>::type...
+                        function<if_>,
+                        bind<function<is_evaluable>, bind<quote<parametric>, typename parse<args>::type...> >,
+                        bind<quote<parametric>, typename parse<args>::type...>,
+                        bind<quote<identity>, bind<quote<parametric>, typename parse<args>::type...> >
                     >
             {};
 

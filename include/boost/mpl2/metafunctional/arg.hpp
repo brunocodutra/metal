@@ -11,37 +11,6 @@ namespace boost
 {
     namespace mpl2
     {
-        namespace detail
-        {
-            template<typename...>
-            struct args;
-
-            template<typename head, typename args>
-            struct cons;
-
-            template<typename head, typename... tail>
-            struct cons<head, args<tail...> >
-            {
-                using type = args<head, tail...>;
-            };
-
-            template<typename... head, typename... tail>
-            struct args<detail::args<head...>, tail...> :
-                    args<head..., tail...>
-            {};
-
-            template<typename head, typename... tail>
-            struct args<head, tail...> :
-                    cons<head, typename args<tail...>::type>
-            {};
-
-            template<>
-            struct args<>
-            {
-                using type = args;
-            };
-        }
-
         template<std::size_t n>
         struct arg
         {
@@ -74,16 +43,7 @@ namespace boost
         };
 
         template<>
-        struct arg<0U>
-        {
-            using type = arg;
-
-            template<typename... args>
-            struct call
-            {
-                using type = detail::args<args...>;
-            };
-        };
+        struct arg<0U>;
     }
 }
 

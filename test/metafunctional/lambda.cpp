@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/metafunctional/lambda.hpp>
-#include <boost/mpl2/metafunctional/arg.hpp>
+#include <boost/mpl2/metafunctional/placeholders.hpp>
 #include <boost/mpl2/metafunctional/apply.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/metafunctional/protect.hpp>
@@ -12,6 +12,7 @@
 #include "test.hpp"
 
 using namespace boost::mpl2;
+using namespace boost::mpl2::placeholders;
 
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::fundamental> >::type, test::fundamental>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::function> >::type, test::function>));
@@ -24,10 +25,6 @@ BOOST_MPL2_ASSERT((std::is_same<call<lambda<protect<lambda<std::add_pointer<_1> 
 
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrapper>, void>::type, test::wrap<void> >));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrapper>, short, int, long, long long>::type, test::wrap<short, int, long, long long> >));
-
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_0> >, void, void*>::type, test::wrap<void, void*> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_0, _0> >, void, void*>::type, test::wrap<void, void*, void, void*> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_0, _0, _0> >, void, void*>::type, test::wrap<void, void*, void, void*, void, void*> >));
 
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_1> >, short, int, long, long long>::type, test::wrap<short> >));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_1, _2> >, short, int, long, long long>::type, test::wrap<short, int> >));

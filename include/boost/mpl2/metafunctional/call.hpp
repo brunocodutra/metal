@@ -5,11 +5,7 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_CALL_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_CALL_HPP
 
-#include <boost/mpl2/metafunctional/arg.hpp>
-#include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
-#include <boost/mpl2/metafunctional/traits/is_function.hpp>
-
-#include <type_traits>
+#include <boost/mpl2/core/identity.hpp>
 
 namespace boost
 {
@@ -17,34 +13,30 @@ namespace boost
     {
         namespace detail
         {
-            template<template<typename...> class expr, typename... args>
-            struct instantiate
+            template<typename function, typename... args>
+            struct call_impl
             {
             private:
                 struct empty{};
 
-                template<template<typename...> class>
+                template<typename>
                 static empty eval(...);
-                template<template<typename...> class e>
-                static typename std::enable_if<is_evaluable<e<args...> >::value, e<args...> >::type eval(int);
+                template<typename f>
+                static identity<typename f::template call<args...>::type> eval(int);
 
             public:
-                using type = decltype(eval<expr>(0));
+                using type = decltype(eval<function>(0));
             };
 
-            template<typename args, typename = std::true_type>
-            struct call_impl
-            {};
-
-            template<typename function, typename... args>
-            struct call_impl<detail::args<function, args...>, typename is_function<function>::type> :
-                    instantiate<function::template call, args...>::type
-            {};
         }
 
-        template<typename... args>
-        struct call :
-                detail::call_impl<typename detail::args<args...>::type>
+        template<typename...>
+        struct call
+        {};
+
+        template<typename function, typename... args>
+        struct call<function, args...> :
+                detail::call_impl<function, args...>::type
         {};
     }
 }

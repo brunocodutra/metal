@@ -3,21 +3,18 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/metafunctional/bind.hpp>
+#include <boost/mpl2/metafunctional/placeholders.hpp>
 #include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/function.hpp>
-#include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/metafunctional/traits.hpp>
 
 #include "test.hpp"
 
 using namespace boost::mpl2;
+using namespace boost::mpl2::placeholders;
 
 BOOST_MPL2_ASSERT((std::is_same<call<bind<test::wrapper>, void, void*>::type, test::wrap<> >));
-
-BOOST_MPL2_ASSERT((std::is_same<call<bind<test::wrapper, _0>, void, void*>::type, test::wrap<void, void*> >));
-BOOST_MPL2_ASSERT((std::is_same<call<bind<test::wrapper, _0, _0>, void, void*>::type, test::wrap<void, void*, void, void*> >));
-BOOST_MPL2_ASSERT((std::is_same<call<bind<test::wrapper, _0, _0, _0>, void, void*>::type, test::wrap<void, void*, void, void*, void, void*> >));
 
 BOOST_MPL2_ASSERT((std::is_same<call<bind<test::wrapper, _1>, short, int, long, long long>::type, test::wrap<short> >));
 BOOST_MPL2_ASSERT((std::is_same<call<bind<test::wrapper, _1, _2>, short, int, long, long long>::type, test::wrap<short, int> >));
@@ -50,10 +47,6 @@ BOOST_MPL2_ASSERT((is_evaluable<ptr2ptr2ptr>));
 BOOST_MPL2_ASSERT((is_function<ptr2ptr2ptr>));
 BOOST_MPL2_ASSERT((std::is_same<call<ptr2ptr2ptr, void>::type, void***>));
 BOOST_MPL2_ASSERT((std::is_same<call<bind<ptr2ptr2ptr, void> >::type, void***>));
-BOOST_MPL2_ASSERT((std::is_same<call<bind<ptr2ptr2ptr, _0>, void >::type, void***>));
-BOOST_MPL2_ASSERT((std::is_same<call<bind<ptr2ptr2ptr, _0, _0>, void >::type, void***>));
-BOOST_MPL2_ASSERT((std::is_same<call<bind<ptr2ptr2ptr, _0, _0, _0>, void >::type, void***>));
-BOOST_MPL2_ASSERT((std::is_same<call<bind<ptr2ptr2ptr, _0, _0, _0, _0>, void >::type, void***>));
 
 int main()
 {
