@@ -44,8 +44,8 @@ namespace boost
                     bind<
                         function<if_>,
                         bind<function<is_callable>, function<parametric>, typename parse<args>::type...>,
-                        bind<quoter<::boost::mpl2::call>, function<parametric>, typename parse<args>::type...>,
-                        bind<quoter<::boost::mpl2::call>, quoter<parametric>, typename parse<args>::type...>
+                        bind<quoter< ::boost::mpl2::call>, function<parametric>, typename parse<args>::type...>,
+                        bind<quoter< ::boost::mpl2::call>, quoter<parametric>, typename parse<args>::type...>
                     >
             {};
 
