@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_CORE_COMPARISON_GREATER_HPP
 #define BOOST_MPL2_CORE_COMPARISON_GREATER_HPP
 
-#include <boost/mpl2/core/integral.hpp>
+#include <type_traits>
 
 namespace boost
 {
@@ -13,7 +13,7 @@ namespace boost
     {
         template<typename x, typename y>
         struct greater :
-                integral<bool, (x::value > y::value)>
+                std::integral_constant<bool, (x::value > y::value)>
         {};
     }
 }

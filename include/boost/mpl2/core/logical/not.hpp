@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_CORE_LOGICAL_NOT_HPP
 #define BOOST_MPL2_CORE_LOGICAL_NOT_HPP
 
-#include <boost/mpl2/core/integral.hpp>
+#include <type_traits>
 
 namespace boost
 {
@@ -13,7 +13,7 @@ namespace boost
     {
         template<typename x>
         struct not_ :
-            bool_<!x::value>
+            std::integral_constant<bool, !x::value>
         {};
     }
 }

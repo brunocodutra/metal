@@ -5,13 +5,13 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_BIND_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_BIND_HPP
 
-#include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/core/arithmetic/inc.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/placeholders.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
 
 #include <cstddef>
+#include <type_traits>
 
 namespace boost
 {
@@ -79,7 +79,7 @@ namespace boost
 
         template<typename... params>
         struct bind :
-            detail::bind_impl<typename detail::autocomplete<size_t_<1>, params...>::type>
+            detail::bind_impl<typename detail::autocomplete<std::integral_constant<std::size_t, 1>, params...>::type>
         {
             using type = bind;
         };

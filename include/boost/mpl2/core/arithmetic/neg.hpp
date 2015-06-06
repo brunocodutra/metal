@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_CORE_ARITHMETIC_NEG_HPP
 #define BOOST_MPL2_CORE_ARITHMETIC_NEG_HPP
 
-#include <boost/mpl2/core/integral.hpp>
+#include <type_traits>
 
 namespace boost
 {
@@ -13,10 +13,7 @@ namespace boost
     {
         template<typename x>
         struct neg :
-                integral<
-                    decltype(-x::value),
-                    -x::value
-                >
+                std::integral_constant<decltype(-x::value), -x::value>
         {};
     }
 }

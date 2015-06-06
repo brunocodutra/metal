@@ -5,8 +5,9 @@
 #ifndef BOOST_MPL2_SEQUENCES_LIST_HPP
 #define BOOST_MPL2_SEQUENCES_LIST_HPP
 
-#include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/sequences/detail/link.hpp>
+
+#include <type_traits>
 
 namespace boost
 {
@@ -17,7 +18,11 @@ namespace boost
 
         template<typename head, typename... tail>
         struct list<head, tail...> :
-                detail::link<size_t_<sizeof...(tail)>, head, list<tail...> >
+                detail::link<
+                    std::integral_constant<std::size_t, sizeof...(tail)>,
+                    head,
+                    list<tail...>
+                >
         {
             typedef list type;
         };

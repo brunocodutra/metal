@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_CORE_ARITHMETIC_INC_HPP
 #define BOOST_MPL2_CORE_ARITHMETIC_INC_HPP
 
-#include <boost/mpl2/core/integral.hpp>
+#include <type_traits>
 
 namespace boost
 {
@@ -13,7 +13,7 @@ namespace boost
     {
         template<typename x>
         struct inc :
-                integral<
+                std::integral_constant<
                     typename x::value_type,
                     static_cast<typename x::value_type>(x::value + 1)
                 >

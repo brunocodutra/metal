@@ -5,9 +5,10 @@
 #ifndef BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP
 #define BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP
 
-#include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/core/arithmetic/inc.hpp>
 #include <boost/mpl2/sequences/detail/ref.hpp>
+
+#include <type_traits>
 
 namespace boost
 {
@@ -17,7 +18,7 @@ namespace boost
         {
             struct nil
             {
-                typedef size_t_<0U> size;
+                typedef std::integral_constant<std::size_t, 0U> size;
                 static ref<> item(...);
                 template<typename i>
                 struct at;

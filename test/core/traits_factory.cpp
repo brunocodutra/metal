@@ -3,8 +3,9 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/core/traits_factory.hpp>
-#include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/core/assert.hpp>
+
+#include <type_traits>
 
 BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_nested, nested);
 BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(has_nested_template, nested);

@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_CORE_COMPARISON_EQUAL_TO_HPP
 #define BOOST_MPL2_CORE_COMPARISON_EQUAL_TO_HPP
 
-#include <boost/mpl2/core/integral.hpp>
+#include <type_traits>
 
 namespace boost
 {
@@ -13,7 +13,7 @@ namespace boost
     {
         template<typename x, typename y>
         struct equal_to :
-                integral<bool, x::value == y::value>
+                std::integral_constant<bool, x::value == y::value>
         {};
     }
 }

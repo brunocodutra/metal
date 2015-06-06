@@ -5,7 +5,6 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_CALL_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_CALL_HPP
 
-#include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
@@ -33,7 +32,7 @@ namespace boost
                 using type = decltype(eval<expr>(0));
             };
 
-            template<typename args, typename = true_>
+            template<typename args, typename = std::true_type>
             struct call_impl
             {};
 

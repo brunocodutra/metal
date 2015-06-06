@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_CORE_LOGICAL_OR_HPP
 #define BOOST_MPL2_CORE_LOGICAL_OR_HPP
 
-#include <boost/mpl2/core/integral.hpp>
+#include <type_traits>
 
 namespace boost
 {
@@ -18,11 +18,11 @@ namespace boost
 
         template<typename x, typename y>
         struct or_<x, y> :
-                or_<typename bool_<!!x::value>::type, y>
+                or_<typename std::integral_constant<bool, !!x::value>::type, y>
         {};
 
-        template<typename y> struct or_<false_, y> : y {};
-        template<typename y> struct or_<true_, y> : true_ {};
+        template<typename y> struct or_<std::false_type, y> : y {};
+        template<typename y> struct or_<std::true_type, y> : std::true_type {};
     }
 }
 

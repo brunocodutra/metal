@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_CORE_ARITHMETIC_SUB_HPP
 #define BOOST_MPL2_CORE_ARITHMETIC_SUB_HPP
 
-#include <boost/mpl2/core/integral.hpp>
+#include <type_traits>
 
 namespace boost
 {
@@ -18,7 +18,7 @@ namespace boost
 
         template<typename x, typename y>
         struct sub<x, y> :
-                integral<
+                std::integral_constant<
                     decltype(x::value - y::value),
                     x::value - y::value
                 >

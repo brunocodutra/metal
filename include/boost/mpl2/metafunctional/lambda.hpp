@@ -7,7 +7,6 @@
 
 #include <boost/mpl2/core/if.hpp>
 #include <boost/mpl2/core/identity.hpp>
-#include <boost/mpl2/core/integral.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/placeholders.hpp>
 #include <boost/mpl2/metafunctional/quote.hpp>
@@ -19,6 +18,7 @@
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 
 #include <cstddef>
+#include <type_traits>
 
 namespace boost
 {
@@ -28,7 +28,7 @@ namespace boost
         struct lambda
         {
         private:
-            template<typename function, typename = true_>
+            template<typename function, typename = std::true_type>
             struct parse;
 
             template<typename invariant>

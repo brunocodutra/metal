@@ -5,7 +5,7 @@
 #ifndef BOOST_MPL2_CORE_LOGICAL_AND_HPP
 #define BOOST_MPL2_CORE_LOGICAL_AND_HPP
 
-#include <boost/mpl2/core/integral.hpp>
+#include <type_traits>
 
 namespace boost
 {
@@ -18,11 +18,11 @@ namespace boost
 
         template<typename x, typename y>
         struct and_<x, y> :
-                and_<typename bool_<!!x::value>::type, y>
+                and_<typename std::integral_constant<bool, !!x::value>::type, y>
         {};
 
-        template<typename y> struct and_<true_, y> : y {};
-        template<typename y> struct and_<false_, y> : false_ {};
+        template<typename y> struct and_<std::true_type, y> : y {};
+        template<typename y> struct and_<std::false_type, y> : std::false_type {};
     }
 }
 
