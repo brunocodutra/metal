@@ -15,13 +15,13 @@ namespace boost
     {
         namespace detail
         {
-            template<typename function, typename = typename is_function<function>::type>
-            struct forward :
-                    function
+            template<typename func, typename = typename is_function<func>::type>
+            struct function :
+                    func
             {};
 
             template<typename not_a_function>
-            struct forward<not_a_function, std::false_type>
+            struct function<not_a_function, std::false_type>
             {
                 template<typename...>
                 struct call
@@ -31,7 +31,7 @@ namespace boost
 
         template<typename function>
         struct protect :
-                detail::forward<function>
+                detail::function<function>
         {
             using type = protect;
         };

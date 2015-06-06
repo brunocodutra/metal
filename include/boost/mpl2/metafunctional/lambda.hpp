@@ -8,7 +8,7 @@
 #include <boost/mpl2/core/if.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/quoter.hpp>
-#include <boost/mpl2/metafunctional/function.hpp>
+#include <boost/mpl2/metafunctional/evaluator.hpp>
 #include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/bind.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
@@ -42,9 +42,9 @@ namespace boost
             template<template<typename...> class parametric, typename... args>
             struct parse<parametric<args...>> :
                     bind<
-                        function<if_>,
-                        bind<function<is_callable>, function<parametric>, typename parse<args>::type...>,
-                        bind<quoter< ::boost::mpl2::call>, function<parametric>, typename parse<args>::type...>,
+                        evaluator<if_>,
+                        bind<evaluator<is_callable>, evaluator<parametric>, typename parse<args>::type...>,
+                        bind<quoter< ::boost::mpl2::call>, evaluator<parametric>, typename parse<args>::type...>,
                         bind<quoter< ::boost::mpl2::call>, quoter<parametric>, typename parse<args>::type...>
                     >
             {};
