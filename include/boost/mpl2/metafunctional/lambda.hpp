@@ -7,7 +7,7 @@
 
 #include <boost/mpl2/core/if.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
-#include <boost/mpl2/metafunctional/quote.hpp>
+#include <boost/mpl2/metafunctional/quoter.hpp>
 #include <boost/mpl2/metafunctional/function.hpp>
 #include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/bind.hpp>
@@ -44,8 +44,8 @@ namespace boost
                     bind<
                         function<if_>,
                         bind<function<is_callable>, function<parametric>, typename parse<args>::type...>,
-                        bind<quote<::boost::mpl2::call>, function<parametric>, typename parse<args>::type...>,
-                        bind<quote<::boost::mpl2::call>, quote<parametric>, typename parse<args>::type...>
+                        bind<quoter<::boost::mpl2::call>, function<parametric>, typename parse<args>::type...>,
+                        bind<quoter<::boost::mpl2::call>, quoter<parametric>, typename parse<args>::type...>
                     >
             {};
 

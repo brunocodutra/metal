@@ -3,17 +3,43 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/metafunctional/quote.hpp>
-#include <boost/mpl2/metafunctional/traits.hpp>
 
 #include "test.hpp"
 
 using namespace boost::mpl2;
 
-BOOST_MPL2_ASSERT((is_function<quote<std::add_pointer> >));
-BOOST_MPL2_ASSERT((is_callable<quote<std::add_pointer>, void>));
-BOOST_MPL2_ASSERT((std::is_same<quote<std::add_pointer>::call<void>::type, std::add_pointer<void> >));
+template<typename = void>
+struct expr0 :
+        test::wrap<>
+{};
+
+template<typename x>
+struct expr1 :
+        test::wrap<x>
+{};
+
+template<typename x, typename y>
+struct expr2 :
+        test::wrap<x, y>
+{};
+
+template<typename... args>
+struct exprn :
+        test::wrap<args...>
+{};
+
+BOOST_MPL2_ASSERT((std::is_same<quote<expr0>::type, expr0<> >));
+BOOST_MPL2_ASSERT((std::is_same<quote<expr1, void>::type, expr1<void>>));
+BOOST_MPL2_ASSERT((std::is_same<quote<expr2, void, void*>::type, expr2<void, void*> >));
+
+BOOST_MPL2_ASSERT((std::is_same<quote<exprn>::type, exprn<> >));
+BOOST_MPL2_ASSERT((std::is_same<quote<exprn, short>::type, exprn<short>>));
+BOOST_MPL2_ASSERT((std::is_same<quote<exprn, short, int>::type, exprn<short, int>>));
+BOOST_MPL2_ASSERT((std::is_same<quote<exprn, short, int, long>::type, exprn<short, int, long>>));
+BOOST_MPL2_ASSERT((std::is_same<quote<exprn, short, int, long, long long>::type, exprn<short, int, long, long long>>));
 
 int main()
 {
     return 0;
 }
+

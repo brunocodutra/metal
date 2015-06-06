@@ -37,6 +37,15 @@ struct nullary<test::incomplete>
     struct call;
 };
 
+BOOST_MPL2_ASSERT((not_<is_quotable<oneary<test::incomplete>::call> >));
+BOOST_MPL2_ASSERT((not_<is_quotable<oneary<test::empty>::call> >));
+BOOST_MPL2_ASSERT((not_<is_quotable<oneary<test::eponym>::call> >));
+BOOST_MPL2_ASSERT((not_<is_quotable<oneary<test::evaluable>::call> >));
+BOOST_MPL2_ASSERT((is_quotable<nullary<test::incomplete>::call>));
+BOOST_MPL2_ASSERT((is_quotable<nullary<test::empty>::call>));
+BOOST_MPL2_ASSERT((is_quotable<nullary<test::eponym>::call>));
+BOOST_MPL2_ASSERT((is_quotable<nullary<test::evaluable>::call>));
+
 BOOST_MPL2_ASSERT((not_<is_evaluable<oneary<test::incomplete>::call> >));
 BOOST_MPL2_ASSERT((not_<is_evaluable<oneary<test::empty>::call> >));
 BOOST_MPL2_ASSERT((not_<is_evaluable<oneary<test::eponym>::call> >));

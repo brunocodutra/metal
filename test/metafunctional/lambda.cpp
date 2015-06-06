@@ -36,8 +36,8 @@ BOOST_MPL2_ASSERT((std::is_same<call<lambda<protect<lambda<_1> > >, void>::type,
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<lambda<_1> >, protect<_1> >::type, lambda<protect<_1> > >));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<protect<_1> >, lambda<_1> >::type, lambda<_1> >));
 
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<quote<protect> >, _1>::type, quote<protect> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<protect<quote<protect> > >, _1>::type, protect<_1> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<quoter<protect> >, _1>::type, quoter<protect> >));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<protect<quoter<protect> > >, _1>::type, protect<_1> >));
 
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<call<lambda<std::add_pointer<_1> >, void> >, void*>::type, void**>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<call<_1, void> >, lambda<std::add_pointer<_1> > >::type, void*>));

@@ -9,34 +9,34 @@
 using namespace boost::mpl2;
 
 template<typename = void>
-struct e0 :
+struct expr0 :
         test::wrap<>
 {};
 
 template<typename x>
-struct e1 :
+struct expr1 :
         test::wrap<x>
 {};
 
 template<typename x, typename y>
-struct e2 :
+struct expr2 :
         test::wrap<x, y>
 {};
 
 template<typename... args>
-struct en :
+struct exprn :
         test::wrap<args...>
 {};
 
-BOOST_MPL2_ASSERT((std::is_same<eval<e0>::type, e0<>::type>));
-BOOST_MPL2_ASSERT((std::is_same<eval<e1, void>::type, e1<void>::type>));
-BOOST_MPL2_ASSERT((std::is_same<eval<e2, void, void*>::type, e2<void, void*>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval<expr0>::type, expr0<>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval<expr1, void>::type, expr1<void>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval<expr2, void, void*>::type, expr2<void, void*>::type>));
 
-BOOST_MPL2_ASSERT((std::is_same<eval<en>::type, en<>::type>));
-BOOST_MPL2_ASSERT((std::is_same<eval<en, short>::type, en<short>::type>));
-BOOST_MPL2_ASSERT((std::is_same<eval<en, short, int>::type, en<short, int>::type>));
-BOOST_MPL2_ASSERT((std::is_same<eval<en, short, int, long>::type, en<short, int, long>::type>));
-BOOST_MPL2_ASSERT((std::is_same<eval<en, short, int, long, long long>::type, en<short, int, long, long long>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval<exprn>::type, exprn<>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval<exprn, short>::type, exprn<short>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval<exprn, short, int>::type, exprn<short, int>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval<exprn, short, int, long>::type, exprn<short, int, long>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval<exprn, short, int, long, long long>::type, exprn<short, int, long, long long>::type>));
 
 int main()
 {

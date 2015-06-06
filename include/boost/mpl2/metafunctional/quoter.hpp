@@ -2,23 +2,23 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_MPL2_METAFUNCTIONAL_FUNCTION_HPP
-#define BOOST_MPL2_METAFUNCTIONAL_FUNCTION_HPP
+#ifndef BOOST_MPL2_METAFUNCTIONAL_QUOTER_HPP
+#define BOOST_MPL2_METAFUNCTIONAL_QUOTER_HPP
 
-#include <boost/mpl2/metafunctional/eval.hpp>
+#include <boost/mpl2/metafunctional/quote.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
         template<template<typename...> class expr>
-        struct function
+        struct quoter
         {
-            using type = function;
+            using type = quoter;
 
             template<typename... args>
             struct call :
-                    eval<expr, args...>
+                    quote<expr, args...>
             {};
         };
     }

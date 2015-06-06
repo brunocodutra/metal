@@ -9,5 +9,6 @@
 #include <boost/mpl2/metafunctional/traits/is_callable.hpp>
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
+#include <boost/mpl2/metafunctional/traits/is_quotable.hpp>
 
 #endif
