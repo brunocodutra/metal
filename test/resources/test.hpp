@@ -22,10 +22,16 @@ namespace test
     struct empty {};
 
     template<typename...>
+    struct evaluable {struct type;};
+
+    template<typename...>
+    struct tagged{struct tag;};
+
+    template<typename...>
     struct call {};
 
     template<typename...>
-    struct evaluable {struct type;};
+    struct tag {};
 
     template<template<typename...> class base, typename... _>
     struct eponym : base<_...> {};
