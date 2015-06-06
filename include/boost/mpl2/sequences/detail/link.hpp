@@ -18,31 +18,22 @@ namespace boost
         {
             struct nil
             {
-                typedef std::integral_constant<std::size_t, 0U> size;
+                using size = std::integral_constant<std::size_t, 0U>;
+
                 static ref<> item(...);
-                template<typename i>
-                struct at;
             };
 
             template<typename index, typename value, typename rest>
             struct link :
                     rest
             {
-                typedef inc<typename rest::size> size;
+                using type = link;
+
+                using size = inc<typename rest::size>;
 
                 static ref<value> item(ref<index>);
                 using rest::item;
-
-                template<typename i>
-                struct at;
             };
-
-            template<typename index, typename value, typename rest>
-            template<typename i>
-            struct link<index, value, rest>::at :
-                    decltype(item(ref<i>{}))
-            {};
-
         }
     }
 }

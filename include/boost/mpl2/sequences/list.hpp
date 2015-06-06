@@ -8,6 +8,7 @@
 #include <boost/mpl2/sequences/detail/link.hpp>
 
 #include <type_traits>
+#include <cstddef>
 
 namespace boost
 {
@@ -24,14 +25,28 @@ namespace boost
                     list<tail...>
                 >
         {
-            typedef list type;
+            using type = list;
+
+            template<typename i>
+            struct at;
         };
+
+        template<typename head, typename... tail>
+        template<typename i>
+        struct list<head, tail...>::at :
+                decltype(list::item(ref<
+                    std::integral_constant<
+                        std::size_t,
+                        sizeof...(tail) - i::value
+                    >
+                >{}))
+        {};
 
         template<>
         struct list<> :
                 detail::nil
         {
-            typedef list type;
+            using type = list;
         };
     }
 }
