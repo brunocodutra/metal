@@ -17,71 +17,39 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename...>
-        struct bind;
-
-        namespace detail
+        template<typename... params>
+        struct bind
         {
-            template<typename params>
-            struct bind_impl;
-
-            template<typename... params>
-            struct bind_impl<detail::args<params...> >
+        private:
+            template<typename param>
+            struct parse
             {
-            private:
-                template<typename param>
-                struct parse
+                template<typename...>
+                struct call
                 {
-                    template<typename...>
-                    struct call
-                    {
-                        using type = param;
-                    };
+                    using type = param;
                 };
-
-                template<std::size_t n>
-                struct parse<arg<n> > :
-                        arg<n>
-                {};
-
-                template<typename... _>
-                struct parse<bind<_...> > :
-                        bind<_...>
-                {};
-
-            public:
-                template<typename... args>
-                struct call :
-                        ::boost::mpl2::call<
-                            typename parse<params>::template call<args...>::type...
-                        >
-                {};
             };
 
-            template<typename rank, typename... params>
-            struct autocomplete;
-
-            template<typename rank, typename head, typename... tail>
-            struct autocomplete<rank, head, tail...> :
-                    cons<head, typename autocomplete<rank, tail...>::type>
+            template<std::size_t n>
+            struct parse<arg<n> > :
+                    arg<n>
             {};
 
-            template<typename rank, typename... tail>
-            struct autocomplete<rank, placeholders::_, tail...> :
-                    cons<arg<rank::value>, typename autocomplete<inc<rank>, tail...>::type>
+            template<typename... _>
+            struct parse<bind<_...> > :
+                    bind<_...>
             {};
 
-            template<typename rank>
-            struct autocomplete<rank> :
-                    detail::args<>
-            {};
-        }
-
-        template<typename... params>
-        struct bind :
-            detail::bind_impl<typename detail::autocomplete<std::integral_constant<std::size_t, 1>, params...>::type>
-        {
+        public:
             using type = bind;
+
+            template<typename... args>
+            struct call :
+                    ::boost::mpl2::call<
+                        typename parse<params>::template call<args...>::type...
+                    >
+            {};
         };
     }
 }

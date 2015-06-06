@@ -34,11 +34,6 @@ BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_1, _2> >, short, int, lo
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_1, _2, _3> >, short, int, long, long long>::type, test::wrap<short, int, long> >));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_1, _2, _3, _4> >, short, int, long, long long>::type, test::wrap<short, int, long, long long> >));
 
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_> >, short, int, long, long long>::type, test::wrap<short> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_, _> >, short, int, long, long long>::type, test::wrap<short, int> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_, _, _> >, short, int, long, long long>::type, test::wrap<short, int, long> >));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::wrap<_, _, _, _> >, short, int, long, long long>::type, test::wrap<short, int, long, long long> >));
-
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<lambda<_1> >, void>::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<lambda<lambda<_1> > >, void>::type, void>));
 
@@ -59,17 +54,17 @@ BOOST_MPL2_ASSERT((is_function<compose>));
 BOOST_MPL2_ASSERT((std::is_same<call<compose, std::add_pointer<_1>, std::add_const<_1>, void>::type, void const*>));
 BOOST_MPL2_ASSERT((std::is_same<call<compose, std::add_const<_1>, std::add_pointer<_1>, void>::type, void* const>));
 
-using once = lambda<call<compose, lambda<_>, _, _> >;
+using once = lambda<call<compose, lambda<_1>, _1, _2> >;
 BOOST_MPL2_ASSERT((is_evaluable<once>));
 BOOST_MPL2_ASSERT((is_function<once>));
 BOOST_MPL2_ASSERT((std::is_same<call<once, std::add_pointer<_1>, void>::type, void*>));
 
-using twice = lambda<call<compose, _, _1, _> >;
+using twice = lambda<call<compose, _1, _1, _2> >;
 BOOST_MPL2_ASSERT((is_evaluable<twice>));
 BOOST_MPL2_ASSERT((is_function<twice>));
 BOOST_MPL2_ASSERT((std::is_same<call<twice, std::add_pointer<_1>, void>::type, void**>));
 
-using thrice = lambda<call<once, _, call<twice, _, _> > >;
+using thrice = lambda<call<once, _1, call<twice, _1, _2> > >;
 BOOST_MPL2_ASSERT((is_evaluable<thrice>));
 BOOST_MPL2_ASSERT((is_function<thrice>));
 BOOST_MPL2_ASSERT((std::is_same<call<thrice, std::add_pointer<_1>, void>::type, void***>));

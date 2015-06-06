@@ -56,13 +56,6 @@ namespace boost
                     adapt<lexpr>
             {};
 
-            template<typename _>
-            struct parse<placeholders::_, _> :
-                    arg<1>
-            {
-                using type = placeholders::_;
-            };
-
             template<std::size_t n>
             struct parse<arg<n>, typename is_function<arg<n> >::type> :
                     arg<n>

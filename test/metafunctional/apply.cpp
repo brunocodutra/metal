@@ -30,11 +30,6 @@ BOOST_MPL2_ASSERT((std::is_same<apply<test::wrap<_1, _2>, short, int, long, long
 BOOST_MPL2_ASSERT((std::is_same<apply<test::wrap<_1, _2, _3>, short, int, long, long long>::type, test::wrap<short, int, long> >));
 BOOST_MPL2_ASSERT((std::is_same<apply<test::wrap<_1, _2, _3, _4>, short, int, long, long long>::type, test::wrap<short, int, long, long long> >));
 
-BOOST_MPL2_ASSERT((std::is_same<apply<test::wrap<_>, short, int, long, long long>::type, test::wrap<short> >));
-BOOST_MPL2_ASSERT((std::is_same<apply<test::wrap<_, _>, short, int, long, long long>::type, test::wrap<short, int> >));
-BOOST_MPL2_ASSERT((std::is_same<apply<test::wrap<_, _, _>, short, int, long, long long>::type, test::wrap<short, int, long> >));
-BOOST_MPL2_ASSERT((std::is_same<apply<test::wrap<_, _, _, _>, short, int, long, long long>::type, test::wrap<short, int, long, long long> >));
-
 BOOST_MPL2_ASSERT((std::is_same<apply<lambda<_1>, void>::type, void>));
 BOOST_MPL2_ASSERT((std::is_same<apply<lambda<lambda<_1> >, void>::type, void>));
 
@@ -71,13 +66,13 @@ using compose = apply<_1, apply<_2, _3> >;
 BOOST_MPL2_ASSERT((std::is_same<apply<compose, std::add_pointer<_1>, std::add_const<_1>, void>::type, void const*>));
 BOOST_MPL2_ASSERT((std::is_same<apply<compose, std::add_const<_1>, std::add_pointer<_1>, void>::type, void* const>));
 
-using once = apply<lambda<compose>, lambda<_>, _, _>;
+using once = apply<lambda<compose>, lambda<_1>, _1, _2>;
 BOOST_MPL2_ASSERT((std::is_same<apply<once, std::add_pointer<_1>, void>::type, void*>));
 
-using twice = apply<lambda<compose>, _, _1, _>;
+using twice = apply<lambda<compose>, _1, _1, _2>;
 BOOST_MPL2_ASSERT((std::is_same<apply<twice, std::add_pointer<_1>, void>::type, void**>));
 
-using thrice = apply<lambda<once>, _, apply<lambda<twice>, _, _> >;
+using thrice = apply<lambda<once>, _1, apply<lambda<twice>, _1, _2> >;
 BOOST_MPL2_ASSERT((std::is_same<apply<thrice, std::add_pointer<_1>, void>::type, void***>));
 
 using ptr2ptr2ptr = apply<lambda<thrice>, lambda<std::add_pointer<_1> >, _1>;
