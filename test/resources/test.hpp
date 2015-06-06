@@ -24,11 +24,11 @@ namespace test
     template<typename...>
     struct call {};
 
-    template<typename... _>
-    struct eponym : ::test::call<_...> {};
-
     template<typename...>
     struct evaluable {struct type;};
+
+    template<template<typename...> class base, typename... _>
+    struct eponym : base<_...> {};
 
     template<typename... args>
     struct wrap

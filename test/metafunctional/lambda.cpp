@@ -17,7 +17,7 @@ BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::fundamental<>>>::type, test::f
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::function<>>>::type, test::function<>>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::incomplete<>>>::type, test::incomplete<>>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::empty<>>>::type, test::empty<>>));
-BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::eponym<>>>::type, test::eponym<>>));
+BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::eponym<test::call>>>::type, test::eponym<test::call>>));
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<test::evaluable<>>>::type, test::evaluable<>::type>));
 
 BOOST_MPL2_ASSERT((std::is_same<call<lambda<_1>, void>::type, void>));

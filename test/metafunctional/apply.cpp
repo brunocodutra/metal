@@ -14,7 +14,7 @@ BOOST_MPL2_ASSERT((std::is_same<apply<test::fundamental<>>::type, test::fundamen
 BOOST_MPL2_ASSERT((std::is_same<apply<test::function<>>::type, test::function<>>));
 BOOST_MPL2_ASSERT((std::is_same<apply<test::incomplete<>>::type, test::incomplete<>>));
 BOOST_MPL2_ASSERT((std::is_same<apply<test::empty<>>::type, test::empty<>>));
-BOOST_MPL2_ASSERT((std::is_same<apply<test::eponym<>>::type, test::eponym<>>));
+BOOST_MPL2_ASSERT((std::is_same<apply<test::eponym<test::call>>::type, test::eponym<test::call>>));
 BOOST_MPL2_ASSERT((std::is_same<apply<test::evaluable<>>::type, test::evaluable<>::type>));
 
 BOOST_MPL2_ASSERT((std::is_same<apply<_1, void>::type, void>));
