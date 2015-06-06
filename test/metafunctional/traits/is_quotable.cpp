@@ -4,7 +4,7 @@
 
 #include <boost/mpl2/metafunctional/traits/is_quotable.hpp>
 
-#include "../test.hpp"
+#include "test.hpp"
 
 using namespace boost::mpl2;
 

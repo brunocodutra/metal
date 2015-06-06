@@ -75,7 +75,7 @@ add_compile_flags_globally("${BOOST_MPL2_EXTRA_COMPILE_FLAGS}")
 file(GLOB_RECURSE BOOST_MPL2_TEST_HEADERS "*.hpp")
 file(GLOB_RECURSE BOOST_MPL2_TEST_SOURCES "*.cpp")
 
-include_directories(${BOOST_MPL2_INCLUDE_DIRS})
+include_directories(${BOOST_MPL2_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/resources)
 link_directories(${BOOST_MPL2_LIBRARY_DIRS})
 
 add_custom_target(mpl2.test)
