@@ -6,18 +6,15 @@
 #define BOOST_MPL2_METAFUNCTIONAL_LAMBDA_HPP
 
 #include <boost/mpl2/core/if.hpp>
-#include <boost/mpl2/core/identity.hpp>
 #include <boost/mpl2/metafunctional/arg.hpp>
 #include <boost/mpl2/metafunctional/quote.hpp>
 #include <boost/mpl2/metafunctional/function.hpp>
 #include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/bind.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
-#include <boost/mpl2/metafunctional/traits/is_function.hpp>
 #include <boost/mpl2/metafunctional/traits/is_callable.hpp>
 
 #include <cstddef>
-#include <type_traits>
 
 namespace boost
 {
@@ -27,37 +24,29 @@ namespace boost
         struct lambda
         {
         private:
-            template<typename function, typename = std::true_type>
-            struct parse;
-
             template<typename invariant>
-            struct adapt :
+            struct parse :
                     bind<protect<arg<1> >, invariant>
             {};
 
-            template<template<typename...> class parametric, typename... args>
-            struct adapt<parametric<args...> > :
-                    bind<
-                        function<if_>,
-                        bind<function<is_callable>, function<parametric>, typename parse<args>::type...>,
-                        bind<quote<parametric>, typename parse<args>::type...>,
-                        bind<quote<identity>, bind<quote<parametric>, typename parse<args>::type...> >
-                    >
-            {};
-
-            template<typename lexpr, typename>
-            struct parse :
-                    adapt<lexpr>
-            {};
-
             template<std::size_t n>
-            struct parse<arg<n>, typename is_function<arg<n> >::type> :
+            struct parse<arg<n> > :
                     arg<n>
             {};
 
             template<typename function>
-            struct parse<function, typename is_function<function>::type> :
+            struct parse<protect<function> > :
                     protect<function>
+            {};
+
+            template<template<typename...> class parametric, typename... args>
+            struct parse<parametric<args...> > :
+                    bind<
+                        function<if_>,
+                        bind<function<is_callable>, function<parametric>, typename parse<args>::type...>,
+                        bind<quote<::boost::mpl2::call>, function<parametric>, typename parse<args>::type...>,
+                        bind<quote<::boost::mpl2::call>, quote<parametric>, typename parse<args>::type...>
+                    >
             {};
 
         public:
@@ -65,7 +54,7 @@ namespace boost
 
             template<typename... args>
             struct call :
-                    ::boost::mpl2::call<parse<expr>, args...>
+                    ::boost::mpl2::call<typename parse<expr>::type, args...>
             {};
         };
     }

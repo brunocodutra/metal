@@ -84,13 +84,13 @@ BOOST_MPL2_ASSERT((is_applicable<test::incomplete>));
 BOOST_MPL2_ASSERT((is_applicable<test::empty>));
 BOOST_MPL2_ASSERT((is_applicable<test::eponym>));
 BOOST_MPL2_ASSERT((is_applicable<test::evaluable>));
-BOOST_MPL2_ASSERT((not_<is_applicable<oneary<test::incomplete> > >));
-BOOST_MPL2_ASSERT((not_<is_applicable<oneary<test::empty> > >));
-BOOST_MPL2_ASSERT((not_<is_applicable<oneary<test::eponym> > >));
-BOOST_MPL2_ASSERT((not_<is_applicable<oneary<test::evaluable> > >));
-BOOST_MPL2_ASSERT((not_<is_applicable<nullary<test::incomplete> > >));
-BOOST_MPL2_ASSERT((not_<is_applicable<nullary<test::empty> > >));
-BOOST_MPL2_ASSERT((not_<is_applicable<nullary<test::eponym> > >));
+BOOST_MPL2_ASSERT((is_applicable<oneary<test::incomplete> >));
+BOOST_MPL2_ASSERT((is_applicable<oneary<test::empty> >));
+BOOST_MPL2_ASSERT((is_applicable<oneary<test::eponym> >));
+BOOST_MPL2_ASSERT((is_applicable<oneary<test::evaluable> >));
+BOOST_MPL2_ASSERT((is_applicable<nullary<test::incomplete> >));
+BOOST_MPL2_ASSERT((is_applicable<nullary<test::empty> >));
+BOOST_MPL2_ASSERT((is_applicable<nullary<test::eponym> >));
 BOOST_MPL2_ASSERT((is_applicable<nullary<test::evaluable> >));
 
 int main()
