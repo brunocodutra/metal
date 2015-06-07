@@ -5,8 +5,8 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_CALL_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_CALL_HPP
 
-#include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/eval.hpp>
+#include <boost/mpl2/metafunctional/detail/function.hpp>
 
 namespace boost
 {
@@ -18,7 +18,7 @@ namespace boost
 
         template<typename function, typename... args>
         struct call<function, args...> :
-                eval<protect<function>::template call, args...>
+                eval<detail::function<function>::template call, args...>
         {};
     }
 }

@@ -5,30 +5,12 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_PROTECT_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_PROTECT_HPP
 
-#include <boost/mpl2/metafunctional/traits/is_function.hpp>
-
-#include <type_traits>
+#include <boost/mpl2/metafunctional/detail/function.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        namespace detail
-        {
-            template<typename func, typename = typename is_function<func>::type>
-            struct function :
-                    func
-            {};
-
-            template<typename not_a_function>
-            struct function<not_a_function, std::false_type>
-            {
-                template<typename...>
-                struct call
-                {};
-            };
-        }
-
         template<typename function>
         struct protect :
                 detail::function<function>
