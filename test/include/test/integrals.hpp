@@ -9,14 +9,17 @@
 
 namespace test
 {
-    typedef std::integral_constant<short, 0> zero;
-    typedef std::integral_constant<int, 1> one;
-    typedef std::integral_constant<long, 2> two;
-    typedef std::integral_constant<long long, 3> three;
-    typedef std::integral_constant<unsigned short, 4> four;
-    typedef std::integral_constant<unsigned int, 5> five;
-    typedef std::integral_constant<unsigned long, 6> six;
-    typedef std::integral_constant<unsigned long long, 7> seven;
+    using zero = std::integral_constant<char, 0>;
+    using one = std::integral_constant<signed char, 1>;
+    using two = std::integral_constant<short, 2>;
+    using three = std::integral_constant<int, 3>;
+    using four = std::integral_constant<long, 4>;
+    using five = std::integral_constant<long long, 5>;
+    using six = std::integral_constant<unsigned char, 6>;
+    using seven = std::integral_constant<unsigned short, 7>;
+    using eight = std::integral_constant<unsigned int, 8>;
+    using nine = std::integral_constant<unsigned long, 9>;
+    using ten = std::integral_constant<unsigned long long, 10>;
 }
 
 #endif

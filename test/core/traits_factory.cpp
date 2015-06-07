@@ -114,11 +114,11 @@ struct test_nested_function_reference_alias {using nested = void(&)();};
 BOOST_MPL2_ASSERT_EXPR(has_nested<test_nested_function_reference_alias>::value);
 BOOST_MPL2_ASSERT_EXPR(!has_nested_template<test_nested_function_reference_alias>::value);
 
-struct test_nested_array_alias {typedef char nested[1];};
+struct test_nested_array_alias {using nested = char[1];};
 BOOST_MPL2_ASSERT_EXPR(has_nested<test_nested_array_alias>::value);
 BOOST_MPL2_ASSERT_EXPR(!has_nested_template<test_nested_array_alias>::value);
 
-struct test_nested_array_reference_alias {typedef char (&nested)[1];};
+struct test_nested_array_reference_alias {using nested = char(&)[1];};
 BOOST_MPL2_ASSERT_EXPR(has_nested<test_nested_array_reference_alias>::value);
 BOOST_MPL2_ASSERT_EXPR(!has_nested_template<test_nested_array_reference_alias>::value);
 
