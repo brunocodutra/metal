@@ -14,29 +14,29 @@ namespace boost
     namespace mpl2
     {
         template<typename x>
-        struct tag;
-
-        namespace detail
+        struct tag
         {
+        private:
             BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_tag, tag);
 
-            template<typename x, typename = typename has_tag<x>::type>
-            struct tag_impl
+            template<typename y, typename = has_tag_t<y>>
+            struct impl
             {
-                using type = typename x::tag;
+                using type = typename y::tag;
             };
 
-            template<typename x>
-            struct tag_impl<x, std::false_type>
+            template<typename y>
+            struct impl<y, std::false_type>
             {
-                using type = ::boost::mpl2::tag<x>;
+                using type = tag;
             };
-        }
+
+        public:
+            using type = typename impl<x>::type;
+        };
 
         template<typename x>
-        struct tag :
-                detail::tag_impl<x>
-        {};
+        using tag_t = typename tag<x>::type;
     }
 }
 

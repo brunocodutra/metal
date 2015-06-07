@@ -8,7 +8,7 @@
 #include <type_traits>
 
 #define BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(TRAIT, NESTED) \
-    template<typename x> \
+    template<typename TRAIT##_candidate> \
     struct TRAIT##_impl \
     { \
     private: \
@@ -18,18 +18,18 @@
         template<typename> \
         static std::false_type check(...); \
     public: \
-        using type = decltype(check<x>(0)); \
+        using type = decltype(check<TRAIT##_candidate>(0)); \
     }; \
-    template<typename x> \
+    template<typename TRAIT##_candidate> \
     struct TRAIT : \
-            TRAIT##_impl<x>::type \
+            TRAIT##_impl<TRAIT##_candidate>::type \
     {}; \
-    template<typename x> \
-    using TRAIT##_t = typename TRAIT<x>::type
+    template<typename TRAIT##_candidate> \
+    using TRAIT##_t = typename TRAIT<TRAIT##_candidate>::type
 /**/
 
 #define BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(TRAIT, NESTED) \
-    template<typename x> \
+    template<typename TRAIT##_candidate> \
     struct TRAIT##_impl \
     { \
     private: \
@@ -39,14 +39,14 @@
         template<typename> \
         static std::false_type check(...); \
     public: \
-        using type = decltype(check<x>(0)); \
+        using type = decltype(check<TRAIT##_candidate>(0)); \
     }; \
-    template<typename x> \
+    template<typename TRAIT##_candidate> \
     struct TRAIT : \
-            TRAIT##_impl<x>::type \
+            TRAIT##_impl<TRAIT##_candidate>::type \
     {}; \
-    template<typename x> \
-    using TRAIT##_t = typename TRAIT<x>::type
+    template<typename TRAIT##_candidate> \
+    using TRAIT##_t = typename TRAIT<TRAIT##_candidate>::type
 /**/
 
 #endif

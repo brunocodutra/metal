@@ -5,33 +5,15 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_QUOTE_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_QUOTE_HPP
 
-#include <boost/mpl2/core/identity.hpp>
+#include <boost/mpl2/metafunctional/quoter.hpp>
 
 namespace boost
 {
     namespace mpl2
     {
-        namespace detail
-        {
-            template<template<typename...> class expr, typename... args>
-            struct quote_impl
-            {
-            private:
-                struct empty {};
-
-                template<template<typename...> class>
-                static empty impl(...);
-                template<template<typename...> class e>
-                static identity<e<args...>> impl(int);
-
-            public:
-                using type = decltype(impl<expr>(0));
-            };
-        }
-
         template<template<typename...> class expr, typename... args>
         struct quote :
-                detail::quote_impl<expr, args...>::type
+                quoter<expr>::template call<args...>
         {};
 
         template<template<typename...> class expr, typename... args>

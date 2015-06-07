@@ -5,8 +5,6 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_EVALUATOR_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_EVALUATOR_HPP
 
-#include <boost/mpl2/metafunctional/eval.hpp>
-
 namespace boost
 {
     namespace mpl2
@@ -14,11 +12,21 @@ namespace boost
         template<template<typename...> class expr>
         struct evaluator
         {
+        private:
+            template<typename> struct type_wrapper;
+            struct empty {};
+
+            template<template<typename...> class, typename...>
+            static empty impl(...);
+            template<template<typename...> class e, typename... args>
+            static e<args...> impl(type_wrapper<typename e<args...>::type>*);
+
+        public:
             using type = evaluator;
 
             template<typename... args>
             struct call :
-                    eval<expr, args...>
+                    decltype(impl<expr, args...>(0))
             {};
         };
     }
