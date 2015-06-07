@@ -2,14 +2,14 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#include <boost/mpl2/algorithm/size.hpp>
-#include <boost/mpl2/functional/traits/is_evaluable.hpp>
+#include <boost/metal/algorithm/size.hpp>
+#include <boost/metal/functional/traits/is_evaluable.hpp>
 
 #include "test/variadic.hpp"
 #include "test/integrals.hpp"
 #include "test/main.hpp"
 
-using namespace boost::mpl2;
+using namespace boost::metal;
 
 namespace test
 {
@@ -27,8 +27,8 @@ namespace test
     {};
 }
 
-BOOST_MPL2_ASSERT((is_evaluable<size, test::sized>));
-BOOST_MPL2_ASSERT((not_<is_evaluable<size, test::not_sized>>));
-BOOST_MPL2_ASSERT((not_<is_evaluable<size, test::size>>));
+BOOST_METAL_ASSERT((is_evaluable<size, test::sized>));
+BOOST_METAL_ASSERT((not_<is_evaluable<size, test::not_sized>>));
+BOOST_METAL_ASSERT((not_<is_evaluable<size, test::size>>));
 
-BOOST_MPL2_ASSERT((equal_to<size<test::sized>, test::three>));
+BOOST_METAL_ASSERT((equal_to<size<test::sized>, test::three>));

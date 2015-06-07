@@ -4,18 +4,18 @@
 
 cmake_minimum_required(VERSION 2.8.3)
 
-project(Boost.MPL2 CXX)
+project(Boost.Metal CXX)
 
-set(BOOST_MPL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(BOOST_MPL2_INCLUDE_DIRS ${BOOST_MPL2_INCLUDE_DIR})
+set(BOOST_METAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(BOOST_METAL_INCLUDE_DIRS ${BOOST_METAL_INCLUDE_DIR})
 
-file(GLOB_RECURSE BOOST_MPL2_HEADERS ${BOOST_MPL2_INCLUDE_DIR}/*.hpp)
+file(GLOB_RECURSE BOOST_METAL_HEADERS ${BOOST_METAL_INCLUDE_DIR}/*.hpp)
 
-add_custom_target(mpl2 SOURCES ${BOOST_MPL2_HEADERS})
-install(FILES ${BOOST_MPL2_HEADERS} DESTINATION include)
+add_custom_target(metal SOURCES ${BOOST_METAL_HEADERS})
+install(FILES ${BOOST_METAL_HEADERS} DESTINATION include)
 
-option(BOOST_MPL2_BUILD_TESTS "build test scripts" ON)
-if(BOOST_MPL2_BUILD_TESTS)
+option(BOOST_METAL_BUILD_TESTS "build test scripts" ON)
+if(BOOST_METAL_BUILD_TESTS)
     enable_testing()
     add_subdirectory(test)
 endif()

@@ -21,7 +21,7 @@ build_script:
     - cmd: mkdir build
     - cmd: cd build
     - cmd: cmake .. -G"%GENERATOR%"
-    - cmd: cmake --build . --config %CONFIG% --target mpl2
+    - cmd: cmake --build . --config %CONFIG% --target metal
 
 test_script:
     - cmd: ctest --output-on-failure
