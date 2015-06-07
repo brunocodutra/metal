@@ -5,8 +5,6 @@
 #ifndef BOOST_MPL2_METAFUNCTIONAL_EVAL_HPP
 #define BOOST_MPL2_METAFUNCTIONAL_EVAL_HPP
 
-#include <boost/mpl2/core/identity.hpp>
-
 namespace boost
 {
     namespace mpl2
@@ -17,12 +15,13 @@ namespace boost
             struct eval_impl
             {
             private:
+                template<typename> struct type_wrapper;
                 struct empty {};
 
                 template<template<typename...> class>
                 static empty impl(...);
                 template<template<typename...> class e>
-                static identity<typename e<args...>::type> impl(int);
+                static e<args...> impl(type_wrapper<typename e<args...>::type>*);
 
             public:
                 using type = decltype(impl<expr>(0));
