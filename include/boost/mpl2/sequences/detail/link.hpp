@@ -19,22 +19,41 @@ namespace boost
         {
             struct nil
             {
+            protected:
+                static ref<> item(...);
+
+            public:
+                using type = nil;
+
                 using size = std::integral_constant<std::size_t, 0U>;
 
-                static ref<> item(...);
+                template<typename i>
+                struct at
+                {};
             };
 
             template<typename index, typename value, typename rest>
             struct link :
                     rest
             {
+            protected:
+                static ref<value> item(ref<index>);
+                using rest::item;
+
+            public:
                 using type = link;
 
                 using size = inc< ::boost::mpl2::size<rest>>;
 
-                static ref<value> item(ref<index>);
-                using rest::item;
+                template<typename i>
+                struct at;
             };
+
+            template<typename index, typename value, typename rest>
+            template<typename i>
+            struct link<index, value, rest>::at :
+                    decltype(item(ref<i>{}))
+            {};
         }
     }
 }

@@ -15,7 +15,11 @@ namespace boost
     namespace mpl2
     {
         template<typename...>
-        struct list;
+        struct list :
+                detail::nil
+        {
+            using type = list;
+        };
 
         template<typename head, typename... tail>
         struct list<head, tail...> :
@@ -25,6 +29,14 @@ namespace boost
                     list<tail...>
                 >
         {
+        private:
+            using base = detail::link<
+                std::integral_constant<std::size_t, sizeof...(tail)>,
+                head,
+                list<tail...>
+            >;
+
+        public:
             using type = list;
 
             template<typename i>
@@ -34,20 +46,13 @@ namespace boost
         template<typename head, typename... tail>
         template<typename i>
         struct list<head, tail...>::at :
-                decltype(list::item(ref<
+                list<head, tail...>::base::template at<
                     std::integral_constant<
                         std::size_t,
                         sizeof...(tail) - i::value
                     >
-                >{}))
+                >
         {};
-
-        template<>
-        struct list<> :
-                detail::nil
-        {
-            using type = list;
-        };
     }
 }
 

@@ -14,7 +14,7 @@ namespace test
     using e = d*(d);
     using f = e*(e);
     using g = f*(f);
-    using h = a(b,c,d,e,f,g);
+    using h = a(b, c, d, e, f, g);
     struct i {};
     struct j;
 }
