@@ -6,9 +6,9 @@
 #define BOOST_MPL2_TEST_MAIN_HPP
 
 #include <boost/mpl2/core/assert.hpp>
-#include <boost/mpl2/core/arithmetic.hpp>
-#include <boost/mpl2/core/comparison.hpp>
-#include <boost/mpl2/core/logical.hpp>
+#include <boost/mpl2/algebra/arithmetic.hpp>
+#include <boost/mpl2/algebra/comparison.hpp>
+#include <boost/mpl2/algebra/logical.hpp>
 
 #include <type_traits>
 
