@@ -5,7 +5,6 @@
 #ifndef BOOST_MPL2_SEQUENCES_SIZE_HPP
 #define BOOST_MPL2_SEQUENCES_SIZE_HPP
 
-#include <boost/mpl2/core/traits_factory.hpp>
 #include <boost/mpl2/metafunctional/call.hpp>
 #include <boost/mpl2/sequences/tag.hpp>
 
@@ -19,16 +18,17 @@ namespace boost
         struct size_impl
         {
         private:
-            BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_size, size);
+            struct empty {};
+
+            template<typename>
+            static empty impl(...);
+            template<typename x, typename y = typename x::size>
+            static std::integral_constant<typename y::value_type, y::value> impl(int);
 
         public:
-            template<typename x, typename = has_size_t<x>>
-            struct call :
-                    x::size
-            {};
-
             template<typename x>
-            struct call<x, std::false_type>
+            struct call :
+                    decltype(impl<x>(0))
             {};
         };
 
@@ -36,9 +36,6 @@ namespace boost
         struct size :
                 call<size_impl<typename tag<x>::type>, x>
         {};
-
-        template<typename x>
-        using size_t = typename size<x>::type;
     }
 }
 
