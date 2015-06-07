@@ -4,9 +4,23 @@
 
 #include <boost/mpl2/sequences/tag.hpp>
 
+#include "test/variadic.hpp"
 #include "test/main.hpp"
 
 using namespace boost::mpl2;
+
+namespace test
+{
+    template<typename...>
+    struct tagged
+    {
+        struct tag;
+    };
+
+    template<typename...>
+    struct tag
+    {};
+}
 
 BOOST_MPL2_ASSERT((std::is_same<tag<test::fundamental<>>::type, tag<test::fundamental<>>>));
 BOOST_MPL2_ASSERT((std::is_same<tag<test::function<>>::type, tag<test::function<>>>));

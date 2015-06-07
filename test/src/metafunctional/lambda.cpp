@@ -8,6 +8,7 @@
 #include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/traits.hpp>
 
+#include "test/variadic.hpp"
 #include "test/wrap.hpp"
 #include "test/main.hpp"
 

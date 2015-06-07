@@ -5,6 +5,7 @@
 #include <boost/mpl2/metafunctional/apply.hpp>
 #include <boost/mpl2/metafunctional/placeholders.hpp>
 
+#include "test/variadic.hpp"
 #include "test/expressions.hpp"
 #include "test/wrap.hpp"
 #include "test/main.hpp"

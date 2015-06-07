@@ -5,6 +5,7 @@
 #include <boost/mpl2/sequences/size.hpp>
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 
+#include "test/variadic.hpp"
 #include "test/integrals.hpp"
 #include "test/main.hpp"
 

@@ -4,6 +4,7 @@
 
 #include <boost/mpl2/metafunctional/traits/is_callable.hpp>
 
+#include "test/variadic.hpp"
 #include "test/functions.hpp"
 #include "test/main.hpp"
 

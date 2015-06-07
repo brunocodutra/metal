@@ -12,36 +12,6 @@
 
 #include <type_traits>
 
-namespace test
-{
-    template<typename...>
-    using fundamental = void;
-
-    template<typename...>
-    using function = void();
-
-    template<typename...>
-    struct incomplete;
-
-    template<typename...>
-    struct empty {};
-
-    template<typename...>
-    struct evaluable {struct type;};
-
-    template<typename...>
-    struct tagged {struct tag;};
-
-    template<typename...>
-    struct call {};
-
-    template<typename...>
-    struct tag {};
-
-    template<template<typename...> class base, typename... _>
-    struct eponym : base<_...> {};
-}
-
 int main()
 {
     return 0;
