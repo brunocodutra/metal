@@ -16,6 +16,9 @@ namespace boost
         struct is_quotable :
                 detail::has_type<quote<expr, args...>>
         {};
+
+        template<template<typename...> class expr, typename... args>
+        using is_quotable_t = typename is_quotable<expr, args...>::type;
     }
 }
 

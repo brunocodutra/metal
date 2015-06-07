@@ -18,17 +18,17 @@ struct y;
 struct z;
 struct w;
 
-BOOST_MPL2_ASSERT((std::is_same<if_<std::true_type, identity<x>, identity<y>>::type, x>));
-BOOST_MPL2_ASSERT((std::is_same<if_<std::false_type, identity<x>, identity<y>>::type, y>));
+BOOST_MPL2_ASSERT((std::is_same<if_t<std::true_type, identity<x>, identity<y>>, x>));
+BOOST_MPL2_ASSERT((std::is_same<if_t<std::false_type, identity<x>, identity<y>>, y>));
 
-BOOST_MPL2_ASSERT((std::is_same<if_<std::true_type, identity<x>, std::true_type, identity<y>, identity<z>>::type, x>));
-BOOST_MPL2_ASSERT((std::is_same<if_<std::false_type, identity<x>, std::true_type, identity<y>, identity<z>>::type, y>));
-BOOST_MPL2_ASSERT((std::is_same<if_<std::false_type, identity<x>, std::false_type, identity<y>, identity<z>>::type, z>));
+BOOST_MPL2_ASSERT((std::is_same<if_t<std::true_type, identity<x>, std::true_type, identity<y>, identity<z>>, x>));
+BOOST_MPL2_ASSERT((std::is_same<if_t<std::false_type, identity<x>, std::true_type, identity<y>, identity<z>>, y>));
+BOOST_MPL2_ASSERT((std::is_same<if_t<std::false_type, identity<x>, std::false_type, identity<y>, identity<z>>, z>));
 
-BOOST_MPL2_ASSERT((std::is_same<if_<std::true_type, identity<x>, std::true_type, identity<y>, std::true_type, identity<z>, identity<w>>::type, x>));
-BOOST_MPL2_ASSERT((std::is_same<if_<std::false_type, identity<x>, std::true_type, identity<y>, std::true_type, identity<z>, identity<w>>::type, y>));
-BOOST_MPL2_ASSERT((std::is_same<if_<std::false_type, identity<x>, std::false_type, identity<y>, std::true_type, identity<z>, identity<w>>::type, z>));
-BOOST_MPL2_ASSERT((std::is_same<if_<std::false_type, identity<x>, std::false_type, identity<y>, std::false_type, identity<z>, identity<w>>::type, w>));
+BOOST_MPL2_ASSERT((std::is_same<if_t<std::true_type, identity<x>, std::true_type, identity<y>, std::true_type, identity<z>, identity<w>>, x>));
+BOOST_MPL2_ASSERT((std::is_same<if_t<std::false_type, identity<x>, std::true_type, identity<y>, std::true_type, identity<z>, identity<w>>, y>));
+BOOST_MPL2_ASSERT((std::is_same<if_t<std::false_type, identity<x>, std::false_type, identity<y>, std::true_type, identity<z>, identity<w>>, z>));
+BOOST_MPL2_ASSERT((std::is_same<if_t<std::false_type, identity<x>, std::false_type, identity<y>, std::false_type, identity<z>, identity<w>>, w>));
 
 BOOST_MPL2_ASSERT((if_<tautology, std::true_type, std::false_type>::type));
 BOOST_MPL2_ASSERT((if_<contradiction, std::false_type, std::true_type>::type));

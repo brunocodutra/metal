@@ -20,6 +20,9 @@ namespace boost
         struct call<function, args...> :
                 eval<detail::function<function>::template call, args...>
         {};
+
+        template<typename... _>
+        using call_t = typename call<_...>::type;
     }
 }
 

@@ -28,15 +28,15 @@ struct exprn :
         test::wrap<args...>
 {};
 
-BOOST_MPL2_ASSERT((std::is_same<eval<expr0>::type, expr0<>::type>));
-BOOST_MPL2_ASSERT((std::is_same<eval<expr1, void>::type, expr1<void>::type>));
-BOOST_MPL2_ASSERT((std::is_same<eval<expr2, void, void*>::type, expr2<void, void*>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval_t<expr0>, expr0<>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval_t<expr1, void>, expr1<void>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval_t<expr2, void, void*>, expr2<void, void*>::type>));
 
-BOOST_MPL2_ASSERT((std::is_same<eval<exprn>::type, exprn<>::type>));
-BOOST_MPL2_ASSERT((std::is_same<eval<exprn, short>::type, exprn<short>::type>));
-BOOST_MPL2_ASSERT((std::is_same<eval<exprn, short, int>::type, exprn<short, int>::type>));
-BOOST_MPL2_ASSERT((std::is_same<eval<exprn, short, int, long>::type, exprn<short, int, long>::type>));
-BOOST_MPL2_ASSERT((std::is_same<eval<exprn, short, int, long, long long>::type, exprn<short, int, long, long long>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval_t<exprn>, exprn<>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval_t<exprn, short>, exprn<short>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval_t<exprn, short, int>, exprn<short, int>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval_t<exprn, short, int, long>, exprn<short, int, long>::type>));
+BOOST_MPL2_ASSERT((std::is_same<eval_t<exprn, short, int, long, long long>, exprn<short, int, long, long long>::type>));
 
 int main()
 {

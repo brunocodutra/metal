@@ -34,15 +34,15 @@ struct f2
 
 using fn = test::wrapper;
 
-BOOST_MPL2_ASSERT((std::is_same<call<f0>::type, f0::call<>::type>));
-BOOST_MPL2_ASSERT((std::is_same<call<f1, void>::type, f1::call<void>::type>));
-BOOST_MPL2_ASSERT((std::is_same<call<f2, void, void*>::type, f2::call<void, void*>::type>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<f0>, f0::call<>::type>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<f1, void>, f1::call<void>::type>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<f2, void, void*>, f2::call<void, void*>::type>));
 
-BOOST_MPL2_ASSERT((std::is_same<call<fn>::type, fn::call<>::type>));
-BOOST_MPL2_ASSERT((std::is_same<call<fn, short>::type, fn::call<short>::type>));
-BOOST_MPL2_ASSERT((std::is_same<call<fn, short, int>::type, fn::call<short, int>::type>));
-BOOST_MPL2_ASSERT((std::is_same<call<fn, short, int, long>::type, fn::call<short, int, long>::type>));
-BOOST_MPL2_ASSERT((std::is_same<call<fn, short, int, long, long long>::type, fn::call<short, int, long, long long>::type>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<fn>, fn::call<>::type>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<fn, short>, fn::call<short>::type>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<fn, short, int>, fn::call<short, int>::type>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<fn, short, int, long>, fn::call<short, int, long>::type>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<fn, short, int, long, long long>, fn::call<short, int, long, long long>::type>));
 
 int main()
 {

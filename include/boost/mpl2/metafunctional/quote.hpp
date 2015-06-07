@@ -33,6 +33,9 @@ namespace boost
         struct quote :
                 detail::quote_impl<expr, args...>::type
         {};
+
+        template<template<typename...> class expr, typename... args>
+        using quote_t = typename quote<expr, args...>::type;
     }
 }
 

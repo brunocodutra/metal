@@ -16,6 +16,9 @@ namespace boost
         struct is_evaluable :
                 detail::has_type<eval<expr, args...>>
         {};
+
+        template<template<typename...> class expr, typename... args>
+        using is_evaluable_t = typename is_evaluable<expr, args...>::type;
     }
 }
 

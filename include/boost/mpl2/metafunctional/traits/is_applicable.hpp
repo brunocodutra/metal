@@ -12,10 +12,13 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename... args>
+        template<typename... _>
         struct is_applicable :
-                is_evaluable<apply, args...>
+                is_evaluable<apply, _...>
         {};
+
+        template<typename... _>
+        using is_applicable_t = typename is_applicable<_...>::type;
     }
 }
 

@@ -15,7 +15,7 @@ namespace boost
     {
         namespace detail
         {
-            template<typename func, typename = typename is_function<func>::type>
+            template<typename func, typename = is_function_t<func>>
             struct function :
                     func
             {};

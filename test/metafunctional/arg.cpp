@@ -30,10 +30,10 @@ BOOST_MPL2_ASSERT((not_<is_callable<arg<2>, int>>));
 BOOST_MPL2_ASSERT((not_<is_callable<arg<3>, int, long>>));
 BOOST_MPL2_ASSERT((not_<is_callable<arg<4>, int, long, long long>>));
 
-BOOST_MPL2_ASSERT((std::is_same<call<arg<1>, short, int, long, long long>::type, short>));
-BOOST_MPL2_ASSERT((std::is_same<call<arg<2>, short, int, long, long long>::type, int>));
-BOOST_MPL2_ASSERT((std::is_same<call<arg<3>, short, int, long, long long>::type, long>));
-BOOST_MPL2_ASSERT((std::is_same<call<arg<4>, short, int, long, long long>::type, long long>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<arg<1>, short, int, long, long long>, short>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<arg<2>, short, int, long, long long>, int>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<arg<3>, short, int, long, long long>, long>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<arg<4>, short, int, long, long long>, long long>));
 
 
 int main()

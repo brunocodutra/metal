@@ -23,7 +23,9 @@
     template<typename x> \
     struct TRAIT : \
             TRAIT##_impl<x>::type \
-    {} \
+    {}; \
+    template<typename x> \
+    using TRAIT##_t = typename TRAIT<x>::type
 /**/
 
 #define BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(TRAIT, NESTED) \
@@ -42,7 +44,9 @@
     template<typename x> \
     struct TRAIT : \
             TRAIT##_impl<x>::type \
-    {} \
+    {}; \
+    template<typename x> \
+    using TRAIT##_t = typename TRAIT<x>::type
 /**/
 
 #endif

@@ -26,6 +26,9 @@ namespace boost
                     detail::has_template_call<func>
                 >
         {};
+
+        template<typename func>
+        using is_function_t = typename is_function<func>::type;
     }
 }
 

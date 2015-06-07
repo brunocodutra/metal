@@ -20,6 +20,9 @@ namespace boost
         struct apply<expr, args...> :
                 call<lambda<expr>, args...>
         {};
+
+        template<typename... _>
+        using apply_t = typename apply<_...>::type;
     }
 }
 

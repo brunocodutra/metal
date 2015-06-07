@@ -23,6 +23,9 @@ namespace boost
         struct if_<cond, then, else_> :
                 std::conditional<!!cond::value, then, else_>::type
         {};
+
+        template<typename cond, typename then, typename else_, typename... _>
+        using if_t = typename if_<cond, then, else_, _...>::type;
     }
 }
 

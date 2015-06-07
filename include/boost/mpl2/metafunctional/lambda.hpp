@@ -24,6 +24,12 @@ namespace boost
         struct lambda
         {
         private:
+            template<typename token>
+            struct parse;
+
+            template<typename token>
+            using parse_t = typename parse<token>::type;
+
             template<typename invariant>
             struct parse :
                     bind<protect<arg<1>>, invariant>
@@ -43,9 +49,9 @@ namespace boost
             struct parse<parametric<args...>> :
                     bind<
                         evaluator<if_>,
-                        bind<evaluator<is_callable>, evaluator<parametric>, typename parse<args>::type...>,
-                        bind<quoter< ::boost::mpl2::call>, evaluator<parametric>, typename parse<args>::type...>,
-                        bind<quoter< ::boost::mpl2::call>, quoter<parametric>, typename parse<args>::type...>
+                        bind<evaluator<is_callable>, evaluator<parametric>, parse_t<args>...>,
+                        bind<quoter< ::boost::mpl2::call>, evaluator<parametric>, parse_t<args>...>,
+                        bind<quoter< ::boost::mpl2::call>, quoter<parametric>, parse_t<args>...>
                     >
             {};
 
@@ -54,7 +60,7 @@ namespace boost
 
             template<typename... args>
             struct call :
-                    ::boost::mpl2::call<typename parse<expr>::type, args...>
+                    ::boost::mpl2::call<parse_t<expr>, args...>
             {};
         };
     }

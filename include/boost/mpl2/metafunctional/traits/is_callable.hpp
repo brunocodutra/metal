@@ -12,10 +12,13 @@ namespace boost
 {
     namespace mpl2
     {
-        template<typename... args>
+        template<typename... _>
         struct is_callable :
-                is_evaluable<call, args...>
+                is_evaluable<call, _...>
         {};
+
+        template<typename... _>
+        using is_callable_t = typename is_callable<_...>::type;
     }
 }
 

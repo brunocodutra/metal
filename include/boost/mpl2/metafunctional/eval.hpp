@@ -32,6 +32,9 @@ namespace boost
         struct eval :
                 detail::eval_impl<expr, args...>::type
         {};
+
+        template<template<typename...> class expr, typename... args>
+        using eval_t = typename eval<expr, args...>::type;
     }
 }
 
