@@ -4,7 +4,8 @@
 
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
 
-#include "test.hpp"
+#include "test/functions.hpp"
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 
@@ -26,8 +27,3 @@ BOOST_MPL2_ASSERT((is_function<test::binary<test::evaluable>>));
 BOOST_MPL2_ASSERT((is_function<test::n_ary<test::incomplete>>));
 BOOST_MPL2_ASSERT((is_function<test::n_ary<test::empty>>));
 BOOST_MPL2_ASSERT((is_function<test::n_ary<test::evaluable>>));
-
-int main()
-{
-    return 0;
-}

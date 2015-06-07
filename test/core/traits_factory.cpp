@@ -3,9 +3,8 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/core/traits_factory.hpp>
-#include <boost/mpl2/core/assert.hpp>
 
-#include <type_traits>
+#include "test/main.hpp"
 
 BOOST_MPL2_DEFINE_NESTED_TYPE_TRAIT(has_nested, nested);
 BOOST_MPL2_DEFINE_NESTED_TEMPLATE_TRAIT(has_nested_template, nested);
@@ -162,8 +161,3 @@ BOOST_MPL2_ASSERT_EXPR(!has_nested_template<test_eponym::nested>::value);
 struct test_derived_eponym final : test_eponym::nested {};
 BOOST_MPL2_ASSERT_EXPR(has_nested<test_derived_eponym>::value);
 BOOST_MPL2_ASSERT_EXPR(!has_nested_template<test_derived_eponym>::value);
-
-int main()
-{
-    return 0;
-}

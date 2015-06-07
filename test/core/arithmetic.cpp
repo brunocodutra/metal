@@ -4,62 +4,48 @@
 
 #include <boost/mpl2/core/arithmetic.hpp>
 #include <boost/mpl2/core/comparison/equal_to.hpp>
-#include <boost/mpl2/core/assert.hpp>
 
-#include <type_traits>
+#include "test/integrals.hpp"
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 
-typedef std::integral_constant<short, 0> zero;
-typedef std::integral_constant<int, 1> one;
-typedef std::integral_constant<long, 2> two;
-typedef std::integral_constant<long long, 3> three;
-typedef std::integral_constant<unsigned short, 4> four;
-typedef std::integral_constant<unsigned int, 5> five;
-typedef std::integral_constant<unsigned long, 6> six;
-typedef std::integral_constant<unsigned long long, 7> seven;
+BOOST_MPL2_ASSERT((equal_to<inc<test::zero>, test::one>));
+BOOST_MPL2_ASSERT((equal_to<dec<test::zero>, neg<test::one>>));
+BOOST_MPL2_ASSERT((equal_to<inc<dec<test::one>>, test::one>));
+BOOST_MPL2_ASSERT((equal_to<inc<dec<test::one>>, dec<inc<test::one>>>));
+BOOST_MPL2_ASSERT((equal_to<neg<test::zero>, test::zero>));
+BOOST_MPL2_ASSERT((equal_to<inc<neg<test::one>>, test::zero>));
+BOOST_MPL2_ASSERT((equal_to<neg<neg<test::one>>, test::one>));
 
-BOOST_MPL2_ASSERT((equal_to<inc<zero>, one>));
-BOOST_MPL2_ASSERT((equal_to<dec<zero>, neg<one>>));
-BOOST_MPL2_ASSERT((equal_to<inc<dec<one>>, one>));
-BOOST_MPL2_ASSERT((equal_to<inc<dec<one>>, dec<inc<one>>>));
-BOOST_MPL2_ASSERT((equal_to<neg<zero>, zero>));
-BOOST_MPL2_ASSERT((equal_to<inc<neg<one>>, zero>));
-BOOST_MPL2_ASSERT((equal_to<neg<neg<one>>, one>));
+BOOST_MPL2_ASSERT((equal_to<add<test::zero, test::one>, mul<test::one, test::one>>));
+BOOST_MPL2_ASSERT((equal_to<add<test::zero, test::one, test::two>, mul<test::one, test::three>>));
+BOOST_MPL2_ASSERT((equal_to<add<test::zero, test::one, test::two, test::three>, mul<test::two, test::three>>));
+BOOST_MPL2_ASSERT((equal_to<add<test::zero, test::one, test::two, test::three, test::four>, mul<test::two, test::five>>));
+BOOST_MPL2_ASSERT((equal_to<add<test::zero, test::one, test::two, test::three, test::four, test::five>, mul<test::three, test::five>>));
+BOOST_MPL2_ASSERT((equal_to<add<test::zero, test::one, test::two, test::three, test::four, test::five, test::six>, mul<test::three, test::seven>>));
+BOOST_MPL2_ASSERT((equal_to<add<test::zero, test::one, test::two, test::three, test::four, test::five, test::six, test::seven>, mul<test::four, test::seven>>));
 
-BOOST_MPL2_ASSERT((equal_to<add<zero, one>, mul<one, one>>));
-BOOST_MPL2_ASSERT((equal_to<add<zero, one, two>, mul<one, three>>));
-BOOST_MPL2_ASSERT((equal_to<add<zero, one, two, three>, mul<two, three>>));
-BOOST_MPL2_ASSERT((equal_to<add<zero, one, two, three, four>, mul<two, five>>));
-BOOST_MPL2_ASSERT((equal_to<add<zero, one, two, three, four, five>, mul<three, five>>));
-BOOST_MPL2_ASSERT((equal_to<add<zero, one, two, three, four, five, six>, mul<three, seven>>));
-BOOST_MPL2_ASSERT((equal_to<add<zero, one, two, three, four, five, six, seven>, mul<four, seven>>));
+BOOST_MPL2_ASSERT((equal_to<sub<test::one, test::one>, test::zero>));
+BOOST_MPL2_ASSERT((equal_to<sub<test::two, test::one, test::one>, test::zero>));
+BOOST_MPL2_ASSERT((equal_to<sub<test::three, test::one, test::one, test::one>, test::zero>));
+BOOST_MPL2_ASSERT((equal_to<sub<test::four, test::one, test::one, test::one, test::one>, test::zero>));
+BOOST_MPL2_ASSERT((equal_to<sub<test::five, test::one, test::one, test::one, test::one, test::one>, test::zero>));
+BOOST_MPL2_ASSERT((equal_to<sub<test::six, test::one, test::one, test::one, test::one, test::one, test::one>, test::zero>));
+BOOST_MPL2_ASSERT((equal_to<sub<test::seven, test::one, test::one, test::one, test::one, test::one, test::one, test::one>, test::zero>));
 
-BOOST_MPL2_ASSERT((equal_to<sub<one, one>, zero>));
-BOOST_MPL2_ASSERT((equal_to<sub<two, one, one>, zero>));
-BOOST_MPL2_ASSERT((equal_to<sub<three, one, one, one>, zero>));
-BOOST_MPL2_ASSERT((equal_to<sub<four, one, one, one, one>, zero>));
-BOOST_MPL2_ASSERT((equal_to<sub<five, one, one, one, one, one>, zero>));
-BOOST_MPL2_ASSERT((equal_to<sub<six, one, one, one, one, one, one>, zero>));
-BOOST_MPL2_ASSERT((equal_to<sub<seven, one, one, one, one, one, one, one>, zero>));
+BOOST_MPL2_ASSERT((equal_to<mul<test::two, test::two>, std::integral_constant<int, 4>>));
+BOOST_MPL2_ASSERT((equal_to<mul<test::two, test::two, test::two>, std::integral_constant<int, 8>>));
+BOOST_MPL2_ASSERT((equal_to<mul<test::two, test::two, test::two, test::two>, std::integral_constant<int, 16>>));
+BOOST_MPL2_ASSERT((equal_to<mul<test::two, test::two, test::two, test::two, test::two>, std::integral_constant<int, 32>>));
+BOOST_MPL2_ASSERT((equal_to<mul<test::two, test::two, test::two, test::two, test::two, test::two>, std::integral_constant<int, 64>>));
+BOOST_MPL2_ASSERT((equal_to<mul<test::two, test::two, test::two, test::two, test::two, test::two, test::two>, std::integral_constant<int, 128>>));
+BOOST_MPL2_ASSERT((equal_to<mul<test::two, test::two, test::two, test::two, test::two, test::two, test::two, test::two>, std::integral_constant<int, 256>>));
 
-BOOST_MPL2_ASSERT((equal_to<mul<two, two>, std::integral_constant<int, 4>>));
-BOOST_MPL2_ASSERT((equal_to<mul<two, two, two>, std::integral_constant<int, 8>>));
-BOOST_MPL2_ASSERT((equal_to<mul<two, two, two, two>, std::integral_constant<int, 16>>));
-BOOST_MPL2_ASSERT((equal_to<mul<two, two, two, two, two>, std::integral_constant<int, 32>>));
-BOOST_MPL2_ASSERT((equal_to<mul<two, two, two, two, two, two>, std::integral_constant<int, 64>>));
-BOOST_MPL2_ASSERT((equal_to<mul<two, two, two, two, two, two, two>, std::integral_constant<int, 128>>));
-BOOST_MPL2_ASSERT((equal_to<mul<two, two, two, two, two, two, two, two>, std::integral_constant<int, 256>>));
-
-BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 2>, two>, one>));
-BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 4>, two, two>, one>));
-BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 8>, two, two, two>, one>));
-BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 16>, two, two, two, two>, one>));
-BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 32>, two, two, two, two, two>, one>));
-BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 64>, two, two, two, two, two, two>, one>));
-BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 128>, two, two, two, two, two, two, two>, one>));
-
-int main()
-{
-    return 0;
-}
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 2>, test::two>, test::one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 4>, test::two, test::two>, test::one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 8>, test::two, test::two, test::two>, test::one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 16>, test::two, test::two, test::two, test::two>, test::one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 32>, test::two, test::two, test::two, test::two, test::two>, test::one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 64>, test::two, test::two, test::two, test::two, test::two, test::two>, test::one>));
+BOOST_MPL2_ASSERT((equal_to<boost::mpl2::div<std::integral_constant<int, 128>, test::two, test::two, test::two, test::two, test::two, test::two, test::two>, test::one>));

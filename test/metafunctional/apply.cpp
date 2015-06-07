@@ -5,7 +5,9 @@
 #include <boost/mpl2/metafunctional/apply.hpp>
 #include <boost/mpl2/metafunctional/placeholders.hpp>
 
-#include "test.hpp"
+#include "test/expressions.hpp"
+#include "test/wrap.hpp"
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 using namespace boost::mpl2::placeholders;
@@ -59,8 +61,3 @@ BOOST_MPL2_ASSERT((std::is_same<apply_t<thrice, std::add_pointer<_1>, void>, voi
 
 using ptr2ptr2ptr = apply<protect<lambda<thrice>>, protect<lambda<std::add_pointer<_1>>>, _1>;
 BOOST_MPL2_ASSERT((std::is_same<apply_t<ptr2ptr2ptr, void>, void***>));
-
-int main()
-{
-    return 0;
-}

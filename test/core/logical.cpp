@@ -4,9 +4,8 @@
 
 #include <boost/mpl2/core/logical.hpp>
 #include <boost/mpl2/core/comparison/equal_to.hpp>
-#include <boost/mpl2/core/assert.hpp>
 
-#include <type_traits>
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 
@@ -59,8 +58,3 @@ BOOST_MPL2_ASSERT((not_<and_<std::false_type, undefined, undefined, undefined, u
 BOOST_MPL2_ASSERT((not_<and_<std::false_type, undefined, undefined, undefined, undefined, undefined>>));
 BOOST_MPL2_ASSERT((not_<and_<std::false_type, undefined, undefined, undefined, undefined, undefined, undefined>>));
 BOOST_MPL2_ASSERT((not_<and_<std::false_type, undefined, undefined, undefined, undefined, undefined, undefined, undefined>>));
-
-int main()
-{
-    return 0;
-}

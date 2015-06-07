@@ -4,14 +4,9 @@
 
 #include <boost/mpl2/core/assert.hpp>
 
-#include <type_traits>
+#include "test/main.hpp"
 
 BOOST_MPL2_ASSERT((std::true_type));
 BOOST_MPL2_ASSERT_MSG((std::true_type), "");
 BOOST_MPL2_ASSERT_EXPR((true));
 BOOST_MPL2_ASSERT_EXPR_MSG((true), "");
-
-int main()
-{
-    return 0;
-}

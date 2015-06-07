@@ -8,7 +8,8 @@
 #include <boost/mpl2/metafunctional/protect.hpp>
 #include <boost/mpl2/metafunctional/traits.hpp>
 
-#include "test.hpp"
+#include "test/wrap.hpp"
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 using namespace boost::mpl2::placeholders;
@@ -65,8 +66,3 @@ using ptr2ptr2ptr = protect<lambda<call<thrice, protect<lambda<std::add_pointer<
 BOOST_MPL2_ASSERT((is_function<ptr2ptr2ptr>));
 BOOST_MPL2_ASSERT((std::is_same<call_t<ptr2ptr2ptr, void>, void***>));
 BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<ptr2ptr2ptr>, void>, void***>));
-
-int main()
-{
-    return 0;
-}

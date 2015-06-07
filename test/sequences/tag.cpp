@@ -4,7 +4,7 @@
 
 #include <boost/mpl2/sequences/tag.hpp>
 
-#include "test.hpp"
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 
@@ -13,8 +13,3 @@ BOOST_MPL2_ASSERT((std::is_same<tag<test::function<>>::type, tag<test::function<
 BOOST_MPL2_ASSERT((std::is_same<tag<test::incomplete<>>::type, tag<test::incomplete<>>>));
 BOOST_MPL2_ASSERT((std::is_same<tag<test::tagged<>>::type, test::tagged<>::tag>));
 BOOST_MPL2_ASSERT((std::is_same<tag<test::eponym<test::tag>>::type, test::tag<>>));
-
-int main()
-{
-    return 0;
-}

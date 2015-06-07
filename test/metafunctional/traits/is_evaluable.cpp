@@ -4,7 +4,8 @@
 
 #include <boost/mpl2/metafunctional/traits/is_evaluable.hpp>
 
-#include "test.hpp"
+#include "test/functions.hpp"
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 
@@ -61,8 +62,3 @@ BOOST_MPL2_ASSERT((is_evaluable<test::n_ary<test::evaluable>::call, void>));
 BOOST_MPL2_ASSERT((not_<is_evaluable<test::n_ary<test::incomplete>::call, void, void*>>));
 BOOST_MPL2_ASSERT((not_<is_evaluable<test::n_ary<test::empty>::call, void, void*>>));
 BOOST_MPL2_ASSERT((is_evaluable<test::n_ary<test::evaluable>::call, void, void*>));
-
-int main()
-{
-    return 0;
-}

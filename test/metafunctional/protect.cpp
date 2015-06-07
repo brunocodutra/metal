@@ -7,7 +7,7 @@
 #include <boost/mpl2/metafunctional/bind.hpp>
 #include <boost/mpl2/metafunctional/traits.hpp>
 
-#include "test.hpp"
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 
@@ -21,8 +21,3 @@ BOOST_MPL2_ASSERT((std::is_same<protect<bound>::call<>::type, void*>));
 
 BOOST_MPL2_ASSERT((std::is_same<bind<evaluator<std::add_pointer>, bound>::call<>::type, void**>));
 BOOST_MPL2_ASSERT((std::is_same<bind<evaluator<std::add_pointer>, protect<bound>>::call<>::type, protect<bound>*>));
-
-int main()
-{
-    return 0;
-}

@@ -8,7 +8,7 @@
 #include <boost/mpl2/metafunctional/traits/is_function.hpp>
 #include <boost/mpl2/metafunctional/traits/is_callable.hpp>
 
-#include "test.hpp"
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 
@@ -34,9 +34,3 @@ BOOST_MPL2_ASSERT((std::is_same<call_t<arg<1>, short, int, long, long long>, sho
 BOOST_MPL2_ASSERT((std::is_same<call_t<arg<2>, short, int, long, long long>, int>));
 BOOST_MPL2_ASSERT((std::is_same<call_t<arg<3>, short, int, long, long long>, long>));
 BOOST_MPL2_ASSERT((std::is_same<call_t<arg<4>, short, int, long, long long>, long long>));
-
-
-int main()
-{
-    return 0;
-}

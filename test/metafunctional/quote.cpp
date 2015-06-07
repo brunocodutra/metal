@@ -4,42 +4,18 @@
 
 #include <boost/mpl2/metafunctional/quote.hpp>
 
-#include "test.hpp"
+#include "test/expressions.hpp"
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 
-template<typename = void>
-struct expr0 :
-        test::wrap<>
-{};
+BOOST_MPL2_ASSERT((std::is_same<quote_t<test::nullexpr>, test::nullexpr<>>));
+BOOST_MPL2_ASSERT((std::is_same<quote_t<test::unexpr, void>, test::unexpr<void>>));
+BOOST_MPL2_ASSERT((std::is_same<quote_t<test::binexpr, void, void*>, test::binexpr<void, void*>>));
 
-template<typename x>
-struct expr1 :
-        test::wrap<x>
-{};
-
-template<typename x, typename y>
-struct expr2 :
-        test::wrap<x, y>
-{};
-
-template<typename... args>
-struct exprn :
-        test::wrap<args...>
-{};
-
-BOOST_MPL2_ASSERT((std::is_same<quote_t<expr0>, expr0<>>));
-BOOST_MPL2_ASSERT((std::is_same<quote_t<expr1, void>, expr1<void>>));
-BOOST_MPL2_ASSERT((std::is_same<quote_t<expr2, void, void*>, expr2<void, void*>>));
-
-BOOST_MPL2_ASSERT((std::is_same<quote_t<exprn>, exprn<>>));
-BOOST_MPL2_ASSERT((std::is_same<quote_t<exprn, short>, exprn<short>>));
-BOOST_MPL2_ASSERT((std::is_same<quote_t<exprn, short, int>, exprn<short, int>>));
-BOOST_MPL2_ASSERT((std::is_same<quote_t<exprn, short, int, long>, exprn<short, int, long>>));
-BOOST_MPL2_ASSERT((std::is_same<quote_t<exprn, short, int, long, long long>, exprn<short, int, long, long long>>));
-
-int main()
-{
-    return 0;
-}
+BOOST_MPL2_ASSERT((std::is_same<quote_t<test::n_expr>, test::n_expr<>>));
+BOOST_MPL2_ASSERT((std::is_same<quote_t<test::n_expr, short>, test::n_expr<short>>));
+BOOST_MPL2_ASSERT((std::is_same<quote_t<test::n_expr, short, int>, test::n_expr<short, int>>));
+BOOST_MPL2_ASSERT((std::is_same<quote_t<test::n_expr, short, int, long>, test::n_expr<short, int, long>>));
+BOOST_MPL2_ASSERT((std::is_same<quote_t<test::n_expr, short, int, long, long long>, test::n_expr<short, int, long, long long>>));
 

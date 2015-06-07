@@ -4,7 +4,8 @@
 
 #include <boost/mpl2/metafunctional/traits/is_applicable.hpp>
 
-#include "test.hpp"
+#include "test/functions.hpp"
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 
@@ -68,8 +69,3 @@ BOOST_MPL2_ASSERT((is_applicable<test::n_ary<test::evaluable>, void>));
 BOOST_MPL2_ASSERT((is_applicable<test::n_ary<test::incomplete>, void, void*>));
 BOOST_MPL2_ASSERT((is_applicable<test::n_ary<test::empty>, void, void*>));
 BOOST_MPL2_ASSERT((is_applicable<test::n_ary<test::evaluable>, void, void*>));
-
-int main()
-{
-    return 0;
-}

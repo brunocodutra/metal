@@ -72,10 +72,12 @@ endif()
 
 add_compile_flags_globally("${BOOST_MPL2_EXTRA_COMPILE_FLAGS}")
 
-file(GLOB_RECURSE BOOST_MPL2_TEST_HEADERS "*.hpp")
+set(BOOST_MPL2_TEST_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+file(GLOB_RECURSE BOOST_MPL2_TEST_HEADERS "${BOOST_MPL2_TEST_RESOURCES}/*.hpp")
 file(GLOB_RECURSE BOOST_MPL2_TEST_SOURCES "*.cpp")
 
-include_directories(${BOOST_MPL2_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/resources)
+include_directories(${BOOST_MPL2_INCLUDE_DIRS} ${BOOST_MPL2_TEST_RESOURCES})
 link_directories(${BOOST_MPL2_LIBRARY_DIRS})
 
 add_custom_target(mpl2.test)

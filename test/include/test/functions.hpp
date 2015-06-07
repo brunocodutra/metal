@@ -2,52 +2,27 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#include <boost/mpl2/core/assert.hpp>
-#include <boost/mpl2/core/logical.hpp>
-
-#include <type_traits>
+#ifndef BOOST_MPL2_TEST_FUNCTIONS_HPP
+#define BOOST_MPL2_TEST_FUNCTIONS_HPP
 
 namespace test
 {
-    template<typename...>
-    using fundamental = void;
+    template<typename...> struct incomplete;
 
-    template<typename...>
-    using function = void();
-
-    template<typename...>
-    struct incomplete;
-
-    template<typename...>
-    struct empty {};
-
-    template<typename...>
-    struct evaluable {struct type;};
-
-    template<typename...>
-    struct tagged{struct tag;};
-
-    template<typename...>
-    struct call {};
-
-    template<typename...>
-    struct tag {};
-
-    template<template<typename...> class base, typename... _>
-    struct eponym : base<_...> {};
-
-    template<typename... args>
-    struct wrap
+    template<template<typename...> class expr>
+    struct nullary
     {
-        using type = wrap<args...>;
+        template<typename = void>
+        struct call :
+                expr<>
+        {};
     };
 
-    struct wrapper
+    template<>
+    struct nullary<incomplete>
     {
-        template<typename... args>
-        struct call :
-                wrap<args...>
-        {};
+        template<typename>
+        struct call;
     };
 
     template<template<typename...> class expr>
@@ -98,3 +73,5 @@ namespace test
         struct call;
     };
 }
+
+#endif

@@ -4,7 +4,7 @@
 
 #include <boost/mpl2/sequences/list.hpp>
 
-#include "test.hpp"
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 
@@ -21,8 +21,3 @@ BOOST_MPL2_ASSERT((std::is_same<many::at<std::integral_constant<std::size_t, 0>>
 BOOST_MPL2_ASSERT_EXPR(empty::size::value == 0);
 BOOST_MPL2_ASSERT_EXPR(single::size::value == 1);
 BOOST_MPL2_ASSERT_EXPR(many::size::value == 5);
-
-int main()
-{
-    return 0;
-}

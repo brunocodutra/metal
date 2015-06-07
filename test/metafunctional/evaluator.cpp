@@ -5,15 +5,10 @@
 #include <boost/mpl2/metafunctional/evaluator.hpp>
 #include <boost/mpl2/metafunctional/traits.hpp>
 
-#include "test.hpp"
+#include "test/main.hpp"
 
 using namespace boost::mpl2;
 
 BOOST_MPL2_ASSERT((is_function<evaluator<std::add_pointer>>));
 BOOST_MPL2_ASSERT((is_callable<evaluator<std::add_pointer>, void>));
 BOOST_MPL2_ASSERT((std::is_same<evaluator<std::add_pointer>::call<void>::type, void*>));
-
-int main()
-{
-    return 0;
-}
