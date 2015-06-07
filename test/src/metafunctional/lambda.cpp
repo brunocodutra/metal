@@ -9,17 +9,25 @@
 #include <boost/mpl2/metafunctional/traits.hpp>
 
 #include "test/variadic.hpp"
+#include "test/types.hpp"
 #include "test/wrap.hpp"
 #include "test/main.hpp"
 
 using namespace boost::mpl2;
 using namespace boost::mpl2::placeholders;
 
-BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::fundamental<>>>, test::fundamental<>>));
-BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::function<>>>, test::function<>>));
-BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::incomplete<>>>, test::incomplete<>>));
-BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::empty<>>>, test::empty<>>));
-BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::eponym<test::call>>>, test::eponym<test::call>>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::a>>, test::a>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::b>>, test::b>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::c>>, test::c>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::d>>, test::d>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::e>>, test::e>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::f>>, test::f>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::g>>, test::g>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::h>>, test::h>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::i>>, test::i>));
+BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::j>>, test::j>));
+
+BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::call<>>>, test::call<>>));
 BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<test::evaluable<>>>, test::evaluable<>::type>));
 
 BOOST_MPL2_ASSERT((std::is_same<call_t<lambda<_1>, void>, void>));

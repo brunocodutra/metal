@@ -4,26 +4,32 @@
 
 #include <boost/mpl2/sequences/tag.hpp>
 
-#include "test/variadic.hpp"
+#include "test/types.hpp"
 #include "test/main.hpp"
 
 using namespace boost::mpl2;
 
 namespace test
 {
-    template<typename...>
     struct tagged
     {
         struct tag;
     };
 
-    template<typename...>
     struct tag
     {};
 }
 
-BOOST_MPL2_ASSERT((std::is_same<tag<test::fundamental<>>::type, tag<test::fundamental<>>>));
-BOOST_MPL2_ASSERT((std::is_same<tag<test::function<>>::type, tag<test::function<>>>));
-BOOST_MPL2_ASSERT((std::is_same<tag<test::incomplete<>>::type, tag<test::incomplete<>>>));
-BOOST_MPL2_ASSERT((std::is_same<tag<test::tagged<>>::type, test::tagged<>::tag>));
-BOOST_MPL2_ASSERT((std::is_same<tag<test::eponym<test::tag>>::type, test::tag<>>));
+BOOST_MPL2_ASSERT((std::is_same<tag<test::a>::type, tag<test::a>>));
+BOOST_MPL2_ASSERT((std::is_same<tag<test::b>::type, tag<test::b>>));
+BOOST_MPL2_ASSERT((std::is_same<tag<test::c>::type, tag<test::c>>));
+BOOST_MPL2_ASSERT((std::is_same<tag<test::d>::type, tag<test::d>>));
+BOOST_MPL2_ASSERT((std::is_same<tag<test::e>::type, tag<test::e>>));
+BOOST_MPL2_ASSERT((std::is_same<tag<test::f>::type, tag<test::f>>));
+BOOST_MPL2_ASSERT((std::is_same<tag<test::g>::type, tag<test::g>>));
+BOOST_MPL2_ASSERT((std::is_same<tag<test::h>::type, tag<test::h>>));
+BOOST_MPL2_ASSERT((std::is_same<tag<test::i>::type, tag<test::i>>));
+BOOST_MPL2_ASSERT((std::is_same<tag<test::j>::type, tag<test::j>>));
+
+BOOST_MPL2_ASSERT((std::is_same<tag<test::tagged>::type, test::tagged::tag>));
+BOOST_MPL2_ASSERT((std::is_same<tag<test::tag>::type, test::tag>));

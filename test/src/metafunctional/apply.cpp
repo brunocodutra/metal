@@ -6,6 +6,7 @@
 #include <boost/mpl2/metafunctional/placeholders.hpp>
 
 #include "test/variadic.hpp"
+#include "test/types.hpp"
 #include "test/expressions.hpp"
 #include "test/wrap.hpp"
 #include "test/main.hpp"
@@ -13,11 +14,18 @@
 using namespace boost::mpl2;
 using namespace boost::mpl2::placeholders;
 
-BOOST_MPL2_ASSERT((std::is_same<apply_t<test::fundamental<>>, test::fundamental<>>));
-BOOST_MPL2_ASSERT((std::is_same<apply_t<test::function<>>, test::function<>>));
-BOOST_MPL2_ASSERT((std::is_same<apply_t<test::incomplete<>>, test::incomplete<>>));
-BOOST_MPL2_ASSERT((std::is_same<apply_t<test::empty<>>, test::empty<>>));
-BOOST_MPL2_ASSERT((std::is_same<apply_t<test::eponym<test::call>>, test::eponym<test::call>>));
+BOOST_MPL2_ASSERT((std::is_same<apply_t<test::a>, test::a>));
+BOOST_MPL2_ASSERT((std::is_same<apply_t<test::b>, test::b>));
+BOOST_MPL2_ASSERT((std::is_same<apply_t<test::c>, test::c>));
+BOOST_MPL2_ASSERT((std::is_same<apply_t<test::d>, test::d>));
+BOOST_MPL2_ASSERT((std::is_same<apply_t<test::e>, test::e>));
+BOOST_MPL2_ASSERT((std::is_same<apply_t<test::f>, test::f>));
+BOOST_MPL2_ASSERT((std::is_same<apply_t<test::g>, test::g>));
+BOOST_MPL2_ASSERT((std::is_same<apply_t<test::h>, test::h>));
+BOOST_MPL2_ASSERT((std::is_same<apply_t<test::i>, test::i>));
+BOOST_MPL2_ASSERT((std::is_same<apply_t<test::j>, test::j>));
+
+BOOST_MPL2_ASSERT((std::is_same<apply_t<test::call<>>, test::call<>>));
 BOOST_MPL2_ASSERT((std::is_same<apply_t<test::evaluable<>>, test::evaluable<>::type>));
 
 BOOST_MPL2_ASSERT((std::is_same<apply_t<_1, void>, void>));

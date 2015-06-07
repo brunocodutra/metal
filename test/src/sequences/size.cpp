@@ -23,13 +23,12 @@ namespace test
         using size = void;
     };
 
-    template<typename...>
     struct size
     {};
 }
 
 BOOST_MPL2_ASSERT((is_evaluable<size, test::sized>));
-BOOST_MPL2_ASSERT((not_<is_evaluable<size, test::not_sized> >));
-BOOST_MPL2_ASSERT((not_<is_evaluable<size, test::eponym<test::size>>>));
+BOOST_MPL2_ASSERT((not_<is_evaluable<size, test::not_sized>>));
+BOOST_MPL2_ASSERT((not_<is_evaluable<size, test::size>>));
 
 BOOST_MPL2_ASSERT((equal_to<size<test::sized>, test::three>));

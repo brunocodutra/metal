@@ -5,10 +5,10 @@
 #ifndef BOOST_MPL2_TEST_FUNCTIONS_HPP
 #define BOOST_MPL2_TEST_FUNCTIONS_HPP
 
+#include "test/variadic.hpp"
+
 namespace test
 {
-    template<typename...> struct incomplete;
-
     template<template<typename...> class expr>
     struct nullary
     {
