@@ -3,7 +3,6 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/mpl2/core/logical.hpp>
-#include <boost/mpl2/core/comparison/equal_to.hpp>
 
 #include "test/main.hpp"
 

@@ -6,6 +6,7 @@
 #define BOOST_MPL2_SEQUENCES_DETAIL_LINK_HPP
 
 #include <boost/mpl2/core/arithmetic/inc.hpp>
+#include <boost/mpl2/sequences/size.hpp>
 #include <boost/mpl2/sequences/detail/ref.hpp>
 
 #include <type_traits>
@@ -29,7 +30,7 @@ namespace boost
             {
                 using type = link;
 
-                using size = inc<typename rest::size>;
+                using size = inc< ::boost::mpl2::size<rest>>;
 
                 static ref<value> item(ref<index>);
                 using rest::item;
