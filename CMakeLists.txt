@@ -14,8 +14,15 @@ file(GLOB_RECURSE BOOST_METAL_HEADERS ${BOOST_METAL_INCLUDE_DIR}/*.hpp)
 add_custom_target(metal SOURCES ${BOOST_METAL_HEADERS})
 install(FILES ${BOOST_METAL_HEADERS} DESTINATION include)
 
-option(BOOST_METAL_BUILD_TESTS "build test scripts" ON)
-if(BOOST_METAL_BUILD_TESTS)
+option(BOOST_METAL_BUILD_TEST "build test" ON)
+if(BOOST_METAL_BUILD_TEST)
     enable_testing()
     add_subdirectory(test)
 endif()
+
+option(BOOST_METAL_BUILD_DOC "build documentation" OFF)
+if(BOOST_METAL_BUILD_DOC)
+    add_subdirectory(doc)
+endif()
+
+
