@@ -1,12 +1,10 @@
 # Metal
 
-# {#Disclaimers}
-________________________________________________________________________________
+# Disclaimers {#disclaimers}
 
 This is **not** an official Boost library.
 
-# {#Introduction}
-________________________________________________________________________________
+# Introduction {#introduction}
 
 Metal is a fine selection of small, closely related template metaprogramming 
 C++ libraries. Header-only, Metal is lightweight and easy to deploy.
@@ -19,7 +17,7 @@ integrate seamlessly with standard [type traits].
 Metal is meant to be modern, user friendly, easy to maintain. As 
 such, dependencies are kept to a minimum, modern [C++11] features are explored 
 to their full potential, without, however, allowing its 
-[portability](#Portability) to be compromised. The three most popular freely 
+[portability](#portability) to be compromised. The three most popular freely 
 available compilers, Clang, GCC and Microsoft Visual Studio, are actively 
 supported through continuous integration.
 
@@ -31,14 +29,12 @@ it was not right to use Boost.MPL's respected name without explicit consent
 given by its authors, so thus became **Metal** - <b>Meta</b>programming 
 <b>Al</b>gorithms.
 
-# {#Motivation}
-________________________________________________________________________________
+# Motivation {#motivation}
 
 ...
 
 
-# {#Portability}
-________________________________________________________________________________
+# Portability {#portability}
 
 ...
 
@@ -48,11 +44,10 @@ ________________________________________________________________________________
 | Develop | ![travis.develop.badge] | ![appveyor.develop.badge] |
 
 
-# {#License}
-________________________________________________________________________________
+# License {#license}
 
-Metal is distributed under the [Boost Software License, Version 
-1.0][boost.license].
+Metal is distributed under the 
+[Boost Software License, Version 1.0][boost.license].
 
 [TOC]
 
