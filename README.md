@@ -17,7 +17,7 @@ integrate seamlessly with standard [type traits].
 Metal is meant to be modern, user friendly, easy to maintain. As 
 such, dependencies are kept to a minimum, modern [C++11] features are explored 
 to their full potential, without, however, allowing its 
-[portability](#portability) to be compromised. The three most popular freely 
+[portability](#Portability) to be compromised. The three most popular freely 
 available compilers, Clang, GCC and Microsoft Visual Studio, are actively 
 supported through continuous integration.
 
