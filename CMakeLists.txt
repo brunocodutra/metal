@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 2.8.3)
 
-project(Boost.Metal CXX)
+project(Metal CXX)
 
 set(BOOST_METAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(BOOST_METAL_INCLUDE_DIRS ${BOOST_METAL_INCLUDE_DIR})
