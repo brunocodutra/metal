@@ -19,36 +19,57 @@ namespace boost
         struct bind
         {
         private:
-            template<typename token, typename... args>
-            struct parse
+            template<typename...>
+            struct args
             {
-                using type = token;
+                using type = args;
             };
 
+            template<typename token, typename... args>
+            struct parse :
+                    bind::args<token>
+            {};
+
             template<typename arg, typename... args>
-            struct parse<protect<arg>, args...>
-            {
-                using type = arg;
-            };
+            struct parse<protect<arg>, args...> :
+                    bind::args<arg>
+            {};
+
+            template<typename... args>
+            struct parse<arg<0U>, args...> :
+                bind::args<args...>
+            {};
 
             template<std::size_t n, typename... args>
             struct parse<arg<n>, args...> :
-                    ::boost::metal::call<arg<n>, args...>
+                    bind::args<call_t<arg<n>, args...>>
             {};
 
             template<typename... _, typename... args>
             struct parse<bind<_...>, args...> :
-                    ::boost::metal::call<bind<_...>, args...>
+                    bind::args<call_t<bind<_...>, args...>>
             {};
+
+            template<typename token, typename... args>
+            using parse_t = typename parse<token, args...>::type;
 
         public:
             using type = bind;
 
             template<typename... args>
             struct call :
-                    ::boost::metal::call<
-                        typename parse<params, args...>::type...
-                    >
+                    call<parse_t<params, args...>...>
+            {};
+
+        private:
+            template<typename... xs, typename... ys, typename... tail>
+            struct call<args<xs...>, args<ys...>, tail...> :
+                    call<args<xs..., ys...>, tail...>
+            {};
+
+            template<typename... args>
+            struct call<bind::args<args...>> :
+                    ::boost::metal::call<args...>
             {};
         };
     }

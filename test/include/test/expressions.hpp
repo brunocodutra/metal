@@ -10,7 +10,10 @@
 namespace test
 {
     template<typename = void>
-    struct nullexpr :
+    struct nullexpr;
+
+    template<>
+    struct nullexpr<> :
             test::wrap<>
     {};
 

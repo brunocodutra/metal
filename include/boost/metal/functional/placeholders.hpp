@@ -13,6 +13,7 @@ namespace boost
     {
         namespace placeholders
         {
+            using _0 = arg<0U>;
             using _1 = arg<1U>;
             using _2 = arg<2U>;
             using _3 = arg<3U>;

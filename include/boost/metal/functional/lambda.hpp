@@ -63,6 +63,15 @@ namespace boost
                     ::boost::metal::call<parse_t<expr>, args...>
             {};
         };
+
+        template<>
+        struct lambda<arg<0>>
+        {
+            template<typename...>
+            struct call :
+                    identity<arg<0>>
+            {};
+        };
     }
 }
 

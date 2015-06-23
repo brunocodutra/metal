@@ -43,7 +43,10 @@ namespace boost
         };
 
         template<>
-        struct arg<0U>;
+        struct arg<0U>
+        {
+            using type = arg;
+        };
     }
 }
 
