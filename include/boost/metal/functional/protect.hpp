@@ -5,15 +5,29 @@
 #ifndef BOOST_METAL_FUNCTIONAL_PROTECT_HPP
 #define BOOST_METAL_FUNCTIONAL_PROTECT_HPP
 
-#include <boost/metal/functional/detail/function.hpp>
+#include <boost/metal/functional/traits/is_function.hpp>
+
+#include <type_traits>
 
 namespace boost
 {
     namespace metal
     {
-        template<typename function>
+        namespace detail
+        {
+            template<typename, typename = std::true_type>
+            struct protect
+            {};
+
+            template<typename function>
+            struct protect<function, is_function_t<function>> :
+                    function
+            {};
+        }
+
+        template<typename arg>
         struct protect :
-                detail::function<function>
+                detail::protect<arg>
         {
             using type = protect;
         };

@@ -35,14 +35,14 @@ namespace boost
                     bind<protect<arg<1>>, invariant>
             {};
 
+            template<typename invariant>
+            struct parse<protect<invariant>> :
+                    bind<protect<arg<1>>, protect<invariant>>
+            {};
+
             template<std::size_t n>
             struct parse<arg<n>> :
                     arg<n>
-            {};
-
-            template<typename function>
-            struct parse<protect<function>> :
-                    protect<function>
             {};
 
             template<template<typename...> class parametric, typename... args>

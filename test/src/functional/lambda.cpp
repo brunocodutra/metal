@@ -27,29 +27,47 @@ BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::h>>, test::h>));
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::i>>, test::i>));
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::j>>, test::j>));
 
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::a>>>, test::a>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::b>>>, test::b>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::c>>>, test::c>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::d>>>, test::d>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::e>>>, test::e>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::f>>>, test::f>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::g>>>, test::g>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::h>>>, test::h>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::i>>>, test::i>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::j>>>, test::j>));
+
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::call<>>>, test::call<>>));
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::evaluable<>>>, test::evaluable<>::type>));
 
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::call<>>>>, test::call<>>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::evaluable<>>>>, test::evaluable<>>));
+
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<_1>, void>, void>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<_1>>, void>, _1>));
+
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<std::add_pointer<_1>>, void>, void*>));
-BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<lambda<std::add_pointer<_1>>>>, void>, void*>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<lambda<std::add_pointer<_1>>>>, void>, lambda<std::add_pointer<_1>>>));
 
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::wrapper>, short, int, long, long long>, test::wrapper>));
-BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::wrapper>>, void>, test::wrap<void>>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::wrapper>>, void>, test::wrapper>));
 
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_1>>, short, int, long, long long>, test::wrap<short>>));
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_1, _2>>, short, int, long, long long>, test::wrap<short, int>>));
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_1, _2, _3>>, short, int, long, long long>, test::wrap<short, int, long>>));
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_1, _2, _3, _4>>, short, int, long, long long>, test::wrap<short, int, long, long long>>));
 
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::wrap<_1>>>, short, int, long, long long>, test::wrap<_1>>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::wrap<_1, _2>>>, short, int, long, long long>, test::wrap<_1, _2>>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::wrap<_1, _2, _3>>>, short, int, long, long long>, test::wrap<_1, _2, _3>>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<test::wrap<_1, _2, _3, _4>>>, short, int, long, long long>, test::wrap<_1, _2, _3, _4>>));
+
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<lambda<_1>>, void>, lambda<void>>));
-BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<lambda<_1>>>, void>, void>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<lambda<_1>>>, void>, lambda<_1>>));
 
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<lambda<_1>>, protect<_1>>, lambda<protect<_1>>>));
-BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<_1>>, lambda<_1>>, lambda<_1>>));
-
-BOOST_METAL_ASSERT((std::is_same<call_t<lambda<quoter<protect>>, _1>, quoter<protect>>));
-BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<quoter<protect>>>, _1>, protect<_1>>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<protect<lambda<_1>>>, protect<_1>>, lambda<_1>>));
 
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<call<lambda<std::add_pointer<_1>>, void>>, void*>, void**>));
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<call<_1, void>>, lambda<std::add_pointer<_1>>>, void*>));
@@ -71,7 +89,6 @@ using thrice = protect<lambda<call<once, _1, call<twice, _1, _2>>>>;
 BOOST_METAL_ASSERT((is_function<thrice>));
 BOOST_METAL_ASSERT((std::is_same<call_t<thrice, std::add_pointer<_1>, void>, void***>));
 
-using ptr2ptr2ptr = protect<lambda<call<thrice, protect<lambda<std::add_pointer<_1>>>, _1>>>;
+using ptr2ptr2ptr = protect<lambda<call<thrice, protect<std::add_pointer<_1>>, _1>>>;
 BOOST_METAL_ASSERT((is_function<ptr2ptr2ptr>));
 BOOST_METAL_ASSERT((std::is_same<call_t<ptr2ptr2ptr, void>, void***>));
-BOOST_METAL_ASSERT((std::is_same<call_t<lambda<ptr2ptr2ptr>, void>, void***>));

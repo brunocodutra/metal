@@ -6,6 +6,7 @@
 #define BOOST_METAL_FUNCTIONAL_BIND_HPP
 
 #include <boost/metal/functional/arg.hpp>
+#include <boost/metal/functional/protect.hpp>
 #include <boost/metal/functional/call.hpp>
 
 #include <cstddef>
@@ -22,6 +23,12 @@ namespace boost
             struct parse
             {
                 using type = token;
+            };
+
+            template<typename arg, typename... args>
+            struct parse<protect<arg>, args...>
+            {
+                using type = arg;
             };
 
             template<std::size_t n, typename... args>
