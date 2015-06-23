@@ -12,12 +12,8 @@ namespace boost
 {
     namespace metal
     {
-        template<typename...>
-        struct call
-        {};
-
         template<typename function, typename... args>
-        struct call<function, args...> :
+        struct call :
                 eval<detail::function<function>::template call, args...>
         {};
 

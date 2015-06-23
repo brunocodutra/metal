@@ -15,39 +15,39 @@ namespace boost
 {
     namespace metal
     {
-        template<typename... params>
+        template<typename function, typename... params>
         struct bind
         {
         private:
             template<typename...>
-            struct args
+            struct pack
             {
-                using type = args;
+                using type = pack;
             };
 
             template<typename token, typename... args>
             struct parse :
-                    bind::args<token>
+                    pack<token>
             {};
 
             template<typename arg, typename... args>
             struct parse<protect<arg>, args...> :
-                    bind::args<arg>
+                    pack<arg>
             {};
 
             template<typename... args>
             struct parse<arg<0U>, args...> :
-                bind::args<args...>
+                    pack<args...>
             {};
 
             template<std::size_t n, typename... args>
             struct parse<arg<n>, args...> :
-                    bind::args<call_t<arg<n>, args...>>
+                    pack<call_t<arg<n>, args...>>
             {};
 
             template<typename... _, typename... args>
             struct parse<bind<_...>, args...> :
-                    bind::args<call_t<bind<_...>, args...>>
+                    pack<call_t<bind<_...>, args...>>
             {};
 
             template<typename token, typename... args>
@@ -58,17 +58,16 @@ namespace boost
 
             template<typename... args>
             struct call :
-                    call<parse_t<params, args...>...>
+                    call<parse_t<function, args...>, parse_t<params, args...>...>
             {};
 
-        private:
             template<typename... xs, typename... ys, typename... tail>
-            struct call<args<xs...>, args<ys...>, tail...> :
-                    call<args<xs..., ys...>, tail...>
+            struct call<pack<xs...>, pack<ys...>, tail...> :
+                    call<pack<xs..., ys...>, tail...>
             {};
 
             template<typename... args>
-            struct call<bind::args<args...>> :
+            struct call<pack<args...>> :
                     ::boost::metal::call<args...>
             {};
         };
