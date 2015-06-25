@@ -48,9 +48,9 @@ namespace boost
                     detail::pack<call_t<arg<n>, args...>>
             {};
 
-            template<typename... _, typename... args>
-            struct parse<bind<_...>, args...> :
-                    detail::pack<call_t<bind<_...>, args...>>
+            template<typename f, typename... p, typename... args>
+            struct parse<bind<f, p...>, args...> :
+                    detail::pack<call_t<bind<f, p...>, args...>>
             {};
 
             template<typename token, typename... args>
