@@ -15,39 +15,42 @@ namespace boost
 {
     namespace metal
     {
-        template<typename function, typename... params>
-        struct bind
+        namespace detail
         {
-        private:
             template<typename...>
             struct pack
             {
                 using type = pack;
             };
+        }
 
+        template<typename function, typename... params>
+        struct bind
+        {
+        private:
             template<typename token, typename... args>
             struct parse :
-                    pack<token>
+                    detail::pack<token>
             {};
 
             template<typename arg, typename... args>
             struct parse<protect<arg>, args...> :
-                    pack<arg>
+                    detail::pack<arg>
             {};
 
             template<typename... args>
             struct parse<arg<0U>, args...> :
-                    pack<args...>
+                    detail::pack<args...>
             {};
 
             template<std::size_t n, typename... args>
             struct parse<arg<n>, args...> :
-                    pack<call_t<arg<n>, args...>>
+                    detail::pack<call_t<arg<n>, args...>>
             {};
 
             template<typename... _, typename... args>
             struct parse<bind<_...>, args...> :
-                    pack<call_t<bind<_...>, args...>>
+                    detail::pack<call_t<bind<_...>, args...>>
             {};
 
             template<typename token, typename... args>
@@ -62,12 +65,12 @@ namespace boost
             {};
 
             template<typename... xs, typename... ys, typename... tail>
-            struct call<pack<xs...>, pack<ys...>, tail...> :
-                    call<pack<xs..., ys...>, tail...>
+            struct call<detail::pack<xs...>, detail::pack<ys...>, tail...> :
+                    call<detail::pack<xs..., ys...>, tail...>
             {};
 
             template<typename... args>
-            struct call<pack<args...>> :
+            struct call<detail::pack<args...>> :
                     ::boost::metal::call<args...>
             {};
         };
