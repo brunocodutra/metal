@@ -7,12 +7,10 @@
 
 #include <boost/metal/algebra/if.hpp>
 #include <boost/metal/functional/arg.hpp>
-#include <boost/metal/functional/quoter.hpp>
 #include <boost/metal/functional/evaluator.hpp>
 #include <boost/metal/functional/protect.hpp>
 #include <boost/metal/functional/bind.hpp>
 #include <boost/metal/functional/call.hpp>
-#include <boost/metal/functional/traits/is_callable.hpp>
 
 #include <cstddef>
 
@@ -32,7 +30,7 @@ namespace boost
 
             template<typename invariant>
             struct parse :
-                    bind<protect<arg<1>>, invariant>
+                    parse<protect<invariant>>
             {};
 
             template<typename invariant>
@@ -47,12 +45,7 @@ namespace boost
 
             template<template<typename...> class parametric, typename... args>
             struct parse<parametric<args...>> :
-                    bind<
-                        evaluator<if_>,
-                        bind<evaluator<is_callable>, evaluator<parametric>, parse_t<args>...>,
-                        bind<quoter< ::boost::metal::call>, evaluator<parametric>, parse_t<args>...>,
-                        bind<quoter< ::boost::metal::call>, quoter<parametric>, parse_t<args>...>
-                    >
+                    bind<evaluator<parametric>, parse_t<args>...>
             {};
 
         public:
@@ -60,7 +53,7 @@ namespace boost
 
             template<typename... args>
             struct call :
-                    ::boost::metal::call<parse_t<expr>, args...>
+                    ::boost::metal::call<parse<expr>, args...>
             {};
         };
 
@@ -68,8 +61,7 @@ namespace boost
         struct lambda<arg<0>>
         {
             template<typename...>
-            struct call :
-                    identity<arg<0>>
+            struct call
             {};
         };
     }

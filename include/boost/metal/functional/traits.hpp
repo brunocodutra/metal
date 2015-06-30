@@ -8,6 +8,5 @@
 #include <boost/metal/functional/traits/is_callable.hpp>
 #include <boost/metal/functional/traits/is_evaluable.hpp>
 #include <boost/metal/functional/traits/is_function.hpp>
-#include <boost/metal/functional/traits/is_quotable.hpp>
 
 #endif
