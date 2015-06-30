@@ -5,7 +5,6 @@
 #ifndef BOOST_METAL_FUNCTIONAL_LAMBDA_HPP
 #define BOOST_METAL_FUNCTIONAL_LAMBDA_HPP
 
-#include <boost/metal/algebra/if.hpp>
 #include <boost/metal/functional/arg.hpp>
 #include <boost/metal/functional/quote.hpp>
 #include <boost/metal/functional/protect.hpp>
@@ -54,14 +53,6 @@ namespace boost
             template<typename... args>
             struct call :
                     ::boost::metal::call<parse<expr>, args...>
-            {};
-        };
-
-        template<>
-        struct lambda<arg<0>>
-        {
-            template<typename...>
-            struct call
             {};
         };
     }
