@@ -7,7 +7,7 @@
 
 #include <boost/metal/algebra/if.hpp>
 #include <boost/metal/functional/arg.hpp>
-#include <boost/metal/functional/evaluator.hpp>
+#include <boost/metal/functional/quote.hpp>
 #include <boost/metal/functional/protect.hpp>
 #include <boost/metal/functional/bind.hpp>
 #include <boost/metal/functional/call.hpp>
@@ -45,7 +45,7 @@ namespace boost
 
             template<template<typename...> class parametric, typename... args>
             struct parse<parametric<args...>> :
-                    bind<evaluator<parametric>, parse_t<args>...>
+                    bind<quote<parametric>, parse_t<args>...>
             {};
 
         public:
