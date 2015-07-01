@@ -5,27 +5,33 @@
 #ifndef BOOST_METAL_ALGEBRA_IF_HPP
 #define BOOST_METAL_ALGEBRA_IF_HPP
 
+#include <tuple>
 #include <type_traits>
 
 namespace boost
 {
     namespace metal
     {
-        template<typename cond, typename then, typename else_, typename... _>
+        template<typename pred, typename then, typename... else_>
         struct if_;
 
-        template<typename cond, typename then, typename elsecond, typename elsethen, typename else_, typename... _>
-        struct if_<cond, then, elsecond, elsethen, else_, _...> :
-                if_<cond, then, if_<elsecond, elsethen, else_, _...>>
+        template<typename pred1, typename then1, typename pred2, typename then2, typename... else_>
+        struct if_<pred1, then1, pred2, then2, else_...> :
+                if_<pred1, then1, if_<pred2, then2, else_...>>
         {};
 
-        template<typename cond, typename then, typename else_>
-        struct if_<cond, then, else_> :
-                std::conditional<!!cond::value, then, else_>::type
+        template<typename pred, typename then, typename else_>
+        struct if_<pred, then, else_> :
+                std::conditional<!!pred::value, then, else_>::type
         {};
 
-        template<typename cond, typename then, typename else_, typename... _>
-        using if_t = typename if_<cond, then, else_, _...>::type;
+        template<typename pred, typename then>
+        struct if_<pred, then> :
+                if_<pred, then, std::tuple<>>
+        {};
+
+        template<typename pred, typename then, typename... else_>
+        using if_t = typename if_<pred, then, else_...>::type;
     }
 }
 
