@@ -14,8 +14,9 @@
 
 using namespace boost::metal;
 
+BOOST_METAL_ASSERT((protect<std::true_type>));
+
 using bound = bind<quote<std::add_pointer>, placeholders::_1>;
-using lexpr = std::add_pointer<placeholders::_1>;
 
 BOOST_METAL_ASSERT((is_function<bound>));
 BOOST_METAL_ASSERT((is_function<protect<bound>>));
@@ -28,6 +29,8 @@ BOOST_METAL_ASSERT((std::is_same<call_t<protect<protect<bound>>, void>, void*>))
 BOOST_METAL_ASSERT((std::is_same<call_t<bind<quote<std::add_pointer>, bound>, void>, void**>));
 BOOST_METAL_ASSERT((std::is_same<call_t<bind<quote<std::add_pointer>, protect<bound>>, void>, bound*>));
 BOOST_METAL_ASSERT((std::is_same<call_t<bind<quote<std::add_pointer>, protect<protect<bound>>>, void>, protect<bound>*>));
+
+using lexpr = std::add_pointer<placeholders::_1>;
 
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<lexpr>, void>, void*>));
 BOOST_METAL_ASSERT((std::is_same<call_t<protect<lambda<lexpr>>, void>, void*>));
