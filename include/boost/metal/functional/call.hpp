@@ -6,33 +6,15 @@
 #define BOOST_METAL_FUNCTIONAL_CALL_HPP
 
 #include <boost/metal/functional/eval.hpp>
-#include <boost/metal/functional/traits/is_function.hpp>
-
-#include <type_traits>
+#include <boost/metal/functional/function.hpp>
 
 namespace boost
 {
     namespace metal
     {
-        namespace detail
-        {
-            template<typename func, typename = std::true_type>
-            struct function
-            {
-                template<typename...>
-                struct call
-                {};
-            };
-
-            template<typename func>
-            struct function<func, is_function_t<func>> :
-                    func
-            {};
-        }
-
-        template<typename function, typename... args>
+        template<typename func, typename... args>
         struct call :
-                eval<detail::function<function>::template call, args...>
+                eval<function<func>::template call, args...>
         {};
 
         template<typename... _>

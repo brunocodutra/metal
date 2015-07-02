@@ -7,7 +7,7 @@
 
 #include <boost/metal/functional/arg.hpp>
 #include <boost/metal/functional/quote.hpp>
-#include <boost/metal/functional/protect.hpp>
+#include <boost/metal/functional/verbatim.hpp>
 #include <boost/metal/functional/bind.hpp>
 #include <boost/metal/functional/call.hpp>
 
@@ -17,7 +17,7 @@ namespace boost
 {
     namespace metal
     {
-        template<typename expr>
+        template<typename lexpr>
         struct lambda
         {
         private:
@@ -27,14 +27,9 @@ namespace boost
             template<typename token>
             using parse_t = typename parse<token>::type;
 
-            template<typename invariant>
+            template<typename atom>
             struct parse :
-                    parse<protect<invariant>>
-            {};
-
-            template<typename invariant>
-            struct parse<protect<invariant>> :
-                    bind<protect<arg<1>>, protect<invariant>>
+                    bind<verbatim<arg<1>>, atom>
             {};
 
             template<std::size_t n>
@@ -42,9 +37,9 @@ namespace boost
                     arg<n>
             {};
 
-            template<template<typename...> class parametric, typename... args>
-            struct parse<parametric<args...>> :
-                    bind<quote<parametric>, parse_t<args>...>
+            template<template<typename...> class expr, typename... args>
+            struct parse<expr<args...>> :
+                    bind<quote<expr>, parse_t<args>...>
             {};
 
         public:
@@ -52,7 +47,7 @@ namespace boost
 
             template<typename... args>
             struct call :
-                    ::boost::metal::call<parse<expr>, args...>
+                    ::boost::metal::call<parse<lexpr>, args...>
             {};
         };
     }
