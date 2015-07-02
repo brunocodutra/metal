@@ -4,10 +4,31 @@
 
 #include <boost/metal/functional/eval.hpp>
 
+#include "test/functions.hpp"
 #include "test/expressions.hpp"
 #include "test/main.hpp"
 
 using namespace boost::metal;
+
+namespace test
+{
+    template<typename = void>
+    struct nullexpr;
+
+    template<>
+    struct nullexpr<> :
+            test::nullary<test::evaluable>::template call<>
+    {};
+
+    template<typename x>
+    using unexpr = typename test::unary<test::evaluable>::template call<x>;
+
+    template<typename x, typename y>
+    using binexpr = typename test::binary<test::evaluable>::template call<x, y>;
+
+    template<typename... args>
+    using n_expr = typename test::n_ary<test::evaluable>::template call<args...>;
+}
 
 BOOST_METAL_ASSERT((std::is_same<eval_t<test::nullexpr>, test::nullexpr<>::type>));
 BOOST_METAL_ASSERT((std::is_same<eval_t<test::unexpr, void>, test::unexpr<void>::type>));

@@ -5,7 +5,6 @@
 #include <boost/metal/algorithm/size.hpp>
 #include <boost/metal/functional/traits/is_evaluable.hpp>
 
-#include "test/variadic.hpp"
 #include "test/integrals.hpp"
 #include "test/main.hpp"
 

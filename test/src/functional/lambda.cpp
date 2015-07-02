@@ -9,7 +9,6 @@
 #include <boost/metal/functional/function.hpp>
 #include <boost/metal/functional/traits.hpp>
 
-#include "test/variadic.hpp"
 #include "test/types.hpp"
 #include "test/wrap.hpp"
 #include "test/main.hpp"
