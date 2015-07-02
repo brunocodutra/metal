@@ -8,6 +8,7 @@
 #include <boost/metal/functional/traits/is_function.hpp>
 #include <boost/metal/functional/traits/is_callable.hpp>
 
+#include "test/types.hpp"
 #include "test/main.hpp"
 
 using namespace boost::metal;
@@ -18,19 +19,19 @@ BOOST_METAL_ASSERT((is_function<arg<2>>));
 BOOST_METAL_ASSERT((is_function<arg<3>>));
 BOOST_METAL_ASSERT((is_function<arg<4>>));
 
-BOOST_METAL_ASSERT((not_<is_callable<arg<0>, short, int, long, long long>>));
-BOOST_METAL_ASSERT((is_callable<arg<1>, short, int, long, long long>));
-BOOST_METAL_ASSERT((is_callable<arg<2>, short, int, long, long long>));
-BOOST_METAL_ASSERT((is_callable<arg<3>, short, int, long, long long>));
-BOOST_METAL_ASSERT((is_callable<arg<4>, short, int, long, long long>));
+BOOST_METAL_ASSERT((not_<is_callable<arg<0>, test::a, test::b, test::c, test::d>>));
+BOOST_METAL_ASSERT((is_callable<arg<1>, test::a, test::b, test::c, test::d>));
+BOOST_METAL_ASSERT((is_callable<arg<2>, test::a, test::b, test::c, test::d>));
+BOOST_METAL_ASSERT((is_callable<arg<3>, test::a, test::b, test::c, test::d>));
+BOOST_METAL_ASSERT((is_callable<arg<4>, test::a, test::b, test::c, test::d>));
 
 BOOST_METAL_ASSERT((not_<is_callable<arg<0>>>));
 BOOST_METAL_ASSERT((not_<is_callable<arg<1>>>));
-BOOST_METAL_ASSERT((not_<is_callable<arg<2>, int>>));
-BOOST_METAL_ASSERT((not_<is_callable<arg<3>, int, long>>));
-BOOST_METAL_ASSERT((not_<is_callable<arg<4>, int, long, long long>>));
+BOOST_METAL_ASSERT((not_<is_callable<arg<2>, test::b>>));
+BOOST_METAL_ASSERT((not_<is_callable<arg<3>, test::b, test::c>>));
+BOOST_METAL_ASSERT((not_<is_callable<arg<4>, test::b, test::c, test::d>>));
 
-BOOST_METAL_ASSERT((std::is_same<call_t<arg<1>, short, int, long, long long>, short>));
-BOOST_METAL_ASSERT((std::is_same<call_t<arg<2>, short, int, long, long long>, int>));
-BOOST_METAL_ASSERT((std::is_same<call_t<arg<3>, short, int, long, long long>, long>));
-BOOST_METAL_ASSERT((std::is_same<call_t<arg<4>, short, int, long, long long>, long long>));
+BOOST_METAL_ASSERT((std::is_same<call_t<arg<1>, test::a, test::b, test::c, test::d>, test::a>));
+BOOST_METAL_ASSERT((std::is_same<call_t<arg<2>, test::a, test::b, test::c, test::d>, test::b>));
+BOOST_METAL_ASSERT((std::is_same<call_t<arg<3>, test::a, test::b, test::c, test::d>, test::c>));
+BOOST_METAL_ASSERT((std::is_same<call_t<arg<4>, test::a, test::b, test::c, test::d>, test::d>));

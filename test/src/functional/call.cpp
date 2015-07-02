@@ -4,6 +4,7 @@
 
 #include <boost/metal/functional/call.hpp>
 
+#include "test/types.hpp"
 #include "test/functions.hpp"
 #include "test/wrap.hpp"
 #include "test/main.hpp"
@@ -19,11 +20,11 @@ namespace test
 }
 
 BOOST_METAL_ASSERT((std::is_same<call_t<test::f0>, test::f0::call<>::type>));
-BOOST_METAL_ASSERT((std::is_same<call_t<test::f1, void>, test::f1::call<void>::type>));
-BOOST_METAL_ASSERT((std::is_same<call_t<test::f2, void, void*>, test::f2::call<void, void*>::type>));
+BOOST_METAL_ASSERT((std::is_same<call_t<test::f1, test::a>, test::f1::call<test::a>::type>));
+BOOST_METAL_ASSERT((std::is_same<call_t<test::f2, test::a, test::b>, test::f2::call<test::a, test::b>::type>));
 
 BOOST_METAL_ASSERT((std::is_same<call_t<test::fn>, test::fn::call<>::type>));
-BOOST_METAL_ASSERT((std::is_same<call_t<test::fn, short>, test::fn::call<short>::type>));
-BOOST_METAL_ASSERT((std::is_same<call_t<test::fn, short, int>, test::fn::call<short, int>::type>));
-BOOST_METAL_ASSERT((std::is_same<call_t<test::fn, short, int, long>, test::fn::call<short, int, long>::type>));
-BOOST_METAL_ASSERT((std::is_same<call_t<test::fn, short, int, long, long long>, test::fn::call<short, int, long, long long>::type>));
+BOOST_METAL_ASSERT((std::is_same<call_t<test::fn, test::a>, test::fn::call<test::a>::type>));
+BOOST_METAL_ASSERT((std::is_same<call_t<test::fn, test::a, test::b>, test::fn::call<test::a, test::b>::type>));
+BOOST_METAL_ASSERT((std::is_same<call_t<test::fn, test::a, test::b, test::c>, test::fn::call<test::a, test::b, test::c>::type>));
+BOOST_METAL_ASSERT((std::is_same<call_t<test::fn, test::a, test::b, test::c, test::d>, test::fn::call<test::a, test::b, test::c, test::d>::type>));
