@@ -84,22 +84,16 @@ BOOST_METAL_ASSERT((std::is_same<call_t<call_t<quote<function>, placeholders::_1
 
 using bound = bind<quote<std::add_pointer>, placeholders::_1>;
 
-BOOST_METAL_ASSERT((is_function<bound>));
-BOOST_METAL_ASSERT((is_function<function<bound>>));
-BOOST_METAL_ASSERT((is_function<function<function<bound>>>));
-
-BOOST_METAL_ASSERT((std::is_same<call_t<bound, void>, void*>));
 BOOST_METAL_ASSERT((std::is_same<call_t<function<bound>, void>, void*>));
 BOOST_METAL_ASSERT((std::is_same<call_t<function<function<bound>>, void>, void*>));
 
-BOOST_METAL_ASSERT((std::is_same<call_t<bind<quote<std::add_pointer>, bound>, void>, void**>));
 BOOST_METAL_ASSERT((std::is_same<call_t<bind<quote<std::add_pointer>, function<bound>>, void>, function<bound>*>));
 BOOST_METAL_ASSERT((std::is_same<call_t<bind<quote<std::add_pointer>, function<function<bound>>>, void>, function<function<bound>>*>));
 
 using lexpr = std::add_pointer<placeholders::_1>;
 
-BOOST_METAL_ASSERT((std::is_same<call_t<lambda<lexpr>, void>, void*>));
 BOOST_METAL_ASSERT((std::is_same<call_t<function<lambda<lexpr>>, void>, void*>));
+BOOST_METAL_ASSERT((std::is_same<call_t<function<function<lambda<lexpr>>>, void>, void*>));
 
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<function<lexpr>>, void>, function<lexpr>>));
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<function<function<lexpr>>>, void>, function<function<lexpr>>>));
