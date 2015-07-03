@@ -9,12 +9,12 @@
 #include <boost/metal/functional/lambda.hpp>
 #include <boost/metal/functional/call.hpp>
 
-#include "test/types.hpp"
 #include "test/main.hpp"
 
 using namespace boost::metal;
 
-BOOST_METAL_ASSERT((std::is_same<call_t<quote<verbatim>, test::a>, verbatim<test::a>>));
+BOOST_METAL_ASSERT((std::is_same<verbatim<void>::type, verbatim<void>>));
+BOOST_METAL_ASSERT((std::is_same<call_t<quote<verbatim>, void>, verbatim<void>>));
 
 BOOST_METAL_ASSERT((call_t<bind<verbatim<placeholders::_1>, verbatim<std::true_type>>>));
 BOOST_METAL_ASSERT((call_t<lambda<verbatim<std::true_type>>>));

@@ -17,6 +17,8 @@
 using namespace boost::metal;
 using namespace boost::metal::placeholders;
 
+BOOST_METAL_ASSERT((std::is_same<bind<test::wrapper>::type, bind<test::wrapper>>));
+
 BOOST_METAL_ASSERT((std::is_same<call_t<bind<test::wrapper>, void, void*>, test::wrap<>>));
 BOOST_METAL_ASSERT((std::is_same<call_t<bind<test::wrapper, _1>, test::a, test::b, test::c, test::d>, test::wrap<test::a>>));
 BOOST_METAL_ASSERT((std::is_same<call_t<bind<test::wrapper, _1, _2>, test::a, test::b, test::c, test::d>, test::wrap<test::a, test::b>>));

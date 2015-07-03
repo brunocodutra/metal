@@ -11,6 +11,7 @@
 #include <boost/metal/functional/traits/is_function.hpp>
 #include <boost/metal/functional/traits/is_callable.hpp>
 
+#include "test/wrap.hpp"
 #include "test/expressions.hpp"
 #include "test/functions.hpp"
 #include "test/types.hpp"
@@ -80,6 +81,7 @@ BOOST_METAL_ASSERT((not_<is_callable<test::n_ary<test::empty>>>));
 BOOST_METAL_ASSERT((is_callable<test::n_ary<test::evaluable>>));
 BOOST_METAL_ASSERT((not_<is_callable<test::n_ary<test::call>>>));
 
+BOOST_METAL_ASSERT((std::is_same<function<test::wrapper>::type, function<test::wrapper>>));
 BOOST_METAL_ASSERT((std::is_same<call_t<call_t<quote<function>, placeholders::_1>, test::a>, test::a>));
 
 using bound = bind<quote<std::add_pointer>, placeholders::_1>;

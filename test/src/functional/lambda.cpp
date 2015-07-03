@@ -16,6 +16,8 @@
 using namespace boost::metal;
 using namespace boost::metal::placeholders;
 
+BOOST_METAL_ASSERT((std::is_same<lambda<void>::type, lambda<void>>));
+
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::a>>, test::a>));
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::b>>, test::b>));
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::c>>, test::c>));
@@ -44,9 +46,9 @@ BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::evaluable<>>>, test::evalua
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::call<>>>>, test::call<>>));
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::evaluable<>>>>, test::evaluable<>>));
 
-BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::wrapper>, test::a>, test::wrapper>));
-BOOST_METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrapper>>, test::a>, test::wrapper>));
-BOOST_METAL_ASSERT((std::is_same<call_t<lambda<function<test::wrapper>>, test::a>, function<test::wrapper>>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<test::wrapper>, void>, test::wrapper>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrapper>>, void>, test::wrapper>));
+BOOST_METAL_ASSERT((std::is_same<call_t<lambda<function<test::wrapper>>, void>, function<test::wrapper>>));
 
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<lambda<std::add_pointer<_1>>>, void>, lambda<void*>>));
 BOOST_METAL_ASSERT((std::is_same<call_t<lambda<verbatim<lambda<std::add_pointer<_1>>>>, void>, lambda<std::add_pointer<_1>>>));

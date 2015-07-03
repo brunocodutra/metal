@@ -21,6 +21,11 @@ namespace test
     using q5 = quote<test::call>;
 }
 
+BOOST_METAL_ASSERT((std::is_same<test::q1::type, test::q1>));
+BOOST_METAL_ASSERT((std::is_same<test::q2::type, test::q2>));
+BOOST_METAL_ASSERT((std::is_same<test::q3::type, test::q3>));
+BOOST_METAL_ASSERT((std::is_same<test::q4::type, test::q4>));
+
 BOOST_METAL_ASSERT((is_function<test::q1>));
 BOOST_METAL_ASSERT((is_function<test::q2>));
 BOOST_METAL_ASSERT((is_function<test::q3>));
