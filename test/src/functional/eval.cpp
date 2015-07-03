@@ -4,17 +4,39 @@
 
 #include <boost/metal/functional/eval.hpp>
 
+#include "test/types.hpp"
+#include "test/functions.hpp"
 #include "test/expressions.hpp"
 #include "test/main.hpp"
 
 using namespace boost::metal;
 
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::nullexpr>, test::nullexpr<>::type>));
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::unexpr, void>, test::unexpr<void>::type>));
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::binexpr, void, void*>, test::binexpr<void, void*>::type>));
+namespace test
+{
+    template<typename = void>
+    struct e0;
 
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::n_expr>, test::n_expr<>::type>));
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::n_expr, short>, test::n_expr<short>::type>));
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::n_expr, short, int>, test::n_expr<short, int>::type>));
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::n_expr, short, int, long>, test::n_expr<short, int, long>::type>));
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::n_expr, short, int, long, long long>, test::n_expr<short, int, long, long long>::type>));
+    template<>
+    struct e0<> :
+            test::nullary<test::evaluable>::call<>
+    {};
+
+    template<typename x>
+    using e1 = typename test::unary<test::evaluable>::call<x>;
+
+    template<typename x, typename y>
+    using e2 = typename test::binary<test::evaluable>::call<x, y>;
+
+    template<typename... args>
+    using en = typename test::n_ary<test::evaluable>::call<args...>;
+}
+
+BOOST_METAL_ASSERT((std::is_same<eval_t<test::e0>, test::e0<>::type>));
+BOOST_METAL_ASSERT((std::is_same<eval_t<test::e1, test::a>, test::e1<test::a>::type>));
+BOOST_METAL_ASSERT((std::is_same<eval_t<test::e2, test::a, test::b>, test::e2<test::a, test::b>::type>));
+
+BOOST_METAL_ASSERT((std::is_same<eval_t<test::en>, test::en<>::type>));
+BOOST_METAL_ASSERT((std::is_same<eval_t<test::en, test::a>, test::en<test::a>::type>));
+BOOST_METAL_ASSERT((std::is_same<eval_t<test::en, test::a, test::b>, test::en<test::a, test::b>::type>));
+BOOST_METAL_ASSERT((std::is_same<eval_t<test::en, test::a, test::b, test::c>, test::en<test::a, test::b, test::c>::type>));
+BOOST_METAL_ASSERT((std::is_same<eval_t<test::en, test::a, test::b, test::c, test::d>, test::en<test::a, test::b, test::c, test::d>::type>));

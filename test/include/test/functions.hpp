@@ -5,7 +5,7 @@
 #ifndef BOOST_METAL_TEST_FUNCTIONS_HPP
 #define BOOST_METAL_TEST_FUNCTIONS_HPP
 
-#include "test/variadic.hpp"
+#include "test/expressions.hpp"
 
 namespace test
 {

@@ -60,8 +60,8 @@ Metal is distributed under the
 [travis.develop.badge]:     https://travis-ci.org/brunocodutra/metal.svg?branch=develop
 
 [Appveyor]:                 https://ci.appveyor.com/project/brunocodutra/metal
-[appveyor.master.badge]:    https://ci.appveyor.com/api/projects/status/vvu3y6afl74tlbyi/branch/master?svg=true
-[appveyor.develop.badge]:   https://ci.appveyor.com/api/projects/status/vvu3y6afl74tlbyi/branch/develop?svg=true
+[appveyor.master.badge]:    https://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/master?svg=true
+[appveyor.develop.badge]:   https://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/develop?svg=true
 
 [boost.license]:            http://boost.org/LICENSE_1_0.txt
 [boost.mpl]:                http://www.boost.org/doc/libs/1_58_0/libs/mpl/doc/

@@ -5,37 +5,22 @@
 #ifndef BOOST_METAL_FUNCTIONAL_QUOTE_HPP
 #define BOOST_METAL_FUNCTIONAL_QUOTE_HPP
 
-#include <boost/metal/core/identity.hpp>
+#include <boost/metal/functional/eval.hpp>
 
 namespace boost
 {
     namespace metal
     {
-        namespace detail
+        template<template<typename...> class expr>
+        struct quote
         {
-            template<template<typename...> class expr, typename... args>
-            struct quote
-            {
-            private:
-                struct empty {};
+            using type = quote;
 
-                template<template<typename...> class>
-                static empty impl(...);
-                template<template<typename...> class e>
-                static identity<e<args...>> impl(int);
-
-            public:
-                using type = decltype(impl<expr>(0));
-            };
-        }
-
-        template<template<typename...> class expr, typename... args>
-        struct quote :
-                detail::quote<expr, args...>::type
-        {};
-
-        template<template<typename...> class expr, typename... args>
-        using quote_t = typename quote<expr, args...>::type;
+            template<typename... args>
+            struct call :
+                    eval<expr, args...>
+            {};
+        };
     }
 }
 

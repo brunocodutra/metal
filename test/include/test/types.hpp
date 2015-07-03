@@ -7,16 +7,16 @@
 
 namespace test
 {
-    using a = void;
-    using b = char[];
-    using c = b*(b);
-    using d = c*(c);
-    using e = d*(d);
-    using f = e*(e);
-    using g = f*(f);
-    using h = a(b, c, d, e, f, g);
-    struct i {};
-    struct j;
+    struct a;
+    using b = void;
+    using c = b(a);
+    using d = c* const;
+    using e = c* volatile;
+    using f = d volatile;
+    using g = f[1];
+    using h = g[];
+    using i = h&&;
+    using j = i&;
 }
 
 #endif

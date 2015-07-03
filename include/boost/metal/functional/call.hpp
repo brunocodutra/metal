@@ -6,19 +6,15 @@
 #define BOOST_METAL_FUNCTIONAL_CALL_HPP
 
 #include <boost/metal/functional/eval.hpp>
-#include <boost/metal/functional/detail/function.hpp>
+#include <boost/metal/functional/function.hpp>
 
 namespace boost
 {
     namespace metal
     {
-        template<typename...>
-        struct call
-        {};
-
-        template<typename function, typename... args>
-        struct call<function, args...> :
-                eval<detail::function<function>::template call, args...>
+        template<typename func, typename... args>
+        struct call :
+                eval<function<func>::template call, args...>
         {};
 
         template<typename... _>

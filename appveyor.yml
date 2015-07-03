@@ -14,14 +14,17 @@ environment:
       CONFIG: Release
 
 before_build:
-    - git submodule update --init --recursive
     - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 
+    - git submodule update --init --recursive
+
+
 build_script:
-    - cmd: mkdir build
-    - cmd: cd build
-    - cmd: cmake .. -G"%GENERATOR%"
-    - cmd: cmake --build . --config %CONFIG% --target metal
+    - cmd: mkdir "%APPVEYOR_BUILD_FOLDER%\build"
+    - cmd: cd "%APPVEYOR_BUILD_FOLDER%\build"
+
+    - cmd: cmake -DBOOST_METAL_ENABLE_WARNINGS=OFF -G"%GENERATOR%" "%APPVEYOR_BUILD_FOLDER%"
+    - cmd: cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --config %CONFIG% --target metal
 
 test_script:
     - cmd: ctest --output-on-failure

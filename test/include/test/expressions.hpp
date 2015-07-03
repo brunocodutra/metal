@@ -5,29 +5,22 @@
 #ifndef BOOST_METAL_TEST_EXPRESSIONS_HPP
 #define BOOST_METAL_TEST_EXPRESSIONS_HPP
 
-#include "test/wrap.hpp"
-
 namespace test
 {
-    template<typename = void>
-    struct nullexpr :
-            test::wrap<>
-    {};
+    template<typename...>
+    using fundamental = char(&(void))[];
 
-    template<typename x>
-    struct unexpr :
-            test::wrap<x>
-    {};
+    template<typename...>
+    struct incomplete;
 
-    template<typename x, typename y>
-    struct binexpr :
-            test::wrap<x, y>
-    {};
+    template<typename...>
+    struct empty {};
 
-    template<typename... args>
-    struct n_expr :
-            test::wrap<args...>
-    {};
+    template<typename...>
+    struct evaluable {struct type;};
+
+    template<typename...>
+    struct call {};
 }
 
 #endif

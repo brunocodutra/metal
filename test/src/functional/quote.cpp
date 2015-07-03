@@ -3,19 +3,39 @@
 /// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/metal/functional/quote.hpp>
+#include <boost/metal/functional/call.hpp>
+#include <boost/metal/functional/traits/is_function.hpp>
+#include <boost/metal/functional/traits/is_callable.hpp>
 
 #include "test/expressions.hpp"
 #include "test/main.hpp"
 
 using namespace boost::metal;
 
-BOOST_METAL_ASSERT((std::is_same<quote_t<test::nullexpr>, test::nullexpr<>>));
-BOOST_METAL_ASSERT((std::is_same<quote_t<test::unexpr, void>, test::unexpr<void>>));
-BOOST_METAL_ASSERT((std::is_same<quote_t<test::binexpr, void, void*>, test::binexpr<void, void*>>));
+namespace test
+{
+    using q1 = quote<test::fundamental>;
+    using q2 = quote<test::incomplete>;
+    using q3 = quote<test::empty>;
+    using q4 = quote<test::evaluable>;
+    using q5 = quote<test::call>;
+}
 
-BOOST_METAL_ASSERT((std::is_same<quote_t<test::n_expr>, test::n_expr<>>));
-BOOST_METAL_ASSERT((std::is_same<quote_t<test::n_expr, short>, test::n_expr<short>>));
-BOOST_METAL_ASSERT((std::is_same<quote_t<test::n_expr, short, int>, test::n_expr<short, int>>));
-BOOST_METAL_ASSERT((std::is_same<quote_t<test::n_expr, short, int, long>, test::n_expr<short, int, long>>));
-BOOST_METAL_ASSERT((std::is_same<quote_t<test::n_expr, short, int, long, long long>, test::n_expr<short, int, long, long long>>));
+BOOST_METAL_ASSERT((std::is_same<test::q1::type, test::q1>));
+BOOST_METAL_ASSERT((std::is_same<test::q2::type, test::q2>));
+BOOST_METAL_ASSERT((std::is_same<test::q3::type, test::q3>));
+BOOST_METAL_ASSERT((std::is_same<test::q4::type, test::q4>));
 
+BOOST_METAL_ASSERT((is_function<test::q1>));
+BOOST_METAL_ASSERT((is_function<test::q2>));
+BOOST_METAL_ASSERT((is_function<test::q3>));
+BOOST_METAL_ASSERT((is_function<test::q4>));
+BOOST_METAL_ASSERT((is_function<test::q5>));
+
+BOOST_METAL_ASSERT((not_<is_callable<test::q1>>));
+BOOST_METAL_ASSERT((not_<is_callable<test::q2>>));
+BOOST_METAL_ASSERT((not_<is_callable<test::q3>>));
+BOOST_METAL_ASSERT((is_callable<test::q4>));
+BOOST_METAL_ASSERT((not_<is_callable<test::q5>>));
+
+BOOST_METAL_ASSERT((std::is_same<call_t<test::q4>, test::q4::call<>::type>));
