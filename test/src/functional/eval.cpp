@@ -18,17 +18,17 @@ namespace test
 
     template<>
     struct e0<> :
-            test::nullary<test::evaluable>::template call<>
+            test::nullary<test::evaluable>::call<>
     {};
 
     template<typename x>
-    using e1 = typename test::unary<test::evaluable>::template call<x>;
+    using e1 = typename test::unary<test::evaluable>::call<x>;
 
     template<typename x, typename y>
-    using e2 = typename test::binary<test::evaluable>::template call<x, y>;
+    using e2 = typename test::binary<test::evaluable>::call<x, y>;
 
     template<typename... args>
-    using en = typename test::n_ary<test::evaluable>::template call<args...>;
+    using en = typename test::n_ary<test::evaluable>::call<args...>;
 }
 
 BOOST_METAL_ASSERT((std::is_same<eval_t<test::e0>, test::e0<>::type>));
