@@ -124,3 +124,34 @@ BOOST_METAL_ASSERT((std::is_same<call_t<thrice, std::add_pointer<_1>, void>, voi
 using ptr2ptr2ptr = function<lambda<call<thrice, verbatim<std::add_pointer<_1>>, _1>>>;
 BOOST_METAL_ASSERT((is_function<ptr2ptr2ptr>));
 BOOST_METAL_ASSERT((std::is_same<call_t<ptr2ptr2ptr, void>, void***>));
+
+#include <boost/metal/core/identity.hpp>
+
+using church_true = function<lambda<lambda<identity<_1>>>>;
+using church_false = function<lambda<lambda<verbatim<_1>>>>;
+
+using church_not = function<lambda<call<call<_1, church_false>, church_true>>>;
+
+BOOST_METAL_ASSERT((std::is_same<call_t<church_not, church_true>, church_false>));
+BOOST_METAL_ASSERT((std::is_same<call_t<church_not, church_false>, church_true>));
+
+using church_and = function<lambda<bind<bind<_1, verbatim<_1>>, _1>>>;
+
+BOOST_METAL_ASSERT((std::is_same<call_t<call_t<church_and, church_true>, church_true>, church_true>));
+BOOST_METAL_ASSERT((std::is_same<call_t<call_t<church_and, church_true>, church_false>, church_false>));
+BOOST_METAL_ASSERT((std::is_same<call_t<call_t<church_and, church_false>, church_true>, church_false>));
+BOOST_METAL_ASSERT((std::is_same<call_t<call_t<church_and, church_false>, church_false>, church_false>));
+
+using church_or = function<lambda<bind<bind<_1, _1>, verbatim<_1>>>>;
+
+BOOST_METAL_ASSERT((std::is_same<call_t<call_t<church_or, church_true>, church_true>, church_true>));
+BOOST_METAL_ASSERT((std::is_same<call_t<call_t<church_or, church_true>, church_false>, church_true>));
+BOOST_METAL_ASSERT((std::is_same<call_t<call_t<church_or, church_false>, church_true>, church_true>));
+BOOST_METAL_ASSERT((std::is_same<call_t<call_t<church_or, church_false>, church_false>, church_false>));
+
+using church_xor = function<lambda<bind<bind<_1, verbatim<call<church_not, _1>>>, verbatim<_1>>>>;
+
+BOOST_METAL_ASSERT((std::is_same<call_t<call_t<church_xor, church_true>, church_true>, church_false>));
+BOOST_METAL_ASSERT((std::is_same<call_t<call_t<church_xor, church_true>, church_false>, church_true>));
+BOOST_METAL_ASSERT((std::is_same<call_t<call_t<church_xor, church_false>, church_true>, church_true>));
+BOOST_METAL_ASSERT((std::is_same<call_t<call_t<church_xor, church_false>, church_false>, church_false>));
