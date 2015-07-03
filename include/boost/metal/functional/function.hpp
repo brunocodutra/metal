@@ -18,6 +18,8 @@ namespace boost
             template<typename, typename = std::true_type, int = 0>
             struct function
             {
+                using type = function;
+
                 template<typename...>
                 struct call
                 {};
@@ -26,7 +28,9 @@ namespace boost
             template<typename func>
             struct function<func, is_function_t<func>, 0> :
                     func
-            {};
+            {
+                using type = function;
+            };
         }
 
         template<typename func>
