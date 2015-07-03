@@ -25,6 +25,6 @@ Please refer to LICENSE.txt.
 
 [appveyor]:                 https://ci.appveyor.com/project/brunocodutra/metal
 [appveyor.master]:          https://ci.appveyor.com/project/brunocodutra/metal/branch/master
-[appveyor.master.badge]:    https://ci.appveyor.com/api/projects/status/vvu3y6afl74tlbyi/branch/master?svg=true
+[appveyor.master.badge]:    https://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/master?svg=true
 [appveyor.develop]:         https://ci.appveyor.com/project/brunocodutra/metal/branch/develop
-[appveyor.develop.badge]:   https://ci.appveyor.com/api/projects/status/vvu3y6afl74tlbyi/branch/develop?svg=true
+[appveyor.develop.badge]:   https://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/develop?svg=true
