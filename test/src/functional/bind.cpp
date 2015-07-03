@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/metal/functional/bind.hpp>
-#include <boost/metal/functional/placeholders.hpp>
+#include <boost/metal/functional/arg.hpp>
 #include <boost/metal/functional/verbatim.hpp>
 #include <boost/metal/functional/function.hpp>
 #include <boost/metal/functional/quote.hpp>

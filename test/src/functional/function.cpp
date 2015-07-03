@@ -4,10 +4,10 @@
 
 #include <boost/metal/functional/function.hpp>
 #include <boost/metal/functional/quote.hpp>
+#include <boost/metal/functional/arg.hpp>
 #include <boost/metal/functional/bind.hpp>
 #include <boost/metal/functional/lambda.hpp>
 #include <boost/metal/functional/call.hpp>
-#include <boost/metal/functional/placeholders.hpp>
 #include <boost/metal/functional/traits/is_function.hpp>
 #include <boost/metal/functional/traits/is_callable.hpp>
 

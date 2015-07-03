@@ -47,6 +47,20 @@ namespace boost
         {
             using type = arg;
         };
+
+        namespace placeholders
+        {
+            using _0 = arg<0U>;
+            using _1 = arg<1U>;
+            using _2 = arg<2U>;
+            using _3 = arg<3U>;
+            using _4 = arg<4U>;
+            using _5 = arg<5U>;
+            using _6 = arg<6U>;
+            using _7 = arg<7U>;
+            using _8 = arg<8U>;
+            using _9 = arg<9U>;
+        }
     }
 }
 

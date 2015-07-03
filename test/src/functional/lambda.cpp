@@ -3,10 +3,10 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <boost/metal/functional/lambda.hpp>
-#include <boost/metal/functional/placeholders.hpp>
-#include <boost/metal/functional/call.hpp>
+#include <boost/metal/functional/arg.hpp>
 #include <boost/metal/functional/verbatim.hpp>
 #include <boost/metal/functional/function.hpp>
+#include <boost/metal/functional/call.hpp>
 #include <boost/metal/functional/traits.hpp>
 
 #include "test/types.hpp"
