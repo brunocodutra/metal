@@ -1,4 +1,10 @@
-# Introduction {#mainpage}
+# Overview {#mainpage}
+
+[TOC]
+
+# Introduction {#intro}
+
+--------------------------------------------------------------------------------
 
 Metal is a fine selection of small, closely related C++11 template
 metaprogramming libraries developed by [Bruno Dutra][brunocodutra].
@@ -22,15 +28,7 @@ soon it became clear that it was slightly more than just a remake,
 so thus became **Metal** - <b>Meta</b>programming
 <b>Al</b>gorithms.
 
-## License
-
---------------------------------------------------------------------------------
-
-Metal is distributed under the
-[Boost Software License, Version 1.0][boost.license].
-
 [brunocodutra]:     https://github.com/brunocodutra
 [C++11]:            http://en.wikipedia.org/wiki/C%2B%2B11
 [type traits]:      http://en.cppreference.com/w/cpp/header/type_traits
-[boost.license]:    http://boost.org/LICENSE_1_0.txt
 [Boost.MPL]:        http://www.boost.org/doc/libs/1_58_0/libs/mpl/doc/
