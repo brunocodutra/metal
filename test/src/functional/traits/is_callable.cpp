@@ -2,88 +2,88 @@
 /// Distributed under the Boost Software License, Version 1.0.
 /// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#include <boost/metal/functional/traits/is_callable.hpp>
+#include <metal/functional/traits/is_callable.hpp>
 
 #include "test/types.hpp"
 #include "test/functions.hpp"
 #include "test/main.hpp"
 
-using namespace boost::metal;
+using namespace metal;
 
-BOOST_METAL_ASSERT((not_<is_callable<test::a>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::b>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::c>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::d>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::e>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::f>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::g>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::h>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::i>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::j>>));
+METAL_ASSERT((not_<is_callable<test::a>>));
+METAL_ASSERT((not_<is_callable<test::b>>));
+METAL_ASSERT((not_<is_callable<test::c>>));
+METAL_ASSERT((not_<is_callable<test::d>>));
+METAL_ASSERT((not_<is_callable<test::e>>));
+METAL_ASSERT((not_<is_callable<test::f>>));
+METAL_ASSERT((not_<is_callable<test::g>>));
+METAL_ASSERT((not_<is_callable<test::h>>));
+METAL_ASSERT((not_<is_callable<test::i>>));
+METAL_ASSERT((not_<is_callable<test::j>>));
 
-BOOST_METAL_ASSERT((not_<is_callable<test::a, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::b, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::c, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::d, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::e, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::f, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::g, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::h, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::i, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::j, void>>));
+METAL_ASSERT((not_<is_callable<test::a, void>>));
+METAL_ASSERT((not_<is_callable<test::b, void>>));
+METAL_ASSERT((not_<is_callable<test::c, void>>));
+METAL_ASSERT((not_<is_callable<test::d, void>>));
+METAL_ASSERT((not_<is_callable<test::e, void>>));
+METAL_ASSERT((not_<is_callable<test::f, void>>));
+METAL_ASSERT((not_<is_callable<test::g, void>>));
+METAL_ASSERT((not_<is_callable<test::h, void>>));
+METAL_ASSERT((not_<is_callable<test::i, void>>));
+METAL_ASSERT((not_<is_callable<test::j, void>>));
 
-BOOST_METAL_ASSERT((not_<is_callable<test::a, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::b, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::c, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::d, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::e, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::f, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::g, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::h, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::i, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::j, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::a, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::b, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::c, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::d, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::e, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::f, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::g, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::h, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::i, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::j, void, void*>>));
 
-BOOST_METAL_ASSERT((not_<is_callable<test::unary<test::incomplete>>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::unary<test::empty>>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::unary<test::evaluable>>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::unary<test::call>>>));
+METAL_ASSERT((not_<is_callable<test::unary<test::incomplete>>>));
+METAL_ASSERT((not_<is_callable<test::unary<test::empty>>>));
+METAL_ASSERT((not_<is_callable<test::unary<test::evaluable>>>));
+METAL_ASSERT((not_<is_callable<test::unary<test::call>>>));
 
-BOOST_METAL_ASSERT((not_<is_callable<test::unary<test::incomplete>, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::unary<test::empty>, void>>));
-BOOST_METAL_ASSERT((is_callable<test::unary<test::evaluable>, void>));
-BOOST_METAL_ASSERT((not_<is_callable<test::unary<test::call>, void>>));
+METAL_ASSERT((not_<is_callable<test::unary<test::incomplete>, void>>));
+METAL_ASSERT((not_<is_callable<test::unary<test::empty>, void>>));
+METAL_ASSERT((is_callable<test::unary<test::evaluable>, void>));
+METAL_ASSERT((not_<is_callable<test::unary<test::call>, void>>));
 
-BOOST_METAL_ASSERT((not_<is_callable<test::unary<test::incomplete>, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::unary<test::empty>, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::unary<test::evaluable>, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::unary<test::call>, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::unary<test::incomplete>, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::unary<test::empty>, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::unary<test::evaluable>, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::unary<test::call>, void, void*>>));
 
-BOOST_METAL_ASSERT((not_<is_callable<test::binary<test::incomplete>>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::binary<test::empty>>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::binary<test::evaluable>>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::binary<test::call>>>));
+METAL_ASSERT((not_<is_callable<test::binary<test::incomplete>>>));
+METAL_ASSERT((not_<is_callable<test::binary<test::empty>>>));
+METAL_ASSERT((not_<is_callable<test::binary<test::evaluable>>>));
+METAL_ASSERT((not_<is_callable<test::binary<test::call>>>));
 
-BOOST_METAL_ASSERT((not_<is_callable<test::binary<test::incomplete>, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::binary<test::empty>, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::binary<test::evaluable>, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::binary<test::call>, void>>));
+METAL_ASSERT((not_<is_callable<test::binary<test::incomplete>, void>>));
+METAL_ASSERT((not_<is_callable<test::binary<test::empty>, void>>));
+METAL_ASSERT((not_<is_callable<test::binary<test::evaluable>, void>>));
+METAL_ASSERT((not_<is_callable<test::binary<test::call>, void>>));
 
-BOOST_METAL_ASSERT((not_<is_callable<test::binary<test::incomplete>, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::binary<test::empty>, void, void*>>));
-BOOST_METAL_ASSERT((is_callable<test::binary<test::evaluable>, void, void*>));
-BOOST_METAL_ASSERT((not_<is_callable<test::binary<test::call>, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::binary<test::incomplete>, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::binary<test::empty>, void, void*>>));
+METAL_ASSERT((is_callable<test::binary<test::evaluable>, void, void*>));
+METAL_ASSERT((not_<is_callable<test::binary<test::call>, void, void*>>));
 
-BOOST_METAL_ASSERT((not_<is_callable<test::n_ary<test::incomplete>>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::n_ary<test::empty>>>));
-BOOST_METAL_ASSERT((is_callable<test::n_ary<test::evaluable>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::n_ary<test::call>>>));
+METAL_ASSERT((not_<is_callable<test::n_ary<test::incomplete>>>));
+METAL_ASSERT((not_<is_callable<test::n_ary<test::empty>>>));
+METAL_ASSERT((is_callable<test::n_ary<test::evaluable>>));
+METAL_ASSERT((not_<is_callable<test::n_ary<test::call>>>));
 
-BOOST_METAL_ASSERT((not_<is_callable<test::n_ary<test::incomplete>, void>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::n_ary<test::empty>, void>>));
-BOOST_METAL_ASSERT((is_callable<test::n_ary<test::evaluable>, void>));
-BOOST_METAL_ASSERT((not_<is_callable<test::n_ary<test::call>, void>>));
+METAL_ASSERT((not_<is_callable<test::n_ary<test::incomplete>, void>>));
+METAL_ASSERT((not_<is_callable<test::n_ary<test::empty>, void>>));
+METAL_ASSERT((is_callable<test::n_ary<test::evaluable>, void>));
+METAL_ASSERT((not_<is_callable<test::n_ary<test::call>, void>>));
 
-BOOST_METAL_ASSERT((not_<is_callable<test::n_ary<test::incomplete>, void, void*>>));
-BOOST_METAL_ASSERT((not_<is_callable<test::n_ary<test::empty>, void, void*>>));
-BOOST_METAL_ASSERT((is_callable<test::n_ary<test::evaluable>, void, void*>));
-BOOST_METAL_ASSERT((not_<is_callable<test::n_ary<test::call>, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::n_ary<test::incomplete>, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::n_ary<test::empty>, void, void*>>));
+METAL_ASSERT((is_callable<test::n_ary<test::evaluable>, void, void*>));
+METAL_ASSERT((not_<is_callable<test::n_ary<test::call>, void, void*>>));

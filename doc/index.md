@@ -22,12 +22,6 @@ soon it became clear that it was slightly more than just a remake,
 so thus became **Metal** - <b>Meta</b>programming
 <b>Al</b>gorithms.
 
-## Disclaimers
-
---------------------------------------------------------------------------------
-
-This is **not** an official Boost library.
-
 ## License
 
 --------------------------------------------------------------------------------

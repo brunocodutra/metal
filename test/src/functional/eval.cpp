@@ -2,14 +2,14 @@
 /// Distributed under the Boost Software License, Version 1.0.
 /// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#include <boost/metal/functional/eval.hpp>
+#include <metal/functional/eval.hpp>
 
 #include "test/types.hpp"
 #include "test/functions.hpp"
 #include "test/expressions.hpp"
 #include "test/main.hpp"
 
-using namespace boost::metal;
+using namespace metal;
 
 namespace test
 {
@@ -31,12 +31,12 @@ namespace test
     using en = typename test::n_ary<test::evaluable>::call<args...>;
 }
 
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::e0>, test::e0<>::type>));
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::e1, test::a>, test::e1<test::a>::type>));
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::e2, test::a, test::b>, test::e2<test::a, test::b>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::e0>, test::e0<>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::e1, test::a>, test::e1<test::a>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::e2, test::a, test::b>, test::e2<test::a, test::b>::type>));
 
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::en>, test::en<>::type>));
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::en, test::a>, test::en<test::a>::type>));
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::en, test::a, test::b>, test::en<test::a, test::b>::type>));
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::en, test::a, test::b, test::c>, test::en<test::a, test::b, test::c>::type>));
-BOOST_METAL_ASSERT((std::is_same<eval_t<test::en, test::a, test::b, test::c, test::d>, test::en<test::a, test::b, test::c, test::d>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::en>, test::en<>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::en, test::a>, test::en<test::a>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::en, test::a, test::b>, test::en<test::a, test::b>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::en, test::a, test::b, test::c>, test::en<test::a, test::b, test::c>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::en, test::a, test::b, test::c, test::d>, test::en<test::a, test::b, test::c, test::d>::type>));

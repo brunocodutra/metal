@@ -8,8 +8,10 @@ if (NOT DOXYGEN_FOUND)
     return()
 endif()
 
-configure_file(Doxyfile.in BOOST_METAL_DOXYFILE @ONLY)
-add_custom_target(doc
-    COMMAND ${DOXYGEN_EXECUTABLE} BOOST_METAL_DOXYFILE
+configure_file(Doxyfile.in METAL_DOXYFILE @ONLY)
+add_custom_target(metal.doc
+    COMMAND ${DOXYGEN_EXECUTABLE} METAL_DOXYFILE
     COMMENT "doxygenating..."
 )
+
+add_custom_target(doc DEPENDS metal.doc)

@@ -35,7 +35,7 @@ install:
 before_script:
     - mkdir build
     - cd build
-    - cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER} -DBOOST_METAL_ENABLE_WARNINGS=OFF
+    - cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER} -DMETAL_ENABLE_WARNINGS=OFF
     
 script:
     - time make metal.test && ctest --output-on-failure
