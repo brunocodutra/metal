@@ -53,6 +53,7 @@ if(METAL_ENABLE_EXTRA_WARNINGS)
         list(APPEND METAL_EXTRA_COMPILE_FLAGS
             -Wno-c++98-compat
             -Wno-c++98-compat-pedantic
+            -Wno-documentation-unknown-command
         )
     endif()
 endif()

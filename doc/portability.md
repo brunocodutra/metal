@@ -40,8 +40,6 @@ status of the main development branches.
         <td align="center">![appveyor.master.badge]</td>
         <td align="center">![appveyor.develop.badge]</td>
     </tr>
-    <tr>
-    </tr>
 </table>
 
 [ci]:                       https://en.wikipedia.org/wiki/Continuous_integration
