@@ -1,0 +1,20 @@
+var NAVTREEINDEX0 =
+{
+"classes.html":[5],
+"concepts.html":[1],
+"concepts.html#concepts_functional":[1,0],
+"group__functional.html":[3,0,0],
+"group__functional.html#ga38e0b6517b651a364c6f400d0fcfa754":[3,0,0,1],
+"group__metal.html":[3,0],
+"index.html":[],
+"index.html":[0],
+"index.html#intro_motivation":[0,1],
+"index.html#intro_organization":[0,2],
+"index.html#intro_overview":[0,0],
+"modules.html":[3],
+"namespacemetal.html":[4,0],
+"namespaces.html":[4],
+"pages.html":[],
+"portability.html":[2],
+"structmetal_1_1eval.html":[3,0,0,0]
+};
