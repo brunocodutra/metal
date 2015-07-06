@@ -1,7 +1,16 @@
+.headertitle .title {
+    font-size: 2em;
+}
+
 .contents a {
 	color: #0000EE;
 }
 
 .contents a:visited {
 	color: #551A8B;
+}
+
+.section.see dt
+{
+    font-size: 1.5em;
 }

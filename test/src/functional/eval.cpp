@@ -12,21 +12,23 @@
 namespace example
 {
     /// [eval]
-    template<typename x>
+    template<typename>
     struct except_void
     {
         struct type;
     };
 
     template<>
-    struct except_void<void>;
+    struct except_void<void>
+    {
+        //empty
+    };
 
     using r1 = metal::eval<except_void, int>;
     static_assert(std::is_base_of<except_void<int>, r1>::value, "");
 
-    using r2 = metal::eval<except_void, void>; //identity<void> is incomplete
+    using r2 = metal::eval<except_void, void>; //identity<void> is not evaluable
     static_assert(!std::is_base_of<except_void<void>, r2>::value, "");
-
     /// [eval]
 }
 

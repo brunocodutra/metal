@@ -11,12 +11,55 @@
 namespace metal
 {
     template<template<typename...> class expr, typename... args>
+    struct is_evaluable;
+
+    /// \ingroup functional_traits
+    /// \brief Eager adaptor for is_evaluable.
+    template<template<typename...> class expr, typename... args>
+    using is_evaluable_t = typename is_evaluable<expr, args...>::type;
+
+    /// \ingroup functional_traits
+    /// \brief Checks whether an arbitrary expression `expr`
+    /// is [evaluable](\ref concept_evaluable_expression)
+    /// with arguments `args`.
+    ///
+    /// Model of
+    /// --------
+    ///
+    /// \ref concept_expression
+    ///
+    /// Usage
+    /// -----
+    /// For any expression `expr` and arguments `args`,
+    /// \code
+    ///     using result = is_evaluable<expr, args...>;
+    /// \endcode
+    /// \par Return type:
+    ///     \ref concept_numerical_value
+    /// \par Semantics:
+    ///     if `expr` is is [evaluable](\ref concept_evaluable_expression)
+    ///     with arguments `args`,
+    ///     then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             std::true_type
+    ///         {};
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         struct result :
+    ///             std::false_type
+    ///         {};
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet is_evaluable.cpp is_evaluable
+    /// \see is_evaluable_t, eval
+    template<template<typename...> class expr, typename... args>
     struct is_evaluable :
             detail::has_type<eval<expr, args...>>
     {};
-
-    template<template<typename...> class expr, typename... args>
-    using is_evaluable_t = typename is_evaluable<expr, args...>::type;
 }
 
 #endif

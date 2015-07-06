@@ -9,6 +9,31 @@
 
 using namespace metal;
 
+namespace example
+{
+    /// [is_evaluable]
+    template<typename...>
+    struct evaluable
+    {
+        struct type;
+    };
+
+    template<typename...>
+    struct not_evaluable
+    {
+        //empty
+    };
+
+    static_assert(metal::is_evaluable<evaluable>::value, "");
+    static_assert(metal::is_evaluable<evaluable, void>::value, "");
+    static_assert(metal::is_evaluable<evaluable, void, void*>::value, "");
+
+    static_assert(!metal::is_evaluable<not_evaluable>::value, "");
+    static_assert(!metal::is_evaluable<not_evaluable, void>::value, "");
+    static_assert(!metal::is_evaluable<not_evaluable, void, void*>::value, "");
+    /// [is_evaluable]
+}
+
 METAL_ASSERT((not_<is_evaluable<test::fundamental>>));
 METAL_ASSERT((not_<is_evaluable<test::incomplete>>));
 METAL_ASSERT((not_<is_evaluable<test::empty>>));

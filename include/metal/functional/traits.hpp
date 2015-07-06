@@ -10,3 +10,7 @@
 #include <metal/functional/traits/is_function.hpp>
 
 #endif
+
+/// \defgroup functional_traits Functional Traits
+/// \ingroup functional
+/// \brief Traits regarding functional properties.

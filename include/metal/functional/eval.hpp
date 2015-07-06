@@ -25,6 +25,14 @@ namespace metal
         };
     }
 
+    template<template<typename...> class expr, typename... args>
+    struct eval;
+
+    /// \ingroup functional
+    /// \brief Eager adaptor for \ref eval.
+    template<template<typename...> class expr, typename... args>
+    using eval_t = typename eval<expr, args...>::type;
+
     /// \ingroup functional
     /// \brief Evaluates an arbitrary expression `expr` with arguments `args`.
     ///
@@ -34,31 +42,29 @@ namespace metal
     /// \code
     ///     using result = eval<expr, args...>;
     /// \endcode
+    /// \par Return type:
+    ///     \ref concept_lazy_value
     /// \par Semantics:
-    /// if `expr` is \ref evaluable with arguments `args`, then equivalent to
-    /// \code
-    ///     struct result :
-    ///         expr<args...>
-    ///     {};
-    /// \endcode
-    /// otherwise, equivalent to
-    /// \code
-    ///     struct result {};
-    /// \endcode
+    ///     if `expr` [is evaluable](\ref is_evaluable) with arguments `args`,
+    ///     then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             expr<args...>
+    ///         {};
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         struct result {};
+    ///     \endcode
     ///
     /// Example
     /// -------
     /// \snippet eval.cpp eval
-    /// \see is_evaluable
+    /// \see eval_t, is_evaluable
     template<template<typename...> class expr, typename... args>
     struct eval :
             detail::eval<expr, args...>::type
     {};
-
-    /// \ingroup functional
-    /// \brief Eager adaptor for \ref eval.
-    template<template<typename...> class expr, typename... args>
-    using eval_t = typename eval<expr, args...>::type;
 }
 
 #endif
