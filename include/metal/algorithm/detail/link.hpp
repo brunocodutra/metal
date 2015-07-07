@@ -6,7 +6,6 @@
 #define METAL_ALGORITHM_DETAIL_LINK_HPP
 
 #include <metal/algebra/arithmetic/inc.hpp>
-#include <metal/algorithm/size.hpp>
 #include <metal/algorithm/detail/ref.hpp>
 
 #include <type_traits>
@@ -23,8 +22,6 @@ namespace metal
         public:
             using type = nil;
 
-            using size = std::integral_constant<std::size_t, 0U>;
-
             template<typename i>
             struct at
             {};
@@ -40,8 +37,6 @@ namespace metal
 
         public:
             using type = link;
-
-            using size = inc< ::metal::size<rest>>;
 
             template<typename i>
             struct at;

@@ -27,7 +27,3 @@ METAL_ASSERT((std::is_same<test::many<list>::at<test::six>::type, test::g>));
 METAL_ASSERT((std::is_same<test::many<list>::at<test::seven>::type, test::h>));
 METAL_ASSERT((std::is_same<test::many<list>::at<test::eight>::type, test::i>));
 METAL_ASSERT((std::is_same<test::many<list>::at<test::nine>::type, test::j>));
-
-METAL_ASSERT((equal_to<test::none<list>::size, test::zero>));
-METAL_ASSERT((equal_to<test::single<list>::size, test::one>));
-METAL_ASSERT((equal_to<test::many<list>::size, test::ten>));
