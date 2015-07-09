@@ -5,14 +5,14 @@
 #ifndef METAL_FUNCTIONAL_EVAL_HPP
 #define METAL_FUNCTIONAL_EVAL_HPP
 
+#include <metal/functional/nil.hpp>
+
 namespace metal
 {
     namespace detail
     {
-        struct empty {};
-
         template<template<typename...> class, typename...>
-        static empty eval_sfinae(...);
+        static nil eval_sfinae(...);
         template<
             template<typename...> class expr,
             typename... args,

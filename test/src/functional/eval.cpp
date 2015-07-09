@@ -27,7 +27,7 @@ namespace example
     using r1 = metal::eval<except_void, int>;
     static_assert(std::is_base_of<except_void<int>, r1>::value, "");
 
-    using r2 = metal::eval<except_void, void>; //identity<void> is not evaluable
+    using r2 = metal::eval<except_void, void>; //except_void<void> is nil
     static_assert(!std::is_base_of<except_void<void>, r2>::value, "");
     /// [eval]
 }
