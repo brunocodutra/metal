@@ -6,7 +6,8 @@
 #define METAL_FUNCTIONAL_TRAITS_IS_EVALUABLE_HPP
 
 #include <metal/functional/eval.hpp>
-#include <metal/functional/traits/detail/has_type.hpp>
+#include <metal/functional/traits/is_nil.hpp>
+#include <metal/algebra/logical/not.hpp>
 
 namespace metal
 {
@@ -58,7 +59,7 @@ namespace metal
     /// \see is_evaluable_t, eval
     template<template<typename...> class expr, typename... args>
     struct is_evaluable :
-            detail::has_type<eval<expr, args...>>
+            not_<is_nil<eval<expr, args...>>>
     {};
 }
 

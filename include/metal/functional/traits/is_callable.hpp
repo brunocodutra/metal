@@ -10,13 +10,13 @@
 
 namespace metal
 {
-    template<typename... _>
+    template<typename... x>
     struct is_callable :
-            is_evaluable<call, _...>
+            is_evaluable<call, x...>
     {};
 
-    template<typename... _>
-    using is_callable_t = typename is_callable<_...>::type;
+    template<typename... x>
+    using is_callable_t = typename is_callable<x...>::type;
 }
 
 #endif
