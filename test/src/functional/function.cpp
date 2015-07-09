@@ -14,7 +14,7 @@
 #include "test/wrap.hpp"
 #include "test/expressions.hpp"
 #include "test/functions.hpp"
-#include "test/types.hpp"
+#include "test/values.hpp"
 #include "test/main.hpp"
 
 using namespace metal;

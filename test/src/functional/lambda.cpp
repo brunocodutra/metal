@@ -9,7 +9,7 @@
 #include <metal/functional/call.hpp>
 #include <metal/functional/traits.hpp>
 
-#include "test/types.hpp"
+#include "test/values.hpp"
 #include "test/wrap.hpp"
 #include "test/main.hpp"
 

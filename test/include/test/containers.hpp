@@ -5,7 +5,7 @@
 #ifndef METAL_TEST_CONTAINERS_HPP
 #define METAL_TEST_CONTAINERS_HPP
 
-#include "test/types.hpp"
+#include "test/values.hpp"
 
 namespace test
 {
