@@ -14,9 +14,9 @@ namespace metal
     namespace detail
     {
         template<typename, typename = std::true_type, int = 0>
-        struct function
+        struct function_impl
         {
-            using type = function;
+            using type = function_impl;
 
             template<typename...>
             struct call
@@ -24,15 +24,15 @@ namespace metal
         };
 
         template<typename func>
-        struct function<func, is_function_t<func>, 0> :
+        struct function_impl<func, is_function_t<func>, 0> :
                 func
         {
-            using type = function;
+            using type = function_impl;
         };
     }
 
     template<typename func>
-    using function = detail::function<func>;
+    using function = detail::function_impl<func>;
 }
 
 #endif
