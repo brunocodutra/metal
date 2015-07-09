@@ -11,17 +11,24 @@ namespace metal
 {
     namespace detail
     {
-        template<template<typename...> class, typename...>
-        static nil eval_sfinae(...);
         template<
             template<typename...> class expr,
-            typename... args,
-            typename = typename expr<args...>::type
+            typename... args
         >
-        static expr<args...> eval_sfinae(int);
+        struct eval_impl
+        {
+        private:
+            template<template<typename...> class>
+            static nil check(...);
+            template<
+                template<typename...> class e,
+                typename = typename e<args...>::type
+            >
+            static e<args...> check(int);
 
-        template<template<typename...> class expr, typename... args>
-        using eval_impl = decltype(eval_sfinae<expr, args...>(0));
+        public:
+            using type = decltype(check<expr>(0));
+        };
     }
 
     template<template<typename...> class expr, typename... args>
@@ -62,7 +69,7 @@ namespace metal
     /// \see eval_t, is_evaluable
     template<template<typename...> class expr, typename... args>
     struct eval :
-            detail::eval_impl<expr, args...>
+            detail::eval_impl<expr, args...>::type
     {};
 }
 

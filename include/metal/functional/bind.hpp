@@ -33,7 +33,7 @@ namespace metal
 
         template<typename arg, typename... args>
         struct parse<verbatim<arg>, args...> :
-                detail::args<arg>
+                detail::args<typename verbatim<arg>::type>
         {};
 
         template<typename... args>

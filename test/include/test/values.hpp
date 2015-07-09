@@ -7,7 +7,7 @@
 
 namespace test
 {
-    union a;
+    union a {};
     using b = void;
     using c = b(a);
     using d = c* const;
