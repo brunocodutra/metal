@@ -18,27 +18,27 @@ using namespace metal::placeholders;
 
 METAL_ASSERT((std::is_same<lambda<void>::type, lambda<void>>));
 
-METAL_ASSERT((std::is_same<call_t<lambda<test::a>>, test::a>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::b>>, test::b>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::c>>, test::c>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::d>>, test::d>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::e>>, test::e>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::f>>, test::f>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::g>>, test::g>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::h>>, test::h>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::i>>, test::i>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::j>>, test::j>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::a0>>, test::a0>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::a1>>, test::a1>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::a2>>, test::a2>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::a3>>, test::a3>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::a4>>, test::a4>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::a5>>, test::a5>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::a6>>, test::a6>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::a7>>, test::a7>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::a9>>, test::a9>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::a9>>, test::a9>));
 
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::a>>>, test::a>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::b>>>, test::b>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::c>>>, test::c>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::d>>>, test::d>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::e>>>, test::e>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::f>>>, test::f>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::g>>>, test::g>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::h>>>, test::h>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::i>>>, test::i>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::j>>>, test::j>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::a0>>>, test::a0>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::a1>>>, test::a1>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::a2>>>, test::a2>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::a3>>>, test::a3>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::a4>>>, test::a4>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::a5>>>, test::a5>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::a6>>>, test::a6>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::a7>>>, test::a7>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::a9>>>, test::a9>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::a9>>>, test::a9>));
 
 METAL_ASSERT((std::is_same<call_t<lambda<test::alias<>>>, test::alias<>>));
 METAL_ASSERT((not_<is_callable_t<lambda<test::empty<>>>>));
@@ -65,34 +65,34 @@ METAL_ASSERT((std::is_same<call_t<lambda<call<verbatim<lambda<std::add_pointer<_
 METAL_ASSERT((std::is_same<call_t<lambda<call<protect<lambda<std::add_pointer<_1>>>, void>>, void*>, void*>));
 
 METAL_ASSERT((not_<is_callable_t<lambda<_0>>>));
-METAL_ASSERT((std::is_same<call_t<lambda<_1>, test::a, test::b, test::c, test::d>, test::a>));
-METAL_ASSERT((std::is_same<call_t<lambda<_2>, test::a, test::b, test::c, test::d>, test::b>));
-METAL_ASSERT((std::is_same<call_t<lambda<_3>, test::a, test::b, test::c, test::d>, test::c>));
-METAL_ASSERT((std::is_same<call_t<lambda<_4>, test::a, test::b, test::c, test::d>, test::d>));
+METAL_ASSERT((std::is_same<call_t<lambda<_1>, test::a0, test::a1, test::a2, test::a3>, test::a0>));
+METAL_ASSERT((std::is_same<call_t<lambda<_2>, test::a0, test::a1, test::a2, test::a3>, test::a1>));
+METAL_ASSERT((std::is_same<call_t<lambda<_3>, test::a0, test::a1, test::a2, test::a3>, test::a2>));
+METAL_ASSERT((std::is_same<call_t<lambda<_4>, test::a0, test::a1, test::a2, test::a3>, test::a3>));
 
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<_0>>, test::a, test::b, test::c, test::d>, _0>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<_1>>, test::a, test::b, test::c, test::d>, _1>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<_2>>, test::a, test::b, test::c, test::d>, _2>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<_3>>, test::a, test::b, test::c, test::d>, _3>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<_4>>, test::a, test::b, test::c, test::d>, _4>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<_0>>, test::a0, test::a1, test::a2, test::a3>, _0>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<_1>>, test::a0, test::a1, test::a2, test::a3>, _1>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<_2>>, test::a0, test::a1, test::a2, test::a3>, _2>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<_3>>, test::a0, test::a1, test::a2, test::a3>, _3>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<_4>>, test::a0, test::a1, test::a2, test::a3>, _4>));
 
-METAL_ASSERT((std::is_same<call_t<lambda<protect<_0>>, test::a, test::b, test::c, test::d>, protect<_0>>));
-METAL_ASSERT((std::is_same<call_t<lambda<protect<_1>>, test::a, test::b, test::c, test::d>, protect<_1>>));
-METAL_ASSERT((std::is_same<call_t<lambda<protect<_2>>, test::a, test::b, test::c, test::d>, protect<_2>>));
-METAL_ASSERT((std::is_same<call_t<lambda<protect<_3>>, test::a, test::b, test::c, test::d>, protect<_3>>));
-METAL_ASSERT((std::is_same<call_t<lambda<protect<_4>>, test::a, test::b, test::c, test::d>, protect<_4>>));
+METAL_ASSERT((std::is_same<call_t<lambda<protect<_0>>, test::a0, test::a1, test::a2, test::a3>, protect<_0>>));
+METAL_ASSERT((std::is_same<call_t<lambda<protect<_1>>, test::a0, test::a1, test::a2, test::a3>, protect<_1>>));
+METAL_ASSERT((std::is_same<call_t<lambda<protect<_2>>, test::a0, test::a1, test::a2, test::a3>, protect<_2>>));
+METAL_ASSERT((std::is_same<call_t<lambda<protect<_3>>, test::a0, test::a1, test::a2, test::a3>, protect<_3>>));
+METAL_ASSERT((std::is_same<call_t<lambda<protect<_4>>, test::a0, test::a1, test::a2, test::a3>, protect<_4>>));
 
-METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_0>>, test::a, test::b, test::c, test::d>, test::wrap<test::a, test::b, test::c, test::d>>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_1>>, test::a, test::b, test::c, test::d>, test::wrap<test::a>>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_1, _2>>, test::a, test::b, test::c, test::d>, test::wrap<test::a, test::b>>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_1, _2, _3>>, test::a, test::b, test::c, test::d>, test::wrap<test::a, test::b, test::c>>));
-METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_1, _2, _3, _4>>, test::a, test::b, test::c, test::d>, test::wrap<test::a, test::b, test::c, test::d>>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_0>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1, test::a2, test::a3>>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_1>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0>>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_1, _2>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1>>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_1, _2, _3>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1, test::a2>>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::wrap<_1, _2, _3, _4>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1, test::a2, test::a3>>));
 
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_0>>>, test::a, test::b, test::c, test::d>, test::wrap<_0>>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_1>>>, test::a, test::b, test::c, test::d>, test::wrap<_1>>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_1, _2>>>, test::a, test::b, test::c, test::d>, test::wrap<_1, _2>>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_1, _2, _3>>>, test::a, test::b, test::c, test::d>, test::wrap<_1, _2, _3>>));
-METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_1, _2, _3, _4>>>, test::a, test::b, test::c, test::d>, test::wrap<_1, _2, _3, _4>>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_0>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_0>>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_1>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1>>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_1, _2>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1, _2>>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_1, _2, _3>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1, _2, _3>>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_1, _2, _3, _4>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1, _2, _3, _4>>));
 
 METAL_ASSERT((std::is_same<call_t<lambda<call<_1, _2>>, test::wrapper, void>, test::wrap<void>>));
 METAL_ASSERT((std::is_same<call_t<lambda<call<_1, _2, _1>>, test::wrapper, void>, test::wrap<void, test::wrapper>>));

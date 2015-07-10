@@ -44,6 +44,11 @@ namespace test
         template<typename... args>
         using call = expr<args...>;
     };
+
+    using f0 = nullary<evaluable>;
+    using f1 = unary<evaluable>;
+    using f2 = binary<evaluable>;
+    using fn = n_ary<evaluable>;
 }
 
 #endif

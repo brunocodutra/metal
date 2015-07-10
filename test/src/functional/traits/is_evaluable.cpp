@@ -41,15 +41,14 @@ METAL_ASSERT((not_<is_evaluable<test::call>>));
 METAL_ASSERT((is_evaluable<test::evaluable>));
 METAL_ASSERT((is_evaluable<test::evaluable_union>));
 
+METAL_ASSERT((not_<is_evaluable<test::alias, test::a0>>));
+METAL_ASSERT((not_<is_evaluable<test::empty, test::a0>>));
+METAL_ASSERT((not_<is_evaluable<test::call, test::a0>>));
+METAL_ASSERT((is_evaluable<test::evaluable, test::a0>));
+METAL_ASSERT((is_evaluable<test::evaluable_union, test::a0>));
 
-METAL_ASSERT((not_<is_evaluable<test::alias, test::a>>));
-METAL_ASSERT((not_<is_evaluable<test::empty, test::a>>));
-METAL_ASSERT((not_<is_evaluable<test::call, test::a>>));
-METAL_ASSERT((is_evaluable<test::evaluable, test::a>));
-METAL_ASSERT((is_evaluable<test::evaluable_union, test::a>));
-
-METAL_ASSERT((not_<is_evaluable<test::alias, test::a, test::b>>));
-METAL_ASSERT((not_<is_evaluable<test::empty, test::a, test::b>>));
-METAL_ASSERT((not_<is_evaluable<test::call, test::a, test::b>>));
-METAL_ASSERT((is_evaluable<test::evaluable, test::a, test::b>));
-METAL_ASSERT((is_evaluable<test::evaluable_union, test::a, test::b>));
+METAL_ASSERT((not_<is_evaluable<test::alias, test::a0, test::a1>>));
+METAL_ASSERT((not_<is_evaluable<test::empty, test::a0, test::a1>>));
+METAL_ASSERT((not_<is_evaluable<test::call, test::a0, test::a1>>));
+METAL_ASSERT((is_evaluable<test::evaluable, test::a0, test::a1>));
+METAL_ASSERT((is_evaluable<test::evaluable_union, test::a0, test::a1>));

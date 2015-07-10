@@ -11,45 +11,44 @@
 
 using namespace metal;
 
-METAL_ASSERT((not_<is_callable<test::a>>));
-METAL_ASSERT((not_<is_callable<test::b>>));
-METAL_ASSERT((not_<is_callable<test::c>>));
-METAL_ASSERT((not_<is_callable<test::d>>));
-METAL_ASSERT((not_<is_callable<test::e>>));
-METAL_ASSERT((not_<is_callable<test::f>>));
-METAL_ASSERT((not_<is_callable<test::g>>));
-METAL_ASSERT((not_<is_callable<test::h>>));
-METAL_ASSERT((not_<is_callable<test::i>>));
-METAL_ASSERT((not_<is_callable<test::j>>));
+METAL_ASSERT((not_<is_callable<test::a0>>));
+METAL_ASSERT((not_<is_callable<test::a1>>));
+METAL_ASSERT((not_<is_callable<test::a2>>));
+METAL_ASSERT((not_<is_callable<test::a3>>));
+METAL_ASSERT((not_<is_callable<test::a4>>));
+METAL_ASSERT((not_<is_callable<test::a5>>));
+METAL_ASSERT((not_<is_callable<test::a6>>));
+METAL_ASSERT((not_<is_callable<test::a7>>));
+METAL_ASSERT((not_<is_callable<test::a9>>));
+METAL_ASSERT((not_<is_callable<test::a9>>));
 
-METAL_ASSERT((not_<is_callable<test::a, void>>));
-METAL_ASSERT((not_<is_callable<test::b, void>>));
-METAL_ASSERT((not_<is_callable<test::c, void>>));
-METAL_ASSERT((not_<is_callable<test::d, void>>));
-METAL_ASSERT((not_<is_callable<test::e, void>>));
-METAL_ASSERT((not_<is_callable<test::f, void>>));
-METAL_ASSERT((not_<is_callable<test::g, void>>));
-METAL_ASSERT((not_<is_callable<test::h, void>>));
-METAL_ASSERT((not_<is_callable<test::i, void>>));
-METAL_ASSERT((not_<is_callable<test::j, void>>));
+METAL_ASSERT((not_<is_callable<test::a0, void>>));
+METAL_ASSERT((not_<is_callable<test::a1, void>>));
+METAL_ASSERT((not_<is_callable<test::a2, void>>));
+METAL_ASSERT((not_<is_callable<test::a3, void>>));
+METAL_ASSERT((not_<is_callable<test::a4, void>>));
+METAL_ASSERT((not_<is_callable<test::a5, void>>));
+METAL_ASSERT((not_<is_callable<test::a6, void>>));
+METAL_ASSERT((not_<is_callable<test::a7, void>>));
+METAL_ASSERT((not_<is_callable<test::a9, void>>));
+METAL_ASSERT((not_<is_callable<test::a9, void>>));
 
-METAL_ASSERT((not_<is_callable<test::a, void, void*>>));
-METAL_ASSERT((not_<is_callable<test::b, void, void*>>));
-METAL_ASSERT((not_<is_callable<test::c, void, void*>>));
-METAL_ASSERT((not_<is_callable<test::d, void, void*>>));
-METAL_ASSERT((not_<is_callable<test::e, void, void*>>));
-METAL_ASSERT((not_<is_callable<test::f, void, void*>>));
-METAL_ASSERT((not_<is_callable<test::g, void, void*>>));
-METAL_ASSERT((not_<is_callable<test::h, void, void*>>));
-METAL_ASSERT((not_<is_callable<test::i, void, void*>>));
-METAL_ASSERT((not_<is_callable<test::j, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::a0, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::a1, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::a2, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::a3, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::a4, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::a5, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::a6, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::a7, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::a9, void, void*>>));
+METAL_ASSERT((not_<is_callable<test::a9, void, void*>>));
 
 METAL_ASSERT((not_<is_callable<test::unary<test::alias>>>));
 METAL_ASSERT((not_<is_callable<test::unary<test::empty>>>));
 METAL_ASSERT((not_<is_callable<test::unary<test::call>>>));
 METAL_ASSERT((not_<is_callable<test::unary<test::evaluable>>>));
 METAL_ASSERT((not_<is_callable<test::unary<test::evaluable_union>>>));
-
 
 METAL_ASSERT((not_<is_callable<test::unary<test::alias>, void>>));
 METAL_ASSERT((not_<is_callable<test::unary<test::empty>, void>>));

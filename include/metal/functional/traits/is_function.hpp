@@ -21,7 +21,7 @@ namespace metal
         METAL_DEFINE_NESTED_TYPE_TRAIT(has_call, call);
         METAL_DEFINE_NESTED_TEMPLATE_TRAIT(has_template_call, call);
 
-        template<typename func, typename = std::true_type>
+        template<typename func>
         struct is_function_impl :
                 and_<
                     std::is_base_of<typename func::type, func>,

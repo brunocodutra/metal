@@ -10,16 +10,16 @@
 
 using namespace metal;
 
-METAL_ASSERT((is_nil<test::a>));
-METAL_ASSERT((is_nil<test::b>));
-METAL_ASSERT((is_nil<test::c>));
-METAL_ASSERT((is_nil<test::d>));
-METAL_ASSERT((is_nil<test::e>));
-METAL_ASSERT((is_nil<test::f>));
-METAL_ASSERT((is_nil<test::g>));
-METAL_ASSERT((is_nil<test::h>));
-METAL_ASSERT((is_nil<test::i>));
-METAL_ASSERT((is_nil<test::j>));
+METAL_ASSERT((is_nil<test::a0>));
+METAL_ASSERT((is_nil<test::a1>));
+METAL_ASSERT((is_nil<test::a2>));
+METAL_ASSERT((is_nil<test::a3>));
+METAL_ASSERT((is_nil<test::a4>));
+METAL_ASSERT((is_nil<test::a5>));
+METAL_ASSERT((is_nil<test::a6>));
+METAL_ASSERT((is_nil<test::a7>));
+METAL_ASSERT((is_nil<test::a9>));
+METAL_ASSERT((is_nil<test::a9>));
 
 METAL_ASSERT((is_nil<test::alias<>>));
 METAL_ASSERT((is_nil<test::empty<>>));

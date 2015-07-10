@@ -7,16 +7,16 @@
 
 namespace test
 {
-    union a {};
-    using b = void;
-    using c = b(a);
-    using d = c* const;
-    using e = c* volatile;
-    using f = d volatile;
-    using g = f[1];
-    using h = g[];
-    using i = h&&;
-    using j = i&;
+    union a0 {};
+    using a1 = void;
+    using a2 = a1(a0);
+    using a3 = a2* const;
+    using a4 = a2* volatile;
+    using a5 = a3 volatile;
+    using a6 = a5[1];
+    using a7 = a6[];
+    using a8 = a7&&;
+    using a9 = a8&;
 }
 
 #endif

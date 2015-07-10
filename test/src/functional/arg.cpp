@@ -31,19 +31,19 @@ METAL_ASSERT((is_function<_2>));
 METAL_ASSERT((is_function<_3>));
 METAL_ASSERT((is_function<_4>));
 
-METAL_ASSERT((not_<is_callable<_0, test::a, test::b, test::c, test::d>>));
-METAL_ASSERT((is_callable<_1, test::a, test::b, test::c, test::d>));
-METAL_ASSERT((is_callable<_2, test::a, test::b, test::c, test::d>));
-METAL_ASSERT((is_callable<_3, test::a, test::b, test::c, test::d>));
-METAL_ASSERT((is_callable<_4, test::a, test::b, test::c, test::d>));
+METAL_ASSERT((not_<is_callable<_0, test::a0, test::a1, test::a2, test::a3>>));
+METAL_ASSERT((is_callable<_1, test::a0, test::a1, test::a2, test::a3>));
+METAL_ASSERT((is_callable<_2, test::a0, test::a1, test::a2, test::a3>));
+METAL_ASSERT((is_callable<_3, test::a0, test::a1, test::a2, test::a3>));
+METAL_ASSERT((is_callable<_4, test::a0, test::a1, test::a2, test::a3>));
 
 METAL_ASSERT((not_<is_callable<_0>>));
 METAL_ASSERT((not_<is_callable<_1>>));
-METAL_ASSERT((not_<is_callable<_2, test::b>>));
-METAL_ASSERT((not_<is_callable<_3, test::b, test::c>>));
-METAL_ASSERT((not_<is_callable<_4, test::b, test::c, test::d>>));
+METAL_ASSERT((not_<is_callable<_2, test::a1>>));
+METAL_ASSERT((not_<is_callable<_3, test::a1, test::a2>>));
+METAL_ASSERT((not_<is_callable<_4, test::a1, test::a2, test::a3>>));
 
-METAL_ASSERT((std::is_same<call_t<_1, test::a, test::b, test::c, test::d>, test::a>));
-METAL_ASSERT((std::is_same<call_t<_2, test::a, test::b, test::c, test::d>, test::b>));
-METAL_ASSERT((std::is_same<call_t<_3, test::a, test::b, test::c, test::d>, test::c>));
-METAL_ASSERT((std::is_same<call_t<_4, test::a, test::b, test::c, test::d>, test::d>));
+METAL_ASSERT((std::is_same<call_t<_1, test::a0, test::a1, test::a2, test::a3>, test::a0>));
+METAL_ASSERT((std::is_same<call_t<_2, test::a0, test::a1, test::a2, test::a3>, test::a1>));
+METAL_ASSERT((std::is_same<call_t<_3, test::a0, test::a1, test::a2, test::a3>, test::a2>));
+METAL_ASSERT((std::is_same<call_t<_4, test::a0, test::a1, test::a2, test::a3>, test::a3>));

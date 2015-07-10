@@ -9,14 +9,12 @@
 
 using namespace metal;
 
-METAL_ASSERT((is_same_expression<test::alias, test::alias>));
-METAL_ASSERT((is_same_expression<test::empty, test::empty>));
-METAL_ASSERT((is_same_expression<test::call, test::call>));
-METAL_ASSERT((is_same_expression<test::evaluable, test::evaluable>));
-METAL_ASSERT((is_same_expression<test::evaluable_union, test::evaluable_union>));
+METAL_ASSERT((is_same_expression<test::e0, test::e0>));
+METAL_ASSERT((is_same_expression<test::e1, test::e1>));
+METAL_ASSERT((is_same_expression<test::e2, test::e2>));
+METAL_ASSERT((is_same_expression<test::en, test::en>));
 
-METAL_ASSERT((not_<is_same_expression<test::alias, test::evaluable_union>>));
-METAL_ASSERT((not_<is_same_expression<test::empty, test::alias>>));
-METAL_ASSERT((not_<is_same_expression<test::call, test::empty>>));
-METAL_ASSERT((not_<is_same_expression<test::evaluable, test::call>>));
-METAL_ASSERT((not_<is_same_expression<test::evaluable_union, test::evaluable>>));
+METAL_ASSERT((not_<is_same_expression<test::e0, test::en>>));
+METAL_ASSERT((not_<is_same_expression<test::e1, test::e0>>));
+METAL_ASSERT((not_<is_same_expression<test::e2, test::e1>>));
+METAL_ASSERT((not_<is_same_expression<test::en, test::e2>>));

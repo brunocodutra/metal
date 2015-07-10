@@ -7,8 +7,6 @@
 
 namespace test
 {
-
-
     template<typename...>
     using alias = char(&(void))[];
 
@@ -38,7 +36,22 @@ namespace test
         struct type;
     };
 
+    template<typename = void>
+    struct e0;
 
+    template<>
+    struct e0<> :
+            evaluable<>
+    {};
+
+    template<typename x>
+    using e1 = evaluable<x>;
+
+    template<typename x, typename y>
+    using e2 = evaluable_union<x, y>;
+
+    template<typename... args>
+    using en = evaluable_union<args...>;
 }
 
 #endif

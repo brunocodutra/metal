@@ -5,7 +5,6 @@
 #include <metal/functional/eval.hpp>
 
 #include "test/atoms.hpp"
-#include "test/functions.hpp"
 #include "test/expressions.hpp"
 #include "test/main.hpp"
 
@@ -37,32 +36,12 @@ using namespace metal;
 METAL_ASSERT((std::is_same<eval_t<test::evaluable>, test::evaluable<>::type>));
 METAL_ASSERT((std::is_same<eval_t<test::evaluable_union>, test::evaluable_union<>::type>));
 
-namespace test
-{
-    template<typename = void>
-    struct e0;
-
-    template<>
-    struct e0<> :
-            test::nullary<test::evaluable>::call<>
-    {};
-
-    template<typename x>
-    using e1 = typename test::unary<test::evaluable>::call<x>;
-
-    template<typename x, typename y>
-    using e2 = typename test::binary<test::evaluable>::call<x, y>;
-
-    template<typename... args>
-    using en = typename test::n_ary<test::evaluable>::call<args...>;
-}
-
 METAL_ASSERT((std::is_same<eval_t<test::e0>, test::e0<>::type>));
-METAL_ASSERT((std::is_same<eval_t<test::e1, test::a>, test::e1<test::a>::type>));
-METAL_ASSERT((std::is_same<eval_t<test::e2, test::a, test::b>, test::e2<test::a, test::b>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::e1, test::a0>, test::e1<test::a0>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::e2, test::a0, test::a1>, test::e2<test::a0, test::a1>::type>));
 
 METAL_ASSERT((std::is_same<eval_t<test::en>, test::en<>::type>));
-METAL_ASSERT((std::is_same<eval_t<test::en, test::a>, test::en<test::a>::type>));
-METAL_ASSERT((std::is_same<eval_t<test::en, test::a, test::b>, test::en<test::a, test::b>::type>));
-METAL_ASSERT((std::is_same<eval_t<test::en, test::a, test::b, test::c>, test::en<test::a, test::b, test::c>::type>));
-METAL_ASSERT((std::is_same<eval_t<test::en, test::a, test::b, test::c, test::d>, test::en<test::a, test::b, test::c, test::d>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::en, test::a0>, test::en<test::a0>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::en, test::a0, test::a1>, test::en<test::a0, test::a1>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::en, test::a0, test::a1, test::a2>, test::en<test::a0, test::a1, test::a2>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::en, test::a0, test::a1, test::a2, test::a3>, test::en<test::a0, test::a1, test::a2, test::a3>::type>));
