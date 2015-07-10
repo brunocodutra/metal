@@ -7,7 +7,6 @@
 
 #include <metal/algebra/arithmetic.hpp>
 #include <metal/algebra/comparison.hpp>
-#include <metal/algebra/if.hpp>
 #include <metal/algebra/logical.hpp>
 
 #endif

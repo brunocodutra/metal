@@ -2,10 +2,12 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_ALGEBRA_IF_HPP
-#define METAL_ALGEBRA_IF_HPP
+#ifndef METAL_FUNCTIONAL_IF_HPP
+#define METAL_FUNCTIONAL_IF_HPP
 
-#include <tuple>
+#include <metal/functional/nil.hpp>
+#include <metal/functional/identity.hpp>
+
 #include <type_traits>
 
 namespace metal
@@ -20,12 +22,12 @@ namespace metal
 
     template<typename pred, typename then, typename else_>
     struct if_<pred, then, else_> :
-            std::conditional<!!pred::value, then, else_>::type
+            std::conditional<!!pred::type::value, then, else_>::type
     {};
 
     template<typename pred, typename then>
     struct if_<pred, then> :
-            if_<pred, then, std::tuple<>>
+            if_<pred, then, identity<nil>>
     {};
 
     template<typename pred, typename then, typename... else_>
