@@ -12,6 +12,8 @@ namespace test
     template<template<typename...> class expr>
     struct nullary
     {
+        using type = nullary;
+
         template<typename = void>
         struct call :
                 expr<>
@@ -21,6 +23,8 @@ namespace test
     template<>
     struct nullary<incomplete>
     {
+        using type = nullary;
+
         template<typename>
         struct call;
     };
@@ -28,6 +32,8 @@ namespace test
     template<template<typename...> class expr>
     struct unary
     {
+        using type = unary;
+
         template<typename args>
         struct call :
                 expr<args>
@@ -37,6 +43,8 @@ namespace test
     template<>
     struct unary<incomplete>
     {
+        using type = unary;
+
         template<typename>
         struct call;
     };
@@ -44,6 +52,8 @@ namespace test
     template<template<typename...> class expr>
     struct binary
     {
+        using type = binary;
+
         template<typename x, typename y>
         struct call :
                 expr<x, y>
@@ -53,6 +63,8 @@ namespace test
     template<>
     struct binary<incomplete>
     {
+        using type = binary;
+
         template<typename x, typename y>
         struct call;
     };
@@ -60,6 +72,8 @@ namespace test
     template<template<typename...> class expr>
     struct n_ary
     {
+        using type = n_ary;
+
         template<typename... args>
         struct call :
                 expr<args...>
@@ -69,6 +83,8 @@ namespace test
     template<>
     struct n_ary<incomplete>
     {
+        using type = n_ary;
+
         template<typename...>
         struct call;
     };
