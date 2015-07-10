@@ -36,6 +36,12 @@ namespace test
         struct type;
     };
 
+    template<typename... args>
+    struct wrap
+    {
+        using type = wrap;
+    };
+
     template<typename = void>
     struct e0;
 

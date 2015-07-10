@@ -45,6 +45,8 @@ namespace test
         using call = expr<args...>;
     };
 
+    using wrapper = n_ary<wrap>;
+
     using f0 = nullary<evaluable>;
     using f1 = unary<evaluable>;
     using f2 = binary<evaluable>;

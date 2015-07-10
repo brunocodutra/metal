@@ -11,7 +11,8 @@
 #include <metal/functional/traits.hpp>
 
 #include "test/atoms.hpp"
-#include "test/wrap.hpp"
+#include "test/expressions.hpp"
+#include "test/functions.hpp"
 #include "test/main.hpp"
 
 using namespace metal;

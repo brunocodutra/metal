@@ -11,7 +11,7 @@
 #include <metal/functional/traits/is_function.hpp>
 #include <metal/functional/traits/is_callable.hpp>
 
-#include "test/wrap.hpp"
+#include "test/functions.hpp"
 #include "test/main.hpp"
 
 using namespace metal;
