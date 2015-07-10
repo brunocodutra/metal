@@ -10,6 +10,7 @@
 #include <metal/functional/traits/is_function.hpp>
 #include <metal/functional/traits/is_nil.hpp>
 #include <metal/functional/traits/is_same_expression.hpp>
+#include <metal/functional/traits/is_same_function.hpp>
 
 #endif
 

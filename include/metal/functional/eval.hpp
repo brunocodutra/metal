@@ -6,7 +6,7 @@
 #define METAL_FUNCTIONAL_EVAL_HPP
 
 #include <metal/functional/nil.hpp>
-#include <metal/core/identity.hpp>
+#include <metal/functional/identity.hpp>
 
 #include <type_traits>
 

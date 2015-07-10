@@ -142,7 +142,7 @@ using ptr2ptr2ptr = protect<lambda<call<thrice, verbatim<std::add_pointer<_1>>, 
 METAL_ASSERT((is_function<ptr2ptr2ptr>));
 METAL_ASSERT((std::is_same<call_t<ptr2ptr2ptr, void>, void***>));
 
-#include <metal/core/identity.hpp>
+#include <metal/functional/identity.hpp>
 
 using church_true = protect<lambda<lambda<identity<_1>>>>;
 using church_false = protect<lambda<lambda<verbatim<_1>>>>;
