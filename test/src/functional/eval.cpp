@@ -4,7 +4,7 @@
 
 #include <metal/functional/eval.hpp>
 
-#include "test/values.hpp"
+#include "test/atoms.hpp"
 #include "test/functions.hpp"
 #include "test/expressions.hpp"
 #include "test/main.hpp"
@@ -33,6 +33,9 @@ namespace example
 }
 
 using namespace metal;
+
+METAL_ASSERT((std::is_same<eval_t<test::evaluable>, test::evaluable<>::type>));
+METAL_ASSERT((std::is_same<eval_t<test::evaluable_union>, test::evaluable_union<>::type>));
 
 namespace test
 {

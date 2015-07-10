@@ -9,7 +9,7 @@
 #include <metal/functional/call.hpp>
 #include <metal/functional/traits.hpp>
 
-#include "test/values.hpp"
+#include "test/atoms.hpp"
 #include "test/wrap.hpp"
 #include "test/main.hpp"
 
@@ -40,11 +40,17 @@ METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::h>>>, test::h>));
 METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::i>>>, test::i>));
 METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::j>>>, test::j>));
 
+METAL_ASSERT((std::is_same<call_t<lambda<test::alias<>>>, test::alias<>>));
+METAL_ASSERT((not_<is_callable_t<lambda<test::empty<>>>>));
 METAL_ASSERT((not_<is_callable_t<lambda<test::call<>>>>));
 METAL_ASSERT((std::is_same<call_t<lambda<test::evaluable<>>>, test::evaluable<>::type>));
+METAL_ASSERT((std::is_same<call_t<lambda<test::evaluable_union<>>>, test::evaluable_union<>::type>));
 
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::alias<>>>>, test::alias<>>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::empty<>>>>, test::empty<>>));
 METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::call<>>>>, test::call<>>));
 METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::evaluable<>>>>, test::evaluable<>>));
+METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::evaluable_union<>>>>, test::evaluable_union<>>));
 
 METAL_ASSERT((std::is_same<call_t<lambda<test::wrapper>, void>, test::wrapper>));
 METAL_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrapper>>, void>, test::wrapper>));

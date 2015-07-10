@@ -4,7 +4,8 @@
 
 #include <metal/functional/traits/is_function.hpp>
 
-#include "test/values.hpp"
+#include "test/atoms.hpp"
+#include "test/expressions.hpp"
 #include "test/functions.hpp"
 #include "test/main.hpp"
 
@@ -21,19 +22,28 @@ METAL_ASSERT((not_<is_function<test::h>>));
 METAL_ASSERT((not_<is_function<test::i>>));
 METAL_ASSERT((not_<is_function<test::j>>));
 
+METAL_ASSERT((not_<is_function<test::alias<>>>));
+METAL_ASSERT((not_<is_function<test::empty<>>>));
 METAL_ASSERT((not_<is_function<test::call<>>>));
+METAL_ASSERT((not_<is_function<test::evaluable<>>>));
+METAL_ASSERT((not_<is_function<test::evaluable_union<>>>));
 
-METAL_ASSERT((is_function<test::unary<test::incomplete>>));
+
+METAL_ASSERT((is_function<test::unary<test::alias>>));
 METAL_ASSERT((is_function<test::unary<test::empty>>));
-METAL_ASSERT((is_function<test::unary<test::evaluable>>));
 METAL_ASSERT((is_function<test::unary<test::call>>));
+METAL_ASSERT((is_function<test::unary<test::evaluable>>));
+METAL_ASSERT((is_function<test::unary<test::evaluable_union>>));
 
-METAL_ASSERT((is_function<test::binary<test::incomplete>>));
+METAL_ASSERT((is_function<test::binary<test::alias>>));
 METAL_ASSERT((is_function<test::binary<test::empty>>));
-METAL_ASSERT((is_function<test::binary<test::evaluable>>));
 METAL_ASSERT((is_function<test::binary<test::call>>));
+METAL_ASSERT((is_function<test::binary<test::evaluable>>));
+METAL_ASSERT((is_function<test::binary<test::evaluable_union>>));
 
-METAL_ASSERT((is_function<test::n_ary<test::incomplete>>));
+
+METAL_ASSERT((is_function<test::n_ary<test::alias>>));
 METAL_ASSERT((is_function<test::n_ary<test::empty>>));
-METAL_ASSERT((is_function<test::n_ary<test::evaluable>>));
 METAL_ASSERT((is_function<test::n_ary<test::call>>));
+METAL_ASSERT((is_function<test::n_ary<test::evaluable>>));
+METAL_ASSERT((is_function<test::n_ary<test::evaluable_union>>));

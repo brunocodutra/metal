@@ -7,20 +7,38 @@
 
 namespace test
 {
-    template<typename...>
-    using fundamental = char(&(void))[];
+
 
     template<typename...>
-    struct incomplete;
+    using alias = char(&(void))[];
+
+
+    template<typename... _>
+    struct empty
+    {};
 
     template<typename...>
-    struct empty {};
+    struct call
+    {
+        //typedef call
+
+        //template<typename...>
+        //typedef call
+    };
 
     template<typename...>
-    struct evaluable {struct type;};
+    struct evaluable
+    {
+        struct type;
+    };
 
     template<typename...>
-    struct call {};
+    union evaluable_union
+    {
+        struct type;
+    };
+
+
 }
 
 #endif

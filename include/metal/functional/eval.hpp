@@ -6,6 +6,9 @@
 #define METAL_FUNCTIONAL_EVAL_HPP
 
 #include <metal/functional/nil.hpp>
+#include <metal/core/identity.hpp>
+
+#include <type_traits>
 
 namespace metal
 {
@@ -24,7 +27,11 @@ namespace metal
                 template<typename...> class e,
                 typename = typename e<args...>::type
             >
-            static e<args...> check(int);
+            static typename std::conditional<
+                std::is_class<e<args...>>::value,
+                e<args...>,
+                identity<typename e<args...>::type>
+            >::type check(int);
 
         public:
             using type = decltype(check<expr>(0));

@@ -10,7 +10,7 @@
 #include <metal/functional/call.hpp>
 #include <metal/functional/traits.hpp>
 
-#include "test/values.hpp"
+#include "test/atoms.hpp"
 #include "test/wrap.hpp"
 #include "test/main.hpp"
 

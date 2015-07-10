@@ -33,8 +33,8 @@ namespace metal
             eval<detail::function<func>::template call, args...>
     {};
 
-    template<typename... _>
-    using call_t = typename call<_...>::type;
+    template<typename... args>
+    using call_t = typename call<args...>::type;
 }
 
 #endif

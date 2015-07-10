@@ -8,6 +8,8 @@
 #include <metal/functional/traits/is_callable.hpp>
 #include <metal/functional/traits/is_evaluable.hpp>
 #include <metal/functional/traits/is_function.hpp>
+#include <metal/functional/traits/is_nil.hpp>
+#include <metal/functional/traits/is_same_expression.hpp>
 
 #endif
 
