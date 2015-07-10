@@ -3,17 +3,9 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/functional/bind.hpp>
-#include <metal/functional/arg.hpp>
-#include <metal/functional/verbatim.hpp>
-#include <metal/functional/protect.hpp>
-#include <metal/functional/quote.hpp>
-#include <metal/functional/call.hpp>
-#include <metal/functional/traits.hpp>
+#include <metal.hpp>
 
-#include "test/atoms.hpp"
-#include "test/expressions.hpp"
-#include "test/functions.hpp"
-#include "test/main.hpp"
+#include "test.hpp"
 
 using namespace metal;
 using namespace metal::placeholders;

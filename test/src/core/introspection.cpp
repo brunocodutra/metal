@@ -3,8 +3,9 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/core/introspection.hpp>
+#include <metal.hpp>
 
-#include "test/main.hpp"
+#include "test.hpp"
 
 METAL_DEFINE_NESTED_TYPE_TRAIT(has_nested, nested);
 METAL_DEFINE_NESTED_TEMPLATE_TRAIT(has_nested_template, nested);

@@ -3,13 +3,9 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/functional/arg.hpp>
-#include <metal/functional/call.hpp>
-#include <metal/functional/traits/is_evaluable.hpp>
-#include <metal/functional/traits/is_function.hpp>
-#include <metal/functional/traits/is_callable.hpp>
+#include <metal.hpp>
 
-#include "test/atoms.hpp"
-#include "test/main.hpp"
+#include "test.hpp"
 
 using namespace metal;
 using namespace metal::placeholders;

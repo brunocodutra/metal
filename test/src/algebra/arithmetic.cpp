@@ -3,9 +3,9 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/algebra/arithmetic.hpp>
+#include <metal.hpp>
 
-#include "test/integrals.hpp"
-#include "test/main.hpp"
+#include "test.hpp"
 
 using namespace metal;
 
