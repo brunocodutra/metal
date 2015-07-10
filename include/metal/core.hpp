@@ -5,7 +5,6 @@
 #ifndef METAL_CORE_HPP
 #define METAL_CORE_HPP
 
-#include <metal/core/assert.hpp>
 #include <metal/core/introspection.hpp>
 
 #endif

@@ -14,32 +14,32 @@ struct y {using type = y;};
 struct z {using type = z;};
 struct w {using type = w;};
 
-METAL_ASSERT((std::is_same<if_t<std::true_type, x>, x>));
+static_assert(std::is_same<if_t<std::true_type, x>, x>{}, "");
 
-METAL_ASSERT((std::is_same<if_t<std::true_type, x, y>, x>));
-METAL_ASSERT((std::is_same<if_t<std::false_type, x, y>, y>));
+static_assert(std::is_same<if_t<std::true_type, x, y>, x>{}, "");
+static_assert(std::is_same<if_t<std::false_type, x, y>, y>{}, "");
 
-METAL_ASSERT((std::is_same<if_t<std::true_type, x, std::true_type, y>, x>));
-METAL_ASSERT((std::is_same<if_t<std::false_type, x, std::true_type, y>, y>));
+static_assert(std::is_same<if_t<std::true_type, x, std::true_type, y>, x>{}, "");
+static_assert(std::is_same<if_t<std::false_type, x, std::true_type, y>, y>{}, "");
 
-METAL_ASSERT((std::is_same<if_t<std::true_type, x, std::true_type, y, z>, x>));
-METAL_ASSERT((std::is_same<if_t<std::false_type, x, std::true_type, y, z>, y>));
-METAL_ASSERT((std::is_same<if_t<std::false_type, x, std::false_type, y, z>, z>));
+static_assert(std::is_same<if_t<std::true_type, x, std::true_type, y, z>, x>{}, "");
+static_assert(std::is_same<if_t<std::false_type, x, std::true_type, y, z>, y>{}, "");
+static_assert(std::is_same<if_t<std::false_type, x, std::false_type, y, z>, z>{}, "");
 
-METAL_ASSERT((std::is_same<if_t<std::true_type, x, std::true_type, y, std::true_type, z>, x>));
-METAL_ASSERT((std::is_same<if_t<std::false_type, x, std::true_type, y, std::true_type, z>, y>));
-METAL_ASSERT((std::is_same<if_t<std::false_type, x, std::false_type, y, std::true_type, z>, z>));
+static_assert(std::is_same<if_t<std::true_type, x, std::true_type, y, std::true_type, z>, x>{}, "");
+static_assert(std::is_same<if_t<std::false_type, x, std::true_type, y, std::true_type, z>, y>{}, "");
+static_assert(std::is_same<if_t<std::false_type, x, std::false_type, y, std::true_type, z>, z>{}, "");
 
-METAL_ASSERT((std::is_same<if_t<std::true_type, x, std::true_type, y, std::true_type, z, w>, x>));
-METAL_ASSERT((std::is_same<if_t<std::false_type, x, std::true_type, y, std::true_type, z, w>, y>));
-METAL_ASSERT((std::is_same<if_t<std::false_type, x, std::false_type, y, std::true_type, z, w>, z>));
-METAL_ASSERT((std::is_same<if_t<std::false_type, x, std::false_type, y, std::false_type, z, w>, w>));
+static_assert(std::is_same<if_t<std::true_type, x, std::true_type, y, std::true_type, z, w>, x>{}, "");
+static_assert(std::is_same<if_t<std::false_type, x, std::true_type, y, std::true_type, z, w>, y>{}, "");
+static_assert(std::is_same<if_t<std::false_type, x, std::false_type, y, std::true_type, z, w>, z>{}, "");
+static_assert(std::is_same<if_t<std::false_type, x, std::false_type, y, std::false_type, z, w>, w>{}, "");
 
 using tautology = std::integral_constant<char, 'c'>;
 using contradiction = std::integral_constant<unsigned long, 0UL>;
 
-METAL_ASSERT((if_t<tautology, std::true_type>));
+static_assert(if_t<tautology, std::true_type>{}, "");
 
-METAL_ASSERT((if_t<tautology, std::true_type, std::false_type>));
-METAL_ASSERT((if_t<contradiction, std::false_type, std::true_type>));
+static_assert(if_t<tautology, std::true_type, std::false_type>{}, "");
+static_assert(if_t<contradiction, std::false_type, std::true_type>{}, "");
 

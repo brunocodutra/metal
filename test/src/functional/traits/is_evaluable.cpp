@@ -24,30 +24,30 @@ namespace example
         //empty
     };
 
-    static_assert(metal::is_evaluable<evaluable>::value, "");
-    static_assert(metal::is_evaluable<evaluable, void>::value, "");
-    static_assert(metal::is_evaluable<evaluable, void, void*>::value, "");
+    static_assert(metal::is_evaluable<evaluable>{}, "");
+    static_assert(metal::is_evaluable<evaluable, void>{}, "");
+    static_assert(metal::is_evaluable<evaluable, void, void*>{}, "");
 
-    static_assert(!metal::is_evaluable<not_evaluable>::value, "");
-    static_assert(!metal::is_evaluable<not_evaluable, void>::value, "");
-    static_assert(!metal::is_evaluable<not_evaluable, void, void*>::value, "");
+    static_assert(!metal::is_evaluable<not_evaluable>{}, "");
+    static_assert(!metal::is_evaluable<not_evaluable, void>{}, "");
+    static_assert(!metal::is_evaluable<not_evaluable, void, void*>{}, "");
     /// [is_evaluable]
 }
 
-METAL_ASSERT((not_<is_evaluable<test::alias>>));
-METAL_ASSERT((not_<is_evaluable<test::empty>>));
-METAL_ASSERT((not_<is_evaluable<test::call>>));
-METAL_ASSERT((is_evaluable<test::evaluable>));
-METAL_ASSERT((is_evaluable<test::evaluable_union>));
+static_assert(not_<is_evaluable<test::alias>>{}, "");
+static_assert(not_<is_evaluable<test::empty>>{}, "");
+static_assert(not_<is_evaluable<test::call>>{}, "");
+static_assert(is_evaluable<test::evaluable>{}, "");
+static_assert(is_evaluable<test::evaluable_union>{}, "");
 
-METAL_ASSERT((not_<is_evaluable<test::alias, test::a0>>));
-METAL_ASSERT((not_<is_evaluable<test::empty, test::a0>>));
-METAL_ASSERT((not_<is_evaluable<test::call, test::a0>>));
-METAL_ASSERT((is_evaluable<test::evaluable, test::a0>));
-METAL_ASSERT((is_evaluable<test::evaluable_union, test::a0>));
+static_assert(not_<is_evaluable<test::alias, test::a0>>{}, "");
+static_assert(not_<is_evaluable<test::empty, test::a0>>{}, "");
+static_assert(not_<is_evaluable<test::call, test::a0>>{}, "");
+static_assert(is_evaluable<test::evaluable, test::a0>{}, "");
+static_assert(is_evaluable<test::evaluable_union, test::a0>{}, "");
 
-METAL_ASSERT((not_<is_evaluable<test::alias, test::a0, test::a1>>));
-METAL_ASSERT((not_<is_evaluable<test::empty, test::a0, test::a1>>));
-METAL_ASSERT((not_<is_evaluable<test::call, test::a0, test::a1>>));
-METAL_ASSERT((is_evaluable<test::evaluable, test::a0, test::a1>));
-METAL_ASSERT((is_evaluable<test::evaluable_union, test::a0, test::a1>));
+static_assert(not_<is_evaluable<test::alias, test::a0, test::a1>>{}, "");
+static_assert(not_<is_evaluable<test::empty, test::a0, test::a1>>{}, "");
+static_assert(not_<is_evaluable<test::call, test::a0, test::a1>>{}, "");
+static_assert(is_evaluable<test::evaluable, test::a0, test::a1>{}, "");
+static_assert(is_evaluable<test::evaluable_union, test::a0, test::a1>{}, "");
