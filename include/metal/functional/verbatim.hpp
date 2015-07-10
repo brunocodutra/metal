@@ -9,15 +9,15 @@ namespace metal
 {
     namespace detail
     {
-        template<typename x, int = 0>
+        template<typename value, int = 0>
         struct verbatim_impl
         {
-            using type = x;
+            using type = value;
         };
     }
 
-    template<typename atom>
-    using verbatim = detail::verbatim_impl<atom>;
+    template<typename value>
+    using verbatim = detail::verbatim_impl<value>;
 }
 
 #endif

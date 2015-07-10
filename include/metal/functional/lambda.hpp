@@ -25,9 +25,9 @@ namespace metal
         template<typename token>
         using parse_t = typename parse<token>::type;
 
-        template<typename atom>
+        template<typename value>
         struct parse :
-                bind<verbatim<arg<1>>, atom>
+                bind<verbatim<arg<1>>, value>
         {};
 
         template<std::size_t n>

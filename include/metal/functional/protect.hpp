@@ -5,8 +5,6 @@
 #ifndef METAL_FUNCTIONAL_FUNCTION_HPP
 #define METAL_FUNCTIONAL_FUNCTION_HPP
 
-#include <metal/functional/traits/is_function.hpp>
-
 #include <type_traits>
 
 namespace metal
@@ -14,25 +12,21 @@ namespace metal
     namespace detail
     {
         template<typename, typename = std::true_type, int = 0>
-        struct function_impl
+        struct protect_impl
         {
-            using type = function_impl;
-
-            template<typename...>
-            struct call
-            {};
+            using type = protect_impl;
         };
 
-        template<typename func>
-        struct function_impl<func, is_function_t<func>, 0> :
-                func
+        template<typename value>
+        struct protect_impl<value, typename std::is_class<value>::type, 0> :
+                value
         {
-            using type = function_impl;
+            using type = protect_impl;
         };
     }
 
-    template<typename func>
-    using function = detail::function_impl<func>;
+    template<typename value>
+    using protect = detail::protect_impl<value>;
 }
 
 #endif
