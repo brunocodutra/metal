@@ -30,7 +30,7 @@ namespace metal
             static typename std::conditional<
                 std::is_class<e<args...>>::value,
                 e<args...>,
-                identity<typename e<args...>::type>
+                nil
             >::type check(int);
 
         public:

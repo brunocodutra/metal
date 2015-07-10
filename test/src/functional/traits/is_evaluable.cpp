@@ -37,17 +37,17 @@ namespace example
 static_assert(not_<is_evaluable<test::alias>>{}, "");
 static_assert(not_<is_evaluable<test::empty>>{}, "");
 static_assert(not_<is_evaluable<test::call>>{}, "");
+static_assert(not_<is_evaluable<test::union_>>{}, "");
 static_assert(is_evaluable<test::evaluable>{}, "");
-static_assert(is_evaluable<test::evaluable_union>{}, "");
 
 static_assert(not_<is_evaluable<test::alias, test::a0>>{}, "");
 static_assert(not_<is_evaluable<test::empty, test::a0>>{}, "");
 static_assert(not_<is_evaluable<test::call, test::a0>>{}, "");
+static_assert(not_<is_evaluable<test::union_, test::a0>>{}, "");
 static_assert(is_evaluable<test::evaluable, test::a0>{}, "");
-static_assert(is_evaluable<test::evaluable_union, test::a0>{}, "");
 
 static_assert(not_<is_evaluable<test::alias, test::a0, test::a1>>{}, "");
 static_assert(not_<is_evaluable<test::empty, test::a0, test::a1>>{}, "");
 static_assert(not_<is_evaluable<test::call, test::a0, test::a1>>{}, "");
+static_assert(not_<is_evaluable<test::union_, test::a0, test::a1>>{}, "");
 static_assert(is_evaluable<test::evaluable, test::a0, test::a1>{}, "");
-static_assert(is_evaluable<test::evaluable_union, test::a0, test::a1>{}, "");

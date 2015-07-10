@@ -33,7 +33,6 @@ namespace example
 using namespace metal;
 
 static_assert(std::is_same<eval_t<test::evaluable>, test::evaluable<>::type>{}, "");
-static_assert(std::is_same<eval_t<test::evaluable_union>, test::evaluable_union<>::type>{}, "");
 
 static_assert(std::is_same<eval_t<test::e0>, test::e0<>::type>{}, "");
 static_assert(std::is_same<eval_t<test::e1, test::a0>, test::e1<test::a0>::type>{}, "");

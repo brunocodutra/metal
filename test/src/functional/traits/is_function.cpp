@@ -23,23 +23,23 @@ static_assert(not_<is_function<test::a9>>{}, "");
 static_assert(not_<is_function<test::alias<>>>{}, "");
 static_assert(not_<is_function<test::empty<>>>{}, "");
 static_assert(not_<is_function<test::call<>>>{}, "");
+static_assert(not_<is_function<test::union_<>>>{}, "");
 static_assert(not_<is_function<test::evaluable<>>>{}, "");
-static_assert(not_<is_function<test::evaluable_union<>>>{}, "");
 
 static_assert(is_function<test::unary<test::alias>>{}, "");
 static_assert(is_function<test::unary<test::empty>>{}, "");
 static_assert(is_function<test::unary<test::call>>{}, "");
+static_assert(is_function<test::unary<test::union_>>{}, "");
 static_assert(is_function<test::unary<test::evaluable>>{}, "");
-static_assert(is_function<test::unary<test::evaluable_union>>{}, "");
 
 static_assert(is_function<test::binary<test::alias>>{}, "");
 static_assert(is_function<test::binary<test::empty>>{}, "");
 static_assert(is_function<test::binary<test::call>>{}, "");
+static_assert(is_function<test::binary<test::union_>>{}, "");
 static_assert(is_function<test::binary<test::evaluable>>{}, "");
-static_assert(is_function<test::binary<test::evaluable_union>>{}, "");
 
 static_assert(is_function<test::n_ary<test::alias>>{}, "");
 static_assert(is_function<test::n_ary<test::empty>>{}, "");
 static_assert(is_function<test::n_ary<test::call>>{}, "");
+static_assert(is_function<test::n_ary<test::union_>>{}, "");
 static_assert(is_function<test::n_ary<test::evaluable>>{}, "");
-static_assert(is_function<test::n_ary<test::evaluable_union>>{}, "");

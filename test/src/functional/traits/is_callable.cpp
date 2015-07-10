@@ -45,54 +45,54 @@ static_assert(not_<is_callable<test::a9, void, void*>>{}, "");
 static_assert(not_<is_callable<test::unary<test::alias>>>{}, "");
 static_assert(not_<is_callable<test::unary<test::empty>>>{}, "");
 static_assert(not_<is_callable<test::unary<test::call>>>{}, "");
+static_assert(not_<is_callable<test::unary<test::union_>>>{}, "");
 static_assert(not_<is_callable<test::unary<test::evaluable>>>{}, "");
-static_assert(not_<is_callable<test::unary<test::evaluable_union>>>{}, "");
 
 static_assert(not_<is_callable<test::unary<test::alias>, void>>{}, "");
 static_assert(not_<is_callable<test::unary<test::empty>, void>>{}, "");
 static_assert(not_<is_callable<test::unary<test::call>, void>>{}, "");
+static_assert(not_<is_callable<test::unary<test::union_>, void>>{}, "");
 static_assert(is_callable<test::unary<test::evaluable>, void>{}, "");
-static_assert(is_callable<test::unary<test::evaluable_union>, void>{}, "");
 
 static_assert(not_<is_callable<test::unary<test::alias>, void, void*>>{}, "");
 static_assert(not_<is_callable<test::unary<test::empty>, void, void*>>{}, "");
 static_assert(not_<is_callable<test::unary<test::call>, void, void*>>{}, "");
+static_assert(not_<is_callable<test::unary<test::union_>, void, void*>>{}, "");
 static_assert(not_<is_callable<test::unary<test::evaluable>, void, void*>>{}, "");
-static_assert(not_<is_callable<test::unary<test::evaluable_union>, void, void*>>{}, "");
 
 static_assert(not_<is_callable<test::binary<test::alias>>>{}, "");
 static_assert(not_<is_callable<test::binary<test::empty>>>{}, "");
 static_assert(not_<is_callable<test::binary<test::call>>>{}, "");
+static_assert(not_<is_callable<test::binary<test::union_>>>{}, "");
 static_assert(not_<is_callable<test::binary<test::evaluable>>>{}, "");
-static_assert(not_<is_callable<test::binary<test::evaluable_union>>>{}, "");
 
 static_assert(not_<is_callable<test::binary<test::alias>, void>>{}, "");
 static_assert(not_<is_callable<test::binary<test::empty>, void>>{}, "");
 static_assert(not_<is_callable<test::binary<test::call>, void>>{}, "");
+static_assert(not_<is_callable<test::binary<test::union_>, void>>{}, "");
 static_assert(not_<is_callable<test::binary<test::evaluable>, void>>{}, "");
-static_assert(not_<is_callable<test::binary<test::evaluable_union>, void>>{}, "");
 
 static_assert(not_<is_callable<test::binary<test::alias>, void, void*>>{}, "");
 static_assert(not_<is_callable<test::binary<test::empty>, void, void*>>{}, "");
 static_assert(not_<is_callable<test::binary<test::call>, void, void*>>{}, "");
+static_assert(not_<is_callable<test::binary<test::union_>, void, void*>>{}, "");
 static_assert(is_callable<test::binary<test::evaluable>, void, void*>{}, "");
-static_assert(is_callable<test::binary<test::evaluable_union>, void, void*>{}, "");
 
 static_assert(not_<is_callable<test::n_ary<test::alias>>>{}, "");
 static_assert(not_<is_callable<test::n_ary<test::empty>>>{}, "");
 static_assert(not_<is_callable<test::n_ary<test::call>>>{}, "");
+static_assert(not_<is_callable<test::n_ary<test::union_>>>{}, "");
 static_assert(is_callable<test::n_ary<test::evaluable>>{}, "");
-static_assert(is_callable<test::n_ary<test::evaluable_union>>{}, "");
 
 static_assert(not_<is_callable<test::n_ary<test::alias>, void>>{}, "");
 static_assert(not_<is_callable<test::n_ary<test::empty>, void>>{}, "");
 static_assert(not_<is_callable<test::n_ary<test::call>, void>>{}, "");
+static_assert(not_<is_callable<test::n_ary<test::union_>, void>>{}, "");
 static_assert(is_callable<test::n_ary<test::evaluable>, void>{}, "");
-static_assert(is_callable<test::n_ary<test::evaluable_union>, void>{}, "");
 
 static_assert(not_<is_callable<test::n_ary<test::alias>, void, void*>>{}, "");
 static_assert(not_<is_callable<test::n_ary<test::empty>, void, void*>>{}, "");
 static_assert(not_<is_callable<test::n_ary<test::call>, void, void*>>{}, "");
+static_assert(not_<is_callable<test::n_ary<test::union_>, void, void*>>{}, "");
 static_assert(is_callable<test::n_ary<test::evaluable>, void, void*>{}, "");
-static_assert(is_callable<test::n_ary<test::evaluable_union>, void, void*>{}, "");
 

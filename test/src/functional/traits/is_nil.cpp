@@ -23,5 +23,5 @@ static_assert(is_nil<test::a9>{}, "");
 static_assert(is_nil<test::alias<>>{}, "");
 static_assert(is_nil<test::empty<>>{}, "");
 static_assert(is_nil<test::call<>>{}, "");
+static_assert(not_<is_nil<test::union_<>>>{}, "");
 static_assert(not_<is_nil<test::evaluable<>>>{}, "");
-static_assert(not_<is_nil<test::evaluable_union<>>>{}, "");

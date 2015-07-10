@@ -37,14 +37,14 @@ static_assert(std::is_same<call_t<lambda<verbatim<test::a9>>>, test::a9>{}, "");
 static_assert(std::is_same<call_t<lambda<test::alias<>>>, test::alias<>>{}, "");
 static_assert(not_<is_callable_t<lambda<test::empty<>>>>{}, "");
 static_assert(not_<is_callable_t<lambda<test::call<>>>>{}, "");
+static_assert(not_<is_callable_t<lambda<test::union_<>>>>{}, "");
 static_assert(std::is_same<call_t<lambda<test::evaluable<>>>, test::evaluable<>::type>{}, "");
-static_assert(std::is_same<call_t<lambda<test::evaluable_union<>>>, test::evaluable_union<>::type>{}, "");
 
 static_assert(std::is_same<call_t<lambda<verbatim<test::alias<>>>>, test::alias<>>{}, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::empty<>>>>, test::empty<>>{}, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::call<>>>>, test::call<>>{}, "");
+static_assert(std::is_same<call_t<lambda<verbatim<test::union_<>>>>, test::union_<>>{}, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::evaluable<>>>>, test::evaluable<>>{}, "");
-static_assert(std::is_same<call_t<lambda<verbatim<test::evaluable_union<>>>>, test::evaluable_union<>>{}, "");
 
 static_assert(std::is_same<call_t<lambda<test::wrapper>, void>, test::wrapper>{}, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::wrapper>>, void>, test::wrapper>{}, "");

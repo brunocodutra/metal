@@ -25,13 +25,13 @@ namespace test
     };
 
     template<typename...>
-    struct evaluable
+    union union_
     {
         struct type;
     };
 
     template<typename...>
-    union evaluable_union
+    struct evaluable
     {
         struct type;
     };
@@ -54,10 +54,10 @@ namespace test
     using e1 = evaluable<x>;
 
     template<typename x, typename y>
-    using e2 = evaluable_union<x, y>;
+    using e2 = evaluable<x, y>;
 
     template<typename... args>
-    using en = evaluable_union<args...>;
+    using en = evaluable<args...>;
 }
 
 #endif
