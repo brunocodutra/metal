@@ -8,13 +8,97 @@ Because constructs assume different meanings during template metaprogramming
 from what they usually mean in an actual C++ context, some key concepts must be
 defined.
 
-# Optional Value {#concept_optional_value}
+# Value {#concept_value}
 
 --------------------------------------------------------------------------------
 
+[Values] are the objects of metaprogramming.
+
 ## Requirements
 
-TODO
+If `v` is a model of [Value], then `v` is a type.
+
+## Examples
+
+~~~{.cpp}
+    struct value
+    {
+        //...
+    };
+~~~
+
+~~~{.cpp}
+    using value = int;
+~~~
+
+~~~{.cpp}
+    using value = decltype(3.14);
+~~~
+
+## Counterexamples
+
+~~~{.cpp}
+    struct
+    {
+        //...
+    } value;
+~~~
+
+~~~{.cpp}
+    int value;
+~~~
+
+~~~{.cpp}
+    auto value = 3.14;
+~~~
+
+# Nullable Value {#concept_nullable_value}
+
+--------------------------------------------------------------------------------
+
+[Nullable Values] represent either some [Value] or *nil*.
+Every [Nullable Value] is also a model of [Value].
+
+In order to evaluate a [Nullable Value]
+one must explicitly name its nested `::type`.
+A [Nullable Value] is said to be *nil* whenever a nested `::type` is undefined
+or ambiguously defined, thus evaluating *nil* leads to a compile-time error.
+
+## Requirements
+
+If `n` is a model of [Nullable Value], then `n` is a model of [Value].
+
+## Associated Traits
+
+metal::is_nil
+
+## Examples
+
+\snippet concepts/nullable.cpp ex1
+\snippet concepts/nullable.cpp ex2
+\snippet concepts/nullable.cpp ex3
+\snippet concepts/nullable.cpp ex4
+
+## Models
+
+metal::nil
+
+# Strict Value {#concept_strict_value}
+
+--------------------------------------------------------------------------------
+
+A [Strict Value] is a [Nullable Value] that represents itself.
+[Strict Values] are never nil.
+
+## Requirements
+
+If `sv` is a model of [Strict Value], then
+* `sv` is a non-nil [Nullable Value].
+* `sv::type` is either some public and unambiguous base of `sv` or `sv` itself.
+
+## Associated Traits
+
+metal::is_strict_value
 
 ## Examples
 
@@ -28,22 +112,21 @@ TODO
 
 --------------------------------------------------------------------------------
 
-A \ref concept_numerical_value is a compile type representation of a number,
-maping directly to runtime numerical values.
-They derive from a specialization of
-[std::integral_constant][std_integral_constant], thus
-every \ref concept_numerical_value is also a
-**Strict** \ref concept_optional_value.
+A [Numerical Value] is a compile type representation of a number,
+behaving much like run-time numerical values.
+[Numerical Values] derive from a specialization of
+[std::integral_constant], thus
+every [Numerical Value] is also a [Strict Value].
 
 ## Requirements
 
-If `n` is a model of \ref concept_numerical_value, then `n` is either:
+If `n` is a model of [Numerical Value], then `n` is either:
 * an alias to a specialization of
-[std::integral_constant][std_integral_constant].
+[std::integral_constant].
 * publicly and unambiguously derived, directly or indirectly, from a
-\ref concept_numerical_value.
+[Numerical Value].
 
-Names inherited from [std::integral_constant][std_integral_constant]
+Names inherited from [std::integral_constant]
 must not be hidden and must be unambiguously available.
 
 ## Examples
@@ -66,137 +149,102 @@ must not be hidden and must be unambiguously available.
 
 --------------------------------------------------------------------------------
 
-An \ref concept_expression is a compile type representation of a computation.
-They map directly to runtime functions and are thus often denoted
-*metafunctions*, not to be confused with the \ref concept_function concept.
+An [Expression] is a compile type representation of a computation that
+maps a set of [Values] to a new [Value].
+Since [Expressions] behave much like run-time functions,
+they are often called *metafunctions*,
+not to be confused with the [Function] concept.
 
-An \ref concept_expression operates on arguments that model an
-\ref concept_optional_value, but
-unlike runtime functions, *expressions* are lazy, which means that they do
-not immediately evaluate when invoked.
-Rather, an \ref concept_expression invoked with some set of *optional values* is
-itself a model of \ref concept_optional_value,
-thus either *nothing* or *just* something.
-Not unlike any other \ref concept_optional_value,
+Unlike run-time functions, [Expressions] are lazy,
+which means that they do not immediately evaluate when invoked.
+Rather, an [Expression] invoked with some set of arguments is
+itself a model of [Nullable Value], that is either nil or some [Value].
+Therefore, not unlike any other [Nullable Value],
 one must explicitly name the nested `::type`
-in order to actually evaluate an \ref concept_expression.
-In general, however, an \ref concept_expression may also compute to *nothing*,
-i.e. an empty \ref concept_optional_value, for some set of arguments, hence,
-just like any other empty \ref concept_optional_value,
-evaluating such an \ref concept_expression results in a compile time error.
+in order to actually evaluate an [Expression].
+In general, however, an [Expression] may naturally compute to
+nil for some set of arguments, hence
+evaluating such an [Expression] leads to a compile time error.
 
-An \ref concept_expression which computes to *just* something, i.e. a non-empty
-\ref concept_optional_value, when invoked with some set of arguments
+An [Expression] which evaluates to some [Value]
+when invoked with some set of arguments
 is said to be *evaluable* for that set of arguments.
+If it otherwise evaluates to a [Strict Value],
+it is said to be *strictly evaluable* for that set of arguments.
 
 ## Requirements
 
-If `expr` is a model of \ref concept_expression, then `expr` is a template,
-either type or alias, taking only types as arguments.
+If `expr` is a model of [Expression], then `expr` is either a template class
+or alias taking only types as arguments.
 
 ## Examples
 
-~~~{.cpp}
-    template<typename>
-    struct expr //evaluable for every argument
-    {
-        struct type;
-    };
-~~~
-
-~~~{.cpp}
-    template<typename...>
-    using expr = void; //not evaluable for any set of arguments
-~~~
-
-~~~{.cpp}
-    template<typename integral> //evaluable for integral types
-    using expr = std::integral_constant<integral, integral{}>;
-~~~
+\snippet concepts/expression.cpp ex1
+\snippet concepts/expression.cpp ex2
+\snippet concepts/expression.cpp ex3
 
 ## Counterexamples
 
-~~~{.cpp}
-    template<typename x, x value>
-    struct expr //takes a non-type as argument
-    {
-        struct type;
-    };
-~~~
-
-~~~{.cpp}
-    template<template<typename...> class>
-    using expr = void; //takes a non-type as argument
-~~~
-
-~~~{.cpp}
-    using expr = std::true_type; //not a template nor an alias template
-~~~
+\snippet concepts/expression.cpp nex1
+\snippet concepts/expression.cpp nex2
+\snippet concepts/expression.cpp nex3
 
 ## Models
 
-\ref functional_traits, verbatim, call, bind, lambda
+metal::identity, metal::call, metal::bind, metal::lambda
 
 # Function {#concept_function}
 
 --------------------------------------------------------------------------------
 
-A \ref concept_function is a value representation of an \ref concept_expression,
-that is, unlike the latter, it is a model of \ref concept_optional_value.
-As such, a \ref concept_function can serve as argument or return type to other
-*functions* and *expressions*, thus enabling
-[higher-order computations][higher_order], much like runtime
-[function objetcs][function_object].
+A [Function] is a value representation of an [Expression],
+that is, unlike the latter, every [Function] is a model of [Strict Value].
+As such, [Functions] can serve as argument or return type to other
+[Functions] and [Expressions], thus enabling
+[higher-order] computations, much like run-time
+[function objects].
 
-A \ref concept_function can take the form of a template,
-in which case it is said to be *parametric*.
-*Parametric functions* are only really functions once they are *instantiated*,
-much like template types in regular C++.
-A special case of particular interest are *parametric functions* which also
-meet the criteria to model an \ref concept_expression.
-
-As an \ref concept_optional_value,
-a \ref concept_function may certainly evaluate to
-*nothing*, i.e. model an empty \ref concept_optional_value,
-but it is often very useful that a \ref concept_function
-evaluate to *just* itself,
-being thus a model of **Strict** \ref concept_optional_value.
-Such a function is said to be a *strict function*.
-
-A *strict function*
-that is parametric and also meets the criteria to model an
-\ref concept_expression is called a *dual function*,
-after the fact such a \ref concept_function
-may be regarded eiter as a \ref concept_function
-or as an \ref concept_expression,
+A [Function] that takes the form of a template is said to be *parametric*
+and behaves much like template types in regular C++.
+A special group of particular interest are *parametric* [Functions] which also
+meet the criteria to model an [Expression].
+Those present a dual behavior and may be regarded as either,
 depending on what is more convenient at each particular context.
-*Dual functions* play an important role in Metal
-and, in fact, two of its most powerful functional
-constructs are part of this special group: \ref bind and \ref lambda.
-
 
 ## Requirements
 
-If `f` us a model of \ref concept_function, then
-* `f` is also a model of \ref concept_optional_value and
-* `f::call` is defined and is a model of \ref concept_expression
+If `f` is a model of [Function], then
+* `f` is a model of [Strict Value].
+* `f::call` is unambiguously inherited from `f::type` and
+is a model of [Expression].
 
 ## Examples
 
-~~~{.cpp}
-    struct f //an empty Optional Value
-    {
-        template<typename...>
-        struct call;
-    };
-~~~
+\snippet concepts/function.cpp ex1
+\snippet concepts/function.cpp ex2
 
-TODO
+## Counterexamples
+
+\snippet concepts/function.cpp nex1
+\snippet concepts/function.cpp nex2
 
 ## Models
 
-arg, quote, bind, lambda
+metal::arg, metal::quote, metal::bind, metal::lambda
 
-[std_integral_constant]:    http://en.cppreference.com/w/cpp/types/integral_constant
-[higher_order]:             https://en.wikipedia.org/wiki/Higher-order_function
-[function_object]:          http://en.cppreference.com/w/cpp/utility/functional
+[Value]:                    \ref concept_value
+[Values]:                   \ref concept_value
+[Nullable Value]:           \ref concept_nullable_value
+[Nullable Values]:          \ref concept_nullable_value
+[Strict Value]:             \ref concept_strict_value
+[Strict Values]:            \ref concept_strict_value
+[Numerical Value]:          \ref concept_numerical_value
+[Numerical Values]:         \ref concept_numerical_value
+[Expression]:               \ref concept_expression
+[Expressions]:              \ref concept_expression
+[Function]:                 \ref concept_function
+[Functions]:                \ref concept_function
+
+[std::integral_constant]:   http://en.cppreference.com/w/cpp/types/integral_constant
+[higher-order]:             https://en.wikipedia.org/wiki/Higher-order_function
+[function objects]:         http://en.cppreference.com/w/cpp/utility/functional

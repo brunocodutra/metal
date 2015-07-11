@@ -76,7 +76,10 @@ namespace metal
     /// Example
     /// -------
     /// \snippet eval.cpp eval
-    /// \see eval_t, is_evaluable
+    ///
+    /// See Also
+    /// --------
+    /// eval_t, is_evaluable
     template<template<typename...> class expr, typename... args>
     struct eval :
             detail::eval_impl<expr, args...>::type

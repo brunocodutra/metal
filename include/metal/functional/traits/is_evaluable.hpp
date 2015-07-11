@@ -56,7 +56,10 @@ namespace metal
     /// Example
     /// -------
     /// \snippet is_evaluable.cpp is_evaluable
-    /// \see is_evaluable_t, eval
+    ///
+    /// See Also
+    /// --------
+    /// is_evaluable_t, eval
     template<template<typename...> class expr, typename... args>
     struct is_evaluable :
             not_<is_nil<eval<expr, args...>>>
