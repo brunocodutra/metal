@@ -20,6 +20,8 @@ namespace metal
             not_<detail::has_type<x>>
     {};
 
+    /// \ingroup functional_traits
+    /// \brief Eager adaptor for is_nil.
     template<typename x>
     using is_nil_t = typename is_nil<x>::type;
 }

@@ -29,6 +29,8 @@ namespace metal
             >
     {};
 
+    /// \ingroup functional_traits
+    /// \brief Eager adaptor for is_same_function.
     template<typename x, typename y>
     using is_same_function_t = typename is_same_function<x, y>::type;
 }

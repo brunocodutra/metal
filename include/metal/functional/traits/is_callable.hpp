@@ -15,6 +15,8 @@ namespace metal
             is_evaluable<call, x...>
     {};
 
+    /// \ingroup functional_traits
+    /// \brief Eager adaptor for is_callable.
     template<typename... x>
     using is_callable_t = typename is_callable<x...>::type;
 }

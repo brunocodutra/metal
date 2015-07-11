@@ -19,6 +19,8 @@ namespace metal
             std::true_type
     {};
 
+    /// \ingroup functional_traits
+    /// \brief Eager adaptor for is_same_expression.
     template<template<typename...> class x, template<typename...> class y>
     using is_same_expression_t = typename is_same_expression<x, y>::type;
 }

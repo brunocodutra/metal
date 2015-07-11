@@ -43,6 +43,8 @@ namespace metal
             >
     {};
 
+    /// \ingroup functional_traits
+    /// \brief Eager adaptor for is_function.
     template<typename func>
     using is_function_t = typename is_function<func>::type;
 }

@@ -20,27 +20,20 @@ namespace metal
     using is_evaluable_t = typename is_evaluable<expr, args...>::type;
 
     /// \ingroup functional_traits
-    /// \brief Checks whether an arbitrary expression `expr`
-    /// is [evaluable](\ref concept_evaluable_expression)
-    /// with arguments `args`.
-    ///
-    /// Model of
-    /// --------
-    ///
-    /// \ref concept_expression
+    /// \brief Checks whether an arbitrary \ref concept_expression `expr`
+    /// is evaluable with [Values](\ref concept_value) `args`.
     ///
     /// Usage
     /// -----
-    /// For any expression `expr` and arguments `args`,
+    /// For any \ref concept_expression `expr` and
+    /// [Values](\ref concept_value) `args`,
     /// \code
-    ///     using result = is_evaluable<expr, args...>;
+    ///     using result = metal::is_evaluable<expr, args...>;
     /// \endcode
-    /// \par Return type:
+    /// \par Model:
     ///     \ref concept_numerical_value
     /// \par Semantics:
-    ///     if `expr` is is [evaluable](\ref concept_evaluable_expression)
-    ///     with arguments `args`,
-    ///     then equivalent to
+    ///     if `expr<args...>` is not nil, then equivalent to
     ///     \code
     ///         struct result :
     ///             std::true_type
@@ -55,11 +48,11 @@ namespace metal
     ///
     /// Example
     /// -------
-    /// \snippet is_evaluable.cpp is_evaluable
+    /// \snippet functional/traits/is_evaluable.cpp main
     ///
     /// See Also
     /// --------
-    /// is_evaluable_t, eval
+    /// \see is_evaluable_t, eval
     template<template<typename...> class expr, typename... args>
     struct is_evaluable :
             not_<is_nil<eval<expr, args...>>>

@@ -9,3 +9,11 @@
 .contents a:visited {
 	color: #551A8B;
 }
+
+.section.see dt {
+    display: none
+}
+
+.section.see dd {
+    margin-left: 0px;
+}

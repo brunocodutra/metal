@@ -6,7 +6,7 @@
 
 namespace
 {
-    /// [eval]
+    /// [main]
     template<typename>
     struct except_void
     {
@@ -24,7 +24,7 @@ namespace
 
     using r2 = metal::eval<except_void, void>; //except_void<void> is nil
     static_assert(!std::is_base_of<except_void<void>, r2>::value, "");
-    /// [eval]
+    /// [main]
 }
 
 int main()

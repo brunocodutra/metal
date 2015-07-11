@@ -98,7 +98,7 @@ If `sv` is a model of [Strict Value], then
 
 ## Associated Traits
 
-metal::is_strict_value
+metal::is_strict
 
 ## Examples
 

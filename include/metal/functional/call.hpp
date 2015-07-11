@@ -33,6 +33,8 @@ namespace metal
             eval<detail::function<func>::template call, args...>
     {};
 
+    /// \ingroup functional_traits
+    /// \brief Eager adaptor for call.
     template<typename... args>
     using call_t = typename call<args...>::type;
 }

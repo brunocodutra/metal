@@ -6,7 +6,7 @@
 
 namespace
 {
-    /// [is_evaluable]
+    /// [main]
     template<typename...>
     struct evaluable
     {
@@ -26,7 +26,7 @@ namespace
     static_assert(!metal::is_evaluable<not_evaluable>::value, "");
     static_assert(!metal::is_evaluable<not_evaluable, void>::value, "");
     static_assert(!metal::is_evaluable<not_evaluable, void, void*>::value, "");
-    /// [is_evaluable]
+    /// [main]
 }
 
 int main()
