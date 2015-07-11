@@ -16,3 +16,4 @@ add_test_matrix(
     "${METAL_TEST_HEADERS}"
 )
 add_dependencies(metal.test metal)
+add_dependencies(metal.test metal.example)
