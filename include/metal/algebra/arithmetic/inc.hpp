@@ -12,8 +12,8 @@ namespace metal
     template<typename x>
     struct inc :
             std::integral_constant<
-                typename x::value_type,
-                static_cast<typename x::value_type>(x::value + 1)
+                decltype(x::value),
+                static_cast<decltype(x::value)>(x::value + 1)
             >
     {};
 }

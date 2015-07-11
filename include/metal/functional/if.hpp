@@ -22,7 +22,7 @@ namespace metal
 
     template<typename pred, typename then, typename else_>
     struct if_<pred, then, else_> :
-            std::conditional<!!pred::type::value, then, else_>::type
+            std::conditional<!!pred::value, then, else_>::type
     {};
 
     template<typename pred, typename then>
