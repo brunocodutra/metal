@@ -9,19 +9,19 @@
 
 using namespace metal;
 
-static_assert(is_nil<test::a0>{}, "");
-static_assert(is_nil<test::a1>{}, "");
-static_assert(is_nil<test::a2>{}, "");
-static_assert(is_nil<test::a3>{}, "");
-static_assert(is_nil<test::a4>{}, "");
-static_assert(is_nil<test::a5>{}, "");
-static_assert(is_nil<test::a6>{}, "");
-static_assert(is_nil<test::a7>{}, "");
-static_assert(is_nil<test::a9>{}, "");
-static_assert(is_nil<test::a9>{}, "");
+static_assert(is_nil<test::a0>::value, "");
+static_assert(is_nil<test::a1>::value, "");
+static_assert(is_nil<test::a2>::value, "");
+static_assert(is_nil<test::a3>::value, "");
+static_assert(is_nil<test::a4>::value, "");
+static_assert(is_nil<test::a5>::value, "");
+static_assert(is_nil<test::a6>::value, "");
+static_assert(is_nil<test::a7>::value, "");
+static_assert(is_nil<test::a9>::value, "");
+static_assert(is_nil<test::a9>::value, "");
 
-static_assert(is_nil<test::alias<>>{}, "");
-static_assert(is_nil<test::empty<>>{}, "");
-static_assert(is_nil<test::call<>>{}, "");
-static_assert(not_<is_nil<test::union_<>>>{}, "");
-static_assert(not_<is_nil<test::evaluable<>>>{}, "");
+static_assert(is_nil<test::alias<>>::value, "");
+static_assert(is_nil<test::empty<>>::value, "");
+static_assert(is_nil<test::call<>>::value, "");
+static_assert(not_<is_nil<test::union_<>>>::value, "");
+static_assert(not_<is_nil<test::evaluable<>>>::value, "");

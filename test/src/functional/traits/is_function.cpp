@@ -9,37 +9,37 @@
 
 using namespace metal;
 
-static_assert(not_<is_function<test::a0>>{}, "");
-static_assert(not_<is_function<test::a1>>{}, "");
-static_assert(not_<is_function<test::a2>>{}, "");
-static_assert(not_<is_function<test::a3>>{}, "");
-static_assert(not_<is_function<test::a4>>{}, "");
-static_assert(not_<is_function<test::a5>>{}, "");
-static_assert(not_<is_function<test::a6>>{}, "");
-static_assert(not_<is_function<test::a7>>{}, "");
-static_assert(not_<is_function<test::a9>>{}, "");
-static_assert(not_<is_function<test::a9>>{}, "");
+static_assert(not_<is_function<test::a0>>::value, "");
+static_assert(not_<is_function<test::a1>>::value, "");
+static_assert(not_<is_function<test::a2>>::value, "");
+static_assert(not_<is_function<test::a3>>::value, "");
+static_assert(not_<is_function<test::a4>>::value, "");
+static_assert(not_<is_function<test::a5>>::value, "");
+static_assert(not_<is_function<test::a6>>::value, "");
+static_assert(not_<is_function<test::a7>>::value, "");
+static_assert(not_<is_function<test::a9>>::value, "");
+static_assert(not_<is_function<test::a9>>::value, "");
 
-static_assert(not_<is_function<test::alias<>>>{}, "");
-static_assert(not_<is_function<test::empty<>>>{}, "");
-static_assert(not_<is_function<test::call<>>>{}, "");
-static_assert(not_<is_function<test::union_<>>>{}, "");
-static_assert(not_<is_function<test::evaluable<>>>{}, "");
+static_assert(not_<is_function<test::alias<>>>::value, "");
+static_assert(not_<is_function<test::empty<>>>::value, "");
+static_assert(not_<is_function<test::call<>>>::value, "");
+static_assert(not_<is_function<test::union_<>>>::value, "");
+static_assert(not_<is_function<test::evaluable<>>>::value, "");
 
-static_assert(is_function<test::unary<test::alias>>{}, "");
-static_assert(is_function<test::unary<test::empty>>{}, "");
-static_assert(is_function<test::unary<test::call>>{}, "");
-static_assert(is_function<test::unary<test::union_>>{}, "");
-static_assert(is_function<test::unary<test::evaluable>>{}, "");
+static_assert(is_function<test::unary<test::alias>>::value, "");
+static_assert(is_function<test::unary<test::empty>>::value, "");
+static_assert(is_function<test::unary<test::call>>::value, "");
+static_assert(is_function<test::unary<test::union_>>::value, "");
+static_assert(is_function<test::unary<test::evaluable>>::value, "");
 
-static_assert(is_function<test::binary<test::alias>>{}, "");
-static_assert(is_function<test::binary<test::empty>>{}, "");
-static_assert(is_function<test::binary<test::call>>{}, "");
-static_assert(is_function<test::binary<test::union_>>{}, "");
-static_assert(is_function<test::binary<test::evaluable>>{}, "");
+static_assert(is_function<test::binary<test::alias>>::value, "");
+static_assert(is_function<test::binary<test::empty>>::value, "");
+static_assert(is_function<test::binary<test::call>>::value, "");
+static_assert(is_function<test::binary<test::union_>>::value, "");
+static_assert(is_function<test::binary<test::evaluable>>::value, "");
 
-static_assert(is_function<test::n_ary<test::alias>>{}, "");
-static_assert(is_function<test::n_ary<test::empty>>{}, "");
-static_assert(is_function<test::n_ary<test::call>>{}, "");
-static_assert(is_function<test::n_ary<test::union_>>{}, "");
-static_assert(is_function<test::n_ary<test::evaluable>>{}, "");
+static_assert(is_function<test::n_ary<test::alias>>::value, "");
+static_assert(is_function<test::n_ary<test::empty>>::value, "");
+static_assert(is_function<test::n_ary<test::call>>::value, "");
+static_assert(is_function<test::n_ary<test::union_>>::value, "");
+static_assert(is_function<test::n_ary<test::evaluable>>::value, "");

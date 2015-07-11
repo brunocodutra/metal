@@ -9,18 +9,18 @@
 
 using namespace metal;
 
-static_assert(std::is_same<verbatim<void>::type, void>{}, "");
-static_assert(std::is_same<call_t<quote<verbatim>, void>, void>{}, "");
+static_assert(std::is_same<verbatim<void>::type, void>::value, "");
+static_assert(std::is_same<call_t<quote<verbatim>, void>, void>::value, "");
 
-static_assert(call_t<bind<verbatim<placeholders::_1>, verbatim<std::true_type>>>{}, "");
-static_assert(call_t<lambda<verbatim<std::true_type>>>{}, "");
+static_assert(call_t<bind<verbatim<placeholders::_1>, verbatim<std::true_type>>>::value, "");
+static_assert(call_t<lambda<verbatim<std::true_type>>>::value, "");
 
 using bound = bind<quote<std::add_pointer>, placeholders::_1>;
 
-static_assert(std::is_same<call_t<bind<quote<std::add_pointer>, verbatim<bound>>, void>, bound*>{}, "");
-static_assert(std::is_same<call_t<bind<quote<std::add_pointer>, verbatim<verbatim<bound>>>, void>, verbatim<bound>*>{}, "");
+static_assert(std::is_same<call_t<bind<quote<std::add_pointer>, verbatim<bound>>, void>, bound*>::value, "");
+static_assert(std::is_same<call_t<bind<quote<std::add_pointer>, verbatim<verbatim<bound>>>, void>, verbatim<bound>*>::value, "");
 
 using lexpr = std::add_pointer<placeholders::_1>;
 
-static_assert(std::is_same<call_t<lambda<verbatim<lexpr>>, void>, lexpr>{}, "");
-static_assert(std::is_same<call_t<lambda<verbatim<verbatim<lexpr>>>, void>, verbatim<lexpr>>{}, "");
+static_assert(std::is_same<call_t<lambda<verbatim<lexpr>>, void>, lexpr>::value, "");
+static_assert(std::is_same<call_t<lambda<verbatim<verbatim<lexpr>>>, void>, verbatim<lexpr>>::value, "");

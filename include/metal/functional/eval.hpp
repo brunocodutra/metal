@@ -21,17 +21,20 @@ namespace metal
         struct eval_impl
         {
         private:
-            template<template<typename...> class>
-            static nil check(...);
+            template<typename> struct type_wrapper;
+
             template<
                 template<typename...> class e,
-                typename = typename e<args...>::type
+                typename = type_wrapper<typename e<args...>::type>
             >
             static typename std::conditional<
                 std::is_class<e<args...>>::value,
                 e<args...>,
                 nil
             >::type check(int);
+
+            template<template<typename...> class>
+            static nil check(...);
 
         public:
             using type = decltype(check<expr>(0));

@@ -9,12 +9,12 @@
 
 using namespace metal;
 
-static_assert(is_same_expression<test::e0, test::e0>{}, "");
-static_assert(is_same_expression<test::e1, test::e1>{}, "");
-static_assert(is_same_expression<test::e2, test::e2>{}, "");
-static_assert(is_same_expression<test::en, test::en>{}, "");
+static_assert(is_same_expression<test::e0, test::e0>::value, "");
+static_assert(is_same_expression<test::e1, test::e1>::value, "");
+static_assert(is_same_expression<test::e2, test::e2>::value, "");
+static_assert(is_same_expression<test::en, test::en>::value, "");
 
-static_assert(not_<is_same_expression<test::e0, test::en>>{}, "");
-static_assert(not_<is_same_expression<test::e1, test::e0>>{}, "");
-static_assert(not_<is_same_expression<test::e2, test::e1>>{}, "");
-static_assert(not_<is_same_expression<test::en, test::e2>>{}, "");
+static_assert(not_<is_same_expression<test::e0, test::en>>::value, "");
+static_assert(not_<is_same_expression<test::e1, test::e0>>::value, "");
+static_assert(not_<is_same_expression<test::e2, test::e1>>::value, "");
+static_assert(not_<is_same_expression<test::en, test::e2>>::value, "");

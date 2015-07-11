@@ -23,23 +23,23 @@ namespace example
     };
 
     using r1 = metal::eval<except_void, int>;
-    static_assert(std::is_base_of<except_void<int>, r1>{}, "");
+    static_assert(std::is_base_of<except_void<int>, r1>::value, "");
 
     using r2 = metal::eval<except_void, void>; //except_void<void> is nil
-    static_assert(!std::is_base_of<except_void<void>, r2>{}, "");
+    static_assert(!std::is_base_of<except_void<void>, r2>::value, "");
     /// [eval]
 }
 
 using namespace metal;
 
-static_assert(std::is_same<eval_t<test::evaluable>, test::evaluable<>::type>{}, "");
+static_assert(std::is_same<eval_t<test::evaluable>, test::evaluable<>::type>::value, "");
 
-static_assert(std::is_same<eval_t<test::e0>, test::e0<>::type>{}, "");
-static_assert(std::is_same<eval_t<test::e1, test::a0>, test::e1<test::a0>::type>{}, "");
-static_assert(std::is_same<eval_t<test::e2, test::a0, test::a1>, test::e2<test::a0, test::a1>::type>{}, "");
+static_assert(std::is_same<eval_t<test::e0>, test::e0<>::type>::value, "");
+static_assert(std::is_same<eval_t<test::e1, test::a0>, test::e1<test::a0>::type>::value, "");
+static_assert(std::is_same<eval_t<test::e2, test::a0, test::a1>, test::e2<test::a0, test::a1>::type>::value, "");
 
-static_assert(std::is_same<eval_t<test::en>, test::en<>::type>{}, "");
-static_assert(std::is_same<eval_t<test::en, test::a0>, test::en<test::a0>::type>{}, "");
-static_assert(std::is_same<eval_t<test::en, test::a0, test::a1>, test::en<test::a0, test::a1>::type>{}, "");
-static_assert(std::is_same<eval_t<test::en, test::a0, test::a1, test::a2>, test::en<test::a0, test::a1, test::a2>::type>{}, "");
-static_assert(std::is_same<eval_t<test::en, test::a0, test::a1, test::a2, test::a3>, test::en<test::a0, test::a1, test::a2, test::a3>::type>{}, "");
+static_assert(std::is_same<eval_t<test::en>, test::en<>::type>::value, "");
+static_assert(std::is_same<eval_t<test::en, test::a0>, test::en<test::a0>::type>::value, "");
+static_assert(std::is_same<eval_t<test::en, test::a0, test::a1>, test::en<test::a0, test::a1>::type>::value, "");
+static_assert(std::is_same<eval_t<test::en, test::a0, test::a1, test::a2>, test::en<test::a0, test::a1, test::a2>::type>::value, "");
+static_assert(std::is_same<eval_t<test::en, test::a0, test::a1, test::a2, test::a3>, test::en<test::a0, test::a1, test::a2, test::a3>::type>::value, "");

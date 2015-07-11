@@ -24,30 +24,30 @@ namespace example
         //empty
     };
 
-    static_assert(metal::is_evaluable<evaluable>{}, "");
-    static_assert(metal::is_evaluable<evaluable, void>{}, "");
-    static_assert(metal::is_evaluable<evaluable, void, void*>{}, "");
+    static_assert(metal::is_evaluable<evaluable>::value, "");
+    static_assert(metal::is_evaluable<evaluable, void>::value, "");
+    static_assert(metal::is_evaluable<evaluable, void, void*>::value, "");
 
-    static_assert(!metal::is_evaluable<not_evaluable>{}, "");
-    static_assert(!metal::is_evaluable<not_evaluable, void>{}, "");
-    static_assert(!metal::is_evaluable<not_evaluable, void, void*>{}, "");
+    static_assert(!metal::is_evaluable<not_evaluable>::value, "");
+    static_assert(!metal::is_evaluable<not_evaluable, void>::value, "");
+    static_assert(!metal::is_evaluable<not_evaluable, void, void*>::value, "");
     /// [is_evaluable]
 }
 
-static_assert(not_<is_evaluable<test::alias>>{}, "");
-static_assert(not_<is_evaluable<test::empty>>{}, "");
-static_assert(not_<is_evaluable<test::call>>{}, "");
-static_assert(not_<is_evaluable<test::union_>>{}, "");
-static_assert(is_evaluable<test::evaluable>{}, "");
+static_assert(not_<is_evaluable<test::alias>>::value, "");
+static_assert(not_<is_evaluable<test::empty>>::value, "");
+static_assert(not_<is_evaluable<test::call>>::value, "");
+static_assert(not_<is_evaluable<test::union_>>::value, "");
+static_assert(is_evaluable<test::evaluable>::value, "");
 
-static_assert(not_<is_evaluable<test::alias, test::a0>>{}, "");
-static_assert(not_<is_evaluable<test::empty, test::a0>>{}, "");
-static_assert(not_<is_evaluable<test::call, test::a0>>{}, "");
-static_assert(not_<is_evaluable<test::union_, test::a0>>{}, "");
-static_assert(is_evaluable<test::evaluable, test::a0>{}, "");
+static_assert(not_<is_evaluable<test::alias, test::a0>>::value, "");
+static_assert(not_<is_evaluable<test::empty, test::a0>>::value, "");
+static_assert(not_<is_evaluable<test::call, test::a0>>::value, "");
+static_assert(not_<is_evaluable<test::union_, test::a0>>::value, "");
+static_assert(is_evaluable<test::evaluable, test::a0>::value, "");
 
-static_assert(not_<is_evaluable<test::alias, test::a0, test::a1>>{}, "");
-static_assert(not_<is_evaluable<test::empty, test::a0, test::a1>>{}, "");
-static_assert(not_<is_evaluable<test::call, test::a0, test::a1>>{}, "");
-static_assert(not_<is_evaluable<test::union_, test::a0, test::a1>>{}, "");
-static_assert(is_evaluable<test::evaluable, test::a0, test::a1>{}, "");
+static_assert(not_<is_evaluable<test::alias, test::a0, test::a1>>::value, "");
+static_assert(not_<is_evaluable<test::empty, test::a0, test::a1>>::value, "");
+static_assert(not_<is_evaluable<test::call, test::a0, test::a1>>::value, "");
+static_assert(not_<is_evaluable<test::union_, test::a0, test::a1>>::value, "");
+static_assert(is_evaluable<test::evaluable, test::a0, test::a1>::value, "");

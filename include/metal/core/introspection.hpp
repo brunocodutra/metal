@@ -13,8 +13,8 @@
     { \
     private: \
         template<typename> struct type_wrapper; \
-        template<typename y> \
-        static std::true_type check(type_wrapper<typename y::NESTED>*); \
+        template<typename y, typename = type_wrapper<typename y::NESTED>> \
+        static std::true_type check(int); \
         template<typename> \
         static std::false_type check(...); \
     public: \
@@ -34,8 +34,8 @@
     { \
     private: \
         template<template<typename...> class> struct template_wrapper; \
-        template<typename y> \
-        static std::true_type check(template_wrapper<y::template NESTED>*); \
+        template<typename y, typename = template_wrapper<y::template NESTED>> \
+        static std::true_type check(int); \
         template<typename> \
         static std::false_type check(...); \
     public: \
