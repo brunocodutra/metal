@@ -828,7 +828,7 @@ EXCLUDE_SYMBOLS        = detail
 # that contain example code fragments that are included (see the \include
 # command).
 
-EXAMPLE_PATH           = @Metal_SOURCE_DIR@/test/src
+EXAMPLE_PATH           = @Metal_SOURCE_DIR@/example
 
 # If the value of the EXAMPLE_PATH tag contains directories, you can use the
 # EXAMPLE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp and
