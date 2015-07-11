@@ -8,7 +8,11 @@
 namespace metal
 {
     /// \ingroup functional
-    /// \brief A model of empty \ref concept_optional_value.
+    /// \brief A model of empty \ref concept_nullable_value.
+    ///
+    /// See Also
+    /// --------
+    /// \see is_nil
     struct nil {};
 }
 

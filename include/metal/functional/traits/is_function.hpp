@@ -5,12 +5,11 @@
 #ifndef METAL_FUNCTIONAL_TRAITS_IS_FUNCTION_HPP
 #define METAL_FUNCTIONAL_TRAITS_IS_FUNCTION_HPP
 
-#include <metal/functional/traits/is_nil.hpp>
+#include <metal/functional/traits/is_strict.hpp>
 #include <metal/functional/traits/is_same_expression.hpp>
-#include <metal/core/introspection.hpp>
-#include <metal/algebra/logical/or.hpp>
 #include <metal/algebra/logical/and.hpp>
 #include <metal/algebra/logical/not.hpp>
+#include <metal/core/introspection.hpp>
 
 #include <type_traits>
 
@@ -23,12 +22,9 @@ namespace metal
 
         template<typename func>
         struct is_function_impl :
-                and_<
-                    std::is_base_of<typename func::type, func>,
-                    is_same_expression<
-                        func::type::template call,
-                        func::template call
-                    >
+                is_same_expression<
+                    func::type::template call,
+                    func::template call
                 >
         {};
     }
@@ -36,7 +32,7 @@ namespace metal
     template<typename func>
     struct is_function :
             and_<
-                not_<is_nil<func>>,
+                is_strict<func>,
                 detail::has_template_call<func>,
                 not_<detail::has_call<func>>,
                 detail::is_function_impl<func>

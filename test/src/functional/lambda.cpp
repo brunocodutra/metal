@@ -10,8 +10,6 @@
 using namespace metal;
 using namespace metal::placeholders;
 
-static_assert(std::is_same<lambda<void>::type, lambda<void>>::value, "");
-
 static_assert(std::is_same<call_t<lambda<test::a0>>, test::a0>::value, "");
 static_assert(std::is_same<call_t<lambda<test::a1>>, test::a1>::value, "");
 static_assert(std::is_same<call_t<lambda<test::a2>>, test::a2>::value, "");
@@ -39,12 +37,14 @@ static_assert(not_<is_callable_t<lambda<test::empty<>>>>::value, "");
 static_assert(not_<is_callable_t<lambda<test::call<>>>>::value, "");
 static_assert(not_<is_callable_t<lambda<test::union_<>>>>::value, "");
 static_assert(std::is_same<call_t<lambda<test::evaluable<>>>, test::evaluable<>::type>::value, "");
+static_assert(std::is_same<call_t<lambda<test::strict<>>>, test::strict<>>::value, "");
 
 static_assert(std::is_same<call_t<lambda<verbatim<test::alias<>>>>, test::alias<>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::empty<>>>>, test::empty<>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::call<>>>>, test::call<>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::union_<>>>>, test::union_<>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::evaluable<>>>>, test::evaluable<>>::value, "");
+static_assert(std::is_same<call_t<lambda<verbatim<test::strict<>>>>, test::strict<>>::value, "");
 
 static_assert(std::is_same<call_t<lambda<test::wrapper>, void>, test::wrapper>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::wrapper>>, void>, test::wrapper>::value, "");

@@ -47,52 +47,60 @@ static_assert(not_<is_callable<test::unary<test::empty>>>::value, "");
 static_assert(not_<is_callable<test::unary<test::call>>>::value, "");
 static_assert(not_<is_callable<test::unary<test::union_>>>::value, "");
 static_assert(not_<is_callable<test::unary<test::evaluable>>>::value, "");
+static_assert(not_<is_callable<test::unary<test::strict>>>::value, "");
 
 static_assert(not_<is_callable<test::unary<test::alias>, void>>::value, "");
 static_assert(not_<is_callable<test::unary<test::empty>, void>>::value, "");
 static_assert(not_<is_callable<test::unary<test::call>, void>>::value, "");
 static_assert(not_<is_callable<test::unary<test::union_>, void>>::value, "");
 static_assert(is_callable<test::unary<test::evaluable>, void>::value, "");
+static_assert(is_callable<test::unary<test::strict>, void>::value, "");
 
 static_assert(not_<is_callable<test::unary<test::alias>, void, void*>>::value, "");
 static_assert(not_<is_callable<test::unary<test::empty>, void, void*>>::value, "");
 static_assert(not_<is_callable<test::unary<test::call>, void, void*>>::value, "");
 static_assert(not_<is_callable<test::unary<test::union_>, void, void*>>::value, "");
 static_assert(not_<is_callable<test::unary<test::evaluable>, void, void*>>::value, "");
+static_assert(not_<is_callable<test::unary<test::strict>, void, void*>>::value, "");
 
 static_assert(not_<is_callable<test::binary<test::alias>>>::value, "");
 static_assert(not_<is_callable<test::binary<test::empty>>>::value, "");
 static_assert(not_<is_callable<test::binary<test::call>>>::value, "");
 static_assert(not_<is_callable<test::binary<test::union_>>>::value, "");
 static_assert(not_<is_callable<test::binary<test::evaluable>>>::value, "");
+static_assert(not_<is_callable<test::binary<test::strict>>>::value, "");
 
 static_assert(not_<is_callable<test::binary<test::alias>, void>>::value, "");
 static_assert(not_<is_callable<test::binary<test::empty>, void>>::value, "");
 static_assert(not_<is_callable<test::binary<test::call>, void>>::value, "");
 static_assert(not_<is_callable<test::binary<test::union_>, void>>::value, "");
 static_assert(not_<is_callable<test::binary<test::evaluable>, void>>::value, "");
+static_assert(not_<is_callable<test::binary<test::strict>, void>>::value, "");
 
 static_assert(not_<is_callable<test::binary<test::alias>, void, void*>>::value, "");
 static_assert(not_<is_callable<test::binary<test::empty>, void, void*>>::value, "");
 static_assert(not_<is_callable<test::binary<test::call>, void, void*>>::value, "");
 static_assert(not_<is_callable<test::binary<test::union_>, void, void*>>::value, "");
 static_assert(is_callable<test::binary<test::evaluable>, void, void*>::value, "");
+static_assert(is_callable<test::binary<test::strict>, void, void*>::value, "");
 
 static_assert(not_<is_callable<test::n_ary<test::alias>>>::value, "");
 static_assert(not_<is_callable<test::n_ary<test::empty>>>::value, "");
 static_assert(not_<is_callable<test::n_ary<test::call>>>::value, "");
 static_assert(not_<is_callable<test::n_ary<test::union_>>>::value, "");
 static_assert(is_callable<test::n_ary<test::evaluable>>::value, "");
+static_assert(is_callable<test::n_ary<test::strict>>::value, "");
 
 static_assert(not_<is_callable<test::n_ary<test::alias>, void>>::value, "");
 static_assert(not_<is_callable<test::n_ary<test::empty>, void>>::value, "");
 static_assert(not_<is_callable<test::n_ary<test::call>, void>>::value, "");
 static_assert(not_<is_callable<test::n_ary<test::union_>, void>>::value, "");
 static_assert(is_callable<test::n_ary<test::evaluable>, void>::value, "");
+static_assert(is_callable<test::n_ary<test::strict>, void>::value, "");
 
 static_assert(not_<is_callable<test::n_ary<test::alias>, void, void*>>::value, "");
 static_assert(not_<is_callable<test::n_ary<test::empty>, void, void*>>::value, "");
 static_assert(not_<is_callable<test::n_ary<test::call>, void, void*>>::value, "");
 static_assert(not_<is_callable<test::n_ary<test::union_>, void, void*>>::value, "");
 static_assert(is_callable<test::n_ary<test::evaluable>, void, void*>::value, "");
-
+static_assert(is_callable<test::n_ary<test::strict>, void, void*>::value, "");

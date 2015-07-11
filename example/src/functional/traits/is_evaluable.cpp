@@ -8,24 +8,24 @@ namespace
 {
     /// [main]
     template<typename...>
-    struct evaluable
+    struct e1
     {
         struct type;
     };
 
     template<typename...>
-    struct not_evaluable
+    struct e2
     {
         //empty
     };
 
-    static_assert(metal::is_evaluable<evaluable>::value, "");
-    static_assert(metal::is_evaluable<evaluable, void>::value, "");
-    static_assert(metal::is_evaluable<evaluable, void, void*>::value, "");
+    static_assert(metal::is_evaluable<e1>::value, "");
+    static_assert(metal::is_evaluable<e1, void>::value, "");
+    static_assert(metal::is_evaluable<e1, void, void*>::value, "");
 
-    static_assert(!metal::is_evaluable<not_evaluable>::value, "");
-    static_assert(!metal::is_evaluable<not_evaluable, void>::value, "");
-    static_assert(!metal::is_evaluable<not_evaluable, void, void*>::value, "");
+    static_assert(!metal::is_evaluable<e2>::value, "");
+    static_assert(!metal::is_evaluable<e2, void>::value, "");
+    static_assert(!metal::is_evaluable<e2, void, void*>::value, "");
     /// [main]
 }
 

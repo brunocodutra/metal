@@ -36,6 +36,12 @@ namespace test
         struct type;
     };
 
+    template<typename...>
+    struct strict
+    {
+        using type = strict;
+    };
+
     template<typename... args>
     struct wrap
     {

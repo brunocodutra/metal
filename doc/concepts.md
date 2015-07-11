@@ -88,7 +88,7 @@ metal::nil
 --------------------------------------------------------------------------------
 
 A [Strict Value] is a [Nullable Value] that represents itself.
-[Strict Values] are never nil.
+[Strict Values] are never *nil*.
 
 ## Requirements
 
@@ -158,12 +158,12 @@ not to be confused with the [Function] concept.
 Unlike run-time functions, [Expressions] are lazy,
 which means that they do not immediately evaluate when invoked.
 Rather, an [Expression] invoked with some set of arguments is
-itself a model of [Nullable Value], that is either nil or some [Value].
+itself a model of [Nullable Value], that is either *nil* or some [Value].
 Therefore, not unlike any other [Nullable Value],
 one must explicitly name the nested `::type`
 in order to actually evaluate an [Expression].
 In general, however, an [Expression] may naturally compute to
-nil for some set of arguments, hence
+*nil* for some set of arguments, hence
 evaluating such an [Expression] leads to a compile time error.
 
 An [Expression] which evaluates to some [Value]
@@ -176,6 +176,10 @@ it is said to be *strictly evaluable* for that set of arguments.
 
 If `expr` is a model of [Expression], then `expr` is either a template class
 or alias taking only types as arguments.
+
+## Associated Traits
+
+metal::is_same_expression, metal::is_evaluable, metal::is_strictly_evaluable
 
 ## Examples
 
@@ -217,6 +221,10 @@ If `f` is a model of [Function], then
 * `f` is a model of [Strict Value].
 * `f::call` is unambiguously inherited from `f::type` and
 is a model of [Expression].
+
+## Associated Traits
+
+metal::is_function
 
 ## Examples
 

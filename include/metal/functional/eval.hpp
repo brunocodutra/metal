@@ -41,14 +41,6 @@ namespace metal
         };
     }
 
-    template<template<typename...> class expr, typename... args>
-    struct eval;
-
-    /// \ingroup functional
-    /// \brief Eager adaptor for \ref eval.
-    template<template<typename...> class expr, typename... args>
-    using eval_t = typename eval<expr, args...>::type;
-
     /// \ingroup functional
     /// \brief Evaluates an arbitrary \ref concept_expression `expr`
     /// with [Values](\ref concept_value) `args`.
@@ -81,11 +73,16 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see eval_t, is_evaluable
+    /// \see eval_t, is_evaluable, is_strictly_evaluable
     template<template<typename...> class expr, typename... args>
     struct eval :
             detail::eval_impl<expr, args...>::type
     {};
+
+    /// \ingroup functional
+    /// \brief Eager adaptor for \ref eval.
+    template<template<typename...> class expr, typename... args>
+    using eval_t = typename eval<expr, args...>::type;
 }
 
 #endif

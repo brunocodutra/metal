@@ -10,8 +10,6 @@
 using namespace metal;
 using namespace metal::placeholders;
 
-static_assert(std::is_same<bind<test::wrapper>::type, bind<test::wrapper>>::value, "");
-
 static_assert(std::is_same<call_t<bind<test::wrapper>, void, void*>, test::wrap<>>::value, "");
 static_assert(std::is_same<call_t<bind<test::wrapper, _1>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0>>::value, "");
 static_assert(std::is_same<call_t<bind<test::wrapper, _1, _2>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1>>::value, "");
