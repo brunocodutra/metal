@@ -23,7 +23,7 @@ build_script:
     - cmd: mkdir "%APPVEYOR_BUILD_FOLDER%\build"
     - cmd: cd "%APPVEYOR_BUILD_FOLDER%\build"
 
-    - cmd: cmake -DMETAL_ENABLE_WARNINGS=OFF -G"%GENERATOR%" "%APPVEYOR_BUILD_FOLDER%"
+    - cmd: cmake -G"%GENERATOR%" "%APPVEYOR_BUILD_FOLDER%"
     - cmd: cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --config %CONFIG% --target metal.test
 
 test_script:

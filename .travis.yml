@@ -23,7 +23,7 @@ matrix:
         - env: COMPILER=clang++-3.5 PKGS="clang-3.5 libc++-dev"
         - env: COMPILER=clang++-3.6 PKGS="clang-3.6 libc++-dev"
         - env: COMPILER=clang++-3.7 PKGS="clang-3.7 libc++-dev"
-        - env: COMPILER=cpp         PKGS="doxygen"              BUILD_DOC=true
+        - env: COMPILER=g++         PKGS="doxygen"              BUILD_DOC=true
 
 before_install:
     - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
@@ -35,7 +35,7 @@ before_install:
     - sudo apt-get -qq update
 
 install:
-    - if [ -n "${PKGS}" ]; then sudo apt-get -qq install ${PKGS}; fi
+    - if [[ -n "${PKGS}" ]]; then sudo apt-get -qq install ${PKGS}; fi
 
 before_script:
     - git config --global user.name "Travis Bot"
@@ -43,9 +43,9 @@ before_script:
     - mkdir "${TRAVIS_BUILD_DIR}/build"
     - cd "${TRAVIS_BUILD_DIR}/build"
 
-    - if [ -z "${BUILD_DOC}" ]; then BUILD_DOC=false; fi
-    - cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER} -DMETAL_BUILD_DOC=${BUILD_DOC}
+    - cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER}
 
 script:
     - time make metal.test && ctest --output-on-failure
-    - if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]]; then make metal.doc.update &> /dev/null; else time make metal.doc; fi
+    - if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]]; then make metal.doc.update &> /dev/null; fi
+    - if [[ "${BUILD_DOC}" == "true" && ("${TRAVIS_PULL_REQUEST}" == "true" || "${TRAVIS_BRANCH}" != "master") ]]; then time make metal.doc; fi
