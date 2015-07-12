@@ -35,17 +35,17 @@ before_install:
     - sudo apt-get -qq update
 
 install:
-    - [ -n ${PKGS+_} ] && sudo apt-get -qq install ${PKGS}
+    - if [ -n "${PKGS}" ]; then sudo apt-get -qq install ${PKGS}; fi
 
 before_script:
-    - git config --global user.name "Travis"
+    - git config --global user.name "Travis Bot"
 
     - mkdir "${TRAVIS_BUILD_DIR}/build"
     - cd "${TRAVIS_BUILD_DIR}/build"
 
-    - [ -z ${BUILD_DOC+_} ] && BUILD_DOC=false
+    - if [ -z "${BUILD_DOC}" ]; then BUILD_DOC=false; fi
     - cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER} -DMETAL_BUILD_DOC=${BUILD_DOC}
 
 script:
     - time make metal.test && ctest --output-on-failure
-    - if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]]; then make metal.doc.update &> /dev/null; else time make metal.doc; fi
+    - if [ "${BUILD_DOC}" == "true" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]; then make metal.doc.update &> /dev/null; else time make metal.doc; fi
