@@ -22,8 +22,10 @@ namespace metal
     /// \code
     ///     using result = metal::is_evaluable<expr, args...>;
     /// \endcode
-    /// \par Model:
+    ///
+    /// \par Return Type:
     ///     \ref concept_numerical_value
+    ///
     /// \par Semantics:
     ///     if `expr<args...>` is not nil, then equivalent to
     ///     \code

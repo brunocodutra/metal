@@ -512,7 +512,7 @@ HIDE_SCOPE_NAMES       = NO
 # YES the compound reference will be hidden.
 # The default value is: NO.
 
-HIDE_COMPOUND_REFERENCE= NO
+HIDE_COMPOUND_REFERENCE= YES
 
 # If the SHOW_INCLUDE_FILES tag is set to YES then doxygen will put a list of
 # the files that are included by a file in the documentation of that file.
@@ -647,7 +647,7 @@ SHOW_USED_FILES        = NO
 # (if specified).
 # The default value is: YES.
 
-SHOW_FILES             = NO
+SHOW_FILES             = YES
 
 # Set the SHOW_NAMESPACES tag to NO to disable the generation of the Namespaces
 # page. This will remove the Namespaces entry from the Quick Index and from the
@@ -779,8 +779,7 @@ INPUT_ENCODING         = UTF-8
 # *.md, *.mm, *.dox, *.py, *.f90, *.f, *.for, *.tcl, *.vhd, *.vhdl, *.ucf,
 # *.qsf, *.as and *.js.
 
-FILE_PATTERNS          = *.hpp \
-                         *.md
+FILE_PATTERNS          = *.hpp *.md *.dox
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should
 # be searched for input files as well.
@@ -928,13 +927,13 @@ STRIP_CODE_COMMENTS    = YES
 # function all documented functions referencing it will be listed.
 # The default value is: NO.
 
-REFERENCED_BY_RELATION = YES
+REFERENCED_BY_RELATION = NO
 
 # If the REFERENCES_RELATION tag is set to YES then for each documented function
 # all documented entities called/used by that function will be listed.
 # The default value is: NO.
 
-REFERENCES_RELATION    = YES
+REFERENCES_RELATION    = NO
 
 # If the REFERENCES_LINK_SOURCE tag is set to YES and SOURCE_BROWSER tag is set
 # to YES then the hyperlinks from functions in REFERENCES_RELATION and
@@ -942,7 +941,7 @@ REFERENCES_RELATION    = YES
 # link to the documentation.
 # The default value is: YES.
 
-REFERENCES_LINK_SOURCE = YES
+REFERENCES_LINK_SOURCE = NO
 
 # If SOURCE_TOOLTIPS is enabled (the default) then hovering a hyperlink in the
 # source code will show a tooltip with additional information such as prototype,

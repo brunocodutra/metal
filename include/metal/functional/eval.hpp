@@ -52,8 +52,10 @@ namespace metal
     /// \code
     ///     using result = eval<expr, args...>;
     /// \endcode
-    /// \par Model:
+    ///
+    /// \par Return Type:
     ///     \ref concept_nullable_value
+    ///
     /// \par Semantics:
     ///     if `expr` [is evaluable](\ref is_evaluable) with `args`,
     ///     then equivalent to

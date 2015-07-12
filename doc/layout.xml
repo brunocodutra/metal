@@ -2,21 +2,28 @@
   <!-- Navigation index tabs for HTML output -->
   <navindex>
     <tab type="mainpage" visible="yes" title=""/>
-    <tab type="pages" visible="yes" title="" intro=""/>
-    <tab type="modules"
-         visible="yes"
-         title=""
-         intro=" "/>
-    <tab type="examples" visible="yes" title="" intro=""/>
+    <tab type="pages" visible="yes" title="" intro=" "/>
+    <tab type="modules" visible="yes" title="Reference" intro=" "/>
+    <tab type="namespacelist"
+         visible="$SHOW_NAMESPACES"
+         title="Namespaces"
+         intro=" "
+    />
+    <tab type="filelist" visible="$SHOW_FILES" title="Headers" intro=" "/>
+    <tab type="classindex"
+         visible="$ALPHABETICAL_INDEX"
+         title="Alphabetical Index"
+    />
 
-    <!-- Hiden -->
+    <!-- Hidden -->
+    <tab type="examples" visible="no" title="" intro=""/>
     <tab type="namespaces" visible="no" title="">
-      <tab type="namespacelist" visible="yes" title="Namespaces" intro=" "/>
+      <tab type="namespacelist" visible="no" title="" intro=""/>
       <tab type="namespacemembers" visible="no" title="" intro=""/>
     </tab>
     <tab type="classes" visible="no" title="">
       <tab type="classlist" visible="no" title="" intro=""/>
-      <tab type="classindex" visible="$ALPHABETICAL_INDEX" title="Alphabetical Index"/>
+      <tab type="classindex" visible="no" title=""/>
       <tab type="hierarchy" visible="no" title="" intro=""/>
       <tab type="classmembers" visible="no" title="" intro=""/>
     </tab>

@@ -1,6 +1,6 @@
 # Concepts {#concepts}
 
-[TOC]
+\tableofcontents
 
 Template metaprogramming can be seen as a language of its own
 right, sharing the same syntax with C++, but having different semantics.
@@ -8,9 +8,8 @@ Because constructs assume different meanings during template metaprogramming
 from what they usually mean in an actual C++ context, some key concepts must be
 defined.
 
-# Value {#concept_value}
-
---------------------------------------------------------------------------------
+Value {#concept_value}
+================================================================================
 
 [Values] are the objects of metaprogramming.
 
@@ -52,17 +51,17 @@ If `v` is a model of [Value], then `v` is a type.
     auto value = 3.14;
 ~~~
 
-# Nullable Value {#concept_nullable_value}
+Nullable Value {#concept_nullable_value}
+================================================================================
 
---------------------------------------------------------------------------------
-
-[Nullable Values] represent either some [Value] or *nil*.
-Every [Nullable Value] is also a model of [Value].
+[Nullable Values] are [Values] that
+represent either some other [Value] or *nil*.
 
 In order to evaluate a [Nullable Value]
 one must explicitly name its nested `::type`.
-A [Nullable Value] is said to be *nil* whenever a nested `::type` is undefined
-or ambiguously defined, thus evaluating *nil* leads to a compile-time error.
+Whenever a nested `::type` is undefined or ambiguously defined,
+a [Nullable Value] is said to be *nil*,
+thus evaluating *nil* leads to a compile-time error.
 
 ## Requirements
 
@@ -83,18 +82,17 @@ metal::is_nil
 
 metal::nil
 
-# Strict Value {#concept_strict_value}
+Strict Value {#concept_strict_value}
+================================================================================
 
---------------------------------------------------------------------------------
-
-A [Strict Value] is a [Nullable Value] that represents itself.
+A [Strict Value] is a [Nullable Value] that represents itself, therefore
 [Strict Values] are never *nil*.
 
 ## Requirements
 
 If `sv` is a model of [Strict Value], then
 * `sv` is a non-nil [Nullable Value].
-* `sv::type` is either some public and unambiguous base of `sv` or `sv` itself.
+* `sv::type` is either `sv` itself or some public and unambiguous base of `sv`.
 
 ## Associated Traits
 
@@ -102,15 +100,9 @@ metal::is_strict
 
 ## Examples
 
-TODO
 
-## Models
-
-TODO
-
-# Numerical Value {#concept_numerical_value}
-
---------------------------------------------------------------------------------
+Numerical Value {#concept_numerical_value}
+================================================================================
 
 A [Numerical Value] is a compile type representation of a number,
 behaving much like run-time numerical values.
@@ -145,9 +137,8 @@ must not be hidden and must be unambiguously available.
     {};
 ~~~
 
-# Expression {#concept_expression}
-
---------------------------------------------------------------------------------
+Expression {#concept_expression}
+================================================================================
 
 An [Expression] is a compile type representation of a computation that
 maps a set of [Values] to a new [Value].
@@ -197,9 +188,8 @@ metal::is_same_expression, metal::is_evaluable, metal::is_strictly_evaluable
 
 metal::identity, metal::call, metal::bind, metal::lambda
 
-# Function {#concept_function}
-
---------------------------------------------------------------------------------
+Function {#concept_function}
+================================================================================
 
 A [Function] is a value representation of an [Expression],
 that is, unlike the latter, every [Function] is a model of [Strict Value].

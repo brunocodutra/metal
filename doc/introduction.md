@@ -1,10 +1,9 @@
-# Introduction {#mainpage}
+\mainpage Introduction
 
-[TOC]
+\tableofcontents
 
-# Overview {#intro_overview}
-
---------------------------------------------------------------------------------
+Overview {#intro_overview}
+================================================================================
 
 Metal is a collection of small, closely related [C++11] template
 metaprogramming modules.
@@ -26,9 +25,8 @@ soon it became clear that it was slightly more than just a remake,
 so thus became **Metal** - <b>Meta</b>programming
 <b>Al</b>gorithms.
 
-# Motivation {#intro_motivation}
-
---------------------------------------------------------------------------------
+Motivation {#intro_motivation}
+================================================================================
 
 Metaprogramming is the art of writing code that is executed to generate new
 code, which in turn is translated into machine code that is finally assembled
@@ -47,11 +45,8 @@ the standard tool for metaprogramming in C++.
 [Continues...]
 
 
-# Organization of This Document {#intro_organization}
-
---------------------------------------------------------------------------------
-
-TODO
+Organization of This Document {#intro_organization}
+================================================================================
 
 [C++11]:            http://en.wikipedia.org/wiki/C%2B%2B11
 [type traits]:      http://en.cppreference.com/w/cpp/header/type_traits

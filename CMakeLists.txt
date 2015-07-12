@@ -5,7 +5,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 
 project(Metal CXX)
-enable_testing()
 
 option(METAL_INCREASE_VERBOSITY         "increase compiler verbosity"        ON)
 option(METAL_ENABLE_WARNINGS            "enable warnings"                    ON)
@@ -16,6 +15,10 @@ option(METAL_CONFIGURE_TESTS            "configure tests"                    ON)
 if(METAL_ENABLE_EXTRA_WARNINGS)
     set(METAL_ENABLE_WARNINGS ON)
 endif()
+
+find_package(Doxygen)
+find_package(Git)
+enable_testing()
 
 function(add_test_matrix _target _dialects _sources _headers)
     add_custom_target(${_target})

@@ -2,7 +2,6 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-find_package(Doxygen)
 if(NOT DOXYGEN_FOUND)
     message(
         WARNING
@@ -21,7 +20,6 @@ add_custom_target(
 
 add_custom_target(doc DEPENDS metal.doc)
 
-find_package(Git)
 if(NOT GIT_FOUND)
     message(
         WARNING
