@@ -11,8 +11,7 @@ option(METAL_INCREASE_VERBOSITY         "increase compiler verbosity"        ON)
 option(METAL_ENABLE_WARNINGS            "enable warnings"                    ON)
 option(METAL_ENABLE_EXTRA_WARNINGS      "enable extra warnings"             OFF)
 option(METAL_ENFORCE_STRICT_BEHAVIOR    "enforce strict behavior"           OFF)
-option(METAL_BUILD_TEST                 "build test"                         ON)
-option(METAL_BUILD_DOC                  "build documentation"               OFF)
+option(METAL_CONFIGURE_TESTS            "configure tests"                    ON)
 
 if(METAL_ENABLE_EXTRA_WARNINGS)
     set(METAL_ENABLE_WARNINGS ON)
@@ -128,12 +127,9 @@ install(FILES ${METAL_HEADERS} DESTINATION include)
 
 include_directories(${METAL_INCLUDE_DIRS})
 
+add_subdirectory(doc)
 add_subdirectory(example)
 
-if(METAL_BUILD_TEST)
+if(METAL_CONFIGURE_TESTS)
     add_subdirectory(test)
-endif()
-
-if(METAL_BUILD_DOC)
-    add_subdirectory(doc)
 endif()
