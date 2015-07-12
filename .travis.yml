@@ -23,7 +23,7 @@ matrix:
         - env: COMPILER=clang++-3.5 PKGS="clang-3.5 libc++-dev"
         - env: COMPILER=clang++-3.6 PKGS="clang-3.6 libc++-dev"
         - env: COMPILER=clang++-3.7 PKGS="clang-3.7 libc++-dev"
-        - env: COMPILER=clang++     PKGS="doxygen"              BUILD_DOC=true
+        - env: BUILD_DOC=true       PKGS="doxygen"
 
 before_install:
     - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
@@ -43,9 +43,10 @@ before_script:
     - mkdir "${TRAVIS_BUILD_DIR}/build"
     - cd "${TRAVIS_BUILD_DIR}/build"
 
+    - if [[ -z "${COMPILER}" ]]; then COMPILER=g++; fi
     - cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER}
 
 script:
-    - time make metal.test && ctest --output-on-failure
+    - if [[ "${BUILD_DOC}" == "false" ]]; then time make metal.test && ctest --output-on-failure; fi
     - if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]]; then make metal.doc.update &> /dev/null; fi
     - if [[ "${BUILD_DOC}" == "true" && ("${TRAVIS_PULL_REQUEST}" == "true" || "${TRAVIS_BRANCH}" != "master") ]]; then time make metal.doc; fi
