@@ -5,9 +5,9 @@
 #ifndef METAL_FUNCTIONAL_TRAITS_IS_NIL_HPP
 #define METAL_FUNCTIONAL_TRAITS_IS_NIL_HPP
 
-#include <metal/core/introspection.hpp>
 #include <metal/algebra/logical/not.hpp>
 #include <metal/algebra/logical/and.hpp>
+#include <metal/detail/introspection.hpp>
 
 #include <type_traits>
 

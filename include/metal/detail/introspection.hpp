@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_CORE_INTROSPECTION_HPP
-#define METAL_CORE_INTROSPECTION_HPP
+#ifndef METAL_DETAIL_INTROSPECTION_HPP
+#define METAL_DETAIL_INTROSPECTION_HPP
 
 #include <type_traits>
 

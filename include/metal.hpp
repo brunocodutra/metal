@@ -5,7 +5,6 @@
 #ifndef METAL_HPP
 #define METAL_HPP
 
-#include <metal/core.hpp>
 #include <metal/algebra.hpp>
 #include <metal/functional.hpp>
 

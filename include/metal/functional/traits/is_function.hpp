@@ -9,7 +9,7 @@
 #include <metal/functional/traits/is_same_expression.hpp>
 #include <metal/algebra/logical/and.hpp>
 #include <metal/algebra/logical/not.hpp>
-#include <metal/core/introspection.hpp>
+#include <metal/detail/introspection.hpp>
 
 #include <type_traits>
 
