@@ -3,7 +3,8 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/functional/lambda.hpp>
-#include <metal.hpp>
+#include <metal/functional/protect.hpp>
+#include <metal/functional/traits/is_callable.hpp>
 
 #include "test.hpp"
 

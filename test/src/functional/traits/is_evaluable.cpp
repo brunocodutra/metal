@@ -3,7 +3,6 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/functional/traits/is_evaluable.hpp>
-#include <metal.hpp>
 
 #include "test.hpp"
 

@@ -3,7 +3,8 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/functional/quote.hpp>
-#include <metal.hpp>
+#include <metal/functional/traits/is_function.hpp>
+#include <metal/functional/traits/is_callable.hpp>
 
 #include "test.hpp"
 

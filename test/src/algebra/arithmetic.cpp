@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/algebra/arithmetic.hpp>
-#include <metal.hpp>
+#include <metal/algebra/comparison/equal_to.hpp>
 
 #include "test.hpp"
 

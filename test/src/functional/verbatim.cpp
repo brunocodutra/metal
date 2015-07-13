@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/functional/verbatim.hpp>
-#include <metal.hpp>
+#include <metal/functional/lambda.hpp>
 
 #include "test.hpp"
 

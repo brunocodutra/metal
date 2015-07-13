@@ -10,6 +10,8 @@
 #include "test/functions.hpp"
 #include "test/integrals.hpp"
 
+#include <type_traits>
+
 int main()
 {
     return 0;

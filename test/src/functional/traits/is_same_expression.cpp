@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/functional/traits/is_same_expression.hpp>
-#include <metal.hpp>
+#include <metal/algebra/logical/not.hpp>
 
 #include "test.hpp"
 

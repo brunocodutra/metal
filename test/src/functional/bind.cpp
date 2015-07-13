@@ -3,7 +3,8 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/functional/bind.hpp>
-#include <metal.hpp>
+#include <metal/functional/protect.hpp>
+#include <metal/functional/quote.hpp>
 
 #include "test.hpp"
 
