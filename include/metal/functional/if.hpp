@@ -7,6 +7,7 @@
 
 #include <metal/functional/nil.hpp>
 #include <metal/functional/identity.hpp>
+#include <metal/functional/detail/nullable.hpp>
 
 #include <type_traits>
 
@@ -22,7 +23,9 @@ namespace metal
 
     template<typename pred, typename then, typename else_>
     struct if_<pred, then, else_> :
-            std::conditional<!!pred::value, then, else_>::type
+            detail::nullable<
+                typename std::conditional<!!pred::value, then, else_>::type
+            >
     {};
 
     template<typename pred, typename then>

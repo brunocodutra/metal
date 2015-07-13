@@ -6,7 +6,8 @@
 #define METAL_FUNCTIONAL_EVAL_HPP
 
 #include <metal/functional/nil.hpp>
-#include <metal/functional/identity.hpp>
+#include <metal/functional/traits/is_nil.hpp>
+#include <metal/algebra/logical/not.hpp>
 
 #include <type_traits>
 
@@ -21,16 +22,10 @@ namespace metal
         struct eval_impl
         {
         private:
-            template<typename> struct type_wrapper;
-
-            template<
-                template<typename...> class e,
-                typename = type_wrapper<typename e<args...>::type>
-            >
-            static typename std::conditional<
-                std::is_class<e<args...>>::value,
-                e<args...>,
-                nil
+            template<template<typename...> class e>
+            static typename std::enable_if<
+                not_<is_nil<e<args...>>>::value,
+                e<args...>
             >::type check(int);
 
             template<template<typename...> class>

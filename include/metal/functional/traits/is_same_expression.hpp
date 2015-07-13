@@ -21,8 +21,8 @@ namespace metal
 
     /// \ingroup functional_traits
     /// \brief Eager adaptor for is_same_expression.
-    template<template<typename...> class x, template<typename...> class y>
-    using is_same_expression_t = typename is_same_expression<x, y>::type;
+    template<template<typename...> class e1, template<typename...> class e2>
+    using is_same_expression_t = typename is_same_expression<e1, e2>::type;
 }
 
 #endif

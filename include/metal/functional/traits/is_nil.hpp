@@ -7,6 +7,9 @@
 
 #include <metal/core/introspection.hpp>
 #include <metal/algebra/logical/not.hpp>
+#include <metal/algebra/logical/and.hpp>
+
+#include <type_traits>
 
 namespace metal
 {
@@ -15,15 +18,15 @@ namespace metal
         METAL_DEFINE_NESTED_TYPE_TRAIT(has_type, type);
     }
 
-    template<typename x>
+    template<typename value>
     struct is_nil :
-            not_<detail::has_type<x>>
+            not_<and_<std::is_class<value>, detail::has_type<value>>>
     {};
 
     /// \ingroup functional_traits
     /// \brief Eager adaptor for is_nil.
-    template<typename x>
-    using is_nil_t = typename is_nil<x>::type;
+    template<typename value>
+    using is_nil_t = typename is_nil<value>::type;
 }
 
 #endif

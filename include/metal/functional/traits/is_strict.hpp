@@ -15,24 +15,24 @@ namespace metal
 {
     namespace detail
     {
-        template<typename x>
+        template<typename value>
         struct is_strict_impl :
-                std::is_base_of<typename x::type, x>
+                std::is_base_of<typename value::type, value>
         {};
     }
 
-    template<typename x>
+    template<typename value>
     struct is_strict :
             and_<
-                not_<is_nil<x>>,
-                detail::is_strict_impl<x>
+                not_<is_nil<value>>,
+                detail::is_strict_impl<value>
             >
     {};
 
     /// \ingroup functional_traits
     /// \brief Eager adaptor for is_strict.
-    template<typename x>
-    using is_strict_t = typename is_nil<x>::type;
+    template<typename value>
+    using is_strict_t = typename is_strict<value>::type;
 }
 
 #endif

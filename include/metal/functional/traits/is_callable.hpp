@@ -10,15 +10,15 @@
 
 namespace metal
 {
-    template<typename... x>
+    template<typename... values>
     struct is_callable :
-            is_evaluable<call, x...>
+            is_evaluable<call, values...>
     {};
 
     /// \ingroup functional_traits
     /// \brief Eager adaptor for is_callable.
-    template<typename... x>
-    using is_callable_t = typename is_callable<x...>::type;
+    template<typename... values>
+    using is_callable_t = typename is_callable<values...>::type;
 }
 
 #endif

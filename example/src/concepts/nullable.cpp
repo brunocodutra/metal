@@ -23,7 +23,7 @@ namespace ex2
     /// [ex2]
     struct nullable_value
     {
-        //nil
+        //nil - undefined ::type
     };
     /// [ex2]
 
@@ -33,7 +33,10 @@ namespace ex2
 namespace ex3
 {
     /// [ex3]
-    using nullable_value = void; //nil
+    union nullable_value
+    {
+        struct type; //nil - union types are always nil
+    };
     /// [ex3]
 
     static_assert(metal::is_nil<nullable_value>::value, "");
@@ -42,6 +45,15 @@ namespace ex3
 namespace ex4
 {
     /// [ex4]
+    using nullable_value = void; //nil - undefined ::type
+    /// [ex4]
+
+    static_assert(metal::is_nil<nullable_value>::value, "");
+}
+
+namespace ex5
+{
+    /// [ex5]
     struct nullable_value1
     {
         struct type; //non-nil
@@ -58,7 +70,7 @@ namespace ex4
     {
         //nil - ambiguous ::type
     };
-    /// [ex4]
+    /// [ex5]
 
     static_assert(!metal::is_nil<nullable_value1>::value, "");
     static_assert(!metal::is_nil<nullable_value2>::value, "");

@@ -6,31 +6,13 @@
 #define METAL_FUNCTIONAL_CALL_HPP
 
 #include <metal/functional/eval.hpp>
-#include <metal/functional/traits/is_function.hpp>
-
-#include <type_traits>
+#include <metal/functional/detail/function.hpp>
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename, typename = std::true_type>
-        struct function
-        {
-            template<typename...>
-            struct call
-            {};
-        };
-
-        template<typename func>
-        struct function<func, is_function_t<func>> :
-                func
-        {};
-    }
-
-    template<typename func, typename... args>
+    template<typename function, typename... args>
     struct call :
-            eval<detail::function<func>::template call, args...>
+            eval<detail::function<function>::template call, args...>
     {};
 
     /// \ingroup functional_traits

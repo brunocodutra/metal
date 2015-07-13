@@ -9,6 +9,17 @@
 
 using namespace metal;
 
+static_assert(!is_evaluable<if_, std::true_type, test::a0>::value, "");
+static_assert(!is_evaluable<if_, std::true_type, test::a1>::value, "");
+static_assert(!is_evaluable<if_, std::true_type, test::a2>::value, "");
+static_assert(!is_evaluable<if_, std::true_type, test::a3>::value, "");
+static_assert(!is_evaluable<if_, std::true_type, test::a4>::value, "");
+static_assert(!is_evaluable<if_, std::true_type, test::a5>::value, "");
+static_assert(!is_evaluable<if_, std::true_type, test::a6>::value, "");
+static_assert(!is_evaluable<if_, std::true_type, test::a7>::value, "");
+static_assert(!is_evaluable<if_, std::true_type, test::a8>::value, "");
+static_assert(!is_evaluable<if_, std::true_type, test::a9>::value, "");
+
 struct x {using type = x;};
 struct y {using type = y;};
 struct z {using type = z;};

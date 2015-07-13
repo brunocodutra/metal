@@ -11,7 +11,7 @@ using namespace metal;
 
 static_assert(protect<std::true_type>::value, "");
 static_assert(std::is_same<protect<void>::type, protect<void>>::value, "");
-static_assert(std::is_same<call_t<call_t<quote<protect>, placeholders::_1>, void>, void>::value, "");
+static_assert(std::is_same<call_t<quote<protect>, void>, protect<void>>::value, "");
 
 static_assert(is_function<protect<test::wrapper>>::value, "");
 static_assert(is_callable<protect<test::wrapper>>::value, "");

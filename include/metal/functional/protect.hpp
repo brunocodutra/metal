@@ -5,28 +5,22 @@
 #ifndef METAL_FUNCTIONAL_PROTECT_HPP
 #define METAL_FUNCTIONAL_PROTECT_HPP
 
-#include <type_traits>
+#include <metal/functional/detail/nullable.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename, typename = std::true_type, int = 0>
-        struct protect_impl
-        {
-            using type = protect_impl;
-        };
-
-        template<typename value>
-        struct protect_impl<value, typename std::is_class<value>::type, 0> :
-                value
+        template<typename nullable, int = 0>
+        struct protect_impl :
+                detail::nullable<nullable>
         {
             using type = protect_impl;
         };
     }
 
-    template<typename value>
-    using protect = detail::protect_impl<value>;
+    template<typename nullable>
+    using protect = detail::protect_impl<nullable>;
 }
 
 #endif

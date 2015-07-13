@@ -20,29 +20,29 @@ namespace metal
         METAL_DEFINE_NESTED_TYPE_TRAIT(has_call, call);
         METAL_DEFINE_NESTED_TEMPLATE_TRAIT(has_template_call, call);
 
-        template<typename func>
+        template<typename value>
         struct is_function_impl :
                 is_same_expression<
-                    func::type::template call,
-                    func::template call
+                    value::type::template call,
+                    value::template call
                 >
         {};
     }
 
-    template<typename func>
+    template<typename value>
     struct is_function :
             and_<
-                is_strict<func>,
-                detail::has_template_call<func>,
-                not_<detail::has_call<func>>,
-                detail::is_function_impl<func>
+                is_strict<value>,
+                detail::has_template_call<value>,
+                not_<detail::has_call<value>>,
+                detail::is_function_impl<value>
             >
     {};
 
     /// \ingroup functional_traits
     /// \brief Eager adaptor for is_function.
-    template<typename func>
-    using is_function_t = typename is_function<func>::type;
+    template<typename value>
+    using is_function_t = typename is_function<value>::type;
 }
 
 #endif

@@ -62,6 +62,12 @@ one must explicitly name its nested `::type`.
 Whenever a nested `::type` is undefined or ambiguously defined,
 a [Nullable Value] is said to be *nil*,
 thus evaluating *nil* leads to a compile-time error.
+As a special case, `union` types are always considered nil,
+even if a nested `::type` is well defined.
+
+While every [Nullable Value] is also a [Value], the converse is not always true.
+However, any [Value] can be lifted to a corresponding [Nullable Value] using
+`metal::identity`.
 
 ## Requirements
 
@@ -77,6 +83,7 @@ metal::is_nil
 \snippet concepts/nullable.cpp ex2
 \snippet concepts/nullable.cpp ex3
 \snippet concepts/nullable.cpp ex4
+\snippet concepts/nullable.cpp ex5
 
 ## Models
 
@@ -100,11 +107,15 @@ metal::is_strict
 
 ## Examples
 
+## Models
+
+metal::protect
+
 
 Numerical Value {#concept_numerical_value}
 ================================================================================
 
-A [Numerical Value] is a compile type representation of a number,
+A [Numerical Value] is a compile-time representation of a number,
 behaving much like run-time numerical values.
 [Numerical Values] derive from a specialization of
 [std::integral_constant], thus
@@ -140,7 +151,7 @@ must not be hidden and must be unambiguously available.
 Expression {#concept_expression}
 ================================================================================
 
-An [Expression] is a compile type representation of a computation that
+An [Expression] is a compile-time representation of a computation that
 maps a set of [Values] to a new [Value].
 Since [Expressions] behave much like run-time functions,
 they are often called *metafunctions*,
@@ -155,7 +166,7 @@ one must explicitly name the nested `::type`
 in order to actually evaluate an [Expression].
 In general, however, an [Expression] may naturally compute to
 *nil* for some set of arguments, hence
-evaluating such an [Expression] leads to a compile time error.
+evaluating such an [Expression] leads to a compile-time error.
 
 An [Expression] which evaluates to some [Value]
 when invoked with some set of arguments

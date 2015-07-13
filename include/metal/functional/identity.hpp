@@ -7,10 +7,10 @@
 
 namespace metal
 {
-    template<typename x>
+    template<typename value>
     struct identity
     {
-        using type = x;
+        using type = value;
     };
 }
 

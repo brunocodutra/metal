@@ -7,8 +7,8 @@
 
 namespace test
 {
-    union a0 {};
-    using a1 = void;
+    enum a0 {type};
+    union a1 {struct type;};
     using a2 = a1(a0);
     using a3 = a2* const;
     using a4 = a2* volatile;
