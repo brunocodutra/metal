@@ -9,6 +9,7 @@
 
 namespace metal
 {
+    ///\cond
     template<typename x, typename y, typename... _>
     struct or_ :
             or_<x, or_<y, _...>>
@@ -21,6 +22,7 @@ namespace metal
 
     template<typename y> struct or_<std::false_type, y> : y {};
     template<typename y> struct or_<std::true_type, y> : std::true_type {};
+    ///\endcond
 }
 
 #endif

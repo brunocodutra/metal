@@ -57,6 +57,7 @@ namespace metal
     public:
         using type = bind;
 
+        ///\cond
         template<typename... args>
         struct call :
                 call<parse_t<function, args...>, parse_t<params, args...>...>
@@ -71,6 +72,7 @@ namespace metal
         struct call<detail::args<args...>> :
                 ::metal::call<args...>
         {};
+        ///\endcond
     };
 }
 

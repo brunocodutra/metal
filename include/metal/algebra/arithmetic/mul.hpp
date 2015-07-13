@@ -9,6 +9,7 @@
 
 namespace metal
 {
+    ///\cond
     template<typename x, typename y, typename... _>
     struct mul :
             mul<mul<x, y>, _...>
@@ -21,6 +22,7 @@ namespace metal
                 x::value * y::value
             >
     {};
+    ///\endcond
 }
 
 #endif

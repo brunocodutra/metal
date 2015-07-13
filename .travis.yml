@@ -23,7 +23,7 @@ matrix:
         - env: COMPILER=clang++-3.5 PKGS="clang-3.5 libc++-dev"
         - env: COMPILER=clang++-3.6 PKGS="clang-3.6 libc++-dev"
         - env: COMPILER=clang++-3.7 PKGS="clang-3.7 libc++-dev"
-        - env: BUILD_DOC=true       PKGS="doxygen"
+        - env: BUILD_DOC=true       PKGS=""
 
 before_install:
     - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
@@ -36,6 +36,13 @@ before_install:
 
 install:
     - if [[ -n "${PKGS}" ]]; then sudo apt-get -qq install ${PKGS}; fi
+
+    - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
+    - mkdir "${DEPS_PATH}"
+
+    - DOXYGEN_URL="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.10.linux.bin.tar.gz"
+    - if [[ "${BUILD_DOC}" == "true" ]]; then mkdir "${DEPS_PATH}/doxygen" && travis_retry wget --quiet -O - ${DOXYGEN_URL} | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen"; fi
+    - if [[ "${BUILD_DOC}" == "true" ]]; then export PATH=${DEPS_PATH}/doxygen/bin:${PATH}; fi
 
 before_script:
     - git config --global user.name "Travis Bot"
