@@ -11,20 +11,19 @@
 namespace metal
 {
     /// \ingroup functional_traits
-    /// \brief Checks whether an arbitrary \ref concept_expression `expr`
-    /// is strictly evaluable with [Values](\ref concept_value) `args`.
+    /// \brief Checks whether an arbitrary \expression `expr`
+    /// is strictly evaluable with \values `args`.
     ///
     /// Usage
     /// -----
-    /// For any \ref concept_expression `expr` and
-    /// [Values](\ref concept_value) `args`,
+    /// For any \expression `expr` and \values `args`,
     /// \code
     ///     using result = metal::is_strictly_evaluable<expr, args...>;
     /// \endcode
     /// \par Model:
-    ///     \ref concept_numerical_value
+    ///     \numerical
     /// \par Semantics:
-    ///     if `expr<args...>` [is strict](\ref is_strict), then equivalent to
+    ///     if `expr<args...>` is well defined and \strict, then equivalent to
     ///     \code
     ///         struct result :
     ///             std::true_type
@@ -50,7 +49,7 @@ namespace metal
     {};
 
     /// \ingroup functional_traits
-    /// \brief Eager adaptor for is_strictly_evaluable.
+    /// \brief Eager adaptor for \ref is_strictly_evaluable.
     template<template<typename...> class expr, typename... args>
     using is_strictly_evaluable_t =
         typename is_strictly_evaluable<expr, args...>::type;

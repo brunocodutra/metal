@@ -8,7 +8,7 @@
 namespace metal
 {
     /// \ingroup functional
-    /// \brief A model of empty \ref concept_nullable_value.
+    /// \brief A model of empty \nullable.
     ///
     /// See Also
     /// --------

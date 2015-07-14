@@ -25,16 +25,16 @@ namespace ex2
 {
     /// [ex2]
     template<typename x>
-    struct parametric_function //also model of Expression
+    struct function //also model of Expression
     {
-        using type = parametric_function;
+        using type = function;
 
         template<typename...>
         using call = x;
     };
     /// [ex2]
 
-    static_assert(metal::is_function<parametric_function<void>>::value, "");
+    static_assert(metal::is_function<function<void>>::value, "");
 }
 
 namespace nex1

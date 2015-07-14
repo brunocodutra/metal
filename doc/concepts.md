@@ -62,7 +62,7 @@ one must explicitly name its nested `::type`.
 Whenever a nested `::type` is undefined or ambiguously defined,
 a [Nullable Value] is said to be *nil*,
 thus evaluating *nil* leads to a compile-time error.
-As a special case, `union` types are always considered nil,
+As a special case, `union` types are always considered *nil*,
 even if a nested `::type` is well defined.
 
 While every [Nullable Value] is also a [Value], the converse is not always true.
@@ -99,13 +99,17 @@ A [Strict Value] is a [Nullable Value] that represents itself, therefore
 
 If `sv` is a model of [Strict Value], then
 * `sv` is a non-nil [Nullable Value].
-* `sv::type` is either `sv` itself or some public and unambiguous base of `sv`.
+* `sv::type` is either an alias to to `sv` itself or
+unambiguously inherited from a [Strict Value].
 
 ## Associated Traits
 
 metal::is_strict
 
 ## Examples
+
+\snippet concepts/strict.cpp ex1
+\snippet concepts/strict.cpp nex1
 
 ## Models
 
@@ -161,7 +165,7 @@ Unlike run-time functions, [Expressions] are lazy,
 which means that they do not immediately evaluate when invoked.
 Rather, an [Expression] invoked with some set of arguments is
 itself a model of [Nullable Value], that is either *nil* or some [Value].
-Therefore, not unlike any other [Nullable Value],
+Not unlike any other [Nullable Value],
 one must explicitly name the nested `::type`
 in order to actually evaluate an [Expression].
 In general, however, an [Expression] may naturally compute to
@@ -171,7 +175,7 @@ evaluating such an [Expression] leads to a compile-time error.
 An [Expression] which evaluates to some [Value]
 when invoked with some set of arguments
 is said to be *evaluable* for that set of arguments.
-If it otherwise evaluates to a [Strict Value],
+Moreover, if it evaluates to a [Strict Value],
 it is said to be *strictly evaluable* for that set of arguments.
 
 ## Requirements

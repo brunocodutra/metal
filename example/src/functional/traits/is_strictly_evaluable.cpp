@@ -10,12 +10,14 @@ namespace
     template<typename...>
     struct e1
     {
+        //strictly evaluable for every set of arguments
         using type = e1;
     };
 
     template<typename...>
     struct e2
     {
+        //not strictly evaluable for any set of arguments
         struct type;
     };
 

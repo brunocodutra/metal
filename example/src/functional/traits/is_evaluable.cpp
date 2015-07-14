@@ -10,13 +10,14 @@ namespace
     template<typename...>
     struct e1
     {
+        //evaluable for any set of arguments
         struct type;
     };
 
     template<typename...>
     struct e2
     {
-        //empty
+        //not evaluable for any set of arguments
     };
 
     static_assert(metal::is_evaluable<e1>::value, "");

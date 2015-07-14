@@ -34,7 +34,7 @@ namespace metal
     {};
 
     /// \ingroup functional_traits
-    /// \brief Eager adaptor for if_.
+    /// \brief Eager adaptor for \ref if_.
     template<typename pred, typename then, typename... else_>
     using if_t = typename if_<pred, then, else_...>::type;
 }

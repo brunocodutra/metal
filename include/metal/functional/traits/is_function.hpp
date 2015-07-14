@@ -40,7 +40,7 @@ namespace metal
     {};
 
     /// \ingroup functional_traits
-    /// \brief Eager adaptor for is_function.
+    /// \brief Eager adaptor for \ref is_function.
     template<typename value>
     using is_function_t = typename is_function<value>::type;
 }

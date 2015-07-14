@@ -228,7 +228,22 @@ TAB_SIZE               = 4
 # "Side Effects:". You can put \n's in the value part of an alias to insert
 # newlines.
 
-ALIASES                =
+ALIASES               +=value="\ref concept_value"
+ALIASES               +=values="\ref concept_value \"Values\""
+ALIASES               +=nullable="\ref concept_nullable_value"
+ALIASES               +=nullables="\ref concept_nullable_value \"Nullable Values\""
+ALIASES               +=strict="\ref concept_strict_value"
+ALIASES               +=stricts="\ref concept_strict_value \"Strict Values\""
+ALIASES               +=numerical="\ref concept_numerical_value"
+ALIASES               +=numericals="\ref concept_numerical_value \"Numerical Values\""
+ALIASES               +=expression="\ref concept_expression"
+ALIASES               +=expressions="\ref concept_expression \"Expressions\""
+ALIASES               +=function="\ref concept_function"
+ALIASES               +=functions="\ref concept_function \"Functions\""
+
+ALIASES               +=nil="\ref is_nil \"nil\""
+ALIASES               +=strict="\ref is_strict \"strict\""
+ALIASES               +=evaluable="\ref is_evaluable \"evaluable\""
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"

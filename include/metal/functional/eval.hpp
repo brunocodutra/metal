@@ -37,22 +37,21 @@ namespace metal
     }
 
     /// \ingroup functional
-    /// \brief Evaluates an arbitrary \ref concept_expression `expr`
-    /// with [Values](\ref concept_value) `args`.
+    /// \brief Evaluates an arbitrary \expression `expr`
+    /// with \values `args`.
     ///
     /// Usage
     /// -----
-    /// For any \ref concept_expression `expr` and
-    /// [Values](\ref concept_value) `args`,
+    /// For any \expression `expr` and \values `args`,
     /// \code
-    ///     using result = eval<expr, args...>;
+    ///     using result = metal::eval<expr, args...>;
     /// \endcode
     ///
     /// \par Return Type:
-    ///     \ref concept_nullable_value
+    ///     \nullable
     ///
     /// \par Semantics:
-    ///     if `expr` [is evaluable](\ref is_evaluable) with `args`,
+    ///     if `expr` is \evaluable with `args`,
     ///     then equivalent to
     ///     \code
     ///         struct result :

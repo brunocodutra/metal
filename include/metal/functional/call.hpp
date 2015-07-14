@@ -16,7 +16,7 @@ namespace metal
     {};
 
     /// \ingroup functional_traits
-    /// \brief Eager adaptor for call.
+    /// \brief Eager adaptor for \ref call.
     template<typename... args>
     using call_t = typename call<args...>::type;
 }
