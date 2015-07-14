@@ -11,16 +11,16 @@ namespace metal
 {
     namespace detail
     {
-        template<typename nullable, int = 0>
+        template<typename null, int = 0>
         struct protect_impl :
-                detail::nullable<nullable>
+                detail::nullable<null>
         {
             using type = protect_impl;
         };
     }
 
-    template<typename nullable>
-    using protect = detail::protect_impl<nullable>;
+    template<typename null>
+    using protect = detail::protect_impl<null>;
 }
 
 #endif

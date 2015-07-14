@@ -23,16 +23,17 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \nullable `n`,
+    /// For any \nullable `null`,
     /// \code
-    ///     using result = metal::is_nil<n>;
+    ///     using result = metal::is_nil<null>;
     /// \endcode
     ///
     /// \par Return Type:
-    ///     \numerical
+    ///     \number
     ///
     /// \par Semantics:
-    ///     if `n::type` is undefined or ambiguously defined, then equivalent to
+    ///     if `null::type` is undefined or ambiguously defined,
+    ///     then equivalent to
     ///     \code
     ///         struct result :
     ///             std::true_type
@@ -52,15 +53,15 @@ namespace metal
     /// See Also
     /// --------
     /// \see is_strict
-    template<typename n>
+    template<typename null>
     struct is_nil :
-            not_<and_<std::is_class<n>, detail::has_type<n>>>
+            not_<and_<std::is_class<null>, detail::has_type<null>>>
     {};
 
     /// \ingroup functional_traits
     /// \brief Eager adaptor for \ref is_nil.
-    template<typename n>
-    using is_nil_t = typename is_nil<n>::type;
+    template<typename null>
+    using is_nil_t = typename is_nil<null>::type;
 }
 
 #endif

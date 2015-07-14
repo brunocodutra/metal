@@ -15,9 +15,7 @@ namespace metal
         using type = quote;
 
         template<typename... args>
-        struct call :
-                eval<expr, args...>
-        {};
+        using call = eval<expr, args...>;
     };
 }
 

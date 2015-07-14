@@ -23,7 +23,7 @@ namespace metal
     /// \endcode
     ///
     /// \par Return Type:
-    ///     \numerical
+    ///     \number
     ///
     /// \par Semantics:
     ///     if `expr<args...>` is well defined and not \nil, then equivalent to

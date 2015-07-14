@@ -71,7 +71,7 @@ However, any [Value] can be lifted to a corresponding [Nullable Value] using
 
 ## Requirements
 
-If `n` is a model of [Nullable Value], then `n` is a model of [Value].
+If `null` is a model of [Nullable Value], then `null` is a model of [Value].
 
 ## Associated Traits
 
@@ -92,8 +92,14 @@ metal::nil
 Strict Value {#concept_strict_value}
 ================================================================================
 
-A [Strict Value] is a [Nullable Value] that represents itself, therefore
-[Strict Values] are never *nil*.
+A [Strict Value] is a [Nullable Value] that represents itself,
+therefore [Strict Values] are never *nil*.
+
+[Strict Values] are very useful for lazy metaprogramming
+in allowing one to avoid evaluating [Expressions]
+which are known to return a [Strict Value],
+since evaluating a [Strict Value] always yields itself
+
 
 ## Requirements
 
@@ -116,22 +122,22 @@ metal::is_strict
 metal::protect
 
 
-Numerical Value {#concept_numerical_value}
+Number {#concept_number}
 ================================================================================
 
-A [Numerical Value] is a compile-time representation of a number,
-behaving much like run-time numerical values.
-[Numerical Values] derive from a specialization of
+A [Number] is a compile-time representation of a numerical value,
+behaving much like its run-time counterparts.
+[Numbers] derive from a specialization of
 [std::integral_constant], thus
-every [Numerical Value] is also a [Strict Value].
+every [Number] is also a [Strict Value].
 
 ## Requirements
 
-If `n` is a model of [Numerical Value], then `n` is either:
+If `n` is a model of [Number], then `n` is either:
 * an alias to a specialization of
 [std::integral_constant].
 * publicly and unambiguously derived, directly or indirectly, from a
-[Numerical Value].
+[Number].
 
 Names inherited from [std::integral_constant]
 must not be hidden and must be unambiguously available.
@@ -217,8 +223,6 @@ A [Function] that takes the form of a template is said to be *parametric*
 and behaves much like template types in regular C++.
 A special group of particular interest are *parametric* [Functions] which also
 meet the criteria to model an [Expression].
-Those present a dual behavior and may be regarded as either,
-depending on what is more convenient at each particular context.
 
 ## Requirements
 
@@ -251,8 +255,8 @@ metal::arg, metal::quote, metal::bind, metal::lambda
 [Nullable Values]:          \ref concept_nullable_value
 [Strict Value]:             \ref concept_strict_value
 [Strict Values]:            \ref concept_strict_value
-[Numerical Value]:          \ref concept_numerical_value
-[Numerical Values]:         \ref concept_numerical_value
+[Number]:                   \ref concept_number
+[Numbers]:                  \ref concept_number
 [Expression]:               \ref concept_expression
 [Expressions]:              \ref concept_expression
 [Function]:                 \ref concept_function

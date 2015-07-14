@@ -9,7 +9,6 @@
 #include <metal/functional/quote.hpp>
 #include <metal/functional/verbatim.hpp>
 #include <metal/functional/bind.hpp>
-#include <metal/functional/call.hpp>
 
 #include <cstddef>
 
@@ -44,8 +43,14 @@ namespace metal
         using type = lambda;
 
         template<typename... args>
-        struct call :
-                ::metal::call<parse<lexpr>, args...>
+        using call = typename parse<lexpr>::template call<args...>;
+    };
+
+    template<>
+    struct lambda<arg<0>>
+    {
+        template<typename... args>
+        struct call
         {};
     };
 }

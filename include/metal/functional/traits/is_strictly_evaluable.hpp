@@ -21,7 +21,7 @@ namespace metal
     ///     using result = metal::is_strictly_evaluable<expr, args...>;
     /// \endcode
     /// \par Model:
-    ///     \numerical
+    ///     \number
     /// \par Semantics:
     ///     if `expr<args...>` is well defined and \strict, then equivalent to
     ///     \code

@@ -10,7 +10,7 @@ namespace
     template<typename...>
     struct e1
     {
-        //evaluable for any set of arguments
+        //evaluable for every set of arguments
         struct type;
     };
 

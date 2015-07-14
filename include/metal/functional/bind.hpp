@@ -54,25 +54,27 @@ namespace metal
         template<typename token, typename... args>
         using parse_t = typename parse<token, args...>::type;
 
-    public:
-        using type = bind;
-
         ///\cond
-        template<typename... args>
-        struct call :
-                call<parse_t<function, args...>, parse_t<params, args...>...>
-        {};
+        template<typename...>
+        struct forward;
 
         template<typename... xs, typename... ys, typename... tail>
-        struct call<detail::args<xs...>, detail::args<ys...>, tail...> :
-                call<detail::args<xs..., ys...>, tail...>
+        struct forward<detail::args<xs...>, detail::args<ys...>, tail...> :
+                forward<detail::args<xs..., ys...>, tail...>
         {};
 
         template<typename... args>
-        struct call<detail::args<args...>> :
+        struct forward<detail::args<args...>> :
                 ::metal::call<args...>
         {};
         ///\endcond
+
+    public:
+        using type = bind;
+
+        template<typename... args>
+        using call =
+            forward<parse_t<function, args...>, parse_t<params, args...>...>;
     };
 }
 
