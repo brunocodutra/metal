@@ -10,29 +10,19 @@
 
 using namespace metal;
 
-namespace test
-{
-    using q1 = quote<test::alias>;
-    using q2 = quote<test::empty>;
-    using q3 = quote<test::call>;
-    using q4 = quote<test::union_>;
-    using q5 = quote<test::evaluable>;
-    using q6 = quote<test::strict>;
-}
+using q1 = quote<test::alias>;
+using q2 = quote<test::empty>;
+using q3 = quote<test::call>;
+using q4 = quote<test::evaluable>;
 
-static_assert(is_function<test::q1>::value, "");
-static_assert(is_function<test::q2>::value, "");
-static_assert(is_function<test::q3>::value, "");
-static_assert(is_function<test::q4>::value, "");
-static_assert(is_function<test::q5>::value, "");
-static_assert(is_function<test::q6>::value, "");
+static_assert(is_function<q1>::value, "");
+static_assert(is_function<q2>::value, "");
+static_assert(is_function<q3>::value, "");
+static_assert(is_function<q4>::value, "");
 
-static_assert(not_<is_callable<test::q1>>::value, "");
-static_assert(not_<is_callable<test::q2>>::value, "");
-static_assert(not_<is_callable<test::q3>>::value, "");
-static_assert(not_<is_callable<test::q4>>::value, "");
-static_assert(is_callable<test::q5>::value, "");
-static_assert(is_callable<test::q6>::value, "");
+static_assert(not_<is_callable<q1>>::value, "");
+static_assert(not_<is_callable<q2>>::value, "");
+static_assert(not_<is_callable<q3>>::value, "");
+static_assert(is_callable<q4>::value, "");
 
-static_assert(std::is_same<call_t<test::q5>, test::q5::call<>::type>::value, "");
-static_assert(std::is_same<call_t<test::q6>, test::q6::call<>::type>::value, "");
+static_assert(std::is_same<call_t<q4>, q4::call<>::type>::value, "");

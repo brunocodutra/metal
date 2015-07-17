@@ -5,6 +5,7 @@
 #include <metal/functional/bind.hpp>
 #include <metal/functional/protect.hpp>
 #include <metal/functional/quote.hpp>
+#include <metal/functional/traits/is_callable.hpp>
 
 #include "test.hpp"
 
@@ -44,22 +45,27 @@ static_assert(std::is_same<call_t<bind<_0, protect<_0>, _0>, test::wrapper, void
 
 using chain = protect<bind<_1, bind<_2, _3>>>;
 static_assert(is_function<chain>::value, "");
+static_assert(!is_callable<chain>::value, "");
 static_assert(std::is_same<call_t<chain, quote<std::add_pointer>, quote<std::add_const>, void>, void const*>::value, "");
 static_assert(std::is_same<call_t<chain, quote<std::add_const>, quote<std::add_pointer>, void>, void* const>::value, "");
 
 using once = protect<bind<chain, protect<_1>, _1, _2>>;
 static_assert(is_function<once>::value, "");
+static_assert(!is_callable<once>::value, "");
 static_assert(std::is_same<call_t<once, quote<std::add_pointer>, void>, void*>::value, "");
 
 using twice = protect<bind<chain, _1, _1, _2>>;
 static_assert(is_function<twice>::value, "");
+static_assert(!is_callable<twice>::value, "");
 static_assert(std::is_same<call_t<twice, quote<std::add_pointer>, void>, void**>::value, "");
 
 using thrice = protect<bind<once, _1, bind<twice, _1, _2>>>;
 static_assert(is_function<thrice>::value, "");
+static_assert(!is_callable<thrice>::value, "");
 static_assert(std::is_same<call_t<thrice, quote<std::add_pointer>, void>, void***>::value, "");
 
 using ptr2ptr2ptr = protect<bind<thrice, quote<std::add_pointer>, _1>>;
 static_assert(is_function<ptr2ptr2ptr>::value, "");
+static_assert(!is_callable<ptr2ptr2ptr>::value, "");
 static_assert(std::is_same<call_t<ptr2ptr2ptr, void>, void***>::value, "");
 static_assert(std::is_same<call_t<bind<ptr2ptr2ptr, void>>, void***>::value, "");

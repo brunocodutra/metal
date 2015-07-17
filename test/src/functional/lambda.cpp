@@ -118,23 +118,28 @@ static_assert(std::is_same<call_t<lambda<lambda<_1>>, protect<_1>>, lambda<prote
 
 using chain = protect<lambda<call<lambda<_1>, call<lambda<_2>, _3>>>>;
 static_assert(is_function<chain>::value, "");
+static_assert(!is_callable<chain>::value, "");
 static_assert(std::is_same<call_t<chain, std::add_pointer<_1>, std::add_const<_1>, void>, void const*>::value, "");
 static_assert(std::is_same<call_t<chain, std::add_const<_1>, std::add_pointer<_1>, void>, void* const>::value, "");
 
 using once = protect<lambda<call<chain, verbatim<_1>, _1, _2>>>;
 static_assert(is_function<once>::value, "");
+static_assert(!is_callable<once>::value, "");
 static_assert(std::is_same<call_t<once, std::add_pointer<_1>, void>, void*>::value, "");
 
 using twice = protect<lambda<call<chain, _1, _1, _2>>>;
 static_assert(is_function<twice>::value, "");
+static_assert(!is_callable<twice>::value, "");
 static_assert(std::is_same<call_t<twice, std::add_pointer<_1>, void>, void**>::value, "");
 
 using thrice = protect<lambda<call<once, _1, call<twice, _1, _2>>>>;
 static_assert(is_function<thrice>::value, "");
+static_assert(!is_callable<thrice>::value, "");
 static_assert(std::is_same<call_t<thrice, std::add_pointer<_1>, void>, void***>::value, "");
 
 using ptr2ptr2ptr = protect<lambda<call<thrice, verbatim<std::add_pointer<_1>>, _1>>>;
 static_assert(is_function<ptr2ptr2ptr>::value, "");
+static_assert(!is_callable<ptr2ptr2ptr>::value, "");
 static_assert(std::is_same<call_t<ptr2ptr2ptr, void>, void***>::value, "");
 
 #include <metal/functional/identity.hpp>

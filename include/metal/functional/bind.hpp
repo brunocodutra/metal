@@ -5,9 +5,11 @@
 #ifndef METAL_FUNCTIONAL_BIND_HPP
 #define METAL_FUNCTIONAL_BIND_HPP
 
+#include <metal/functional/identity.hpp>
 #include <metal/functional/arg.hpp>
 #include <metal/functional/verbatim.hpp>
 #include <metal/functional/call.hpp>
+#include <metal/functional/eval.hpp>
 
 #include <cstddef>
 
@@ -28,53 +30,55 @@ namespace metal
     private:
         template<typename token, typename... args>
         struct parse :
-                detail::args<token>
+                detail::args<identity<token>>
         {};
 
         template<typename arg, typename... args>
         struct parse<verbatim<arg>, args...> :
-                detail::args<typename verbatim<arg>::type>
+                detail::args<verbatim<arg>>
         {};
 
         template<typename... args>
         struct parse<arg<0U>, args...> :
-                detail::args<args...>
+                detail::args<identity<args>...>
         {};
 
         template<std::size_t n, typename... args>
         struct parse<arg<n>, args...> :
-                detail::args<call_t<arg<n>, args...>>
+                detail::args<call<arg<n>, args...>>
         {};
 
         template<typename f, typename... p, typename... args>
         struct parse<bind<f, p...>, args...> :
-                detail::args<call_t<bind<f, p...>, args...>>
+                detail::args<call<bind<f, p...>, args...>>
         {};
 
         template<typename token, typename... args>
         using parse_t = typename parse<token, args...>::type;
 
-        ///\cond
-        template<typename...>
-        struct forward;
-
-        template<typename... xs, typename... ys, typename... tail>
-        struct forward<detail::args<xs...>, detail::args<ys...>, tail...> :
-                forward<detail::args<xs..., ys...>, tail...>
-        {};
 
         template<typename... args>
-        struct forward<detail::args<args...>> :
-                ::metal::call<args...>
-        {};
-        ///\endcond
+        using forward = ::metal::call<typename args::type...>;
 
     public:
         using type = bind;
 
+        ///\cond
         template<typename... args>
-        using call =
-            forward<parse_t<function, args...>, parse_t<params, args...>...>;
+        struct call :
+            call<parse_t<function, args...>, parse_t<params, args...>...>
+        {};
+
+        template<typename... xs, typename... ys, typename... tail>
+        struct call<detail::args<xs...>, detail::args<ys...>, tail...> :
+                call<detail::args<xs..., ys...>, tail...>
+        {};
+
+        template<typename... args>
+        struct call<detail::args<args...>> :
+            eval<forward, args...>
+        {};
+        ///\endcond
     };
 }
 
