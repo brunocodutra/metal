@@ -41,14 +41,10 @@ namespace metal
     };
 
     template<>
-    struct arg<0U>
-    {
-        using type = arg;
-    };
+    struct arg<0U>;
 
     namespace placeholders
     {
-        using _0 = arg<0U>;
         using _1 = arg<1U>;
         using _2 = arg<2U>;
         using _3 = arg<3U>;

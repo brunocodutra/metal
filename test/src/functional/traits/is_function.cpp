@@ -24,25 +24,21 @@ static_assert(not_<is_function_t<test::empty<>>>::value, "");
 static_assert(not_<is_function_t<test::call<>>>::value, "");
 static_assert(not_<is_function_t<test::union_<>>>::value, "");
 static_assert(not_<is_function_t<test::evaluable<>>>::value, "");
-static_assert(not_<is_function_t<test::strict<>>>::value, "");
 
 static_assert(is_function_t<test::unary<test::alias>>::value, "");
 static_assert(is_function_t<test::unary<test::empty>>::value, "");
 static_assert(is_function_t<test::unary<test::call>>::value, "");
 static_assert(is_function_t<test::unary<test::union_>>::value, "");
 static_assert(is_function_t<test::unary<test::evaluable>>::value, "");
-static_assert(is_function_t<test::unary<test::strict>>::value, "");
 
 static_assert(is_function_t<test::binary<test::alias>>::value, "");
 static_assert(is_function_t<test::binary<test::empty>>::value, "");
 static_assert(is_function_t<test::binary<test::call>>::value, "");
 static_assert(is_function_t<test::binary<test::union_>>::value, "");
 static_assert(is_function_t<test::binary<test::evaluable>>::value, "");
-static_assert(is_function_t<test::binary<test::strict>>::value, "");
 
 static_assert(is_function_t<test::n_ary<test::alias>>::value, "");
 static_assert(is_function_t<test::n_ary<test::empty>>::value, "");
 static_assert(is_function_t<test::n_ary<test::call>>::value, "");
 static_assert(is_function_t<test::n_ary<test::union_>>::value, "");
 static_assert(is_function_t<test::n_ary<test::evaluable>>::value, "");
-static_assert(is_function_t<test::n_ary<test::strict>>::value, "");

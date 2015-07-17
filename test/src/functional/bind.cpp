@@ -33,16 +33,6 @@ static_assert(std::is_same<call_t<bind<test::wrapper, _1, _2, protect<_3>, _4>, 
 static_assert(std::is_same<call_t<bind<_1, _2>, test::wrapper, void>, test::wrap<void>>::value, "");
 static_assert(std::is_same<call_t<bind<_1, _2, _1>, test::wrapper, void>, test::wrap<void, test::wrapper>>::value, "");
 
-static_assert(std::is_same<call_t<bind<_0>, test::wrapper, void>, test::wrap<void>>::value, "");
-static_assert(std::is_same<call_t<bind<_0, _0>, test::wrapper, void>, test::wrap<void, test::wrapper, void>>::value, "");
-static_assert(std::is_same<call_t<bind<_0, _0, _0>, test::wrapper, void>, test::wrap<void, test::wrapper, void, test::wrapper, void>>::value, "");
-
-static_assert(std::is_same<call_t<bind<_0, verbatim<_0>>, test::wrapper, void>, test::wrap<void, _0>>::value, "");
-static_assert(std::is_same<call_t<bind<_0, verbatim<_0>, _0>, test::wrapper, void>, test::wrap<void, _0, test::wrapper, void>>::value, "");
-
-static_assert(std::is_same<call_t<bind<_0, protect<_0>>, test::wrapper, void>, test::wrap<void, protect<_0>>>::value, "");
-static_assert(std::is_same<call_t<bind<_0, protect<_0>, _0>, test::wrapper, void>, test::wrap<void, protect<_0>, test::wrapper, void>>::value, "");
-
 using chain = protect<bind<_1, bind<_2, _3>>>;
 static_assert(is_function<chain>::value, "");
 static_assert(!is_callable<chain>::value, "");

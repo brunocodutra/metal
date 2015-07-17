@@ -36,12 +36,6 @@ namespace test
         struct type;
     };
 
-    template<typename...>
-    struct strict
-    {
-        using type = strict;
-    };
-
     template<typename... args>
     struct wrap
     {
@@ -57,7 +51,7 @@ namespace test
     {};
 
     template<typename x>
-    using e1 = evaluable<x>;
+    struct e1 : evaluable<x> {};
 
     template<typename x, typename y>
     using e2 = evaluable<x, y>;

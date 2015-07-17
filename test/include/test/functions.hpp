@@ -12,8 +12,6 @@ namespace test
     template<template<typename...> class expr>
     struct nullary
     {
-        using type = nullary;
-
         template<typename = void>
         using call = expr<>;
     };
@@ -21,8 +19,6 @@ namespace test
     template<template<typename...> class expr>
     struct unary
     {
-        using type = unary;
-
         template<typename args>
         using call = expr<args>;
     };
@@ -30,8 +26,6 @@ namespace test
     template<template<typename...> class expr>
     struct binary
     {
-        using type = binary;
-
         template<typename x, typename y>
         using call = expr<x, y>;
     };
@@ -39,8 +33,6 @@ namespace test
     template<template<typename...> class expr>
     struct n_ary
     {
-        using type = n_ary;
-
         template<typename... args>
         using call = expr<args...>;
     };

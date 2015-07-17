@@ -5,8 +5,6 @@
 #ifndef METAL_FUNCTIONAL_TRAITS_IS_FUNCTION_HPP
 #define METAL_FUNCTIONAL_TRAITS_IS_FUNCTION_HPP
 
-#include <metal/functional/traits/is_strict.hpp>
-#include <metal/functional/traits/is_same_expression.hpp>
 #include <metal/algebra/logical/and.hpp>
 #include <metal/algebra/logical/not.hpp>
 #include <metal/detail/introspection.hpp>
@@ -19,23 +17,13 @@ namespace metal
     {
         METAL_DEFINE_NESTED_TYPE_TRAIT(has_call, call);
         METAL_DEFINE_NESTED_TEMPLATE_TRAIT(has_template_call, call);
-
-        template<typename value>
-        struct is_function_impl :
-                is_same_expression<
-                    value::type::template call,
-                    value::template call
-                >
-        {};
     }
 
     template<typename value>
     struct is_function :
             and_<
-                is_strict<value>,
                 detail::has_template_call<value>,
-                not_<detail::has_call<value>>,
-                detail::is_function_impl<value>
+                not_<detail::has_call<value>>
             >
     {};
 

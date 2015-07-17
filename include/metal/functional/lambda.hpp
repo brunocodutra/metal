@@ -19,16 +19,22 @@ namespace metal
     struct lambda
     {
     private:
-        template<typename token>
-        struct parse;
+        template<typename value>
+        struct parse :
+                parse<verbatim<value>>
+        {};
 
         template<typename token>
         using parse_t = typename parse<token>::type;
 
         template<typename value>
-        struct parse :
-                bind<verbatim<arg<1>>, value>
-        {};
+        struct parse<verbatim<value>>
+        {
+            using type = verbatim<value>;
+
+            template<typename...>
+            using call = type;
+        };
 
         template<std::size_t n>
         struct parse<arg<n>> :

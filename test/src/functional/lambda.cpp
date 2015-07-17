@@ -38,14 +38,12 @@ static_assert(not_<is_callable_t<lambda<test::empty<>>>>::value, "");
 static_assert(not_<is_callable_t<lambda<test::call<>>>>::value, "");
 static_assert(not_<is_callable_t<lambda<test::union_<>>>>::value, "");
 static_assert(std::is_same<call_t<lambda<test::evaluable<>>>, test::evaluable<>::type>::value, "");
-static_assert(std::is_same<call_t<lambda<test::strict<>>>, test::strict<>>::value, "");
 
 static_assert(std::is_same<call_t<lambda<verbatim<test::alias<>>>>, test::alias<>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::empty<>>>>, test::empty<>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::call<>>>>, test::call<>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::union_<>>>>, test::union_<>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::evaluable<>>>>, test::evaluable<>>::value, "");
-static_assert(std::is_same<call_t<lambda<verbatim<test::strict<>>>>, test::strict<>>::value, "");
 
 static_assert(std::is_same<call_t<lambda<test::wrapper>, void>, test::wrapper>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::wrapper>>, void>, test::wrapper>::value, "");
@@ -59,31 +57,26 @@ static_assert(std::is_same<call_t<lambda<call<lambda<std::add_pointer<_1>>, void
 static_assert(std::is_same<call_t<lambda<call<verbatim<lambda<std::add_pointer<_1>>>, void>>, void*>, void*>::value, "");
 static_assert(std::is_same<call_t<lambda<call<protect<lambda<std::add_pointer<_1>>>, void>>, void*>, void*>::value, "");
 
-static_assert(not_<is_callable_t<lambda<_0>>>::value, "");
 static_assert(std::is_same<call_t<lambda<_1>, test::a0, test::a1, test::a2, test::a3>, test::a0>::value, "");
 static_assert(std::is_same<call_t<lambda<_2>, test::a0, test::a1, test::a2, test::a3>, test::a1>::value, "");
 static_assert(std::is_same<call_t<lambda<_3>, test::a0, test::a1, test::a2, test::a3>, test::a2>::value, "");
 static_assert(std::is_same<call_t<lambda<_4>, test::a0, test::a1, test::a2, test::a3>, test::a3>::value, "");
 
-static_assert(std::is_same<call_t<lambda<verbatim<_0>>, test::a0, test::a1, test::a2, test::a3>, _0>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<_1>>, test::a0, test::a1, test::a2, test::a3>, _1>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<_2>>, test::a0, test::a1, test::a2, test::a3>, _2>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<_3>>, test::a0, test::a1, test::a2, test::a3>, _3>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<_4>>, test::a0, test::a1, test::a2, test::a3>, _4>::value, "");
 
-static_assert(std::is_same<call_t<lambda<protect<_0>>, test::a0, test::a1, test::a2, test::a3>, protect<_0>>::value, "");
 static_assert(std::is_same<call_t<lambda<protect<_1>>, test::a0, test::a1, test::a2, test::a3>, protect<_1>>::value, "");
 static_assert(std::is_same<call_t<lambda<protect<_2>>, test::a0, test::a1, test::a2, test::a3>, protect<_2>>::value, "");
 static_assert(std::is_same<call_t<lambda<protect<_3>>, test::a0, test::a1, test::a2, test::a3>, protect<_3>>::value, "");
 static_assert(std::is_same<call_t<lambda<protect<_4>>, test::a0, test::a1, test::a2, test::a3>, protect<_4>>::value, "");
 
-static_assert(std::is_same<call_t<lambda<test::wrap<_0>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1, test::a2, test::a3>>::value, "");
 static_assert(std::is_same<call_t<lambda<test::wrap<_1>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0>>::value, "");
 static_assert(std::is_same<call_t<lambda<test::wrap<_1, _2>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1>>::value, "");
 static_assert(std::is_same<call_t<lambda<test::wrap<_1, _2, _3>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1, test::a2>>::value, "");
 static_assert(std::is_same<call_t<lambda<test::wrap<_1, _2, _3, _4>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1, test::a2, test::a3>>::value, "");
 
-static_assert(std::is_same<call_t<lambda<verbatim<test::wrap<_0>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_0>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::wrap<_1>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::wrap<_1, _2>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1, _2>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::wrap<_1, _2, _3>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1, _2, _3>>::value, "");
@@ -97,16 +90,6 @@ static_assert(std::is_same<call_t<lambda<call<verbatim<_1>, _2, _1>>, test::wrap
 
 static_assert(std::is_same<call_t<lambda<call<protect<_1>, _2>>, test::wrapper, void>, void>::value, "");
 static_assert(std::is_same<call_t<lambda<call<protect<_1>, _2, _1>>, test::wrapper, void>, void>::value, "");
-
-static_assert(std::is_same<call_t<lambda<call<_0>>, test::wrapper, void>, test::wrap<void>>::value, "");
-static_assert(std::is_same<call_t<lambda<call<_0, _0>>, test::wrapper, void>, test::wrap<void, test::wrapper, void>>::value, "");
-static_assert(std::is_same<call_t<lambda<call<_0, _0, _0>>, test::wrapper, void>, test::wrap<void, test::wrapper, void, test::wrapper, void>>::value, "");
-
-static_assert(std::is_same<call_t<lambda<call<_0, verbatim<_0>>>, test::wrapper, void>, test::wrap<void, _0>>::value, "");
-static_assert(std::is_same<call_t<lambda<call<_0, verbatim<_0>, _0>>, test::wrapper, void>, test::wrap<void, _0, test::wrapper, void>>::value, "");
-
-static_assert(std::is_same<call_t<lambda<call<_0, protect<_0>>>, test::wrapper, void>, test::wrap<void, protect<_0>>>::value, "");
-static_assert(std::is_same<call_t<lambda<call<_0, protect<_0>, _0>>, test::wrapper, void>, test::wrap<void, protect<_0>, test::wrapper, void>>::value, "");
 
 static_assert(std::is_same<call_t<lambda<lambda<_1>>, void>, lambda<void>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<lambda<_1>>>, void>, lambda<_1>>::value, "");

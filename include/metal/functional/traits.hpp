@@ -11,8 +11,6 @@
 #include <metal/functional/traits/is_nil.hpp>
 #include <metal/functional/traits/is_same_expression.hpp>
 #include <metal/functional/traits/is_same_function.hpp>
-#include <metal/functional/traits/is_strict.hpp>
-#include <metal/functional/traits/is_strictly_evaluable.hpp>
 
 #endif
 

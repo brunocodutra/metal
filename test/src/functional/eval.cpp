@@ -9,7 +9,6 @@
 using namespace metal;
 
 static_assert(std::is_same<eval_t<test::evaluable>, test::evaluable<>::type>::value, "");
-static_assert(std::is_same<eval_t<test::strict>, test::strict<>>::value, "");
 
 static_assert(std::is_same<eval_t<test::e0>, test::e0<>::type>::value, "");
 static_assert(std::is_same<eval_t<test::e1, test::a0>, test::e1<test::a0>::type>::value, "");

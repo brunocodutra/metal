@@ -36,4 +36,3 @@ static_assert(is_nil_t<test::empty<>>::value, "");
 static_assert(is_nil_t<test::call<>>::value, "");
 static_assert(is_nil_t<test::union_<>>::value, "");
 static_assert(not_<is_nil_t<test::evaluable<>>>::value, "");
-static_assert(not_<is_nil_t<test::strict<>>>::value, "");

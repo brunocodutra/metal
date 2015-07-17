@@ -7,17 +7,11 @@
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename value, int = 0>
-        struct verbatim_impl
-        {
-            using type = value;
-        };
-    }
-
     template<typename value>
-    using verbatim = detail::verbatim_impl<value>;
+    struct verbatim
+    {
+        using type = value;
+    };
 }
 
 #endif

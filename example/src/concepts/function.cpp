@@ -11,8 +11,6 @@ namespace ex1
     /// [ex1]
     struct function
     {
-        using type = function;
-
         template<typename...>
         struct call;
     };
@@ -37,50 +35,15 @@ namespace ex2
     static_assert(metal::is_function<function<void>>::value, "");
 }
 
+
 namespace nex1
 {
     /// [nex1]
-    struct not_a_function //not a model of Strict Value
-    {
-        template<typename...>
-        struct call;
-    };
-    /// [nex1]
-
-    static_assert(!metal::is_function<not_a_function>::value, "");
-}
-
-namespace nex2
-{
-    /// [nex2]
     struct not_a_function
     {
-        using type = not_a_function;
         struct call; //not a model of Expression
     };
-    /// [nex2]
-
-    static_assert(!metal::is_function<not_a_function>::value, "");
-}
-
-namespace nex3
-{
-    /// [nex3]
-    struct function
-    {
-        using type = function;
-
-        template<typename...>
-        struct call;
-    };
-
-    struct not_a_function :
-            function
-    {
-        template<typename...>
-        struct call; //not inherited from ::type
-    };
-    /// [nex3]
+    /// [nex1]
 
     static_assert(!metal::is_function<not_a_function>::value, "");
 }

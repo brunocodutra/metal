@@ -243,7 +243,6 @@ metal::is_function
 ## Counterexamples
 
 \snippet concepts/function.cpp nex1
-\snippet concepts/function.cpp nex2
 
 ## Models
 

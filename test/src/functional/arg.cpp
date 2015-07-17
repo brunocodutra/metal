@@ -12,19 +12,16 @@
 using namespace metal;
 using namespace metal::placeholders;
 
-static_assert(not_<is_function<_0>>::value, "");
 static_assert(is_function<_1>::value, "");
 static_assert(is_function<_2>::value, "");
 static_assert(is_function<_3>::value, "");
 static_assert(is_function<_4>::value, "");
 
-static_assert(not_<is_callable<_0, test::a0, test::a1, test::a2, test::a3>>::value, "");
 static_assert(is_callable<_1, test::a0, test::a1, test::a2, test::a3>::value, "");
 static_assert(is_callable<_2, test::a0, test::a1, test::a2, test::a3>::value, "");
 static_assert(is_callable<_3, test::a0, test::a1, test::a2, test::a3>::value, "");
 static_assert(is_callable<_4, test::a0, test::a1, test::a2, test::a3>::value, "");
 
-static_assert(not_<is_callable<_0>>::value, "");
 static_assert(not_<is_callable<_1>>::value, "");
 static_assert(not_<is_callable<_2, test::a1>>::value, "");
 static_assert(not_<is_callable<_3, test::a1, test::a2>>::value, "");
