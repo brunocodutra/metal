@@ -55,7 +55,7 @@ namespace metal
     /// \see is_strict
     template<typename null>
     struct is_nil :
-            not_<and_<std::is_class<null>, detail::has_type<null>>>
+            not_<detail::has_type<null>>
     {};
 
     /// \ingroup functional_traits

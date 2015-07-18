@@ -6,10 +6,7 @@
 #define METAL_FUNCTIONAL_EVAL_HPP
 
 #include <metal/functional/nil.hpp>
-#include <metal/functional/traits/is_nil.hpp>
-#include <metal/algebra/logical/not.hpp>
-
-#include <type_traits>
+#include <metal/functional/identity.hpp>
 
 namespace metal
 {
@@ -23,10 +20,7 @@ namespace metal
         {
         private:
             template<template<typename...> class e>
-            static typename std::enable_if<
-                not_<is_nil<e<args...>>>::value,
-                e<args...>
-            >::type check(int);
+            static identity<typename e<args...>::type> check(int);
 
             template<template<typename...> class>
             static nil check(...);

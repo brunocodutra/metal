@@ -13,6 +13,9 @@ namespace metal
     struct not_ :
         std::integral_constant<bool, !x::value>
     {};
+
+    template<typename value>
+    using not_t = typename not_<value>::type;
 }
 
 #endif

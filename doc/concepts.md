@@ -62,8 +62,6 @@ one must explicitly name its nested `::type`.
 Whenever a nested `::type` is undefined or ambiguously defined,
 a [Nullable Value] is said to be *nil*,
 thus evaluating *nil* leads to a compile-time error.
-As a special case, `union` types are always considered *nil*,
-even if a nested `::type` is well defined.
 
 While every [Nullable Value] is also a [Value], the converse is not always true.
 However, any [Value] can be lifted to a corresponding [Nullable Value] using
@@ -83,7 +81,6 @@ metal::is_nil
 \snippet concepts/nullable.cpp ex2
 \snippet concepts/nullable.cpp ex3
 \snippet concepts/nullable.cpp ex4
-\snippet concepts/nullable.cpp ex5
 
 ## Models
 

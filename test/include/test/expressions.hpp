@@ -25,13 +25,7 @@ namespace test
     };
 
     template<typename...>
-    union union_
-    {
-        struct type;
-    };
-
-    template<typename...>
-    struct evaluable
+    union evaluable
     {
         struct type;
     };
@@ -46,12 +40,13 @@ namespace test
     struct e0;
 
     template<>
-    struct e0<> :
-            evaluable<>
-    {};
+    struct e0<>
+    {
+        enum type {};
+    };
 
     template<typename x>
-    struct e1 : evaluable<x> {};
+    using e1 = evaluable<x>;
 
     template<typename x, typename y>
     using e2 = evaluable<x, y>;

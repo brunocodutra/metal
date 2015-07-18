@@ -23,6 +23,9 @@ namespace metal
     template<typename y> struct or_<std::false_type, y> : y {};
     template<typename y> struct or_<std::true_type, y> : std::true_type {};
     ///\endcond
+
+    template<typename... values>
+    using or_t = typename or_<values...>::type;
 }
 
 #endif

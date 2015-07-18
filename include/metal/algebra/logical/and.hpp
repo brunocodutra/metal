@@ -23,6 +23,9 @@ namespace metal
     template<typename y> struct and_<std::true_type, y> : y {};
     template<typename y> struct and_<std::false_type, y> : std::false_type {};
     ///\endcond
+
+    template<typename... values>
+    using and_t = typename and_<values...>::type;
 }
 
 #endif

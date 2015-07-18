@@ -3,6 +3,9 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/functional/eval.hpp>
+#include <metal/functional/traits/is_nil.hpp>
+
+#include <type_traits>
 
 namespace
 {
@@ -16,14 +19,15 @@ namespace
     template<>
     struct except_void<void>
     {
-        //empty
+        //nil
     };
 
-    using r1 = metal::eval<except_void, int>;
-    static_assert(std::is_base_of<except_void<int>, r1>::value, "");
+    using r1 = metal::eval<except_void, void>;
+    static_assert(metal::is_nil<r1>::value, "");
 
-    using r2 = metal::eval<except_void, void>; //except_void<void> is nil
-    static_assert(!std::is_base_of<except_void<void>, r2>::value, "");
+    using r2 = metal::eval<except_void, int>;
+    static_assert(!metal::is_nil<r2>::value, "");
+    static_assert(std::is_same<r2::type, except_void<int>::type>::value, "");
     /// [main]
 }
 

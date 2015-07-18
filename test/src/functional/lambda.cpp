@@ -36,13 +36,11 @@ static_assert(std::is_same<call_t<lambda<verbatim<test::a9>>>, test::a9>::value,
 static_assert(std::is_same<call_t<lambda<test::alias<>>>, test::alias<>>::value, "");
 static_assert(not_<is_callable_t<lambda<test::empty<>>>>::value, "");
 static_assert(not_<is_callable_t<lambda<test::call<>>>>::value, "");
-static_assert(not_<is_callable_t<lambda<test::union_<>>>>::value, "");
 static_assert(std::is_same<call_t<lambda<test::evaluable<>>>, test::evaluable<>::type>::value, "");
 
 static_assert(std::is_same<call_t<lambda<verbatim<test::alias<>>>>, test::alias<>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::empty<>>>>, test::empty<>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::call<>>>>, test::call<>>::value, "");
-static_assert(std::is_same<call_t<lambda<verbatim<test::union_<>>>>, test::union_<>>::value, "");
 static_assert(std::is_same<call_t<lambda<verbatim<test::evaluable<>>>>, test::evaluable<>>::value, "");
 
 static_assert(std::is_same<call_t<lambda<test::wrapper>, void>, test::wrapper>::value, "");
