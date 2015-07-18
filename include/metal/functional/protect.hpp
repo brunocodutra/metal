@@ -5,7 +5,7 @@
 #ifndef METAL_FUNCTIONAL_PROTECT_HPP
 #define METAL_FUNCTIONAL_PROTECT_HPP
 
-#include <metal/functional/detail/nullable.hpp>
+#include <metal/functional/maybe.hpp>
 
 namespace metal
 {
@@ -13,12 +13,12 @@ namespace metal
     {
         template<typename value, int = 0>
         struct protect_impl :
-                detail::nullable<value>
+                maybe<value>
         {};
     }
 
-    template<typename null>
-    using protect = detail::protect_impl<null>;
+    template<typename opt>
+    using protect = detail::protect_impl<opt>;
 }
 
 #endif

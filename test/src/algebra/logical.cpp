@@ -18,13 +18,13 @@ static_assert(or_<std::false_type, std::false_type, std::false_type, std::false_
 static_assert(or_<std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::true_type>::value, "");
 static_assert(or_<std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::true_type>::value, "");
 
-static_assert(not_<or_<std::false_type, std::false_type>>::value, "");
-static_assert(not_<or_<std::false_type, std::false_type, std::false_type>>::value, "");
-static_assert(not_<or_<std::false_type, std::false_type, std::false_type, std::false_type>>::value, "");
-static_assert(not_<or_<std::false_type, std::false_type, std::false_type, std::false_type, std::false_type>>::value, "");
-static_assert(not_<or_<std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type>>::value, "");
-static_assert(not_<or_<std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type>>::value, "");
-static_assert(not_<or_<std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type>>::value, "");
+static_assert(!or_<std::false_type, std::false_type>::value, "");
+static_assert(!or_<std::false_type, std::false_type, std::false_type>::value, "");
+static_assert(!or_<std::false_type, std::false_type, std::false_type, std::false_type>::value, "");
+static_assert(!or_<std::false_type, std::false_type, std::false_type, std::false_type, std::false_type>::value, "");
+static_assert(!or_<std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type>::value, "");
+static_assert(!or_<std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type>::value, "");
+static_assert(!or_<std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type, std::false_type>::value, "");
 
 static_assert(and_<std::true_type, std::true_type>::value, "");
 static_assert(and_<std::true_type, std::true_type, std::true_type>::value, "");
@@ -34,13 +34,13 @@ static_assert(and_<std::true_type, std::true_type, std::true_type, std::true_typ
 static_assert(and_<std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::true_type>::value, "");
 static_assert(and_<std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::true_type>::value, "");
 
-static_assert(not_<and_<std::true_type, std::false_type>>::value, "");
-static_assert(not_<and_<std::true_type, std::true_type, std::false_type>>::value, "");
-static_assert(not_<and_<std::true_type, std::true_type, std::true_type, std::false_type>>::value, "");
-static_assert(not_<and_<std::true_type, std::true_type, std::true_type, std::true_type, std::false_type>>::value, "");
-static_assert(not_<and_<std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::false_type>>::value, "");
-static_assert(not_<and_<std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::false_type>>::value, "");
-static_assert(not_<and_<std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::false_type>>::value, "");
+static_assert(!and_<std::true_type, std::false_type>::value, "");
+static_assert(!and_<std::true_type, std::true_type, std::false_type>::value, "");
+static_assert(!and_<std::true_type, std::true_type, std::true_type, std::false_type>::value, "");
+static_assert(!and_<std::true_type, std::true_type, std::true_type, std::true_type, std::false_type>::value, "");
+static_assert(!and_<std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::false_type>::value, "");
+static_assert(!and_<std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::false_type>::value, "");
+static_assert(!and_<std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::true_type, std::false_type>::value, "");
 
 static_assert(or_<std::true_type, undefined>::value, "");
 static_assert(or_<std::true_type, undefined, undefined>::value, "");
@@ -50,10 +50,10 @@ static_assert(or_<std::true_type, undefined, undefined, undefined, undefined, un
 static_assert(or_<std::true_type, undefined, undefined, undefined, undefined, undefined, undefined>::value, "");
 static_assert(or_<std::true_type, undefined, undefined, undefined, undefined, undefined, undefined, undefined>::value, "");
 
-static_assert(not_<and_<std::false_type, undefined>>::value, "");
-static_assert(not_<and_<std::false_type, undefined, undefined>>::value, "");
-static_assert(not_<and_<std::false_type, undefined, undefined, undefined>>::value, "");
-static_assert(not_<and_<std::false_type, undefined, undefined, undefined, undefined>>::value, "");
-static_assert(not_<and_<std::false_type, undefined, undefined, undefined, undefined, undefined>>::value, "");
-static_assert(not_<and_<std::false_type, undefined, undefined, undefined, undefined, undefined, undefined>>::value, "");
-static_assert(not_<and_<std::false_type, undefined, undefined, undefined, undefined, undefined, undefined, undefined>>::value, "");
+static_assert(!and_<std::false_type, undefined>::value, "");
+static_assert(!and_<std::false_type, undefined, undefined>::value, "");
+static_assert(!and_<std::false_type, undefined, undefined, undefined>::value, "");
+static_assert(!and_<std::false_type, undefined, undefined, undefined, undefined>::value, "");
+static_assert(!and_<std::false_type, undefined, undefined, undefined, undefined, undefined>::value, "");
+static_assert(!and_<std::false_type, undefined, undefined, undefined, undefined, undefined, undefined>::value, "");
+static_assert(!and_<std::false_type, undefined, undefined, undefined, undefined, undefined, undefined, undefined>::value, "");

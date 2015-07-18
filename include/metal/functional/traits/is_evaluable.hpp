@@ -6,8 +6,7 @@
 #define METAL_FUNCTIONAL_TRAITS_IS_EVALUABLE_HPP
 
 #include <metal/functional/eval.hpp>
-#include <metal/functional/traits/is_nil.hpp>
-#include <metal/algebra/logical/not.hpp>
+#include <metal/functional/traits/is_just.hpp>
 
 namespace metal
 {
@@ -26,7 +25,8 @@ namespace metal
     ///     \number
     ///
     /// \par Semantics:
-    ///     if `expr<args...>` is well defined and not \nil, then equivalent to
+    ///     if `expr<args...>` is well defined and \just some \value,
+    ///     then equivalent to
     ///     \code
     ///         struct result :
     ///             std::true_type
@@ -45,10 +45,10 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see is_evaluable_t, is_strictly_evaluable, is_nil, eval
+    /// \see is_evaluable_t, eval, is_just, is_nil
     template<template<typename...> class expr, typename... args>
     struct is_evaluable :
-            not_<is_nil<eval<expr, args...>>>
+            is_just<eval<expr, args...>>
     {};
 
     /// \ingroup functional_traits

@@ -5,7 +5,6 @@
 #include <metal/functional/arg.hpp>
 #include <metal/functional/traits/is_function.hpp>
 #include <metal/functional/traits/is_callable.hpp>
-#include <metal/algebra/logical/not.hpp>
 
 #include "test.hpp"
 
@@ -22,10 +21,10 @@ static_assert(is_callable<_2, test::a0, test::a1, test::a2, test::a3>::value, ""
 static_assert(is_callable<_3, test::a0, test::a1, test::a2, test::a3>::value, "");
 static_assert(is_callable<_4, test::a0, test::a1, test::a2, test::a3>::value, "");
 
-static_assert(not_<is_callable<_1>>::value, "");
-static_assert(not_<is_callable<_2, test::a1>>::value, "");
-static_assert(not_<is_callable<_3, test::a1, test::a2>>::value, "");
-static_assert(not_<is_callable<_4, test::a1, test::a2, test::a3>>::value, "");
+static_assert(!is_callable<_1>::value, "");
+static_assert(!is_callable<_2, test::a1>::value, "");
+static_assert(!is_callable<_3, test::a1, test::a2>::value, "");
+static_assert(!is_callable<_4, test::a1, test::a2, test::a3>::value, "");
 
 static_assert(std::is_same<call_t<_1, test::a0, test::a1, test::a2, test::a3>, test::a0>::value, "");
 static_assert(std::is_same<call_t<_2, test::a0, test::a1, test::a2, test::a3>, test::a1>::value, "");

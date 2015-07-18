@@ -20,9 +20,9 @@ static_assert(is_function<q2>::value, "");
 static_assert(is_function<q3>::value, "");
 static_assert(is_function<q4>::value, "");
 
-static_assert(not_<is_callable<q1>>::value, "");
-static_assert(not_<is_callable<q2>>::value, "");
-static_assert(not_<is_callable<q3>>::value, "");
+static_assert(!is_callable<q1>::value, "");
+static_assert(!is_callable<q2>::value, "");
+static_assert(!is_callable<q3>::value, "");
 static_assert(is_callable<q4>::value, "");
 
 static_assert(std::is_same<call_t<q4>, q4::call<>::type>::value, "");

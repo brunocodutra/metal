@@ -4,23 +4,23 @@
 
 #include <metal/functional/protect.hpp>
 #include <metal/functional/lambda.hpp>
-#include <metal/functional/traits/is_nil.hpp>
+#include <metal/functional/traits/is_nothing.hpp>
 #include <metal/functional/traits/is_callable.hpp>
 
 #include "test.hpp"
 
 using namespace metal;
 
-static_assert(is_nil<protect<test::a0>>::value, "");
-static_assert(is_nil<protect<test::a1>>::value, "");
-static_assert(is_nil<protect<test::a2>>::value, "");
-static_assert(is_nil<protect<test::a3>>::value, "");
-static_assert(is_nil<protect<test::a4>>::value, "");
-static_assert(is_nil<protect<test::a5>>::value, "");
-static_assert(is_nil<protect<test::a6>>::value, "");
-static_assert(is_nil<protect<test::a7>>::value, "");
-static_assert(is_nil<protect<test::a8>>::value, "");
-static_assert(is_nil<protect<test::a9>>::value, "");
+static_assert(is_nothing<protect<test::a0>>::value, "");
+static_assert(is_nothing<protect<test::a1>>::value, "");
+static_assert(is_nothing<protect<test::a2>>::value, "");
+static_assert(is_nothing<protect<test::a3>>::value, "");
+static_assert(is_nothing<protect<test::a4>>::value, "");
+static_assert(is_nothing<protect<test::a5>>::value, "");
+static_assert(is_nothing<protect<test::a6>>::value, "");
+static_assert(is_nothing<protect<test::a7>>::value, "");
+static_assert(is_nothing<protect<test::a8>>::value, "");
+static_assert(is_nothing<protect<test::a9>>::value, "");
 
 static_assert(protect<std::true_type>::value, "");
 

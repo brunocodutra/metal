@@ -2,13 +2,13 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_FUNCTIONAL_IDENTITY_HPP
-#define METAL_FUNCTIONAL_IDENTITY_HPP
+#ifndef METAL_FUNCTIONAL_JUST_HPP
+#define METAL_FUNCTIONAL_JUST_HPP
 
 namespace metal
 {
     template<typename value>
-    struct identity
+    struct just
     {
         using type = value;
     };

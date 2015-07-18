@@ -5,9 +5,9 @@
 #ifndef METAL_FUNCTIONAL_IF_HPP
 #define METAL_FUNCTIONAL_IF_HPP
 
-#include <metal/functional/nil.hpp>
-#include <metal/functional/identity.hpp>
-#include <metal/functional/detail/nullable.hpp>
+#include <metal/functional/nothing.hpp>
+#include <metal/functional/just.hpp>
+#include <metal/functional/maybe.hpp>
 
 #include <type_traits>
 
@@ -23,14 +23,14 @@ namespace metal
 
     template<typename pred, typename then, typename else_>
     struct if_<pred, then, else_> :
-            detail::nullable<
+            maybe<
                 typename std::conditional<!!pred::value, then, else_>::type
             >
     {};
 
     template<typename pred, typename then>
     struct if_<pred, then> :
-            if_<pred, then, identity<nil>>
+            if_<pred, then, just<nothing>>
     {};
 
     /// \ingroup functional

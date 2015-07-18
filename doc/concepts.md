@@ -51,73 +51,40 @@ If `v` is a model of [Value], then `v` is a type.
     auto value = 3.14;
 ~~~
 
-Nullable Value {#concept_nullable_value}
+Optional {#concept_optional}
 ================================================================================
 
-[Nullable Values] are [Values] that
-represent either some other [Value] or *nil*.
+[Optionals] are [Values] that
+represent either *just* some other [Value] or *nothing*.
 
-In order to evaluate a [Nullable Value]
+In order to evaluate an [Optional]
 one must explicitly name its nested `::type`.
 Whenever a nested `::type` is undefined or ambiguously defined,
-a [Nullable Value] is said to be *nil*,
-thus evaluating *nil* leads to a compile-time error.
+an [Optional] is said to be *nothing*,
+thus evaluating *nothing* leads to a compile-time error.
 
-While every [Nullable Value] is also a [Value], the converse is not always true.
-However, any [Value] can be lifted to a corresponding [Nullable Value] using
+While every [Optional] is also a [Value], the converse is not always true.
+However, any [Value] can be lifted to a corresponding [Optional] using
 `metal::identity`.
 
 ## Requirements
 
-If `null` is a model of [Nullable Value], then `null` is a model of [Value].
+If `opt` is a model of [Optional], then `opt` is a model of [Value].
 
 ## Associated Traits
 
-metal::is_nil
+metal::is_nothing
 
 ## Examples
 
-\snippet concepts/nullable.cpp ex1
-\snippet concepts/nullable.cpp ex2
-\snippet concepts/nullable.cpp ex3
-\snippet concepts/nullable.cpp ex4
+\snippet concepts/optional.cpp ex1
+\snippet concepts/optional.cpp ex2
+\snippet concepts/optional.cpp ex3
+\snippet concepts/optional.cpp ex4
 
 ## Models
 
-metal::nil
-
-Strict Value {#concept_strict_value}
-================================================================================
-
-A [Strict Value] is a [Nullable Value] that represents itself,
-therefore [Strict Values] are never *nil*.
-
-[Strict Values] are very useful for lazy metaprogramming
-in allowing one to avoid evaluating [Expressions]
-which are known to return a [Strict Value],
-since evaluating a [Strict Value] always yields itself
-
-
-## Requirements
-
-If `sv` is a model of [Strict Value], then
-* `sv` is a non-nil [Nullable Value].
-* `sv::type` is either an alias to to `sv` itself or
-unambiguously inherited from a [Strict Value].
-
-## Associated Traits
-
-metal::is_strict
-
-## Examples
-
-\snippet concepts/strict.cpp ex1
-\snippet concepts/strict.cpp nex1
-
-## Models
-
-metal::protect
-
+metal::nothing
 
 Number {#concept_number}
 ================================================================================
@@ -167,12 +134,12 @@ not to be confused with the [Function] concept.
 Unlike run-time functions, [Expressions] are lazy,
 which means that they do not immediately evaluate when invoked.
 Rather, an [Expression] invoked with some set of arguments is
-itself a model of [Nullable Value], that is either *nil* or some [Value].
-Not unlike any other [Nullable Value],
+itself a model of [Optional], that is either *nothing* or some [Value].
+Not unlike any other [Optional],
 one must explicitly name the nested `::type`
 in order to actually evaluate an [Expression].
 In general, however, an [Expression] may naturally compute to
-*nil* for some set of arguments, hence
+*nothing* for some set of arguments, hence
 evaluating such an [Expression] leads to a compile-time error.
 
 An [Expression] which evaluates to some [Value]
@@ -247,8 +214,8 @@ metal::arg, metal::quote, metal::bind, metal::lambda
 
 [Value]:                    \ref concept_value
 [Values]:                   \ref concept_value
-[Nullable Value]:           \ref concept_nullable_value
-[Nullable Values]:          \ref concept_nullable_value
+[Optional]:           \ref concept_optional
+[Optionals]:          \ref concept_optional
 [Strict Value]:             \ref concept_strict_value
 [Strict Values]:            \ref concept_strict_value
 [Number]:                   \ref concept_number

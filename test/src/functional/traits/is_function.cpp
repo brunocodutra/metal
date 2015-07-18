@@ -8,21 +8,21 @@
 
 using namespace metal;
 
-static_assert(not_<is_function_t<test::a0>>::value, "");
-static_assert(not_<is_function_t<test::a1>>::value, "");
-static_assert(not_<is_function_t<test::a2>>::value, "");
-static_assert(not_<is_function_t<test::a3>>::value, "");
-static_assert(not_<is_function_t<test::a4>>::value, "");
-static_assert(not_<is_function_t<test::a5>>::value, "");
-static_assert(not_<is_function_t<test::a6>>::value, "");
-static_assert(not_<is_function_t<test::a7>>::value, "");
-static_assert(not_<is_function_t<test::a9>>::value, "");
-static_assert(not_<is_function_t<test::a9>>::value, "");
+static_assert(!is_function_t<test::a0>::value, "");
+static_assert(!is_function_t<test::a1>::value, "");
+static_assert(!is_function_t<test::a2>::value, "");
+static_assert(!is_function_t<test::a3>::value, "");
+static_assert(!is_function_t<test::a4>::value, "");
+static_assert(!is_function_t<test::a5>::value, "");
+static_assert(!is_function_t<test::a6>::value, "");
+static_assert(!is_function_t<test::a7>::value, "");
+static_assert(!is_function_t<test::a9>::value, "");
+static_assert(!is_function_t<test::a9>::value, "");
 
-static_assert(not_<is_function_t<test::alias<>>>::value, "");
-static_assert(not_<is_function_t<test::empty<>>>::value, "");
-static_assert(not_<is_function_t<test::call<>>>::value, "");
-static_assert(not_<is_function_t<test::evaluable<>>>::value, "");
+static_assert(!is_function_t<test::alias<>>::value, "");
+static_assert(!is_function_t<test::empty<>>::value, "");
+static_assert(!is_function_t<test::call<>>::value, "");
+static_assert(!is_function_t<test::evaluable<>>::value, "");
 
 static_assert(is_function_t<test::unary<test::alias>>::value, "");
 static_assert(is_function_t<test::unary<test::empty>>::value, "");

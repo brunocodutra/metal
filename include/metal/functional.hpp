@@ -9,10 +9,10 @@
 #include <metal/functional/bind.hpp>
 #include <metal/functional/call.hpp>
 #include <metal/functional/eval.hpp>
-#include <metal/functional/identity.hpp>
 #include <metal/functional/if.hpp>
+#include <metal/functional/just.hpp>
 #include <metal/functional/lambda.hpp>
-#include <metal/functional/nil.hpp>
+#include <metal/functional/nothing.hpp>
 #include <metal/functional/protect.hpp>
 #include <metal/functional/quote.hpp>
 #include <metal/functional/traits.hpp>

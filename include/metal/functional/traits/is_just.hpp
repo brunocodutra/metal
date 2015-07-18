@@ -2,37 +2,28 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_FUNCTIONAL_TRAITS_IS_NIL_HPP
-#define METAL_FUNCTIONAL_TRAITS_IS_NIL_HPP
+#ifndef METAL_FUNCTIONAL_TRAITS_IS_JUST_HPP
+#define METAL_FUNCTIONAL_TRAITS_IS_JUST_HPP
 
-#include <metal/algebra/logical/not.hpp>
-#include <metal/algebra/logical/and.hpp>
 #include <metal/detail/introspection.hpp>
-
-#include <type_traits>
 
 namespace metal
 {
-    namespace detail
-    {
-        METAL_DEFINE_NESTED_TYPE_TRAIT(has_type, type);
-    }
-
     /// \ingroup functional_traits
-    /// \brief Checks whether a \nullable is empty.
+    /// \brief Checks whether an \optional has some value.
     ///
     /// Usage
     /// -----
-    /// For any \nullable `null`,
+    /// For any \optional `opt`,
     /// \code
-    ///     using result = metal::is_nil<null>;
+    ///     using result = metal::is_just<opt>;
     /// \endcode
     ///
     /// \par Return Type:
     ///     \number
     ///
     /// \par Semantics:
-    ///     if `null::type` is undefined or ambiguously defined,
+    ///     if `opt::type` well defined defined and is a model of \value,
     ///     then equivalent to
     ///     \code
     ///         struct result :
@@ -48,20 +39,17 @@ namespace metal
     ///
     /// Example
     /// -------
-    /// \snippet functional/traits/is_nil.cpp main
+    /// \snippet functional/traits/is_just.cpp main
     ///
     /// See Also
     /// --------
-    /// \see is_strict
-    template<typename null>
-    struct is_nil :
-            not_<detail::has_type<null>>
-    {};
+    /// \see is_nil
+    METAL_DEFINE_NESTED_TYPE_TRAIT(is_just, type);
 
     /// \ingroup functional_traits
-    /// \brief Eager adaptor for \ref is_nil.
-    template<typename null>
-    using is_nil_t = typename is_nil<null>::type;
+    /// \brief Eager adaptor for \ref is_just.
+    template<typename opt>
+    using is_just_t = typename is_just<opt>::type;
 }
 
 #endif

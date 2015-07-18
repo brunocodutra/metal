@@ -5,8 +5,8 @@
 #ifndef METAL_FUNCTIONAL_EVAL_HPP
 #define METAL_FUNCTIONAL_EVAL_HPP
 
-#include <metal/functional/nil.hpp>
-#include <metal/functional/identity.hpp>
+#include <metal/functional/nothing.hpp>
+#include <metal/functional/just.hpp>
 
 namespace metal
 {
@@ -20,10 +20,10 @@ namespace metal
         {
         private:
             template<template<typename...> class e>
-            static identity<typename e<args...>::type> check(int);
+            static just<typename e<args...>::type> check(int);
 
             template<template<typename...> class>
-            static nil check(...);
+            static nothing check(...);
 
         public:
             using type = decltype(check<expr>(0));
@@ -42,7 +42,7 @@ namespace metal
     /// \endcode
     ///
     /// \par Return Type:
-    ///     \nullable
+    ///     \optional
     ///
     /// \par Semantics:
     ///     if `expr` is \evaluable with `args`,

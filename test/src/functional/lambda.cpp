@@ -34,8 +34,8 @@ static_assert(std::is_same<call_t<lambda<verbatim<test::a9>>>, test::a9>::value,
 static_assert(std::is_same<call_t<lambda<verbatim<test::a9>>>, test::a9>::value, "");
 
 static_assert(std::is_same<call_t<lambda<test::alias<>>>, test::alias<>>::value, "");
-static_assert(not_<is_callable_t<lambda<test::empty<>>>>::value, "");
-static_assert(not_<is_callable_t<lambda<test::call<>>>>::value, "");
+static_assert(!is_callable_t<lambda<test::empty<>>>::value, "");
+static_assert(!is_callable_t<lambda<test::call<>>>::value, "");
 static_assert(std::is_same<call_t<lambda<test::evaluable<>>>, test::evaluable<>::type>::value, "");
 
 static_assert(std::is_same<call_t<lambda<verbatim<test::alias<>>>>, test::alias<>>::value, "");
@@ -123,9 +123,9 @@ static_assert(is_function<ptr2ptr2ptr>::value, "");
 static_assert(!is_callable<ptr2ptr2ptr>::value, "");
 static_assert(std::is_same<call_t<ptr2ptr2ptr, void>, void***>::value, "");
 
-#include <metal/functional/identity.hpp>
+#include <metal/functional/just.hpp>
 
-using church_true = protect<lambda<lambda<identity<_1>>>>;
+using church_true = protect<lambda<lambda<just<_1>>>>;
 using church_false = protect<lambda<lambda<verbatim<_1>>>>;
 
 using church_not = protect<lambda<call<call<_1, church_false>, church_true>>>;
