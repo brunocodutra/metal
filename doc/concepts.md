@@ -92,8 +92,7 @@ Number {#concept_number}
 A [Number] is a compile-time representation of a numerical value,
 behaving much like its run-time counterparts.
 [Numbers] derive from a specialization of
-[std::integral_constant], thus
-every [Number] is also a [Strict Value].
+[std::integral_constant], thus every [Number] is also an [Optional].
 
 ## Requirements
 
@@ -145,8 +144,6 @@ evaluating such an [Expression] leads to a compile-time error.
 An [Expression] which evaluates to some [Value]
 when invoked with some set of arguments
 is said to be *evaluable* for that set of arguments.
-Moreover, if it evaluates to a [Strict Value],
-it is said to be *strictly evaluable* for that set of arguments.
 
 ## Requirements
 
@@ -155,7 +152,7 @@ or alias taking only types as arguments.
 
 ## Associated Traits
 
-metal::is_same_expression, metal::is_evaluable, metal::is_strictly_evaluable
+metal::is_same_expression, metal::is_evaluable
 
 ## Examples
 
@@ -177,7 +174,7 @@ Function {#concept_function}
 ================================================================================
 
 A [Function] is a value representation of an [Expression],
-that is, unlike the latter, every [Function] is a model of [Strict Value].
+that is, unlike the latter, every [Function] is a model of [Value].
 As such, [Functions] can serve as argument or return type to other
 [Functions] and [Expressions], thus enabling
 [higher-order] computations, much like run-time
@@ -191,9 +188,8 @@ meet the criteria to model an [Expression].
 ## Requirements
 
 If `f` is a model of [Function], then
-* `f` is a model of [Strict Value].
-* `f::call` is unambiguously inherited from `f::type` and
-is a model of [Expression].
+* `f` is a model of [Value].
+* `f::call` is unambiguously defined and is a model of [Expression].
 
 ## Associated Traits
 
@@ -214,10 +210,8 @@ metal::arg, metal::quote, metal::bind, metal::lambda
 
 [Value]:                    \ref concept_value
 [Values]:                   \ref concept_value
-[Optional]:           \ref concept_optional
-[Optionals]:          \ref concept_optional
-[Strict Value]:             \ref concept_strict_value
-[Strict Values]:            \ref concept_strict_value
+[Optional]:                 \ref concept_optional
+[Optionals]:                \ref concept_optional
 [Number]:                   \ref concept_number
 [Numbers]:                  \ref concept_number
 [Expression]:               \ref concept_expression

@@ -10,6 +10,8 @@
 
 namespace metal
 {
+    /// \ingroup functional_traits
+    /// \brief ...
     template<typename... values>
     struct is_callable :
             is_evaluable<call, values...>

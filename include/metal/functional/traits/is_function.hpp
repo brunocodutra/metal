@@ -19,6 +19,8 @@ namespace metal
         METAL_DEFINE_NESTED_TEMPLATE_TRAIT(has_template_call, call);
     }
 
+    /// \ingroup functional_traits
+    /// \brief ...
     template<typename value>
     struct is_function :
             and_<

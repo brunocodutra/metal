@@ -13,6 +13,8 @@
 
 namespace metal
 {
+    /// \ingroup functional
+    /// \brief ...
     template<typename pred, typename then, typename... else_>
     struct if_;
 

@@ -11,9 +11,9 @@ namespace metal
 {
     namespace detail
     {
-        template<typename value, int = 0>
+        template<typename opt, int = 0>
         struct protect_impl :
-                maybe<value>
+                maybe<opt>
         {};
     }
 

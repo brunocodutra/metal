@@ -28,9 +28,11 @@ namespace metal
         {};
     }
 
-    template<typename function, typename... args>
+    /// \ingroup functional
+    /// \brief ...
+    template<typename func, typename... args>
     struct call :
-            eval<detail::function<function>::template call, args...>
+            eval<detail::function<func>::template call, args...>
     {};
 
     /// \ingroup functional

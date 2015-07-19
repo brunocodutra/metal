@@ -13,26 +13,28 @@ namespace metal
 {
     namespace detail
     {
-        template<typename f1, typename f2>
+        template<typename func1, typename func2>
         struct is_same_function_impl :
-                is_same_expression<f1::template call, f2::template call>
+                is_same_expression<func1::template call, func2::template call>
         {};
 
     }
 
-    template<typename f1, typename f2>
+    /// \ingroup functional_traits
+    /// \brief ...
+    template<typename func1, typename func2>
     struct is_same_function :
             and_<
-                is_function<f1>,
-                is_function<f2>,
-                detail::is_same_function_impl<f1, f2>
+                is_function<func1>,
+                is_function<func2>,
+                detail::is_same_function_impl<func1, func2>
             >
     {};
 
     /// \ingroup functional_traits
     /// \brief Eager adaptor for \ref is_same_function.
-    template<typename f1, typename f2>
-    using is_same_function_t = typename is_same_function<f1, f2>::type;
+    template<typename func1, typename func2>
+    using is_same_function_t = typename is_same_function<func1, func2>::type;
 }
 
 #endif

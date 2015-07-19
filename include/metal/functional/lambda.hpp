@@ -18,6 +18,7 @@ namespace metal
     template<typename lexpr>
     struct lambda
     {
+    ///\cond
     private:
         template<typename value>
         struct parse :
@@ -46,6 +47,7 @@ namespace metal
                 bind<quote<expr>, parse_t<args>...>
         {};
 
+    ///\endcond
     public:
         using type = lambda;
 

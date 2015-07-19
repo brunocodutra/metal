@@ -44,6 +44,9 @@ namespace metal
     /// See Also
     /// --------
     /// \see is_nil
+    template<typename opt>
+    struct is_just;
+
     METAL_DEFINE_NESTED_TYPE_TRAIT(is_just, type);
 
     /// \ingroup functional_traits

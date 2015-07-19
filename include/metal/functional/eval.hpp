@@ -12,10 +12,7 @@ namespace metal
 {
     namespace detail
     {
-        template<
-            template<typename...> class expr,
-            typename... args
-        >
+        template<template<typename...> class expr, typename... args>
         struct eval_impl
         {
         private:
@@ -31,8 +28,8 @@ namespace metal
     }
 
     /// \ingroup functional
-    /// \brief Evaluates an arbitrary \expression `expr`
-    /// with \values `args`.
+    /// \brief Lazily evaluates an arbitrary \expression `expr`
+    ///  with \values `args`.
     ///
     /// Usage
     /// -----
@@ -45,16 +42,13 @@ namespace metal
     ///     \optional
     ///
     /// \par Semantics:
-    ///     if `expr` is \evaluable with `args`,
-    ///     then equivalent to
+    ///     if `expr` is \evaluable with `args`, then equivalent to
     ///     \code
-    ///         struct result :
-    ///             expr<args...>
-    ///         {};
+    ///         using result = metal::just<expr<args...>::type>
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
-    ///         struct result {};
+    ///         using result = metal::nothing;
     ///     \endcode
     ///
     /// Example
@@ -63,7 +57,7 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see eval_t, is_evaluable, is_strictly_evaluable
+    /// \see eval_t, is_evaluable, just, nothing
     template<template<typename...> class expr, typename... args>
     struct eval :
             detail::eval_impl<expr, args...>::type

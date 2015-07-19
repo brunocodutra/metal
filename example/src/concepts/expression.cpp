@@ -28,7 +28,7 @@ namespace ex2
 namespace ex3
 {
     /// [ex3]
-    template<typename integral> //strictly evaluable for integral types
+    template<typename integral> //evaluable for integral types
     using expression = std::integral_constant<integral, integral{}>;
     /// [ex3]
 }

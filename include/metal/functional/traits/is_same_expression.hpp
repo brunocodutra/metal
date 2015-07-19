@@ -9,6 +9,8 @@
 
 namespace metal
 {
+    /// \ingroup functional_traits
+    /// \brief ...
     template<template<typename...> class, template<typename...> class>
     struct is_same_expression :
             std::false_type

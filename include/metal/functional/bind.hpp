@@ -13,9 +13,10 @@
 
 namespace metal
 {
-    template<typename function, typename... params>
+    template<typename func, typename... params>
     struct bind
     {
+    ///\cond
     private:
         template<typename value, typename... args>
         struct parse :
@@ -40,12 +41,13 @@ namespace metal
         template<typename token, typename... args>
         using parse_t = typename parse<token, args...>::type;
 
+    ///\endcond
     public:
         using type = bind;
 
         template<typename... args>
         using call = ::metal::call<
-            parse_t<function, args...>,
+            parse_t<func, args...>,
             parse_t<params, args...>...
         >;
     };
