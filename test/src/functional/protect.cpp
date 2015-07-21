@@ -23,9 +23,9 @@ METAL_TEST_ASSERT((is_nothing<protect<test::a9>>::value));
 
 METAL_TEST_ASSERT((protect<std::true_type>::value));
 
-METAL_TEST_ASSERT((is_function<protect<test::wrapper>>::value));
-METAL_TEST_ASSERT((is_callable<protect<test::wrapper>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<protect<test::wrapper>>, call_t<test::wrapper>>::value));
+METAL_TEST_ASSERT((is_function<protect<test::fn>>::value));
+METAL_TEST_ASSERT((is_callable<protect<test::fn>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<protect<test::fn>>, call_t<test::fn>>::value));
 
 using bound = bind<quote<std::add_pointer>, placeholders::_1>;
 

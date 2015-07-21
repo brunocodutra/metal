@@ -12,26 +12,26 @@
 using namespace metal;
 using namespace metal::placeholders;
 
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::wrapper>, void, void*>, test::wrap<>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::wrapper, _1>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::wrapper, _1, _2>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::wrapper, _1, _2, _3>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1, test::a2>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::wrapper, _1, _2, _3, _4>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1, test::a2, test::a3>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn>, void, void*>, call_t<test::fn>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, _1>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, _1, _2>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, test::a1>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, _1, _2, _3>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, test::a1, test::a2>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, _1, _2, _3, _4>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, test::a1, test::a2, test::a3>>::value));
 
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::wrapper>, void, void*>, test::wrap<>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::wrapper, verbatim<_1>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<verbatim<test::wrapper>, verbatim<_1>, _2>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1, test::a1>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<verbatim<test::wrapper>, _1, verbatim<_2>, _3>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, _2, test::a2>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<verbatim<test::wrapper>, _1, _2, verbatim<_3>, _4>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1, _3, test::a3>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn>, void, void*>, call_t<test::fn>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, verbatim<_1>>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, _1>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<verbatim<test::fn>, verbatim<_1>, _2>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, _1, test::a1>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<verbatim<test::fn>, _1, verbatim<_2>, _3>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, _2, test::a2>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<verbatim<test::fn>, _1, _2, verbatim<_3>, _4>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, test::a1, _3, test::a3>>::value));
 
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::wrapper>, void, void*>, test::wrap<>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::wrapper, protect<_1>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<protect<_1>>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::wrapper, protect<_1>, _2>, test::a0, test::a1, test::a2, test::a3>, test::wrap<protect<_1>, test::a1>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::wrapper, _1, protect<_2>, _3>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, protect<_2>, test::a2>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::wrapper, _1, _2, protect<_3>, _4>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1, protect<_3>, test::a3>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn>, void, void*>, call_t<test::fn>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, protect<_1>>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, protect<_1>>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, protect<_1>, _2>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, protect<_1>, test::a1>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, _1, protect<_2>, _3>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, protect<_2>, test::a2>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, _1, _2, protect<_3>, _4>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, test::a1, protect<_3>, test::a3>>::value));
 
-METAL_TEST_ASSERT((std::is_same<call_t<bind<_1, _2>, test::wrapper, void>, test::wrap<void>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<_1, _2, _1>, test::wrapper, void>, test::wrap<void, test::wrapper>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<_1, _2>, test::fn, void>, call_t<test::fn, void>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<bind<_1, _2, _1>, test::fn, void>, call_t<test::fn, void, test::fn>>::value));
 
 using chain = protect<bind<_1, bind<_2, _3>>>;
 METAL_TEST_ASSERT((is_function<chain>::value));

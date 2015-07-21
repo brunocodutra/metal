@@ -6,10 +6,10 @@
 #define METAL_TEST_HPP
 
 #include "test/assert.hpp"
-#include "test/atoms.hpp"
 #include "test/expressions.hpp"
 #include "test/functions.hpp"
-#include "test/integrals.hpp"
+#include "test/numbers.hpp"
+#include "test/values.hpp"
 
 #include <type_traits>
 

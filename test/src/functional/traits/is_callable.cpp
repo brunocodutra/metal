@@ -41,62 +41,18 @@ METAL_TEST_ASSERT((!is_callable_t<test::a7, void, void*>::value));
 METAL_TEST_ASSERT((!is_callable_t<test::a8, void, void*>::value));
 METAL_TEST_ASSERT((!is_callable_t<test::a9, void, void*>::value));
 
-METAL_TEST_ASSERT((!is_callable_t<test::nullary<test::alias>>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::nullary<test::empty>>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::nullary<test::call>>::value));
-METAL_TEST_ASSERT((is_callable_t<test::nullary<test::evaluable>>::value));
+METAL_TEST_ASSERT((is_callable_t<test::f0>::value));
+METAL_TEST_ASSERT((!is_callable_t<test::f0, void>::value));
+METAL_TEST_ASSERT((!is_callable_t<test::f0, void, void*>::value));
 
-METAL_TEST_ASSERT((!is_callable_t<test::nullary<test::alias>, void>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::nullary<test::empty>, void>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::nullary<test::call>, void>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::nullary<test::evaluable>, void>::value));
+METAL_TEST_ASSERT((!is_callable_t<test::f1>::value));
+METAL_TEST_ASSERT((is_callable_t<test::f1, void>::value));
+METAL_TEST_ASSERT((!is_callable_t<test::f1, void, void*>::value));
 
-METAL_TEST_ASSERT((!is_callable_t<test::nullary<test::alias>, void, void*>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::nullary<test::empty>, void, void*>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::nullary<test::call>, void, void*>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::nullary<test::evaluable>, void, void*>::value));
+METAL_TEST_ASSERT((!is_callable_t<test::f2>::value));
+METAL_TEST_ASSERT((!is_callable_t<test::f2, void>::value));
+METAL_TEST_ASSERT((is_callable_t<test::f2, void, void*>::value));
 
-METAL_TEST_ASSERT((!is_callable_t<test::unary<test::alias>>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::unary<test::empty>>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::unary<test::call>>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::unary<test::evaluable>>::value));
-
-METAL_TEST_ASSERT((!is_callable_t<test::unary<test::alias>, void>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::unary<test::empty>, void>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::unary<test::call>, void>::value));
-METAL_TEST_ASSERT((is_callable_t<test::unary<test::evaluable>, void>::value));
-
-METAL_TEST_ASSERT((!is_callable_t<test::unary<test::alias>, void, void*>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::unary<test::empty>, void, void*>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::unary<test::call>, void, void*>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::unary<test::evaluable>, void, void*>::value));
-
-METAL_TEST_ASSERT((!is_callable_t<test::binary<test::alias>>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::binary<test::empty>>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::binary<test::call>>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::binary<test::evaluable>>::value));
-
-METAL_TEST_ASSERT((!is_callable_t<test::binary<test::alias>, void>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::binary<test::empty>, void>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::binary<test::call>, void>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::binary<test::evaluable>, void>::value));
-
-METAL_TEST_ASSERT((!is_callable_t<test::binary<test::alias>, void, void*>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::binary<test::empty>, void, void*>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::binary<test::call>, void, void*>::value));
-METAL_TEST_ASSERT((is_callable_t<test::binary<test::evaluable>, void, void*>::value));
-
-METAL_TEST_ASSERT((!is_callable_t<test::n_ary<test::alias>>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::n_ary<test::empty>>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::n_ary<test::call>>::value));
-METAL_TEST_ASSERT((is_callable_t<test::n_ary<test::evaluable>>::value));
-
-METAL_TEST_ASSERT((!is_callable_t<test::n_ary<test::alias>, void>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::n_ary<test::empty>, void>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::n_ary<test::call>, void>::value));
-METAL_TEST_ASSERT((is_callable_t<test::n_ary<test::evaluable>, void>::value));
-
-METAL_TEST_ASSERT((!is_callable_t<test::n_ary<test::alias>, void, void*>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::n_ary<test::empty>, void, void*>::value));
-METAL_TEST_ASSERT((!is_callable_t<test::n_ary<test::call>, void, void*>::value));
-METAL_TEST_ASSERT((is_callable_t<test::n_ary<test::evaluable>, void, void*>::value));
+METAL_TEST_ASSERT((is_callable_t<test::fn>::value));
+METAL_TEST_ASSERT((is_callable_t<test::fn, void>::value));
+METAL_TEST_ASSERT((is_callable_t<test::fn, void, void*>::value));

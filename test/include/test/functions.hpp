@@ -9,41 +9,43 @@
 
 namespace test
 {
-    template<template<typename...> class expr>
-    struct nullary
+    struct f0
     {
-        template<typename> using sfinae = expr<>;
-        template<typename... _>
-        using call = sfinae<char[!sizeof...(_)]>;
+    private:
+        template<bool, typename...>
+        struct call_if
+        {};
+
+        template<typename... args>
+        struct call_if<true, args...>
+        {
+            enum class type;
+        };
+
+    public:
+        template<typename... args>
+        using call = call_if<!sizeof...(args), args...>;
     };
 
-    template<template<typename...> class expr>
-    struct unary
-    {
-        template<typename args>
-        using call = expr<args>;
-    };
-
-    template<template<typename...> class expr>
-    struct binary
-    {
-        template<typename x, typename y>
-        using call = expr<x, y>;
-    };
-
-    template<template<typename...> class expr>
-    struct n_ary
+    struct fn
     {
         template<typename... args>
-        using call = expr<args...>;
+        using call = en<args...>;
     };
 
-    using wrapper = n_ary<wrap>;
+    struct f1
+    {
+        template<typename x>
+        using call = e1<x>;
+    };
 
-    using f0 = nullary<evaluable>;
-    using f1 = unary<evaluable>;
-    using f2 = binary<evaluable>;
-    using fn = n_ary<evaluable>;
+    struct f2
+    {
+        template<typename x, typename y>
+        using call = e2<x, y>;
+    };
+
+
 }
 
 #endif

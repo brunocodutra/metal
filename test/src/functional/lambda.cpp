@@ -31,19 +31,9 @@ METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::a7>>>, test::a7>::v
 METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::a8>>>, test::a8>::value));
 METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::a9>>>, test::a9>::value));
 
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<test::alias<>>>, test::alias<>>::value));
-METAL_TEST_ASSERT((!is_callable_t<lambda<test::empty<>>>::value));
-METAL_TEST_ASSERT((!is_callable_t<lambda<test::call<>>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<test::evaluable<>>>, test::evaluable<>::type>::value));
-
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::alias<>>>>, test::alias<>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::empty<>>>>, test::empty<>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::call<>>>>, test::call<>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::evaluable<>>>>, test::evaluable<>>::value));
-
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<test::wrapper>, void>, test::wrapper>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrapper>>, void>, test::wrapper>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<protect<test::wrapper>>, void>, protect<test::wrapper>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<test::fn>, void>, test::fn>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::fn>>, void>, test::fn>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<protect<test::fn>>, void>, protect<test::fn>>::value));
 
 METAL_TEST_ASSERT((std::is_same<call_t<lambda<lambda<std::add_pointer<_1>>>, void>, lambda<void*>>::value));
 METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<lambda<std::add_pointer<_1>>>>, void>, lambda<std::add_pointer<_1>>>::value));
@@ -68,24 +58,24 @@ METAL_TEST_ASSERT((std::is_same<call_t<lambda<protect<_2>>, test::a0, test::a1, 
 METAL_TEST_ASSERT((std::is_same<call_t<lambda<protect<_3>>, test::a0, test::a1, test::a2, test::a3>, protect<_3>>::value));
 METAL_TEST_ASSERT((std::is_same<call_t<lambda<protect<_4>>, test::a0, test::a1, test::a2, test::a3>, protect<_4>>::value));
 
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<test::wrap<_1>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<test::wrap<_1, _2>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<test::wrap<_1, _2, _3>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1, test::a2>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<test::wrap<_1, _2, _3, _4>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<test::a0, test::a1, test::a2, test::a3>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<test::en<_1>>, test::a0, test::a1, test::a2, test::a3>, test::en<test::a0>::type>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<test::en<_1, _2>>, test::a0, test::a1, test::a2, test::a3>, test::en<test::a0, test::a1>::type>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<test::en<_1, _2, _3>>, test::a0, test::a1, test::a2, test::a3>, test::en<test::a0, test::a1, test::a2>::type>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<test::en<_1, _2, _3, _4>>, test::a0, test::a1, test::a2, test::a3>, test::en<test::a0, test::a1, test::a2, test::a3>::type>::value));
 
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_1>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_1, _2>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1, _2>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_1, _2, _3>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1, _2, _3>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::wrap<_1, _2, _3, _4>>>, test::a0, test::a1, test::a2, test::a3>, test::wrap<_1, _2, _3, _4>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::en<_1>>>, test::a0, test::a1, test::a2, test::a3>, test::en<_1>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::en<_1, _2>>>, test::a0, test::a1, test::a2, test::a3>, test::en<_1, _2>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::en<_1, _2, _3>>>, test::a0, test::a1, test::a2, test::a3>, test::en<_1, _2, _3>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<test::en<_1, _2, _3, _4>>>, test::a0, test::a1, test::a2, test::a3>, test::en<_1, _2, _3, _4>>::value));
 
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<call<_1, _2>>, test::wrapper, void>, test::wrap<void>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<call<_1, _2, _1>>, test::wrapper, void>, test::wrap<void, test::wrapper>>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<call<_1, _2>>, test::fn, void>, test::en<void>::type>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<call<_1, _2, _1>>, test::fn, void>, test::en<void, test::fn>::type>::value));
 
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<call<verbatim<_1>, _2>>, test::wrapper, void>, void>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<call<verbatim<_1>, _2, _1>>, test::wrapper, void>, void>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<call<verbatim<_1>, _2>>, test::fn, void>, void>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<call<verbatim<_1>, _2, _1>>, test::fn, void>, void>::value));
 
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<call<protect<_1>, _2>>, test::wrapper, void>, void>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<call<protect<_1>, _2, _1>>, test::wrapper, void>, void>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<call<protect<_1>, _2>>, test::fn, void>, void>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<lambda<call<protect<_1>, _2, _1>>, test::fn, void>, void>::value));
 
 METAL_TEST_ASSERT((std::is_same<call_t<lambda<lambda<_1>>, void>, lambda<void>>::value));
 METAL_TEST_ASSERT((std::is_same<call_t<lambda<verbatim<lambda<_1>>>, void>, lambda<_1>>::value));

@@ -13,16 +13,11 @@ using namespace metal;
 using f1 = quote<test::alias>;
 using f2 = quote<test::empty>;
 using f3 = quote<test::call>;
-using f4 = quote<test::evaluable>;
 
 METAL_TEST_ASSERT((is_function<f1>::value));
 METAL_TEST_ASSERT((is_function<f2>::value));
 METAL_TEST_ASSERT((is_function<f3>::value));
-METAL_TEST_ASSERT((is_function<f4>::value));
 
 METAL_TEST_ASSERT((!is_callable<f1>::value));
 METAL_TEST_ASSERT((!is_callable<f2>::value));
 METAL_TEST_ASSERT((!is_callable<f3>::value));
-METAL_TEST_ASSERT((is_callable<f4>::value));
-
-METAL_TEST_ASSERT((std::is_same<call_t<f4>, f4::call<>::type>::value));

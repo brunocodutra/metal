@@ -8,8 +8,7 @@
 namespace test
 {
     template<typename... args>
-    using alias = char(&(args...))[];
-
+    using alias = char(&(args...))[sizeof...(args)];
 
     template<typename...>
     struct empty
@@ -24,18 +23,6 @@ namespace test
         //typedef call
     };
 
-    template<typename...>
-    union evaluable
-    {
-        struct type;
-    };
-
-    template<typename... args>
-    struct wrap
-    {
-        using type = wrap;
-    };
-
     template<typename = void>
     struct e0;
 
@@ -45,14 +32,19 @@ namespace test
         enum type {};
     };
 
+    template<typename... args>
+    union en
+    {
+        using type = en*;
+    };
+
     template<typename x>
-    using e1 = evaluable<x>;
+    using e1 = en<x>;
 
     template<typename x, typename y>
-    using e2 = evaluable<x, y>;
+    using e2 = en<x, y>;
 
-    template<typename... args>
-    using en = evaluable<args...>;
+
 }
 
 #endif
