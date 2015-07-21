@@ -9,17 +9,16 @@
 
 namespace test
 {
-    using _00_ = std::integral_constant<char, 0>;
-    using _01_ = std::integral_constant<signed char, 1>;
-    using _02_ = std::integral_constant<short, 2>;
-    using _03_ = std::integral_constant<int, 3>;
-    using _04_ = std::integral_constant<long, 4>;
-    using _05_ = std::integral_constant<long long, 5>;
-    using _06_ = std::integral_constant<unsigned char, 6>;
-    using _07_ = std::integral_constant<unsigned short, 7>;
-    using _08_ = std::integral_constant<unsigned int, 8>;
-    using _09_ = std::integral_constant<unsigned long, 9>;
-    using _10_ = std::integral_constant<unsigned long long, 10>;
+    using _0 = std::integral_constant<signed char, 0>;
+    using _1 = std::integral_constant<short, 1>;
+    using _2 = std::integral_constant<int, 2>;
+    using _3 = std::integral_constant<long, 3>;
+    using _4 = std::integral_constant<long long, 4>;
+    using _5 = std::integral_constant<unsigned char, 5>;
+    using _6 = std::integral_constant<unsigned short, 6>;
+    using _7 = std::integral_constant<unsigned int, 7>;
+    using _8 = std::integral_constant<unsigned long, 8>;
+    using _9 = std::integral_constant<unsigned long long, 9>;
 }
 
 #endif

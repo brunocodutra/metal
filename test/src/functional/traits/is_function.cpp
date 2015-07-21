@@ -8,33 +8,38 @@
 
 using namespace metal;
 
-static_assert(!is_function_t<test::a0>::value, "");
-static_assert(!is_function_t<test::a1>::value, "");
-static_assert(!is_function_t<test::a2>::value, "");
-static_assert(!is_function_t<test::a3>::value, "");
-static_assert(!is_function_t<test::a4>::value, "");
-static_assert(!is_function_t<test::a5>::value, "");
-static_assert(!is_function_t<test::a6>::value, "");
-static_assert(!is_function_t<test::a7>::value, "");
-static_assert(!is_function_t<test::a9>::value, "");
-static_assert(!is_function_t<test::a9>::value, "");
+METAL_TEST_ASSERT((!is_function_t<test::a0>::value));
+METAL_TEST_ASSERT((!is_function_t<test::a1>::value));
+METAL_TEST_ASSERT((!is_function_t<test::a2>::value));
+METAL_TEST_ASSERT((!is_function_t<test::a3>::value));
+METAL_TEST_ASSERT((!is_function_t<test::a4>::value));
+METAL_TEST_ASSERT((!is_function_t<test::a5>::value));
+METAL_TEST_ASSERT((!is_function_t<test::a6>::value));
+METAL_TEST_ASSERT((!is_function_t<test::a7>::value));
+METAL_TEST_ASSERT((!is_function_t<test::a8>::value));
+METAL_TEST_ASSERT((!is_function_t<test::a9>::value));
 
-static_assert(!is_function_t<test::alias<>>::value, "");
-static_assert(!is_function_t<test::empty<>>::value, "");
-static_assert(!is_function_t<test::call<>>::value, "");
-static_assert(!is_function_t<test::evaluable<>>::value, "");
+METAL_TEST_ASSERT((!is_function_t<test::alias<>>::value));
+METAL_TEST_ASSERT((!is_function_t<test::empty<>>::value));
+METAL_TEST_ASSERT((!is_function_t<test::call<>>::value));
+METAL_TEST_ASSERT((!is_function_t<test::evaluable<>>::value));
 
-static_assert(is_function_t<test::unary<test::alias>>::value, "");
-static_assert(is_function_t<test::unary<test::empty>>::value, "");
-static_assert(is_function_t<test::unary<test::call>>::value, "");
-static_assert(is_function_t<test::unary<test::evaluable>>::value, "");
+METAL_TEST_ASSERT((is_function_t<test::nullary<test::alias>>::value));
+METAL_TEST_ASSERT((is_function_t<test::nullary<test::empty>>::value));
+METAL_TEST_ASSERT((is_function_t<test::nullary<test::call>>::value));
+METAL_TEST_ASSERT((is_function_t<test::nullary<test::evaluable>>::value));
 
-static_assert(is_function_t<test::binary<test::alias>>::value, "");
-static_assert(is_function_t<test::binary<test::empty>>::value, "");
-static_assert(is_function_t<test::binary<test::call>>::value, "");
-static_assert(is_function_t<test::binary<test::evaluable>>::value, "");
+METAL_TEST_ASSERT((is_function_t<test::unary<test::alias>>::value));
+METAL_TEST_ASSERT((is_function_t<test::unary<test::empty>>::value));
+METAL_TEST_ASSERT((is_function_t<test::unary<test::call>>::value));
+METAL_TEST_ASSERT((is_function_t<test::unary<test::evaluable>>::value));
 
-static_assert(is_function_t<test::n_ary<test::alias>>::value, "");
-static_assert(is_function_t<test::n_ary<test::empty>>::value, "");
-static_assert(is_function_t<test::n_ary<test::call>>::value, "");
-static_assert(is_function_t<test::n_ary<test::evaluable>>::value, "");
+METAL_TEST_ASSERT((is_function_t<test::binary<test::alias>>::value));
+METAL_TEST_ASSERT((is_function_t<test::binary<test::empty>>::value));
+METAL_TEST_ASSERT((is_function_t<test::binary<test::call>>::value));
+METAL_TEST_ASSERT((is_function_t<test::binary<test::evaluable>>::value));
+
+METAL_TEST_ASSERT((is_function_t<test::n_ary<test::alias>>::value));
+METAL_TEST_ASSERT((is_function_t<test::n_ary<test::empty>>::value));
+METAL_TEST_ASSERT((is_function_t<test::n_ary<test::call>>::value));
+METAL_TEST_ASSERT((is_function_t<test::n_ary<test::evaluable>>::value));

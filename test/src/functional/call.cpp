@@ -8,12 +8,12 @@
 
 using namespace metal;
 
-static_assert(std::is_same<call_t<test::f0>, test::f0::call<>::type>::value, "");
-static_assert(std::is_same<call_t<test::f1, test::a0>, test::f1::call<test::a0>::type>::value, "");
-static_assert(std::is_same<call_t<test::f2, test::a0, test::a1>, test::f2::call<test::a0, test::a1>::type>::value, "");
+METAL_TEST_ASSERT((std::is_same<call_t<test::f0>, test::f0::call<>::type>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<test::f1, test::a1>, test::f1::call<test::a1>::type>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<test::f2, test::a1, test::a2>, test::f2::call<test::a1, test::a2>::type>::value));
 
-static_assert(std::is_same<call_t<test::fn>, test::fn::call<>::type>::value, "");
-static_assert(std::is_same<call_t<test::fn, test::a0>, test::fn::call<test::a0>::type>::value, "");
-static_assert(std::is_same<call_t<test::fn, test::a0, test::a1>, test::fn::call<test::a0, test::a1>::type>::value, "");
-static_assert(std::is_same<call_t<test::fn, test::a0, test::a1, test::a2>, test::fn::call<test::a0, test::a1, test::a2>::type>::value, "");
-static_assert(std::is_same<call_t<test::fn, test::a0, test::a1, test::a2, test::a3>, test::fn::call<test::a0, test::a1, test::a2, test::a3>::type>::value, "");
+METAL_TEST_ASSERT((std::is_same<call_t<test::fn>, test::fn::call<>::type>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<test::fn, test::a1>, test::fn::call<test::a1>::type>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<test::fn, test::a1, test::a2>, test::fn::call<test::a1, test::a2>::type>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<test::fn, test::a1, test::a2, test::a3>, test::fn::call<test::a1, test::a2, test::a3>::type>::value));
+METAL_TEST_ASSERT((std::is_same<call_t<test::fn, test::a1, test::a2, test::a3, test::a4>, test::fn::call<test::a1, test::a2, test::a3, test::a4>::type>::value));

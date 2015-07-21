@@ -8,12 +8,12 @@
 
 using namespace metal;
 
-static_assert(is_same_expression_t<test::e0, test::e0>::value, "");
-static_assert(is_same_expression_t<test::e1, test::e1>::value, "");
-static_assert(is_same_expression_t<test::e2, test::e2>::value, "");
-static_assert(is_same_expression_t<test::en, test::en>::value, "");
+METAL_TEST_ASSERT((is_same_expression_t<test::e0, test::e0>::value));
+METAL_TEST_ASSERT((is_same_expression_t<test::e1, test::e1>::value));
+METAL_TEST_ASSERT((is_same_expression_t<test::e2, test::e2>::value));
+METAL_TEST_ASSERT((is_same_expression_t<test::en, test::en>::value));
 
-static_assert(!is_same_expression_t<test::e0, test::en>::value, "");
-static_assert(!is_same_expression_t<test::e1, test::e0>::value, "");
-static_assert(!is_same_expression_t<test::e2, test::e1>::value, "");
-static_assert(!is_same_expression_t<test::en, test::e2>::value, "");
+METAL_TEST_ASSERT((!is_same_expression_t<test::e0, test::en>::value));
+METAL_TEST_ASSERT((!is_same_expression_t<test::e1, test::e0>::value));
+METAL_TEST_ASSERT((!is_same_expression_t<test::e2, test::e1>::value));
+METAL_TEST_ASSERT((!is_same_expression_t<test::en, test::e2>::value));

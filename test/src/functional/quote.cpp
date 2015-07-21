@@ -10,19 +10,19 @@
 
 using namespace metal;
 
-using q1 = quote<test::alias>;
-using q2 = quote<test::empty>;
-using q3 = quote<test::call>;
-using q4 = quote<test::evaluable>;
+using f1 = quote<test::alias>;
+using f2 = quote<test::empty>;
+using f3 = quote<test::call>;
+using f4 = quote<test::evaluable>;
 
-static_assert(is_function<q1>::value, "");
-static_assert(is_function<q2>::value, "");
-static_assert(is_function<q3>::value, "");
-static_assert(is_function<q4>::value, "");
+METAL_TEST_ASSERT((is_function<f1>::value));
+METAL_TEST_ASSERT((is_function<f2>::value));
+METAL_TEST_ASSERT((is_function<f3>::value));
+METAL_TEST_ASSERT((is_function<f4>::value));
 
-static_assert(!is_callable<q1>::value, "");
-static_assert(!is_callable<q2>::value, "");
-static_assert(!is_callable<q3>::value, "");
-static_assert(is_callable<q4>::value, "");
+METAL_TEST_ASSERT((!is_callable<f1>::value));
+METAL_TEST_ASSERT((!is_callable<f2>::value));
+METAL_TEST_ASSERT((!is_callable<f3>::value));
+METAL_TEST_ASSERT((is_callable<f4>::value));
 
-static_assert(std::is_same<call_t<q4>, q4::call<>::type>::value, "");
+METAL_TEST_ASSERT((std::is_same<call_t<f4>, f4::call<>::type>::value));

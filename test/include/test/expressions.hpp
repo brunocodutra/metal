@@ -7,11 +7,11 @@
 
 namespace test
 {
+    template<typename... args>
+    using alias = char(&(args...))[];
+
+
     template<typename...>
-    using alias = char(&(void))[];
-
-
-    template<typename... _>
     struct empty
     {};
 

@@ -5,6 +5,7 @@
 #ifndef METAL_TEST_HPP
 #define METAL_TEST_HPP
 
+#include "test/assert.hpp"
 #include "test/atoms.hpp"
 #include "test/expressions.hpp"
 #include "test/functions.hpp"

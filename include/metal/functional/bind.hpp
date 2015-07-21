@@ -30,12 +30,12 @@ namespace metal
 
         template<std::size_t n, typename... args>
         struct parse<arg<n>, args...> :
-                call<arg<n>, args...>
+                ::metal::call<arg<n>, args...>
         {};
 
         template<typename f, typename... p, typename... args>
         struct parse<bind<f, p...>, args...> :
-                call<bind<f, p...>, args...>
+                ::metal::call<bind<f, p...>, args...>
         {};
 
         template<typename token, typename... args>

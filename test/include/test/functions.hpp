@@ -12,8 +12,9 @@ namespace test
     template<template<typename...> class expr>
     struct nullary
     {
-        template<typename = void>
-        using call = expr<>;
+        template<typename> using sfinae = expr<>;
+        template<typename... _>
+        using call = sfinae<char[!sizeof...(_)]>;
     };
 
     template<template<typename...> class expr>
