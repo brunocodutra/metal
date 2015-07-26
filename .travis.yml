@@ -9,61 +9,69 @@ sudo: false
 matrix:
     include:
     - env: COMPILER=g++-4.7
-        apt:
-            packages:
-            - g++-4.7
-            sources:
-            - ubuntu-toolchain-r-test
+        addons:
+            apt:
+                packages:
+                - g++-4.7
+                sources:
+                - ubuntu-toolchain-r-test
     - env: COMPILER=g++-4.8
-        apt:
-            packages:
-            - g++-4.8
-            sources:
-            - ubuntu-toolchain-r-test
+        addons:
+            apt:
+                packages:
+                - g++-4.8
+                sources:
+                - ubuntu-toolchain-r-test
     - env: COMPILER=g++-4.9
-        apt:
-            packages:
-            - g++-4.9
-            sources:
-            - ubuntu-toolchain-r-test
+        addons:
+            apt:
+                packages:
+                - g++-4.9
+                sources:
+                - ubuntu-toolchain-r-test
     - env: COMPILER=g++-5
-        apt:
-            packages:
-            - g++-5
-            sources:
-            - ubuntu-toolchain-r-test
+        addons:
+            apt:
+                packages:
+                - g++-5
+                sources:
+                - ubuntu-toolchain-r-test
     - env: COMPILER=clang++-3.5
-        apt:
-            packages:
-            - clang-3.5
-            - libc++-dev
-            sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.5
+        addons:
+            apt:
+                packages:
+                - clang-3.5
+                - libc++-dev
+                sources:
+                - ubuntu-toolchain-r-test
+                - llvm-toolchain-precise-3.5
     - env: COMPILER=clang++-3.6
-        apt:
-            packages:
-            - clang-3.6
-            - libc++-dev
-            sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.6
+        addons:
+            apt:
+                packages:
+                - clang-3.6
+                - libc++-dev
+                sources:
+                - ubuntu-toolchain-r-test
+                - llvm-toolchain-precise-3.6
     - env: COMPILER=clang++-3.7
-        apt:
-            packages:
-            - clang-3.7
-            - libc++-dev
-            sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.7
+        addons:
+            apt:
+                packages:
+                - clang-3.7
+                - libc++-dev
+                sources:
+                - ubuntu-toolchain-r-test
+                - llvm-toolchain-precise-3.7
     - env: COMPILER=clang++-3.8
-        apt:
-            packages:
-            - clang-3.8
-            - libc++-dev
-            sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise
+        addons:
+            apt:
+                packages:
+                - clang-3.8
+                - libc++-dev
+                sources:
+                - ubuntu-toolchain-r-test
+                - llvm-toolchain-precise
 
 env:
     global:
