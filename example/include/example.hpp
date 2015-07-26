@@ -5,6 +5,8 @@
 #ifndef METAL_EXAMPLE_HPP
 #define METAL_EXAMPLE_HPP
 
+#include <type_traits>
+
 int main()
 {
     return 0;

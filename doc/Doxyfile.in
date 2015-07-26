@@ -236,8 +236,8 @@ ALIASES               +=number="\ref concept_number"
 ALIASES               +=numbers="\ref concept_number \"Numbers\""
 ALIASES               +=expression="\ref concept_expression"
 ALIASES               +=expressions="\ref concept_expression \"Expressions\""
-ALIASES               +=function="\ref concept_function"
-ALIASES               +=functions="\ref concept_function \"Functions\""
+ALIASES               +=lambda="\ref concept_lambda"
+ALIASES               +=lambdas="\ref concept_lambda \"Lambdas\""
 
 ALIASES               +=nothing="\ref is_nothing \"nothing\""
 ALIASES               +=just="\ref is_just \"just\""
@@ -354,7 +354,7 @@ IDL_PROPERTY_SUPPORT   = YES
 # all members of a group must be documented explicitly.
 # The default value is: NO.
 
-DISTRIBUTE_GROUP_DOC   = NO
+DISTRIBUTE_GROUP_DOC   = YES
 
 # Set the SUBGROUPING tag to YES to allow class member groups of the same type
 # (for instance a group of public functions) to be put as a subgroup of that
@@ -1976,8 +1976,7 @@ SEARCH_INCLUDES        = YES
 # preprocessor.
 # This tag requires that the tag SEARCH_INCLUDES is set to YES.
 
-INCLUDE_PATH           = @Metal_SOURCE_DIR@/include \
-                         @Metal_SOURCE_DIR@/test/include
+INCLUDE_PATH           = @Metal_SOURCE_DIR@/include
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the

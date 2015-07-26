@@ -5,20 +5,24 @@
 #ifndef METAL_FUNCTIONAL_PROTECT_HPP
 #define METAL_FUNCTIONAL_PROTECT_HPP
 
-#include <metal/functional/maybe.hpp>
+#include <metal/functional/quote.hpp>
 
 namespace metal
 {
-    namespace detail
+    /// \ingroup functional
+    /// \brief ...
+    template<typename value>
+    struct protect;
+
+    /// \ingroup functional
+    /// \brief Eager adaptor for \ref protect.
+    template<typename value>
+    using protect_t = typename protect<value>::type;
+
+    template<typename value>
+    struct protect
     {
-        template<typename opt, int = 0>
-        struct protect_impl :
-                maybe<opt>
-        {};
-    }
-
-    template<typename opt>
-    using protect = detail::protect_impl<opt>;
+        using type = protect<quote_t<value>>;
+    };
 }
-
 #endif

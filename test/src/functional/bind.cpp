@@ -3,59 +3,43 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/functional/bind.hpp>
-#include <metal/functional/protect.hpp>
-#include <metal/functional/quote.hpp>
-#include <metal/functional/traits/is_callable.hpp>
 
 #include "test.hpp"
 
 using namespace metal;
-using namespace metal::placeholders;
 
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn>, void, void*>, call_t<test::fn>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, _1>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, _1, _2>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, test::a1>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, _1, _2, _3>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, test::a1, test::a2>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, _1, _2, _3, _4>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, test::a1, test::a2, test::a3>>::value));
+using l0 = protect_t<test::e0<>>;
+using l1 = protect_t<test::e1<_1>>;
+using l2 = protect_t<test::e2<_1, _2>>;
+using l3 = protect_t<test::en<_1, _2, _3>>;
+using l4 = protect_t<test::en<_1, _2, _3, _4>>;
 
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn>, void, void*>, call_t<test::fn>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, verbatim<_1>>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, _1>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<verbatim<test::fn>, verbatim<_1>, _2>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, _1, test::a1>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<verbatim<test::fn>, _1, verbatim<_2>, _3>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, _2, test::a2>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<verbatim<test::fn>, _1, _2, verbatim<_3>, _4>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, test::a1, _3, test::a3>>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<l0, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::e0<>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<l1, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::e1<test::v3>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<l2, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::e2<test::v3, test::v2>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<l3, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::en<test::v3, test::v2, test::v1>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<l4, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::en<test::v3, test::v2, test::v1, test::v0>::type>::value));
 
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn>, void, void*>, call_t<test::fn>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, protect<_1>>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, protect<_1>>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, protect<_1>, _2>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, protect<_1>, test::a1>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, _1, protect<_2>, _3>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, protect<_2>, test::a2>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<test::fn, _1, _2, protect<_3>, _4>, test::a0, test::a1, test::a2, test::a3>, call_t<test::fn, test::a0, test::a1, protect<_3>, test::a3>>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<protect_t<l0>, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::e0<>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<protect_t<l1>, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::e1<test::v3>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<protect_t<l2>, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::e2<test::v3, test::v2>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<protect_t<l3>, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::en<test::v3, test::v2, test::v1>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<protect_t<l4>, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::en<test::v3, test::v2, test::v1, test::v0>::type>::value));
 
-METAL_TEST_ASSERT((std::is_same<call_t<bind<_1, _2>, test::fn, void>, call_t<test::fn, void>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<_1, _2, _1>, test::fn, void>, call_t<test::fn, void, test::fn>>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<l0, protect_t<_4>, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::e0<>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<l1, protect_t<_4>, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::e1<protect_t<_4>>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<l2, protect_t<_4>, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::e2<protect_t<_4>, test::v2>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<l3, protect_t<_4>, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::en<protect_t<_4>, test::v2, test::v1>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<l4, protect_t<_4>, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::en<protect_t<_4>, test::v2, test::v1, test::v0>::type>::value));
 
-using chain = protect<bind<_1, bind<_2, _3>>>;
-METAL_TEST_ASSERT((is_function<chain>::value));
-METAL_TEST_ASSERT((!is_callable<chain>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<chain, quote<std::add_pointer>, quote<std::add_const>, void>, void const*>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<chain, quote<std::add_const>, quote<std::add_pointer>, void>, void* const>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<protect_t<bind_t<l0, _4, _3, _2, _1>>, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::e0<>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<protect_t<bind_t<l1, _4, _3, _2, _1>>, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::e1<test::v0>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<protect_t<bind_t<l2, _4, _3, _2, _1>>, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::e2<test::v0, test::v1>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<protect_t<bind_t<l3, _4, _3, _2, _1>>, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::en<test::v0, test::v1, test::v2>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<protect_t<bind_t<l4, _4, _3, _2, _1>>, _4, _3, _2, _1>, test::v0, test::v1, test::v2, test::v3>, test::en<test::v0, test::v1, test::v2, test::v3>::type>::value));
 
-using once = protect<bind<chain, protect<_1>, _1, _2>>;
-METAL_TEST_ASSERT((is_function<once>::value));
-METAL_TEST_ASSERT((!is_callable<once>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<once, quote<std::add_pointer>, void>, void*>::value));
-
-using twice = protect<bind<chain, _1, _1, _2>>;
-METAL_TEST_ASSERT((is_function<twice>::value));
-METAL_TEST_ASSERT((!is_callable<twice>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<twice, quote<std::add_pointer>, void>, void**>::value));
-
-using thrice = protect<bind<once, _1, bind<twice, _1, _2>>>;
-METAL_TEST_ASSERT((is_function<thrice>::value));
-METAL_TEST_ASSERT((!is_callable<thrice>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<thrice, quote<std::add_pointer>, void>, void***>::value));
-
-using ptr2ptr2ptr = protect<bind<thrice, quote<std::add_pointer>, _1>>;
-METAL_TEST_ASSERT((is_function<ptr2ptr2ptr>::value));
-METAL_TEST_ASSERT((!is_callable<ptr2ptr2ptr>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<ptr2ptr2ptr, void>, void***>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<ptr2ptr2ptr, void>>, void***>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<_1, _2, _3, _4, _5>, l0, test::v0, test::v1, test::v2, test::v3>, test::e0<>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<_1, _2, _3, _4, _5>, l1, test::v0, test::v1, test::v2, test::v3>, test::e1<test::v0>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<_1, _2, _3, _4, _5>, l2, test::v0, test::v1, test::v2, test::v3>, test::e2<test::v0, test::v1>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<_1, _2, _3, _4, _5>, l3, test::v0, test::v1, test::v2, test::v3>, test::en<test::v0, test::v1, test::v2>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<_1, _2, _3, _4, _5>, l4, test::v0, test::v1, test::v2, test::v3>, test::en<test::v0, test::v1, test::v2, test::v3>::type>::value));

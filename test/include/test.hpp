@@ -7,7 +7,6 @@
 
 #include "test/assert.hpp"
 #include "test/expressions.hpp"
-#include "test/functions.hpp"
 #include "test/numbers.hpp"
 #include "test/values.hpp"
 

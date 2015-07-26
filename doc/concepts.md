@@ -15,23 +15,23 @@ Value {#concept_value}
 
 ## Requirements
 
-If `v` is a model of [Value], then `v` is a type.
+`val` is a model of [Value] if and only if `val` is a type.
 
 ## Examples
 
 ~~~{.cpp}
-    struct value
+    struct val
     {
         //...
     };
 ~~~
 
 ~~~{.cpp}
-    using value = int;
+    using val = int;
 ~~~
 
 ~~~{.cpp}
-    using value = decltype(3.14);
+    using val = decltype(3.14);
 ~~~
 
 ## Counterexamples
@@ -40,15 +40,15 @@ If `v` is a model of [Value], then `v` is a type.
     struct
     {
         //...
-    } value;
+    } val;
 ~~~
 
 ~~~{.cpp}
-    int value;
+    int val;
 ~~~
 
 ~~~{.cpp}
-    auto value = 3.14;
+    auto val = 3.14;
 ~~~
 
 Optional {#concept_optional}
@@ -63,17 +63,13 @@ Whenever a nested `::type` is undefined or ambiguously defined,
 an [Optional] is said to be *nothing*,
 thus evaluating *nothing* leads to a compile-time error.
 
-While every [Optional] is also a [Value], the converse is not always true.
-However, any [Value] can be lifted to a corresponding [Optional] using
-`metal::identity`.
-
 ## Requirements
 
-If `opt` is a model of [Optional], then `opt` is a model of [Value].
+`opt` is a model of [Optional] if and only if `opt` is a model of [Value].
 
 ## Associated Traits
 
-metal::is_nothing
+metal::is_just, metal::is_nothing
 
 ## Examples
 
@@ -84,7 +80,7 @@ metal::is_nothing
 
 ## Models
 
-metal::nothing
+metal::maybe, metal::just, metal::nothing
 
 Number {#concept_number}
 ================================================================================
@@ -96,11 +92,9 @@ behaving much like its run-time counterparts.
 
 ## Requirements
 
-If `n` is a model of [Number], then `n` is either:
-* an alias to a specialization of
-[std::integral_constant].
-* publicly and unambiguously derived, directly or indirectly, from a
-[Number].
+`n` is a model of [Number] if and only if `n` is either:
+* an alias to a specialization of [std::integral_constant].
+* publicly and unambiguously derived, directly or indirectly, from a [Number].
 
 Names inherited from [std::integral_constant]
 must not be hidden and must be unambiguously available.
@@ -127,15 +121,13 @@ Expression {#concept_expression}
 An [Expression] is a compile-time representation of a computation that
 maps a set of [Values] to a new [Value].
 Since [Expressions] behave much like run-time functions,
-they are often called *metafunctions*,
-not to be confused with the [Function] concept.
+they are often called *metafunctions*.
 
 Unlike run-time functions, [Expressions] are lazy,
 which means that they do not immediately evaluate when invoked.
 Rather, an [Expression] invoked with some set of arguments is
-itself a model of [Optional], that is either *nothing* or some [Value].
-Not unlike any other [Optional],
-one must explicitly name the nested `::type`
+itself a model of [Optional], that is either *nothing* or *just* some [Value].
+Not unlike any other [Optional], one must explicitly name the nested `::type`
 in order to actually evaluate an [Expression].
 In general, however, an [Expression] may naturally compute to
 *nothing* for some set of arguments, hence
@@ -143,16 +135,12 @@ evaluating such an [Expression] leads to a compile-time error.
 
 An [Expression] which evaluates to some [Value]
 when invoked with some set of arguments
-is said to be *evaluable* for that set of arguments.
+is said to be *evaluable* with that set of arguments.
 
 ## Requirements
 
-If `expr` is a model of [Expression], then `expr` is either a template class
-or alias taking only types as arguments.
-
-## Associated Traits
-
-metal::is_same_expression, metal::is_evaluable
+`expr` is a model of [Expression] if and only if `expr` is a template class,
+union or alias taking only types as arguments.
 
 ## Examples
 
@@ -168,41 +156,43 @@ metal::is_same_expression, metal::is_evaluable
 
 ## Models
 
-metal::identity, metal::call, metal::bind, metal::lambda
+metal::apply, metal::bind, metal::protect, metal::quote
 
-Function {#concept_function}
+Lambda {#concept_lambda}
 ================================================================================
 
-A [Function] is a value representation of an [Expression],
-that is, unlike the latter, every [Function] is a model of [Value].
-As such, [Functions] can serve as argument or return type to other
-[Functions] and [Expressions], thus enabling
-[higher-order] computations, much like run-time
-[function objects].
+A [Lambda] is a value representation of an [Expression],
+that is, unlike the latter, every [Lambda] is a model of [Value].
+As such, [Lambdas] can serve as argument or return type to other
+[Lambdas] and [Expressions], thus enabling
+[higher-order] programming, much like run-time [function objects].
 
-A [Function] that takes the form of a template is said to be *parametric*
-and behaves much like template types in regular C++.
-A special group of particular interest are *parametric* [Functions] which also
-meet the criteria to model an [Expression].
+[Lambdas] are named after their homonym mathematical model for computation,
+the [Lambda Calculus].
 
 ## Requirements
 
-If `f` is a model of [Function], then
-* `f` is a model of [Value].
-* `f::call` is unambiguously defined and is a model of [Expression].
+If `expr` is a model of [Expression] and `[a1, ..., an]` are models of [Value],
+then `lbd` is a model of [Lambda] if and only if `lbd` is either
+* an alias to `expr<a1, ..., an>`
+* a [placeholder](\ref placeholders)
+* a [protected](\ref metal::protect) [Lambda]
 
 ## Associated Traits
 
-metal::is_function
+metal::is_lambda
 
 ## Examples
 
-\snippet concepts/function.cpp ex1
-\snippet concepts/function.cpp ex2
+\snippet concepts/lambda.cpp ex1
+\snippet concepts/lambda.cpp ex2
+\snippet concepts/lambda.cpp ex3
+\snippet concepts/lambda.cpp ex4
 
 ## Counterexamples
 
-\snippet concepts/function.cpp nex1
+\snippet concepts/lambda.cpp nex1
+\snippet concepts/lambda.cpp nex2
 
 ## Models
 
@@ -216,9 +206,10 @@ metal::arg, metal::quote, metal::bind, metal::lambda
 [Numbers]:                  \ref concept_number
 [Expression]:               \ref concept_expression
 [Expressions]:              \ref concept_expression
-[Function]:                 \ref concept_function
-[Functions]:                \ref concept_function
+[Lambda]:                   \ref concept_lambda
+[Lambdas]:                  \ref concept_lambda
 
 [std::integral_constant]:   http://en.cppreference.com/w/cpp/types/integral_constant
-[higher-order]:             https://en.wikipedia.org/wiki/Higher-order_function
+[higher-order]:             https://en.wikipedia.org/wiki/Higher-order_lambda
 [function objects]:         http://en.cppreference.com/w/cpp/utility/functional
+[Lambda Calculus]:          https://en.wikipedia.org/wiki/Lambda_calculus#The_lambda_calculus

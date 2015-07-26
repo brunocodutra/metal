@@ -5,17 +5,28 @@
 #ifndef METAL_FUNCTIONAL_QUOTE_HPP
 #define METAL_FUNCTIONAL_QUOTE_HPP
 
-#include <metal/functional/eval.hpp>
-
 namespace metal
 {
-    template<template<typename...> class expr>
+    /// \ingroup functional
+    /// \brief ...
+    template<typename value>
+    struct quote;
+
+    /// \ingroup functional
+    /// \brief Eager adaptor for \ref quote.
+    template<typename value>
+    using quote_t = typename quote<value>::type;
+
+    template<typename value>
     struct quote
     {
-        using type = quote;
+        template<typename...>
+        struct _
+        {
+            using type = value;
+        };
 
-        template<typename... args>
-        using call = eval<expr, args...>;
+        using type = _<>;
     };
 }
 

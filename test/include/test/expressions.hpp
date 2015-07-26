@@ -7,20 +7,14 @@
 
 namespace test
 {
-    template<typename... args>
-    using alias = char(&(args...))[sizeof...(args)];
-
     template<typename...>
     struct empty
     {};
 
-    template<typename...>
-    struct call
+    template<typename... args>
+    union en
     {
-        //typedef call
-
-        //template<typename...>
-        //typedef call
+        using type = en*;
     };
 
     template<typename = void>
@@ -32,19 +26,14 @@ namespace test
         enum type {};
     };
 
-    template<typename... args>
-    union en
-    {
-        using type = en*;
-    };
-
     template<typename x>
-    using e1 = en<x>;
+    struct e1
+    {
+        union type {};
+    };
 
     template<typename x, typename y>
     using e2 = en<x, y>;
-
-
 }
 
 #endif

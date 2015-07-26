@@ -5,17 +5,15 @@
 Overview {#intro_overview}
 ================================================================================
 
-Metal is a collection of small, closely related [C++11] template
-metaprogramming modules.
+Metal is a collection of small [portable](\ref portability)
+[C++11] template metaprogramming tools.
 Header-only and depending solely on C++ standard libraries,
 Metal is lightweight and easy to deploy.
 
 Designed to make type metaprogramming feel easy, Metal focus on simplicity,
 extending existing tools for metaprogramming rather than reinventing the wheel.
-To this end, Metal is built upon well established concepts and is developed to
-integrate seamlessly with standard [type traits].
-As such, modern C++11 features are explored to their full potential, without,
-however, allowing [portability](\ref portability) to be compromised.
+To this end, Metal is built upon well established concepts
+and brings modern C++11 features to their full potential.
 
 Metal owes its design largely to [Boost.MPL] and all due credit is given to the
 authors for their groundbreaking work on C++ template metaprogramming.

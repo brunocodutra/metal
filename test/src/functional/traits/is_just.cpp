@@ -8,16 +8,16 @@
 
 using namespace metal;
 
-METAL_TEST_ASSERT((!is_just_t<test::a0>::value));
-METAL_TEST_ASSERT((!is_just_t<test::a1>::value));
-METAL_TEST_ASSERT((!is_just_t<test::a2>::value));
-METAL_TEST_ASSERT((!is_just_t<test::a3>::value));
-METAL_TEST_ASSERT((!is_just_t<test::a4>::value));
-METAL_TEST_ASSERT((!is_just_t<test::a5>::value));
-METAL_TEST_ASSERT((!is_just_t<test::a6>::value));
-METAL_TEST_ASSERT((!is_just_t<test::a7>::value));
-METAL_TEST_ASSERT((!is_just_t<test::a8>::value));
-METAL_TEST_ASSERT((!is_just_t<test::a9>::value));
+METAL_TEST_ASSERT((!is_just_t<test::v0>::value));
+METAL_TEST_ASSERT((!is_just_t<test::v1>::value));
+METAL_TEST_ASSERT((!is_just_t<test::v2>::value));
+METAL_TEST_ASSERT((!is_just_t<test::v3>::value));
+METAL_TEST_ASSERT((!is_just_t<test::v4>::value));
+METAL_TEST_ASSERT((!is_just_t<test::v5>::value));
+METAL_TEST_ASSERT((!is_just_t<test::v6>::value));
+METAL_TEST_ASSERT((!is_just_t<test::v7>::value));
+METAL_TEST_ASSERT((!is_just_t<test::v8>::value));
+METAL_TEST_ASSERT((!is_just_t<test::v9>::value));
 
 METAL_TEST_ASSERT((is_just_t<test::n0>::value));
 METAL_TEST_ASSERT((is_just_t<test::n1>::value));

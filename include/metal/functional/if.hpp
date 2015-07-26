@@ -18,6 +18,11 @@ namespace metal
     template<typename pred, typename then, typename... else_>
     struct if_;
 
+    /// \ingroup functional
+    /// \brief Eager adaptor for \ref if_.
+    template<typename pred, typename then, typename... else_>
+    using if_t = typename if_<pred, then, else_...>::type;
+
     template<typename pred1, typename then1, typename pred2, typename then2, typename... else_>
     struct if_<pred1, then1, pred2, then2, else_...> :
             if_<pred1, then1, if_<pred2, then2, else_...>>
@@ -34,11 +39,6 @@ namespace metal
     struct if_<pred, then> :
             if_<pred, then, just<nothing>>
     {};
-
-    /// \ingroup functional
-    /// \brief Eager adaptor for \ref if_.
-    template<typename pred, typename then, typename... else_>
-    using if_t = typename if_<pred, then, else_...>::type;
 }
 
 #endif

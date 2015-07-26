@@ -3,42 +3,19 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/functional/protect.hpp>
-#include <metal/functional/lambda.hpp>
-#include <metal/functional/traits/is_nothing.hpp>
-#include <metal/functional/traits/is_callable.hpp>
+#include <metal/functional/apply.hpp>
+#include <metal/functional/arg.hpp>
 
 #include "test.hpp"
 
 using namespace metal;
 
-METAL_TEST_ASSERT((is_nothing<protect<test::a0>>::value));
-METAL_TEST_ASSERT((is_nothing<protect<test::a1>>::value));
-METAL_TEST_ASSERT((is_nothing<protect<test::a2>>::value));
-METAL_TEST_ASSERT((is_nothing<protect<test::a3>>::value));
-METAL_TEST_ASSERT((is_nothing<protect<test::a5>>::value));
-METAL_TEST_ASSERT((is_nothing<protect<test::a6>>::value));
-METAL_TEST_ASSERT((is_nothing<protect<test::a7>>::value));
-METAL_TEST_ASSERT((is_nothing<protect<test::a8>>::value));
-METAL_TEST_ASSERT((is_nothing<protect<test::a9>>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<protect_t<_1>, test::v0, test::v1, test::v2, test::v3>, test::v0>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<protect_t<_2>, test::v0, test::v1, test::v2, test::v3>, test::v1>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<protect_t<_3>, test::v0, test::v1, test::v2, test::v3>, test::v2>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<protect_t<_4>, test::v0, test::v1, test::v2, test::v3>, test::v3>::value));
 
-METAL_TEST_ASSERT((protect<std::true_type>::value));
-
-METAL_TEST_ASSERT((is_function<protect<test::fn>>::value));
-METAL_TEST_ASSERT((is_callable<protect<test::fn>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<protect<test::fn>>, call_t<test::fn>>::value));
-
-using bound = bind<quote<std::add_pointer>, placeholders::_1>;
-
-METAL_TEST_ASSERT((std::is_same<call_t<protect<bound>, void>, void*>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<protect<protect<bound>>, void>, void*>::value));
-
-METAL_TEST_ASSERT((std::is_same<call_t<bind<quote<std::add_pointer>, protect<bound>>, void>, protect<bound>*>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<bind<quote<std::add_pointer>, protect<protect<bound>>>, void>, protect<protect<bound>>*>::value));
-
-using lexpr = std::add_pointer<placeholders::_1>;
-
-METAL_TEST_ASSERT((std::is_same<call_t<protect<lambda<lexpr>>, void>, void*>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<protect<protect<lambda<lexpr>>>, void>, void*>::value));
-
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<protect<lexpr>>, void>, protect<lexpr>>::value));
-METAL_TEST_ASSERT((std::is_same<call_t<lambda<protect<protect<lexpr>>>, void>, protect<protect<lexpr>>>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<test::e1<protect_t<_1>>, test::v0, test::v1, test::v2, test::v3>, test::e1<protect_t<_1>>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<test::e2<protect_t<_1>, _2>, test::v0, test::v1, test::v2, test::v3>, test::e2<protect_t<_1>, test::v1>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<test::en<protect_t<_1>, _2, _3>, test::v0, test::v1, test::v2, test::v3>, test::en<protect_t<_1>, test::v1, test::v2>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<test::en<protect_t<_1>, _2, _3, _4>, test::v0, test::v1, test::v2, test::v3>, test::en<protect_t<_1>, test::v1, test::v2, test::v3>::type>::value));

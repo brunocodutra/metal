@@ -10,35 +10,35 @@
 namespace ex1
 {
     /// [ex1]
-    struct optional
+    struct opt
     {
         struct type; //just something
     };
     /// [ex1]
 
-    static_assert(metal::is_just<optional>::value, "");
+    static_assert(metal::is_just<opt>::value, "");
 }
 
 namespace ex2
 {
     /// [ex2]
-    using optional = void; //nothing - undefined ::type
+    using opt = void; //nothing - undefined ::type
     /// [ex2]
 
-    static_assert(metal::is_nothing<optional>::value, "");
+    static_assert(metal::is_nothing<opt>::value, "");
 }
 
 namespace ex3
 {
     /// [ex3]
-    struct optional
+    struct opt
     {
         template<typename...>
         struct type; //nothing - ::type is not a model of Value
     };
     /// [ex3]
 
-    static_assert(metal::is_nothing<optional>::value, "");
+    static_assert(metal::is_nothing<opt>::value, "");
 }
 
 namespace ex4
