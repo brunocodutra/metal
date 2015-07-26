@@ -12,7 +12,6 @@
 #include <metal/functional/just.hpp>
 #include <metal/functional/nothing.hpp>
 #include <metal/functional/protect.hpp>
-#include <metal/functional/quote.hpp>
 #include <metal/functional/traits.hpp>
 
 #endif

@@ -5,10 +5,16 @@
 #ifndef METAL_FUNCTIONAL_PROTECT_HPP
 #define METAL_FUNCTIONAL_PROTECT_HPP
 
-#include <metal/functional/quote.hpp>
-
 namespace metal
 {
+    namespace detail
+    {
+        template<typename, int = 0>
+        struct lambda
+        {
+            using type = lambda;
+        };
+    }
     /// \ingroup functional
     /// \brief ...
     template<typename value>
@@ -22,7 +28,7 @@ namespace metal
     template<typename value>
     struct protect
     {
-        using type = protect<quote_t<value>>;
+        using type = detail::lambda<value>;
     };
 }
 #endif
