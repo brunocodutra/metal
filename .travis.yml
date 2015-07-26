@@ -54,6 +54,6 @@ before_script:
     - cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER}
 
 script:
-    - if [[ "${BUILD_DOC}" == "false" ]]; then time make metal.test && ctest --output-on-failure; fi
+    - if [[ "${BUILD_DOC}" != "true" ]]; then time make metal.test && ctest --output-on-failure; fi
     - if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]]; then make metal.doc.update &> /dev/null; fi
     - if [[ "${BUILD_DOC}" == "true" && ("${TRAVIS_PULL_REQUEST}" == "true" || "${TRAVIS_BRANCH}" != "master") ]]; then time make metal.doc; fi
