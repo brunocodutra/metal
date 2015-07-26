@@ -31,6 +31,8 @@ namespace metal
         };
     }
 
+    /// \ingroup functional
+    /// \brief ...
     template<typename value>
     struct maybe :
             detail::maybe_impl<value>

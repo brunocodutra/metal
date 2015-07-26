@@ -19,7 +19,7 @@ namespace metal
     ///     using result = metal::is_just<opt>;
     /// \endcode
     ///
-    /// \par Return Type:
+    /// \par Model:
     ///     \number
     ///
     /// \par Semantics:
@@ -43,7 +43,7 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see is_nil
+    /// \see is_nothing
     template<typename opt>
     struct is_just;
 
@@ -52,7 +52,7 @@ namespace metal
     /// \ingroup functional_traits
     /// \brief Eager adaptor for \ref is_just.
     template<typename opt>
-    using is_just_t = typename is_just<opt>::type;
+    using is_just_t = typename metal::is_just<opt>::type;
 }
 
 #endif

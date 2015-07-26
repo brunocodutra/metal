@@ -7,6 +7,8 @@
 
 namespace metal
 {
+    /// \ingroup functional
+    /// \brief ...
     template<typename value>
     struct just
     {

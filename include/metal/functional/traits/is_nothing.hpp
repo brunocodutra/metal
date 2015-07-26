@@ -25,7 +25,7 @@ namespace metal
     ///     using result = metal::is_nothing<opt>;
     /// \endcode
     ///
-    /// \par Return Type:
+    /// \par Model:
     ///     \number
     ///
     /// \par Semantics:
@@ -58,7 +58,7 @@ namespace metal
     /// \ingroup functional_traits
     /// \brief Eager adaptor for \ref is_nothing.
     template<typename opt>
-    using is_nothing_t = typename is_nothing<opt>::type;
+    using is_nothing_t = typename metal::is_nothing<opt>::type;
 }
 
 #endif

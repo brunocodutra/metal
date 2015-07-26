@@ -115,7 +115,7 @@ namespace metal
     /// \ingroup functional
     /// \brief Eager adaptor for \ref apply.
     template<typename lambda, typename... args>
-    using apply_t = typename apply<lambda, args...>::type;
+    using apply_t = typename metal::apply<lambda, args...>::type;
 
     template<
         template<typename...> class expr,

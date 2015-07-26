@@ -17,7 +17,7 @@ namespace metal
     /// \ingroup functional
     /// \brief Eager adaptor for \ref protect.
     template<typename value>
-    using protect_t = typename protect<value>::type;
+    using protect_t = typename metal::protect<value>::type;
 
     template<typename value>
     struct protect

@@ -20,7 +20,8 @@ namespace metal
     /// \ingroup functional_traits
     /// \brief Eager adaptor for \ref is_applicable.
     template<typename lambda, typename... args>
-    using is_applicable_t = typename is_applicable<lambda, args...>::type;
+    using is_applicable_t =
+        typename metal::is_applicable<lambda, args...>::type;
 }
 
 #endif

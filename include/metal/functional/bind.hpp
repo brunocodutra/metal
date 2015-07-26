@@ -17,7 +17,7 @@ namespace metal
     /// \ingroup functional
     /// \brief Eager adaptor for \ref bind.
     template<typename lambda, typename... args>
-    using bind_t = typename bind<lambda, args...>::type;
+    using bind_t = typename metal::bind<lambda, args...>::type;
 
     template<typename lambda, typename... args>
     struct bind

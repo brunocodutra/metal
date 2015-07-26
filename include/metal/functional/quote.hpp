@@ -15,7 +15,7 @@ namespace metal
     /// \ingroup functional
     /// \brief Eager adaptor for \ref quote.
     template<typename value>
-    using quote_t = typename quote<value>::type;
+    using quote_t = typename metal::quote<value>::type;
 
     template<typename value>
     struct quote

@@ -35,6 +35,12 @@ h1.glow, h2.glow, h3.glow, h4.glow, h5.glow, h6.glow {
     text-shadow: 0 0 10px #989898;
 }
 
+.memberdecls td.glow, .fieldtable tr.glow  {
+    text-shadow: 0 0 10px #989898;
+    background-color: initial;
+    box-shadow: initial;
+}
+
 .contents a {
     color: #0000EE;
 }
