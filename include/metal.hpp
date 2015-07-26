@@ -5,14 +5,14 @@
 #ifndef METAL_HPP
 #define METAL_HPP
 
-#include <metal/algebra.hpp>
-#include <metal/functional.hpp>
+#include <metal/lambda.hpp>
+#include <metal/number.hpp>
+#include <metal/optional.hpp>
 
 #endif
 
 /// \defgroup metal Metal
-/// \brief A small collection of closely related C++11 template metaprogramming
-/// modules.
+/// \brief A small collection of C++11 template metaprogramming tools.
 
 /// \namespace metal
 /// \brief Metaprogramming algorithms.

@@ -2,9 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSEmetal::_1_0.txt)
 
-#include <metal/functional/apply.hpp>
-#include <metal/functional/bind.hpp>
-#include <metal/functional/arg.hpp>
+#include <metal/lambda/apply.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/arg.hpp>
 
 #include "example.hpp"
 

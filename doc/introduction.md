@@ -5,8 +5,8 @@
 Overview {#intro_overview}
 ================================================================================
 
-Metal is a collection of small [portable](\ref portability)
-[C++11] template metaprogramming tools.
+Metal is a collection of [portable](\ref portability) [C++11]
+template metaprogramming constructs.
 Header-only and depending solely on C++ standard libraries,
 Metal is lightweight and easy to deploy.
 
