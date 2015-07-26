@@ -62,27 +62,49 @@ namespace metal
                 item<ids, args>...
         {};
 
-        template<typename... args>
-        hash<enumerate_t<sizeof...(args)>, args...>* make_hash();
+        template<std::size_t n, typename... args>
+        struct select
+        {
+        private:
+            static hash<enumerate_t<sizeof...(args)>, args...>* make_hash();
 
-        template<std::size_t n, typename value>
-        just<value> fetch(item<n, value>*);
-        template<std::size_t>
-        nothing fetch(...);
+            template<typename value>
+            static just<value> impl(item<n - 1, value>*);
+            static nothing impl(...);
+
+        public:
+            using type = decltype(impl(make_hash()));
+        };
+
+        template<typename>
+        struct eval;
 
         template<template<typename...> class expr, typename... args>
-        maybe<expr<typename args::type...>> eval(int);
-        template<template<typename...> class, typename...>
-        nothing eval(...);
+        struct eval<expr<args...>>
+        {
+        private:
+            static expr<args...>* forward();
+
+            template<typename... a, typename opt = expr<typename a::type...>>
+            static maybe<opt> impl(expr<a...>*);
+            static nothing impl(...);
+
+        public:
+            using type = decltype(impl(forward()));
+        };
+
+        template<typename... args>
+        struct reduce
+        {};
 
         template<typename value, typename... args>
-        struct reduce
+        struct reduce<value, args...>
         {
             using type = value;
         };
 
-        template<typename value, typename... args>
-        using reduce_t = typename reduce<value, args...>::type;
+        template<typename... args>
+        using reduce_t = typename reduce<args...>::type;
 
         template<
             template<typename...> class expr,
@@ -90,7 +112,7 @@ namespace metal
             typename... args
         >
         struct reduce<expr<params...>, args...> :
-                decltype(eval<expr, reduce<params, args...>...>(0))
+                eval<expr<reduce<params, args...>...>>::type
         {};
 
         template<
@@ -98,12 +120,12 @@ namespace metal
             typename... args
         >
         struct reduce<expr<>, args...> :
-                decltype(eval<expr>(0))
+                maybe<expr<>>
         {};
 
         template<std::size_t n, typename... args>
         struct reduce<arg<n>, args...> :
-               decltype(fetch<n-1>(make_hash<args...>()))
+               select<n, args...>::type
         {};
 
         template<typename... args>
@@ -140,7 +162,7 @@ namespace metal
     {};
 
     template<typename val, typename... args>
-    struct apply<detail::lambda<val>, args...> :
+    struct apply<detail::atom<val>, args...> :
             apply<val, args...>
     {};
 }

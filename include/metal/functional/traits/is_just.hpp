@@ -11,13 +11,21 @@ namespace metal
 {
     namespace detail
     {
-        template<typename>
-        struct type;
+        template<typename opt>
+        struct is_just_impl
+        {
+        private:
+            template<typename>
+            struct wrapper;
 
-        template<typename x, typename = type<typename x::type>>
-        std::true_type has_type(int);
-        template<typename>
-        std::false_type has_type(...);
+            template<typename x, typename = wrapper<typename x::type>>
+            static std::true_type impl(int);
+            template<typename>
+            static std::false_type impl(...);
+
+        public:
+            using type = decltype(impl<opt>(0));
+        };
     }
 
     /// \ingroup functional_traits
@@ -57,7 +65,7 @@ namespace metal
     /// \see is_nothing
     template<typename opt>
     struct is_just :
-            decltype(detail::has_type<opt>(0))
+        detail::is_just_impl<opt>::type
     {};
 
     /// \ingroup functional_traits

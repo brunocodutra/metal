@@ -10,9 +10,9 @@ namespace metal
     namespace detail
     {
         template<typename, int = 0>
-        struct lambda
+        struct atom
         {
-            using type = lambda;
+            using type = atom;
         };
     }
     /// \ingroup functional
@@ -28,7 +28,7 @@ namespace metal
     template<typename value>
     struct protect
     {
-        using type = detail::lambda<value>;
+        using type = detail::atom<value>;
     };
 }
 #endif
