@@ -5,10 +5,21 @@
 #ifndef METAL_FUNCTIONAL_TRAITS_IS_JUST_HPP
 #define METAL_FUNCTIONAL_TRAITS_IS_JUST_HPP
 
-#include <metal/detail/introspection.hpp>
+#include <type_traits>
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename>
+        struct type;
+
+        template<typename x, typename = type<typename x::type>>
+        std::true_type has_type(int);
+        template<typename>
+        std::false_type has_type(...);
+    }
+
     /// \ingroup functional_traits
     /// \brief Checks whether an \optional has some value.
     ///
@@ -45,9 +56,9 @@ namespace metal
     /// --------
     /// \see is_nothing
     template<typename opt>
-    struct is_just;
-
-    METAL_DEFINE_NESTED_TYPE_TRAIT(is_just, type);
+    struct is_just :
+            decltype(detail::has_type<opt>(0))
+    {};
 
     /// \ingroup functional_traits
     /// \brief Eager adaptor for \ref is_just.

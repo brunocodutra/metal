@@ -10,11 +10,6 @@
 
 namespace metal
 {
-    namespace detail
-    {
-        METAL_DEFINE_NESTED_TYPE_TRAIT(has_type, type);
-    }
-
     /// \ingroup functional_traits
     /// \brief Checks whether an \optional is empty.
     ///

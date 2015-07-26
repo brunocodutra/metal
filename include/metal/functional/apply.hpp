@@ -79,8 +79,7 @@ namespace metal
         template<template<typename...> class e, typename... args>
         maybe<e<typename args::type...>>
         eval(wrapper<typename e<typename args::type...>::type>*);
-
-        template<template<typename...> class, typename... args>
+        template<template<typename...> class, typename...>
         nothing eval(...);
 
         template<typename value, typename... args>
@@ -89,12 +88,16 @@ namespace metal
             using type = value;
         };
 
-        template<typename lambda, typename... args>
-        using reduce_t = typename reduce<lambda, args...>::type;
+        template<typename value, typename... args>
+        using reduce_t = typename reduce<value, args...>::type;
 
         template<std::size_t n, typename... args>
         struct reduce<arg<n>, args...> :
                decltype(fetch<n-1>(make_hash<args...>()))
+        {};
+
+        template<typename... args>
+        struct reduce<arg<0>, args...>
         {};
 
         template<
