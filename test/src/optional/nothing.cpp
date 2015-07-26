@@ -8,6 +8,8 @@
 
 using namespace metal;
 
+METAL_TEST_ASSERT((is_nothing_t<nothing>::value));
+
 METAL_TEST_ASSERT((is_nothing_t<test::v0>::value));
 METAL_TEST_ASSERT((is_nothing_t<test::v1>::value));
 METAL_TEST_ASSERT((is_nothing_t<test::v2>::value));
