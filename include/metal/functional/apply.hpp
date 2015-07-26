@@ -70,15 +70,8 @@ namespace metal
         template<std::size_t>
         nothing fetch(...);
 
-        template<typename...>
-        struct wrapper
-        {
-            using type = wrapper;
-        };
-
-        template<template<typename...> class e, typename... args>
-        maybe<e<typename args::type...>>
-        eval(wrapper<typename e<typename args::type...>::type>*);
+        template<template<typename...> class expr, typename... args>
+        maybe<expr<typename args::type...>> eval(int);
         template<template<typename...> class, typename...>
         nothing eval(...);
 
@@ -91,6 +84,23 @@ namespace metal
         template<typename value, typename... args>
         using reduce_t = typename reduce<value, args...>::type;
 
+        template<
+            template<typename...> class expr,
+            typename... params,
+            typename... args
+        >
+        struct reduce<expr<params...>, args...> :
+                decltype(eval<expr, reduce<params, args...>...>(0))
+        {};
+
+        template<
+            template<typename...> class expr,
+            typename... args
+        >
+        struct reduce<expr<>, args...> :
+                decltype(eval<expr>(0))
+        {};
+
         template<std::size_t n, typename... args>
         struct reduce<arg<n>, args...> :
                decltype(fetch<n-1>(make_hash<args...>()))
@@ -98,15 +108,6 @@ namespace metal
 
         template<typename... args>
         struct reduce<arg<0>, args...>
-        {};
-
-        template<
-            template<typename...> class expr,
-            typename... params,
-            typename... args
-        >
-        struct reduce<expr<params...>, args...> :
-                decltype(eval<expr, reduce<params, args...>...>(nullptr))
         {};
     }
 
@@ -119,6 +120,10 @@ namespace metal
     /// \brief Eager adaptor for \ref apply.
     template<typename lambda, typename... args>
     using apply_t = typename metal::apply<lambda, args...>::type;
+
+    template<typename value, typename... args>
+    struct apply
+    {};
 
     template<
         template<typename...> class expr,
@@ -134,9 +139,9 @@ namespace metal
             detail::reduce<arg<n>, args...>
     {};
 
-    template<typename quoted, typename... args>
-    struct apply<protect<quoted>, args...> :
-            apply<typename quoted::type, args...>
+    template<typename val, typename... args>
+    struct apply<detail::lambda<val>, args...> :
+            apply<val, args...>
     {};
 }
 
