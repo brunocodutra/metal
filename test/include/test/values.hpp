@@ -9,7 +9,7 @@ namespace test
 {
     enum v0 {type};
     union v1 {};
-    using v2 = v1(v0);
+    using v2 = v1();
     using v3 = v2* const;
     using v4 = v2* volatile;
     using v5 = v3 volatile;

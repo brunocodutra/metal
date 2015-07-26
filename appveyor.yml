@@ -2,29 +2,28 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-os: Visual Studio 2015 RC
+os: Visual Studio 2015
 platform: x64
 
 environment:
     matrix:
-    - GENERATOR: "Visual Studio 14 2015 Win64"
-      CONFIG: Debug
+    - GENERATOR: "Visual Studio 12 2013 Win64"
+      VCVARSALL: C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat
 
     - GENERATOR: "Visual Studio 14 2015 Win64"
-      CONFIG: Release
+      VCVARSALL: C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat
 
 before_build:
-    - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+- git submodule update --init --recursive
 
-    - git submodule update --init --recursive
+- call "%VCVARSALL%" x64
 
+- cmd: mkdir "%APPVEYOR_BUILD_FOLDER%\build"
+- cmd: cd "%APPVEYOR_BUILD_FOLDER%\build"
+- cmd: cmake -G"%GENERATOR%" "%APPVEYOR_BUILD_FOLDER%"
 
 build_script:
-    - cmd: mkdir "%APPVEYOR_BUILD_FOLDER%\build"
-    - cmd: cd "%APPVEYOR_BUILD_FOLDER%\build"
-
-    - cmd: cmake -G"%GENERATOR%" "%APPVEYOR_BUILD_FOLDER%"
-    - cmd: cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --config %CONFIG% --target metal.test
+- cmd: cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --target metal.test
 
 test_script:
-    - cmd: ctest --output-on-failure
+- cmd: ctest --output-on-failure
