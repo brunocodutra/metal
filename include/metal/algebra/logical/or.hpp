@@ -10,9 +10,14 @@
 namespace metal
 {
     ///\cond
-    template<typename x, typename y, typename... _>
+    template<typename head, typename... tail>
     struct or_ :
-            or_<x, or_<y, _...>>
+            or_<head, or_<tail...>>
+    {};
+
+    template<typename x>
+    struct or_<x> :
+            std::integral_constant<bool, !!x::value>
     {};
 
     template<typename x, typename y>
@@ -24,8 +29,8 @@ namespace metal
     template<typename y> struct or_<std::true_type, y> : std::true_type {};
     ///\endcond
 
-    template<typename... values>
-    using or_t = typename or_<values...>::type;
+    template<typename head, typename... tail>
+    using or_t = typename or_<head, tail...>::type;
 }
 
 #endif

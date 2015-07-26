@@ -10,9 +10,14 @@
 namespace metal
 {
     ///\cond
-    template<typename x, typename y, typename... _>
+    template<typename head, typename... tail>
     struct mul :
-            mul<mul<x, y>, _...>
+            mul<head, mul<tail...>>
+    {};
+
+    template<typename x>
+    struct mul<x> :
+            std::integral_constant<decltype(x::value), x::value>
     {};
 
     template<typename x, typename y>
@@ -23,6 +28,9 @@ namespace metal
             >
     {};
     ///\endcond
+
+    template<typename head, typename... tail>
+    using mul_t = typename mul<head, tail...>::type;
 }
 
 #endif

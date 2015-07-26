@@ -10,9 +10,17 @@
 namespace metal
 {
     ///\cond
-    template<typename x, typename y, typename... _>
-    struct sub :
-            sub<sub<x, y>, _...>
+    template<typename head, typename... tail>
+    struct sub;
+
+    template<typename x>
+    struct sub<x> :
+            std::integral_constant<decltype(x::value), x::value>
+    {};
+
+    template<typename x, typename y, typename... tail>
+    struct sub<x, y, tail...> :
+            sub<sub<x, y>, tail...>
     {};
 
     template<typename x, typename y>
@@ -23,6 +31,9 @@ namespace metal
             >
     {};
     ///\endcond
+
+    template<typename head, typename... tail>
+    using sub_t = typename sub<head, tail...>::type;
 }
 
 #endif

@@ -13,6 +13,9 @@ namespace metal
     struct neg :
             std::integral_constant<decltype(-x::value), -x::value>
     {};
+
+    template<typename x>
+    using neg_t = typename neg<x>::type;
 }
 
 #endif

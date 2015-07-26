@@ -10,9 +10,14 @@
 namespace metal
 {
     ///\cond
-    template<typename x, typename y, typename... _>
+    template<typename head, typename... tail>
     struct and_ :
-            and_<x, and_<y, _...>>
+            and_<head, and_<tail...>>
+    {};
+
+    template<typename x>
+    struct and_<x> :
+            std::integral_constant<bool, !!x::value>
     {};
 
     template<typename x, typename y>
@@ -24,8 +29,8 @@ namespace metal
     template<typename y> struct and_<std::false_type, y> : std::false_type {};
     ///\endcond
 
-    template<typename... values>
-    using and_t = typename and_<values...>::type;
+    template<typename head, typename... tail>
+    using and_t = typename and_<head, tail...>::type;
 }
 
 #endif

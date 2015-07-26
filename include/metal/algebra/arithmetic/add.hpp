@@ -10,9 +10,14 @@
 namespace metal
 {
     ///\cond
-    template<typename x, typename y, typename... _>
+    template<typename head, typename... tail>
     struct add :
-            add<add<x, y>, _...>
+            add<head, add<tail...>>
+    {};
+
+    template<typename x>
+    struct add<x> :
+            std::integral_constant<decltype(x::value), x::value>
     {};
 
     template<typename x, typename y>
@@ -23,6 +28,9 @@ namespace metal
             >
     {};
     ///\endcond
+
+    template<typename head, typename... tail>
+    using add_t = typename add<head, tail...>::type;
 }
 
 #endif

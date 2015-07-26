@@ -16,6 +16,9 @@ namespace metal
                 static_cast<decltype(x::value)>(x::value - 1)
             >
     {};
+
+    template<typename x>
+    using dec_t = typename dec<x>::type;
 }
 
 #endif
