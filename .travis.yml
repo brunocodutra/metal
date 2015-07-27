@@ -8,109 +8,99 @@ sudo: false
 
 matrix:
     include:
-    - env: CXX_VERSION=4.7
+      - env: CXX_VERSION=4.7
         compiler: g++
         addons:
             apt:
                 packages:
-                - g++-4.7
+                  - g++-4.7
                 sources:
-                - ubuntu-toolchain-r-test
+                  - ubuntu-toolchain-r-test
 
-    - env: CXX_VERSION=4.8
+      - env: CXX_VERSION=4.8
         compiler: g++
         addons:
             apt:
                 packages:
-                - g++-4.8
+                  - g++-4.8
                 sources:
-                - ubuntu-toolchain-r-test
+                  - ubuntu-toolchain-r-test
 
-    - env: CXX_VERSION=4.9
+      - env: CXX_VERSION=4.9
         compiler: g++
         addons:
             apt:
                 packages:
-                - g++-4.9
+                  - g++-4.9
                 sources:
-                - ubuntu-toolchain-r-test
+                  - ubuntu-toolchain-r-test
 
-    - env: CXX_VERSION=5
+      - env: CXX_VERSION=5
         compiler: g++
         addons: &gcc5
             apt:
                 packages:
-                - g++-5
+                  - g++-5
                 sources:
-                - ubuntu-toolchain-r-test
+                  - ubuntu-toolchain-r-test
 
-    - env: CXX_VERSION=3.5
+      - env: CXX_VERSION=3.5
         compiler: clang++
         addons:
             apt:
                 packages:
-                - clang-3.5
+                  - clang-3.5
                 sources:
-                - ubuntu-toolchain-r-test
-                - llvm-toolchain-precise-3.5
+                  - ubuntu-toolchain-r-test
+                  - llvm-toolchain-precise-3.5
 
-    - env: CXX_VERSION=3.6
+      - env: CXX_VERSION=3.6
         compiler: clang++
         addons:
             apt:
                 packages:
-                - clang-3.6
+                  - clang-3.6
                 sources:
-                - ubuntu-toolchain-r-test
-                - llvm-toolchain-precise-3.6
+                  - ubuntu-toolchain-r-test
+                  - llvm-toolchain-precise-3.6
 
-    - env: CXX_VERSION=3.7
+      - env: CXX_VERSION=3.7
         compiler: clang++
         addons:
             apt:
                 packages:
-                - clang-3.7
+                  - clang-3.7
                 sources:
-                - ubuntu-toolchain-r-test
-                - llvm-toolchain-precise-3.7
+                  - ubuntu-toolchain-r-test
+                  - llvm-toolchain-precise-3.7
 
-    - env: CXX_VERSION=3.8
-        compiler: clang++
-        addons:
-            apt:
-                packages:
-                - clang-3.8
-                sources:
-                - ubuntu-toolchain-r-test
-                - llvm-toolchain-precise
+addons: *gcc5
 
 env:
     global:
-    - secure: I+/0uZHtoQoyh/NzNru20y7YBqkazbXj/ciTRxoX5oq4YCZoFh07BJxghWeQNX/OqAVpKb0pNbkyMJxKe628LeHlI4ftZCZl2ZJmcLONR9KOUI+8eJ/sb5+TgQIaG1uBwUFx89eXKbbZWWdc0CQhBnSEJdU8sl6lY+ZsbU9PtKk=
+        secure: I+/0uZHtoQoyh/NzNru20y7YBqkazbXj/ciTRxoX5oq4YCZoFh07BJxghWeQNX/OqAVpKb0pNbkyMJxKe628LeHlI4ftZCZl2ZJmcLONR9KOUI+8eJ/sb5+TgQIaG1uBwUFx89eXKbbZWWdc0CQhBnSEJdU8sl6lY+ZsbU9PtKk=
 
     matrix:
-    - CXX_VERSION=5 BUILD_DOC=true
-
-    compiler: g++
-    addons: *gcc5
+      - CXX_VERSION=5 BUILD_DOC=true
 
 install:
-- DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
-- mkdir "${DEPS_PATH}"
+  - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
+  - mkdir "${DEPS_PATH}"
 
-- DOXYGEN_URL="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.10.linux.bin.tar.gz"
-- if [[ "${BUILD_DOC}" == "true" ]]; then mkdir "${DEPS_PATH}/doxygen" && travis_retry wget --quiet -O - ${DOXYGEN_URL} | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen"; fi
-- if [[ "${BUILD_DOC}" == "true" ]]; then export PATH=${DEPS_PATH}/doxygen/bin:${PATH}; fi
+  - DOXYGEN_URL="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.10.linux.bin.tar.gz"
+  - if [[ "${BUILD_DOC}" == "true" ]]; then mkdir "${DEPS_PATH}/doxygen" && travis_retry wget --quiet -O - ${DOXYGEN_URL} | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen"; fi
+  - if [[ "${BUILD_DOC}" == "true" ]]; then export PATH=${DEPS_PATH}/doxygen/bin:${PATH}; fi
 
 before_script:
-- git config --global user.name "Travis Bot"
+  - git config --global user.name "Travis Bot"
 
-- mkdir "${TRAVIS_BUILD_DIR}/build"
-- cd "${TRAVIS_BUILD_DIR}/build"
+  - mkdir "${TRAVIS_BUILD_DIR}/build"
+  - cd "${TRAVIS_BUILD_DIR}/build"
 
-- cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=$CXX-${CXX_VERSION}
+  - if [[ -z "${COMPILER}" ]]; then COMPILER=g++; fi
+  - cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=$CXX-${CXX_VERSION}
 
 script:
-- if [[ "${BUILD_DOC}" != "true" ]]; then time make metal.test && ctest --output-on-failure; fi
-- if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]]; then make metal.doc.update &> /dev/null; fi
-- if [[ "${BUILD_DOC}" == "true" && ("${TRAVIS_PULL_REQUEST}" == "true" || "${TRAVIS_BRANCH}" != "master") ]]; then time make metal.doc; fi
+  - if [[ "${BUILD_DOC}" != "true" ]]; then time make metal.test && ctest --output-on-failure; fi
+  - if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]]; then make metal.doc.update &> /dev/null; fi
+  - if [[ "${BUILD_DOC}" == "true" && ("${TRAVIS_PULL_REQUEST}" == "true" || "${TRAVIS_BRANCH}" != "master") ]]; then time make metal.doc; fi
