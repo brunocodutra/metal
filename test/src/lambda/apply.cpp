@@ -4,7 +4,6 @@
 
 #include <metal/lambda/apply.hpp>
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/protect.hpp>
 
 #include "test.hpp"
 
@@ -50,6 +49,10 @@ METAL_TEST_ASSERT((!is_applicable_t<test::empty<>, void, void*>::value));
 METAL_TEST_ASSERT((is_applicable_t<test::e0<>>::value));
 METAL_TEST_ASSERT((is_applicable_t<test::e0<>, void>::value));
 METAL_TEST_ASSERT((is_applicable_t<test::e0<>, void, void*>::value));
+
+METAL_TEST_ASSERT((!is_applicable_t<test::e1<arg<0>>>::value));
+METAL_TEST_ASSERT((!is_applicable_t<test::e1<arg<0>>, void>::value));
+METAL_TEST_ASSERT((!is_applicable_t<test::e1<arg<0>>, void, void*>::value));
 
 METAL_TEST_ASSERT((!is_applicable_t<test::e1<_1>>::value));
 METAL_TEST_ASSERT((is_applicable_t<test::e1<_1>, void>::value));

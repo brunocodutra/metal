@@ -99,35 +99,24 @@ namespace metal
             using type = decltype(impl(make_hash()));
         };
 
-        template<typename>
-        struct eval;
-
         template<template<typename...> class expr, typename... args>
-        struct eval<expr<args...>>
+        struct eval
         {
         private:
-            static expr<args...>* forward();
-
             template<typename... a>
-            static maybe<expr<typename a::type...>> impl(expr<a...>*);
+            static maybe<expr<typename a::type...>> impl(int);
+            template<typename...>
             static nothing impl(...);
 
         public:
-            using type = decltype(impl(forward()));
+            using type = decltype(impl<args...>(0));
         };
 
-        template<typename... args>
-        struct reduce
-        {};
-
         template<typename value, typename... args>
-        struct reduce<value, args...>
+        struct reduce
         {
             using type = value;
         };
-
-        template<typename... args>
-        using reduce_t = typename reduce<args...>::type;
 
         template<
             template<typename...> class expr,
@@ -135,16 +124,12 @@ namespace metal
             typename... args
         >
         struct reduce<expr<params...>, args...> :
-                eval<expr<reduce<params, args...>...>>::type
+                eval<expr, reduce<params, args...>...>::type
         {};
 
         template<std::size_t n, typename... args>
         struct reduce<arg<n>, args...> :
                select<n, args...>::type
-        {};
-
-        template<typename... args>
-        struct reduce<arg<0>, args...>
         {};
     }
 
