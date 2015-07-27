@@ -5,6 +5,8 @@
 #ifndef METAL_OPTIONAL_JUST_HPP
 #define METAL_OPTIONAL_JUST_HPP
 
+#include <metal/number/logical/and.hpp>
+
 #include <type_traits>
 
 namespace metal
@@ -18,7 +20,7 @@ namespace metal
     };
 
     /// \ingroup optional
-    /// \brief Checks whether an \optional has some value.
+    /// \brief Checks whether an \optional represents some value.
     ///
     /// Usage
     /// -----
@@ -31,7 +33,7 @@ namespace metal
     ///     \number
     ///
     /// \par Semantics:
-    ///     if `opt::type` well defined defined and is a model of \value,
+    ///     if `opt::type` well defined and is a model of \value,
     ///     then equivalent to
     ///     \code
     ///         struct result :
@@ -60,6 +62,49 @@ namespace metal
     template<typename opt>
     using is_just_t = typename metal::is_just<opt>::type;
 
+    /// \ingroup optional
+    /// \brief Checks whether an \optional represents itself.
+    ///
+    /// Usage
+    /// -----
+    /// For any \optional `opt`,
+    /// \code
+    ///     using result = metal::is_just_itself<opt>;
+    /// \endcode
+    ///
+    /// \par Model:
+    ///     \number
+    ///
+    /// \par Semantics:
+    ///     if `opt::type` well defined and is an alias to `opt`,
+    ///     then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             std::true_type
+    ///         {};
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         struct result :
+    ///             std::false_type
+    ///         {};
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet optional/just.cpp is_just_itself
+    ///
+    /// See Also
+    /// --------
+    /// \see is_nothing
+    template<typename opt>
+    struct is_just_itself;
+
+    /// \ingroup optional
+    /// \brief Eager adaptor for \ref is_just_itself.
+    template<typename opt>
+    using is_just_itself_t = typename metal::is_just_itself<opt>::type;
+
     namespace detail
     {
         template<typename opt>
@@ -82,6 +127,19 @@ namespace metal
     template<typename opt>
     struct is_just :
         detail::is_just_impl<opt>::type
+    {};
+
+    namespace detail
+    {
+        template<typename opt>
+        struct is_just_itself_impl :
+                std::is_same<opt, typename opt::type>
+        {};
+    }
+
+    template<typename opt>
+    struct is_just_itself :
+        and_<is_just<opt>, detail::is_just_itself_impl<opt>>
     {};
 }
 
