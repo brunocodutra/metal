@@ -8,6 +8,7 @@
 #include "test/assert.hpp"
 #include "test/expressions.hpp"
 #include "test/numbers.hpp"
+#include "test/sequences.hpp"
 #include "test/values.hpp"
 
 #include <type_traits>

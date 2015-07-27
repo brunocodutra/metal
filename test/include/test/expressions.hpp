@@ -12,9 +12,9 @@ namespace test
     {};
 
     template<typename... args>
-    union en
+    union expr
     {
-        using type = en*;
+        using type = expr*;
     };
 
     template<typename = void>
@@ -33,7 +33,7 @@ namespace test
     };
 
     template<typename x, typename y>
-    using e2 = en<x, y>;
+    using e2 = expr<x, y>;
 }
 
 #endif

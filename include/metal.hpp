@@ -8,6 +8,7 @@
 #include <metal/lambda.hpp>
 #include <metal/number.hpp>
 #include <metal/optional.hpp>
+#include <metal/sequence.hpp>
 
 #endif
 

@@ -31,3 +31,14 @@ METAL_TEST_ASSERT((!is_nothing_t<test::n6>::value));
 METAL_TEST_ASSERT((!is_nothing_t<test::n7>::value));
 METAL_TEST_ASSERT((!is_nothing_t<test::n9>::value));
 METAL_TEST_ASSERT((!is_nothing_t<test::n9>::value));
+
+METAL_TEST_ASSERT((!is_nothing_t<test::list0>::value));
+METAL_TEST_ASSERT((!is_nothing_t<test::list1>::value));
+METAL_TEST_ASSERT((!is_nothing_t<test::list2>::value));
+METAL_TEST_ASSERT((!is_nothing_t<test::list3>::value));
+METAL_TEST_ASSERT((!is_nothing_t<test::list4>::value));
+METAL_TEST_ASSERT((!is_nothing_t<test::list5>::value));
+METAL_TEST_ASSERT((!is_nothing_t<test::list6>::value));
+METAL_TEST_ASSERT((!is_nothing_t<test::list7>::value));
+METAL_TEST_ASSERT((!is_nothing_t<test::list8>::value));
+METAL_TEST_ASSERT((!is_nothing_t<test::list9>::value));
