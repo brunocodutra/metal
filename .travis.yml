@@ -8,77 +8,91 @@ sudo: false
 
 matrix:
     include:
-    - env: COMPILER=g++-4.7
+    - env: CXX_VERSION=4.7
+        compiler: g++
         addons:
             apt:
                 packages:
                 - g++-4.7
                 sources:
                 - ubuntu-toolchain-r-test
-    - env: COMPILER=g++-4.8
+
+    - env: CXX_VERSION=4.8
+        compiler: g++
         addons:
             apt:
                 packages:
                 - g++-4.8
                 sources:
                 - ubuntu-toolchain-r-test
-    - env: COMPILER=g++-4.9
+
+    - env: CXX_VERSION=4.9
+        compiler: g++
         addons:
             apt:
                 packages:
                 - g++-4.9
                 sources:
                 - ubuntu-toolchain-r-test
-    - env: COMPILER=g++-5
-        addons:
+
+    - env: CXX_VERSION=5
+        compiler: g++
+        addons: &gcc5
             apt:
                 packages:
                 - g++-5
                 sources:
                 - ubuntu-toolchain-r-test
-    - env: COMPILER=clang++-3.5
+
+    - env: CXX_VERSION=3.5
+        compiler: clang++
         addons:
             apt:
                 packages:
                 - clang-3.5
-                - libc++-dev
                 sources:
                 - ubuntu-toolchain-r-test
                 - llvm-toolchain-precise-3.5
-    - env: COMPILER=clang++-3.6
+
+    - env: CXX_VERSION=3.6
+        compiler: clang++
         addons:
             apt:
                 packages:
                 - clang-3.6
-                - libc++-dev
                 sources:
                 - ubuntu-toolchain-r-test
                 - llvm-toolchain-precise-3.6
-    - env: COMPILER=clang++-3.7
+
+    - env: CXX_VERSION=3.7
+        compiler: clang++
         addons:
             apt:
                 packages:
                 - clang-3.7
-                - libc++-dev
                 sources:
                 - ubuntu-toolchain-r-test
                 - llvm-toolchain-precise-3.7
-    - env: COMPILER=clang++-3.8
+
+    - env: CXX_VERSION=3.8
+        compiler: clang++
         addons:
             apt:
                 packages:
                 - clang-3.8
-                - libc++-dev
                 sources:
                 - ubuntu-toolchain-r-test
                 - llvm-toolchain-precise
 
 env:
     global:
-        secure: I+/0uZHtoQoyh/NzNru20y7YBqkazbXj/ciTRxoX5oq4YCZoFh07BJxghWeQNX/OqAVpKb0pNbkyMJxKe628LeHlI4ftZCZl2ZJmcLONR9KOUI+8eJ/sb5+TgQIaG1uBwUFx89eXKbbZWWdc0CQhBnSEJdU8sl6lY+ZsbU9PtKk=
+    - secure: I+/0uZHtoQoyh/NzNru20y7YBqkazbXj/ciTRxoX5oq4YCZoFh07BJxghWeQNX/OqAVpKb0pNbkyMJxKe628LeHlI4ftZCZl2ZJmcLONR9KOUI+8eJ/sb5+TgQIaG1uBwUFx89eXKbbZWWdc0CQhBnSEJdU8sl6lY+ZsbU9PtKk=
 
     matrix:
-    - env: BUILD_DOC=true
+    - CXX_VERSION=5 BUILD_DOC=true
+
+    compiler: g++
+    addons: *gcc5
 
 install:
 - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
@@ -94,8 +108,7 @@ before_script:
 - mkdir "${TRAVIS_BUILD_DIR}/build"
 - cd "${TRAVIS_BUILD_DIR}/build"
 
-- if [[ -z "${COMPILER}" ]]; then COMPILER=g++; fi
-- cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=/usr/bin/${COMPILER}
+- cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=$CXX-${CXX_VERSION}
 
 script:
 - if [[ "${BUILD_DOC}" != "true" ]]; then time make metal.test && ctest --output-on-failure; fi
