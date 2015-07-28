@@ -6,8 +6,8 @@
 #define METAL_OPTIONAL_CONDITIONAL_HPP
 
 #include <metal/optional/nothing.hpp>
-#include <metal/optional/just.hpp>
 #include <metal/optional/maybe.hpp>
+#include <metal/number/logical/query.hpp>
 
 #include <type_traits>
 
@@ -31,13 +31,13 @@ namespace metal
     template<typename pred, typename then, typename else_>
     struct conditional<pred, then, else_> :
             maybe<
-                typename std::conditional<!!pred::value, then, else_>::type
+                typename std::conditional<query<pred>::value, then, else_>::type
             >
     {};
 
     template<typename pred, typename then>
     struct conditional<pred, then> :
-            conditional<pred, then, just<nothing>>
+            conditional<pred, then, nothing>
     {};
 }
 
