@@ -5,6 +5,8 @@
 #ifndef METAL_HPP
 #define METAL_HPP
 
+#include <metal/core.hpp>
+#include <metal/expression.hpp>
 #include <metal/lambda.hpp>
 #include <metal/number.hpp>
 #include <metal/optional.hpp>

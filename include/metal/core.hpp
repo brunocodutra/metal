@@ -2,9 +2,14 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#include <metal.hpp>
+#ifndef METAL_CORE_HPP
+#define METAL_CORE_HPP
 
-#include "test.hpp"
+#include <metal/core/inherit.hpp>
 
-using namespace metal;
-using namespace metal::detail;
+#endif
+
+/// \defgroup core Core
+/// \ingroup metal
+/// \brief Handy constructs.
+
