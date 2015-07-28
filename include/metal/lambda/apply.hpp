@@ -7,6 +7,7 @@
 
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/protect.hpp>
+#include <metal/expression/eval.hpp>
 #include <metal/optional/maybe.hpp>
 #include <metal/optional/just.hpp>
 #include <metal/optional/nothing.hpp>
@@ -99,17 +100,11 @@ namespace metal
             using type = decltype(impl(make_hash()));
         };
 
-        template<template<typename...> class expr, typename... args>
-        struct eval
+        template<template<typename...> class expr>
+        struct lift
         {
-        private:
-            template<typename... a>
-            static maybe<expr<typename a::type...>> impl(int);
-            template<typename...>
-            static nothing impl(...);
-
-        public:
-            using type = decltype(impl<args...>(0));
+            template<typename... opts>
+            using type = expr<typename opts::type...>;
         };
 
         template<typename value, typename... args>
@@ -124,7 +119,10 @@ namespace metal
             typename... args
         >
         struct reduce<expr<params...>, args...> :
-                eval<expr, reduce<params, args...>...>::type
+                eval<
+                    lift<expr>::template type,
+                    reduce<params, args...>...
+                >
         {};
 
         template<std::size_t n, typename... args>
