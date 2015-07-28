@@ -5,13 +5,15 @@
 #ifndef METAL_NUMBER_LOGICAL_NOT_HPP
 #define METAL_NUMBER_LOGICAL_NOT_HPP
 
+#include <metal/number/logical/query.hpp>
+
 #include <type_traits>
 
 namespace metal
 {
-    template<typename x>
+    template<typename number>
     struct not_ :
-        std::integral_constant<bool, !x::value>
+        std::integral_constant<bool, !query<number>::value>
     {};
 
     template<typename value>

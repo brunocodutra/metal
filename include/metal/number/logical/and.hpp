@@ -5,6 +5,8 @@
 #ifndef METAL_NUMBER_LOGICAL_AND_HPP
 #define METAL_NUMBER_LOGICAL_AND_HPP
 
+#include <metal/number/logical/query.hpp>
+
 #include <type_traits>
 
 namespace metal
@@ -17,12 +19,12 @@ namespace metal
 
     template<typename x>
     struct and_<x> :
-            std::integral_constant<bool, !!x::value>
+            query<x>
     {};
 
     template<typename x, typename y>
     struct and_<x, y> :
-            and_<std::integral_constant<bool, !!x::value>, y>
+            and_<query_t<x>, y>
     {};
 
     template<typename y> struct and_<std::true_type, y> : y {};
