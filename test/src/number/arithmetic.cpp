@@ -35,20 +35,20 @@ METAL_TEST_ASSERT((equal_to<sub_t<test::n5, test::n1, test::n1, test::n1, test::
 METAL_TEST_ASSERT((equal_to<sub_t<test::n6, test::n1, test::n1, test::n1, test::n1, test::n1, test::n1>, test::n0>::value));
 METAL_TEST_ASSERT((equal_to<sub_t<test::n7, test::n1, test::n1, test::n1, test::n1, test::n1, test::n1, test::n1>, test::n0>::value));
 
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2>, std::integral_constant<int, 2>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2>, std::integral_constant<int, 4>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2>, std::integral_constant<int, 8>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2>, std::integral_constant<int, 16>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2>, std::integral_constant<int, 32>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, std::integral_constant<int, 64>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, std::integral_constant<int, 128>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, std::integral_constant<int, 256>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2>, test::number<2>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2>, test::number<4>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2>, test::number<8>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2>, test::number<16>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2>, test::number<32>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::number<64>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::number<128>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::number<256>>::value));
 
-METAL_TEST_ASSERT((equal_to<metal::div_t<std::integral_constant<int, 1>>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<std::integral_constant<int, 2>, test::n2>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<std::integral_constant<int, 4>, test::n2, test::n2>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<std::integral_constant<int, 8>, test::n2, test::n2, test::n2>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<std::integral_constant<int, 16>, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<std::integral_constant<int, 32>, test::n2, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<std::integral_constant<int, 64>, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<std::integral_constant<int, 128>, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<1>>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<2>, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<4>, test::n2, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<8>, test::n2, test::n2, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<16>, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<32>, test::n2, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<64>, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<128>, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
