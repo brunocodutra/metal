@@ -5,8 +5,10 @@
 #ifndef METAL_SEQUENCE_HPP
 #define METAL_SEQUENCE_HPP
 
+#include <metal/sequence/enumerate.hpp>
 #include <metal/sequence/join.hpp>
 #include <metal/sequence/list.hpp>
+#include <metal/sequence/range.hpp>
 
 #endif
 
