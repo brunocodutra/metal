@@ -3,13 +3,15 @@
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 os: Visual Studio 2015
-platform: x64
+platform: Any CPU
+clone_depth: 1
+
+matrix:
+    allow_failures:
+      - GENERATOR: "Visual Studio 12 2013 Win64"
 
 environment:
     matrix:
-        allow_failures:
-          - GENERATOR: "Visual Studio 12 2013 Win64"
-
       - GENERATOR: "Visual Studio 12 2013 Win64"
       - GENERATOR: "Visual Studio 14 2015 Win64"
       - GENERATOR: "MinGW Makefiles"
