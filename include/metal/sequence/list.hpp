@@ -24,7 +24,7 @@ namespace metal
     template<typename seq>
     struct is_list;
 
-    /// \ingroup optional
+    /// \ingroup sequence
     /// \brief Eager adaptor for \ref is_list.
     template<typename seq>
     using is_list_t = typename metal::is_list<seq>::type;
@@ -34,9 +34,9 @@ namespace metal
             std::false_type
     {};
 
-    template<template<typename...> class list, typename... values>
-    struct is_list<list<values...>> :
-            is_just_itself<list<values...>>
+    template<template<typename...> class seq, typename... values>
+    struct is_list<seq<values...>> :
+            is_just_itself<seq<values...>>
     {};
 }
 

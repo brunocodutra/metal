@@ -11,6 +11,9 @@
 #include <metal/optional/maybe.hpp>
 #include <metal/optional/just.hpp>
 #include <metal/optional/nothing.hpp>
+#include <metal/sequence/list.hpp>
+#include <metal/sequence/enumerate.hpp>
+#include <metal/sequence/size.hpp>
 
 namespace metal
 {
@@ -39,65 +42,34 @@ namespace metal
 
     namespace detail
     {
-        template<std::size_t...>
-        struct enumeration
-        {
-            using type = enumeration;
-        };
-
-        template<typename, typename>
-        struct merge;
-
-        template<std::size_t... l, std::size_t... u>
-        struct merge<enumeration<l...>, enumeration<u...>> :
-                enumeration<l..., sizeof...(l) + u...>
-        {};
-
-        template<std::size_t n>
-        struct enumerate;
-
-        template<std::size_t n>
-        using enumerate_t = typename enumerate<n>::type;
-
-        template<std::size_t n>
-        struct enumerate :
-                merge<enumerate_t<n/2>, enumerate_t<n - n/2>>
-        {};
-
-        template<>
-        struct enumerate<0U> :
-                enumeration<>
-        {};
-
-        template<>
-        struct enumerate<1U> :
-                enumeration<0U>
-        {};
-
-        template<std::size_t, typename value>
+        template<std::size_t, typename>
         struct item
         {};
 
-        template<typename, typename...>
+        template<typename, typename>
         struct hash;
 
-        template<std::size_t... ids, typename... args>
-        struct hash<enumeration<ids...>, args...> :
-                item<ids, args>...
+        template<
+            template<typename...> class list,
+            typename... keys, typename... values
+        >
+        struct hash<list<keys...>, list<values...>> :
+                item<keys::value, values>...
         {};
 
         template<std::size_t n, typename... args>
         struct select
         {
         private:
-            static hash<enumerate_t<sizeof...(args)>, args...>* make_hash();
-
             template<typename value>
             static just<value> impl(item<n - 1, value>*);
             static nothing impl(...);
 
+            template<typename seq>
+            static hash<enumerate_t<size_t<seq>>, seq>* make_hash();
+
         public:
-            using type = decltype(impl(make_hash()));
+            using type = decltype(impl(make_hash<list<args...>>()));
         };
 
         template<template<typename...> class expr>
@@ -128,6 +100,10 @@ namespace metal
         template<std::size_t n, typename... args>
         struct reduce<arg<n>, args...> :
                select<n, args...>::type
+        {};
+
+        template<typename... args>
+        struct reduce<arg<0U>, args...>
         {};
     }
 
