@@ -5,6 +5,7 @@
 #ifndef METAL_SEQUENCE_HPP
 #define METAL_SEQUENCE_HPP
 
+#include <metal/sequence/join.hpp>
 #include <metal/sequence/list.hpp>
 
 #endif
