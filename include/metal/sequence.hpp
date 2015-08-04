@@ -9,6 +9,7 @@
 #include <metal/sequence/join.hpp>
 #include <metal/sequence/list.hpp>
 #include <metal/sequence/range.hpp>
+#include <metal/sequence/size.hpp>
 
 #endif
 
