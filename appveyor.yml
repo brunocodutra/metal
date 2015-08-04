@@ -7,23 +7,22 @@ platform: x64
 
 environment:
     matrix:
-    - GENERATOR: "Visual Studio 12 2013 Win64"
-      VCVARSALL: C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat
+        allow_failures:
+          - GENERATOR: "Visual Studio 12 2013 Win64"
 
-    - GENERATOR: "Visual Studio 14 2015 Win64"
-      VCVARSALL: C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat
+      - GENERATOR: "Visual Studio 12 2013 Win64"
+      - GENERATOR: "Visual Studio 14 2015 Win64"
+      - GENERATOR: "MinGW Makefiles"
 
 before_build:
-- git submodule update --init --recursive
+  - git submodule update --init --recursive
 
-- call "%VCVARSALL%" x64
-
-- cmd: mkdir "%APPVEYOR_BUILD_FOLDER%\build"
-- cmd: cd "%APPVEYOR_BUILD_FOLDER%\build"
-- cmd: cmake -G"%GENERATOR%" "%APPVEYOR_BUILD_FOLDER%"
+  - cmd: mkdir "%APPVEYOR_BUILD_FOLDER%\build"
+  - cmd: cd "%APPVEYOR_BUILD_FOLDER%\build"
+  - cmd: cmake -G"%GENERATOR%" "%APPVEYOR_BUILD_FOLDER%"
 
 build_script:
-- cmd: cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --target metal.test
+  - cmd: cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --target metal.test
 
 test_script:
-- cmd: ctest --output-on-failure
+  - cmd: ctest --output-on-failure

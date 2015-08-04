@@ -7,9 +7,16 @@ os: linux
 sudo: false
 
 matrix:
+    allow_failures:
+      - compiler: g++
+        env: CXX_VERSION=4.7
+
+      - compiler: clang++
+        env: CXX_VERSION=3.7
+
     include:
-      - env: CXX_VERSION=4.7
-        compiler: g++
+      - compiler: g++
+        env: CXX_VERSION=4.7
         addons:
             apt:
                 packages:
@@ -17,8 +24,8 @@ matrix:
                 sources:
                   - ubuntu-toolchain-r-test
 
-      - env: CXX_VERSION=4.8
-        compiler: g++
+      - compiler: g++
+        env: CXX_VERSION=4.8
         addons:
             apt:
                 packages:
@@ -26,8 +33,8 @@ matrix:
                 sources:
                   - ubuntu-toolchain-r-test
 
-      - env: CXX_VERSION=4.9
-        compiler: g++
+      - compiler: g++
+        env: CXX_VERSION=4.9
         addons:
             apt:
                 packages:
@@ -35,8 +42,8 @@ matrix:
                 sources:
                   - ubuntu-toolchain-r-test
 
-      - env: CXX_VERSION=5
-        compiler: g++
+      - compiler: g++
+        env: CXX_VERSION=5
         addons: &gcc5
             apt:
                 packages:
@@ -44,8 +51,8 @@ matrix:
                 sources:
                   - ubuntu-toolchain-r-test
 
-      - env: CXX_VERSION=3.5
-        compiler: clang++
+      - compiler: clang++
+        env: CXX_VERSION=3.5
         addons:
             apt:
                 packages:
@@ -54,8 +61,8 @@ matrix:
                   - ubuntu-toolchain-r-test
                   - llvm-toolchain-precise-3.5
 
-      - env: CXX_VERSION=3.6
-        compiler: clang++
+      - compiler: clang++
+        env: CXX_VERSION=3.6
         addons:
             apt:
                 packages:
@@ -64,8 +71,8 @@ matrix:
                   - ubuntu-toolchain-r-test
                   - llvm-toolchain-precise-3.6
 
-      - env: CXX_VERSION=3.7
-        compiler: clang++
+      - compiler: clang++
+        env: CXX_VERSION=3.7
         addons:
             apt:
                 packages:
@@ -74,8 +81,8 @@ matrix:
                   - ubuntu-toolchain-r-test
                   - llvm-toolchain-precise-3.7
 
+compiler: g++
 addons: *gcc5
-
 env:
     global:
         secure: I+/0uZHtoQoyh/NzNru20y7YBqkazbXj/ciTRxoX5oq4YCZoFh07BJxghWeQNX/OqAVpKb0pNbkyMJxKe628LeHlI4ftZCZl2ZJmcLONR9KOUI+8eJ/sb5+TgQIaG1uBwUFx89eXKbbZWWdc0CQhBnSEJdU8sl6lY+ZsbU9PtKk=
