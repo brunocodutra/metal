@@ -19,12 +19,14 @@ environment:
 before_build:
   - git submodule update --init --recursive
 
-  - cmd: mkdir "%APPVEYOR_BUILD_FOLDER%\build"
-  - cmd: cd "%APPVEYOR_BUILD_FOLDER%\build"
-  - cmd: cmake -G"%GENERATOR%" "%APPVEYOR_BUILD_FOLDER%"
+  - set PATH=%PATH:Git\bin=%;C:\MinGW\bin
+
+  - mkdir "%APPVEYOR_BUILD_FOLDER%\build"
+  - cd "%APPVEYOR_BUILD_FOLDER%\build"
+  - cmake -G"%GENERATOR%" "%APPVEYOR_BUILD_FOLDER%"
 
 build_script:
-  - cmd: cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --target metal.test
+  - cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --target metal.test
 
 test_script:
-  - cmd: ctest --output-on-failure
+  - ctest --output-on-failure
