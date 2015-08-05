@@ -77,37 +77,11 @@ namespace metal
             template<typename... opts>
             using type = expr<typename opts::type...>;
         };
-
-        template<typename value, typename... args>
-        struct reduce
-        {
-            using type = value;
-        };
-
-        template<
-            template<typename...> class expr,
-            typename... params,
-            typename... args
-        >
-        struct reduce<expr<params...>, args...> :
-                eval<
-                    lift<expr>::template type,
-                    reduce<params, args...>...
-                >
-        {};
-
-        template<std::size_t n, typename... args>
-        struct reduce<arg<n>, args...> :
-               select<n, args...>::type
-        {};
-
-        template<typename... args>
-        struct reduce<arg<0U>, args...>
-        {};
     }
 
     template<typename value, typename... args>
-    struct apply
+    struct apply :
+            just<value>
     {};
 
     template<
@@ -116,12 +90,19 @@ namespace metal
         typename... args
     >
     struct apply<expr<params...>, args...> :
-            detail::reduce<expr<params...>, args...>
+            eval<
+                detail::lift<expr>::template type,
+                apply<params, args...>...
+            >
     {};
 
     template<std::size_t n, typename... args>
     struct apply<arg<n>, args...> :
-            detail::reduce<arg<n>, args...>
+           detail::select<n, args...>::type
+    {};
+
+    template<typename... args>
+    struct apply<arg<0U>, args...>
     {};
 }
 

@@ -9,38 +9,38 @@
 
 using namespace metal;
 
-METAL_TEST_ASSERT((!is_applicable_t<test::v0>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v1>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v2>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v3>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v4>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v5>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v6>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v7>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v8>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v9>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v0>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v1>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v2>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v3>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v4>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v5>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v6>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v7>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v8>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v9>::value));
 
-METAL_TEST_ASSERT((!is_applicable_t<test::v0, void>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v1, void>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v2, void>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v3, void>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v4, void>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v5, void>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v6, void>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v7, void>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v8, void>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v9, void>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v0, void>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v1, void>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v2, void>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v3, void>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v4, void>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v5, void>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v6, void>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v7, void>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v8, void>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v9, void>::value));
 
-METAL_TEST_ASSERT((!is_applicable_t<test::v0, void, void*>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v1, void, void*>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v2, void, void*>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v3, void, void*>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v4, void, void*>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v5, void, void*>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v6, void, void*>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v7, void, void*>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v8, void, void*>::value));
-METAL_TEST_ASSERT((!is_applicable_t<test::v9, void, void*>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v0, void, void*>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v1, void, void*>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v2, void, void*>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v3, void, void*>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v4, void, void*>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v5, void, void*>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v6, void, void*>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v7, void, void*>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v8, void, void*>::value));
+METAL_TEST_ASSERT((is_applicable_t<test::v9, void, void*>::value));
 
 METAL_TEST_ASSERT((is_applicable_t<test::list0>::value));
 METAL_TEST_ASSERT((is_applicable_t<test::list1>::value));

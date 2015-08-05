@@ -67,10 +67,6 @@ thus evaluating *nothing* leads to a compile-time error.
 
 `opt` is a model of [Optional] if and only if `opt` is a model of [Value].
 
-## Associated Traits
-
-metal::is_just, metal::is_nothing
-
 ## Examples
 
 \snippet concepts/optional.cpp ex1
@@ -78,9 +74,9 @@ metal::is_just, metal::is_nothing
 \snippet concepts/optional.cpp ex3
 \snippet concepts/optional.cpp ex4
 
-## Models
+## See Also
 
-metal::maybe, metal::just, metal::nothing
+metal::maybe, metal::just, metal::nothing, metal::is_just, metal::is_nothing
 
 Number {#concept_number}
 ================================================================================
@@ -154,9 +150,9 @@ union or alias taking only types as arguments.
 \snippet concepts/expression.cpp nex2
 \snippet concepts/expression.cpp nex3
 
-## Models
+## See Also
 
-metal::apply, metal::bind, metal::protect, metal::quote
+metal::eval, metal::is_evaluable
 
 Lambda {#concept_lambda}
 ================================================================================
@@ -167,8 +163,8 @@ As such, [Lambdas] can serve as argument or return type to other
 [Lambdas] and [Expressions], thus enabling
 [higher-order] programming, much like run-time [function objects].
 
-[Lambdas] are named after their homonym mathematical model for computation,
-the [Lambda Calculus].
+[Lambdas] are named after their homonym mathematical formalization for
+computability, the [Lambda Calculus].
 
 ## Requirements
 
@@ -176,25 +172,18 @@ If `expr` is a model of [Expression] and `[a1, ..., an]` are models of [Value],
 then `lbd` is a model of [Lambda] if and only if `lbd` is either
 * an alias to `expr<a1, ..., an>`
 * a [placeholder](\ref placeholders)
-
-## Associated Traits
-
-metal::is_lambda
+* any other [Value]
 
 ## Examples
 
 \snippet concepts/lambda.cpp ex1
 \snippet concepts/lambda.cpp ex2
 \snippet concepts/lambda.cpp ex3
+\snippet concepts/lambda.cpp ex4
 
-## Counterexamples
+## See Also
 
-\snippet concepts/lambda.cpp nex1
-\snippet concepts/lambda.cpp nex2
-
-## Models
-
-metal::arg, metal::quote, metal::bind, metal::lambda
+metal::apply, metal::bind, metal::arg
 
 [Value]:                    \ref concept_value
 [Values]:                   \ref concept_value

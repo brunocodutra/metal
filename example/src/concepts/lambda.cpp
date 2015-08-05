@@ -11,44 +11,39 @@
 namespace ex1
 {
     /// [ex1]
-    using lbd = std::add_pointer<void>;
+    using lbd = void;
     /// [ex1]
 
     static_assert(metal::is_applicable<lbd>::value, "");
+    static_assert(std::is_same<metal::apply_t<lbd>, void>::value, "");
 }
 
 namespace ex2
 {
     /// [ex2]
-    using lbd = metal::_3;
+    using lbd = std::add_pointer<void>;
     /// [ex2]
 
-    static_assert(metal::is_applicable<lbd, void, void, void>::value, "");
+    static_assert(metal::is_applicable<lbd>::value, "");
+    static_assert(std::is_same<metal::apply_t<lbd>, void*>::value, "");
 }
 
 namespace ex3
 {
     /// [ex3]
-    using lbd = std::is_convertible<std::add_pointer<metal::_1>, metal::_2>;
+    using lbd = metal::_2;
     /// [ex3]
 
-    static_assert(metal::is_applicable<lbd, void, lbd*>::value, "");
+    static_assert(metal::is_applicable<lbd, int, int>::value, "");
+    static_assert(std::is_same<metal::apply_t<lbd, int, int>, int>::value, "");
 }
 
-namespace nex1
+namespace ex4
 {
-    /// [nex1]
-    using lbd = void;
-    /// [nex1]
+    /// [ex4]
+    using lbd = std::is_convertible<metal::_1, std::add_pointer<metal::_2>>;
+    /// [ex4]
 
-    static_assert(!metal::is_applicable<lbd>::value, "");
-}
-
-namespace nex2
-{
-    /// [nex2]
-    using lbd = std::integral_constant<bool, true>;
-    /// [nex2]
-
-    static_assert(!metal::is_applicable<lbd>::value, "");
+    static_assert(metal::is_applicable<lbd, lbd*, void>::value, "");
+    static_assert(metal::apply_t<lbd, lbd*, void>::value, "");
 }
