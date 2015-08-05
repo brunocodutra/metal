@@ -14,15 +14,9 @@ environment:
     matrix:
       - GENERATOR: "Visual Studio 12 2013 Win64"
       - GENERATOR: "Visual Studio 14 2015 Win64"
-      - GENERATOR: "MinGW Makefiles"
-
-install:
-  - cinst mingw
 
 before_build:
   - git submodule update --init --recursive
-
-  - set PATH=%PATH:Git\bin=%;C:\MinGW\bin
 
   - mkdir "%APPVEYOR_BUILD_FOLDER%\build"
   - cd "%APPVEYOR_BUILD_FOLDER%\build"
