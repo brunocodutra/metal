@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/protect.hpp>
+#include <metal/lambda/quote.hpp>
 #include <metal/lambda/apply.hpp>
 
 #include "example.hpp"
@@ -29,17 +29,8 @@ namespace ex2
 namespace ex3
 {
     /// [ex3]
-    using lbd = metal::protect_t<metal::_1>;
-    /// [ex3]
-
-    static_assert(metal::is_applicable<lbd, void>::value, "");
-}
-
-namespace ex4
-{
-    /// [ex4]
     using lbd = std::is_convertible<std::add_pointer<metal::_1>, metal::_2>;
-    /// [ex4]
+    /// [ex3]
 
     static_assert(metal::is_applicable<lbd, void, lbd*>::value, "");
 }

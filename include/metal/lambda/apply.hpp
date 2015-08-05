@@ -6,7 +6,6 @@
 #define METAL_LAMBDA_APPLY_HPP
 
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/protect.hpp>
 #include <metal/expression/eval.hpp>
 #include <metal/optional/maybe.hpp>
 #include <metal/optional/just.hpp>
@@ -123,11 +122,6 @@ namespace metal
     template<std::size_t n, typename... args>
     struct apply<arg<n>, args...> :
             detail::reduce<arg<n>, args...>
-    {};
-
-    template<typename val, typename... args>
-    struct apply<detail::atom<val>, args...> :
-            apply<val, args...>
     {};
 }
 

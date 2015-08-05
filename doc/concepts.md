@@ -176,7 +176,6 @@ If `expr` is a model of [Expression] and `[a1, ..., an]` are models of [Value],
 then `lbd` is a model of [Lambda] if and only if `lbd` is either
 * an alias to `expr<a1, ..., an>`
 * a [placeholder](\ref placeholders)
-* a [protected](\ref metal::protect) [Lambda]
 
 ## Associated Traits
 
@@ -187,7 +186,6 @@ metal::is_lambda
 \snippet concepts/lambda.cpp ex1
 \snippet concepts/lambda.cpp ex2
 \snippet concepts/lambda.cpp ex3
-\snippet concepts/lambda.cpp ex4
 
 ## Counterexamples
 

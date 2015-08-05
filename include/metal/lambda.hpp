@@ -8,7 +8,7 @@
 #include <metal/lambda/apply.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/bind.hpp>
-#include <metal/lambda/protect.hpp>
+#include <metal/lambda/quote.hpp>
 
 #endif
 

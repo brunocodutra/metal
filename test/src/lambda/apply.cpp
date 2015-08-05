@@ -116,6 +116,12 @@ METAL_TEST_ASSERT((std::is_same<apply_t<test::seq2<_1, _2>, test::v0, test::v1, 
 METAL_TEST_ASSERT((std::is_same<apply_t<test::seq<_1, _2, _3>, test::v0, test::v1, test::v2, test::v3>, test::list3>::value));
 METAL_TEST_ASSERT((std::is_same<apply_t<test::seq<_1, _2, _3, _4>, test::v0, test::v1, test::v2, test::v3>, test::list4>::value));
 
+METAL_TEST_ASSERT((std::is_same<apply_t<apply<_1, _2, _3, _4, _5>, test::e0<>, test::v0, test::v1, test::v2, test::v3>, test::e0<>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<apply<_1, _2, _3, _4, _5>, test::e1<_1>, test::v0, test::v1, test::v2, test::v3>, test::e1<test::v0>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<apply<_1, _2, _3, _4, _5>, test::e2<_1, _2>, test::v0, test::v1, test::v2, test::v3>, test::e2<test::v0, test::v1>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<apply<_1, _2, _3, _4, _5>, test::expr<_1, _2, _3>, test::v0, test::v1, test::v2, test::v3>, test::expr<test::v0, test::v1, test::v2>::type>::value));
+METAL_TEST_ASSERT((std::is_same<apply_t<apply<_1, _2, _3, _4, _5>, test::expr<_1, _2, _3, _4>, test::v0, test::v1, test::v2, test::v3>, test::expr<test::v0, test::v1, test::v2, test::v3>::type>::value));
+
 METAL_TEST_ASSERT((
     std::is_same<apply_t<
         test::expr<test::e0<>>,

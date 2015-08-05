@@ -6,6 +6,7 @@
 #define METAL_LAMBDA_BIND_HPP
 
 #include <metal/lambda/apply.hpp>
+#include <metal/lambda/quote.hpp>
 
 namespace metal
 {
@@ -22,9 +23,8 @@ namespace metal
     template<typename lambda, typename... args>
     struct bind
     {
-        using type = apply<lambda, args...>;
+        using type = apply<metal::quote_t<lambda>, args...>;
     };
-
 }
 
 #endif
