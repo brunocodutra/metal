@@ -16,6 +16,9 @@ environment:
       - GENERATOR: "Visual Studio 14 2015 Win64"
       - GENERATOR: "MinGW Makefiles"
 
+install:
+  - cinst mingw
+
 before_build:
   - git submodule update --init --recursive
 
