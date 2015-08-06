@@ -5,8 +5,6 @@
 #ifndef METAL_SEQUENCE_LIST_HPP
 #define METAL_SEQUENCE_LIST_HPP
 
-#include <metal/optional/just.hpp>
-
 #include <type_traits>
 
 namespace metal
@@ -36,7 +34,7 @@ namespace metal
 
     template<template<typename...> class seq, typename... values>
     struct is_list<seq<values...>> :
-            is_just_itself<seq<values...>>
+            std::true_type
     {};
 }
 

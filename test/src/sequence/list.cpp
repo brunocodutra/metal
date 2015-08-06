@@ -3,10 +3,17 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/sequence/list.hpp>
+#include <metal/optional/just.hpp>
 
 #include "test.hpp"
 
 using namespace metal;
+
+METAL_TEST_ASSERT((is_just_t<list<>>::value));
+METAL_TEST_ASSERT((is_just_t<list<test::v0>>::value));
+METAL_TEST_ASSERT((is_just_t<list<test::v0, test::v1>>::value));
+METAL_TEST_ASSERT((is_just_t<list<test::v0, test::v1, test::v2>>::value));
+METAL_TEST_ASSERT((is_just_t<list<test::v0, test::v1, test::v2, test::v3>>::value));
 
 METAL_TEST_ASSERT((is_list_t<list<>>::value));
 METAL_TEST_ASSERT((is_list_t<list<test::v0>>::value));

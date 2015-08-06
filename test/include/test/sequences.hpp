@@ -11,25 +11,18 @@ namespace test
 {
     template<typename...>
     union seq
-    {
-        using type = seq;
-    };
+    {};
 
     template<typename...>
     struct seq0;
 
     template<>
     struct seq0<>
-    {
-        using type = seq0;
-    };
+    {};
 
     template<typename>
     class seq1
-    {
-    public:
-        using type = seq1;
-    };
+    {};
 
     template<typename x, typename y>
     using seq2 = seq<x, y>;

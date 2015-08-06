@@ -20,28 +20,6 @@ namespace is_just
     /// [is_just]
 }
 
-namespace is_just_itself
-{
-    /// [is_just_itself]
-    struct nothing
-    {};
-
-    struct something //is just but not itself
-    {
-        struct type;
-    };
-
-    struct itself
-    {
-        using type = itself;
-    };
-
-    static_assert(!metal::is_just_itself<nothing>::value, "");
-    static_assert(!metal::is_just_itself<something>::value, "");
-    static_assert(metal::is_just_itself<itself>::value, "");
-    /// [is_just_itself]
-}
-
 int main()
 {
     return 0;
