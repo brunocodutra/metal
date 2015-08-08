@@ -41,7 +41,7 @@ namespace metal
 
     namespace detail
     {
-        template<std::size_t, typename>
+        template<typename, typename>
         struct item
         {};
 
@@ -53,7 +53,7 @@ namespace metal
             typename... keys, typename... values
         >
         struct hash<list<keys...>, list<values...>> :
-                item<keys::value, values>...
+                item<keys, values>...
         {};
 
         template<std::size_t n, typename... args>
@@ -61,7 +61,7 @@ namespace metal
         {
         private:
             template<typename value>
-            static just<value> impl(item<n - 1, value>*);
+            static just<value> impl(item<number<std::size_t, n - 1>, value>*);
             static nothing impl(...);
 
             template<typename seq>

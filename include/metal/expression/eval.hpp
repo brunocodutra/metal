@@ -99,8 +99,8 @@ namespace metal
         struct eval_impl
         {
         private:
-            template<template<typename...> class e>
-            static maybe<e<args...>> check(int);
+            template<template<typename...> class e, typename ret = e<args...>>
+            static maybe<ret> check(int);
 
             template<template<typename...> class>
             static nothing check(...);

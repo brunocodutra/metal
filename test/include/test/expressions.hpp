@@ -8,8 +8,7 @@
 namespace test
 {
     template<typename...>
-    struct empty
-    {};
+    struct empty;
 
     template<typename... args>
     union expr
@@ -17,7 +16,7 @@ namespace test
         using type = expr*;
     };
 
-    template<typename = void>
+    template<typename...>
     struct e0;
 
     template<>

@@ -21,8 +21,7 @@ namespace test
     {};
 
     template<typename>
-    class seq1
-    {};
+    class seq1;
 
     template<typename x, typename y>
     using seq2 = seq<x, y>;
