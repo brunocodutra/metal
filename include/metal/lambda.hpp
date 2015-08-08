@@ -10,9 +10,9 @@
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/quote.hpp>
 
-#endif
-
 /// \defgroup lambda Lambda
 /// \ingroup metal
 /// \brief Expressive constructs for higher-order functional metaprogramming.
+
+#endif
 

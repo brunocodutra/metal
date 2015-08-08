@@ -36,13 +36,13 @@ namespace metal
     ///     of \value, then equivalent to
     ///     \code
     ///         struct result :
-    ///             std::true_type
+    ///             boolean<true>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
     ///         struct result :
-    ///             std::false_type
+    ///             boolean<false>
     ///         {};
     ///     \endcode
     ///

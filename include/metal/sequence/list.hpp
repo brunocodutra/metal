@@ -5,7 +5,7 @@
 #ifndef METAL_SEQUENCE_LIST_HPP
 #define METAL_SEQUENCE_LIST_HPP
 
-#include <type_traits>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
@@ -29,12 +29,12 @@ namespace metal
 
     template<typename>
     struct is_list :
-            std::false_type
+            boolean<false>
     {};
 
     template<template<typename...> class seq, typename... values>
     struct is_list<seq<values...>> :
-            std::true_type
+            boolean<true>
     {};
 }
 

@@ -10,9 +10,13 @@
 
 namespace metal
 {
+    /// \ingroup logical
+    /// \brief ...
     template<typename head, typename... tail>
     struct and_;
 
+    /// \ingroup logical
+    /// \brief Eager adaptor for \ref and_.
     template<typename head, typename... tail>
     using and_t = typename and_<head, tail...>::type;
 

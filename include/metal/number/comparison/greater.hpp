@@ -9,8 +9,15 @@
 
 namespace metal
 {
+    /// \ingroup comparison
+    /// \brief ...
     template<typename x, typename y>
     struct greater;
+
+    /// \ingroup comparison
+    /// \brief Eager adaptor for \ref greater.
+    template<typename x, typename y>
+    using greater_t = typename greater<x, y>::type;
 
     template<typename x, x xv, typename y, y yv>
     struct greater<number<x, xv>, number<y, yv>> :

@@ -6,6 +6,7 @@
 #define METAL_SEQUENCE_ENUMERATE_HPP
 
 #include <metal/sequence/range.hpp>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
@@ -20,8 +21,8 @@ namespace metal
     using enumerate_t = typename metal::enumerate<n>::type;
 
     template<typename n, n nv>
-    struct enumerate<std::integral_constant<n, nv>> :
-            range<std::integral_constant<char, 0>, std::integral_constant<n, nv>>
+    struct enumerate<number<n, nv>> :
+            range<number<n, 0>, number<n, nv>>
     {};
 }
 

@@ -79,9 +79,9 @@ namespace metal
         };
     }
 
-    template<typename value, typename... args>
+    template<typename lambda, typename... args>
     struct apply :
-            just<value>
+            just<lambda>
     {};
 
     template<

@@ -9,9 +9,13 @@
 
 namespace metal
 {
+    /// \ingroup arithmetic
+    /// \brief ...
     template<typename head, typename... tail>
     struct sub;
 
+    /// \ingroup arithmetic
+    /// \brief Eager adaptor for \ref sub.
     template<typename head, typename... tail>
     using sub_t = typename sub<head, tail...>::type;
 

@@ -11,9 +11,9 @@
 #include <metal/number/number.hpp>
 #include <metal/number/query.hpp>
 
-#endif
-
 /// \defgroup number Number
 /// \ingroup metal
 /// \brief Basic constructs for manipulating \numbers.
+
+#endif
 

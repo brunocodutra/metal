@@ -9,9 +9,6 @@
 
 namespace test
 {
-    template<int v>
-    using number = std::integral_constant<int, v>;
-
     using n0 = std::integral_constant<signed char, 0>;
     using n1 = std::integral_constant<short, 1>;
     using n2 = std::integral_constant<int, 2>;

@@ -9,4 +9,8 @@
 #include <metal/number/logical/or.hpp>
 #include <metal/number/logical/and.hpp>
 
+/// \defgroup logical Logical
+/// \ingroup number
+/// \brief Basic logical operations.
+
 #endif

@@ -9,9 +9,13 @@
 
 namespace metal
 {
+    /// \ingroup arithmetic
+    /// \brief ...
     template<typename head, typename... tail>
     struct div;
 
+    /// \ingroup arithmetic
+    /// \brief Eager adaptor for \ref div.
     template<typename head, typename... tail>
     using div_t = typename div<head, tail...>::type;
 

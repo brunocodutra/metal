@@ -10,9 +10,8 @@
 #include <metal/optional/nothing.hpp>
 #include <metal/optional/maybe.hpp>
 
-#endif
-
 /// \defgroup optional Optional
 /// \ingroup metal
 /// \brief Basic constructs for manipulating \optionals.
 
+#endif

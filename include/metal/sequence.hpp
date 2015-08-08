@@ -11,9 +11,8 @@
 #include <metal/sequence/range.hpp>
 #include <metal/sequence/size.hpp>
 
-#endif
-
 /// \defgroup sequence Sequence
 /// \ingroup metal
 /// \brief ...
 
+#endif

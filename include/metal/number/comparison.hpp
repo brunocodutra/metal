@@ -7,8 +7,10 @@
 
 #include <metal/number/comparison/equal_to.hpp>
 #include <metal/number/comparison/greater.hpp>
-#include <metal/number/comparison/greater_equal.hpp>
 #include <metal/number/comparison/less.hpp>
-#include <metal/number/comparison/less_equal.hpp>
+
+/// \defgroup comparison Comparison
+/// \ingroup number
+/// \brief Basic comparison operations.
 
 #endif

@@ -7,9 +7,11 @@
 
 #include <metal/core/inherit.hpp>
 
-#endif
-
 /// \defgroup core Core
 /// \ingroup metal
-/// \brief Handy constructs.
+/// \brief Handy tools.
+
+#endif
+
+
 

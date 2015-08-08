@@ -7,9 +7,10 @@
 
 #include <metal/expression/eval.hpp>
 
-#endif
-
 /// \defgroup expression Expression
 /// \ingroup metal
 /// \brief Expressive constructs for lazy \expression evaluation.
+
+#endif
+
 

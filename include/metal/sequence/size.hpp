@@ -5,8 +5,9 @@
 #ifndef METAL_SEQUENCE_SIZE_HPP
 #define METAL_SEQUENCE_SIZE_HPP
 
+#include <metal/number/number.hpp>
+
 #include <cstddef>
-#include <type_traits>
 
 namespace metal
 {
@@ -22,7 +23,7 @@ namespace metal
 
     template<template<typename...> class list, typename... values>
     struct size<list<values...>> :
-            std::integral_constant<std::size_t, sizeof...(values)>
+            number<std::size_t, sizeof...(values)>
     {};
 }
 

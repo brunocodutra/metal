@@ -5,7 +5,7 @@
 #ifndef METAL_OPTIONAL_JUST_HPP
 #define METAL_OPTIONAL_JUST_HPP
 
-#include <type_traits>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
@@ -35,13 +35,13 @@ namespace metal
     ///     then equivalent to
     ///     \code
     ///         struct result :
-    ///             std::true_type
+    ///             boolean<true>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
     ///         struct result :
-    ///             std::false_type
+    ///             boolean<false>
     ///         {};
     ///     \endcode
     ///
@@ -70,9 +70,9 @@ namespace metal
             struct wrapper;
 
             template<typename x, typename = wrapper<typename x::type>>
-            static std::true_type impl(int);
+            static boolean<true> impl(int);
             template<typename>
-            static std::false_type impl(...);
+            static boolean<false> impl(...);
 
         public:
             using type = decltype(impl<opt>(0));

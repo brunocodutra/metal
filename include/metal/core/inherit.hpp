@@ -7,6 +7,8 @@
 
 namespace metal
 {
+    /// \ingroup core
+    /// \brief ...
     template<typename... all>
     struct inherit :
             all...

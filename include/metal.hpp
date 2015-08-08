@@ -12,10 +12,12 @@
 #include <metal/optional.hpp>
 #include <metal/sequence.hpp>
 
-#endif
-
 /// \defgroup metal Metal
 /// \brief A small collection of C++11 template metaprogramming tools.
 
 /// \namespace metal
 /// \brief Metaprogramming algorithms.
+
+#endif
+
+

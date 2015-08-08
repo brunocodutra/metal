@@ -9,15 +9,19 @@
 
 namespace metal
 {
-    template<typename x>
+    /// \ingroup arithmetic
+    /// \brief ...
+    template<typename n>
     struct neg;
 
-    template<typename x>
-    using neg_t = typename neg<x>::type;
+    /// \ingroup arithmetic
+    /// \brief Eager adaptor for \ref neg.
+    template<typename n>
+    using neg_t = typename neg<n>::type;
 
-    template<typename x, x xv>
-    struct neg<number<x, xv>> :
-            number<decltype(-number<x, xv>::value), -number<x, xv>::value>
+    template<typename n, n xv>
+    struct neg<number<n, xv>> :
+            number<decltype(-number<n, xv>::value), -number<n, xv>::value>
     {};
 }
 

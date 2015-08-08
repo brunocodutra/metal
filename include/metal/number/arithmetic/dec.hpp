@@ -9,15 +9,19 @@
 
 namespace metal
 {
-    template<typename x>
+    /// \ingroup arithmetic
+    /// \brief ...
+    template<typename n>
     struct dec;
 
-    template<typename x>
-    using dec_t = typename dec<x>::type;
+    /// \ingroup arithmetic
+    /// \brief Eager adaptor for \ref dec.
+    template<typename n>
+    using dec_t = typename dec<n>::type;
 
-    template<typename x, x xv>
-    struct dec<number<x, xv>> :
-            number<x, static_cast<x>(xv - 1)>
+    template<typename n, n xv>
+    struct dec<number<n, xv>> :
+            number<n, static_cast<n>(xv - 1)>
     {};
 }
 

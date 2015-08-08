@@ -3,6 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/number/arithmetic.hpp>
+#include <metal/number/number.hpp>
 #include <metal/number/comparison/equal_to.hpp>
 
 #include "test.hpp"
@@ -35,20 +36,20 @@ METAL_TEST_ASSERT((equal_to<sub_t<test::n5, test::n1, test::n1, test::n1, test::
 METAL_TEST_ASSERT((equal_to<sub_t<test::n6, test::n1, test::n1, test::n1, test::n1, test::n1, test::n1>, test::n0>::value));
 METAL_TEST_ASSERT((equal_to<sub_t<test::n7, test::n1, test::n1, test::n1, test::n1, test::n1, test::n1, test::n1>, test::n0>::value));
 
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2>, test::number<2>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2>, test::number<4>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2>, test::number<8>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2>, test::number<16>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2>, test::number<32>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::number<64>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::number<128>>::value));
-METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::number<256>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2>, integer<2>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2>, integer<4>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2>, integer<8>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2>, integer<16>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2>, integer<32>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, integer<64>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, integer<128>>::value));
+METAL_TEST_ASSERT((equal_to<mul_t<test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, integer<256>>::value));
 
-METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<1>>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<2>, test::n2>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<4>, test::n2, test::n2>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<8>, test::n2, test::n2, test::n2>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<16>, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<32>, test::n2, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<64>, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
-METAL_TEST_ASSERT((equal_to<metal::div_t<test::number<128>, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<integer<1>>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<integer<2>, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<integer<4>, test::n2, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<integer<8>, test::n2, test::n2, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<integer<16>, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<integer<32>, test::n2, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<integer<64>, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));
+METAL_TEST_ASSERT((equal_to<metal::div_t<integer<128>, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2, test::n2>, test::n1>::value));

@@ -9,8 +9,15 @@
 
 namespace metal
 {
+    /// \ingroup comparison
+    /// \brief ...
     template<typename x, typename y>
     struct less;
+
+    /// \ingroup comparison
+    /// \brief Eager adaptor for \ref less.
+    template<typename x, typename y>
+    using less_t = typename less<x, y>::type;
 
     template<typename x, x xv, typename y, y yv>
     struct less<number<x, xv>, number<y, yv>> :

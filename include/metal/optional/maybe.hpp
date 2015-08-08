@@ -6,8 +6,7 @@
 #define METAL_OPTIONAL_MAYBE_HPP
 
 #include <metal/optional/just.hpp>
-
-#include <type_traits>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
@@ -18,7 +17,7 @@ namespace metal
 
     namespace detail
     {
-        template<typename, typename = std::true_type>
+        template<typename, typename = boolean<true>>
         struct maybe_impl
         {};
 

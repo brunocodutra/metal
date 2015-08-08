@@ -13,4 +13,8 @@
 #include <metal/number/arithmetic/mul.hpp>
 #include <metal/number/arithmetic/div.hpp>
 
+/// \defgroup arithmetic Arithmetic
+/// \ingroup number
+/// \brief Basic arithmetic operations.
+
 #endif
