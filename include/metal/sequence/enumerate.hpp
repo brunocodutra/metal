@@ -12,8 +12,7 @@ namespace metal
     /// \ingroup sequence
     /// \brief ...
     template<typename n>
-    struct enumerate
-    {};
+    struct enumerate;
 
     /// \ingroup optional
     /// \brief Eager adaptor for \ref enumerate.

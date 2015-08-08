@@ -5,34 +5,33 @@
 #ifndef METAL_NUMBER_LOGICAL_OR_HPP
 #define METAL_NUMBER_LOGICAL_OR_HPP
 
-#include <metal/number/logical/query.hpp>
-
-#include <type_traits>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
-    ///\cond
     template<typename head, typename... tail>
-    struct or_ :
-            or_<head, or_<tail...>>
-    {};
-
-    template<typename x>
-    struct or_<x> :
-            query<x>
-    {};
-
-    template<typename x, typename y>
-    struct or_<x, y> :
-            or_<query_t<x>, y>
-    {};
-
-    template<typename y> struct or_<std::false_type, y> : y {};
-    template<typename y> struct or_<std::true_type, y> : std::true_type {};
-    ///\endcond
+    struct or_;
 
     template<typename head, typename... tail>
     using or_t = typename or_<head, tail...>::type;
+
+    namespace detail
+    {
+        template<typename...>
+        struct or_impl :
+                boolean<true>
+        {};
+
+        template<typename... tail>
+        struct or_impl<number<tail, false>...> :
+                boolean<false>
+        {};
+    }
+
+    template<typename head, typename... tail>
+    struct or_ :
+            detail::or_impl<not_t<not_t<head>>, not_t<not_t<tail>>...>
+    {};
 }
 
 #endif

@@ -5,17 +5,20 @@
 #ifndef METAL_NUMBER_ARITHMETIC_NEG_HPP
 #define METAL_NUMBER_ARITHMETIC_NEG_HPP
 
-#include <type_traits>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
     template<typename x>
-    struct neg :
-            std::integral_constant<decltype(-x::value), -x::value>
-    {};
+    struct neg;
 
     template<typename x>
     using neg_t = typename neg<x>::type;
+
+    template<typename x, x xv>
+    struct neg<number<x, xv>> :
+            number<decltype(-number<x, xv>::value), -number<x, xv>::value>
+    {};
 }
 
 #endif

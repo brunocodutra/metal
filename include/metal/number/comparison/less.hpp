@@ -5,13 +5,16 @@
 #ifndef METAL_NUMBER_COMPARISON_LESS_HPP
 #define METAL_NUMBER_COMPARISON_LESS_HPP
 
-#include <type_traits>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
     template<typename x, typename y>
-    struct less :
-            std::integral_constant<bool, (x::value < y::value)>
+    struct less;
+
+    template<typename x, x xv, typename y, y yv>
+    struct less<number<x, xv>, number<y, yv>> :
+            boolean<(xv < yv)>
     {};
 }
 

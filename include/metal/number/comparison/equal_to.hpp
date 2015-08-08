@@ -5,13 +5,16 @@
 #ifndef METAL_NUMBER_COMPARISON_EQUAL_TO_HPP
 #define METAL_NUMBER_COMPARISON_EQUAL_TO_HPP
 
-#include <type_traits>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
     template<typename x, typename y>
-    struct equal_to :
-            std::integral_constant<bool, x::value == y::value>
+    struct equal_to;
+
+    template<typename x, x xv, typename y, y yv>
+    struct equal_to<number<x, xv>, number<y, yv>> :
+            boolean<(xv == yv)>
     {};
 }
 

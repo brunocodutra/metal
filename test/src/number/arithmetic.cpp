@@ -17,14 +17,14 @@ METAL_TEST_ASSERT((equal_to<neg_t<test::n0>, test::n0>::value));
 METAL_TEST_ASSERT((equal_to<inc_t<neg_t<test::n1>>, test::n0>::value));
 METAL_TEST_ASSERT((equal_to<neg_t<neg_t<test::n1>>, test::n1>::value));
 
-METAL_TEST_ASSERT((equal_to<add<test::n0>, mul<test::n0, test::n1>>::value));
-METAL_TEST_ASSERT((equal_to<add<test::n0, test::n1>, mul<test::n1, test::n1>>::value));
-METAL_TEST_ASSERT((equal_to<add<test::n0, test::n1, test::n2>, mul<test::n1, test::n3>>::value));
-METAL_TEST_ASSERT((equal_to<add<test::n0, test::n1, test::n2, test::n3>, mul<test::n2, test::n3>>::value));
-METAL_TEST_ASSERT((equal_to<add<test::n0, test::n1, test::n2, test::n3, test::n4>, mul<test::n2, test::n5>>::value));
-METAL_TEST_ASSERT((equal_to<add<test::n0, test::n1, test::n2, test::n3, test::n4, test::n5>, mul<test::n3, test::n5>>::value));
-METAL_TEST_ASSERT((equal_to<add<test::n0, test::n1, test::n2, test::n3, test::n4, test::n5, test::n6>, mul<test::n3, test::n7>>::value));
-METAL_TEST_ASSERT((equal_to<add<test::n0, test::n1, test::n2, test::n3, test::n4, test::n5, test::n6, test::n7>, mul<test::n4, test::n7>>::value));
+METAL_TEST_ASSERT((equal_to<add_t<test::n0>, mul_t<test::n0, test::n1>>::value));
+METAL_TEST_ASSERT((equal_to<add_t<test::n0, test::n1>, mul_t<test::n1, test::n1>>::value));
+METAL_TEST_ASSERT((equal_to<add_t<test::n0, test::n1, test::n2>, mul_t<test::n1, test::n3>>::value));
+METAL_TEST_ASSERT((equal_to<add_t<test::n0, test::n1, test::n2, test::n3>, mul_t<test::n2, test::n3>>::value));
+METAL_TEST_ASSERT((equal_to<add_t<test::n0, test::n1, test::n2, test::n3, test::n4>, mul_t<test::n2, test::n5>>::value));
+METAL_TEST_ASSERT((equal_to<add_t<test::n0, test::n1, test::n2, test::n3, test::n4, test::n5>, mul_t<test::n3, test::n5>>::value));
+METAL_TEST_ASSERT((equal_to<add_t<test::n0, test::n1, test::n2, test::n3, test::n4, test::n5, test::n6>, mul_t<test::n3, test::n7>>::value));
+METAL_TEST_ASSERT((equal_to<add_t<test::n0, test::n1, test::n2, test::n3, test::n4, test::n5, test::n6, test::n7>, mul_t<test::n4, test::n7>>::value));
 
 METAL_TEST_ASSERT((equal_to<sub_t<test::n0>, test::n0>::value));
 METAL_TEST_ASSERT((equal_to<sub_t<test::n1, test::n1>, test::n0>::value));

@@ -5,34 +5,34 @@
 #ifndef METAL_NUMBER_LOGICAL_AND_HPP
 #define METAL_NUMBER_LOGICAL_AND_HPP
 
-#include <metal/number/logical/query.hpp>
-
-#include <type_traits>
+#include <metal/number/number.hpp>
+#include <metal/number/logical/not.hpp>
 
 namespace metal
 {
-    ///\cond
     template<typename head, typename... tail>
-    struct and_ :
-            and_<head, and_<tail...>>
-    {};
-
-    template<typename x>
-    struct and_<x> :
-            query<x>
-    {};
-
-    template<typename x, typename y>
-    struct and_<x, y> :
-            and_<query_t<x>, y>
-    {};
-
-    template<typename y> struct and_<std::true_type, y> : y {};
-    template<typename y> struct and_<std::false_type, y> : std::false_type {};
-    ///\endcond
+    struct and_;
 
     template<typename head, typename... tail>
     using and_t = typename and_<head, tail...>::type;
+
+    namespace detail
+    {
+        template<typename...>
+        struct and_impl :
+                boolean<false>
+        {};
+
+        template<typename... tail>
+        struct and_impl<number<tail, true>...> :
+                boolean<true>
+        {};
+    }
+
+    template<typename head, typename... tail>
+    struct and_ :
+            detail::and_impl<not_t<not_t<head>>, not_t<not_t<tail>>...>
+    {};
 }
 
 #endif

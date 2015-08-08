@@ -13,8 +13,7 @@ namespace metal
     /// \ingroup sequece
     /// \brief ...
     template<typename seq>
-    struct size
-    {};
+    struct size;
 
     /// \ingroup sequence
     /// \brief Eager adaptor for \ref size.
@@ -23,7 +22,7 @@ namespace metal
 
     template<template<typename...> class list, typename... values>
     struct size<list<values...>> :
-                std::integral_constant<std::size_t, sizeof...(values)>
+            std::integral_constant<std::size_t, sizeof...(values)>
     {};
 }
 

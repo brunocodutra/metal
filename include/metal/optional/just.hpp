@@ -81,7 +81,7 @@ namespace metal
 
     template<typename opt>
     struct is_just :
-        detail::is_just_impl<opt>::type
+            detail::is_just_impl<opt>::type
     {};
 }
 

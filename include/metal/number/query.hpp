@@ -5,7 +5,7 @@
 #ifndef METAL_NUMBER_LOGICAL_QUERY_HPP
 #define METAL_NUMBER_LOGICAL_QUERY_HPP
 
-#include <type_traits>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
@@ -14,14 +14,14 @@ namespace metal
 
     namespace detail
     {
-        template<typename, typename = std::true_type>
+        template<typename, typename = boolean<true>>
         struct query_impl :
-                std::false_type
+                boolean<false>
         {};
 
         template<typename number>
-        struct query_impl<number, std::integral_constant<bool, !!number::value>> :
-                std::true_type
+        struct query_impl<number, boolean<!!number::value>> :
+                boolean<true>
         {};
     }
 

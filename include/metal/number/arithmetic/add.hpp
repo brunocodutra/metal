@@ -5,32 +5,24 @@
 #ifndef METAL_NUMBER_ARITHMETIC_ADD_HPP
 #define METAL_NUMBER_ARITHMETIC_ADD_HPP
 
-#include <type_traits>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
-    ///\cond
     template<typename head, typename... tail>
-    struct add :
-            add<head, add<tail...>>
-    {};
-
-    template<typename x>
-    struct add<x> :
-            std::integral_constant<decltype(x::value), x::value>
-    {};
-
-    template<typename x, typename y>
-    struct add<x, y> :
-            std::integral_constant<
-                decltype(x::value + y::value),
-                x::value + y::value
-            >
-    {};
-    ///\endcond
+    struct add;
 
     template<typename head, typename... tail>
     using add_t = typename add<head, tail...>::type;
+
+    template<typename x, x xv>
+    struct add<number<x, xv>> :
+            number<x, xv>
+    {};
+    template<typename x, x xv, typename y, y yv, typename... tail>
+    struct add<number<x, xv>, number<y, yv>, tail...> :
+            add<number<decltype(xv + yv), xv + yv>, tail...>
+    {};
 }
 
 #endif

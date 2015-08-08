@@ -10,8 +10,7 @@ namespace metal
     /// \ingroup sequence
     /// \brief ...
     template<typename...>
-    struct join
-    {};
+    struct join;
 
     /// \ingroup optional
     /// \brief Eager adaptor for \ref join.
@@ -19,9 +18,10 @@ namespace metal
     using join_t = typename join<ls...>::type;
 
     template<template<typename...> class list, typename... xs>
-    struct join<list<xs...>> :
-            list<xs...>
-    {};
+    struct join<list<xs...>>
+    {
+        using type = list<xs...>;
+    };
 
     template<
         template<typename...> class list,

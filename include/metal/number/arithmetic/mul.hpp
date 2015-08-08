@@ -5,32 +5,24 @@
 #ifndef METAL_NUMBER_ARITHMETIC_MUL_HPP
 #define METAL_NUMBER_ARITHMETIC_MUL_HPP
 
-#include <type_traits>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
-    ///\cond
     template<typename head, typename... tail>
-    struct mul :
-            mul<head, mul<tail...>>
-    {};
-
-    template<typename x>
-    struct mul<x> :
-            std::integral_constant<decltype(x::value), x::value>
-    {};
-
-    template<typename x, typename y>
-    struct mul<x, y> :
-            std::integral_constant<
-                decltype(x::value * y::value),
-                x::value * y::value
-            >
-    {};
-    ///\endcond
+    struct mul;
 
     template<typename head, typename... tail>
     using mul_t = typename mul<head, tail...>::type;
+
+    template<typename x, x xv>
+    struct mul<number<x, xv>> :
+            number<x, xv>
+    {};
+    template<typename x, x xv, typename y, y yv, typename... tail>
+    struct mul<number<x, xv>, number<y, yv>, tail...> :
+            mul<number<decltype(xv * yv), xv * yv>, tail...>
+    {};
 }
 
 #endif

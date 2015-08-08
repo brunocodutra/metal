@@ -55,7 +55,7 @@ namespace metal
     /// \see is_just
     template<typename opt>
     struct is_nothing :
-            not_<is_just<opt>>
+            not_<is_just_t<opt>>
     {};
 
     /// \ingroup optional

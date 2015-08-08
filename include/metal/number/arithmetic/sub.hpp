@@ -5,35 +5,24 @@
 #ifndef METAL_NUMBER_ARITHMETIC_SUB_HPP
 #define METAL_NUMBER_ARITHMETIC_SUB_HPP
 
-#include <type_traits>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
-    ///\cond
     template<typename head, typename... tail>
     struct sub;
 
-    template<typename x>
-    struct sub<x> :
-            std::integral_constant<decltype(x::value), x::value>
-    {};
-
-    template<typename x, typename y, typename... tail>
-    struct sub<x, y, tail...> :
-            sub<sub<x, y>, tail...>
-    {};
-
-    template<typename x, typename y>
-    struct sub<x, y> :
-            std::integral_constant<
-                decltype(x::value - y::value),
-                x::value - y::value
-            >
-    {};
-    ///\endcond
-
     template<typename head, typename... tail>
     using sub_t = typename sub<head, tail...>::type;
+
+    template<typename x, x xv>
+    struct sub<number<x, xv>> :
+            number<x, xv>
+    {};
+    template<typename x, x xv, typename y, y yv, typename... tail>
+    struct sub<number<x, xv>, number<y, yv>, tail...> :
+            sub<number<decltype(xv - yv), xv - yv>, tail...>
+    {};
 }
 
 #endif

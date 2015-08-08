@@ -7,6 +7,7 @@
 
 #include <metal/sequence/join.hpp>
 #include <metal/sequence/list.hpp>
+#include <metal/number/number.hpp>
 
 #if defined(_MSC_VER)
 #include <metal/number/arithmetic/add.hpp>
@@ -17,15 +18,12 @@ namespace metal
     /// \ingroup sequence
     /// \brief ...
     template<typename first, typename last>
-    struct range
-    {};
+    struct range;
 
     /// \ingroup optional
     /// \brief Eager adaptor for \ref range.
     template<typename first, typename last>
     using range_t = typename metal::range<first, last>::type;
-
-#define NUMBER std::integral_constant
 
     namespace detail
     {
@@ -46,8 +44,8 @@ namespace metal
             template<typename...> class list,
             typename ns, ns... nvs
         >
-        struct offset<o, list<NUMBER<ns, nvs>...>> :
-                list<NUMBER<ns, o::value + nvs>...>
+        struct offset<o, list<number<ns, nvs>...>> :
+                list<number<ns, o::value + nvs>...>
         {};
 #else
         template<typename o, template<typename...> class list, typename... ns>
@@ -58,42 +56,40 @@ namespace metal
     }
 
     template<typename f, f fv, typename l, l lv>
-    struct range<NUMBER<f, fv>, NUMBER<l, lv>> :
+    struct range<number<f, fv>, number<l, lv>> :
             range<
-                NUMBER<typename std::common_type<f, l>::type, fv>,
-                NUMBER<typename std::common_type<f, l>::type, lv>
+                number<typename std::common_type<f, l>::type, fv>,
+                number<typename std::common_type<f, l>::type, lv>
             >
     {};
 
     template<typename t, t f, t l>
-    struct range<NUMBER<t, f>, NUMBER<t, l>> :
+    struct range<number<t, f>, number<t, l>> :
             join<
                 detail::offset_t<
-                    NUMBER<t, f>, range_t<NUMBER<t, 0>, NUMBER<t, (l - f)/2>>
+                    number<t, f>, range_t<number<t, 0>, number<t, (l - f)/2>>
                 >,
                 detail::offset_t<
-                    NUMBER<t, f + (l - f)/2>,
-                    range_t<NUMBER<t, 0>, NUMBER<t, l - f - (l - f)/2>>
+                    number<t, f + (l - f)/2>,
+                    range_t<number<t, 0>, number<t, l - f - (l - f)/2>>
                 >
             >
     {};
 
     template<typename t, t f>
-    struct range<NUMBER<t, f>, NUMBER<t, f + 1>> :
-            list<NUMBER<t, f>>
+    struct range<number<t, f>, number<t, f + 1>> :
+            list<number<t, f>>
     {};
 
     template<typename t, t f>
-    struct range<NUMBER<t, f>, NUMBER<t, f - 1>> :
-            list<NUMBER<t, f>>
+    struct range<number<t, f>, number<t, f - 1>> :
+            list<number<t, f>>
     {};
 
     template<typename t, t f>
-    struct range<NUMBER<t, f>, NUMBER<t, f>> :
+    struct range<number<t, f>, number<t, f>> :
             list<>
     {};
-
-#undef NUMBER
 }
 
 #endif

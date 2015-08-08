@@ -18,7 +18,6 @@ using y = just<test::v1>;
 using z = just<test::v2>;
 using w = just<test::v3>;
 
-METAL_TEST_ASSERT((!is_just<conditional<void, x>>::value));
 METAL_TEST_ASSERT((!is_just<conditional<std::false_type, x>>::value));
 METAL_TEST_ASSERT((!is_just<conditional<std::true_type, nothing>>::value));
 METAL_TEST_ASSERT((is_just<conditional<std::true_type, x>>::value));

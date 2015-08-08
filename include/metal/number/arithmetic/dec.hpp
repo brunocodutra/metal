@@ -5,20 +5,20 @@
 #ifndef METAL_NUMBER_ARITHMETIC_DEC_HPP
 #define METAL_NUMBER_ARITHMETIC_DEC_HPP
 
-#include <type_traits>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
     template<typename x>
-    struct dec :
-            std::integral_constant<
-                decltype(x::value),
-                static_cast<decltype(x::value)>(x::value - 1)
-            >
-    {};
+    struct dec;
 
     template<typename x>
     using dec_t = typename dec<x>::type;
+
+    template<typename x, x xv>
+    struct dec<number<x, xv>> :
+            number<x, static_cast<x>(xv - 1)>
+    {};
 }
 
 #endif
