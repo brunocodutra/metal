@@ -19,9 +19,9 @@ namespace metal
     template<typename n>
     using neg_t = typename neg<n>::type;
 
-    template<typename n, n xv>
-    struct neg<number<n, xv>> :
-            number<decltype(-number<n, xv>::value), -number<n, xv>::value>
+    template<typename t, t v>
+    struct neg<number<t, v>> :
+            number<decltype(-number<t, v>::value), -number<t, v>::value>
     {};
 }
 

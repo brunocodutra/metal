@@ -9,7 +9,6 @@
 #include <metal/number/comparison.hpp>
 #include <metal/number/logical.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/query.hpp>
 
 /// \defgroup number Number
 /// \ingroup metal

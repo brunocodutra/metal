@@ -19,9 +19,9 @@ namespace metal
     template<typename n>
     using dec_t = typename dec<n>::type;
 
-    template<typename n, n xv>
-    struct dec<number<n, xv>> :
-            number<n, static_cast<n>(xv - 1)>
+    template<typename t, t v>
+    struct dec<number<t, v>> :
+            number<t, static_cast<t>(v - 1)>
     {};
 }
 

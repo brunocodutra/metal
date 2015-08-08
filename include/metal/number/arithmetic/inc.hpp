@@ -19,9 +19,9 @@ namespace metal
     template<typename n>
     using inc_t = typename inc<n>::type;
 
-    template<typename n, n xv>
-    struct inc<number<n, xv>> :
-            number<n, static_cast<n>(xv + 1)>
+    template<typename t, t v>
+    struct inc<number<t, v>> :
+            number<t, static_cast<t>(v + 1)>
     {};
 }
 
