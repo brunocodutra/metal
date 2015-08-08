@@ -14,7 +14,6 @@ namespace ex1
     using lbd = void;
     /// [ex1]
 
-    static_assert(metal::is_applicable<lbd>::value, "");
     static_assert(std::is_same<metal::apply_t<lbd>, void>::value, "");
 }
 
@@ -24,7 +23,6 @@ namespace ex2
     using lbd = std::add_pointer<void>;
     /// [ex2]
 
-    static_assert(metal::is_applicable<lbd>::value, "");
     static_assert(std::is_same<metal::apply_t<lbd>, void*>::value, "");
 }
 
@@ -34,7 +32,6 @@ namespace ex3
     using lbd = metal::_2;
     /// [ex3]
 
-    static_assert(metal::is_applicable<lbd, int, int>::value, "");
     static_assert(std::is_same<metal::apply_t<lbd, int, int>, int>::value, "");
 }
 
@@ -44,6 +41,5 @@ namespace ex4
     using lbd = std::is_convertible<metal::_1, std::add_pointer<metal::_2>>;
     /// [ex4]
 
-    static_assert(metal::is_applicable<lbd, lbd*, void>::value, "");
     static_assert(metal::apply_t<lbd, lbd*, void>::value, "");
 }

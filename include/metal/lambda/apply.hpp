@@ -26,19 +26,6 @@ namespace metal
     template<typename lambda, typename... args>
     using apply_t = typename metal::apply<lambda, args...>::type;
 
-    /// \ingroup lambda
-    /// \brief ...
-    template<typename lambda, typename... args>
-    struct is_applicable :
-            is_just<apply<lambda, args...>>
-    {};
-
-    /// \ingroup traits
-    /// \brief Eager adaptor for \ref is_applicable.
-    template<typename lambda, typename... args>
-    using is_applicable_t =
-        typename metal::is_applicable<lambda, args...>::type;
-
     namespace detail
     {
         template<typename, typename>

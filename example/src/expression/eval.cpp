@@ -30,32 +30,6 @@ namespace eval
     /// [eval]
 }
 
-namespace is_evaluable
-{
-    /// [is_evaluable]
-    template<typename...>
-    struct expr1
-    {
-        //evaluable for every set of arguments
-        struct type;
-    };
-
-    template<typename...>
-    struct expr2
-    {
-        //not evaluable for any set of arguments
-    };
-
-    static_assert(metal::is_evaluable<expr1>::value, "");
-    static_assert(metal::is_evaluable<expr1, void>::value, "");
-    static_assert(metal::is_evaluable<expr1, void, void*>::value, "");
-
-    static_assert(!metal::is_evaluable<expr2>::value, "");
-    static_assert(!metal::is_evaluable<expr2, void>::value, "");
-    static_assert(!metal::is_evaluable<expr2, void, void*>::value, "");
-    /// [is_evaluable]
-}
-
 int main()
 {
     return 0;

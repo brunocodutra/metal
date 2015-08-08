@@ -3,28 +3,29 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/expression/eval.hpp>
+#include <metal/optional/just.hpp>
 
 #include "test.hpp"
 
 using namespace metal;
 
-METAL_TEST_ASSERT((!is_evaluable_t<test::empty>::value));
-METAL_TEST_ASSERT((is_evaluable_t<test::e0>::value));
-METAL_TEST_ASSERT((!is_evaluable_t<test::e1>::value));
-METAL_TEST_ASSERT((!is_evaluable_t<test::e2>::value));
-METAL_TEST_ASSERT((is_evaluable_t<test::expr>::value));
+METAL_TEST_ASSERT((!is_just<eval<test::empty>>::value));
+METAL_TEST_ASSERT((is_just<eval<test::e0>>::value));
+METAL_TEST_ASSERT((!is_just<eval<test::e1>>::value));
+METAL_TEST_ASSERT((!is_just<eval<test::e2>>::value));
+METAL_TEST_ASSERT((is_just<eval<test::expr>>::value));
 
-METAL_TEST_ASSERT((!is_evaluable_t<test::empty, test::v0>::value));
-METAL_TEST_ASSERT((!is_evaluable_t<test::e0, test::v0>::value));
-METAL_TEST_ASSERT((is_evaluable_t<test::e1, test::v0>::value));
-METAL_TEST_ASSERT((!is_evaluable_t<test::e2, test::v0>::value));
-METAL_TEST_ASSERT((is_evaluable_t<test::expr, test::v0>::value));
+METAL_TEST_ASSERT((!is_just<eval<test::empty, test::v0>>::value));
+METAL_TEST_ASSERT((!is_just<eval<test::e0, test::v0>>::value));
+METAL_TEST_ASSERT((is_just<eval<test::e1, test::v0>>::value));
+METAL_TEST_ASSERT((!is_just<eval<test::e2, test::v0>>::value));
+METAL_TEST_ASSERT((is_just<eval<test::expr, test::v0>>::value));
 
-METAL_TEST_ASSERT((!is_evaluable_t<test::empty, test::v0, test::v1>::value));
-METAL_TEST_ASSERT((!is_evaluable_t<test::e0, test::v0, test::v1>::value));
-METAL_TEST_ASSERT((!is_evaluable_t<test::e1, test::v0, test::v1>::value));
-METAL_TEST_ASSERT((is_evaluable_t<test::e2, test::v0, test::v1>::value));
-METAL_TEST_ASSERT((is_evaluable_t<test::expr, test::v0, test::v1>::value));
+METAL_TEST_ASSERT((!is_just<eval<test::empty, test::v0, test::v1>>::value));
+METAL_TEST_ASSERT((!is_just<eval<test::e0, test::v0, test::v1>>::value));
+METAL_TEST_ASSERT((!is_just<eval<test::e1, test::v0, test::v1>>::value));
+METAL_TEST_ASSERT((is_just<eval<test::e2, test::v0, test::v1>>::value));
+METAL_TEST_ASSERT((is_just<eval<test::expr, test::v0, test::v1>>::value));
 
 METAL_TEST_ASSERT((std::is_same<eval_t<test::e0>, test::e0<>::type>::value));
 METAL_TEST_ASSERT((std::is_same<eval_t<test::e1, test::v0>, test::e1<test::v0>::type>::value));

@@ -25,9 +25,9 @@ namespace metal
     ///     \optional
     ///
     /// \par Semantics:
-    ///     if `expr` is \evaluable with `args`, then equivalent to
+    ///     if `expr` is evaluable with `args`, then equivalent to
     ///     \code
-    ///         using result = metal::maybe<expr<args...>>
+    ///         using result = metal::just<typename expr<args...>::type>
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
@@ -40,7 +40,7 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see eval_t, is_evaluable, maybe, nothing
+    /// \see eval_t, maybe, nothing
     template<template<typename...> class expr, typename... args>
     struct eval;
 
@@ -48,50 +48,6 @@ namespace metal
     /// \brief Eager adaptor for \ref eval.
     template<template<typename...> class expr, typename... args>
     using eval_t = typename eval<expr, args...>::type;
-
-    /// \ingroup expression
-    /// \brief Checks whether an arbitrary \expression `expr`
-    /// is evaluable with \values `args`.
-    ///
-    /// Usage
-    /// -----
-    /// For any \expression `expr` and \values `args`,
-    /// \code
-    ///     using result = metal::is_evaluable<expr, args...>;
-    /// \endcode
-    ///
-    /// \par Model:
-    ///     \number
-    ///
-    /// \par Semantics:
-    ///     if `expr<args...>` is well defined and \just some \value,
-    ///     then equivalent to
-    ///     \code
-    ///         struct result :
-    ///             boolean<true>
-    ///         {};
-    ///     \endcode
-    ///     otherwise, equivalent to
-    ///     \code
-    ///         struct result :
-    ///             boolean<false>
-    ///         {};
-    ///     \endcode
-    ///
-    /// Example
-    /// -------
-    /// \snippet expression/eval.cpp is_evaluable
-    ///
-    /// See Also
-    /// --------
-    /// \see is_evaluable_t, eval, is_just, is_nothing
-    template<template<typename...> class expr, typename... args>
-    struct is_evaluable;
-
-    /// \ingroup expression
-    /// \brief Eager adaptor for \ref is_evaluable.
-    template<template<typename...> class expr, typename... args>
-    using is_evaluable_t = typename is_evaluable<expr, args...>::type;
 
     namespace detail
     {
@@ -113,11 +69,6 @@ namespace metal
     template<template<typename...> class expr, typename... args>
     struct eval :
             detail::eval_impl<expr, args...>::type
-    {};
-
-    template<template<typename...> class expr, typename... args>
-    struct is_evaluable :
-            is_just<eval<expr, args...>>
     {};
 }
 
