@@ -7,6 +7,7 @@
 
 #include <metal/sequence/at.hpp>
 #include <metal/sequence/at_key.hpp>
+#include <metal/sequence/contains.hpp>
 #include <metal/sequence/count.hpp>
 #include <metal/sequence/empty.hpp>
 #include <metal/sequence/enumerate.hpp>
