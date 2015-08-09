@@ -11,13 +11,13 @@ namespace metal
 {
     /// \ingroup logical
     /// \brief ...
-    template<typename n>
+    template<typename num>
     struct not_;
 
     /// \ingroup logical
     /// \brief Eager adaptor for \ref not_.
-    template<typename value>
-    using not_t = typename not_<value>::type;
+    template<typename num>
+    using not_t = typename not_<num>::type;
 
     template<typename t, t v>
     struct not_<number<t, v>> :

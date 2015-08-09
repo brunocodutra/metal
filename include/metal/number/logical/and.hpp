@@ -27,8 +27,8 @@ namespace metal
                 boolean<false>
         {};
 
-        template<typename... tail>
-        struct and_impl<number<tail, true>...> :
+        template<typename... types>
+        struct and_impl<number<types, true>...> :
                 boolean<true>
         {};
     }

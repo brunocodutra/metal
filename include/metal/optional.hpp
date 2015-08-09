@@ -6,6 +6,7 @@
 #define METAL_OPTIONAL_HPP
 
 #include <metal/optional/conditional.hpp>
+#include <metal/optional/extract.hpp>
 #include <metal/optional/just.hpp>
 #include <metal/optional/maybe.hpp>
 #include <metal/optional/nothing.hpp>

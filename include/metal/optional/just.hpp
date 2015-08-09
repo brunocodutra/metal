@@ -5,20 +5,21 @@
 #ifndef METAL_OPTIONAL_JUST_HPP
 #define METAL_OPTIONAL_JUST_HPP
 
+#include <metal/optional/extract.hpp>
 #include <metal/number/number.hpp>
 
 namespace metal
 {
     /// \ingroup optional
     /// \brief ...
-    template<typename value>
+    template<typename val>
     struct just
     {
-        using type = value;
+        using type = val;
     };
 
     /// \ingroup optional
-    /// \brief Checks whether an \optional represents some value.
+    /// \brief Checks whether an \optional represents some \value.
     ///
     /// Usage
     /// -----
@@ -69,7 +70,7 @@ namespace metal
             template<typename>
             struct wrapper;
 
-            template<typename x, typename = wrapper<typename x::type>>
+            template<typename x, typename = wrapper<extract<x>>>
             static boolean<true> impl(int);
             template<typename>
             static boolean<false> impl(...);

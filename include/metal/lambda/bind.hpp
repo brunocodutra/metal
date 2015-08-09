@@ -12,18 +12,18 @@ namespace metal
 {
     /// \ingroup lambda
     /// \brief ...
-    template<typename lambda, typename... args>
+    template<typename lbd, typename... args>
     struct bind;
 
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref bind.
-    template<typename lambda, typename... args>
-    using bind_t = typename metal::bind<lambda, args...>::type;
+    template<typename lbd, typename... args>
+    using bind_t = typename metal::bind<lbd, args...>::type;
 
-    template<typename lambda, typename... args>
+    template<typename lbd, typename... args>
     struct bind
     {
-        using type = apply<metal::quote_t<lambda>, args...>;
+        using type = apply<metal::quote_t<lbd>, args...>;
     };
 }
 

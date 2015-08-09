@@ -5,6 +5,7 @@
 #ifndef METAL_OPTIONAL_QUERY_HPP
 #define METAL_OPTIONAL_QUERY_HPP
 
+#include <metal/optional/extract.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/logical/not.hpp>
 
@@ -28,7 +29,7 @@ namespace metal
         {};
 
         template<typename opt>
-        struct query_impl<opt, not_t<typename opt::type>> :
+        struct query_impl<opt, not_t<extract<opt>>> :
                 boolean<true>
         {};
     }

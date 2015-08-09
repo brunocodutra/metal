@@ -11,13 +11,13 @@ namespace metal
 {
     /// \ingroup arithmetic
     /// \brief ...
-    template<typename n>
+    template<typename num>
     struct dec;
 
     /// \ingroup arithmetic
     /// \brief Eager adaptor for \ref dec.
-    template<typename n>
-    using dec_t = typename dec<n>::type;
+    template<typename num>
+    using dec_t = typename dec<num>::type;
 
     template<typename t, t v>
     struct dec<number<t, v>> :

@@ -23,6 +23,18 @@ namespace metal
     /// \brief Standard constructor for integer \numbers.
     template<int value>
     using integer = std::integral_constant<int, value>;
+
+    /// \ingroup number
+    /// ...
+    template<typename num>
+    struct is_number :
+            boolean<false>
+    {};
+
+    template<typename type, type value>
+    struct is_number<number<type, value>> :
+            boolean<true>
+    {};
 }
 
 #endif

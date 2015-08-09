@@ -21,9 +21,9 @@ namespace metal
     template<typename seq>
     using size_t = typename metal::size<seq>::type;
 
-    template<template<typename...> class list, typename... values>
-    struct size<list<values...>> :
-            number<std::size_t, sizeof...(values)>
+    template<template<typename...> class list, typename... vals>
+    struct size<list<vals...>> :
+            number<std::size_t, sizeof...(vals)>
     {};
 }
 

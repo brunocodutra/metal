@@ -20,9 +20,9 @@ namespace metal
     template<typename n>
     using enumerate_t = typename metal::enumerate<n>::type;
 
-    template<typename n, n nv>
-    struct enumerate<number<n, nv>> :
-            range<number<n, 0>, number<n, nv>>
+    template<typename t, t v>
+    struct enumerate<number<t, v>> :
+            range<number<t, 0>, number<t, v>>
     {};
 }
 

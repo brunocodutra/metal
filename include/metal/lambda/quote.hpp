@@ -9,21 +9,21 @@ namespace metal
 {
     /// \ingroup lambda
     /// \brief ...
-    template<typename value>
+    template<typename val>
     struct quote;
 
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref quote.
-    template<typename value>
-    using quote_t = typename metal::quote<value>::type;
+    template<typename val>
+    using quote_t = typename metal::quote<val>::type;
 
-    template<typename value>
+    template<typename val>
     struct quote
     {
         template<typename...>
         struct _
         {
-            using type = value;
+            using type = val;
         };
 
         using type = _<>;

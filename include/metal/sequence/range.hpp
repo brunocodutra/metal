@@ -8,6 +8,7 @@
 #include <metal/sequence/join.hpp>
 #include <metal/sequence/list.hpp>
 #include <metal/number/number.hpp>
+#include <metal/optional/extract.hpp>
 
 #if defined(_MSC_VER)
 #include <metal/number/arithmetic/add.hpp>
@@ -40,12 +41,12 @@ namespace metal
 
 #if !defined(_MSC_VER)
         template<
-            typename o,
+            typename ot, ot ov,
             template<typename...> class list,
-            typename ns, ns... nvs
+            typename ts, ts... vs
         >
-        struct offset<o, list<number<ns, nvs>...>> :
-                list<number<ns, o::value + nvs>...>
+        struct offset<number<ot, ov>, list<number<ts, vs>...>> :
+                list<number<ts, ov + vs>...>
         {};
 #else
         template<typename o, template<typename...> class list, typename... ns>
@@ -58,8 +59,8 @@ namespace metal
     template<typename f, f fv, typename l, l lv>
     struct range<number<f, fv>, number<l, lv>> :
             range<
-                number<typename std::common_type<f, l>::type, fv>,
-                number<typename std::common_type<f, l>::type, lv>
+                number<extract<std::common_type<f, l>>, fv>,
+                number<extract<std::common_type<f, l>>, lv>
             >
     {};
 

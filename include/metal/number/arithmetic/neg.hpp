@@ -11,13 +11,13 @@ namespace metal
 {
     /// \ingroup arithmetic
     /// \brief ...
-    template<typename n>
+    template<typename num>
     struct neg;
 
     /// \ingroup arithmetic
     /// \brief Eager adaptor for \ref neg.
-    template<typename n>
-    using neg_t = typename neg<n>::type;
+    template<typename num>
+    using neg_t = typename neg<num>::type;
 
     template<typename t, t v>
     struct neg<number<t, v>> :

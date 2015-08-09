@@ -7,6 +7,7 @@
 
 #include <metal/optional/nothing.hpp>
 #include <metal/optional/maybe.hpp>
+#include <metal/optional/extract.hpp>
 #include <metal/number/number.hpp>
 
 #include <type_traits>
@@ -28,9 +29,9 @@ namespace metal
             conditional<pred1, then1, conditional<pred2, then2, else_...>>
     {};
 
-    template<typename n, n v, typename then, typename else_>
-    struct conditional<number<n, v>, then, else_> :
-            maybe<typename std::conditional<v, then, else_>::type>
+    template<typename t, t v, typename then, typename else_>
+    struct conditional<number<t, v>, then, else_> :
+            maybe<extract<std::conditional<v, then, else_>>>
     {};
 
     template<typename pred, typename then>

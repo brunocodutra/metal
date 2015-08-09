@@ -11,7 +11,7 @@ namespace metal
 {
     /// \ingroup sequence
     /// \brief ...
-    template<typename... values>
+    template<typename... vals>
     struct list
     {
         using type = list;
@@ -32,8 +32,8 @@ namespace metal
             boolean<false>
     {};
 
-    template<template<typename...> class seq, typename... values>
-    struct is_list<seq<values...>> :
+    template<template<typename...> class seq, typename... vals>
+    struct is_list<seq<vals...>> :
             boolean<true>
     {};
 }

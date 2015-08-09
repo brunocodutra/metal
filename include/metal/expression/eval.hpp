@@ -27,7 +27,7 @@ namespace metal
     /// \par Semantics:
     ///     if `expr` is evaluable with `args`, then equivalent to
     ///     \code
-    ///         using result = metal::just<typename expr<args...>::type>
+    ///         using result = metal::just<expr<args...>::type>
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
@@ -40,7 +40,7 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see eval_t, maybe, nothing
+    /// \see just, nothing
     template<template<typename...> class expr, typename... args>
     struct eval;
 
@@ -56,13 +56,13 @@ namespace metal
         {
         private:
             template<template<typename...> class e, typename ret = e<args...>>
-            static maybe<ret> check(int);
+            static maybe<ret> impl(int);
 
             template<template<typename...> class>
-            static nothing check(...);
+            static nothing impl(...);
 
         public:
-            using type = decltype(check<expr>(0));
+            using type = decltype(impl<expr>(0));
         };
     }
 

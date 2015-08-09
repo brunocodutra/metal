@@ -12,10 +12,7 @@ Value {#concept_value}
 ================================================================================
 
 [Values] are the objects of metaprogramming.
-
-## Requirements
-
-`val` is a model of [Value] if and only if `val` is a type.
+Any type is a [Value].
 
 ## Examples
 
@@ -57,15 +54,12 @@ Optional {#concept_optional}
 [Optionals] are [Values] that
 represent either *just* some other [Value] or *nothing*.
 
-In order to evaluate an [Optional]
+In order to *extract* the underlying [Value] from an [Optional]
 one must explicitly name its nested `::type`.
 Whenever a nested `::type` is undefined or ambiguously defined,
-an [Optional] is said to be *nothing*,
-thus evaluating *nothing* leads to a compile-time error.
-
-## Requirements
-
-`opt` is a model of [Optional] if and only if `opt` is a model of [Value].
+an [Optional] is said to be empty,
+thus attempting to *extract* a [Value] from an empty [Optional]
+leads to a compile-time error.
 
 ## Examples
 
@@ -76,67 +70,52 @@ thus evaluating *nothing* leads to a compile-time error.
 
 ## See Also
 
-metal::maybe, metal::just, metal::nothing, metal::is_just, metal::is_nothing
+metal::maybe, metal::just, metal::nothing, metal::extract
 
 Number {#concept_number}
 ================================================================================
 
-A [Number] is a compile-time representation of a numerical value,
-behaving much like its run-time counterparts.
-[Numbers] derive from a specialization of
-[std::integral_constant], thus every [Number] is also an [Optional].
+A [Number] is a compile-time representation of a numerical value.
 
 ## Requirements
 
-`n` is a model of [Number] if and only if `n` is either:
-* an alias to a specialization of [std::integral_constant].
-* publicly and unambiguously derived, directly or indirectly, from a [Number].
-
-Names inherited from [std::integral_constant]
-must not be hidden and must be unambiguously available.
+`num` is a model of [Number] if and only if `num` is an alias to a
+specialization of [std::integral_constant].
 
 ## Examples
 
-~~~{.cpp}
-    using n = std::true_type;
-~~~
+\snippet concepts/number.cpp ex1
+\snippet concepts/number.cpp ex2
 
-~~~{.cpp}
-    using n = std::integral_constant<int, -1>;
-~~~
+## Counterexamples
 
-~~~{.cpp}
-    struct n :
-        std::integral_constant<char, 'a'>
-    {};
-~~~
+\snippet concepts/number.cpp nex1
+
+## See Also
+
+metal::number, metal::boolean
 
 Expression {#concept_expression}
 ================================================================================
 
-An [Expression] is a compile-time representation of a computation that
-maps a set of [Values] to a new [Value].
-Since [Expressions] behave much like run-time functions,
-they are often called *metafunctions*.
+[Expressions] are functions that operate on [Values] and,
+because of that, they are also called *metafunctions*.
 
-Unlike run-time functions, [Expressions] are lazy,
-which means that they do not immediately evaluate when invoked.
-Rather, an [Expression] invoked with some set of arguments is
-itself a model of [Optional], that is either *nothing* or *just* some [Value].
-Not unlike any other [Optional], one must explicitly name the nested `::type`
-in order to actually evaluate an [Expression].
-In general, however, an [Expression] may naturally compute to
-*nothing* for some set of arguments, hence
-evaluating such an [Expression] leads to a compile-time error.
-
-An [Expression] which evaluates to some [Value]
-when invoked with some set of arguments
-is said to be *evaluable* with that set of arguments.
+Unlike run-time functions, [Expressions] are lazy.
+An [Expression] evaluated with some set of arguments
+is itself a model of [Optional],
+that is either *nothing* or *just* some [Value],
+therefore one must explicitly name the nested `::type`
+in order to *extract* the result of an [Expression].
+In general, however, an [Expression] may evaluate to
+*nothing* for some set of arguments,
+thus attempting to *extract* a result from such an [Expression]
+leads to a compile-time error.
 
 ## Requirements
 
 `expr` is a model of [Expression] if and only if `expr` is a template class,
-union or alias taking only types as arguments.
+union or alias that only expects types as arguments.
 
 ## Examples
 
@@ -152,27 +131,30 @@ union or alias taking only types as arguments.
 
 ## See Also
 
-metal::eval, metal::is_evaluable
+metal::eval
 
 Lambda {#concept_lambda}
 ================================================================================
 
-A [Lambda] is a value representation of an [Expression],
-that is, unlike the latter, every [Lambda] is a model of [Value].
-As such, [Lambdas] can serve as argument or return type to other
-[Lambdas] and [Expressions], thus enabling
-[higher-order] programming, much like run-time [function objects].
+[Lambdas] are [first-class] functions that operate on [Values].
+As [Values] themselves,
+[Lambdas] can serve both as argument as well as return type to an *application*,
+thus enabling [higher-order] metaprogramming.
 
-[Lambdas] are named after their homonym mathematical formalization for
-computability, the [Lambda Calculus].
+[Lambdas] are named after formal system for computability,
+the [Lambda Calculus].
 
-## Requirements
+## Lambda Application
 
-If `expr` is a model of [Expression] and `[a1, ..., an]` are models of [Value],
-then `lbd` is a model of [Lambda] if and only if `lbd` is either
-* an alias to `expr<a1, ..., an>`
-* a [placeholder](\ref placeholders)
-* any other [Value]
+Let `expr` be an [Expression], `[a1, ..., ai, ..., an]` [Values] and
+`[_1, ..., _i, ..., _n]` [Placeholders].
+
+* Applying `ai` to any (possibly empty) set of [Values] yields `ai`
+* Applying `expr<a1, ..., an>` to any (possibly empty) set of [Values] yields
+`expr<a1, ..., an>::type`
+* Applying `_i` to `[a1, ..., ai, ..., an]` yields `ai`
+* Applying `expr<_1, ..., _n>` to `[a1, ..., an]` yields 
+`expr<a1, ..., an>::type`
 
 ## Examples
 
@@ -183,7 +165,7 @@ then `lbd` is a model of [Lambda] if and only if `lbd` is either
 
 ## See Also
 
-metal::apply, metal::bind, metal::arg
+metal::apply, metal::arg
 
 [Value]:                    \ref concept_value
 [Values]:                   \ref concept_value
@@ -195,8 +177,9 @@ metal::apply, metal::bind, metal::arg
 [Expressions]:              \ref concept_expression
 [Lambda]:                   \ref concept_lambda
 [Lambdas]:                  \ref concept_lambda
+[Placeholders]:             \ref placeholders
 
 [std::integral_constant]:   http://en.cppreference.com/w/cpp/types/integral_constant
 [higher-order]:             https://en.wikipedia.org/wiki/Higher-order_lambda
-[function objects]:         http://en.cppreference.com/w/cpp/utility/functional
-[Lambda Calculus]:          https://en.wikipedia.org/wiki/Lambda_calculus#The_lambda_calculus
+[first-class]:              https://en.wikipedia.org/wiki/First-class_citizen
+[Lambda Calculus]:          https://en.wikipedia.org/wiki/Lambda_calculus

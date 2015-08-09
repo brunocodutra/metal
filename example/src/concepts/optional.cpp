@@ -12,7 +12,7 @@ namespace ex1
     /// [ex1]
     struct opt
     {
-        struct type; //just something
+        struct type; //just some value
     };
     /// [ex1]
 
