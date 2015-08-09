@@ -7,13 +7,10 @@
 
 #include <metal/lambda/arg.hpp>
 #include <metal/expression/eval.hpp>
-#include <metal/optional/maybe.hpp>
-#include <metal/optional/just.hpp>
-#include <metal/optional/nothing.hpp>
+#include <metal/number/number.hpp>
 #include <metal/optional/extract.hpp>
 #include <metal/sequence/list.hpp>
-#include <metal/sequence/enumerate.hpp>
-#include <metal/sequence/size.hpp>
+#include <metal/sequence/at.hpp>
 
 namespace metal
 {
@@ -29,36 +26,6 @@ namespace metal
 
     namespace detail
     {
-        template<typename, typename>
-        struct item
-        {};
-
-        template<typename, typename>
-        struct hash;
-
-        template<
-            template<typename...> class list,
-            typename... keys, typename... vals
-        >
-        struct hash<list<keys...>, list<vals...>> :
-                item<keys, vals>...
-        {};
-
-        template<std::size_t n, typename... args>
-        struct select
-        {
-        private:
-            template<typename val>
-            static just<val> impl(item<number<std::size_t, n - 1>, val>*);
-            static nothing impl(...);
-
-            template<typename seq>
-            static hash<enumerate_t<size_t<seq>>, seq>* make_hash();
-
-        public:
-            using type = decltype(impl(make_hash<list<args...>>()));
-        };
-
         template<template<typename...> class expr>
         struct lift
         {
@@ -68,9 +35,10 @@ namespace metal
     }
 
     template<typename lbd, typename... args>
-    struct apply :
-            just<lbd>
-    {};
+    struct apply
+    {
+        using type = lbd;
+    };
 
     template<
         template<typename...> class expr,
@@ -86,7 +54,7 @@ namespace metal
 
     template<std::size_t n, typename... args>
     struct apply<arg<n>, args...> :
-           detail::select<n, args...>::type
+           at<list<args...>, number<std::size_t, n - 1>>
     {};
 
     template<typename... args>

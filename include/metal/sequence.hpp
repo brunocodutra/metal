@@ -5,6 +5,8 @@
 #ifndef METAL_SEQUENCE_HPP
 #define METAL_SEQUENCE_HPP
 
+#include <metal/sequence/at.hpp>
+#include <metal/sequence/at_key.hpp>
 #include <metal/sequence/count.hpp>
 #include <metal/sequence/enumerate.hpp>
 #include <metal/sequence/join.hpp>
@@ -12,6 +14,7 @@
 #include <metal/sequence/map.hpp>
 #include <metal/sequence/range.hpp>
 #include <metal/sequence/size.hpp>
+#include <metal/sequence/zip.hpp>
 
 /// \defgroup sequence Sequence
 /// \ingroup metal
