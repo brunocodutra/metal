@@ -6,7 +6,6 @@
 #define METAL_NUMBER_LOGICAL_OR_HPP
 
 #include <metal/number/number.hpp>
-#include <metal/number/logical/not.hpp>
 
 namespace metal
 {
@@ -20,22 +19,14 @@ namespace metal
     template<typename head, typename... tail>
     using or_t = typename or_<head, tail...>::type;
 
-    namespace detail
-    {
-        template<typename...>
-        struct or_impl :
-                boolean<true>
-        {};
+    template<typename h, h hv, typename... t, t... tv>
+    struct or_<number<h, hv>, number<t, tv>...> :
+            boolean<true>
+    {};
 
-        template<typename... types>
-        struct or_impl<number<types, false>...> :
-                boolean<false>
-        {};
-    }
-
-    template<typename head, typename... tail>
-    struct or_ :
-            detail::or_impl<not_t<not_t<head>>, not_t<not_t<tail>>...>
+    template<typename h, typename... t>
+    struct or_<number<h, false>, number<t, false>...> :
+            boolean<false>
     {};
 }
 
