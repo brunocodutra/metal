@@ -5,7 +5,6 @@
 #ifndef METAL_OPTIONAL_JUST_HPP
 #define METAL_OPTIONAL_JUST_HPP
 
-#include <metal/optional/extract.hpp>
 #include <metal/number/number.hpp>
 
 namespace metal
@@ -70,7 +69,7 @@ namespace metal
             template<typename>
             struct wrapper;
 
-            template<typename x, typename = wrapper<extract<x>>>
+            template<typename x, typename = wrapper<typename x::type>>
             static boolean<true> impl(int);
             template<typename>
             static boolean<false> impl(...);
