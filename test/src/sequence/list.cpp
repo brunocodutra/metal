@@ -10,38 +10,48 @@
 using namespace metal;
 
 METAL_TEST_ASSERT((is_just_t<list<>>::value));
-METAL_TEST_ASSERT((is_just_t<list<test::v0>>::value));
-METAL_TEST_ASSERT((is_just_t<list<test::v0, test::v1>>::value));
-METAL_TEST_ASSERT((is_just_t<list<test::v0, test::v1, test::v2>>::value));
-METAL_TEST_ASSERT((is_just_t<list<test::v0, test::v1, test::v2, test::v3>>::value));
+METAL_TEST_ASSERT((is_just_t<list<test::val0>>::value));
+METAL_TEST_ASSERT((is_just_t<list<test::val0, test::val1>>::value));
+METAL_TEST_ASSERT((is_just_t<list<test::val0, test::val1, test::val2>>::value));
+METAL_TEST_ASSERT((is_just_t<list<test::val0, test::val1, test::val2, test::val3>>::value));
+
+METAL_TEST_ASSERT((is_just_t<list<test::list2>>::value));
+METAL_TEST_ASSERT((is_just_t<list<test::list2, test::list2>>::value));
+METAL_TEST_ASSERT((is_just_t<list<test::list2, test::list2, test::list2>>::value));
+METAL_TEST_ASSERT((is_just_t<list<test::list2, test::list2, test::list2, test::list2>>::value));
 
 METAL_TEST_ASSERT((is_list_t<list<>>::value));
-METAL_TEST_ASSERT((is_list_t<list<test::v0>>::value));
-METAL_TEST_ASSERT((is_list_t<list<test::v0, test::v1>>::value));
-METAL_TEST_ASSERT((is_list_t<list<test::v0, test::v1, test::v2>>::value));
-METAL_TEST_ASSERT((is_list_t<list<test::v0, test::v1, test::v2, test::v3>>::value));
+METAL_TEST_ASSERT((is_list_t<list<test::val0>>::value));
+METAL_TEST_ASSERT((is_list_t<list<test::val0, test::val1>>::value));
+METAL_TEST_ASSERT((is_list_t<list<test::val0, test::val1, test::val2>>::value));
+METAL_TEST_ASSERT((is_list_t<list<test::val0, test::val1, test::val2, test::val3>>::value));
 
-METAL_TEST_ASSERT((!is_list_t<test::v0>::value));
-METAL_TEST_ASSERT((!is_list_t<test::v1>::value));
-METAL_TEST_ASSERT((!is_list_t<test::v2>::value));
-METAL_TEST_ASSERT((!is_list_t<test::v3>::value));
-METAL_TEST_ASSERT((!is_list_t<test::v4>::value));
-METAL_TEST_ASSERT((!is_list_t<test::v5>::value));
-METAL_TEST_ASSERT((!is_list_t<test::v6>::value));
-METAL_TEST_ASSERT((!is_list_t<test::v7>::value));
-METAL_TEST_ASSERT((!is_list_t<test::v8>::value));
-METAL_TEST_ASSERT((!is_list_t<test::v9>::value));
+METAL_TEST_ASSERT((is_list_t<list<test::val0>>::value));
+METAL_TEST_ASSERT((is_list_t<list<test::val0, test::val1>>::value));
+METAL_TEST_ASSERT((is_list_t<list<test::val0, test::val1, test::val2>>::value));
+METAL_TEST_ASSERT((is_list_t<list<test::val0, test::val1, test::val2, test::val3>>::value));
 
-METAL_TEST_ASSERT((!is_list_t<test::n0>::value));
-METAL_TEST_ASSERT((!is_list_t<test::n1>::value));
-METAL_TEST_ASSERT((!is_list_t<test::n2>::value));
-METAL_TEST_ASSERT((!is_list_t<test::n3>::value));
-METAL_TEST_ASSERT((!is_list_t<test::n4>::value));
-METAL_TEST_ASSERT((!is_list_t<test::n5>::value));
-METAL_TEST_ASSERT((!is_list_t<test::n6>::value));
-METAL_TEST_ASSERT((!is_list_t<test::n7>::value));
-METAL_TEST_ASSERT((!is_list_t<test::n8>::value));
-METAL_TEST_ASSERT((!is_list_t<test::n9>::value));
+METAL_TEST_ASSERT((!is_list_t<test::val0>::value));
+METAL_TEST_ASSERT((!is_list_t<test::val1>::value));
+METAL_TEST_ASSERT((!is_list_t<test::val2>::value));
+METAL_TEST_ASSERT((!is_list_t<test::val3>::value));
+METAL_TEST_ASSERT((!is_list_t<test::val4>::value));
+METAL_TEST_ASSERT((!is_list_t<test::val5>::value));
+METAL_TEST_ASSERT((!is_list_t<test::val6>::value));
+METAL_TEST_ASSERT((!is_list_t<test::val7>::value));
+METAL_TEST_ASSERT((!is_list_t<test::val8>::value));
+METAL_TEST_ASSERT((!is_list_t<test::val9>::value));
+
+METAL_TEST_ASSERT((!is_list_t<test::num0>::value));
+METAL_TEST_ASSERT((!is_list_t<test::num1>::value));
+METAL_TEST_ASSERT((!is_list_t<test::num2>::value));
+METAL_TEST_ASSERT((!is_list_t<test::num3>::value));
+METAL_TEST_ASSERT((!is_list_t<test::num4>::value));
+METAL_TEST_ASSERT((!is_list_t<test::num5>::value));
+METAL_TEST_ASSERT((!is_list_t<test::num6>::value));
+METAL_TEST_ASSERT((!is_list_t<test::num7>::value));
+METAL_TEST_ASSERT((!is_list_t<test::num8>::value));
+METAL_TEST_ASSERT((!is_list_t<test::num9>::value));
 
 METAL_TEST_ASSERT((is_list_t<test::list0>::value));
 METAL_TEST_ASSERT((is_list_t<test::list1>::value));

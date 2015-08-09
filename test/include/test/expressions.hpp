@@ -17,22 +17,22 @@ namespace test
     };
 
     template<typename...>
-    struct e0;
+    struct expr0;
 
     template<>
-    struct e0<>
+    struct expr0<>
     {
         enum type {};
     };
 
     template<typename x>
-    struct e1
+    struct expr1
     {
         union type {};
     };
 
     template<typename x, typename y>
-    using e2 = expr<x, y>;
+    using expr2 = expr<x, y>;
 }
 
 #endif

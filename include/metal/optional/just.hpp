@@ -62,26 +62,15 @@ namespace metal
 
     namespace detail
     {
-        template<typename opt>
-        struct is_just_impl
-        {
-        private:
-            template<typename>
-            struct wrapper;
-
-            template<typename x, typename = wrapper<typename x::type>>
-            static boolean<true> impl(int);
-            template<typename>
-            static boolean<false> impl(...);
-
-        public:
-            using type = decltype(impl<opt>(0));
-        };
+        template<typename x, typename = just<typename x::type>>
+        boolean<true> is_just_impl(int);
+        template<typename>
+        boolean<false> is_just_impl(...);
     }
 
     template<typename opt>
     struct is_just :
-            detail::is_just_impl<opt>::type
+            decltype(detail::is_just_impl<opt>(0))
     {};
 }
 

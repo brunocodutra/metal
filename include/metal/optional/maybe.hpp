@@ -6,6 +6,7 @@
 #define METAL_OPTIONAL_MAYBE_HPP
 
 #include <metal/optional/just.hpp>
+#include <metal/optional/extract.hpp>
 #include <metal/number/number.hpp>
 
 namespace metal
@@ -23,7 +24,7 @@ namespace metal
 
         template<typename opt>
         struct maybe_impl<opt, is_just_t<opt>> :
-                just<typename opt::type>
+                just<extract<opt>>
         {};
     }
 

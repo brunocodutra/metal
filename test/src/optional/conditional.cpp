@@ -10,13 +10,13 @@
 
 using namespace metal;
 
-METAL_TEST_ASSERT((conditional_t<test::n0, boolean<false>, boolean<true>>::value));
-METAL_TEST_ASSERT((conditional_t<test::n1, boolean<true>, boolean<false>>::value));
+METAL_TEST_ASSERT((conditional_t<test::num0, boolean<false>, boolean<true>>::value));
+METAL_TEST_ASSERT((conditional_t<test::num1, boolean<true>, boolean<false>>::value));
 
-using x = just<test::v0>;
-using y = just<test::v1>;
-using z = just<test::v2>;
-using w = just<test::v3>;
+using x = just<test::val0>;
+using y = just<test::val1>;
+using z = just<test::val2>;
+using w = just<test::val3>;
 
 METAL_TEST_ASSERT((!is_just<conditional<boolean<false>, x>>::value));
 METAL_TEST_ASSERT((!is_just<conditional<boolean<true>, nothing>>::value));

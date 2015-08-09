@@ -7,16 +7,16 @@
 
 namespace test
 {
-    enum v0 {type};
-    union v1 {};
-    using v2 = v1();
-    using v3 = v2* const;
-    using v4 = v2* volatile;
-    using v5 = v3 volatile;
-    using v6 = v5[1];
-    using v7 = v6[];
-    using v8 = v7&&;
-    using v9 = v8&;
+    enum val0 {type};
+    union val1 {};
+    using val2 = val1();
+    using val3 = val2* const;
+    using val4 = val2* volatile;
+    using val5 = val3 volatile;
+    using val6 = val5[1];
+    using val7 = val6[];
+    using val8 = val7&&;
+    using val9 = val8&;
 }
 
 #endif

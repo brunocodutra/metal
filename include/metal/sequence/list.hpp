@@ -6,16 +6,15 @@
 #define METAL_SEQUENCE_LIST_HPP
 
 #include <metal/number/number.hpp>
+#include <metal/optional/conditional.hpp>
+#include <metal/optional/just.hpp>
 
 namespace metal
 {
     /// \ingroup sequence
     /// \brief ...
     template<typename... vals>
-    struct list
-    {
-        using type = list;
-    };
+    struct list;
 
     /// \ingroup sequece
     /// \brief ...
@@ -26,6 +25,11 @@ namespace metal
     /// \brief Eager adaptor for \ref is_list.
     template<typename seq>
     using is_list_t = typename metal::is_list<seq>::type;
+
+    template<typename... vals>
+    struct list :
+            conditional<is_list_t<list<vals...>>, just<list<vals...>>>
+    {};
 
     template<typename>
     struct is_list :

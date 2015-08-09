@@ -153,7 +153,7 @@ Let `expr` be an [Expression], `[a1, ..., ai, ..., an]` [Values] and
 * Applying `expr<a1, ..., an>` to any (possibly empty) set of [Values] yields
 `expr<a1, ..., an>::type`
 * Applying `_i` to `[a1, ..., ai, ..., an]` yields `ai`
-* Applying `expr<_1, ..., _n>` to `[a1, ..., an]` yields 
+* Applying `expr<_1, ..., _n>` to `[a1, ..., an]` yields
 `expr<a1, ..., an>::type`
 
 ## Examples
@@ -167,6 +167,28 @@ Let `expr` be an [Expression], `[a1, ..., ai, ..., an]` [Values] and
 
 metal::apply, metal::arg
 
+Sequence {#concept_sequence}
+================================================================================
+
+A [Sequence] is a collection of [Values].
+One distinguishes between two kinds of [Sequences],
+*lists* and *maps*, the latter being just a special case of the former.
+
+* A *list* is any specialization of any template class or union,
+that only expects types as arguments.
+
+* A *map* is a *list* of *pairs*, that is,
+*lists* that contain exactly two [Values].
+
+## Examples
+
+## Counterexamples
+
+## See Also
+
+metal::list, metal::map
+
+
 [Value]:                    \ref concept_value
 [Values]:                   \ref concept_value
 [Optional]:                 \ref concept_optional
@@ -177,6 +199,9 @@ metal::apply, metal::arg
 [Expressions]:              \ref concept_expression
 [Lambda]:                   \ref concept_lambda
 [Lambdas]:                  \ref concept_lambda
+[Sequence]:                 \ref concept_sequence
+[Sequences]:                \ref concept_sequence
+
 [Placeholders]:             \ref placeholders
 
 [std::integral_constant]:   http://en.cppreference.com/w/cpp/types/integral_constant
