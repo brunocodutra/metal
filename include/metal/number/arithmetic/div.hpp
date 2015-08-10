@@ -23,6 +23,7 @@ namespace metal
     struct div<number<x, xv>> :
             number<x, xv>
     {};
+
     template<typename x, x xv, typename y, y yv, typename... tail>
     struct div<number<x, xv>, number<y, yv>, tail...> :
             div<number<decltype(xv / yv), xv / yv>, tail...>

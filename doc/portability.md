@@ -26,17 +26,17 @@ status of the main development branches.
     </tr>
     <tr>
         <td align="left">GCC</td>
-        <td align="center">4.7</td>
+        <td align="center">4.8</td>
         <td align="center" rowspan="2">![travis.master.badge]</td>
         <td align="center" rowspan="2">![travis.develop.badge]</td>
     </tr>
     <tr>
         <td align="left">Clang</td>
-        <td align="center">3.1</td>
+        <td align="center">3.5</td>
     </tr>
     <tr>
         <td align="left">MSVC</td>
-        <td align="center">14.0 RC (2015)</td>
+        <td align="center">14 (2015)</td>
         <td align="center">![appveyor.master.badge]</td>
         <td align="center">![appveyor.develop.badge]</td>
     </tr>

@@ -21,10 +21,17 @@ namespace metal
     template<typename head, typename... tail>
     using and_t = typename and_<head, tail...>::type;
 
+#if !defined(_MSC_VER)
     template<typename h, h hv, typename... t, t... tv>
     struct and_<number<h, hv>, number<t, tv>...> :
             not_<or_t<not_t<number<h, hv>>, not_t<number<t, tv>>...>>
     {};
+#else
+    template<typename head, typename... tail>
+    struct and_ :
+            not_<or_t<not_t<head>, not_t<tail>...>>
+    {};
+#endif
 }
 
 #endif

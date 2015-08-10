@@ -23,6 +23,7 @@ namespace metal
     struct mul<number<x, xv>> :
             number<x, xv>
     {};
+
     template<typename x, x xv, typename y, y yv, typename... tail>
     struct mul<number<x, xv>, number<y, yv>, tail...> :
             mul<number<decltype(xv * yv), xv * yv>, tail...>

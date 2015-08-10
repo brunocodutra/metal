@@ -23,6 +23,7 @@ namespace metal
     struct add<number<x, xv>> :
             number<x, xv>
     {};
+
     template<typename x, x xv, typename y, y yv, typename... tail>
     struct add<number<x, xv>, number<y, yv>, tail...> :
             add<number<decltype(xv + yv), xv + yv>, tail...>

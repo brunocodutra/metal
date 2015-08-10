@@ -7,6 +7,10 @@
 
 #include <metal/number/number.hpp>
 
+#if defined(_MSC_VER)
+#include <metal/number/logical/not.hpp>
+#endif
+
 namespace metal
 {
     /// \ingroup logical
@@ -19,15 +23,32 @@ namespace metal
     template<typename head, typename... tail>
     using or_t = typename or_<head, tail...>::type;
 
+    namespace detail
+    {
+        template<typename...>
+        struct or_impl :
+                boolean<true>
+        {};
+
+        template<typename... t>
+        struct or_impl<number<t, false>...> :
+                boolean<false>
+        {};
+    }
+
+#if !defined(_MSC_VER)
     template<typename h, h hv, typename... t, t... tv>
     struct or_<number<h, hv>, number<t, tv>...> :
-            boolean<true>
+            detail::or_impl<number<h, hv>, number<t, tv>...>
     {};
+#else
+    template<typename head, typename... tail>
+    struct or_ :
+            detail::or_impl<not_t<not_t<head>>, not_t<not_t<tail>>...>
+    {};
+#endif
 
-    template<typename h, typename... t>
-    struct or_<number<h, false>, number<t, false>...> :
-            boolean<false>
-    {};
+
 }
 
 #endif
