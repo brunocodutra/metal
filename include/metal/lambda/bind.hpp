@@ -23,7 +23,7 @@ namespace metal
     template<typename lbd, typename... args>
     struct bind
     {
-        using type = apply<metal::quote_t<lbd>, args...>;
+        using type = apply<quote_t<lbd>, args...>;
     };
 }
 

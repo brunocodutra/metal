@@ -10,7 +10,6 @@
 #include <metal/optional/just.hpp>
 #include <metal/optional/maybe.hpp>
 #include <metal/optional/nothing.hpp>
-#include <metal/optional/query.hpp>
 
 /// \defgroup optional Optional
 /// \ingroup metal

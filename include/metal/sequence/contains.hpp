@@ -15,7 +15,8 @@ namespace metal
     /// \ingroup sequece
     /// \brief ...
     template<typename seq, typename val>
-    struct contains;
+    struct contains
+    {};
 
     /// \ingroup sequece
     /// \brief Eager adaptor for \ref contains.

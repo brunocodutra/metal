@@ -14,7 +14,8 @@ namespace metal
     /// \ingroup sequece
     /// \brief ...
     template<typename seq>
-    struct size;
+    struct size
+    {};
 
     /// \ingroup sequence
     /// \brief Eager adaptor for \ref size.

@@ -10,7 +10,8 @@ namespace metal
     /// \ingroup sequence
     /// \brief ...
     template<typename seq1, typename seq2>
-    struct zip;
+    struct zip
+    {};
 
     /// \ingroup optional
     /// \brief Eager adaptor for \ref zip.

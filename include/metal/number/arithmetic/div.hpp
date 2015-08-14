@@ -11,22 +11,23 @@ namespace metal
 {
     /// \ingroup arithmetic
     /// \brief ...
-    template<typename head, typename... tail>
-    struct div;
+    template<typename... nums>
+    struct div
+    {};
 
     /// \ingroup arithmetic
     /// \brief Eager adaptor for \ref div.
-    template<typename head, typename... tail>
-    using div_t = typename div<head, tail...>::type;
+    template<typename... nums>
+    using div_t = typename div<nums...>::type;
 
     template<typename x, x xv>
     struct div<number<x, xv>> :
             number<x, xv>
     {};
 
-    template<typename x, x xv, typename y, y yv, typename... tail>
-    struct div<number<x, xv>, number<y, yv>, tail...> :
-            div<number<decltype(xv / yv), xv / yv>, tail...>
+    template<typename x, x xv, typename y, y yv, typename... nums>
+    struct div<number<x, xv>, number<y, yv>, nums...> :
+            div<number<decltype(xv / yv), xv / yv>, nums...>
     {};
 }
 

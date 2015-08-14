@@ -11,22 +11,23 @@ namespace metal
 {
     /// \ingroup arithmetic
     /// \brief ...
-    template<typename head, typename... tail>
-    struct sub;
+    template<typename... nums>
+    struct sub
+    {};
 
     /// \ingroup arithmetic
     /// \brief Eager adaptor for \ref sub.
-    template<typename head, typename... tail>
-    using sub_t = typename sub<head, tail...>::type;
+    template<typename... nums>
+    using sub_t = typename sub<nums...>::type;
 
     template<typename x, x xv>
     struct sub<number<x, xv>> :
             number<x, xv>
     {};
 
-    template<typename x, x xv, typename y, y yv, typename... tail>
-    struct sub<number<x, xv>, number<y, yv>, tail...> :
-            sub<number<decltype(xv - yv), xv - yv>, tail...>
+    template<typename x, x xv, typename y, y yv, typename... nums>
+    struct sub<number<x, xv>, number<y, yv>, nums...> :
+            sub<number<decltype(xv - yv), xv - yv>, nums...>
     {};
 }
 

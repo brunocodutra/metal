@@ -12,7 +12,8 @@ namespace metal
     /// \ingroup comparison
     /// \brief ...
     template<typename x, typename y>
-    struct greater;
+    struct greater
+    {};
 
     /// \ingroup comparison
     /// \brief Eager adaptor for \ref greater.

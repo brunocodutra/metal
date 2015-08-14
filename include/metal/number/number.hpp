@@ -27,6 +27,14 @@ namespace metal
     /// \ingroup number
     /// ...
     template<typename num>
+    struct is_number;
+
+    /// \ingroup number
+    /// \brief Eager adaptor for \ref is_number.
+    template<typename num>
+    using is_number_t = typename is_number<num>::type;
+
+    template<typename num>
     struct is_number :
             boolean<false>
     {};

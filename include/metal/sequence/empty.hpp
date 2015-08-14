@@ -12,7 +12,8 @@ namespace metal
     /// \ingroup sequece
     /// \brief ...
     template<typename seq>
-    struct empty;
+    struct empty
+    {};
 
     /// \ingroup sequence
     /// \brief Eager adaptor for \ref empty.

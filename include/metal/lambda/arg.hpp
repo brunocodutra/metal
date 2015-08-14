@@ -11,7 +11,7 @@ namespace metal
 {
     /// \ingroup lambda
     /// \brief ...
-    template<std::size_t n>
+    template<std::size_t>
     struct arg
     {};
 

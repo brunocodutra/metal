@@ -12,7 +12,8 @@ namespace metal
     /// \ingroup logical
     /// \brief ...
     template<typename num>
-    struct not_;
+    struct not_
+    {};
 
     /// \ingroup logical
     /// \brief Eager adaptor for \ref not_.
@@ -21,7 +22,7 @@ namespace metal
 
     template<typename t, t v>
     struct not_<number<t, v>> :
-            boolean<!number<t, v>::value>
+            boolean<v ? false : true>
     {};
 }
 

@@ -33,14 +33,14 @@ namespace test
 
     using map0 = seq<>;
     using map1 = seq1<seq2<num0, val0>>;
-    using map2 = seq2<seq2<num0, val0>, seq2<num1, val1>>;
-    using map3 = seq<seq2<num0, val0>, seq2<num1, val1>, seq2<num2, val2>>;
-    using map4 = seq<seq2<num0, val0>, seq2<num1, val1>, seq2<num2, val2>, seq2<num3, val3>>;
-    using map5 = seq<seq2<num0, val0>, seq2<num1, val1>, seq2<num2, val2>, seq2<num3, val3>, seq2<num4, val4>>;
-    using map6 = seq<seq2<num0, val0>, seq2<num1, val1>, seq2<num2, val2>, seq2<num3, val3>, seq2<num4, val4>, seq2<num5, val5>>;
-    using map7 = seq<seq2<num0, val0>, seq2<num1, val1>, seq2<num2, val2>, seq2<num3, val3>, seq2<num4, val4>, seq2<num5, val5>, seq2<num6, val6>>;
-    using map8 = seq<seq2<num0, val0>, seq2<num1, val1>, seq2<num2, val2>, seq2<num3, val3>, seq2<num4, val4>, seq2<num5, val5>, seq2<num6, val6>, seq2<num7, val7>>;
-    using map9 = seq<seq2<num0, val0>, seq2<num1, val1>, seq2<num2, val2>, seq2<num3, val3>, seq2<num4, val4>, seq2<num5, val5>, seq2<num6, val6>, seq2<num7, val7>, seq2<num8, val8>>;
+    using map2 = seq2<seq2<num0, val0>, seq<num1, val1>>;
+    using map3 = seq<seq2<num0, val0>, seq<num1, val1>, seq2<num2, val2>>;
+    using map4 = seq<seq2<num0, val0>, seq<num1, val1>, seq2<num2, val2>, seq<num3, val3>>;
+    using map5 = seq<seq2<num0, val0>, seq<num1, val1>, seq2<num2, val2>, seq<num3, val3>, seq2<num4, val4>>;
+    using map6 = seq<seq2<num0, val0>, seq<num1, val1>, seq2<num2, val2>, seq<num3, val3>, seq2<num4, val4>, seq<num5, val5>>;
+    using map7 = seq<seq2<num0, val0>, seq<num1, val1>, seq2<num2, val2>, seq<num3, val3>, seq2<num4, val4>, seq<num5, val5>, seq2<num6, val6>>;
+    using map8 = seq<seq2<num0, val0>, seq<num1, val1>, seq2<num2, val2>, seq<num3, val3>, seq2<num4, val4>, seq<num5, val5>, seq2<num6, val6>, seq<num7, val7>>;
+    using map9 = seq<seq2<num0, val0>, seq<num1, val1>, seq2<num2, val2>, seq<num3, val3>, seq2<num4, val4>, seq<num5, val5>, seq2<num6, val6>, seq<num7, val7>, seq2<num8, val8>>;
 }
 
 #endif

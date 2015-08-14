@@ -3,10 +3,17 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/number/logical.hpp>
+#include <metal/optional/just.hpp>
 
 #include "test.hpp"
 
 using namespace metal;
+
+METAL_TEST_ASSERT((!is_just<or_<>>::value));
+METAL_TEST_ASSERT((!is_just<or_<test::val0>>::value));
+METAL_TEST_ASSERT((!is_just<or_<test::val0, test::val1>>::value));
+METAL_TEST_ASSERT((!is_just<or_<test::val0, test::val1, test::val2>>::value));
+METAL_TEST_ASSERT((!is_just<or_<test::val0, test::val1, test::val2, test::val4>>::value));
 
 METAL_TEST_ASSERT((or_t<test::num1>::value));
 METAL_TEST_ASSERT((or_t<test::num0, test::num2>::value));
@@ -27,6 +34,12 @@ METAL_TEST_ASSERT((!or_t<test::num0, test::num0, test::num0, test::num0, test::n
 METAL_TEST_ASSERT((!or_t<test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0>::value));
 METAL_TEST_ASSERT((!or_t<test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0>::value));
 METAL_TEST_ASSERT((!or_t<test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0>::value));
+
+METAL_TEST_ASSERT((!is_just<and_<>>::value));
+METAL_TEST_ASSERT((!is_just<and_<test::val0>>::value));
+METAL_TEST_ASSERT((!is_just<and_<test::val0, test::val1>>::value));
+METAL_TEST_ASSERT((!is_just<and_<test::val0, test::val1, test::val2>>::value));
+METAL_TEST_ASSERT((!is_just<and_<test::val0, test::val1, test::val2, test::val4>>::value));
 
 METAL_TEST_ASSERT((and_t<test::num1>::value));
 METAL_TEST_ASSERT((and_t<test::num1, test::num2>::value));

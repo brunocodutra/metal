@@ -17,7 +17,8 @@ namespace metal
     /// \ingroup sequece
     /// \brief ...
     template<typename seq, typename val>
-    struct at;
+    struct at
+    {};
 
     /// \ingroup sequece
     /// \brief Eager adaptor for \ref at.

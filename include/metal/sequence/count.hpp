@@ -15,7 +15,8 @@ namespace metal
     /// \ingroup sequece
     /// \brief ...
     template<typename seq, typename val>
-    struct count;
+    struct count
+    {};
 
     /// \ingroup sequece
     /// \brief Eager adaptor for \ref count.

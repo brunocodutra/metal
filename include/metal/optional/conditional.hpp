@@ -17,7 +17,8 @@ namespace metal
     /// \ingroup optional
     /// \brief ...
     template<typename pred, typename then, typename... else_>
-    struct conditional;
+    struct conditional
+    {};
 
     /// \ingroup optional
     /// \brief Eager adaptor for \ref conditional.
@@ -31,7 +32,7 @@ namespace metal
 
     template<typename t, t v, typename then, typename else_>
     struct conditional<number<t, v>, then, else_> :
-            maybe<extract<std::conditional<v, then, else_>>>
+            maybe<extract<std::conditional<static_cast<bool>(v), then, else_>>>
     {};
 
     template<typename pred, typename then>

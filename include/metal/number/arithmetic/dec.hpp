@@ -12,7 +12,8 @@ namespace metal
     /// \ingroup arithmetic
     /// \brief ...
     template<typename num>
-    struct dec;
+    struct dec
+    {};
 
     /// \ingroup arithmetic
     /// \brief Eager adaptor for \ref dec.

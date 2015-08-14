@@ -10,7 +10,8 @@ namespace metal
     /// \ingroup sequence
     /// \brief ...
     template<typename...>
-    struct join;
+    struct join
+    {};
 
     /// \ingroup optional
     /// \brief Eager adaptor for \ref join.

@@ -12,7 +12,8 @@ namespace metal
     /// \ingroup comparison
     /// \brief ...
     template<typename x, typename y>
-    struct less;
+    struct less
+    {};
 
     /// \ingroup comparison
     /// \brief Eager adaptor for \ref less.

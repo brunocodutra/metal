@@ -12,7 +12,8 @@ namespace metal
     /// \ingroup arithmetic
     /// \brief ...
     template<typename num>
-    struct neg;
+    struct neg
+    {};
 
     /// \ingroup arithmetic
     /// \brief Eager adaptor for \ref neg.
@@ -21,7 +22,7 @@ namespace metal
 
     template<typename t, t v>
     struct neg<number<t, v>> :
-            number<decltype(-number<t, v>::value), -number<t, v>::value>
+            number<decltype(static_cast<t>(0) - v), static_cast<t>(0) - v>
     {};
 }
 

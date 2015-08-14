@@ -10,16 +10,13 @@
 #include <metal/number/number.hpp>
 #include <metal/optional/extract.hpp>
 
-#if defined(_MSC_VER)
-#include <metal/number/arithmetic/add.hpp>
-#endif
-
 namespace metal
 {
     /// \ingroup sequence
     /// \brief ...
     template<typename first, typename last>
-    struct range;
+    struct range
+    {};
 
     /// \ingroup optional
     /// \brief Eager adaptor for \ref range.
@@ -28,32 +25,19 @@ namespace metal
 
     namespace detail
     {
+        template<typename t, t... vs>
+        static list<number<t, vs>...> list_numbers();
+
         template<typename, typename>
         struct offset;
 
         template<typename o, typename ns>
         using offset_t = typename offset<o, ns>::type;
 
-        template<typename o, template<typename...> class list>
-        struct offset<o, list<>> :
-                list<>
+        template<typename t, t o, template<typename...> class list, t... vs>
+        struct offset<number<t, o>, list<number<t, vs>...>> :
+                decltype(list_numbers<t, o + vs...>())
         {};
-
-#if !defined(_MSC_VER)
-        template<
-            typename ot, ot ov,
-            template<typename...> class list,
-            typename ts, ts... vs
-        >
-        struct offset<number<ot, ov>, list<number<ts, vs>...>> :
-                list<number<ts, ov + vs>...>
-        {};
-#else
-        template<typename o, template<typename...> class list, typename... ns>
-        struct offset<o, list<ns...>> :
-                list<add_t<o, ns>...>
-        {};
-#endif
     }
 
     template<typename f, f fv, typename l, l lv>
@@ -93,4 +77,9 @@ namespace metal
     {};
 }
 
+using sdfsdf = metal::range_t<metal::number<char, 1>, metal::number<char, 30>>;
+
+template<typename>
+struct asd;
+using asdsadddda = asd<sdfsdf>::sdfsdf;
 #endif

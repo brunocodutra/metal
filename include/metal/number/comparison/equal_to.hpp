@@ -12,7 +12,8 @@ namespace metal
     /// \ingroup comparison
     /// \brief ...
     template<typename x, typename y>
-    struct equal_to;
+    struct equal_to
+    {};
 
     /// \ingroup comparison
     /// \brief Eager adaptor for \ref equal_to.

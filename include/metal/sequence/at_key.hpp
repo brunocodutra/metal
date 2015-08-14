@@ -5,7 +5,6 @@
 #ifndef METAL_SEQUENCE_AT_KEY_HPP
 #define METAL_SEQUENCE_AT_KEY_HPP
 
-#include <metal/sequence/map.hpp>
 #include <metal/sequence/list.hpp>
 #include <metal/core/inherit.hpp>
 #include <metal/optional/just.hpp>
@@ -16,7 +15,8 @@ namespace metal
     /// \ingroup sequece
     /// \brief ...
     template<typename seq, typename val>
-    struct at_key;
+    struct at_key
+    {};
 
     /// \ingroup sequece
     /// \brief Eager adaptor for \ref at_key.
