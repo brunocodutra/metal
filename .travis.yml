@@ -8,12 +8,14 @@ sudo: false
 
 matrix:
     allow_failures:
+      - env: BUILD_DOC=true
+      
       - compiler: g++
         env: CXX_VERSION=4.7
 
       - compiler: clang++
         env: CXX_VERSION=3.7
-
+        
     include:
       - compiler: g++
         env: CXX_VERSION=4.7
@@ -100,6 +102,7 @@ install:
 
 before_script:
   - git config --global user.name "Travis Bot"
+  - git config --global user.email "\<\>"
 
   - mkdir "${TRAVIS_BUILD_DIR}/build"
   - cd "${TRAVIS_BUILD_DIR}/build"
@@ -109,5 +112,5 @@ before_script:
 
 script:
   - if [[ "${BUILD_DOC}" != "true" ]]; then time make metal.test && ctest --output-on-failure; fi
-  - if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]]; then make metal.doc.update &> /dev/null; fi
+  - if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_PULL_REQUEST}" != "true" && "${TRAVIS_BRANCH}" == "master" ]]; then make metal.doc.update &> /dev/null; fi
   - if [[ "${BUILD_DOC}" == "true" && ("${TRAVIS_PULL_REQUEST}" == "true" || "${TRAVIS_BRANCH}" != "master") ]]; then time make metal.doc; fi
