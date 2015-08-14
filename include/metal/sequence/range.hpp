@@ -77,9 +77,4 @@ namespace metal
     {};
 }
 
-using sdfsdf = metal::range_t<metal::number<char, 1>, metal::number<char, 30>>;
-
-template<typename>
-struct asd;
-using asdsadddda = asd<sdfsdf>::sdfsdf;
 #endif
