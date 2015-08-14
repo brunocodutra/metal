@@ -8,14 +8,14 @@ sudo: false
 
 matrix:
     allow_failures:
-      - env: BUILD_DOC=true
-      
       - compiler: g++
         env: CXX_VERSION=4.7
 
       - compiler: clang++
         env: CXX_VERSION=3.7
-        
+
+      - env: BUILD_DOC=true
+
     include:
       - compiler: g++
         env: CXX_VERSION=4.7
@@ -83,14 +83,13 @@ matrix:
                   - ubuntu-toolchain-r-test
                   - llvm-toolchain-precise-3.7
 
-compiler: g++
-addons: *gcc5
+      - compiler: g++
+        env: CXX_VERSION=5 BUILD_DOC=true
+        addons: *gcc5
+
 env:
     global:
         secure: I+/0uZHtoQoyh/NzNru20y7YBqkazbXj/ciTRxoX5oq4YCZoFh07BJxghWeQNX/OqAVpKb0pNbkyMJxKe628LeHlI4ftZCZl2ZJmcLONR9KOUI+8eJ/sb5+TgQIaG1uBwUFx89eXKbbZWWdc0CQhBnSEJdU8sl6lY+ZsbU9PtKk=
-
-    matrix:
-      - CXX_VERSION=5 BUILD_DOC=true
 
 install:
   - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
