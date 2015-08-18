@@ -20,7 +20,11 @@ find_package(Doxygen)
 find_package(Git)
 enable_testing()
 
-function(add_test_matrix _target _dialects _sources _headers)
+function(add_test_matrix _target _dialects _prefix)
+    file(GLOB_RECURSE headers "${_prefix}/include/*.hpp")
+    file(GLOB_RECURSE sources "${_prefix}/src/*.cpp")
+    list(SORT sources)
+    include_directories("${_prefix}/include")
     add_custom_target(${_target})
     foreach(dialect ${_dialects})
         unset(dialect_flags)
@@ -30,18 +34,21 @@ function(add_test_matrix _target _dialects _sources _headers)
             if(flag)
                 add_custom_target(${_target}.${dialect})
                 add_dependencies(${_target} ${_target}.${dialect})
-                foreach(test_source ${_sources})
+                foreach(source ${sources})
+                    string(REPLACE "${_prefix}/src/" "" test_target ${source})
+                    string(REGEX REPLACE "[/\\]" "." test_target ${test_target})
                     string(
                         REGEX REPLACE
-                        ".*[/\\](.*\)[.]cpp"
+                        "(.*)[.]cpp"
                         "${_target}.${dialect}.\\1"
                         test_target
-                        ${test_source}
+                        ${test_target}
                     )
+
                     add_binary_target(
                         EXECUTABLE ${test_target}
                         LANGUAGE CXX
-                        SOURCES ${test_source} ${_headers}
+                        SOURCES ${source} ${headers}
                         LIBRARIES
                         ADITIONAL_FLAGS "${flag}"
                         DEPENDENCIES
@@ -50,7 +57,18 @@ function(add_test_matrix _target _dialects _sources _headers)
                         ${test_target}
                         ${CMAKE_CURRENT_BINARY_DIR}/${test_target}
                     )
-                    add_dependencies(${_target}.${dialect} ${test_target})
+
+                    string(
+                        REGEX REPLACE
+                        "(.*)[.][^.]+"
+                        "\\1"
+                        test_target_parent
+                        ${test_target}
+                    )
+                    if(NOT TARGET ${test_target_parent})
+                        add_custom_target(${test_target_parent})
+                    endif()
+                    add_dependencies(${test_target_parent} ${test_target})
                 endforeach()
                 break()
             endif()
