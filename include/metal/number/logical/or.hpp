@@ -14,30 +14,25 @@ namespace metal
     /// \ingroup logical
     /// \brief ...
     template<typename... nums>
-    struct or_
-    {};
+    struct or_;
 
     /// \ingroup logical
     /// \brief Eager adaptor for \ref or_.
     template<typename... nums>
     using or_t = typename or_<nums...>::type;
 
-    template<typename head, typename... tail>
-    struct or_<head, tail...> :
-            conditional<
-                not_t<
-                    or_t<
-                        not_t<is_number_t<head>>,
-                        not_t<is_number_t<tail>>...
-                    >
-                >,
-                boolean<true>
-            >
+    template<typename... nums>
+    struct or_ :
+            conditional<not_t<or_t<not_t<is_number_t<nums>>...>>, boolean<true>>
     {};
 
-    template<typename head, typename... tail>
-    struct or_<number<head, false>, number<tail, false>...> :
+    template<typename... types>
+    struct or_<number<types, false>...> :
             boolean<false>
+    {};
+
+    template<>
+    struct or_<>
     {};
 }
 

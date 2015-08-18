@@ -5,26 +5,33 @@
 #ifndef METAL_NUMBER_LOGICAL_AND_HPP
 #define METAL_NUMBER_LOGICAL_AND_HPP
 
+#include <metal/number/number.hpp>
 #include <metal/number/logical/or.hpp>
 #include <metal/number/logical/not.hpp>
-#include <metal/lambda/apply.hpp>
+#include <metal/optional/conditional.hpp>
+#include <metal/optional/just.hpp>
 
 namespace metal
 {
     /// \ingroup logical
     /// \brief ...
     template<typename... nums>
-    struct and_
-    {};
+    struct and_;
 
     /// \ingroup logical
     /// \brief Eager adaptor for \ref and_.
     template<typename... nums>
     using and_t = typename and_<nums...>::type;
 
-    template<typename head, typename... tail>
-    struct and_<head, tail...> :
-            apply<not_<or_<not_<head>, not_<tail>...>>>
+    namespace detail
+    {
+        template<typename op>
+        using monadic = conditional_t<is_just_t<op>, op, just<op>>;
+    }
+
+    template<typename... nums>
+    struct and_ :
+            not_<detail::monadic<or_<detail::monadic<not_<nums>>...>>>
     {};
 }
 

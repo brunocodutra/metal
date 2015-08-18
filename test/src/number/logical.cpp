@@ -11,9 +11,9 @@ using namespace metal;
 
 METAL_TEST_ASSERT((!is_just<or_<>>::value));
 METAL_TEST_ASSERT((!is_just<or_<test::val0>>::value));
-METAL_TEST_ASSERT((!is_just<or_<test::val0, test::val1>>::value));
-METAL_TEST_ASSERT((!is_just<or_<test::val0, test::val1, test::val2>>::value));
-METAL_TEST_ASSERT((!is_just<or_<test::val0, test::val1, test::val2, test::val4>>::value));
+METAL_TEST_ASSERT((!is_just<or_<test::num0, test::val1>>::value));
+METAL_TEST_ASSERT((!is_just<or_<test::val0, test::num1, test::val2>>::value));
+METAL_TEST_ASSERT((!is_just<or_<test::num0, test::val1, test::num2, test::val3>>::value));
 
 METAL_TEST_ASSERT((or_t<test::num1>::value));
 METAL_TEST_ASSERT((or_t<test::num0, test::num2>::value));
@@ -37,9 +37,9 @@ METAL_TEST_ASSERT((!or_t<test::num0, test::num0, test::num0, test::num0, test::n
 
 METAL_TEST_ASSERT((!is_just<and_<>>::value));
 METAL_TEST_ASSERT((!is_just<and_<test::val0>>::value));
-METAL_TEST_ASSERT((!is_just<and_<test::val0, test::val1>>::value));
-METAL_TEST_ASSERT((!is_just<and_<test::val0, test::val1, test::val2>>::value));
-METAL_TEST_ASSERT((!is_just<and_<test::val0, test::val1, test::val2, test::val4>>::value));
+METAL_TEST_ASSERT((!is_just<and_<test::num0, test::val1>>::value));
+METAL_TEST_ASSERT((!is_just<and_<test::val0, test::num1, test::val2>>::value));
+METAL_TEST_ASSERT((!is_just<and_<test::num0, test::val1, test::num2, test::val3>>::value));
 
 METAL_TEST_ASSERT((and_t<test::num1>::value));
 METAL_TEST_ASSERT((and_t<test::num1, test::num2>::value));
