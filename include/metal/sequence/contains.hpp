@@ -21,7 +21,7 @@ namespace metal
     /// \ingroup sequece
     /// \brief Eager adaptor for \ref contains.
     template<typename seq, typename val>
-    using contains_t = typename contains<seq, val>::type;
+    using contains_t = extract<contains<seq, val>>;
 
     template<
         template<typename...> class list,

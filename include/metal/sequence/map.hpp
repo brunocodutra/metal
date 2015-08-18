@@ -12,6 +12,7 @@
 #include <metal/number/logical/and.hpp>
 #include <metal/optional/conditional.hpp>
 #include <metal/optional/just.hpp>
+#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -28,7 +29,7 @@ namespace metal
     /// \ingroup sequence
     /// \brief Eager adaptor for \ref is_map.
     template<typename seq>
-    using is_map_t = typename metal::is_map<seq>::type;
+    using is_map_t = extract<metal::is_map<seq>>;
 
     template<typename... seqs>
     struct map :

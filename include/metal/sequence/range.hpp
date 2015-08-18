@@ -21,7 +21,7 @@ namespace metal
     /// \ingroup optional
     /// \brief Eager adaptor for \ref range.
     template<typename first, typename last>
-    using range_t = typename metal::range<first, last>::type;
+    using range_t = extract<metal::range<first, last>>;
 
     namespace detail
     {
@@ -32,7 +32,7 @@ namespace metal
         struct offset;
 
         template<typename o, typename ns>
-        using offset_t = typename offset<o, ns>::type;
+        using offset_t = extract<offset<o, ns>>;
 
         template<typename t, t o, template<typename...> class list, t... vs>
         struct offset<number<t, o>, list<number<t, vs>...>> :

@@ -8,6 +8,7 @@
 #include <metal/number/number.hpp>
 #include <metal/optional/conditional.hpp>
 #include <metal/optional/just.hpp>
+#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -24,7 +25,7 @@ namespace metal
     /// \ingroup sequence
     /// \brief Eager adaptor for \ref is_list.
     template<typename seq>
-    using is_list_t = typename metal::is_list<seq>::type;
+    using is_list_t = extract<metal::is_list<seq>>;
 
     template<typename... vals>
     struct list :

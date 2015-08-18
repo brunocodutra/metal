@@ -5,6 +5,8 @@
 #ifndef METAL_SEQUENCE_ZIP_HPP
 #define METAL_SEQUENCE_ZIP_HPP
 
+#include <metal/optional/extract.hpp>
+
 namespace metal
 {
     /// \ingroup sequence
@@ -16,7 +18,7 @@ namespace metal
     /// \ingroup optional
     /// \brief Eager adaptor for \ref zip.
     template<typename seq1, typename seq2>
-    using zip_t = typename zip<seq1, seq2>::type;
+    using zip_t = extract<zip<seq1, seq2>>;
 
     template<template<typename...> class list, typename... xs, typename... ys>
     struct zip<list<xs...>, list<ys...>>

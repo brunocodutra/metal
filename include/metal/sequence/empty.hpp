@@ -6,6 +6,7 @@
 #define METAL_SEQUENCE_EMPTY_HPP
 
 #include <metal/number/number.hpp>
+#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -18,7 +19,7 @@ namespace metal
     /// \ingroup sequence
     /// \brief Eager adaptor for \ref empty.
     template<typename seq>
-    using empty_t = typename metal::empty<seq>::type;
+    using empty_t = extract<metal::empty<seq>>;
 
     template<template<typename...> class list, typename... vals>
     struct empty<list<vals...>> :

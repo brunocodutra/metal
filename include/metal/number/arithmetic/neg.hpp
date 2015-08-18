@@ -6,6 +6,7 @@
 #define METAL_NUMBER_ARITHMETIC_NEG_HPP
 
 #include <metal/number/number.hpp>
+#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -18,7 +19,7 @@ namespace metal
     /// \ingroup arithmetic
     /// \brief Eager adaptor for \ref neg.
     template<typename num>
-    using neg_t = typename neg<num>::type;
+    using neg_t = extract<neg<num>>;
 
     template<typename t, t v>
     struct neg<number<t, v>> :

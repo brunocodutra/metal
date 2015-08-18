@@ -7,6 +7,7 @@
 
 #include <metal/lambda/apply.hpp>
 #include <metal/lambda/quote.hpp>
+#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -18,7 +19,7 @@ namespace metal
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref bind.
     template<typename lbd, typename... args>
-    using bind_t = typename metal::bind<lbd, args...>::type;
+    using bind_t = extract<metal::bind<lbd, args...>>;
 
     template<typename lbd, typename... args>
     struct bind

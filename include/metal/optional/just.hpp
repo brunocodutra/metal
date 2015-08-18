@@ -5,6 +5,7 @@
 #ifndef METAL_OPTIONAL_JUST_HPP
 #define METAL_OPTIONAL_JUST_HPP
 
+#include <metal/optional/extract.hpp>
 #include <metal/number/number.hpp>
 
 namespace metal
@@ -58,7 +59,7 @@ namespace metal
     /// \ingroup optional
     /// \brief Eager adaptor for \ref is_just.
     template<typename opt>
-    using is_just_t = typename metal::is_just<opt>::type;
+    using is_just_t = extract<metal::is_just<opt>>;
 
     namespace detail
     {

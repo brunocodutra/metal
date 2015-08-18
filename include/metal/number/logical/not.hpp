@@ -6,6 +6,7 @@
 #define METAL_NUMBER_LOGICAL_NOT_HPP
 
 #include <metal/number/number.hpp>
+#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -18,7 +19,7 @@ namespace metal
     /// \ingroup logical
     /// \brief Eager adaptor for \ref not_.
     template<typename num>
-    using not_t = typename not_<num>::type;
+    using not_t = extract<not_<num>>;
 
     template<typename t, t v>
     struct not_<number<t, v>> :

@@ -9,6 +9,7 @@
 #include <metal/number/logical/or.hpp>
 #include <metal/number/logical/not.hpp>
 #include <metal/optional/conditional.hpp>
+#include <metal/optional/extract.hpp>
 #include <metal/optional/just.hpp>
 
 namespace metal
@@ -21,7 +22,7 @@ namespace metal
     /// \ingroup logical
     /// \brief Eager adaptor for \ref and_.
     template<typename... nums>
-    using and_t = typename and_<nums...>::type;
+    using and_t = extract<and_<nums...>>;
 
     namespace detail
     {

@@ -6,6 +6,7 @@
 #define METAL_NUMBER_ARITHMETIC_MUL_HPP
 
 #include <metal/number/number.hpp>
+#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -18,7 +19,7 @@ namespace metal
     /// \ingroup arithmetic
     /// \brief Eager adaptor for \ref mul.
     template<typename... nums>
-    using mul_t = typename mul<nums...>::type;
+    using mul_t = extract<mul<nums...>>;
 
     template<typename x, x xv>
     struct mul<number<x, xv>> :

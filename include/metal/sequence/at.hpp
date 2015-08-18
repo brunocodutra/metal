@@ -11,6 +11,7 @@
 #include <metal/sequence/enumerate.hpp>
 #include <metal/sequence/size.hpp>
 #include <metal/number/number.hpp>
+#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -23,7 +24,7 @@ namespace metal
     /// \ingroup sequece
     /// \brief Eager adaptor for \ref at.
     template<typename seq, typename val>
-    using at_t = typename at<seq, val>::type;
+    using at_t = extract<at<seq, val>>;
 
     template<
         template<typename...> class list,

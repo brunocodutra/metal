@@ -21,7 +21,7 @@ namespace metal
     /// \ingroup sequece
     /// \brief Eager adaptor for \ref count.
     template<typename seq, typename val>
-    using count_t = typename count<seq, val>::type;
+    using count_t = extract<count<seq, val>>;
 
     template<
         template<typename...> class list,

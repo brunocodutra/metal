@@ -5,6 +5,8 @@
 #ifndef METAL_LAMBDA_QUOTE_HPP
 #define METAL_LAMBDA_QUOTE_HPP
 
+#include <metal/optional/extract.hpp>
+
 namespace metal
 {
     /// \ingroup lambda
@@ -15,7 +17,7 @@ namespace metal
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref quote.
     template<typename val>
-    using quote_t = typename metal::quote<val>::type;
+    using quote_t = extract<metal::quote<val>>;
 
     template<typename val>
     struct quote

@@ -5,6 +5,8 @@
 #ifndef METAL_SEQUENCE_JOIN_HPP
 #define METAL_SEQUENCE_JOIN_HPP
 
+#include <metal/optional/extract.hpp>
+
 namespace metal
 {
     /// \ingroup sequence
@@ -16,7 +18,7 @@ namespace metal
     /// \ingroup optional
     /// \brief Eager adaptor for \ref join.
     template<typename... ls>
-    using join_t = typename join<ls...>::type;
+    using join_t = extract<join<ls...>>;
 
     template<template<typename...> class list, typename... xs>
     struct join<list<xs...>>

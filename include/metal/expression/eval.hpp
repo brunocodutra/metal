@@ -6,6 +6,7 @@
 #define METAL_EXPRESSION_EVAL_HPP
 
 #include <metal/optional/nothing.hpp>
+#include <metal/optional/extract.hpp>
 #include <metal/optional/maybe.hpp>
 
 namespace metal
@@ -47,7 +48,7 @@ namespace metal
     /// \ingroup expression
     /// \brief Eager adaptor for \ref eval.
     template<template<typename...> class expr, typename... args>
-    using eval_t = typename eval<expr, args...>::type;
+    using eval_t = extract<eval<expr, args...>>;
 
     namespace detail
     {

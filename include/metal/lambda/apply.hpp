@@ -23,7 +23,7 @@ namespace metal
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref apply.
     template<typename lbd, typename... args>
-    using apply_t = typename metal::apply<lbd, args...>::type;
+    using apply_t = extract<metal::apply<lbd, args...>>;
 
     namespace detail
     {
