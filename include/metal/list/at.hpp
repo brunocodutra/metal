@@ -2,14 +2,14 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_SEQUENCE_AT_HPP
-#define METAL_SEQUENCE_AT_HPP
+#ifndef METAL_LIST_AT_HPP
+#define METAL_LIST_AT_HPP
 
-#include <metal/sequence/at_key.hpp>
-#include <metal/sequence/list.hpp>
-#include <metal/sequence/zip.hpp>
-#include <metal/sequence/enumerate.hpp>
-#include <metal/sequence/size.hpp>
+#include <metal/list/list.hpp>
+#include <metal/list/zip.hpp>
+#include <metal/list/enumerate.hpp>
+#include <metal/list/size.hpp>
+#include <metal/map/at_key.hpp>
 #include <metal/number/number.hpp>
 #include <metal/optional/extract.hpp>
 

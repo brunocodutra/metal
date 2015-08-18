@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_SEQUENCE_EMPTY_HPP
-#define METAL_SEQUENCE_EMPTY_HPP
+#ifndef METAL_LIST_EMPTY_HPP
+#define METAL_LIST_EMPTY_HPP
 
 #include <metal/number/number.hpp>
 #include <metal/optional/extract.hpp>
@@ -16,7 +16,7 @@ namespace metal
     struct empty
     {};
 
-    /// \ingroup sequence
+    /// \ingroup list
     /// \brief Eager adaptor for \ref empty.
     template<typename seq>
     using empty_t = extract<metal::empty<seq>>;

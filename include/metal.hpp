@@ -7,10 +7,11 @@
 
 #include <metal/core.hpp>
 #include <metal/expression.hpp>
+#include <metal/list.hpp>
 #include <metal/lambda.hpp>
+#include <metal/map.hpp>
 #include <metal/number.hpp>
 #include <metal/optional.hpp>
-#include <metal/sequence.hpp>
 
 /// \defgroup metal Metal
 /// \brief A small collection of C++11 template metaprogramming tools.

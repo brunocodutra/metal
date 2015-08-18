@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_SEQUENCE_LIST_HPP
-#define METAL_SEQUENCE_LIST_HPP
+#ifndef METAL_LIST_LIST_HPP
+#define METAL_LIST_LIST_HPP
 
 #include <metal/number/number.hpp>
 #include <metal/optional/conditional.hpp>
@@ -12,7 +12,7 @@
 
 namespace metal
 {
-    /// \ingroup sequence
+    /// \ingroup list
     /// \brief ...
     template<typename... vals>
     struct list;
@@ -22,7 +22,7 @@ namespace metal
     template<typename seq>
     struct is_list;
 
-    /// \ingroup sequence
+    /// \ingroup list
     /// \brief Eager adaptor for \ref is_list.
     template<typename seq>
     using is_list_t = extract<metal::is_list<seq>>;

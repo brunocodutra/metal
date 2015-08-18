@@ -2,17 +2,17 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_SEQUENCE_RANGE_HPP
-#define METAL_SEQUENCE_RANGE_HPP
+#ifndef METAL_LIST_RANGE_HPP
+#define METAL_LIST_RANGE_HPP
 
-#include <metal/sequence/join.hpp>
-#include <metal/sequence/list.hpp>
+#include <metal/list/join.hpp>
+#include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 #include <metal/optional/extract.hpp>
 
 namespace metal
 {
-    /// \ingroup sequence
+    /// \ingroup list
     /// \brief ...
     template<typename first, typename last>
     struct range

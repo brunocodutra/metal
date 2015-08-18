@@ -2,11 +2,11 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_SEQUENCE_MAP_HPP
-#define METAL_SEQUENCE_MAP_HPP
+#ifndef METAL_MAP_MAP_HPP
+#define METAL_MAP_MAP_HPP
 
-#include <metal/sequence/count.hpp>
-#include <metal/sequence/list.hpp>
+#include <metal/list/count.hpp>
+#include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/comparison/equal_to.hpp>
 #include <metal/number/logical/and.hpp>
@@ -16,7 +16,7 @@
 
 namespace metal
 {
-    /// \ingroup sequence
+    /// \ingroup map
     /// \brief ...
     template<typename... seqs>
     struct map;
@@ -26,7 +26,7 @@ namespace metal
     template<typename seq>
     struct is_map;
 
-    /// \ingroup sequence
+    /// \ingroup map
     /// \brief Eager adaptor for \ref is_map.
     template<typename seq>
     using is_map_t = extract<metal::is_map<seq>>;

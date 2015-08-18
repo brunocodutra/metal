@@ -7,11 +7,11 @@
 
 #include <metal/lambda/arg.hpp>
 #include <metal/expression/eval.hpp>
+#include <metal/list/list.hpp>
+#include <metal/list/at.hpp>
 #include <metal/number/number.hpp>
 #include <metal/optional/conditional.hpp>
 #include <metal/optional/extract.hpp>
-#include <metal/sequence/list.hpp>
-#include <metal/sequence/at.hpp>
 
 namespace metal
 {

@@ -2,10 +2,10 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_SEQUENCE_CONTAINS_HPP
-#define METAL_SEQUENCE_CONTAINS_HPP
+#ifndef METAL_LIST_COUNT_HPP
+#define METAL_LIST_COUNT_HPP
 
-#include <metal/number/logical/or.hpp>
+#include <metal/number/arithmetic/add.hpp>
 #include <metal/optional/extract.hpp>
 
 #include <type_traits>
@@ -15,21 +15,21 @@ namespace metal
     /// \ingroup sequece
     /// \brief ...
     template<typename seq, typename val>
-    struct contains
+    struct count
     {};
 
     /// \ingroup sequece
-    /// \brief Eager adaptor for \ref contains.
+    /// \brief Eager adaptor for \ref count.
     template<typename seq, typename val>
-    using contains_t = extract<contains<seq, val>>;
+    using count_t = extract<count<seq, val>>;
 
     template<
         template<typename...> class list,
         typename... vals,
         typename val
     >
-    struct contains<list<vals...>, val> :
-            or_<extract<std::is_same<vals, val>>...>
+    struct count<list<vals...>, val> :
+            add<extract<std::is_same<vals, val>>...>
     {};
 }
 

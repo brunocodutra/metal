@@ -2,10 +2,10 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_SEQUENCE_AT_KEY_HPP
-#define METAL_SEQUENCE_AT_KEY_HPP
+#ifndef METAL_MAP_AT_KEY_HPP
+#define METAL_MAP_AT_KEY_HPP
 
-#include <metal/sequence/list.hpp>
+#include <metal/list/list.hpp>
 #include <metal/core/inherit.hpp>
 #include <metal/optional/just.hpp>
 #include <metal/optional/nothing.hpp>
@@ -13,13 +13,13 @@
 
 namespace metal
 {
-    /// \ingroup sequece
+    /// \ingroup map
     /// \brief ...
     template<typename seq, typename val>
     struct at_key
     {};
 
-    /// \ingroup sequece
+    /// \ingroup map
     /// \brief Eager adaptor for \ref at_key.
     template<typename seq, typename val>
     using at_key_t = extract<at_key<seq, val>>;
@@ -31,10 +31,6 @@ namespace metal
         template<typename>
         nothing at_key_impl(...);
     }
-
-    template<template<typename...> class seq, typename key>
-    struct at_key<seq<>, key>
-    {};
 
     template<
         template<typename...> class map,

@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_TEST_SEQUENCES_HPP
-#define METAL_TEST_SEQUENCES_HPP
+#ifndef METAL_TEST_LISTS_HPP
+#define METAL_TEST_LISTS_HPP
 
 #include "test/numbers.hpp"
 #include "test/values.hpp"
