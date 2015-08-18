@@ -36,8 +36,12 @@ namespace metal
                     enumerate_t<size_t<list<vals...>>>,
                     metal::list<vals...>
                 >,
-                number<std::size_t, v>
+                number<std::size_t, static_cast<std::size_t>(v%sizeof...(vals))>
             >
+    {};
+
+    template<template<typename...> class list, typename t, t v>
+    struct at<list<>, number<t, v>>
     {};
 }
 

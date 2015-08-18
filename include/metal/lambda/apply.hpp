@@ -8,6 +8,7 @@
 #include <metal/lambda/arg.hpp>
 #include <metal/expression/eval.hpp>
 #include <metal/number/number.hpp>
+#include <metal/optional/conditional.hpp>
 #include <metal/optional/extract.hpp>
 #include <metal/sequence/list.hpp>
 #include <metal/sequence/at.hpp>
@@ -54,7 +55,10 @@ namespace metal
 
     template<std::size_t n, typename... args>
     struct apply<arg<n>, args...> :
-           at<list<args...>, number<std::size_t, n - 1>>
+            conditional<
+                boolean<n <= sizeof...(args)>,
+                at<list<args...>, number<std::size_t, n - 1>>
+            >
     {};
 
     template<typename... args>
