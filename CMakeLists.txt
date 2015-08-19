@@ -65,9 +65,20 @@ function(add_test_matrix _target _dialects _prefix)
                         test_target_parent
                         ${test_target}
                     )
-                    if(NOT TARGET ${test_target_parent})
+
+                    while(NOT TARGET ${test_target_parent})
                         add_custom_target(${test_target_parent})
-                    endif()
+                        add_dependencies(${test_target_parent} ${test_target})
+                        set(test_target ${test_target_parent})
+                        string(
+                            REGEX REPLACE
+                            "(.*)[.][^.]+"
+                            "\\1"
+                            test_target_parent
+                            ${test_target}
+                        )
+                    endwhile()
+
                     add_dependencies(${test_target_parent} ${test_target})
                 endforeach()
                 break()
