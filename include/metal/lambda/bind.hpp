@@ -45,7 +45,7 @@ namespace metal
 
     template<typename lbd, typename... args>
     struct bind<lbd, args...> :
-        apply<detail::backquote_t<lbd>, args...>
+            apply<detail::backquote_t<lbd>, args...>
     {};
 }
 
