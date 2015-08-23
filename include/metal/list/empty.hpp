@@ -11,14 +11,14 @@ namespace metal
 {
     /// \ingroup sequece
     /// \brief ...
-    template<typename seq>
+    template<typename list>
     struct empty
     {};
 
     /// \ingroup list
     /// \brief Eager adaptor for \ref empty.
-    template<typename seq>
-    using empty_t = typename metal::empty<seq>::type;
+    template<typename list>
+    using empty_t = typename metal::empty<list>::type;
 
     template<template<typename...> class list, typename... vals>
     struct empty<list<vals...>> :

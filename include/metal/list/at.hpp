@@ -16,14 +16,14 @@ namespace metal
 {
     /// \ingroup sequece
     /// \brief ...
-    template<typename seq, typename val>
+    template<typename list, typename val>
     struct at
     {};
 
     /// \ingroup sequece
     /// \brief Eager adaptor for \ref at.
-    template<typename seq, typename val>
-    using at_t = typename at<seq, val>::type;
+    template<typename list, typename val>
+    using at_t = typename at<list, val>::type;
 
     template<
         template<typename...> class list,

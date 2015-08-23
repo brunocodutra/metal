@@ -10,6 +10,7 @@
 #include <metal/list/count.hpp>
 #include <metal/list/empty.hpp>
 #include <metal/list/enumerate.hpp>
+#include <metal/list/flatten.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/range.hpp>

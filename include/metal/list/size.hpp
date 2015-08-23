@@ -13,14 +13,14 @@ namespace metal
 {
     /// \ingroup sequece
     /// \brief ...
-    template<typename seq>
+    template<typename list>
     struct size
     {};
 
     /// \ingroup list
     /// \brief Eager adaptor for \ref size.
-    template<typename seq>
-    using size_t = typename metal::size<seq>::type;
+    template<typename list>
+    using size_t = typename metal::size<list>::type;
 
     template<template<typename...> class list, typename... vals>
     struct size<list<vals...>> :

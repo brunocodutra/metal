@@ -14,14 +14,14 @@ namespace metal
 {
     /// \ingroup sequece
     /// \brief ...
-    template<typename seq, typename val>
+    template<typename list, typename val>
     struct count
     {};
 
     /// \ingroup sequece
     /// \brief Eager adaptor for \ref count.
-    template<typename seq, typename val>
-    using count_t = typename count<seq, val>::type;
+    template<typename list, typename val>
+    using count_t = typename count<list, val>::type;
 
     template<
         template<typename...> class list,

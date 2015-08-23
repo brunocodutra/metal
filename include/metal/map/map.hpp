@@ -16,13 +16,13 @@ namespace metal
 
     /// \ingroup sequece
     /// \brief ...
-    template<typename seq>
+    template<typename map>
     struct is_map;
 
     /// \ingroup map
     /// \brief Eager adaptor for \ref is_map.
-    template<typename seq>
-    using is_map_t = typename metal::is_map<seq>::type;
+    template<typename map>
+    using is_map_t = typename metal::is_map<map>::type;
 
     template<
         template<typename...> class... pairs,

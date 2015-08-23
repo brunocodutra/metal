@@ -16,13 +16,13 @@ namespace metal
 
     /// \ingroup sequece
     /// \brief ...
-    template<typename seq>
+    template<typename list>
     struct is_list;
 
     /// \ingroup list
     /// \brief Eager adaptor for \ref is_list.
-    template<typename seq>
-    using is_list_t = typename metal::is_list<seq>::type;
+    template<typename list>
+    using is_list_t = typename metal::is_list<list>::type;
 
     template<typename... vals>
     struct list
@@ -35,8 +35,8 @@ namespace metal
             boolean<false>
     {};
 
-    template<template<typename...> class seq, typename... vals>
-    struct is_list<seq<vals...>> :
+    template<template<typename...> class list, typename... vals>
+    struct is_list<list<vals...>> :
             boolean<true>
     {};
 }

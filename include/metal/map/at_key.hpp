@@ -14,14 +14,14 @@ namespace metal
 {
     /// \ingroup map
     /// \brief ...
-    template<typename seq, typename val>
+    template<typename map, typename val>
     struct at_key
     {};
 
     /// \ingroup map
     /// \brief Eager adaptor for \ref at_key.
-    template<typename seq, typename val>
-    using at_key_t = typename at_key<seq, val>::type;
+    template<typename map, typename val>
+    using at_key_t = typename at_key<map, val>::type;
 
     namespace detail
     {
