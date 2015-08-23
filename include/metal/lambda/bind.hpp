@@ -6,7 +6,6 @@
 #define METAL_LAMBDA_BIND_HPP
 
 #include <metal/lambda/apply.hpp>
-#include <metal/lambda/quote.hpp>
 
 namespace metal
 {
@@ -20,13 +19,34 @@ namespace metal
     template<typename... args>
     using bind_t = typename metal::bind<args...>::type;
 
-    template<typename lbd, typename... args>
-    struct bind<lbd, args...>
+    namespace detail
     {
-        using type = apply<quote_t<lbd>, args...>;
-    };
+        template<typename val>
+        struct backquote
+        {
+            using type = val;
+        };
 
-    ///\todo do the actual binding for early error detection
+        template<typename val>
+        using backquote_t = typename backquote<val>::type;
+
+        template<template<typename...> class expr, typename... params>
+        struct backquote<expr<params...>>
+        {
+            template<typename... args>
+            struct _
+            {
+                using type = expr<args...>;
+            };
+
+            using type = _<backquote_t<params>...>;
+        };
+    }
+
+    template<typename lbd, typename... args>
+    struct bind<lbd, args...> :
+        apply<detail::backquote_t<lbd>, args...>
+    {};
 }
 
 #endif

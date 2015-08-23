@@ -9,20 +9,29 @@
 
 #include "test.hpp"
 
-_assert((metal::apply_t<metal::bind_t<lbd0, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr0<>::type));
-_assert((metal::apply_t<metal::bind_t<lbd1, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr1<val3>::type));
-_assert((metal::apply_t<metal::bind_t<lbd2, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr2<val3, val2>::type));
-_assert((metal::apply_t<metal::bind_t<lbd3, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr3<val3, val2, val1>::type));
-_assert((metal::apply_t<metal::bind_t<lbd4, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr<val3, val2, val1, val0>::type));
+#define _boilerplate(M, N) \
+    using _cat(opt, M) = _expr(M)<_vals(M)>; \
+    _assert((metal::is_just_t<metal::bind<_val(M) _comma(N) _vals(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::bind<_num(M) _comma(N) _vals(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::bind<_pair(M) _comma(N) _vals(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::bind<_list(M) _comma(N) _vals(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::bind<_map(M) _comma(N) _vals(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::bind<_arg(M) _comma(N) _vals(N)>>), (_bool(M < N))); \
+    _assert((metal::is_just_t<metal::bind<_lbd(M) _comma(N) _vals(N)>>), (_bool(M <= N))); \
+    _assert((metal::is_just_t<metal::bind<_cat(opt, M) _comma(N) _vals(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::bind<_expr(M)<_lbds(M)> _comma(N) _vals(N)>>), (_bool(M <= N + 1))); \
+    _assert((metal::is_just_t<metal::bind<metal::bind<_args(_inc(M))>, _lbd(M) _comma(N) _vals(N)>>), (_bool(M <= N))); \
+    _assert((metal::bind_t<_val(M) _comma(N) _vals(N)>), (_val(M))); \
+    _assert((metal::bind_t<_num(M) _comma(N) _vals(N)>), (_num(M))); \
+    _assert((metal::bind_t<_pair(M) _comma(N) _vals(N)>), (_pair(M))); \
+    _assert((metal::bind_t<_list(M) _comma(N) _vals(N)>), (_list(M))); \
+    _assert((metal::bind_t<_map(M) _comma(N) _vals(N)>), (_map(M))); \
+    _assert((metal::bind_t<_arg(M), _vals(_inc(M))>), (_val(M))); \
+    _assert((metal::bind_t<_lbd(M) _comma(M) _vals(M)>), (_cat(opt, M))); \
+    _assert((metal::bind_t<_cat(opt, M) _comma(N) _vals(N)>), (_cat(opt, M))); \
+    _assert((metal::bind_t<_expr(M)<_lbds(M)> _comma(M) _vals(M)>), (_expr(M)<_enum(M, opt)>)); \
+    _assert((metal::bind_t<_expr(M)<_lbds(M)> _comma(M) _vals(M)>), (metal::bind_t<_expr(M)<_enum(M, opt)>>)); \
+    _assert((metal::bind_t<metal::bind<_args(_inc(M))>, _lbd(M) _comma(M) _vals(M)>), (metal::bind<_lbd(M) _comma(M) _vals(M)>)); \
+/**/
 
-_assert((metal::apply_t<metal::bind_t<metal::quote_t<lbd0>, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (lbd0));
-_assert((metal::apply_t<metal::bind_t<metal::quote_t<lbd1>, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (lbd1));
-_assert((metal::apply_t<metal::bind_t<metal::quote_t<lbd2>, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (lbd2));
-_assert((metal::apply_t<metal::bind_t<metal::quote_t<lbd3>, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (lbd3));
-_assert((metal::apply_t<metal::bind_t<metal::quote_t<lbd4>, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (lbd4));
-
-_assert((metal::apply_t<metal::bind_t<lbd0, metal::quote_t<metal::_4>, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr0<>::type));
-_assert((metal::apply_t<metal::bind_t<lbd1, metal::quote_t<metal::_4>, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr1<metal::_4>::type));
-_assert((metal::apply_t<metal::bind_t<lbd2, metal::quote_t<metal::_4>, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr2<metal::_4, val2>::type));
-_assert((metal::apply_t<metal::bind_t<lbd3, metal::quote_t<metal::_4>, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr3<metal::_4, val2, val1>::type));
-_assert((metal::apply_t<metal::bind_t<lbd4, metal::quote_t<metal::_4>, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr<metal::_4, val2, val1, val0>::type));
+_gen(_boilerplate)

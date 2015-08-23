@@ -12,6 +12,7 @@
 #include <metal/number/number.hpp>
 #include <metal/optional/conditional.hpp>
 #include <metal/optional/just.hpp>
+#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -35,10 +36,10 @@ namespace metal
         };
     }
 
-    template<typename lbd, typename... args>
-    struct apply<lbd, args...>
+    template<typename val, typename... args>
+    struct apply<val, args...>
     {
-        using type = lbd;
+        using type = val;
     };
 
     template<

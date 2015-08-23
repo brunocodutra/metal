@@ -28,8 +28,6 @@ namespace metal
 
         using type = _<>;
     };
-
-    ///\todo specialize for expressions
 }
 
 #endif
