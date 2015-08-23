@@ -24,6 +24,12 @@ namespace metal
     template<typename map>
     using is_map_t = typename metal::is_map<map>::type;
 
+    template<>
+    struct map<>
+    {
+        using type = map;
+    };
+
     template<
         template<typename...> class... pairs,
         typename... keys,
@@ -37,6 +43,11 @@ namespace metal
     template<typename>
     struct is_map :
             boolean<false>
+    {};
+
+    template<template<typename...> class map>
+    struct is_map<map<>> :
+            boolean<true>
     {};
 
     template<
