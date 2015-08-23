@@ -5,16 +5,42 @@
 #ifndef METAL_CORE_INHERIT_HPP
 #define METAL_CORE_INHERIT_HPP
 
+#include <metal/number/number.hpp>
+#include <metal/list/list.hpp>
+#include <metal/list/enumerate.hpp>
+
+#include <cstddef>
+
 namespace metal
 {
     /// \ingroup core
     /// \brief ...
-    template<typename... all>
-    struct inherit :
-            all...
-    {};
+    template<typename... bases>
+    struct inherit;
 
-    ///\todo make it safe
+    namespace detail
+    {
+        template<typename, typename base>
+        struct inherit_second :
+                base
+        {};
+
+        template<typename, typename...>
+        struct inherit_impl;
+
+        template<typename... _, typename... bases>
+        struct inherit_impl<list<_...>, bases...> :
+                inherit_second<_, bases>...
+        {};
+    }
+
+    template<typename... bases>
+    struct inherit :
+            detail::inherit_impl<
+                enumerate_t<number<std::size_t, sizeof...(bases)>>,
+                bases...
+            >
+    {};
 }
 
 #endif
