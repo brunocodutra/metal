@@ -6,6 +6,7 @@
 #define METAL_LIST_CONTAINS_HPP
 
 #include <metal/number/logical/or.hpp>
+#include <metal/optional/just.hpp>
 #include <metal/optional/extract.hpp>
 
 #include <type_traits>
@@ -21,7 +22,7 @@ namespace metal
     /// \ingroup sequece
     /// \brief Eager adaptor for \ref contains.
     template<typename seq, typename val>
-    using contains_t = extract<contains<seq, val>>;
+    using contains_t = typename contains<seq, val>::type;
 
     template<
         template<typename...> class list,
@@ -29,7 +30,7 @@ namespace metal
         typename val
     >
     struct contains<list<vals...>, val> :
-            or_<extract<std::is_same<vals, val>>...>
+            or_<from_just<std::is_same<vals, val>>...>
     {};
 }
 

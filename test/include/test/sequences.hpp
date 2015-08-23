@@ -9,7 +9,7 @@
 #include "test/preprocessor.hpp"
 #include "test/values.hpp"
 
-template<typename...> struct seq;
+template<typename...> union seq;
 template<typename...> using seq0 = seq<>;
 template<_enum(1, typename _)> class seq1;
 template<_enum(2, typename _)> union seq2;

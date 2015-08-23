@@ -8,9 +8,7 @@
 #include <metal/number/number.hpp>
 #include <metal/number/logical/or.hpp>
 #include <metal/number/logical/not.hpp>
-#include <metal/optional/conditional.hpp>
 #include <metal/optional/extract.hpp>
-#include <metal/optional/just.hpp>
 
 namespace metal
 {
@@ -22,17 +20,11 @@ namespace metal
     /// \ingroup logical
     /// \brief Eager adaptor for \ref and_.
     template<typename... nums>
-    using and_t = extract<and_<nums...>>;
-
-    namespace detail
-    {
-        template<typename op>
-        using monadic = conditional_t<is_just_t<op>, op, just<op>>;
-    }
+    using and_t = typename and_<nums...>::type;
 
     template<typename... nums>
     struct and_ :
-            not_<detail::monadic<or_<detail::monadic<not_<nums>>...>>>
+            not_<from_maybe<or_<from_maybe<not_<nums>, void>...>, void>>
     {};
 }
 

@@ -8,6 +8,7 @@
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
+#include <metal/optional/just.hpp>
 #include <metal/optional/extract.hpp>
 
 namespace metal
@@ -21,7 +22,7 @@ namespace metal
     /// \ingroup optional
     /// \brief Eager adaptor for \ref range.
     template<typename first, typename last>
-    using range_t = extract<metal::range<first, last>>;
+    using range_t = typename metal::range<first, last>::type;
 
     namespace detail
     {
@@ -32,7 +33,7 @@ namespace metal
         struct offset;
 
         template<typename o, typename ns>
-        using offset_t = extract<offset<o, ns>>;
+        using offset_t = typename offset<o, ns>::type;
 
         template<typename t, t o, template<typename...> class list, t... vs>
         struct offset<number<t, o>, list<number<t, vs>...>> :
@@ -43,8 +44,8 @@ namespace metal
     template<typename f, f fv, typename l, l lv>
     struct range<number<f, fv>, number<l, lv>> :
             range<
-                number<extract<std::common_type<f, l>>, fv>,
-                number<extract<std::common_type<f, l>>, lv>
+                number<from_just<std::common_type<f, l>>, fv>,
+                number<from_just<std::common_type<f, l>>, lv>
             >
     {};
 

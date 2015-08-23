@@ -9,7 +9,6 @@
 #include <metal/core/inherit.hpp>
 #include <metal/optional/just.hpp>
 #include <metal/optional/nothing.hpp>
-#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -22,7 +21,7 @@ namespace metal
     /// \ingroup map
     /// \brief Eager adaptor for \ref at_key.
     template<typename seq, typename val>
-    using at_key_t = extract<at_key<seq, val>>;
+    using at_key_t = typename at_key<seq, val>::type;
 
     namespace detail
     {

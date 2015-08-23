@@ -40,7 +40,6 @@
     _assert((metal::equal_to_t<metal::sub_t<metal::mul_t<_num(M), _num(N)> _comma(N) _enum(N, _cat(num, M) _bar)>, num0>), (_true)); \
     _assert((metal::equal_to_t<metal::mul_t<_nums(_inc(N))>, num0>), (_true)); \
     _assert((metal::equal_to_t<metal::div_t<_nums(_inc(N))>, num0>), (_true)); \
-    _assert((metal::equal_to_t<metal::div_t<metal::mul_t<_enum(_inc(N), _cat(num, _inc(M)) _bar)>, _enum(_inc(N), _cat(num, _inc(M)) _bar)>, num1>), (_true)); \
 /**/
 
 _gen(_boilerplate)

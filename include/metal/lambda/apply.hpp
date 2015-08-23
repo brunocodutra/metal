@@ -11,7 +11,7 @@
 #include <metal/list/at.hpp>
 #include <metal/number/number.hpp>
 #include <metal/optional/conditional.hpp>
-#include <metal/optional/extract.hpp>
+#include <metal/optional/just.hpp>
 
 namespace metal
 {
@@ -23,7 +23,7 @@ namespace metal
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref apply.
     template<typename... args>
-    using apply_t = extract<metal::apply<args...>>;
+    using apply_t = typename apply<args...>::type;
 
     namespace detail
     {
@@ -31,7 +31,7 @@ namespace metal
         struct lift
         {
             template<typename... opts>
-            using type = expr<extract<opts>...>;
+            using type = expr<from_just<opts>...>;
         };
     }
 

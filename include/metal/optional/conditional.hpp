@@ -7,7 +7,6 @@
 
 #include <metal/optional/nothing.hpp>
 #include <metal/optional/maybe.hpp>
-#include <metal/optional/extract.hpp>
 #include <metal/number/number.hpp>
 
 #include <type_traits>
@@ -23,7 +22,7 @@ namespace metal
     /// \ingroup optional
     /// \brief Eager adaptor for \ref conditional.
     template<typename... args>
-    using conditional_t = extract<metal::conditional<args...>>;
+    using conditional_t = typename metal::conditional<args...>::type;
 
     template<typename pred1, typename then1, typename pred2, typename then2, typename... else_>
     struct conditional<pred1, then1, pred2, then2, else_...> :
@@ -32,7 +31,13 @@ namespace metal
 
     template<typename t, t v, typename then, typename else_>
     struct conditional<number<t, v>, then, else_> :
-            maybe<extract<std::conditional<static_cast<bool>(v), then, else_>>>
+            maybe<
+                typename std::conditional<
+                    static_cast<bool>(v),
+                    then,
+                    else_
+                >::type
+            >
     {};
 
     template<typename pred, typename then>

@@ -6,7 +6,6 @@
 #define METAL_LIST_SIZE_HPP
 
 #include <metal/number/number.hpp>
-#include <metal/optional/extract.hpp>
 
 #include <cstddef>
 
@@ -21,7 +20,7 @@ namespace metal
     /// \ingroup list
     /// \brief Eager adaptor for \ref size.
     template<typename seq>
-    using size_t = extract<metal::size<seq>>;
+    using size_t = typename metal::size<seq>::type;
 
     template<template<typename...> class list, typename... vals>
     struct size<list<vals...>> :

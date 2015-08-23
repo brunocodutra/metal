@@ -6,7 +6,6 @@
 #define METAL_NUMBER_ARITHMETIC_INC_HPP
 
 #include <metal/number/number.hpp>
-#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -19,7 +18,7 @@ namespace metal
     /// \ingroup arithmetic
     /// \brief Eager adaptor for \ref inc.
     template<typename num>
-    using inc_t = extract<inc<num>>;
+    using inc_t = typename inc<num>::type;
 
     template<typename t, t v>
     struct inc<number<t, v>> :

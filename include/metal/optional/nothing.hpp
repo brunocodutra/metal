@@ -6,7 +6,6 @@
 #define METAL_OPTIONAL_NOTHING_HPP
 
 #include <metal/optional/just.hpp>
-#include <metal/optional/extract.hpp>
 #include <metal/number/logical/not.hpp>
 
 namespace metal
@@ -62,7 +61,7 @@ namespace metal
     /// \ingroup optional
     /// \brief Eager adaptor for \ref is_nothing.
     template<typename opt>
-    using is_nothing_t = extract<metal::is_nothing<opt>>;
+    using is_nothing_t = typename metal::is_nothing<opt>::type;
 }
 
 #endif

@@ -19,7 +19,7 @@ namespace metal
     /// \ingroup optional
     /// \brief Eager adaptor for \ref enumerate.
     template<typename n>
-    using enumerate_t = extract<metal::enumerate<n>>;
+    using enumerate_t = typename metal::enumerate<n>::type;
 
     template<typename t, t v>
     struct enumerate<number<t, v>> :

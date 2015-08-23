@@ -5,8 +5,6 @@
 #ifndef METAL_NUMBER_NUMBER_HPP
 #define METAL_NUMBER_NUMBER_HPP
 
-#include <metal/optional/extract.hpp>
-
 #include <type_traits>
 
 namespace metal
@@ -34,7 +32,7 @@ namespace metal
     /// \ingroup number
     /// \brief Eager adaptor for \ref is_number.
     template<typename num>
-    using is_number_t = extract<is_number<num>>;
+    using is_number_t = typename is_number<num>::type;
 
     template<typename num>
     struct is_number :

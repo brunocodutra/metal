@@ -6,7 +6,6 @@
 #define METAL_NUMBER_ARITHMETIC_DIV_HPP
 
 #include <metal/number/number.hpp>
-#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -19,7 +18,7 @@ namespace metal
     /// \ingroup arithmetic
     /// \brief Eager adaptor for \ref div.
     template<typename... nums>
-    using div_t = extract<div<nums...>>;
+    using div_t = typename div<nums...>::type;
 
     template<typename x, x xv>
     struct div<number<x, xv>> :

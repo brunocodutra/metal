@@ -8,7 +8,6 @@
 #include <metal/number/number.hpp>
 #include <metal/number/logical/not.hpp>
 #include <metal/optional/conditional.hpp>
-#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -20,7 +19,7 @@ namespace metal
     /// \ingroup logical
     /// \brief Eager adaptor for \ref or_.
     template<typename... nums>
-    using or_t = extract<or_<nums...>>;
+    using or_t = typename or_<nums...>::type;
 
     template<typename... nums>
     struct or_ :

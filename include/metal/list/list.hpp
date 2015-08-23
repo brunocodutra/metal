@@ -6,9 +6,6 @@
 #define METAL_LIST_LIST_HPP
 
 #include <metal/number/number.hpp>
-#include <metal/optional/conditional.hpp>
-#include <metal/optional/just.hpp>
-#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -25,12 +22,13 @@ namespace metal
     /// \ingroup list
     /// \brief Eager adaptor for \ref is_list.
     template<typename seq>
-    using is_list_t = extract<metal::is_list<seq>>;
+    using is_list_t = typename metal::is_list<seq>::type;
 
     template<typename... vals>
-    struct list :
-            conditional<is_list_t<list<vals...>>, just<list<vals...>>>
-    {};
+    struct list
+    {
+        using type = list;
+    };
 
     template<typename>
     struct is_list :

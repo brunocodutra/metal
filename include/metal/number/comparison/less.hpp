@@ -6,7 +6,6 @@
 #define METAL_NUMBER_COMPARISON_LESS_HPP
 
 #include <metal/number/number.hpp>
-#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -19,7 +18,7 @@ namespace metal
     /// \ingroup comparison
     /// \brief Eager adaptor for \ref less.
     template<typename x, typename y>
-    using less_t = extract<less<x, y>>;
+    using less_t = typename less<x, y>::type;
 
     template<typename x, x xv, typename y, y yv>
     struct less<number<x, xv>, number<y, yv>> :

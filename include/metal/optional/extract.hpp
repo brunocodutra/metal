@@ -5,12 +5,21 @@
 #ifndef METAL_OPTIONAL_EXTRACT_HPP
 #define METAL_OPTIONAL_EXTRACT_HPP
 
+#include <metal/optional/conditional.hpp>
+#include <metal/optional/just.hpp>
+
 namespace metal
 {
     /// \ingroup optional
     /// \brief ...
     template<typename opt>
-    using extract = typename opt::type;
+    using from_just = typename opt::type;
+
+
+    /// \ingroup optional
+    /// \brief ...
+    template<typename opt, typename def>
+    using from_maybe = conditional_t<is_just_t<opt>, opt, just<def>>;
 }
 
 #endif

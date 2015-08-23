@@ -8,7 +8,7 @@
 #include "test/preprocessor.hpp"
 
 template<typename...>
-struct expr
+union expr
 {
     using type = expr*;
 };

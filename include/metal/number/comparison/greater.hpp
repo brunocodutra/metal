@@ -6,7 +6,6 @@
 #define METAL_NUMBER_COMPARISON_GREATER_HPP
 
 #include <metal/number/number.hpp>
-#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -19,7 +18,7 @@ namespace metal
     /// \ingroup comparison
     /// \brief Eager adaptor for \ref greater.
     template<typename x, typename y>
-    using greater_t = extract<greater<x, y>>;
+    using greater_t = typename greater<x, y>::type;
 
     template<typename x, x xv, typename y, y yv>
     struct greater<number<x, xv>, number<y, yv>> :

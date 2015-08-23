@@ -21,7 +21,7 @@ namespace metal
     /// \ingroup sequece
     /// \brief Eager adaptor for \ref count.
     template<typename seq, typename val>
-    using count_t = extract<count<seq, val>>;
+    using count_t = typename count<seq, val>::type;
 
     template<
         template<typename...> class list,
@@ -29,7 +29,7 @@ namespace metal
         typename val
     >
     struct count<list<vals...>, val> :
-            add<extract<std::is_same<vals, val>>...>
+            add<from_just<std::is_same<vals, val>>...>
     {};
 }
 
