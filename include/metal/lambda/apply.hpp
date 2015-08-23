@@ -17,13 +17,13 @@ namespace metal
 {
     /// \ingroup lambda
     /// \brief ...
-    template<typename lbd, typename... args>
+    template<typename...>
     struct apply;
 
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref apply.
-    template<typename lbd, typename... args>
-    using apply_t = extract<metal::apply<lbd, args...>>;
+    template<typename... args>
+    using apply_t = extract<metal::apply<args...>>;
 
     namespace detail
     {
@@ -36,7 +36,7 @@ namespace metal
     }
 
     template<typename lbd, typename... args>
-    struct apply
+    struct apply<lbd, args...>
     {
         using type = lbd;
     };

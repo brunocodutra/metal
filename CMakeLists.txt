@@ -153,12 +153,12 @@ add_compile_flags_globally("${METAL_EXTRA_COMPILE_FLAGS}")
 set(METAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(METAL_INCLUDE_DIRS ${METAL_INCLUDE_DIR})
 
+include_directories(${METAL_INCLUDE_DIRS})
+
 file(GLOB_RECURSE METAL_HEADERS ${METAL_INCLUDE_DIR}/*.hpp)
 
 add_custom_target(metal SOURCES ${METAL_HEADERS})
 install(FILES ${METAL_HEADERS} DESTINATION include)
-
-include_directories(${METAL_INCLUDE_DIRS})
 
 add_subdirectory(doc)
 add_subdirectory(example)

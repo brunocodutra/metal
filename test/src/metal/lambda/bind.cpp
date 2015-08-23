@@ -9,28 +9,20 @@
 
 #include "test.hpp"
 
-using namespace metal;
+_assert((metal::apply_t<metal::bind_t<lbd0, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr0<>::type));
+_assert((metal::apply_t<metal::bind_t<lbd1, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr1<val3>::type));
+_assert((metal::apply_t<metal::bind_t<lbd2, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr2<val3, val2>::type));
+_assert((metal::apply_t<metal::bind_t<lbd3, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr3<val3, val2, val1>::type));
+_assert((metal::apply_t<metal::bind_t<lbd4, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr<val3, val2, val1, val0>::type));
 
-using lbd0 = test::expr0<>;
-using lbd1 = test::expr1<_1>;
-using lbd2 = test::expr2<_1, _2>;
-using lbd3 = test::expr<_1, _2, _3>;
-using lbd4 = test::expr<_1, _2, _3, _4>;
+_assert((metal::apply_t<metal::bind_t<metal::quote_t<lbd0>, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (lbd0));
+_assert((metal::apply_t<metal::bind_t<metal::quote_t<lbd1>, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (lbd1));
+_assert((metal::apply_t<metal::bind_t<metal::quote_t<lbd2>, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (lbd2));
+_assert((metal::apply_t<metal::bind_t<metal::quote_t<lbd3>, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (lbd3));
+_assert((metal::apply_t<metal::bind_t<metal::quote_t<lbd4>, metal::_4, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (lbd4));
 
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<lbd0, _4, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr0<>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<lbd1, _4, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr1<test::val3>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<lbd2, _4, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr2<test::val3, test::val2>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<lbd3, _4, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr<test::val3, test::val2, test::val1>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<lbd4, _4, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr<test::val3, test::val2, test::val1, test::val0>::type>::value));
-
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<quote_t<lbd0>, _4, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, lbd0>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<quote_t<lbd1>, _4, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, lbd1>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<quote_t<lbd2>, _4, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, lbd2>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<quote_t<lbd3>, _4, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, lbd3>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<quote_t<lbd4>, _4, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, lbd4>::value));
-
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<lbd0, quote_t<_4>, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr0<>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<lbd1, quote_t<_4>, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr1<_4>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<lbd2, quote_t<_4>, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr2<_4, test::val2>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<lbd3, quote_t<_4>, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr<_4, test::val2, test::val1>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<bind_t<lbd4, quote_t<_4>, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr<_4, test::val2, test::val1, test::val0>::type>::value));
+_assert((metal::apply_t<metal::bind_t<lbd0, metal::quote_t<metal::_4>, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr0<>::type));
+_assert((metal::apply_t<metal::bind_t<lbd1, metal::quote_t<metal::_4>, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr1<metal::_4>::type));
+_assert((metal::apply_t<metal::bind_t<lbd2, metal::quote_t<metal::_4>, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr2<metal::_4, val2>::type));
+_assert((metal::apply_t<metal::bind_t<lbd3, metal::quote_t<metal::_4>, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr3<metal::_4, val2, val1>::type));
+_assert((metal::apply_t<metal::bind_t<lbd4, metal::quote_t<metal::_4>, metal::_3, metal::_2, metal::_1>, val0, val1, val2, val3>), (expr<metal::_4, val2, val1, val0>::type));

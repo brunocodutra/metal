@@ -7,7 +7,9 @@
 
 #include "test/assert.hpp"
 #include "test/expressions.hpp"
+#include "test/lambda.hpp"
 #include "test/numbers.hpp"
+#include "test/preprocessor.hpp"
 #include "test/sequences.hpp"
 #include "test/values.hpp"
 

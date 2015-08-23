@@ -7,13 +7,21 @@
 
 #include "test.hpp"
 
-using namespace metal;
+#define _boilerplate(_, N) \
+    _assert((metal::quote_t<_val(N)>::type), (_val(N))); \
+    _assert((metal::quote_t<_num(N)>::type), (_num(N))); \
+    _assert((metal::quote_t<_pair(N)>::type), (_pair(N))); \
+    _assert((metal::quote_t<_list(N)>::type), (_list(N))); \
+    _assert((metal::quote_t<_map(N)>::type), (_map(N))); \
+    _assert((metal::quote_t<_arg(N)>::type), (_arg(N))); \
+    _assert((metal::quote_t<_lbd(N)>::type), (_lbd(N))); \
+    _assert((metal::apply_t<metal::quote_t<_val(N)>>), (_val(N))); \
+    _assert((metal::apply_t<metal::quote_t<_num(N)>>), (_num(N))); \
+    _assert((metal::apply_t<metal::quote_t<_pair(N)>>), (_pair(N))); \
+    _assert((metal::apply_t<metal::quote_t<_list(N)>>), (_list(N))); \
+    _assert((metal::apply_t<metal::quote_t<_map(N)>>), (_map(N))); \
+    _assert((metal::apply_t<metal::quote_t<_arg(N)>>), (_arg(N))); \
+    _assert((metal::apply_t<metal::quote_t<_lbd(N)>>), (_lbd(N))); \
+/**/
 
-METAL_TEST_ASSERT((std::is_same<quote_t<void>::type, void>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<quote_t<void>>, void>::value));
-
-METAL_TEST_ASSERT((std::is_same<quote_t<_1>::type, _1>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<quote_t<_1>>, _1>::value));
-
-METAL_TEST_ASSERT((std::is_same<quote_t<test::expr1<_1>>::type, test::expr1<_1>>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<quote_t<test::expr1<_1>>>, test::expr1<_1>>::value));
+_gen(_boilerplate)

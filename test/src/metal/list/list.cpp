@@ -7,59 +7,23 @@
 
 #include "test.hpp"
 
-using namespace metal;
+#define _boilerplate(M, N) \
+    _assert((metal::is_just_t<metal::list<_vals(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::list<_nums(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::list<_pairs(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::list<_pair(M) _comma(N) _pairs(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::list<_lists(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::list<_maps(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::list<_args(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::list<_lbds(N)>>), (_true)); \
+    _assert((metal::is_list_t<_val(N)>), (_false)); \
+    _assert((metal::is_list_t<_num(N)>), (_false)); \
+    _assert((metal::is_list_t<_pair(N)>), (_true)); \
+    _assert((metal::is_list_t<_list(N)>), (_true)); \
+    _assert((metal::is_list_t<_map(N)>), (_true)); \
+    _assert((metal::is_list_t<_arg(N)>), (_false)); \
+    _assert((metal::is_list_t<_lbd(N)>), (_true)); \
+/**/
 
-METAL_TEST_ASSERT((is_just_t<list<>>::value));
-METAL_TEST_ASSERT((is_just_t<list<test::val0>>::value));
-METAL_TEST_ASSERT((is_just_t<list<test::val0, test::val1>>::value));
-METAL_TEST_ASSERT((is_just_t<list<test::val0, test::val1, test::val2>>::value));
-METAL_TEST_ASSERT((is_just_t<list<test::val0, test::val1, test::val2, test::val3>>::value));
+_gen(_boilerplate)
 
-METAL_TEST_ASSERT((is_just_t<list<test::list2>>::value));
-METAL_TEST_ASSERT((is_just_t<list<test::list2, test::list2>>::value));
-METAL_TEST_ASSERT((is_just_t<list<test::list2, test::list2, test::list2>>::value));
-METAL_TEST_ASSERT((is_just_t<list<test::list2, test::list2, test::list2, test::list2>>::value));
-
-METAL_TEST_ASSERT((is_list_t<list<>>::value));
-METAL_TEST_ASSERT((is_list_t<list<test::val0>>::value));
-METAL_TEST_ASSERT((is_list_t<list<test::val0, test::val1>>::value));
-METAL_TEST_ASSERT((is_list_t<list<test::val0, test::val1, test::val2>>::value));
-METAL_TEST_ASSERT((is_list_t<list<test::val0, test::val1, test::val2, test::val3>>::value));
-
-METAL_TEST_ASSERT((is_list_t<list<test::val0>>::value));
-METAL_TEST_ASSERT((is_list_t<list<test::val0, test::val1>>::value));
-METAL_TEST_ASSERT((is_list_t<list<test::val0, test::val1, test::val2>>::value));
-METAL_TEST_ASSERT((is_list_t<list<test::val0, test::val1, test::val2, test::val3>>::value));
-
-METAL_TEST_ASSERT((!is_list_t<test::val0>::value));
-METAL_TEST_ASSERT((!is_list_t<test::val1>::value));
-METAL_TEST_ASSERT((!is_list_t<test::val2>::value));
-METAL_TEST_ASSERT((!is_list_t<test::val3>::value));
-METAL_TEST_ASSERT((!is_list_t<test::val4>::value));
-METAL_TEST_ASSERT((!is_list_t<test::val5>::value));
-METAL_TEST_ASSERT((!is_list_t<test::val6>::value));
-METAL_TEST_ASSERT((!is_list_t<test::val7>::value));
-METAL_TEST_ASSERT((!is_list_t<test::val8>::value));
-METAL_TEST_ASSERT((!is_list_t<test::val9>::value));
-
-METAL_TEST_ASSERT((!is_list_t<test::num0>::value));
-METAL_TEST_ASSERT((!is_list_t<test::num1>::value));
-METAL_TEST_ASSERT((!is_list_t<test::num2>::value));
-METAL_TEST_ASSERT((!is_list_t<test::num3>::value));
-METAL_TEST_ASSERT((!is_list_t<test::num4>::value));
-METAL_TEST_ASSERT((!is_list_t<test::num5>::value));
-METAL_TEST_ASSERT((!is_list_t<test::num6>::value));
-METAL_TEST_ASSERT((!is_list_t<test::num7>::value));
-METAL_TEST_ASSERT((!is_list_t<test::num8>::value));
-METAL_TEST_ASSERT((!is_list_t<test::num9>::value));
-
-METAL_TEST_ASSERT((is_list_t<test::list0>::value));
-METAL_TEST_ASSERT((is_list_t<test::list1>::value));
-METAL_TEST_ASSERT((is_list_t<test::list2>::value));
-METAL_TEST_ASSERT((is_list_t<test::list3>::value));
-METAL_TEST_ASSERT((is_list_t<test::list4>::value));
-METAL_TEST_ASSERT((is_list_t<test::list5>::value));
-METAL_TEST_ASSERT((is_list_t<test::list6>::value));
-METAL_TEST_ASSERT((is_list_t<test::list7>::value));
-METAL_TEST_ASSERT((is_list_t<test::list8>::value));
-METAL_TEST_ASSERT((is_list_t<test::list9>::value));

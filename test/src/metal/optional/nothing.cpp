@@ -6,28 +6,11 @@
 
 #include "test.hpp"
 
-using namespace metal;
+#define _boilerplate(_, N) \
+    _assert((metal::is_nothing_t<_val(N)>), (_true)); \
+    _assert((metal::is_nothing_t<_num(N)>), (_false)); \
+/**/
 
-METAL_TEST_ASSERT((is_nothing_t<nothing>::value));
+_gen(_boilerplate)
 
-METAL_TEST_ASSERT((is_nothing_t<test::val0>::value));
-METAL_TEST_ASSERT((is_nothing_t<test::val1>::value));
-METAL_TEST_ASSERT((is_nothing_t<test::val2>::value));
-METAL_TEST_ASSERT((is_nothing_t<test::val3>::value));
-METAL_TEST_ASSERT((is_nothing_t<test::val4>::value));
-METAL_TEST_ASSERT((is_nothing_t<test::val5>::value));
-METAL_TEST_ASSERT((is_nothing_t<test::val6>::value));
-METAL_TEST_ASSERT((is_nothing_t<test::val7>::value));
-METAL_TEST_ASSERT((is_nothing_t<test::val8>::value));
-METAL_TEST_ASSERT((is_nothing_t<test::val9>::value));
-
-METAL_TEST_ASSERT((!is_nothing_t<test::num0>::value));
-METAL_TEST_ASSERT((!is_nothing_t<test::num1>::value));
-METAL_TEST_ASSERT((!is_nothing_t<test::num2>::value));
-METAL_TEST_ASSERT((!is_nothing_t<test::num3>::value));
-METAL_TEST_ASSERT((!is_nothing_t<test::num4>::value));
-METAL_TEST_ASSERT((!is_nothing_t<test::num5>::value));
-METAL_TEST_ASSERT((!is_nothing_t<test::num6>::value));
-METAL_TEST_ASSERT((!is_nothing_t<test::num7>::value));
-METAL_TEST_ASSERT((!is_nothing_t<test::num9>::value));
-METAL_TEST_ASSERT((!is_nothing_t<test::num9>::value));
+_assert((metal::is_nothing_t<metal::nothing>), (_true));

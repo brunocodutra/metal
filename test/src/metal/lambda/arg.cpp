@@ -6,14 +6,12 @@
 
 #include "test.hpp"
 
-using namespace metal;
-
-METAL_TEST_ASSERT((std::is_same<_1, arg<1U>>::value));
-METAL_TEST_ASSERT((std::is_same<_2, arg<2U>>::value));
-METAL_TEST_ASSERT((std::is_same<_3, arg<3U>>::value));
-METAL_TEST_ASSERT((std::is_same<_4, arg<4U>>::value));
-METAL_TEST_ASSERT((std::is_same<_5, arg<5U>>::value));
-METAL_TEST_ASSERT((std::is_same<_6, arg<6U>>::value));
-METAL_TEST_ASSERT((std::is_same<_7, arg<7U>>::value));
-METAL_TEST_ASSERT((std::is_same<_8, arg<8U>>::value));
-METAL_TEST_ASSERT((std::is_same<_9, arg<9U>>::value));
+_assert((metal::_1), (metal::arg<1U>));
+_assert((metal::_2), (metal::arg<2U>));
+_assert((metal::_3), (metal::arg<3U>));
+_assert((metal::_4), (metal::arg<4U>));
+_assert((metal::_5), (metal::arg<5U>));
+_assert((metal::_6), (metal::arg<6U>));
+_assert((metal::_7), (metal::arg<7U>));
+_assert((metal::_8), (metal::arg<8U>));
+_assert((metal::_9), (metal::arg<9U>));

@@ -5,7 +5,15 @@
 #ifndef METAL_TEST_ASSERT_HPP
 #define METAL_TEST_ASSERT_HPP
 
-#define METAL_TEST_ASSERT_FWD(EXPR) static_assert(EXPR, #EXPR)
-#define METAL_TEST_ASSERT(EXPR) METAL_TEST_ASSERT_FWD(EXPR)
+#include "test/preprocessor.hpp"
+
+#include <type_traits>
+
+#define _assert_(X, Y) \
+    static_assert(std::is_same<_strip X, _strip Y>::value, #X " == " #Y) \
+/**/
+
+#define _assert(EXPR, RESULT) _assert_(EXPR, RESULT)
 
 #endif
+

@@ -13,6 +13,8 @@ namespace metal
     struct inherit :
             all...
     {};
+
+    ///\todo make it safe
 }
 
 #endif

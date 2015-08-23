@@ -4,44 +4,17 @@
 
 #include <metal/optional/conditional.hpp>
 #include <metal/optional/just.hpp>
-#include <metal/optional/nothing.hpp>
 
 #include "test.hpp"
 
-using namespace metal;
+#define _boilerplate(M, N) \
+    _assert((metal::is_just_t<metal::conditional<_vals(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::conditional<_nums(N)>>), (_bool(N > 2))); \
+    _assert((metal::conditional_t<_enum(M, num0 _bar) _comma(M) _num(_inc(N)), metal::just<_val(N)>>), (_val(N))); \
+    _assert((metal::conditional_t<_num(_inc(N)), metal::just<_val(N)> _comma(M) _vals(M)>), (_val(N))); \
+/**/
 
-METAL_TEST_ASSERT((conditional_t<test::num0, boolean<false>, boolean<true>>::value));
-METAL_TEST_ASSERT((conditional_t<test::num1, boolean<true>, boolean<false>>::value));
-
-using x = just<test::val0>;
-using y = just<test::val1>;
-using z = just<test::val2>;
-using w = just<test::val3>;
-
-METAL_TEST_ASSERT((!is_just<conditional<boolean<false>, x>>::value));
-METAL_TEST_ASSERT((!is_just<conditional<boolean<true>, nothing>>::value));
-METAL_TEST_ASSERT((is_just<conditional<boolean<true>, x>>::value));
-
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<true>, x>, x::type>::value));
-
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<true>, x, y>, x::type>::value));
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<false>, x, y>, y::type>::value));
-
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<true>, x, boolean<true>, y>, x::type>::value));
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<false>, x, boolean<true>, y>, y::type>::value));
-
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<true>, x, boolean<true>, y, z>, x::type>::value));
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<false>, x, boolean<true>, y, z>, y::type>::value));
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<false>, x, boolean<false>, y, z>, z::type>::value));
-
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<true>, x, boolean<true>, y, boolean<true>, z>, x::type>::value));
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<false>, x, boolean<true>, y, boolean<true>, z>, y::type>::value));
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<false>, x, boolean<false>, y, boolean<true>, z>, z::type>::value));
-
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<true>, x, boolean<true>, y, boolean<true>, z, w>, x::type>::value));
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<false>, x, boolean<true>, y, boolean<true>, z, w>, y::type>::value));
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<false>, x, boolean<false>, y, boolean<true>, z, w>, z::type>::value));
-METAL_TEST_ASSERT((std::is_same<conditional_t<boolean<false>, x, boolean<false>, y, boolean<false>, z, w>, w::type>::value));
+_gen(_boilerplate)
 
 
 

@@ -5,18 +5,20 @@
 #ifndef METAL_TEST_VALUES_HPP
 #define METAL_TEST_VALUES_HPP
 
-namespace test
-{
-    enum val0 {type};
-    union val1 {};
-    using val2 = val1();
-    using val3 = val2* const;
-    using val4 = val2* volatile;
-    using val5 = val3 volatile;
-    using val6 = val5[1];
-    using val7 = val6[];
-    using val8 = val7&&;
-    using val9 = val8&;
-}
+#include "test/preprocessor.hpp"
+
+enum val0 {type};
+union val1 {};
+using val2 = void;
+using val3 = void();
+using val4 = val1 const;
+using val5 = val1*;
+using val6 = val1&;
+using val7 = val1&&;
+using val8 = val1[1];
+using val9 = val8[];
+
+#define _val(N) _cat(val, N)
+#define _vals(N) _enum(N, val)
 
 #endif

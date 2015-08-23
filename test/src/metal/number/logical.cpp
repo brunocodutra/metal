@@ -7,56 +7,21 @@
 
 #include "test.hpp"
 
-using namespace metal;
+#define _boilerplate(M, N) \
+    _assert((metal::is_just_t<metal::not_<_val(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::and_<_vals(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::or_<_vals(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::and_<_nums(M) _comma(M) _vals(_inc(N))>>), (_false)); \
+    _assert((metal::is_just_t<metal::or_<_nums(M) _comma(M) _vals(_inc(N))>>), (_false)); \
+    _assert((metal::is_just_t<metal::not_<_num(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::and_<_nums(N)>>), (_bool(N > 0))); \
+    _assert((metal::is_just_t<metal::or_<_nums(N)>>), (_bool(N > 0))); \
+    _assert((metal::and_t<_nums(_inc(N))>), (_false)); \
+    _assert((metal::and_t<_enum(_inc(N), _cat(num, M) _bar)>), (_bool(M > 0))); \
+    _assert((metal::and_t<_enum(_inc(N), _cat(num, M) _bar), _enum(_inc(M), _cat(num, N) _bar)>), (_bool(M && N))); \
+    _assert((metal::or_t<_nums(_inc(N))>), (_bool(N > 0))); \
+    _assert((metal::or_t<_enum(_inc(N), _cat(num, M) _bar)>), (_bool(M > 0))); \
+    _assert((metal::or_t<_enum(_inc(N), _cat(num, M) _bar), _enum(_inc(M), _cat(num, N) _bar)>), (_bool(M || N))); \
+/**/
 
-METAL_TEST_ASSERT((!is_just<or_<>>::value));
-METAL_TEST_ASSERT((!is_just<or_<test::val0>>::value));
-METAL_TEST_ASSERT((!is_just<or_<test::num0, test::val1>>::value));
-METAL_TEST_ASSERT((!is_just<or_<test::val0, test::num1, test::val2>>::value));
-METAL_TEST_ASSERT((!is_just<or_<test::num0, test::val1, test::num2, test::val3>>::value));
-
-METAL_TEST_ASSERT((or_t<test::num1>::value));
-METAL_TEST_ASSERT((or_t<test::num0, test::num2>::value));
-METAL_TEST_ASSERT((or_t<test::num0, test::num0, test::num3>::value));
-METAL_TEST_ASSERT((or_t<test::num0, test::num0, test::num0, test::num4>::value));
-METAL_TEST_ASSERT((or_t<test::num0, test::num0, test::num0, test::num0, test::num5>::value));
-METAL_TEST_ASSERT((or_t<test::num0, test::num0, test::num0, test::num0, test::num0, test::num6>::value));
-METAL_TEST_ASSERT((or_t<test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num7>::value));
-METAL_TEST_ASSERT((or_t<test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num8>::value));
-METAL_TEST_ASSERT((or_t<test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num8, test::num9>::value));
-
-METAL_TEST_ASSERT((!or_t<test::num0>::value));
-METAL_TEST_ASSERT((!or_t<test::num0, test::num0>::value));
-METAL_TEST_ASSERT((!or_t<test::num0, test::num0, test::num0>::value));
-METAL_TEST_ASSERT((!or_t<test::num0, test::num0, test::num0, test::num0>::value));
-METAL_TEST_ASSERT((!or_t<test::num0, test::num0, test::num0, test::num0, test::num0>::value));
-METAL_TEST_ASSERT((!or_t<test::num0, test::num0, test::num0, test::num0, test::num0, test::num0>::value));
-METAL_TEST_ASSERT((!or_t<test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0>::value));
-METAL_TEST_ASSERT((!or_t<test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0>::value));
-METAL_TEST_ASSERT((!or_t<test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0, test::num0>::value));
-
-METAL_TEST_ASSERT((!is_just<and_<>>::value));
-METAL_TEST_ASSERT((!is_just<and_<test::val0>>::value));
-METAL_TEST_ASSERT((!is_just<and_<test::num0, test::val1>>::value));
-METAL_TEST_ASSERT((!is_just<and_<test::val0, test::num1, test::val2>>::value));
-METAL_TEST_ASSERT((!is_just<and_<test::num0, test::val1, test::num2, test::val3>>::value));
-
-METAL_TEST_ASSERT((and_t<test::num1>::value));
-METAL_TEST_ASSERT((and_t<test::num1, test::num2>::value));
-METAL_TEST_ASSERT((and_t<test::num1, test::num2, test::num3>::value));
-METAL_TEST_ASSERT((and_t<test::num1, test::num2, test::num3, test::num4>::value));
-METAL_TEST_ASSERT((and_t<test::num1, test::num2, test::num3, test::num4, test::num5>::value));
-METAL_TEST_ASSERT((and_t<test::num1, test::num2, test::num3, test::num4, test::num5, test::num6>::value));
-METAL_TEST_ASSERT((and_t<test::num1, test::num2, test::num3, test::num4, test::num5, test::num6, test::num7>::value));
-METAL_TEST_ASSERT((and_t<test::num1, test::num2, test::num3, test::num4, test::num5, test::num6, test::num7, test::num8>::value));
-METAL_TEST_ASSERT((and_t<test::num1, test::num2, test::num3, test::num4, test::num5, test::num6, test::num7, test::num8, test::num9>::value));
-
-METAL_TEST_ASSERT((!and_t<test::num0>::value));
-METAL_TEST_ASSERT((!and_t<test::num1, test::num0>::value));
-METAL_TEST_ASSERT((!and_t<test::num1, test::num2, test::num0>::value));
-METAL_TEST_ASSERT((!and_t<test::num1, test::num2, test::num3, test::num0>::value));
-METAL_TEST_ASSERT((!and_t<test::num1, test::num2, test::num3, test::num4, test::num0>::value));
-METAL_TEST_ASSERT((!and_t<test::num1, test::num2, test::num3, test::num4, test::num5, test::num0>::value));
-METAL_TEST_ASSERT((!and_t<test::num1, test::num2, test::num3, test::num4, test::num5, test::num6, test::num0>::value));
-METAL_TEST_ASSERT((!and_t<test::num1, test::num2, test::num3, test::num4, test::num5, test::num6, test::num7, test::num0>::value));
-METAL_TEST_ASSERT((!and_t<test::num1, test::num2, test::num3, test::num4, test::num5, test::num6, test::num7, test::num8, test::num0>::value));
+_gen(_boilerplate)

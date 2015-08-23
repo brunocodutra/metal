@@ -16,14 +16,14 @@ namespace metal
 {
     /// \ingroup optional
     /// \brief ...
-    template<typename pred, typename then, typename... else_>
+    template<typename...>
     struct conditional
     {};
 
     /// \ingroup optional
     /// \brief Eager adaptor for \ref conditional.
-    template<typename pred, typename then, typename... else_>
-    using conditional_t = extract<metal::conditional<pred, then, else_...>>;
+    template<typename... args>
+    using conditional_t = extract<metal::conditional<args...>>;
 
     template<typename pred1, typename then1, typename pred2, typename then2, typename... else_>
     struct conditional<pred1, then1, pred2, then2, else_...> :

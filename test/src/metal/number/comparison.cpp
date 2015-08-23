@@ -4,40 +4,23 @@
 
 #include <metal/number/comparison.hpp>
 #include <metal/number/number.hpp>
+#include <metal/optional/just.hpp>
 
 #include "test.hpp"
 
-using namespace metal;
+#define _boilerplate(M, N) \
+    _assert((metal::is_just_t<metal::equal_to<_val(M), _val(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::greater<_val(M), _val(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::less<_val(M), _val(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::equal_to<_num(M), _val(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::greater<_num(M), _val(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::less<_num(M), _val(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::equal_to_t<_num(M), _num(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::greater<_num(M), _num(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::less<_num(M), _num(N)>>), (_true)); \
+    _assert((metal::equal_to_t<_num(M), _num(N)>), (_bool(M == N))); \
+    _assert((metal::greater_t<_num(M), _num(N)>), (_bool(M > N))); \
+    _assert((metal::less_t<_num(M), _num(N)>), (_bool(M < N))); \
+/**/
 
-METAL_TEST_ASSERT((equal_to_t<test::num0, integer<0>>::value));
-METAL_TEST_ASSERT((!equal_to_t<test::num1, integer<0>>::value));
-METAL_TEST_ASSERT((equal_to_t<test::num2, integer<2>>::value));
-METAL_TEST_ASSERT((!equal_to_t<test::num3, integer<2>>::value));
-METAL_TEST_ASSERT((equal_to_t<test::num4, integer<4>>::value));
-METAL_TEST_ASSERT((!equal_to_t<test::num5, integer<4>>::value));
-METAL_TEST_ASSERT((equal_to_t<test::num6, integer<6>>::value));
-METAL_TEST_ASSERT((!equal_to_t<test::num7, integer<6>>::value));
-METAL_TEST_ASSERT((equal_to_t<test::num8, integer<8>>::value));
-METAL_TEST_ASSERT((!equal_to_t<test::num9, integer<8>>::value));
-
-METAL_TEST_ASSERT((!greater_t<test::num0, integer<4>>::value));
-METAL_TEST_ASSERT((!greater_t<test::num1, integer<4>>::value));
-METAL_TEST_ASSERT((!greater_t<test::num2, integer<4>>::value));
-METAL_TEST_ASSERT((!greater_t<test::num3, integer<4>>::value));
-METAL_TEST_ASSERT((!greater_t<test::num4, integer<4>>::value));
-METAL_TEST_ASSERT((greater_t<test::num5, integer<4>>::value));
-METAL_TEST_ASSERT((greater_t<test::num6, integer<4>>::value));
-METAL_TEST_ASSERT((greater_t<test::num7, integer<4>>::value));
-METAL_TEST_ASSERT((greater_t<test::num8, integer<4>>::value));
-METAL_TEST_ASSERT((greater_t<test::num9, integer<4>>::value));
-
-METAL_TEST_ASSERT((less_t<test::num0, integer<5>>::value));
-METAL_TEST_ASSERT((less_t<test::num1, integer<5>>::value));
-METAL_TEST_ASSERT((less_t<test::num2, integer<5>>::value));
-METAL_TEST_ASSERT((less_t<test::num3, integer<5>>::value));
-METAL_TEST_ASSERT((less_t<test::num4, integer<5>>::value));
-METAL_TEST_ASSERT((!less_t<test::num5, integer<5>>::value));
-METAL_TEST_ASSERT((!less_t<test::num6, integer<5>>::value));
-METAL_TEST_ASSERT((!less_t<test::num7, integer<5>>::value));
-METAL_TEST_ASSERT((!less_t<test::num8, integer<5>>::value));
-METAL_TEST_ASSERT((!less_t<test::num9, integer<5>>::value));
+_gen(_boilerplate)

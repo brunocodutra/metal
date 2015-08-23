@@ -13,19 +13,21 @@ namespace metal
 {
     /// \ingroup lambda
     /// \brief ...
-    template<typename lbd, typename... args>
+    template<typename...>
     struct bind;
 
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref bind.
-    template<typename lbd, typename... args>
-    using bind_t = extract<metal::bind<lbd, args...>>;
+    template<typename... args>
+    using bind_t = extract<metal::bind<args...>>;
 
     template<typename lbd, typename... args>
-    struct bind
+    struct bind<lbd, args...>
     {
         using type = apply<quote_t<lbd>, args...>;
     };
+
+    ///\todo do the actual binding for early error detection
 }
 
 #endif

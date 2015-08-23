@@ -8,182 +8,24 @@
 
 #include "test.hpp"
 
-using namespace metal;
+#define _boilerplate(M, N) \
+    _assert((metal::is_just_t<metal::apply<_val(M) _comma(N) _vals(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::apply<_num(M) _comma(N) _vals(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::apply<_pair(M) _comma(N) _vals(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::apply<_list(M) _comma(N) _vals(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::apply<_map(M) _comma(N) _vals(N)>>), (_false)); \
+    _assert((metal::is_just_t<metal::apply<_arg(M) _comma(N) _vals(N)>>), (_bool(M < N))); \
+    _assert((metal::is_just_t<metal::apply<_lbd(M) _comma(N) _vals(N)>>), (_bool(M <= N))); \
+    _assert((metal::is_just_t<metal::apply<metal::apply<_args(_inc(M))>, _lbd(M) _comma(N) _vals(N)>>), (_bool(M <= N))); \
+    using _cat(opt, N) = _expr(N)<_vals(N)>; \
+    using _cat(r, N) = _cat(opt, N)::type; \
+    _assert((metal::apply_t<_val(M) _comma(N) _vals(N)>), (_val(M))); \
+    _assert((metal::apply_t<_num(M) _comma(N) _vals(N)>), (_num(M))); \
+    _assert((metal::apply_t<_arg(N), _vals(_inc(N))>), (_val(N))); \
+    _assert((metal::apply_t<_lbd(N) _comma(N) _vals(N)>), (_cat(r, N))); \
+    _assert((metal::apply_t<_expr(N)<_lbds(N)> _comma(N) _vals(N)>), (_expr(N)<_enum(N, r)>::type)); \
+    _assert((metal::apply_t<_expr(N)<_lbds(N)> _comma(N) _vals(N)>), (metal::apply_t<_expr(N)<_enum(N, opt)>>)); \
+    _assert((metal::apply_t<metal::apply<_args(_inc(N))>, _lbd(N) _comma(N) _vals(N)>), (_cat(r, N))); \
+/**/
 
-METAL_TEST_ASSERT((is_just<apply<test::val0>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val1>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val2>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val3>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val4>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val5>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val6>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val7>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val8>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val9>>::value));
-
-METAL_TEST_ASSERT((is_just<apply<test::val0, void>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val1, void>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val2, void>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val3, void>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val4, void>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val5, void>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val6, void>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val7, void>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val8, void>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val9, void>>::value));
-
-METAL_TEST_ASSERT((is_just<apply<test::val0, void, void*>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val1, void, void*>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val2, void, void*>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val3, void, void*>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val4, void, void*>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val5, void, void*>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val6, void, void*>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val7, void, void*>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val8, void, void*>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::val9, void, void*>>::value));
-
-METAL_TEST_ASSERT((!is_just<apply<test::list0>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list1>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list2>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list3>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list4>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list5>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list6>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list7>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list8>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list9>>::value));
-
-METAL_TEST_ASSERT((!is_just<apply<test::list0, void>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list1, void>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list2, void>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list3, void>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list4, void>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list5, void>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list6, void>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list7, void>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list8, void>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list9, void>>::value));
-
-METAL_TEST_ASSERT((!is_just<apply<test::list0, void, void*>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list1, void, void*>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list2, void, void*>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list3, void, void*>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list4, void, void*>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list5, void, void*>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list6, void, void*>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list7, void, void*>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list8, void, void*>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::list9, void, void*>>::value));
-
-METAL_TEST_ASSERT((!is_just<apply<test::empty<>>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::empty<>, void>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::empty<>, void, void*>>::value));
-
-METAL_TEST_ASSERT((is_just<apply<test::expr0<>>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::expr0<>, void>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::expr0<>, void, void*>>::value));
-
-METAL_TEST_ASSERT((!is_just<apply<test::expr1<arg<0>>>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::expr1<arg<0>>, void>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::expr1<arg<0>>, void, void*>>::value));
-
-METAL_TEST_ASSERT((!is_just<apply<test::expr1<_1>>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::expr1<_1>, void>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::expr1<_1>, void, void*>>::value));
-
-METAL_TEST_ASSERT((!is_just<apply<test::expr2<_1, _2>>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::expr2<_1, _2>, void>>::value));
-METAL_TEST_ASSERT((is_just<apply<test::expr2<_1, _2>, void, void*>>::value));
-
-METAL_TEST_ASSERT((!is_just<apply<test::expr<_1, _2, _3>>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::expr<_1, _2, _3>, void>>::value));
-METAL_TEST_ASSERT((!is_just<apply<test::expr<_1, _2, _3>, void, void*>>::value));
-
-METAL_TEST_ASSERT((std::is_same<apply_t<_1, test::val0, test::val1, test::val2, test::val3>, test::val0>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<_2, test::val0, test::val1, test::val2, test::val3>, test::val1>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<_3, test::val0, test::val1, test::val2, test::val3>, test::val2>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<_4, test::val0, test::val1, test::val2, test::val3>, test::val3>::value));
-
-METAL_TEST_ASSERT((std::is_same<apply_t<test::expr0<>, test::val0, test::val1, test::val2, test::val3>, test::expr0<>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<test::expr1<_1>, test::val0, test::val1, test::val2, test::val3>, test::expr1<test::val0>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<test::expr2<_2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr2<test::val1, test::val0>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<test::expr<_3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr<test::val2, test::val1, test::val0>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<test::expr<_4, _3, _2, _1>, test::val0, test::val1, test::val2, test::val3>, test::expr<test::val3, test::val2, test::val1, test::val0>::type>::value));
-
-METAL_TEST_ASSERT((std::is_same<apply_t<apply<_1, _2, _3, _4, _5>, test::expr0<>, test::val0, test::val1, test::val2, test::val3>, test::expr0<>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<apply<_1, _2, _3, _4, _5>, test::expr1<_1>, test::val0, test::val1, test::val2, test::val3>, test::expr1<test::val0>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<apply<_1, _2, _3, _4, _5>, test::expr2<_1, _2>, test::val0, test::val1, test::val2, test::val3>, test::expr2<test::val0, test::val1>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<apply<_1, _2, _3, _4, _5>, test::expr<_1, _2, _3>, test::val0, test::val1, test::val2, test::val3>, test::expr<test::val0, test::val1, test::val2>::type>::value));
-METAL_TEST_ASSERT((std::is_same<apply_t<apply<_1, _2, _3, _4, _5>, test::expr<_1, _2, _3, _4>, test::val0, test::val1, test::val2, test::val3>, test::expr<test::val0, test::val1, test::val2, test::val3>::type>::value));
-
-METAL_TEST_ASSERT((
-    std::is_same<apply_t<
-        test::expr<test::expr0<>>,
-        test::val0, test::val1, test::val2, test::val3
-    >,
-    test::expr<test::expr0<>::type>::type
-    >::value
-));
-
-METAL_TEST_ASSERT((
-    std::is_same<apply_t<
-        test::expr<test::expr0<>, test::expr1<_1>>,
-        test::val0, test::val1, test::val2, test::val3
-    >,
-    test::expr<test::expr0<>::type, test::expr1<test::val0>::type>::type
-    >::value
-));
-
-METAL_TEST_ASSERT((
-    std::is_same<apply_t<
-        test::expr<test::expr0<>, test::expr1<_1>, test::expr2<_1, _2>>,
-        test::val0, test::val1, test::val2, test::val3
-    >,
-    test::expr<
-        test::expr0<>::type,
-        test::expr1<test::val0>::type,
-        test::expr2<test::val0, test::val1>::type
-    >::type
-    >::value
-));
-
-METAL_TEST_ASSERT((
-    std::is_same<apply_t<
-        test::expr<
-            test::expr0<>,
-            test::expr1<_1>,
-            test::expr2<_1, _2>,
-            test::expr<_1, _2, _3>
-        >,
-        test::val0, test::val1, test::val2, test::val3
-    >,
-    test::expr<
-        test::expr0<>::type,
-        test::expr1<test::val0>::type,
-        test::expr2<test::val0, test::val1>::type,
-        test::expr<test::val0, test::val1, test::val2>::type
-    >::type
-    >::value
-));
-
-METAL_TEST_ASSERT((
-    std::is_same<apply_t<
-        test::expr<
-            test::expr0<>,
-            test::expr1<_1>,
-            test::expr2<_1, _2>,
-            test::expr<_1, _2, _3>,
-            test::expr<_1, _2, _3, _4>
-        >,
-        test::val0, test::val1, test::val2, test::val3
-    >,
-    test::expr<
-        test::expr0<>::type,
-        test::expr1<test::val0>::type,
-        test::expr2<test::val0, test::val1>::type,
-        test::expr<test::val0, test::val1, test::val2>::type,
-        test::expr<test::val0, test::val1, test::val2, test::val3>::type
-    >::type
-    >::value
-));
+_gen(_boilerplate)

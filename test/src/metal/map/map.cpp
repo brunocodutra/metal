@@ -7,64 +7,22 @@
 
 #include "test.hpp"
 
-using namespace metal;
+#define _boilerplate(M, N) \
+    _assert((metal::is_just_t<metal::map<_vals(N)>>), (_bool(!N))); \
+    _assert((metal::is_just_t<metal::map<_nums(N)>>), (_bool(!N))); \
+    _assert((metal::is_just_t<metal::map<_pairs(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::map<_pair(M) _comma(N) _pairs(N)>>), (_bool(M >= N))); \
+    _assert((metal::is_just_t<metal::map<_lists(N)>>), (_bool(!N))); \
+    _assert((metal::is_just_t<metal::map<_maps(N)>>), (_bool(!N))); \
+    _assert((metal::is_just_t<metal::map<_args(N)>>), (_bool(!N))); \
+    _assert((metal::is_just_t<metal::map<_lbds(N)>>), (_bool(!N))); \
+    _assert((metal::is_map_t<_val(N)>), (_false)); \
+    _assert((metal::is_map_t<_num(N)>), (_false)); \
+    _assert((metal::is_map_t<_pair(N)>), (_false)); \
+    _assert((metal::is_map_t<_list(N)>), (_bool(!N))); \
+    _assert((metal::is_map_t<_map(N)>), (_true)); \
+    _assert((metal::is_map_t<_arg(N)>), (_false)); \
+    _assert((metal::is_map_t<_lbd(N)>), (_bool(!N))); \
+/**/
 
-METAL_TEST_ASSERT((is_just_t<map<>>::value));
-METAL_TEST_ASSERT((!is_just_t<map<test::val0>>::value));
-METAL_TEST_ASSERT((!is_just_t<map<test::val0, test::val1>>::value));
-METAL_TEST_ASSERT((!is_just_t<map<test::val0, test::val1, test::val2>>::value));
-METAL_TEST_ASSERT((!is_just_t<map<test::val0, test::val1, test::val2, test::val3>>::value));
-
-METAL_TEST_ASSERT((is_just_t<map<test::list2>>::value));
-METAL_TEST_ASSERT((!is_just_t<map<test::list2, test::list2>>::value));
-METAL_TEST_ASSERT((!is_just_t<map<test::list2, test::list2, test::list2>>::value));
-METAL_TEST_ASSERT((!is_just_t<map<test::list2, test::list2, test::list2, test::list2>>::value));
-
-METAL_TEST_ASSERT((is_map_t<map<>>::value));
-METAL_TEST_ASSERT((!is_map_t<map<test::val0>>::value));
-METAL_TEST_ASSERT((!is_map_t<map<test::val0, test::val1>>::value));
-METAL_TEST_ASSERT((!is_map_t<map<test::val0, test::val1, test::val2>>::value));
-METAL_TEST_ASSERT((!is_map_t<map<test::val0, test::val1, test::val2, test::val3>>::value));
-
-METAL_TEST_ASSERT((is_map_t<map<test::list2>>::value));
-METAL_TEST_ASSERT((!is_map_t<map<test::list2, test::list2>>::value));
-METAL_TEST_ASSERT((!is_map_t<map<test::list2, test::list2, test::list2>>::value));
-METAL_TEST_ASSERT((!is_map_t<map<test::list2, test::list2, test::list2, test::list2>>::value));
-
-METAL_TEST_ASSERT((!is_map_t<map<test::val0>>::value));
-METAL_TEST_ASSERT((!is_map_t<map<test::val0, test::val1>>::value));
-METAL_TEST_ASSERT((!is_map_t<map<test::val0, test::val1, test::val2>>::value));
-METAL_TEST_ASSERT((!is_map_t<map<test::val0, test::val1, test::val2, test::val3>>::value));
-
-METAL_TEST_ASSERT((!is_map_t<test::val0>::value));
-METAL_TEST_ASSERT((!is_map_t<test::val1>::value));
-METAL_TEST_ASSERT((!is_map_t<test::val2>::value));
-METAL_TEST_ASSERT((!is_map_t<test::val3>::value));
-METAL_TEST_ASSERT((!is_map_t<test::val4>::value));
-METAL_TEST_ASSERT((!is_map_t<test::val5>::value));
-METAL_TEST_ASSERT((!is_map_t<test::val6>::value));
-METAL_TEST_ASSERT((!is_map_t<test::val7>::value));
-METAL_TEST_ASSERT((!is_map_t<test::val8>::value));
-METAL_TEST_ASSERT((!is_map_t<test::val9>::value));
-
-METAL_TEST_ASSERT((!is_map_t<test::num0>::value));
-METAL_TEST_ASSERT((!is_map_t<test::num1>::value));
-METAL_TEST_ASSERT((!is_map_t<test::num2>::value));
-METAL_TEST_ASSERT((!is_map_t<test::num3>::value));
-METAL_TEST_ASSERT((!is_map_t<test::num4>::value));
-METAL_TEST_ASSERT((!is_map_t<test::num5>::value));
-METAL_TEST_ASSERT((!is_map_t<test::num6>::value));
-METAL_TEST_ASSERT((!is_map_t<test::num7>::value));
-METAL_TEST_ASSERT((!is_map_t<test::num8>::value));
-METAL_TEST_ASSERT((!is_map_t<test::num9>::value));
-
-METAL_TEST_ASSERT((is_map_t<test::map0>::value));
-METAL_TEST_ASSERT((is_map_t<test::map1>::value));
-METAL_TEST_ASSERT((is_map_t<test::map2>::value));
-METAL_TEST_ASSERT((is_map_t<test::map3>::value));
-METAL_TEST_ASSERT((is_map_t<test::map4>::value));
-METAL_TEST_ASSERT((is_map_t<test::map5>::value));
-METAL_TEST_ASSERT((is_map_t<test::map6>::value));
-METAL_TEST_ASSERT((is_map_t<test::map7>::value));
-METAL_TEST_ASSERT((is_map_t<test::map8>::value));
-METAL_TEST_ASSERT((is_map_t<test::map9>::value));
+_gen(_boilerplate)
