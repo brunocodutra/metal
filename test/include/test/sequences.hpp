@@ -9,17 +9,18 @@
 #include "test/preprocessor.hpp"
 #include "test/values.hpp"
 
-template<typename...> union seq;
+template<typename...> struct seq;
 template<typename...> using seq0 = seq<>;
-template<_enum(1, typename _)> class seq1;
-template<_enum(2, typename _)> union seq2;
-template<_enum(3, typename _)> using seq3 = seq<_enum(3, _)>;
-template<_enum(4, typename _)> using seq4 = seq<_enum(4, _)>;
-template<_enum(5, typename _)> using seq5 = seq<_enum(5, _)>;
-template<_enum(6, typename _)> using seq6 = seq<_enum(6, _)>;
-template<_enum(7, typename _)> using seq7 = seq<_enum(7, _)>;
-template<_enum(8, typename _)> using seq8 = seq<_enum(8, _)>;
-template<_enum(9, typename _)> using seq9 = seq<_enum(9, _)>;
+template<_enum( 1, typename _bar)> union seq1;
+template<_enum( 2, typename _bar)> union seq2;
+template<_enum( 3, typename _bar)> class seq3;
+template<_enum( 4, typename _bar)> class seq4;
+template<_enum( 5, typename _bar)> struct seq5;
+template<_enum( 6, typename _bar)> struct seq6;
+template<_enum( 7, typename _)> using seq7  = seq<_enum( 7, _)>;
+template<_enum( 8, typename _)> using seq8  = seq<_enum( 8, _)>;
+template<_enum( 9, typename _)> using seq9  = seq<_enum( 9, _)>;
+template<_enum(10, typename _)> using seq10 = seq<_enum(10, _)>;
 
 #define _seq(N) _cat(seq, N)
 #define _seqs(N) _enum(N, seq)

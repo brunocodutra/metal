@@ -35,6 +35,12 @@ namespace metal
     {
         using type = list<val>;
     };
+
+    template<template<typename...> class list>
+    struct flatten<list<>>
+    {
+        using type = list<>;
+    };
 }
 
 #endif

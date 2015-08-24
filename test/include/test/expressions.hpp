@@ -8,40 +8,31 @@
 #include "test/preprocessor.hpp"
 
 template<typename...>
-union expr
+struct expr
 {
     using type = expr*;
 };
 
 template<typename...>
-struct expr0;
+class expr0;
 
 template<>
-struct expr0<>
+class expr0<>
 {
+public:
     using type = expr0*;
 };
 
-template<typename>
-class expr1
-{
-public:
-    using type = expr1*;
-};
-
-template<typename, typename>
-union expr2
-{
-    using type = expr2*;
-};
-
-template<_enum(3, typename _)> using expr3 = expr<_enum(3, _)>;
-template<_enum(4, typename _)> using expr4 = expr<_enum(4, _)>;
-template<_enum(5, typename _)> using expr5 = expr<_enum(5, _)>;
-template<_enum(6, typename _)> using expr6 = expr<_enum(6, _)>;
-template<_enum(7, typename _)> using expr7 = expr<_enum(7, _)>;
-template<_enum(8, typename _)> using expr8 = expr<_enum(8, _)>;
-template<_enum(9, typename _)> using expr9 = expr<_enum(9, _)>;
+template<_enum( 1, typename _bar)> union  expr1  {using type = expr1&;};
+template<_enum( 2, typename _bar)> union  expr2  {using type = expr2&;};
+template<_enum( 3, typename _bar)> union  expr3  {using type = expr3&;};
+template<_enum( 4, typename _bar)> union  expr4  {using type = expr4&;};
+template<_enum( 5, typename _bar)> union  expr5  {using type = expr5&;};
+template<_enum( 6, typename _bar)> struct expr6  {using type = expr6&&;};
+template<_enum( 7, typename _bar)> struct expr7  {using type = expr7&&;};
+template<_enum( 8, typename _bar)> struct expr8  {using type = expr8&&;};
+template<_enum( 9, typename _bar)> struct expr9  {using type = expr9&&;};
+template<_enum(10, typename _bar)> struct expr10 {using type = expr10&&;};
 
 #define _expr(N) _cat(expr, N)
 #define _exprs(N) _enum(N, expr)
