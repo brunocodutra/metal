@@ -6,6 +6,7 @@
 #define METAL_CORE_HPP
 
 #include <metal/core/inherit.hpp>
+#include <metal/core/voider.hpp>
 
 /// \defgroup core Core
 /// \ingroup metal

@@ -5,6 +5,7 @@
 #ifndef METAL_OPTIONAL_JUST_HPP
 #define METAL_OPTIONAL_JUST_HPP
 
+#include <metal/core/voider.hpp>
 #include <metal/number/number.hpp>
 
 namespace metal
@@ -62,15 +63,20 @@ namespace metal
 
     namespace detail
     {
-        template<typename x, typename = just<typename x::type>>
-        boolean<true> is_just_impl(int);
-        template<typename>
-        boolean<false> is_just_impl(...);
+        template<typename, typename = void>
+        struct is_just_impl :
+                boolean<false>
+        {};
+
+        template<typename opt>
+        struct is_just_impl<opt, voider_t<typename opt::type, int opt::*>> :
+                boolean<true>
+        {};
     }
 
     template<typename opt>
     struct is_just :
-            decltype(detail::is_just_impl<opt>(0))
+            detail::is_just_impl<opt>
     {};
 }
 
