@@ -8,7 +8,6 @@
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
-#include <metal/optional/just.hpp>
 #include <metal/optional/extract.hpp>
 
 namespace metal
@@ -27,7 +26,9 @@ namespace metal
     namespace detail
     {
         template<typename t, t... vs>
-        static list<number<t, vs>...> list_numbers();
+        struct list_numbers :
+                list<number<t, vs>...>
+        {};
 
         template<typename, typename>
         struct offset;
@@ -37,7 +38,7 @@ namespace metal
 
         template<typename t, t o, template<typename...> class list, t... vs>
         struct offset<number<t, o>, list<number<t, vs>...>> :
-                decltype(list_numbers<t, o + vs...>())
+                list_numbers<t, o + vs...>
         {};
     }
 

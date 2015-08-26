@@ -6,14 +6,15 @@
 #define METAL_LAMBDA_APPLY_HPP
 
 #include <metal/lambda/arg.hpp>
-#include <metal/expression/eval.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/core/voider.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/flatten.hpp>
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 #include <metal/optional/conditional.hpp>
-#include <metal/optional/just.hpp>
 #include <metal/optional/extract.hpp>
+#include <metal/optional/maybe.hpp>
 
 namespace metal
 {
@@ -29,19 +30,27 @@ namespace metal
 
     namespace detail
     {
+        template<template<typename...> class, typename, typename = void>
+        struct eval
+        {};
+
+        template<
+            template<typename...> class expr,
+            template<typename...> class list,
+            typename... args
+        >
+        struct eval<expr, list<args...>, voider_t<expr<args...>>> :
+                maybe<expr<args...>>
+        {};
+
         template<template<typename...> class expr>
         struct lift
         {
-            template<typename>
-            struct forward;
-
-            template<template<typename...> class list, typename... args>
-            struct forward<list<args...>> :
-                    eval<expr, args...>
-            {};
-
             template<typename... opts>
-            using type = forward<flatten_t<list<from_just<opts>...>>>;
+            using type = eval<
+                lambda<expr>::template type,
+                flatten_t<list<from_just<opts>...>>
+            >;
         };
 
         template<typename...>
@@ -57,13 +66,18 @@ namespace metal
         struct apply_impl<arg<n>, args...> :
                 conditional<
                     boolean<n <= sizeof...(args)>,
-                    at<list<args...>, number<std::size_t, n - 1>>
+                    at<apply_impl<arg<n>, args...>, number<std::size_t, n>>
                 >
         {};
 
         template<typename... args>
         struct apply_impl<arg<0U>, args...> :
                 list<args...>
+        {};
+
+        template<template<typename...> class expr, typename... args>
+        struct apply_impl<expr<>, args...> :
+                maybe<expr<>>
         {};
 
         template<
@@ -74,13 +88,17 @@ namespace metal
         struct apply_impl<expr<params...>, args...> :
                 eval<
                     lift<expr>::template type,
-                    apply_impl<params, args...>...
+                    list<apply_impl<params, args...>...>
                 >
         {};
 
-        template<template<typename...> class expr, typename... args>
-        struct apply_impl<expr<arg<0U>>, args...> :
-                eval<expr, args...>
+        template<
+            template<template<typename...> class> class lambda,
+            template<typename...> class expr,
+            typename... args
+        >
+        struct apply_impl<lambda<expr>, args...> :
+                eval<metal::lambda<expr>::template type, list<args...>>
         {};
     }
 

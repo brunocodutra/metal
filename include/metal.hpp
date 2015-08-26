@@ -6,7 +6,6 @@
 #define METAL_HPP
 
 #include <metal/core.hpp>
-#include <metal/expression.hpp>
 #include <metal/list.hpp>
 #include <metal/lambda.hpp>
 #include <metal/map.hpp>

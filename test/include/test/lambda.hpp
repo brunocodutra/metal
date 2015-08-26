@@ -30,16 +30,20 @@ using arg9 = metal::arg<10>;
 #define _arg(N) _cat(arg, N)
 #define _args(N) _enum(N, arg)
 
-using lbd0 = expr0<>;
-using lbd1 = expr1<_args(1)>;
-using lbd2 = expr2<_args(2)>;
-using lbd3 = expr3<_args(3)>;
-using lbd4 = expr4<_args(4)>;
-using lbd5 = expr5<_args(5)>;
-using lbd6 = expr6<_args(6)>;
-using lbd7 = expr7<_args(7)>;
-using lbd8 = expr8<_args(8)>;
-using lbd9 = expr9<_args(9)>;
+template<template<typename...> class> struct lambda;
+
+using lbd   = lambda<expr>;
+using lbd0  = expr0<>;
+using lbd1  = expr1<_args(1)>;
+using lbd2  = expr2<_args(2)>;
+using lbd3  = expr3<_args(3)>;
+using lbd4  = expr4<_args(4)>;
+using lbd5  = expr5<_args(5)>;
+using lbd6  = expr6<_args(6)>;
+using lbd7  = expr7<_args(7)>;
+using lbd8  = expr8<_args(8)>;
+using lbd9  = expr9<_args(9)>;
+using lbd10 = expr10<_args(10)>;
 
 #define _lbd(N) _cat(lbd, N)
 #define _lbds(N) _enum(N, lbd)
