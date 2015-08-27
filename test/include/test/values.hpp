@@ -8,7 +8,7 @@
 #include "test/preprocessor.hpp"
 
 enum val0 {type};
-union val1 {};
+union val1 {template<typename...> struct type;};
 using val2 = void;
 using val3 = void();
 using val4 = val1 const;
