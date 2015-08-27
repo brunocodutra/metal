@@ -36,7 +36,7 @@ namespace metal
                     enumerate_t<size_t<list<vals...>>>,
                     metal::list<vals...>
                 >,
-                number<std::size_t, static_cast<std::size_t>(v%sizeof...(vals))>
+                number<std::size_t, static_cast<std::size_t>(v)>
             >
     {};
 

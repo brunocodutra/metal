@@ -12,7 +12,6 @@
 #include <metal/list/flatten.hpp>
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
-#include <metal/optional/conditional.hpp>
 #include <metal/optional/extract.hpp>
 #include <metal/optional/maybe.hpp>
 
@@ -64,10 +63,7 @@ namespace metal
 
         template<std::size_t n, typename... args>
         struct apply_impl<arg<n>, args...> :
-                conditional<
-                    boolean<n <= sizeof...(args)>,
-                    at<apply_impl<arg<n>, args...>, number<std::size_t, n>>
-                >
+                at<apply_impl<arg<n>, args...>, number<std::size_t, n>>
         {};
 
         template<typename... args>
