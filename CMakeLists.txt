@@ -20,69 +20,76 @@ find_package(Doxygen)
 find_package(Git)
 enable_testing()
 
-function(add_test_matrix _target _dialects _prefix)
-    file(GLOB_RECURSE headers "${_prefix}/include/*.hpp")
-    file(GLOB_RECURSE sources "${_prefix}/src/*.cpp")
-    list(SORT sources)
-    include_directories("${_prefix}/include")
-    add_custom_target(${_target})
+function(make_dialects_map _dialects _map)
+    unset(${_map})
     foreach(dialect ${_dialects})
         unset(dialect_flags)
         language_dialect_flags(CXX ${dialect} dialect_flags)
         foreach(flag ${dialect_flags})
             check_flag(CXX "${flag}" flag)
             if(flag)
-                add_custom_target(${_target}.${dialect})
-                add_dependencies(${_target} ${_target}.${dialect})
-                foreach(source ${sources})
-                    string(REPLACE "${_prefix}/src/" "" test_target ${source})
-                    string(REGEX REPLACE "[/\\]" "." test_target ${test_target})
-                    string(
-                        REGEX REPLACE
-                        "(.*)[.]cpp"
-                        "${_target}.${dialect}.\\1"
-                        test_target
-                        ${test_target}
-                    )
-
-                    add_binary_target(
-                        EXECUTABLE ${test_target}
-                        LANGUAGE CXX
-                        SOURCES ${source} ${headers}
-                        LIBRARIES
-                        ADITIONAL_FLAGS "${flag}"
-                        DEPENDENCIES
-                    )
-                    add_test(
-                        ${test_target}
-                        ${CMAKE_CURRENT_BINARY_DIR}/${test_target}
-                    )
-
-                    string(
-                        REGEX REPLACE
-                        "(.*)[.][^.]+"
-                        "\\1"
-                        test_target_parent
-                        ${test_target}
-                    )
-
-                    while(NOT TARGET ${test_target_parent})
-                        add_custom_target(${test_target_parent})
-                        add_dependencies(${test_target_parent} ${test_target})
-                        set(test_target ${test_target_parent})
-                        string(
-                            REGEX REPLACE
-                            "(.*)[.][^.]+"
-                            "\\1"
-                            test_target_parent
-                            ${test_target}
-                        )
-                    endwhile()
-
-                    add_dependencies(${test_target_parent} ${test_target})
-                endforeach()
+                set(${_map} ${${_map}} "${dialect}@${flag}")
                 break()
             endif()
+        endforeach()
+    endforeach()
+    set(${_map} ${${_map}} PARENT_SCOPE)
+endfunction()
+
+function(split _pair _left _right)
+    string(REGEX REPLACE "^([^@]+)[@]([^@]+)$" "\\1" ${_left} ${_pair})
+    string(REGEX REPLACE "^([^@]+)[@]([^@]+)$" "\\2" ${_right} ${_pair})
+    set(${_left} ${${_left}} PARENT_SCOPE)
+    set(${_right} ${${_right}} PARENT_SCOPE)
+endfunction()
+
+function(parent_target _target _parent)
+    string(REGEX REPLACE "(.*)[.][^.]+" "\\1" ${_parent} ${_target})
+    set(${_parent} ${${_parent}} PARENT_SCOPE)
+endfunction()
+
+function(add_test_matrix _target _dialects _prefix)
+    file(GLOB_RECURSE headers "${_prefix}/include/*.hpp")
+    file(GLOB_RECURSE sources "${_prefix}/src/*.cpp")
+    list(SORT sources)
+
+    include_directories("${_prefix}/include")
+    add_custom_target(${_target})
+
+    make_dialects_map("${_dialects}" dialects_map)
+    foreach(pair ${dialects_map})
+        split(${pair} dialect flag)
+
+        foreach(source ${sources})
+            string(REPLACE "${_prefix}/src/" "" test_target ${source})
+            string(REGEX REPLACE "[/\\]" "." test_target ${test_target})
+            string(
+                REGEX REPLACE
+                "(.*)[.]cpp"
+                "${_target}.\\1.${dialect}"
+                test_target
+                ${test_target}
+            )
+
+            add_binary_target(
+                EXECUTABLE ${test_target}
+                LANGUAGE CXX
+                SOURCES ${source} ${headers}
+                LIBRARIES
+                ADITIONAL_FLAGS "${flag}"
+                DEPENDENCIES
+            )
+            add_test(${test_target} ${CMAKE_CURRENT_BINARY_DIR}/${test_target})
+
+            parent_target(${test_target} test_target_parent)
+            while(NOT TARGET ${test_target_parent})
+                add_custom_target(${test_target_parent})
+                add_dependencies(${test_target_parent} ${test_target})
+                set(test_target ${test_target_parent})
+                parent_target(${test_target} test_target_parent)
+            endwhile()
+
+            add_dependencies(${test_target_parent} ${test_target})
         endforeach()
     endforeach()
 endfunction()

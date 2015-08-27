@@ -7,4 +7,5 @@ add_test_matrix(
     "${METAL_CXX_DIALECTS}"
     "${CMAKE_CURRENT_SOURCE_DIR}"
 )
-add_dependencies(metal.example metal)
+
+add_dependencies(metal metal.example)
