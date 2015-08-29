@@ -33,11 +33,7 @@ namespace metal
         struct eval
         {};
 
-        template<
-            template<typename...> class expr,
-            template<typename...> class list,
-            typename... args
-        >
+        template<template<typename...> class expr, typename... args>
         struct eval<expr, list<args...>, voider_t<expr<args...>>> :
                 maybe<expr<args...>>
         {};
@@ -46,65 +42,49 @@ namespace metal
         struct lift
         {
             template<typename... opts>
-            using type = eval<
-                lambda<expr>::template type,
-                flatten_t<list<from_just<opts>...>>
-            >;
+            using type = expr<from_just<opts>...>;
         };
-
-        template<typename...>
-        struct apply_impl;
-
-        template<typename val, typename... args>
-        struct apply_impl<val, args...>
-        {
-            using type = val;
-        };
-
-        template<std::size_t n, typename... args>
-        struct apply_impl<arg<n>, args...> :
-                at<apply_impl<arg<n>, args...>, number<std::size_t, n>>
-        {};
-
-        template<typename... args>
-        struct apply_impl<arg<0U>, args...> :
-                list<args...>
-        {};
-
-        template<template<typename...> class expr, typename... args>
-        struct apply_impl<expr<>, args...> :
-                maybe<expr<>>
-        {};
-
-        template<
-            template<typename...> class expr,
-            typename... params,
-            typename... args
-        >
-        struct apply_impl<expr<params...>, args...> :
-                eval<
-                    lift<expr>::template type,
-                    list<apply_impl<params, args...>...>
-                >
-        {};
-
-        template<
-            template<template<typename...> class> class lambda,
-            template<typename...> class expr,
-            typename... args
-        >
-        struct apply_impl<lambda<expr>, args...> :
-                eval<metal::lambda<expr>::template type, list<args...>>
-        {};
     }
 
-    template<typename lbd, typename... args>
-    struct apply<lbd, args...> :
-            detail::apply_impl<lbd, args...>
+    template<typename val, typename... args>
+    struct apply<val, args...>
+    {
+        using type = val;
+    };
+
+    template<std::size_t n, typename... args>
+    struct apply<arg<n>, args...> :
+            at<apply<arg<n>, args...>, number<std::size_t, n>>
     {};
 
     template<typename... args>
     struct apply<arg<0U>, args...>
+    {};
+
+    template<template<typename...> class expr, typename... args>
+    struct apply<expr<>, args...> :
+            maybe<expr<>>
+    {};
+
+    template<
+        template<typename...> class expr,
+        typename... params,
+        typename... args
+    >
+    struct apply<expr<params...>, args...> :
+            detail::eval<
+                detail::lift<expr>::template type,
+                list<apply<params, args...>...>
+            >
+    {};
+
+    template<
+        template<template<typename...> class> class lambda,
+        template<typename...> class expr,
+        typename... args
+    >
+    struct apply<lambda<expr>, args...> :
+            detail::eval<metal::lambda<expr>::template type, list<args...>>
     {};
 }
 

@@ -22,7 +22,6 @@ namespace metal
     /// \ingroup placeholders
     /// \brief Default placeholder.
     /// \{
-    using _0 = metal::arg<0U>;
     using _1 = metal::arg<1U>;
     using _2 = metal::arg<2U>;
     using _3 = metal::arg<3U>;
