@@ -7,18 +7,20 @@
 
 #include "test/preprocessor.hpp"
 
-enum val0 {type};
-union val1 {template<typename...> struct type;};
-using val2 = void;
-using val3 = void();
-using val4 = val1 const;
-using val5 = val1*;
-using val6 = val1&;
-using val7 = val1&&;
-using val8 = val1[1];
-using val9 = val8[];
+namespace test
+{
+    enum val0 {type};
+    union val1 {template<typename...> struct type;};
+    using val2 = void;
+    using val3 = void();
+    using val4 = val1 const;
+    using val5 = val1*;
+    using val6 = val1&;
+    using val7 = val1&&;
+    using val8 = val1[1];
+    using val9 = val8[];
 
-#define _val(N) _cat(val, N)
-#define _vals(N) _enum(N, val)
-
+#define _val(...) _cat(test::val, __VA_ARGS__)
+#define _vals(N) _enum(N, test::val)
+}
 #endif

@@ -33,13 +33,13 @@
     _assert((metal::equal_to_t<metal::dec_t<_num(_inc(N))>, _num(N)>), (_true)); \
     _assert((metal::equal_to_t<metal::inc_t<metal::dec_t<_num(N)>>, _num(N)>), (_true)); \
     _assert((metal::equal_to_t<metal::dec_t<metal::inc_t<_num(N)>>, _num(N)>), (_true)); \
-    using _cat(triangle, N) = metal::div_t<metal::mul_t<_num(N), _num(_inc(N))>, num2>; \
+    using _cat(triangle, N) = metal::div_t<metal::mul_t<_num(N), _num(_inc(N))>, _num(2)>; \
     _assert((metal::equal_to_t<metal::add_t<_nums(_inc(N))>, _cat(triangle, N)>), (_true)); \
-    _assert((metal::equal_to_t<metal::sub_t<_cat(triangle, N), _nums(_inc(N))>, num0>), (_true)); \
-    _assert((metal::equal_to_t<metal::add_t<num0 _comma(N) _enum(N, _cat(num, M) _bar)>, metal::mul_t<_num(M), _num(N)>>), (_true)); \
-    _assert((metal::equal_to_t<metal::sub_t<metal::mul_t<_num(M), _num(N)> _comma(N) _enum(N, _cat(num, M) _bar)>, num0>), (_true)); \
-    _assert((metal::equal_to_t<metal::mul_t<_nums(_inc(N))>, num0>), (_true)); \
-    _assert((metal::equal_to_t<metal::div_t<_nums(_inc(N))>, num0>), (_true)); \
+    _assert((metal::equal_to_t<metal::sub_t<_cat(triangle, N), _nums(_inc(N))>, _num(0)>), (_true)); \
+    _assert((metal::equal_to_t<metal::add_t<_num(0) _comma(N) _enum(N, _num(M) _bar)>, metal::mul_t<_num(M), _num(N)>>), (_true)); \
+    _assert((metal::equal_to_t<metal::sub_t<metal::mul_t<_num(M), _num(N)> _comma(N) _enum(N, _num(M) _bar)>, _num(0)>), (_true)); \
+    _assert((metal::equal_to_t<metal::mul_t<_nums(_inc(N))>, _num(0)>), (_true)); \
+    _assert((metal::equal_to_t<metal::div_t<_nums(_inc(N))>, _num(0)>), (_true)); \
 /**/
 
 _gen(_boilerplate)
