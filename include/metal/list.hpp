@@ -8,6 +8,7 @@
 #include <metal/list/at.hpp>
 #include <metal/list/contains.hpp>
 #include <metal/list/count.hpp>
+#include <metal/list/distinct.hpp>
 #include <metal/list/empty.hpp>
 #include <metal/list/enumerate.hpp>
 #include <metal/list/flatten.hpp>

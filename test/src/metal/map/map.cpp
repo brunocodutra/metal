@@ -11,7 +11,7 @@
     _assert((metal::is_just_t<metal::map<_vals(N)>>), (_bool(!N))); \
     _assert((metal::is_just_t<metal::map<_nums(N)>>), (_bool(!N))); \
     _assert((metal::is_just_t<metal::map<_pairs(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::map<_pair(M) _comma(N) _pairs(N)>>), (_true)); \
+    _assert((metal::is_just_t<metal::map<_pair(M) _comma(N) _pairs(N)>>), (_bool(M >= N))); \
     _assert((metal::is_just_t<metal::map<_lists(N)>>), (_bool(!N))); \
     _assert((metal::is_just_t<metal::map<_maps(N)>>), (_bool(!N))); \
     _assert((metal::is_just_t<metal::map<_args(N)>>), (_bool(!N))); \

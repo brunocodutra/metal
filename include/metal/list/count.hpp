@@ -23,11 +23,7 @@ namespace metal
     template<typename list, typename val>
     using count_t = typename count<list, val>::type;
 
-    template<
-        template<typename...> class list,
-        typename... vals,
-        typename val
-    >
+    template<template<typename...> class list, typename... vals, typename val>
     struct count<list<vals...>, val> :
             add<from_just<std::is_same<vals, val>>...>
     {};

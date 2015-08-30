@@ -8,6 +8,7 @@
 
 #define _boilerplate(M, N) \
     _assert((std::is_base_of<_num(M), metal::inherit<_nums(N)>>::type), (_bool(M < N))); \
+    _assert((std::is_base_of<_num(M), metal::inherit<_nums(N) _comma(N) _nums(N)>>::type), (_bool(M < N))); \
 /**/
 
 _gen(_boilerplate)

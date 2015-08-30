@@ -5,13 +5,17 @@
 #ifndef METAL_MAP_MAP_HPP
 #define METAL_MAP_MAP_HPP
 
+#include <metal/list/list.hpp>
+#include <metal/list/distinct.hpp>
 #include <metal/number/number.hpp>
+#include <metal/optional/conditional.hpp>
+#include <metal/optional/just.hpp>
 
 namespace metal
 {
     /// \ingroup map
     /// \brief ...
-    template<typename... seqs>
+    template<typename... pairs>
     struct map;
 
     /// \ingroup sequece
@@ -24,21 +28,10 @@ namespace metal
     template<typename map>
     using is_map_t = typename metal::is_map<map>::type;
 
-    template<>
-    struct map<>
-    {
-        using type = map;
-    };
-
-    template<
-        template<typename...> class... pairs,
-        typename... keys,
-        typename... vals
-    >
-    struct map<pairs<keys, vals>...>
-    {
-        using type = map;
-    };
+    template<typename... pairs>
+    struct map :
+            conditional<is_map_t<map<pairs...>>, just<map<pairs...>>>
+    {};
 
     template<typename>
     struct is_map :
@@ -57,7 +50,7 @@ namespace metal
         typename... vals
     >
     struct is_map<map<pairs<keys, vals>...>> :
-            boolean<true>
+            distinct<list<keys...>>
     {};
 }
 

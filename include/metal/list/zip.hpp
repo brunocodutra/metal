@@ -9,14 +9,14 @@ namespace metal
 {
     /// \ingroup list
     /// \brief ...
-    template<typename seq1, typename seq2>
+    template<typename list1, typename list2>
     struct zip
     {};
 
     /// \ingroup optional
     /// \brief Eager adaptor for \ref zip.
-    template<typename seq1, typename seq2>
-    using zip_t = typename zip<seq1, seq2>::type;
+    template<typename list1, typename list2>
+    using zip_t = typename zip<list1, list2>::type;
 
     template<template<typename...> class list, typename... xs, typename... ys>
     struct zip<list<xs...>, list<ys...>>
