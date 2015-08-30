@@ -2,26 +2,25 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_LIST_RANGE_HPP
-#define METAL_LIST_RANGE_HPP
+#ifndef METAL_NUMBER_ENUMERATE_HPP
+#define METAL_NUMBER_ENUMERATE_HPP
 
+#include <metal/number/number.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
-#include <metal/number/number.hpp>
 #include <metal/optional/extract.hpp>
 
 namespace metal
 {
-    /// \ingroup list
+    /// \ingroup number
     /// \brief ...
-    template<typename first, typename last>
-    struct range
-    {};
+    template<typename...>
+    struct enumerate;
 
-    /// \ingroup optional
-    /// \brief Eager adaptor for \ref range.
-    template<typename first, typename last>
-    using range_t = typename metal::range<first, last>::type;
+    /// \ingroup number
+    /// \brief Eager adaptor for \ref enumerate.
+    template<typename... args>
+    using enumerate_t = typename metal::enumerate<args...>::type;
 
     namespace detail
     {
@@ -43,39 +42,44 @@ namespace metal
     }
 
     template<typename f, f fv, typename l, l lv>
-    struct range<number<f, fv>, number<l, lv>> :
-            range<
+    struct enumerate<number<f, fv>, number<l, lv>> :
+            enumerate<
                 number<from_just<std::common_type<f, l>>, fv>,
                 number<from_just<std::common_type<f, l>>, lv>
             >
     {};
 
     template<typename t, t f, t l>
-    struct range<number<t, f>, number<t, l>> :
+    struct enumerate<number<t, f>, number<t, l>> :
             join<
                 detail::offset_t<
-                    number<t, f>, range_t<number<t, 0>, number<t, (l - f)/2>>
+                    number<t, f>, enumerate_t<number<t, 0>, number<t, (l - f)/2>>
                 >,
                 detail::offset_t<
                     number<t, f + (l - f)/2>,
-                    range_t<number<t, 0>, number<t, l - f - (l - f)/2>>
+                    enumerate_t<number<t, 0>, number<t, l - f - (l - f)/2>>
                 >
             >
     {};
 
     template<typename t, t f>
-    struct range<number<t, f>, number<t, f + 1>> :
+    struct enumerate<number<t, f>, number<t, f + 1>> :
             list<number<t, f>>
     {};
 
     template<typename t, t f>
-    struct range<number<t, f>, number<t, f - 1>> :
+    struct enumerate<number<t, f>, number<t, f - 1>> :
             list<number<t, f>>
     {};
 
     template<typename t, t f>
-    struct range<number<t, f>, number<t, f>> :
+    struct enumerate<number<t, f>, number<t, f>> :
             list<>
+    {};
+
+    template<typename t, t v>
+    struct enumerate<number<t, v>> :
+            enumerate<number<t, 0>, number<t, v>>
     {};
 }
 

@@ -5,9 +5,9 @@
 #ifndef METAL_CORE_INHERIT_HPP
 #define METAL_CORE_INHERIT_HPP
 
-#include <metal/number/number.hpp>
 #include <metal/list/list.hpp>
-#include <metal/list/enumerate.hpp>
+#include <metal/number/number.hpp>
+#include <metal/number/enumerate.hpp>
 
 #include <cstddef>
 

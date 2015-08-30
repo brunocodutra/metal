@@ -7,10 +7,10 @@
 
 #include <metal/list/list.hpp>
 #include <metal/list/zip.hpp>
-#include <metal/list/enumerate.hpp>
 #include <metal/list/size.hpp>
 #include <metal/map/at_key.hpp>
 #include <metal/number/number.hpp>
+#include <metal/number/enumerate.hpp>
 
 namespace metal
 {
