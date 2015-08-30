@@ -17,8 +17,9 @@ add_custom_target(
     COMMAND ${DOXYGEN_EXECUTABLE} METAL_DOXYFILE
     COMMENT "doxygenating..."
 )
-
 add_custom_target(doc DEPENDS metal.doc)
+
+add_dependencies(metal metal.doc)
 
 if(NOT GIT_FOUND)
     message(
