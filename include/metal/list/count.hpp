@@ -5,10 +5,12 @@
 #ifndef METAL_LIST_COUNT_HPP
 #define METAL_LIST_COUNT_HPP
 
+#include <metal/list/list.hpp>
 #include <metal/number/arithmetic/add.hpp>
 #include <metal/optional/extract.hpp>
 
 #include <type_traits>
+#include <cstddef>
 
 namespace metal
 {
@@ -23,9 +25,14 @@ namespace metal
     template<typename list, typename val>
     using count_t = typename count<list, val>::type;
 
+    template<template<typename...> class list, typename val>
+    struct count<list<>, val> :
+            number<std::ptrdiff_t, 0>
+    {};
+
     template<template<typename...> class list, typename... vals, typename val>
     struct count<list<vals...>, val> :
-            add<from_just<std::is_same<vals, val>>...>
+            add<count_t<metal::list<>, val>, from_just<std::is_same<vals, val>>...>
     {};
 }
 

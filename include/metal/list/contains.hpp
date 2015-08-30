@@ -24,6 +24,11 @@ namespace metal
     template<typename list, typename val>
     using contains_t = typename contains<list, val>::type;
 
+    template<template<typename...> class list, typename val>
+    struct contains<list<>, val> :
+            boolean<false>
+    {};
+
     template<template<typename...> class list, typename... vals, typename val>
     struct contains<list<vals...>, val> :
             or_<from_just<std::is_same<vals, val>>...>

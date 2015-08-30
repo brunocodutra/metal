@@ -3,7 +3,6 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/number/arithmetic.hpp>
-#include <metal/number/number.hpp>
 #include <metal/number/comparison/equal_to.hpp>
 #include <metal/optional/just.hpp>
 

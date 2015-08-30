@@ -23,6 +23,7 @@
     _assert((metal::is_list_t<_map(N)>), (_true)); \
     _assert((metal::is_list_t<_arg(N)>), (_false)); \
     _assert((metal::is_list_t<_lbd(N)>), (_true)); \
+    _assert((metal::is_list_t<_lambda(N)>), (_false)); \
 /**/
 
 _gen(_boilerplate)

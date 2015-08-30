@@ -15,6 +15,7 @@
     _assert((metal::quote_t<_map(N)>::type), (_map(N))); \
     _assert((metal::quote_t<_arg(N)>::type), (_arg(N))); \
     _assert((metal::quote_t<_lbd(N)>::type), (_lbd(N))); \
+    _assert((metal::quote_t<_lambda(N)>::type), (_lambda(N))); \
     _assert((metal::apply_t<metal::quote_t<_val(N)>>), (_val(N))); \
     _assert((metal::apply_t<metal::quote_t<_num(N)>>), (_num(N))); \
     _assert((metal::apply_t<metal::quote_t<_pair(N)>>), (_pair(N))); \
@@ -22,6 +23,7 @@
     _assert((metal::apply_t<metal::quote_t<_map(N)>>), (_map(N))); \
     _assert((metal::apply_t<metal::quote_t<_arg(N)>>), (_arg(N))); \
     _assert((metal::apply_t<metal::quote_t<_lbd(N)>>), (_lbd(N))); \
+    _assert((metal::apply_t<metal::quote_t<_lambda(N)>>), (_lambda(N))); \
 /**/
 
 _gen(_boilerplate)

@@ -40,16 +40,17 @@ namespace test
 #define _seq(...) _cat(test::seq, __VA_ARGS__)
 #define _seqs(N) _enum(N, test::seq)
 
-    using list0 = seq0<>;
-    using list1 = seq1<_vals(1)>;
-    using list2 = seq2<_vals(2)>;
-    using list3 = seq3<_vals(3)>;
-    using list4 = seq4<_vals(4)>;
-    using list5 = seq5<_vals(5)>;
-    using list6 = seq6<_vals(6)>;
-    using list7 = seq7<_vals(7)>;
-    using list8 = seq8<_vals(8)>;
-    using list9 = seq9<_vals(9)>;
+    using list0  = seq0<_vals(0)>;
+    using list1  = seq1<_vals(1)>;
+    using list2  = seq2<_vals(2)>;
+    using list3  = seq3<_vals(3)>;
+    using list4  = seq4<_vals(4)>;
+    using list5  = seq5<_vals(5)>;
+    using list6  = seq6<_vals(6)>;
+    using list7  = seq7<_vals(7)>;
+    using list8  = seq8<_vals(8)>;
+    using list9  = seq9<_vals(9)>;
+    using list10 = seq10<_vals(10)>;
 
 #define _list(...) _cat(test::list, __VA_ARGS__)
 #define _lists(N) _enum(N, test::list)
@@ -68,16 +69,17 @@ namespace test
 #define _pair(...) _cat(test::pair, __VA_ARGS__)
 #define _pairs(N) _enum(N, test::pair)
 
-    using map0 = seq0<>;
-    using map1 = seq1<_pairs(1)>;
-    using map2 = seq2<_pairs(2)>;
-    using map3 = seq3<_pairs(3)>;
-    using map4 = seq4<_pairs(4)>;
-    using map5 = seq5<_pairs(5)>;
-    using map6 = seq6<_pairs(6)>;
-    using map7 = seq7<_pairs(7)>;
-    using map8 = seq8<_pairs(8)>;
-    using map9 = seq9<_pairs(9)>;
+    using map0  = seq0<_pairs(0)>;
+    using map1  = seq1<_pairs(1)>;
+    using map2  = seq2<_pairs(2)>;
+    using map3  = seq3<_pairs(3)>;
+    using map4  = seq4<_pairs(4)>;
+    using map5  = seq5<_pairs(5)>;
+    using map6  = seq6<_pairs(6)>;
+    using map7  = seq7<_pairs(7)>;
+    using map8  = seq8<_pairs(8)>;
+    using map9  = seq9<_pairs(9)>;
+    using map10 = seq10<_pairs(10)>;
 
 #define _map(...) _cat(test::map, __VA_ARGS__)
 #define _maps(N) _enum(N, test::map)
