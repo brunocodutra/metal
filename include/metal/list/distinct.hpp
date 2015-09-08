@@ -11,13 +11,13 @@
 
 namespace metal
 {
-    /// \ingroup sequece
+    /// \ingroup list
     /// \brief ...
     template<typename list>
     struct distinct
     {};
 
-    /// \ingroup sequece
+    /// \ingroup list
     /// \brief Eager adaptor for \ref distinct.
     template<typename list>
     using distinct_t = typename distinct<list>::type;

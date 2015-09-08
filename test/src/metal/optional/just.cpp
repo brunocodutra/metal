@@ -6,10 +6,10 @@
 
 #include "test.hpp"
 
-#define _boilerplate(_, N) \
-    _assert((metal::is_just_t<_val(N)>), (_false)); \
-    _assert((metal::is_just_t<_num(N)>), (_true)); \
-    _assert((metal::just<_val(N)>::type), (_val(N))); \
+#define MATRIX(_, N) \
+    ASSERT((metal::is_just_t<VAL(N)>), (FALSE)); \
+    ASSERT((metal::is_just_t<NUM(N)>), (TRUE)); \
+    ASSERT((metal::just<VAL(N)>::type), (VAL(N))); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)

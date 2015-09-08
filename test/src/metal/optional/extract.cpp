@@ -6,17 +6,17 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::from_maybe<_val(M), _val(N)>), (_val(N))); \
-    _assert((metal::from_maybe<_num(M), _val(N)>), (_num(M))); \
-    _assert((metal::from_maybe<_pair(M), _val(N)>), (_val(N))); \
-    _assert((metal::from_maybe<_list(M), _val(N)>), (_val(N))); \
-    _assert((metal::from_maybe<_map(M), _val(N)>), (_val(N))); \
-    _assert((metal::from_maybe<_arg(M), _val(N)>), (_val(N))); \
-    _assert((metal::from_maybe<_lbd(M), _val(N)>), (_lbd(M)::type)); \
-    _assert((metal::from_maybe<_lambda(M), _val(N)>), (_val(N))); \
-    _assert((metal::from_just<_num(N)>), (_num(N))); \
-    _assert((metal::from_just<_lbd(N)>), (_lbd(N)::type)); \
+#define MATRIX(M, N) \
+    ASSERT((metal::from_maybe<VAL(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::from_maybe<NUM(M), VAL(N)>), (NUM(M))); \
+    ASSERT((metal::from_maybe<PAIR(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::from_maybe<LIST(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::from_maybe<MAP(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::from_maybe<ARG(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::from_maybe<LBD(M), VAL(N)>), (LBD(M)::type)); \
+    ASSERT((metal::from_maybe<FUN(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::from_just<NUM(N)>), (NUM(N))); \
+    ASSERT((metal::from_just<LBD(N)>), (LBD(N)::type)); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)

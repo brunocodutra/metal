@@ -7,23 +7,23 @@
 
 #include "test.hpp"
 
-#define _boilerplate(_, N) \
-    _assert((metal::quote_t<_val(N)>::type), (_val(N))); \
-    _assert((metal::quote_t<_num(N)>::type), (_num(N))); \
-    _assert((metal::quote_t<_pair(N)>::type), (_pair(N))); \
-    _assert((metal::quote_t<_list(N)>::type), (_list(N))); \
-    _assert((metal::quote_t<_map(N)>::type), (_map(N))); \
-    _assert((metal::quote_t<_arg(N)>::type), (_arg(N))); \
-    _assert((metal::quote_t<_lbd(N)>::type), (_lbd(N))); \
-    _assert((metal::quote_t<_lambda(N)>::type), (_lambda(N))); \
-    _assert((metal::apply_t<metal::quote_t<_val(N)>>), (_val(N))); \
-    _assert((metal::apply_t<metal::quote_t<_num(N)>>), (_num(N))); \
-    _assert((metal::apply_t<metal::quote_t<_pair(N)>>), (_pair(N))); \
-    _assert((metal::apply_t<metal::quote_t<_list(N)>>), (_list(N))); \
-    _assert((metal::apply_t<metal::quote_t<_map(N)>>), (_map(N))); \
-    _assert((metal::apply_t<metal::quote_t<_arg(N)>>), (_arg(N))); \
-    _assert((metal::apply_t<metal::quote_t<_lbd(N)>>), (_lbd(N))); \
-    _assert((metal::apply_t<metal::quote_t<_lambda(N)>>), (_lambda(N))); \
+#define MATRIX(_, N) \
+    ASSERT((metal::quote_t<VAL(N)>::type), (VAL(N))); \
+    ASSERT((metal::quote_t<NUM(N)>::type), (NUM(N))); \
+    ASSERT((metal::quote_t<PAIR(N)>::type), (PAIR(N))); \
+    ASSERT((metal::quote_t<LIST(N)>::type), (LIST(N))); \
+    ASSERT((metal::quote_t<MAP(N)>::type), (MAP(N))); \
+    ASSERT((metal::quote_t<ARG(N)>::type), (ARG(N))); \
+    ASSERT((metal::quote_t<LBD(N)>::type), (LBD(N))); \
+    ASSERT((metal::quote_t<FUN(N)>::type), (FUN(N))); \
+    ASSERT((metal::apply_t<metal::quote_t<VAL(N)>>), (VAL(N))); \
+    ASSERT((metal::apply_t<metal::quote_t<NUM(N)>>), (NUM(N))); \
+    ASSERT((metal::apply_t<metal::quote_t<PAIR(N)>>), (PAIR(N))); \
+    ASSERT((metal::apply_t<metal::quote_t<LIST(N)>>), (LIST(N))); \
+    ASSERT((metal::apply_t<metal::quote_t<MAP(N)>>), (MAP(N))); \
+    ASSERT((metal::apply_t<metal::quote_t<ARG(N)>>), (ARG(N))); \
+    ASSERT((metal::apply_t<metal::quote_t<LBD(N)>>), (LBD(N))); \
+    ASSERT((metal::apply_t<metal::quote_t<FUN(N)>>), (FUN(N))); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)

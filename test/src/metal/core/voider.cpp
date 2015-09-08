@@ -7,9 +7,9 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::is_just_t<metal::voider<_vals(N)>>), (_true)); \
-    _assert((metal::voider_t<_vals(N)>), (void)); \
+#define MATRIX(M, N) \
+    ASSERT((metal::is_just_t<metal::voider<VALS(N)>>), (TRUE)); \
+    ASSERT((metal::voider_t<VALS(N)>), (void)); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)

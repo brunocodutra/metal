@@ -18,7 +18,7 @@ namespace metal
     template<typename... pairs>
     struct map;
 
-    /// \ingroup sequece
+    /// \ingroup map
     /// \brief ...
     template<typename map>
     struct is_map;

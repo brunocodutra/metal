@@ -9,7 +9,7 @@
 
 namespace metal
 {
-    /// \ingroup sequece
+    /// \ingroup list
     /// \brief ...
     template<typename list>
     struct empty

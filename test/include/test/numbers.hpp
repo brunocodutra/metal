@@ -21,13 +21,14 @@ namespace test
     using num8  = std::integral_constant<unsigned long, 8>;
     using num9  = std::integral_constant<unsigned long long, 9>;
     using num10 = std::integral_constant<std::size_t, 10>;
-
-#define _num(...) _cat(test::num, __VA_ARGS__)
-#define _nums(N) _enum(N, test::num)
-
-#define _bool(B) std::integral_constant<bool, (B)>
-#define _true std::true_type
-#define _false std::false_type
 }
+
+#define NUM(N) CAT(test::num, N)
+#define NUMS(N) ENUM(N, test::num)
+
+#define BOOL(B) std::integral_constant<bool, (B)>
+#define TRUE std::true_type
+#define FALSE std::false_type
+
 #endif
 

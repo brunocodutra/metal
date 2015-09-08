@@ -9,11 +9,11 @@
 
 #include <type_traits>
 
-#define _assert_(X, Y) \
-    static_assert(std::is_same<_strip X, _strip Y>::value, #X " == " #Y) \
+#define ASSERT_(X, Y) \
+    static_assert(std::is_same<ID X, ID Y>::value, #X " == " #Y) \
 /**/
 
-#define _assert(EXPR, RESULT) _assert_(EXPR, RESULT)
+#define ASSERT(EXPR, RESULT) ASSERT_(EXPR, RESULT)
 
 #endif
 

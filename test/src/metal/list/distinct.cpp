@@ -7,26 +7,25 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::is_just_t<metal::distinct<_val(M)>>), (_false)); \
-    _assert((metal::is_just_t<metal::distinct<_num(M)>>), (_false)); \
-    _assert((metal::is_just_t<metal::distinct<_pair(M)>>), (_true)); \
-    _assert((metal::is_just_t<metal::distinct<_list(M)>>), (_true)); \
-    _assert((metal::is_just_t<metal::distinct<_map(M)>>), (_true)); \
-    _assert((metal::is_just_t<metal::distinct<_arg(M)>>), (_false)); \
-    _assert((metal::is_just_t<metal::distinct<_lbd(M)>>), (_true)); \
-    _assert((metal::is_just_t<metal::distinct<_lambda(M)>>), (_false)); \
-    _assert((metal::distinct_t<_pair(M)>), (_true)); \
-    _assert((metal::distinct_t<_pair(M)>), (_true)); \
-    _assert((metal::distinct_t<_list(M)>), (_true)); \
-    _assert((metal::distinct_t<_map(M)>), (_true)); \
-    _assert((metal::distinct_t<_lbd(M)>), (_true)); \
-    _assert((metal::distinct_t<_seq()<_val(M), _vals(_inc(M))>>), (_false)); \
-    _assert((metal::distinct_t<_seq(M)<_enum(M, _map(N) _bar)>>), (_bool(M < 2))); \
-    _assert((metal::distinct_t<_seq()< \
-        _vals(_inc(M)), _nums(_inc(M)), _pairs(_inc(M)), _lists(_inc(M)), \
-        _maps(_inc(M)), _args(_inc(M)), _lbds(_inc(M))>>), (_false)); \
+#define MATRIX(M, N) \
+    ASSERT((metal::is_just_t<metal::distinct<VAL(M)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::distinct<NUM(M)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::distinct<PAIR(M)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::distinct<LIST(M)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::distinct<MAP(M)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::distinct<ARG(M)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::distinct<LBD(M)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::distinct<FUN(M)>>), (FALSE)); \
+    ASSERT((metal::distinct_t<PAIR(M)>), (TRUE)); \
+    ASSERT((metal::distinct_t<LIST(M)>), (TRUE)); \
+    ASSERT((metal::distinct_t<MAP(M)>), (TRUE)); \
+    ASSERT((metal::distinct_t<LBD(M)>), (TRUE)); \
+    ASSERT((metal::distinct_t<SEQ()<VAL(M), VALS(INC(M))>>), (FALSE)); \
+    ASSERT((metal::distinct_t<SEQ(M)<ENUM(M, MAP(N) BAR)>>), (BOOL(M < 2))); \
+    ASSERT((metal::distinct_t<SEQ()< \
+        VALS(INC(M)), NUMS(INC(M)), PAIRS(INC(M)), LISTS(INC(M)), \
+        MAPS(INC(M)), ARGS(INC(M)), LBDS(INC(M))>>), (FALSE)); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)
 

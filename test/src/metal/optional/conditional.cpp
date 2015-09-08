@@ -7,14 +7,14 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::is_just_t<metal::conditional<_vals(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::conditional<_nums(N)>>), (_bool(N > 2))); \
-    _assert((metal::conditional_t<_enum(M, _num(0) _bar) _comma(M) _num(_inc(N)), _expr()<_val(N)>>), (_expr()<_val(N)>::type)); \
-    _assert((metal::conditional_t<_num(_inc(N)), _expr()<_val(N)> _comma(M) _vals(M)>), (_expr()<_val(N)>::type)); \
+#define MATRIX(M, N) \
+    ASSERT((metal::is_just_t<metal::conditional<VALS(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::conditional<NUMS(N)>>), (BOOL(N > 2))); \
+    ASSERT((metal::conditional_t<ENUM(M, NUM(0) BAR) COMMA(M) NUM(INC(N)), EXPR()<VAL(N)>>), (EXPR()<VAL(N)>::type)); \
+    ASSERT((metal::conditional_t<NUM(INC(N)), EXPR()<VAL(N)> COMMA(M) VALS(M)>), (EXPR()<VAL(N)>::type)); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)
 
 
 

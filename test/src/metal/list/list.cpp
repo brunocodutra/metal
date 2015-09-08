@@ -7,24 +7,24 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::is_just_t<metal::list<_vals(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::list<_nums(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::list<_pairs(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::list<_pair(M) _comma(N) _pairs(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::list<_lists(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::list<_maps(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::list<_args(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::list<_lbds(N)>>), (_true)); \
-    _assert((metal::is_list_t<_val(N)>), (_false)); \
-    _assert((metal::is_list_t<_num(N)>), (_false)); \
-    _assert((metal::is_list_t<_pair(N)>), (_true)); \
-    _assert((metal::is_list_t<_list(N)>), (_true)); \
-    _assert((metal::is_list_t<_map(N)>), (_true)); \
-    _assert((metal::is_list_t<_arg(N)>), (_false)); \
-    _assert((metal::is_list_t<_lbd(N)>), (_true)); \
-    _assert((metal::is_list_t<_lambda(N)>), (_false)); \
+#define MATRIX(M, N) \
+    ASSERT((metal::is_just_t<metal::list<VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::list<NUMS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::list<PAIRS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::list<PAIR(M) COMMA(N) PAIRS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::list<LISTS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::list<MAPS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::list<ARGS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::list<LBDS(N)>>), (TRUE)); \
+    ASSERT((metal::is_list_t<VAL(N)>), (FALSE)); \
+    ASSERT((metal::is_list_t<NUM(N)>), (FALSE)); \
+    ASSERT((metal::is_list_t<PAIR(N)>), (TRUE)); \
+    ASSERT((metal::is_list_t<LIST(N)>), (TRUE)); \
+    ASSERT((metal::is_list_t<MAP(N)>), (TRUE)); \
+    ASSERT((metal::is_list_t<ARG(N)>), (FALSE)); \
+    ASSERT((metal::is_list_t<LBD(N)>), (TRUE)); \
+    ASSERT((metal::is_list_t<FUN(N)>), (FALSE)); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)
 

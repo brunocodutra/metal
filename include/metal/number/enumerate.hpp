@@ -6,9 +6,7 @@
 #define METAL_NUMBER_ENUMERATE_HPP
 
 #include <metal/number/number.hpp>
-#include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
-#include <metal/optional/extract.hpp>
 
 namespace metal
 {
@@ -25,40 +23,40 @@ namespace metal
     namespace detail
     {
         template<typename t, t... vs>
-        struct list_numbers :
+        struct numbers :
                 list<number<t, vs>...>
         {};
 
-        template<typename, typename>
-        struct offset;
+        template<typename, typename, typename, typename>
+        struct merge;
 
-        template<typename o, typename ns>
-        using offset_t = typename offset<o, ns>::type;
-
-        template<typename t, t o, template<typename...> class list, t... vs>
-        struct offset<number<t, o>, list<number<t, vs>...>> :
-                list_numbers<t, o + vs...>
+        template<
+            template<typename...> class list, typename t,
+            t ox, t... xs, t oy, t... ys
+        >
+        struct merge<
+            number<t, ox>, list<number<t, xs>...>,
+            number<t, oy>, list<number<t, ys>...>
+        > :
+                numbers<t, (ox + xs)..., (oy + ys)...>
         {};
     }
 
     template<typename f, f fv, typename l, l lv>
     struct enumerate<number<f, fv>, number<l, lv>> :
             enumerate<
-                number<from_just<std::common_type<f, l>>, fv>,
-                number<from_just<std::common_type<f, l>>, lv>
+                number<decltype(true ? fv : lv), fv>,
+                number<decltype(true ? fv : lv), lv>
             >
     {};
 
     template<typename t, t f, t l>
     struct enumerate<number<t, f>, number<t, l>> :
-            join<
-                detail::offset_t<
-                    number<t, f>, enumerate_t<number<t, 0>, number<t, (l - f)/2>>
-                >,
-                detail::offset_t<
-                    number<t, f + (l - f)/2>,
-                    enumerate_t<number<t, 0>, number<t, l - f - (l - f)/2>>
-                >
+            detail::merge<
+                number<t, f>,
+                enumerate_t<number<t, (l - f)/2>>,
+                number<t, f + (l - f)/2>,
+                enumerate_t<number<t, l - f - (l - f)/2>>
             >
     {};
 

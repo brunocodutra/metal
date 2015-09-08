@@ -6,9 +6,9 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::lambda<_expr()>::type<_vals(N)>::type), (_expr()<_vals(N)>::type)); \
-    _assert((metal::lambda<_expr(M)>::type<_vals(M)>::type), (_expr(M)<_vals(M)>::type)); \
+#define MATRIX(M, N) \
+    ASSERT((metal::lambda<EXPR()>::type<VALS(N)>::type), (EXPR()<VALS(N)>::type)); \
+    ASSERT((metal::lambda<EXPR(M)>::type<VALS(M)>::type), (EXPR(M)<VALS(M)>::type)); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)

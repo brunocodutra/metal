@@ -13,7 +13,7 @@ namespace metal
     struct zip
     {};
 
-    /// \ingroup optional
+    /// \ingroup list
     /// \brief Eager adaptor for \ref zip.
     template<typename list1, typename list2>
     using zip_t = typename zip<list1, list2>::type;

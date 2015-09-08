@@ -7,29 +7,32 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::is_just_t<metal::at<_val(M), _num(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at<_num(M), _num(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at<_pair(M), _num(N)>>), (_bool(N < 2))); \
-    _assert((metal::is_just_t<metal::at<_list(M), _num(N)>>), (_bool(M > N))); \
-    _assert((metal::is_just_t<metal::at<_map(M), _num(N)>>), (_bool(M > N))); \
-    _assert((metal::is_just_t<metal::at<_arg(M), _num(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at<_lbd(M), _num(N)>>), (_bool(M > N))); \
-    _assert((metal::is_just_t<metal::at<_lambda(M), _num(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at<_list(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at<_list(M), _pair(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at<_list(M), _list(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at<_list(M), _map(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at<_list(M), _arg(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at<_list(M), _lbd(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at<_list(M), _lambda(N)>>), (_false)); \
-    _assert((metal::at_t<_pair(N), _num(0)>), (_num(N))); \
-    _assert((metal::at_t<_pair(N), _num(1)>), (_val(N))); \
-    _assert((metal::at_t<_list(_limit), _num(N)>), (_val(N))); \
-    _assert((metal::at_t<_map(_limit), _num(N)>), (_pair(N))); \
-    _assert((metal::at_t<_lbd(_limit), _num(N)>), (_arg(N))); \
-    _assert((metal::at_t<_seq()<_lists(M) _comma(M) _maps(_inc(N))>, _num(M)>), (_map(0))); \
+#define MATRIX(M, N) \
+    ASSERT((metal::is_just_t<metal::at<VAL(M), NUM(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at<NUM(M), NUM(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at<PAIR(M), NUM(N)>>), (BOOL(N < 2))); \
+    ASSERT((metal::is_just_t<metal::at<LIST(M), NUM(N)>>), (BOOL(M > N))); \
+    ASSERT((metal::is_just_t<metal::at<MAP(M), NUM(N)>>), (BOOL(M > N))); \
+    ASSERT((metal::is_just_t<metal::at<ARG(M), NUM(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at<LBD(M), NUM(N)>>), (BOOL(M > N))); \
+    ASSERT((metal::is_just_t<metal::at<FUN(M), NUM(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at<LIST(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at<LIST(M), PAIR(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at<LIST(M), LIST(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at<LIST(M), MAP(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at<LIST(M), ARG(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at<LIST(M), LBD(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at<LIST(M), FUN(N)>>), (FALSE)); \
+    ASSERT((metal::at_t<PAIR(N), NUM(0)>), (NUM(N))); \
+    ASSERT((metal::at_t<PAIR(N), NUM(1)>), (VAL(N))); \
+    ASSERT((metal::at_t<LIST(LIMIT), NUM(N)>), (VAL(N))); \
+    ASSERT((metal::at_t<MAP(LIMIT), NUM(N)>), (PAIR(N))); \
+    ASSERT((metal::at_t<LBD(LIMIT), NUM(N)>), (ARG(N))); \
+    ASSERT((metal::at_t<SEQ()<LISTS(M) COMMA(M) MAPS(INC(N))>, NUM(M)>), (MAP(0))); \
+    ASSERT((metal::at_t<SEQ()< \
+        VALS(LIMIT), NUMS(INC(M)), PAIRS(INC(M)), LISTS(INC(M)), \
+        MAPS(INC(M)), ARGS(INC(M)), LBDS(INC(M))>, NUM(N)>), (VAL(N))); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)
 

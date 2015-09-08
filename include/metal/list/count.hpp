@@ -14,25 +14,20 @@
 
 namespace metal
 {
-    /// \ingroup sequece
+    /// \ingroup list
     /// \brief ...
     template<typename list, typename val>
     struct count
     {};
 
-    /// \ingroup sequece
+    /// \ingroup list
     /// \brief Eager adaptor for \ref count.
     template<typename list, typename val>
     using count_t = typename count<list, val>::type;
 
-    template<template<typename...> class list, typename val>
-    struct count<list<>, val> :
-            number<std::ptrdiff_t, 0>
-    {};
-
     template<template<typename...> class list, typename... vals, typename val>
     struct count<list<vals...>, val> :
-            add<count_t<metal::list<>, val>, from_just<std::is_same<vals, val>>...>
+            add<number<std::ptrdiff_t, 0>, from_just<std::is_same<vals, val>>...>
     {};
 }
 

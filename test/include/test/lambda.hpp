@@ -16,40 +16,30 @@ namespace metal
     struct arg;
 }
 
+#define ARG(N) metal::arg<INC(N)>
+#define ARGS(N) ENUM(N, FORWARD(ARG))
+
 namespace test
 {
-    using arg0 = metal::arg<1>;
-    using arg1 = metal::arg<2>;
-    using arg2 = metal::arg<3>;
-    using arg3 = metal::arg<4>;
-    using arg4 = metal::arg<5>;
-    using arg5 = metal::arg<6>;
-    using arg6 = metal::arg<7>;
-    using arg7 = metal::arg<8>;
-    using arg8 = metal::arg<9>;
-    using arg9 = metal::arg<10>;
+    template<template<typename...> class>
+    struct lambda;
 
-#define _arg(...) _cat(test::arg, __VA_ARGS__)
-#define _args(N) _enum(N, test::arg)
-
-    template<template<typename...> class> struct lambda;
-
-#define _lambda(...) test::lambda<_expr(__VA_ARGS__)>
-
-    using lbd   = _lambda();
-    using lbd0  = expr0<>;
-    using lbd1  = expr1<_args(1)>;
-    using lbd2  = expr2<_args(2)>;
-    using lbd3  = expr3<_args(3)>;
-    using lbd4  = expr4<_args(4)>;
-    using lbd5  = expr5<_args(5)>;
-    using lbd6  = expr6<_args(6)>;
-    using lbd7  = expr7<_args(7)>;
-    using lbd8  = expr8<_args(8)>;
-    using lbd9  = expr9<_args(9)>;
-    using lbd10 = expr10<_args(10)>;
-
-#define _lbd(...) _cat(test::lbd, __VA_ARGS__)
-#define _lbds(N) _enum(N, test::lbd)
+    using lbd0  = expr0<ARGS(0)>;
+    using lbd1  = expr1<ARGS(1)>;
+    using lbd2  = expr2<ARGS(2)>;
+    using lbd3  = expr3<ARGS(3)>;
+    using lbd4  = expr4<ARGS(4)>;
+    using lbd5  = expr5<ARGS(5)>;
+    using lbd6  = expr6<ARGS(6)>;
+    using lbd7  = expr7<ARGS(7)>;
+    using lbd8  = expr8<ARGS(8)>;
+    using lbd9  = expr9<ARGS(9)>;
+    using lbd10 = expr10<ARGS(10)>;
 }
+
+#define FUN(...) test::lambda<EXPR(__VA_ARGS__)>
+
+#define LBD(N) CAT(test::lbd, N)
+#define LBDS(N) ENUM(N, test::lbd)
+
 #endif

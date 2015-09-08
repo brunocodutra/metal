@@ -7,23 +7,23 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::is_just_t<metal::map<_vals(N)>>), (_bool(!N))); \
-    _assert((metal::is_just_t<metal::map<_nums(N)>>), (_bool(!N))); \
-    _assert((metal::is_just_t<metal::map<_pairs(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::map<_pair(M) _comma(N) _pairs(N)>>), (_bool(M >= N))); \
-    _assert((metal::is_just_t<metal::map<_lists(N)>>), (_bool(!N))); \
-    _assert((metal::is_just_t<metal::map<_maps(N)>>), (_bool(!N))); \
-    _assert((metal::is_just_t<metal::map<_args(N)>>), (_bool(!N))); \
-    _assert((metal::is_just_t<metal::map<_lbds(N)>>), (_bool(!N))); \
-    _assert((metal::is_map_t<_val(N)>), (_false)); \
-    _assert((metal::is_map_t<_num(N)>), (_false)); \
-    _assert((metal::is_map_t<_pair(N)>), (_false)); \
-    _assert((metal::is_map_t<_list(N)>), (_bool(!N))); \
-    _assert((metal::is_map_t<_map(N)>), (_true)); \
-    _assert((metal::is_map_t<_arg(N)>), (_false)); \
-    _assert((metal::is_map_t<_lbd(N)>), (_bool(!N))); \
-    _assert((metal::is_map_t<_lambda(N)>), (_false)); \
+#define MATRIX(M, N) \
+    ASSERT((metal::is_just_t<metal::map<VALS(N)>>), (BOOL(!N))); \
+    ASSERT((metal::is_just_t<metal::map<NUMS(N)>>), (BOOL(!N))); \
+    ASSERT((metal::is_just_t<metal::map<PAIRS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::map<PAIR(M) COMMA(N) PAIRS(N)>>), (BOOL(M >= N))); \
+    ASSERT((metal::is_just_t<metal::map<LISTS(N)>>), (BOOL(!N))); \
+    ASSERT((metal::is_just_t<metal::map<MAPS(N)>>), (BOOL(!N))); \
+    ASSERT((metal::is_just_t<metal::map<ARGS(N)>>), (BOOL(!N))); \
+    ASSERT((metal::is_just_t<metal::map<LBDS(N)>>), (BOOL(!N))); \
+    ASSERT((metal::is_map_t<VAL(N)>), (FALSE)); \
+    ASSERT((metal::is_map_t<NUM(N)>), (FALSE)); \
+    ASSERT((metal::is_map_t<PAIR(N)>), (FALSE)); \
+    ASSERT((metal::is_map_t<LIST(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_map_t<MAP(N)>), (TRUE)); \
+    ASSERT((metal::is_map_t<ARG(N)>), (FALSE)); \
+    ASSERT((metal::is_map_t<LBD(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_map_t<FUN(N)>), (FALSE)); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)

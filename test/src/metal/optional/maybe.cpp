@@ -7,15 +7,15 @@
 
 #include "test.hpp"
 
-#define _boilerplate(_, N) \
-    _assert((metal::is_just_t<metal::maybe<_val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::maybe<_num(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::maybe<_lbd(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::maybe<_lambda(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::maybe<_expr()<_val(N)>>>), (_true)); \
-    _assert((metal::maybe<_num(N)>::type), (_num(N))); \
-    _assert((metal::maybe<_lbd(N)>::type), (_lbd(N)::type)); \
-    _assert((metal::maybe<_expr()<_val(N)>>::type), (_expr()<_val(N)>::type)); \
+#define MATRIX(_, N) \
+    ASSERT((metal::is_just_t<metal::maybe<VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::maybe<NUM(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::maybe<LBD(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::maybe<FUN(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::maybe<EXPR()<VAL(N)>>>), (TRUE)); \
+    ASSERT((metal::maybe<NUM(N)>::type), (NUM(N))); \
+    ASSERT((metal::maybe<LBD(N)>::type), (LBD(N)::type)); \
+    ASSERT((metal::maybe<EXPR()<VAL(N)>>::type), (EXPR()<VAL(N)>::type)); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)

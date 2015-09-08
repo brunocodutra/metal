@@ -7,26 +7,26 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::is_just_t<metal::contains<_val(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::contains<_num(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::contains<_pair(M), _val(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::contains<_list(M), _val(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::contains<_map(M), _val(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::contains<_arg(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::contains<_lbd(M), _val(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::contains<_lambda(M), _val(N)>>), (_false)); \
-    _assert((metal::contains_t<_pair(M), _val(N)>), (_bool(M == N))); \
-    _assert((metal::contains_t<_pair(M), _num(N)>), (_bool(M == N))); \
-    _assert((metal::contains_t<_list(M), _val(N)>), (_bool(M > N))); \
-    _assert((metal::contains_t<_map(M), _pair(N)>), (_bool(M > N))); \
-    _assert((metal::contains_t<_lbd(M), _arg(N)>), (_bool(M > N))); \
-    _assert((metal::contains_t<_seq()<_val(M), _vals(_inc(M))>, _val(N)>), (_bool(M >= N))); \
-    _assert((metal::contains_t<_seq(M)<_enum(M, _map(N) _bar)>, _map(N)>), (_bool(M > 0))); \
-    _assert((metal::contains_t<_seq()< \
-        _vals(_inc(M)), _nums(_inc(M)), _pairs(_inc(M)), _lists(_inc(M)), \
-        _maps(_inc(M)), _args(_inc(M)), _lbds(_inc(M))>, _map(N)>), (_bool(M >= N))); \
+#define MATRIX(M, N) \
+    ASSERT((metal::is_just_t<metal::contains<VAL(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::contains<NUM(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::contains<PAIR(M), VAL(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::contains<LIST(M), VAL(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::contains<MAP(M), VAL(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::contains<ARG(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::contains<LBD(M), VAL(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::contains<FUN(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::contains_t<PAIR(M), VAL(N)>), (BOOL(M == N))); \
+    ASSERT((metal::contains_t<PAIR(M), NUM(N)>), (BOOL(M == N))); \
+    ASSERT((metal::contains_t<LIST(M), VAL(N)>), (BOOL(M > N))); \
+    ASSERT((metal::contains_t<MAP(M), PAIR(N)>), (BOOL(M > N))); \
+    ASSERT((metal::contains_t<LBD(M), ARG(N)>), (BOOL(M > N))); \
+    ASSERT((metal::contains_t<SEQ()<VAL(M), VALS(INC(M))>, VAL(N)>), (BOOL(M >= N))); \
+    ASSERT((metal::contains_t<SEQ(M)<ENUM(M, MAP(N) BAR)>, MAP(N)>), (BOOL(M > 0))); \
+    ASSERT((metal::contains_t<SEQ()< \
+        VALS(INC(M)), NUMS(INC(M)), PAIRS(INC(M)), LISTS(INC(M)), \
+        MAPS(INC(M)), ARGS(INC(M)), LBDS(INC(M))>, MAP(N)>), (BOOL(M >= N))); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)
 

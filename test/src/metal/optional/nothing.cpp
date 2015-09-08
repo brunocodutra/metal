@@ -6,11 +6,11 @@
 
 #include "test.hpp"
 
-#define _boilerplate(_, N) \
-    _assert((metal::is_nothing_t<_val(N)>), (_true)); \
-    _assert((metal::is_nothing_t<_num(N)>), (_false)); \
+#define MATRIX(_, N) \
+    ASSERT((metal::is_nothing_t<VAL(N)>), (TRUE)); \
+    ASSERT((metal::is_nothing_t<NUM(N)>), (FALSE)); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)
 
-_assert((metal::is_nothing_t<metal::nothing>), (_true));
+ASSERT((metal::is_nothing_t<metal::nothing>), (TRUE));

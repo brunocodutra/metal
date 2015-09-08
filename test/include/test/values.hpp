@@ -20,7 +20,7 @@ namespace test
     using val8 = val1[1];
     using val9 = val8[];
 
-#define _val(...) _cat(test::val, __VA_ARGS__)
-#define _vals(N) _enum(N, test::val)
+#define VAL(N) CAT(test::val, N)
+#define VALS(N) ENUM(N, test::val)
 }
 #endif

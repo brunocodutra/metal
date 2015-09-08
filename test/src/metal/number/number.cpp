@@ -7,18 +7,18 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::is_number_t<_val(M)>), (_false)); \
-    _assert((metal::is_number_t<_num(M)>), (_true)); \
-    _assert((metal::is_number_t<_pair(M)>), (_false)); \
-    _assert((metal::is_number_t<_list(M)>), (_false)); \
-    _assert((metal::is_number_t<_map(M)>), (_false)); \
-    _assert((metal::is_number_t<_arg(M)>), (_false)); \
-    _assert((metal::is_number_t<_lbd(M)>), (_false)); \
-    _assert((metal::is_number_t<_lambda(M)>), (_false)); \
-    _assert((metal::is_number_t<metal::number<std::size_t, 0>>), (_true)); \
-    _assert((metal::is_number_t<metal::integer<0>>), (_true)); \
-    _assert((metal::is_number_t<metal::boolean<0>>), (_true)); \
+#define MATRIX(M, N) \
+    ASSERT((metal::is_number_t<VAL(M)>), (FALSE)); \
+    ASSERT((metal::is_number_t<NUM(M)>), (TRUE)); \
+    ASSERT((metal::is_number_t<PAIR(M)>), (FALSE)); \
+    ASSERT((metal::is_number_t<LIST(M)>), (FALSE)); \
+    ASSERT((metal::is_number_t<MAP(M)>), (FALSE)); \
+    ASSERT((metal::is_number_t<ARG(M)>), (FALSE)); \
+    ASSERT((metal::is_number_t<LBD(M)>), (FALSE)); \
+    ASSERT((metal::is_number_t<FUN(M)>), (FALSE)); \
+    ASSERT((metal::is_number_t<metal::number<std::size_t, 0>>), (TRUE)); \
+    ASSERT((metal::is_number_t<metal::integer<0>>), (TRUE)); \
+    ASSERT((metal::is_number_t<metal::boolean<0>>), (TRUE)); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)

@@ -10,39 +10,39 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    using _cat(opt, M) = _expr(M)<_vals(M)>; \
-    using _cat(rec, M) = _expr(M)<_enum(M, rec)>; \
-    _assert((metal::is_just_t<metal::bind<_val(M) _comma(N) _vals(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::bind<_num(M) _comma(N) _vals(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::bind<_pair(M) _comma(N) _vals(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::bind<_list(M) _comma(N) _vals(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::bind<_map(M) _comma(N) _vals(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::bind<_arg(M) _comma(N) _vals(N)>>), (_bool(M < N))); \
-    _assert((metal::is_just_t<metal::bind<_cat(opt, M) _comma(N) _vals(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::bind<_cat(rec, M) _comma(N) _vals(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::bind<_lbd() _comma(N) _vals(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::bind<_lambda() _comma(N) _vals(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::bind<_lbd(M) _comma(N) _vals(N)>>), (_bool(M <= N))); \
-    _assert((metal::is_just_t<metal::bind<_lambda(M) _comma(N) _vals(N)>>), (_bool(M == N))); \
-    _assert((metal::is_just_t<metal::bind<_expr(_inc(M))<_lbds(M) _comma(M) _lambda(M)> _comma(N) _vals(N)>>), (_bool(M == N))); \
-    _assert((metal::is_just_t<metal::bind<metal::bind<_args(_inc(M))>, _lbd(M) _comma(N) _vals(N)>>), (_bool(M <= N))); \
-    _assert((metal::is_just_t<metal::bind<metal::lambda<metal::bind>, _lambda(M) _comma(N) _vals(N)>>), (_true)); \
-    _assert((metal::bind_t<_val(M) _comma(N) _vals(N)>), (_val(M))); \
-    _assert((metal::bind_t<_num(M) _comma(N) _vals(N)>), (_num(M))); \
-    _assert((metal::bind_t<_pair(M) _comma(N) _vals(N)>), (_pair(M))); \
-    _assert((metal::bind_t<_list(M) _comma(N) _vals(N)>), (_list(M))); \
-    _assert((metal::bind_t<_map(M) _comma(N) _vals(N)>), (_map(M))); \
-    _assert((metal::bind_t<_arg(M), _vals(_inc(M))>), (_val(M))); \
-    _assert((metal::bind_t<_cat(opt, M) _comma(N) _vals(N)>), (_cat(opt, M))); \
-    _assert((metal::bind_t<_cat(rec, M) _comma(N) _vals(N)>), (_cat(rec, M))); \
-    _assert((metal::bind_t<_lbd() _comma(M) _vals(M)>), (_expr()<_vals(M)>)); \
-    _assert((metal::bind_t<_lambda() _comma(M) _vals(M)>), (_expr()<_vals(M)>)); \
-    _assert((metal::bind_t<_lbd(M) _comma(M) _vals(M)>), (_cat(opt, M))); \
-    _assert((metal::bind_t<_lambda(M) _comma(M) _vals(M)>), (_cat(opt, M))); \
-    _assert((metal::bind_t<_expr(_inc(M))<_lbds(M) _comma(M) _lambda(M)> _comma(M) _vals(M)>), (_expr(_inc(M))<_enum(_inc(M), opt)>)); \
-    _assert((metal::bind_t<metal::bind<_args(_inc(M))>, _lbd(M) _comma(M) _vals(M)>), (metal::bind<_lbd(M) _comma(M) _vals(M)>)); \
-    _assert((metal::bind_t<metal::lambda<metal::bind>, _lambda(M) _comma(M) _vals(M)>), (metal::bind<_lambda(M) _comma(M) _vals(M)>)); \
+#define MATRIX(M, N) \
+    using CAT(opt, M) = EXPR(M)<VALS(M)>; \
+    using CAT(rec, M) = EXPR(M)<ENUM(M, rec)>; \
+    ASSERT((metal::is_just_t<metal::bind<VAL(M) COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::bind<NUM(M) COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::bind<PAIR(M) COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::bind<LIST(M) COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::bind<MAP(M) COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::bind<ARG(M) COMMA(N) VALS(N)>>), (BOOL(M < N))); \
+    ASSERT((metal::is_just_t<metal::bind<CAT(opt, M) COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::bind<CAT(rec, M) COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::bind<FUN() COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::bind<FUN() COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::bind<LBD(M) COMMA(N) VALS(N)>>), (BOOL(M <= N))); \
+    ASSERT((metal::is_just_t<metal::bind<FUN(M) COMMA(N) VALS(N)>>), (BOOL(M == N))); \
+    ASSERT((metal::is_just_t<metal::bind<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)> COMMA(N) VALS(N)>>), (BOOL(M == N))); \
+    ASSERT((metal::is_just_t<metal::bind<metal::bind<ARGS(INC(M))>, LBD(M) COMMA(N) VALS(N)>>), (BOOL(M <= N))); \
+    ASSERT((metal::is_just_t<metal::bind<metal::lambda<metal::bind>, FUN(M) COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::bind_t<VAL(M) COMMA(N) VALS(N)>), (VAL(M))); \
+    ASSERT((metal::bind_t<NUM(M) COMMA(N) VALS(N)>), (NUM(M))); \
+    ASSERT((metal::bind_t<PAIR(M) COMMA(N) VALS(N)>), (PAIR(M))); \
+    ASSERT((metal::bind_t<LIST(M) COMMA(N) VALS(N)>), (LIST(M))); \
+    ASSERT((metal::bind_t<MAP(M) COMMA(N) VALS(N)>), (MAP(M))); \
+    ASSERT((metal::bind_t<ARG(M), VALS(INC(M))>), (VAL(M))); \
+    ASSERT((metal::bind_t<CAT(opt, M) COMMA(N) VALS(N)>), (CAT(opt, M))); \
+    ASSERT((metal::bind_t<CAT(rec, M) COMMA(N) VALS(N)>), (CAT(rec, M))); \
+    ASSERT((metal::bind_t<FUN() COMMA(M) VALS(M)>), (EXPR()<VALS(M)>)); \
+    ASSERT((metal::bind_t<FUN() COMMA(M) VALS(M)>), (EXPR()<VALS(M)>)); \
+    ASSERT((metal::bind_t<LBD(M) COMMA(M) VALS(M)>), (CAT(opt, M))); \
+    ASSERT((metal::bind_t<FUN(M) COMMA(M) VALS(M)>), (CAT(opt, M))); \
+    ASSERT((metal::bind_t<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)> COMMA(M) VALS(M)>), (EXPR(INC(M))<ENUM(INC(M), opt)>)); \
+    ASSERT((metal::bind_t<metal::bind<ARGS(INC(M))>, LBD(M) COMMA(M) VALS(M)>), (metal::bind<LBD(M) COMMA(M) VALS(M)>)); \
+    ASSERT((metal::bind_t<metal::lambda<metal::bind>, FUN(M) COMMA(M) VALS(M)>), (metal::bind<FUN(M) COMMA(M) VALS(M)>)); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)

@@ -7,19 +7,19 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::is_just_t<metal::equal_to<_val(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::greater<_val(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::less<_val(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::equal_to<_num(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::greater<_num(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::less<_num(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::equal_to_t<_num(M), _num(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::greater<_num(M), _num(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::less<_num(M), _num(N)>>), (_true)); \
-    _assert((metal::equal_to_t<_num(M), _num(N)>), (_bool(M == N))); \
-    _assert((metal::greater_t<_num(M), _num(N)>), (_bool(M > N))); \
-    _assert((metal::less_t<_num(M), _num(N)>), (_bool(M < N))); \
+#define MATRIX(M, N) \
+    ASSERT((metal::is_just_t<metal::equal_to<VAL(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::greater<VAL(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::less<VAL(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::equal_to<NUM(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::greater<NUM(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::less<NUM(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::equal_to_t<NUM(M), NUM(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::greater<NUM(M), NUM(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::less<NUM(M), NUM(N)>>), (TRUE)); \
+    ASSERT((metal::equal_to_t<NUM(M), NUM(N)>), (BOOL(M == N))); \
+    ASSERT((metal::greater_t<NUM(M), NUM(N)>), (BOOL(M > N))); \
+    ASSERT((metal::less_t<NUM(M), NUM(N)>), (BOOL(M < N))); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)

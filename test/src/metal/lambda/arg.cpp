@@ -6,12 +6,12 @@
 
 #include "test.hpp"
 
-_assert((metal::_1), (metal::arg<1U>));
-_assert((metal::_2), (metal::arg<2U>));
-_assert((metal::_3), (metal::arg<3U>));
-_assert((metal::_4), (metal::arg<4U>));
-_assert((metal::_5), (metal::arg<5U>));
-_assert((metal::_6), (metal::arg<6U>));
-_assert((metal::_7), (metal::arg<7U>));
-_assert((metal::_8), (metal::arg<8U>));
-_assert((metal::_9), (metal::arg<9U>));
+ASSERT((metal::_1), (metal::arg<1U>));
+ASSERT((metal::_2), (metal::arg<2U>));
+ASSERT((metal::_3), (metal::arg<3U>));
+ASSERT((metal::_4), (metal::arg<4U>));
+ASSERT((metal::_5), (metal::arg<5U>));
+ASSERT((metal::_6), (metal::arg<6U>));
+ASSERT((metal::_7), (metal::arg<7U>));
+ASSERT((metal::_8), (metal::arg<8U>));
+ASSERT((metal::_9), (metal::arg<9U>));

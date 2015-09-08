@@ -9,7 +9,6 @@
 #include <metal/lambda/lambda.hpp>
 #include <metal/core/voider.hpp>
 #include <metal/list/at.hpp>
-#include <metal/list/flatten.hpp>
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 #include <metal/optional/extract.hpp>

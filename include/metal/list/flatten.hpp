@@ -6,10 +6,11 @@
 #define METAL_LIST_FLATTEN_HPP
 
 #include <metal/list/join.hpp>
+#include <metal/lambda/bind.hpp>
 
 namespace metal
 {
-    /// \ingroup sequece
+    /// \ingroup list
     /// \brief ...
     template<typename list>
     struct flatten
@@ -22,12 +23,16 @@ namespace metal
 
     template<template<typename...> class list, typename... vals>
     struct flatten<list<vals...>> :
-            join_t<flatten_t<list<vals>>...>
+            join_t<bind<lambda<list>>, flatten_t<bind<vals>>...>
     {};
 
-    template<template<typename...> class list, typename... vals>
-    struct flatten<list<list<vals...>>> :
-            flatten<list<vals...>>
+    template<
+        template<typename...> class outer,
+        template<typename...> class inner,
+        typename... vals
+    >
+    struct flatten<outer<inner<vals...>>> :
+            join_t<bind<lambda<outer>>, flatten_t<bind<vals...>>>
     {};
 
     template<template<typename...> class list, typename val>

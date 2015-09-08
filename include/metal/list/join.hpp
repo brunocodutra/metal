@@ -13,7 +13,7 @@ namespace metal
     struct join
     {};
 
-    /// \ingroup optional
+    /// \ingroup list
     /// \brief Eager adaptor for \ref join.
     template<typename... ls>
     using join_t = typename join<ls...>::type;

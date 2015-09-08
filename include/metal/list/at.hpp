@@ -14,13 +14,13 @@
 
 namespace metal
 {
-    /// \ingroup sequece
+    /// \ingroup list
     /// \brief ...
     template<typename list, typename val>
     struct at
     {};
 
-    /// \ingroup sequece
+    /// \ingroup list
     /// \brief Eager adaptor for \ref at.
     template<typename list, typename val>
     using at_t = typename at<list, val>::type;
@@ -32,16 +32,9 @@ namespace metal
     >
     struct at<list<vals...>, number<t, v>> :
             at_key<
-                zip_t<
-                    enumerate_t<size_t<list<vals...>>>,
-                    metal::list<vals...>
-                >,
+                zip_t<enumerate_t<size_t<list<vals...>>>, metal::list<vals...>>,
                 number<std::size_t, static_cast<std::size_t>(v)>
             >
-    {};
-
-    template<template<typename...> class list, typename t, t v>
-    struct at<list<>, number<t, v>>
     {};
 }
 

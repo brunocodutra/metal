@@ -8,28 +8,28 @@
 
 #include "test.hpp"
 
-#define _count(...) metal::number<std::ptrdiff_t, (__VA_ARGS__)>
+#define COUNT(...) metal::number<std::ptrdiff_t, (__VA_ARGS__)>
 
-#define _boilerplate(M, N) \
-    _assert((metal::is_just_t<metal::count<_val(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::count<_num(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::count<_pair(M), _val(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::count<_list(M), _val(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::count<_map(M), _val(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::count<_arg(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::count<_lbd(M), _val(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::count<_lambda(M), _val(N)>>), (_false)); \
-    _assert((metal::count_t<_pair(M), _val(N)>), (_count(M == N))); \
-    _assert((metal::count_t<_pair(M), _num(N)>), (_count(M == N))); \
-    _assert((metal::count_t<_list(M), _val(N)>), (_count(M > N))); \
-    _assert((metal::count_t<_map(M), _pair(N)>), (_count(M > N))); \
-    _assert((metal::count_t<_lbd(M), _arg(N)>), (_count(M > N))); \
-    _assert((metal::count_t<_seq()<_val(M), _vals(_inc(M))>, _val(N)>), (_count((M >= N) + (M == N)))); \
-    _assert((metal::count_t<_seq(M)<_enum(M, _map(N) _bar)>, _map(N)>), (_count(M))); \
-    _assert((metal::count_t<_seq()< \
-        _vals(_inc(M)), _nums(_inc(M)), _pairs(_inc(M)), _lists(_inc(M)), \
-        _maps(_inc(M)), _args(_inc(M)), _lbds(_inc(M))>, _map(N)>), (_count((M >= N) + !N))); \
+#define MATRIX(M, N) \
+    ASSERT((metal::is_just_t<metal::count<VAL(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::count<NUM(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::count<PAIR(M), VAL(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::count<LIST(M), VAL(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::count<MAP(M), VAL(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::count<ARG(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::count<LBD(M), VAL(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::count<FUN(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::count_t<PAIR(M), VAL(N)>), (COUNT(M == N))); \
+    ASSERT((metal::count_t<PAIR(M), NUM(N)>), (COUNT(M == N))); \
+    ASSERT((metal::count_t<LIST(M), VAL(N)>), (COUNT(M > N))); \
+    ASSERT((metal::count_t<MAP(M), PAIR(N)>), (COUNT(M > N))); \
+    ASSERT((metal::count_t<LBD(M), ARG(N)>), (COUNT(M > N))); \
+    ASSERT((metal::count_t<SEQ()<VAL(M), VALS(INC(M))>, VAL(N)>), (COUNT((M >= N) + (M == N)))); \
+    ASSERT((metal::count_t<SEQ(M)<ENUM(M, MAP(N) BAR)>, MAP(N)>), (COUNT(M))); \
+    ASSERT((metal::count_t<SEQ()< \
+        VALS(INC(M)), NUMS(INC(M)), PAIRS(INC(M)), LISTS(INC(M)), \
+        MAPS(INC(M)), ARGS(INC(M)), LBDS(INC(M))>, MAP(N)>), (COUNT((M >= N) + !N))); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)
 

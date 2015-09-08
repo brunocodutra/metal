@@ -6,9 +6,9 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((std::is_base_of<_num(M), metal::inherit<_nums(N)>>::type), (_bool(M < N))); \
-    _assert((std::is_base_of<_num(M), metal::inherit<_nums(N) _comma(N) _nums(N)>>::type), (_bool(M < N))); \
+#define MATRIX(M, N) \
+    ASSERT((std::is_base_of<NUM(M), metal::inherit<NUMS(N)>>::type), (BOOL(M < N))); \
+    ASSERT((std::is_base_of<NUM(M), metal::inherit<NUMS(N) COMMA(N) NUMS(N)>>::type), (BOOL(M < N))); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)

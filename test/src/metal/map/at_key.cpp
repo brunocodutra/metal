@@ -7,18 +7,18 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::is_just_t<metal::at_key<_val(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at_key<_pair(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at_key<_list(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at_key<_map(M), _val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::at_key<_map(M), _num(N)>>), (_bool(M > N))); \
-    _assert((metal::is_just_t<metal::at_key<_seq()<_pairs(M)>, _num(N)>>), (_bool(M > N))); \
-    _assert((metal::is_just_t<metal::at_key<_seq()<_pair(M) _comma(N) _pairs(N)>, _num(N)>>), (_bool(M == N))); \
-    _assert((metal::is_just_t<metal::at_key<_seq(_inc(N))<_pairs(N) _comma(N) _seq()<_num(M), _map(M)>>, _num(N)>>), (_bool(M == N))); \
-    _assert((metal::at_key_t<_map(_inc(N)), _num(N)>), (_val(N))); \
-    _assert((metal::at_key_t<_seq()<_pairs(_inc(N))>, _num(N)>), (_val(N))); \
-    _assert((metal::at_key_t<_seq(_inc(N))<_pairs(N) _comma(N) _seq()<_num(N), _map(N)>>, _num(N)>), (_map(N))); \
+#define MATRIX(M, N) \
+    ASSERT((metal::is_just_t<metal::at_key<VAL(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at_key<PAIR(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at_key<LIST(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at_key<MAP(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::at_key<MAP(M), NUM(N)>>), (BOOL(M > N))); \
+    ASSERT((metal::is_just_t<metal::at_key<SEQ()<PAIRS(M)>, NUM(N)>>), (BOOL(M > N))); \
+    ASSERT((metal::is_just_t<metal::at_key<SEQ()<PAIR(M) COMMA(N) PAIRS(N)>, NUM(N)>>), (BOOL(M == N))); \
+    ASSERT((metal::is_just_t<metal::at_key<SEQ(INC(N))<PAIRS(N) COMMA(N) SEQ()<NUM(M), MAP(M)>>, NUM(N)>>), (BOOL(M == N))); \
+    ASSERT((metal::at_key_t<MAP(INC(N)), NUM(N)>), (VAL(N))); \
+    ASSERT((metal::at_key_t<SEQ()<PAIRS(INC(N))>, NUM(N)>), (VAL(N))); \
+    ASSERT((metal::at_key_t<SEQ(INC(N))<PAIRS(N) COMMA(N) SEQ()<NUM(N), MAP(N)>>, NUM(N)>), (MAP(N))); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)

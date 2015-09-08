@@ -13,13 +13,13 @@
 
 namespace metal
 {
-    /// \ingroup sequece
+    /// \ingroup list
     /// \brief ...
     template<typename list, typename val>
     struct contains
     {};
 
-    /// \ingroup sequece
+    /// \ingroup list
     /// \brief Eager adaptor for \ref contains.
     template<typename list, typename val>
     using contains_t = typename contains<list, val>::type;

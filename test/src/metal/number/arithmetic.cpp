@@ -8,37 +8,37 @@
 
 #include "test.hpp"
 
-#define _boilerplate(M, N) \
-    _assert((metal::is_just_t<metal::neg<_val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::inc<_val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::dec<_val(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::add<_vals(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::sub<_vals(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::mul<_vals(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::div<_vals(N)>>), (_false)); \
-    _assert((metal::is_just_t<metal::add<_nums(M) _comma(M) _vals(_inc(N))>>), (_false)); \
-    _assert((metal::is_just_t<metal::sub<_nums(M) _comma(M) _vals(_inc(N))>>), (_false)); \
-    _assert((metal::is_just_t<metal::mul<_nums(M) _comma(M) _vals(_inc(N))>>), (_false)); \
-    _assert((metal::is_just_t<metal::div<_nums(M) _comma(M) _vals(_inc(N))>>), (_false)); \
-    _assert((metal::is_just_t<metal::neg<_num(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::inc<_num(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::dec<_num(N)>>), (_true)); \
-    _assert((metal::is_just_t<metal::add<_nums(N)>>), (_bool(N > 0))); \
-    _assert((metal::is_just_t<metal::sub<_nums(N)>>), (_bool(N > 0))); \
-    _assert((metal::is_just_t<metal::mul<_nums(N)>>), (_bool(N > 0))); \
-    _assert((metal::is_just_t<metal::div<_nums(N)>>), (_bool(N > 0))); \
-    _assert((metal::equal_to_t<metal::neg_t<metal::neg_t<_num(N)>>, _num(N)>), (_true)); \
-    _assert((metal::equal_to_t<metal::inc_t<_num(N)>, _num(_inc(N))>), (_true)); \
-    _assert((metal::equal_to_t<metal::dec_t<_num(_inc(N))>, _num(N)>), (_true)); \
-    _assert((metal::equal_to_t<metal::inc_t<metal::dec_t<_num(N)>>, _num(N)>), (_true)); \
-    _assert((metal::equal_to_t<metal::dec_t<metal::inc_t<_num(N)>>, _num(N)>), (_true)); \
-    using _cat(triangle, N) = metal::div_t<metal::mul_t<_num(N), _num(_inc(N))>, _num(2)>; \
-    _assert((metal::equal_to_t<metal::add_t<_nums(_inc(N))>, _cat(triangle, N)>), (_true)); \
-    _assert((metal::equal_to_t<metal::sub_t<_cat(triangle, N), _nums(_inc(N))>, _num(0)>), (_true)); \
-    _assert((metal::equal_to_t<metal::add_t<_num(0) _comma(N) _enum(N, _num(M) _bar)>, metal::mul_t<_num(M), _num(N)>>), (_true)); \
-    _assert((metal::equal_to_t<metal::sub_t<metal::mul_t<_num(M), _num(N)> _comma(N) _enum(N, _num(M) _bar)>, _num(0)>), (_true)); \
-    _assert((metal::equal_to_t<metal::mul_t<_nums(_inc(N))>, _num(0)>), (_true)); \
-    _assert((metal::equal_to_t<metal::div_t<_nums(_inc(N))>, _num(0)>), (_true)); \
+#define MATRIX(M, N) \
+    ASSERT((metal::is_just_t<metal::neg<VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::inc<VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::dec<VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::add<VALS(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::sub<VALS(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::mul<VALS(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::div<VALS(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::add<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::sub<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::mul<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::div<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::neg<NUM(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::inc<NUM(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::dec<NUM(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::add<NUMS(N)>>), (BOOL(N > 0))); \
+    ASSERT((metal::is_just_t<metal::sub<NUMS(N)>>), (BOOL(N > 0))); \
+    ASSERT((metal::is_just_t<metal::mul<NUMS(N)>>), (BOOL(N > 0))); \
+    ASSERT((metal::is_just_t<metal::div<NUMS(N)>>), (BOOL(N > 0))); \
+    ASSERT((metal::equal_to_t<metal::neg_t<metal::neg_t<NUM(N)>>, NUM(N)>), (TRUE)); \
+    ASSERT((metal::equal_to_t<metal::inc_t<NUM(N)>, NUM(INC(N))>), (TRUE)); \
+    ASSERT((metal::equal_to_t<metal::dec_t<NUM(INC(N))>, NUM(N)>), (TRUE)); \
+    ASSERT((metal::equal_to_t<metal::inc_t<metal::dec_t<NUM(N)>>, NUM(N)>), (TRUE)); \
+    ASSERT((metal::equal_to_t<metal::dec_t<metal::inc_t<NUM(N)>>, NUM(N)>), (TRUE)); \
+    using CAT(triangle, N) = metal::div_t<metal::mul_t<NUM(N), NUM(INC(N))>, NUM(2)>; \
+    ASSERT((metal::equal_to_t<metal::add_t<NUMS(INC(N))>, CAT(triangle, N)>), (TRUE)); \
+    ASSERT((metal::equal_to_t<metal::sub_t<CAT(triangle, N), NUMS(INC(N))>, NUM(0)>), (TRUE)); \
+    ASSERT((metal::equal_to_t<metal::add_t<NUM(0) COMMA(N) ENUM(N, NUM(M) BAR)>, metal::mul_t<NUM(M), NUM(N)>>), (TRUE)); \
+    ASSERT((metal::equal_to_t<metal::sub_t<metal::mul_t<NUM(M), NUM(N)> COMMA(N) ENUM(N, NUM(M) BAR)>, NUM(0)>), (TRUE)); \
+    ASSERT((metal::equal_to_t<metal::mul_t<NUMS(INC(N))>, NUM(0)>), (TRUE)); \
+    ASSERT((metal::equal_to_t<metal::div_t<NUMS(INC(N))>, NUM(0)>), (TRUE)); \
 /**/
 
-_gen(_boilerplate)
+GEN(MATRIX)
