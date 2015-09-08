@@ -14,8 +14,6 @@ matrix:
       - compiler: clang++
         env: CXX_VERSION=3.7
 
-      - env: CXX_VERSION=5 BUILD_DOC=true
-
     include:
       - compiler: g++
         env: CXX_VERSION=4.7
@@ -83,13 +81,15 @@ matrix:
                   - ubuntu-toolchain-r-test
                   - llvm-toolchain-precise-3.7
 
-      - compiler: g++
-        env: CXX_VERSION=5 BUILD_DOC=true
-        addons: *gcc5
-
 env:
     global:
       - secure: "DuBGzmeKiWMm5m0+uZhutjzCffB2PbixmuMm3IZWUi7/uAam4PPI37oeqVTIytxxfpgRvfR2ah75eJyU6ab72MBoHxGkHem10RAvhC/vPYbLZu545qfSGatyTI9R6NfERUxi7YIxjs6D8c4D/5k3gMoCbMUkU1Lze1708lknh5U="
+
+    matrix:
+      - CXX_VERSION=5 BUILD_DOC=true
+
+compiler: g++
+addons: *gcc5
 
 install:
   - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
