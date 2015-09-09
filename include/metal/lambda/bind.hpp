@@ -5,7 +5,7 @@
 #ifndef METAL_LAMBDA_BIND_HPP
 #define METAL_LAMBDA_BIND_HPP
 
-#include <metal/lambda/apply.hpp>
+#include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
 
@@ -14,7 +14,8 @@ namespace metal
     /// \ingroup lambda
     /// \brief ...
     template<typename...>
-    struct bind;
+    struct bind
+    {};
 
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref bind.
@@ -47,15 +48,16 @@ namespace metal
         template<template<typename...> class expr, typename... params>
         struct quasiquote<expr<params...>>
         {
-            using type = apply<
+            using type = invoke<
                 quote_t<quasiquote_t<lambda<expr>>>,
                 quasiquote_t<params>...
             >;
         };
     }
+
     template<typename lbd, typename... args>
     struct bind<lbd, args...> :
-            apply<detail::quasiquote_t<lbd>, args...>
+            invoke<detail::quasiquote_t<lbd>, args...>
     {};
 }
 

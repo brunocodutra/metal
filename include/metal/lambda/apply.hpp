@@ -9,8 +9,8 @@
 #include <metal/lambda/lambda.hpp>
 #include <metal/core/voider.hpp>
 #include <metal/list/at.hpp>
-#include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
+#include <metal/number/arithmetic/dec.hpp>
 #include <metal/optional/extract.hpp>
 #include <metal/optional/maybe.hpp>
 
@@ -18,22 +18,26 @@ namespace metal
 {
     /// \ingroup lambda
     /// \brief ...
-    template<typename...>
-    struct apply;
+    template<typename lbd, typename list>
+    struct apply
+    {};
 
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref apply.
-    template<typename... args>
-    using apply_t = typename apply<args...>::type;
+    template<typename lbd, typename list>
+    using apply_t = typename apply<lbd, list>::type;
 
     namespace detail
     {
         template<template<typename...> class, typename, typename = void>
-        struct eval
+        struct apply_impl
         {};
 
-        template<template<typename...> class expr, typename... args>
-        struct eval<expr, list<args...>, voider_t<expr<args...>>> :
+        template<
+            template<typename...> class expr,
+            template<typename...> class list, typename... args
+        >
+        struct apply_impl<expr, list<args...>, voider_t<expr<args...>>> :
                 maybe<expr<args...>>
         {};
 
@@ -45,36 +49,47 @@ namespace metal
         };
     }
 
-    template<typename val, typename... args>
-    struct apply<val, args...>
+    template<typename val, template<typename...> class list, typename... args>
+    struct apply<val, list<args...>>
     {
         using type = val;
     };
 
-    template<std::size_t n, typename... args>
-    struct apply<arg<n>, args...> :
-            at<apply<arg<n>, args...>, number<std::size_t, n>>
+    template<std::size_t n, template<typename...> class list, typename... args>
+    struct apply<arg<n>, list<args...>> :
+            at<list<args...>, dec_t<number<std::size_t, n>>>
     {};
 
-    template<typename... args>
-    struct apply<arg<0U>, args...>
-    {};
-
-    template<template<typename...> class expr, typename... args>
-    struct apply<expr<>, args...> :
-            maybe<expr<>>
+    template<template<typename...> class list, typename... args>
+    struct apply<arg<0U>, list<args...>>
     {};
 
     template<
         template<typename...> class expr,
-        typename... params,
-        typename... args
+        template<typename...> class list, typename... args
     >
-    struct apply<expr<params...>, args...> :
-            detail::eval<
+    struct apply<expr<>, list<args...>> :
+            maybe<expr<>>
+    {};
+
+    template<
+        template<typename...> class expr, typename... params,
+        template<typename...> class list, typename... args
+    >
+    struct apply<expr<params...>, list<args...>> :
+            detail::apply_impl<
                 detail::lift<expr>::template type,
-                list<apply<params, args...>...>
+                list<apply<params, list<args...>>...>
             >
+    {};
+
+    template<
+        template<template<typename...> class> class lambda,
+        template<typename...> class expr,
+        template<typename...> class list, typename... args
+    >
+    struct apply<lambda<expr>, list<args...>> :
+            detail::apply_impl<metal::lambda<expr>::template type, list<args...>>
     {};
 
     template<
@@ -82,8 +97,8 @@ namespace metal
         template<typename...> class expr,
         typename... args
     >
-    struct apply<lambda<expr>, args...> :
-            detail::eval<metal::lambda<expr>::template type, list<args...>>
+    struct apply<lambda<expr>, expr<args...>> :
+            maybe<expr<args...>>
     {};
 }
 

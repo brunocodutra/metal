@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/lambda/quote.hpp>
-#include <metal/lambda/apply.hpp>
+#include <metal/lambda/invoke.hpp>
 
 #include "test.hpp"
 
@@ -16,14 +16,14 @@
     ASSERT((metal::quote_t<ARG(N)>::type), (ARG(N))); \
     ASSERT((metal::quote_t<LBD(N)>::type), (LBD(N))); \
     ASSERT((metal::quote_t<FUN(N)>::type), (FUN(N))); \
-    ASSERT((metal::apply_t<metal::quote_t<VAL(N)>>), (VAL(N))); \
-    ASSERT((metal::apply_t<metal::quote_t<NUM(N)>>), (NUM(N))); \
-    ASSERT((metal::apply_t<metal::quote_t<PAIR(N)>>), (PAIR(N))); \
-    ASSERT((metal::apply_t<metal::quote_t<LIST(N)>>), (LIST(N))); \
-    ASSERT((metal::apply_t<metal::quote_t<MAP(N)>>), (MAP(N))); \
-    ASSERT((metal::apply_t<metal::quote_t<ARG(N)>>), (ARG(N))); \
-    ASSERT((metal::apply_t<metal::quote_t<LBD(N)>>), (LBD(N))); \
-    ASSERT((metal::apply_t<metal::quote_t<FUN(N)>>), (FUN(N))); \
+    ASSERT((metal::invoke_t<metal::quote_t<VAL(N)>>), (VAL(N))); \
+    ASSERT((metal::invoke_t<metal::quote_t<NUM(N)>>), (NUM(N))); \
+    ASSERT((metal::invoke_t<metal::quote_t<PAIR(N)>>), (PAIR(N))); \
+    ASSERT((metal::invoke_t<metal::quote_t<LIST(N)>>), (LIST(N))); \
+    ASSERT((metal::invoke_t<metal::quote_t<MAP(N)>>), (MAP(N))); \
+    ASSERT((metal::invoke_t<metal::quote_t<ARG(N)>>), (ARG(N))); \
+    ASSERT((metal::invoke_t<metal::quote_t<LBD(N)>>), (LBD(N))); \
+    ASSERT((metal::invoke_t<metal::quote_t<FUN(N)>>), (FUN(N))); \
 /**/
 
 GEN(MATRIX)

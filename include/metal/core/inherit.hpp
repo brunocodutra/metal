@@ -5,7 +5,6 @@
 #ifndef METAL_CORE_INHERIT_HPP
 #define METAL_CORE_INHERIT_HPP
 
-#include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/enumerate.hpp>
 
@@ -28,7 +27,11 @@ namespace metal
         template<typename, typename...>
         struct inherit_impl;
 
-        template<typename... _, typename... bases>
+        template<
+            template<typename...> class list,
+            typename... _,
+            typename... bases
+        >
         struct inherit_impl<list<_...>, bases...> :
                 inherit_second<_, bases>...
         {};

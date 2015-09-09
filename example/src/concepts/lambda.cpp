@@ -4,7 +4,7 @@
 
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/quote.hpp>
-#include <metal/lambda/apply.hpp>
+#include <metal/lambda/invoke.hpp>
 
 #include "example.hpp"
 
@@ -14,7 +14,7 @@ namespace ex1
     using lbd = void;
     /// [ex1]
 
-    static_assert(std::is_same<metal::apply_t<lbd>, void>::value, "");
+    static_assert(std::is_same<metal::invoke_t<lbd>, void>::value, "");
 }
 
 namespace ex2
@@ -23,7 +23,7 @@ namespace ex2
     using lbd = std::add_pointer<void>;
     /// [ex2]
 
-    static_assert(std::is_same<metal::apply_t<lbd>, void*>::value, "");
+    static_assert(std::is_same<metal::invoke_t<lbd>, void*>::value, "");
 }
 
 namespace ex3
@@ -32,7 +32,7 @@ namespace ex3
     using lbd = metal::_2;
     /// [ex3]
 
-    static_assert(std::is_same<metal::apply_t<lbd, int, int>, int>::value, "");
+    static_assert(std::is_same<metal::invoke_t<lbd, int, int>, int>::value, "");
 }
 
 namespace ex4
@@ -41,5 +41,5 @@ namespace ex4
     using lbd = std::is_convertible<metal::_1, std::add_pointer<metal::_2>>;
     /// [ex4]
 
-    static_assert(metal::apply_t<lbd, lbd*, void>::value, "");
+    static_assert(metal::invoke_t<lbd, lbd*, void>::value, "");
 }

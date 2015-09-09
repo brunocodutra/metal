@@ -14,7 +14,7 @@ namespace metal
     template<typename... vals>
     struct list;
 
-    /// \ingroup sequece
+    /// \ingroup list
     /// \brief ...
     template<typename list>
     struct is_list;
