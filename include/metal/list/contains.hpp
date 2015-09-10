@@ -7,7 +7,7 @@
 
 #include <metal/number/logical/or.hpp>
 #include <metal/optional/just.hpp>
-#include <metal/optional/extract.hpp>
+#include <metal/optional/eval.hpp>
 
 #include <type_traits>
 
@@ -31,7 +31,7 @@ namespace metal
 
     template<template<typename...> class list, typename... vals, typename val>
     struct contains<list<vals...>, val> :
-            or_<from_just<std::is_same<vals, val>>...>
+            or_<eval<std::is_same<vals, val>>...>
     {};
 }
 

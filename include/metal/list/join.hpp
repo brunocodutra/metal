@@ -9,14 +9,14 @@ namespace metal
 {
     /// \ingroup list
     /// \brief ...
-    template<typename...>
+    template<typename... lists>
     struct join
     {};
 
     /// \ingroup list
     /// \brief Eager adaptor for \ref join.
-    template<typename... ls>
-    using join_t = typename join<ls...>::type;
+    template<typename... lists>
+    using join_t = typename join<lists...>::type;
 
     template<template<typename...> class list, typename... xs>
     struct join<list<xs...>>

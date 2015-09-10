@@ -2,9 +2,13 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#include <metal/core.hpp>
+#include <metal/optional/eval.hpp>
 
 #include "test.hpp"
 
-using namespace metal;
-using namespace metal::detail;
+#define MATRIX(M, N) \
+    ASSERT((metal::eval<NUM(N)>), (NUM(N))); \
+    ASSERT((metal::eval<LBD(N)>), (LBD(N)::type)); \
+/**/
+
+GEN(MATRIX)

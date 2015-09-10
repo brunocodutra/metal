@@ -11,8 +11,8 @@
 #include <metal/list/at.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/arithmetic/dec.hpp>
-#include <metal/optional/extract.hpp>
-#include <metal/optional/maybe.hpp>
+#include <metal/optional/eval.hpp>
+#include <metal/optional/optional.hpp>
 
 namespace metal
 {
@@ -38,14 +38,14 @@ namespace metal
             template<typename...> class list, typename... args
         >
         struct apply_impl<expr, list<args...>, voider_t<expr<args...>>> :
-                maybe<expr<args...>>
+                optional<expr<args...>>
         {};
 
         template<template<typename...> class expr>
         struct lift
         {
             template<typename... opts>
-            using type = expr<from_just<opts>...>;
+            using type = expr<eval<opts>...>;
         };
     }
 
@@ -69,7 +69,7 @@ namespace metal
         template<typename...> class list, typename... args
     >
     struct apply<expr<>, list<args...>> :
-            maybe<expr<>>
+            optional<expr<>>
     {};
 
     template<
@@ -98,7 +98,7 @@ namespace metal
         typename... args
     >
     struct apply<lambda<expr>, expr<args...>> :
-            maybe<expr<args...>>
+            optional<expr<args...>>
     {};
 }
 

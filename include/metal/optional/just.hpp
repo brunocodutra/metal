@@ -5,6 +5,7 @@
 #ifndef METAL_OPTIONAL_JUST_HPP
 #define METAL_OPTIONAL_JUST_HPP
 
+#include <metal/optional/eval.hpp>
 #include <metal/core/voider.hpp>
 #include <metal/number/number.hpp>
 
@@ -69,7 +70,7 @@ namespace metal
         {};
 
         template<typename opt>
-        struct is_just_impl<opt, voider_t<typename opt::type, int opt::*>> :
+        struct is_just_impl<opt, voider_t<eval<opt>, int opt::*>> :
                 boolean<true>
         {};
     }

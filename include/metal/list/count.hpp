@@ -7,7 +7,7 @@
 
 #include <metal/list/list.hpp>
 #include <metal/number/arithmetic/add.hpp>
-#include <metal/optional/extract.hpp>
+#include <metal/optional/eval.hpp>
 
 #include <type_traits>
 #include <cstddef>
@@ -27,7 +27,7 @@ namespace metal
 
     template<template<typename...> class list, typename... vals, typename val>
     struct count<list<vals...>, val> :
-            add<number<std::ptrdiff_t, 0>, from_just<std::is_same<vals, val>>...>
+            add<number<std::ptrdiff_t, 0>, eval<std::is_same<vals, val>>...>
     {};
 }
 

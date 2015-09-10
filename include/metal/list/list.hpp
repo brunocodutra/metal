@@ -30,7 +30,7 @@ namespace metal
         using type = list;
     };
 
-    template<typename>
+    template<typename list>
     struct is_list :
             boolean<false>
     {};

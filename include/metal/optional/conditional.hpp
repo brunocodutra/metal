@@ -5,8 +5,9 @@
 #ifndef METAL_OPTIONAL_CONDITIONAL_HPP
 #define METAL_OPTIONAL_CONDITIONAL_HPP
 
+#include <metal/optional/eval.hpp>
 #include <metal/optional/nothing.hpp>
-#include <metal/optional/maybe.hpp>
+#include <metal/optional/optional.hpp>
 #include <metal/number/number.hpp>
 
 #include <type_traits>
@@ -31,13 +32,7 @@ namespace metal
 
     template<typename t, t v, typename then, typename else_>
     struct conditional<number<t, v>, then, else_> :
-            maybe<
-                typename std::conditional<
-                    static_cast<bool>(v),
-                    then,
-                    else_
-                >::type
-            >
+            optional<eval<std::conditional<static_cast<bool>(v), then, else_>>>
     {};
 
     template<typename pred, typename then>
