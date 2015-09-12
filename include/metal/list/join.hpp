@@ -5,32 +5,71 @@
 #ifndef METAL_LIST_JOIN_HPP
 #define METAL_LIST_JOIN_HPP
 
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/optional/eval_or.hpp>
+#include <metal/optional/nothing.hpp>
+
 namespace metal
 {
     /// \ingroup list
     /// \brief ...
     template<typename... lists>
-    struct join
-    {};
+    struct join;
 
     /// \ingroup list
     /// \brief Eager adaptor for \ref join.
     template<typename... lists>
     using join_t = typename join<lists...>::type;
 
-    template<template<typename...> class list, typename... xs>
-    struct join<list<xs...>>
+    namespace detail
     {
-        using type = list<xs...>;
+        template<typename>
+        struct join_recurse
+        {};
+
+        template<
+            template<typename...> class list,
+            template<typename...> class xl, typename... xs,
+            template<typename...> class yl, typename... ys,
+            typename... lists
+        >
+        struct join_recurse<list<xl<xs...>, yl<ys...>, lists...>> :
+                eval_or<join<bind<lambda<xl>, xs..., ys...>, lists...>, nothing>
+        {};
+
+        template<typename _>
+        struct join_impl :
+                join_recurse<_>
+        {};
+
+        template<
+            template<typename...> class list,
+            template<typename...> class head, typename... hs,
+            template<typename...> class... tail, typename... ts
+        >
+        struct join_impl<list<head<hs...>, tail<ts>...>> :
+                bind<lambda<head>, hs..., ts...>
+        {};
+    }
+
+    template<typename... lists>
+    struct join :
+            detail::join_impl<join<lists...>>
+    {};
+
+    template<template<typename...> class head, typename... hs>
+    struct join<head<hs...>>
+    {
+        using type = head<hs...>;
     };
 
     template<
-        template<typename...> class list,
-        typename... xs, typename... ys,
-        typename... tail
+        template<typename...> class head, typename... hs,
+        template<typename...> class... tail
     >
-    struct join<list<xs...>, list<ys...>, tail...> :
-            join<list<xs..., ys...>, tail...>
+    struct join<head<hs...>, tail<>...> :
+            join<head<hs...>>
     {};
 }
 

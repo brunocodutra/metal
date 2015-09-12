@@ -7,6 +7,7 @@
 
 #include <metal/list/join.hpp>
 #include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
 
 namespace metal
 {

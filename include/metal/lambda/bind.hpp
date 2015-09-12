@@ -8,6 +8,7 @@
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
+#include <metal/optional/just.hpp>
 
 namespace metal
 {
@@ -58,6 +59,14 @@ namespace metal
     template<typename lbd, typename... args>
     struct bind<lbd, args...> :
             invoke<detail::quasiquote_t<lbd>, args...>
+    {};
+
+    template<
+        template<template<typename...> class> class lambda,
+        typename... args
+    >
+    struct bind<lambda<bind>, args...> :
+            just<bind<args...>>
     {};
 }
 
