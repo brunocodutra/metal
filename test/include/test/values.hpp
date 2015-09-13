@@ -19,8 +19,9 @@ namespace test
     using val7 = val1&&;
     using val8 = val1[1];
     using val9 = val8[];
+}
 
 #define VAL(N) CAT(test::val, N)
 #define VALS(N) ENUM(N, test::val)
-}
+
 #endif

@@ -9,8 +9,10 @@
 
 #include <type_traits>
 
+#define UNWRAP(...) __VA_ARGS__
+
 #define ASSERT_(X, Y) \
-    static_assert(std::is_same<ID X, ID Y>::value, #X " == " #Y) \
+    static_assert(std::is_same<UNWRAP X, UNWRAP Y>::value, #X " == " #Y) \
 /**/
 
 #define ASSERT(EXPR, RESULT) ASSERT_(EXPR, RESULT)

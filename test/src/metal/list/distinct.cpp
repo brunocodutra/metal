@@ -3,6 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/list/distinct.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/optional/just.hpp>
 
 #include "test.hpp"
@@ -21,10 +22,10 @@
     ASSERT((metal::distinct_t<MAP(M)>), (TRUE)); \
     ASSERT((metal::distinct_t<LBD(M)>), (TRUE)); \
     ASSERT((metal::distinct_t<SEQ()<VAL(M), VALS(INC(M))>>), (FALSE)); \
-    ASSERT((metal::distinct_t<SEQ(M)<ENUM(M, MAP(N) BAR)>>), (BOOL(M < 2))); \
+    ASSERT((metal::distinct_t<SEQ(M)<ENUM(M, VAL(N) BAR)>>), (BOOL(M < 2))); \
     ASSERT((metal::distinct_t<SEQ()< \
         VALS(INC(M)), NUMS(INC(M)), PAIRS(INC(M)), LISTS(INC(M)), \
-        MAPS(INC(M)), ARGS(INC(M)), LBDS(INC(M))>>), (FALSE)); \
+        MAPS(INC(M)), ARGS(INC(M)), LBDS(INC(M)), FUNS(INC(M))>>), (FALSE)); \
 /**/
 
 GEN(MATRIX)

@@ -3,6 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/list/contains.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/optional/just.hpp>
 
 #include "test.hpp"
@@ -22,10 +23,10 @@
     ASSERT((metal::contains_t<MAP(M), PAIR(N)>), (BOOL(M > N))); \
     ASSERT((metal::contains_t<LBD(M), ARG(N)>), (BOOL(M > N))); \
     ASSERT((metal::contains_t<SEQ()<VAL(M), VALS(INC(M))>, VAL(N)>), (BOOL(M >= N))); \
-    ASSERT((metal::contains_t<SEQ(M)<ENUM(M, MAP(N) BAR)>, MAP(N)>), (BOOL(M > 0))); \
+    ASSERT((metal::contains_t<SEQ(M)<ENUM(M, VAL(N) BAR)>, VAL(N)>), (BOOL(M > 0))); \
     ASSERT((metal::contains_t<SEQ()< \
         VALS(INC(M)), NUMS(INC(M)), PAIRS(INC(M)), LISTS(INC(M)), \
-        MAPS(INC(M)), ARGS(INC(M)), LBDS(INC(M))>, MAP(N)>), (BOOL(M >= N))); \
+        MAPS(INC(M)), ARGS(INC(M)), LBDS(INC(M)), FUNS(INC(M))>, MAP(N)>), (BOOL(M >= N))); \
 /**/
 
 GEN(MATRIX)

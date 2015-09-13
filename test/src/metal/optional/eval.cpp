@@ -3,6 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/optional/eval.hpp>
+#include <metal/lambda/arg.hpp>
 
 #include "test.hpp"
 

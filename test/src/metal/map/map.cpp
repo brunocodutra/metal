@@ -3,6 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/map/map.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/optional/just.hpp>
 
 #include "test.hpp"
@@ -16,6 +17,7 @@
     ASSERT((metal::is_just_t<metal::map<MAPS(N)>>), (BOOL(!N))); \
     ASSERT((metal::is_just_t<metal::map<ARGS(N)>>), (BOOL(!N))); \
     ASSERT((metal::is_just_t<metal::map<LBDS(N)>>), (BOOL(!N))); \
+    ASSERT((metal::is_just_t<metal::map<FUNS(N)>>), (BOOL(!N))); \
     ASSERT((metal::is_map_t<VAL(N)>), (FALSE)); \
     ASSERT((metal::is_map_t<NUM(N)>), (FALSE)); \
     ASSERT((metal::is_map_t<PAIR(N)>), (FALSE)); \

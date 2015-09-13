@@ -22,7 +22,6 @@
     ASSERT((metal::is_just_t<metal::bind<CAT(opt, M) COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::bind<CAT(rec, M) COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::bind<FUN() COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<FUN() COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::bind<LBD(M) COMMA(N) VALS(N)>>), (BOOL(M <= N))); \
     ASSERT((metal::is_just_t<metal::bind<FUN(M) COMMA(N) VALS(N)>>), (BOOL(M == N))); \
     ASSERT((metal::is_just_t<metal::bind<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)> COMMA(N) VALS(N)>>), (BOOL(M == N))); \
@@ -36,7 +35,6 @@
     ASSERT((metal::bind_t<ARG(M), VALS(INC(M))>), (VAL(M))); \
     ASSERT((metal::bind_t<CAT(opt, M) COMMA(N) VALS(N)>), (CAT(opt, M))); \
     ASSERT((metal::bind_t<CAT(rec, M) COMMA(N) VALS(N)>), (CAT(rec, M))); \
-    ASSERT((metal::bind_t<FUN() COMMA(M) VALS(M)>), (EXPR()<VALS(M)>)); \
     ASSERT((metal::bind_t<FUN() COMMA(M) VALS(M)>), (EXPR()<VALS(M)>)); \
     ASSERT((metal::bind_t<LBD(M) COMMA(M) VALS(M)>), (CAT(opt, M))); \
     ASSERT((metal::bind_t<FUN(M) COMMA(M) VALS(M)>), (CAT(opt, M))); \

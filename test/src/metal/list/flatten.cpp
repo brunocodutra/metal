@@ -20,12 +20,11 @@
     ASSERT((metal::is_just_t<metal::flatten<ARG(M)>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::flatten<LBD(M)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::flatten<FUN(M)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::flatten<SEQ(M)<ENUM(M, MAP(N) BAR)>>>), (BOOL(!M))); \
     ASSERT((metal::flatten_t<SEQ()<VAL(M)>>), (SEQ()<VAL(M)>)); \
     ASSERT((metal::flatten_t<SEQ()<NUM(M)>>), (SEQ()<NUM(M)>)); \
     ASSERT((metal::flatten_t<PAIR(M)>), (PAIR(M))); \
     ASSERT((metal::flatten_t<LIST(M)>), (LIST(M))); \
-    ASSERT((metal::flatten_t<SEQ()<MAP(M)>>), (SEQ()<ENUM(M, FORWARD(NUM), FORWARD(VAL))>)); \
+    ASSERT((metal::flatten_t<SEQ()<MAP(M)>>), (SEQ()<ENUM(M, LIFT(NUM), LIFT(VAL))>)); \
     ASSERT((metal::flatten_t<SEQ()<ARG(M)>>), (SEQ()<ARG(M)>)); \
     ASSERT((metal::flatten_t<LBD(M)>), (LBD(M))); \
     ASSERT((metal::flatten_t<SEQ()<FUN(M)>>), (SEQ()<FUN(M)>)); \

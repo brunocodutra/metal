@@ -3,6 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/list/at.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/optional/just.hpp>
 
 #include "test.hpp"
@@ -31,7 +32,7 @@
     ASSERT((metal::at_t<SEQ()<LISTS(M) COMMA(M) MAPS(INC(N))>, NUM(M)>), (MAP(0))); \
     ASSERT((metal::at_t<SEQ()< \
         VALS(LIMIT), NUMS(INC(M)), PAIRS(INC(M)), LISTS(INC(M)), \
-        MAPS(INC(M)), ARGS(INC(M)), LBDS(INC(M))>, NUM(N)>), (VAL(N))); \
+        MAPS(INC(M)), ARGS(INC(M)), LBDS(INC(M)), FUNS(INC(M))>, NUM(N)>), (VAL(N))); \
 /**/
 
 GEN(MATRIX)

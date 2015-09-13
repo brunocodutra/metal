@@ -3,6 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/list/count.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/number/number.hpp>
 #include <metal/optional/just.hpp>
 
@@ -25,10 +26,10 @@
     ASSERT((metal::count_t<MAP(M), PAIR(N)>), (COUNT(M > N))); \
     ASSERT((metal::count_t<LBD(M), ARG(N)>), (COUNT(M > N))); \
     ASSERT((metal::count_t<SEQ()<VAL(M), VALS(INC(M))>, VAL(N)>), (COUNT((M >= N) + (M == N)))); \
-    ASSERT((metal::count_t<SEQ(M)<ENUM(M, MAP(N) BAR)>, MAP(N)>), (COUNT(M))); \
+    ASSERT((metal::count_t<SEQ(M)<ENUM(M, VAL(N) BAR)>, VAL(N)>), (COUNT(M))); \
     ASSERT((metal::count_t<SEQ()< \
         VALS(INC(M)), NUMS(INC(M)), PAIRS(INC(M)), LISTS(INC(M)), \
-        MAPS(INC(M)), ARGS(INC(M)), LBDS(INC(M))>, MAP(N)>), (COUNT((M >= N) + !N))); \
+        MAPS(INC(M)), ARGS(INC(M)), LBDS(INC(M)), FUNS(INC(M))>, MAP(N)>), (COUNT((M >= N) + !N))); \
 /**/
 
 GEN(MATRIX)
