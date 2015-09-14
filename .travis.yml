@@ -11,9 +11,6 @@ matrix:
       - compiler: g++
         env: CXX_VERSION=4.7
 
-      - compiler: clang++
-        env: CXX_VERSION=3.7
-
     include:
       - compiler: g++
         env: CXX_VERSION=4.7
