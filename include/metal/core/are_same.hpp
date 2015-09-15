@@ -7,6 +7,9 @@
 
 #include <metal/number/number.hpp>
 #include <metal/number/logical/and.hpp>
+#include <metal/optional/eval.hpp>
+
+#include <type_traits>
 
 namespace metal
 {
@@ -31,19 +34,14 @@ namespace metal
         boolean<true>
     {};
 
-    template<typename val>
-    struct are_same<val, val> :
-        boolean<true>
-    {};
-
     template<typename x, typename y>
     struct are_same<x, y> :
-        boolean<false>
+        std::is_same<x, y>
     {};
 
     template<typename head, typename... tail>
     struct are_same<head, tail...> :
-        and_<are_same_t<head, tail>...>
+        and_<eval<std::is_same<head, tail>>...>
     {};
 }
 
