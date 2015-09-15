@@ -21,7 +21,7 @@ namespace metal
     {
         template<typename, typename base>
         struct inherit_second :
-                base
+            base
         {};
 
         template<typename, typename...>
@@ -33,16 +33,16 @@ namespace metal
             typename... bases
         >
         struct inherit_impl<list<_...>, bases...> :
-                inherit_second<_, bases>...
+            inherit_second<_, bases>...
         {};
     }
 
     template<typename... bases>
     struct inherit :
-            detail::inherit_impl<
-                enumerate_t<number<std::size_t, sizeof...(bases)>>,
-                bases...
-            >
+        detail::inherit_impl<
+            enumerate_t<number<std::size_t, sizeof...(bases)>>,
+            bases...
+        >
     {};
 }
 

@@ -8,6 +8,7 @@
 #include <metal/list/list.hpp>
 #include <metal/core/inherit.hpp>
 #include <metal/core/voider.hpp>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
@@ -41,12 +42,12 @@ namespace metal
 
     template<template<typename...> class list, typename... vals>
     struct distinct<list<vals...>> :
-            decltype(
-                detail::is_unambiguously_derived_from<
-                    inherit<metal::list<vals>...>,
-                    metal::list<vals>...
-                >(0)
-            )
+        decltype(
+            detail::is_unambiguously_derived_from<
+                inherit<metal::list<vals>...>,
+                metal::list<vals>...
+            >(0)
+        )
     {};
 }
 

@@ -22,7 +22,7 @@ namespace metal
 
     template<typename t, t v>
     struct not_<number<t, v>> :
-            boolean<v ? false : true>
+        boolean<v ? false : true>
     {};
 }
 

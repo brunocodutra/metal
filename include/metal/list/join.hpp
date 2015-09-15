@@ -35,12 +35,12 @@ namespace metal
             typename... lists
         >
         struct join_recurse<list<xl<xs...>, yl<ys...>, lists...>> :
-                eval_or<join<bind<lambda<xl>, xs..., ys...>, lists...>, nothing>
+            eval_or<join<bind<lambda<xl>, xs..., ys...>, lists...>, nothing>
         {};
 
         template<typename _>
         struct join_impl :
-                join_recurse<_>
+            join_recurse<_>
         {};
 
         template<
@@ -49,13 +49,13 @@ namespace metal
             template<typename...> class... tail, typename... ts
         >
         struct join_impl<list<head<hs...>, tail<ts>...>> :
-                bind<lambda<head>, hs..., ts...>
+            bind<lambda<head>, hs..., ts...>
         {};
     }
 
     template<typename... lists>
     struct join :
-            detail::join_impl<join<lists...>>
+        detail::join_impl<join<lists...>>
     {};
 
     template<template<typename...> class head, typename... hs>
@@ -68,9 +68,10 @@ namespace metal
         template<typename...> class head, typename... hs,
         template<typename...> class... tail
     >
-    struct join<head<hs...>, tail<>...> :
-            join<head<hs...>>
-    {};
+    struct join<head<hs...>, tail<>...>
+    {
+        using type = head<hs...>;
+    };
 }
 
 #endif

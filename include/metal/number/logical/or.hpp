@@ -23,12 +23,12 @@ namespace metal
 
     template<typename... nums>
     struct or_ :
-            conditional<not_t<or_t<not_t<is_number_t<nums>>...>>, boolean<true>>
+        conditional<not_t<or_t<not_t<is_number_t<nums>>...>>, boolean<true>>
     {};
 
     template<typename... types>
     struct or_<number<types, false>...> :
-            boolean<false>
+        boolean<false>
     {};
 
     template<>

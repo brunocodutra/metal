@@ -22,12 +22,12 @@ namespace metal
 
     template<template<typename...> class list, typename... vals>
     struct empty<list<vals...>> :
-            boolean<false>
+        boolean<false>
     {};
 
     template<template<typename...> class list>
     struct empty<list<>> :
-            boolean<true>
+        boolean<true>
     {};
 }
 

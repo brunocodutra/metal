@@ -24,7 +24,7 @@ namespace metal
 
     template<template<typename...> class list, typename... vals>
     struct flatten<list<vals...>> :
-            join_t<bind<lambda<list>>, flatten_t<bind<vals>>...>
+        join_t<bind<lambda<list>>, flatten_t<bind<vals>>...>
     {};
 
     template<
@@ -33,7 +33,7 @@ namespace metal
         typename... vals
     >
     struct flatten<outer<inner<vals...>>> :
-            flatten_t<bind<lambda<outer>, vals...>>
+        flatten_t<bind<lambda<outer>, vals...>>
     {};
 
     template<template<typename...> class list, typename val>

@@ -23,7 +23,7 @@ namespace metal
 
     template<typename lbd, typename... args>
     struct invoke<lbd, args...> :
-            apply<lbd, list<args...>>
+        apply<lbd, list<args...>>
     {};
 }
 

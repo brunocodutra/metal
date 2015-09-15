@@ -55,8 +55,8 @@ namespace ex4
     };
 
     struct optional3 :
-            optional1,
-            optional2
+        optional1,
+        optional2
     {
         //nothing - ambiguous ::type
     };

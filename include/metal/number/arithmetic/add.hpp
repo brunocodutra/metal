@@ -22,12 +22,12 @@ namespace metal
 
     template<typename x, x xv>
     struct add<number<x, xv>> :
-            number<x, xv>
+        number<x, xv>
     {};
 
     template<typename x, x xv, typename y, y yv, typename... nums>
     struct add<number<x, xv>, number<y, yv>, nums...> :
-            add<number<decltype(xv + yv), xv + yv>, nums...>
+        add<number<decltype(xv + yv), xv + yv>, nums...>
     {};
 }
 

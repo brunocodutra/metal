@@ -38,7 +38,7 @@ namespace metal
             template<typename...> class list, typename... args
         >
         struct apply_impl<expr, list<args...>, voider_t<expr<args...>>> :
-                optional<expr<args...>>
+            optional<expr<args...>>
         {};
 
         template<template<typename...> class expr>
@@ -57,7 +57,7 @@ namespace metal
 
     template<std::size_t n, template<typename...> class list, typename... args>
     struct apply<arg<n>, list<args...>> :
-            at<list<args...>, dec_t<number<std::size_t, n>>>
+        at<list<args...>, dec_t<number<std::size_t, n>>>
     {};
 
     template<template<typename...> class list, typename... args>
@@ -69,7 +69,7 @@ namespace metal
         template<typename...> class list, typename... args
     >
     struct apply<expr<>, list<args...>> :
-            optional<expr<>>
+        optional<expr<>>
     {};
 
     template<
@@ -77,10 +77,10 @@ namespace metal
         template<typename...> class list, typename... args
     >
     struct apply<expr<params...>, list<args...>> :
-            detail::apply_impl<
-                detail::lift<expr>::template type,
-                list<apply<params, list<args...>>...>
-            >
+        detail::apply_impl<
+            detail::lift<expr>::template type,
+            list<apply<params, list<args...>>...>
+        >
     {};
 
     template<
@@ -89,7 +89,7 @@ namespace metal
         template<typename...> class list, typename... args
     >
     struct apply<lambda<expr>, list<args...>> :
-            detail::apply_impl<metal::lambda<expr>::template type, list<args...>>
+        detail::apply_impl<metal::lambda<expr>::template type, list<args...>>
     {};
 
     template<
@@ -98,7 +98,7 @@ namespace metal
         typename... args
     >
     struct apply<lambda<expr>, expr<args...>> :
-            optional<expr<args...>>
+        optional<expr<args...>>
     {};
 }
 

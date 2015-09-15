@@ -24,7 +24,7 @@ namespace metal
     {
         template<typename t, t... vs>
         struct numbers :
-                list<number<t, vs>...>
+            list<number<t, vs>...>
         {};
 
         template<typename, typename, typename, typename>
@@ -38,46 +38,46 @@ namespace metal
             number<t, ox>, list<number<t, xs>...>,
             number<t, oy>, list<number<t, ys>...>
         > :
-                numbers<t, (ox + xs)..., (oy + ys)...>
+            numbers<t, (ox + xs)..., (oy + ys)...>
         {};
     }
 
     template<typename f, f fv, typename l, l lv>
     struct enumerate<number<f, fv>, number<l, lv>> :
-            enumerate<
-                number<decltype(true ? fv : lv), fv>,
-                number<decltype(true ? fv : lv), lv>
-            >
+        enumerate<
+            number<decltype(true ? fv : lv), fv>,
+            number<decltype(true ? fv : lv), lv>
+        >
     {};
 
     template<typename t, t f, t l>
     struct enumerate<number<t, f>, number<t, l>> :
-            detail::merge<
-                number<t, f>,
-                enumerate_t<number<t, (l - f)/2>>,
-                number<t, f + (l - f)/2>,
-                enumerate_t<number<t, l - f - (l - f)/2>>
-            >
+        detail::merge<
+            number<t, f>,
+            enumerate_t<number<t, (l - f)/2>>,
+            number<t, f + (l - f)/2>,
+            enumerate_t<number<t, l - f - (l - f)/2>>
+        >
     {};
 
     template<typename t, t f>
     struct enumerate<number<t, f>, number<t, f + 1>> :
-            list<number<t, f>>
+        list<number<t, f>>
     {};
 
     template<typename t, t f>
     struct enumerate<number<t, f>, number<t, f - 1>> :
-            list<number<t, f>>
+        list<number<t, f>>
     {};
 
     template<typename t, t f>
     struct enumerate<number<t, f>, number<t, f>> :
-            list<>
+        list<>
     {};
 
     template<typename t, t v>
     struct enumerate<number<t, v>> :
-            enumerate<number<t, 0>, number<t, v>>
+        enumerate<number<t, 0>, number<t, v>>
     {};
 }
 

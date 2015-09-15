@@ -32,12 +32,12 @@ namespace metal
 
     template<typename list>
     struct is_list :
-            boolean<false>
+        boolean<false>
     {};
 
     template<template<typename...> class list, typename... vals>
     struct is_list<list<vals...>> :
-            boolean<true>
+        boolean<true>
     {};
 }
 

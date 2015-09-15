@@ -31,10 +31,10 @@ namespace metal
         typename t, t v
     >
     struct at<list<vals...>, number<t, v>> :
-            at_key<
-                zip_t<enumerate_t<size_t<list<vals...>>>, metal::list<vals...>>,
-                number<std::size_t, static_cast<std::size_t>(v)>
-            >
+        at_key<
+            zip_t<enumerate_t<size_t<list<vals...>>>, metal::list<vals...>>,
+            number<std::size_t, static_cast<std::size_t>(v)>
+        >
     {};
 }
 

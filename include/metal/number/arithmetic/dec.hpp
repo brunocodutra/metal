@@ -22,7 +22,7 @@ namespace metal
 
     template<typename t, t v>
     struct dec<number<t, v>> :
-            number<t, static_cast<t>(v - 1)>
+        number<t, static_cast<t>(v - 1)>
     {};
 }
 

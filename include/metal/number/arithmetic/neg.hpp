@@ -22,7 +22,7 @@ namespace metal
 
     template<typename t, t v>
     struct neg<number<t, v>> :
-            number<decltype(static_cast<t>(0) - v), static_cast<t>(0) - v>
+        number<decltype(static_cast<t>(0) - v), static_cast<t>(0) - v>
     {};
 }
 

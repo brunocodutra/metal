@@ -22,7 +22,7 @@ namespace metal
 
     template<typename x, x xv, typename y, y yv>
     struct equal_to<number<x, xv>, number<y, yv>> :
-            boolean<(xv == yv)>
+        boolean<(xv == yv)>
     {};
 }
 

@@ -5,6 +5,7 @@
 #ifndef METAL_CORE_HPP
 #define METAL_CORE_HPP
 
+#include <metal/core/are_same.hpp>
 #include <metal/core/inherit.hpp>
 #include <metal/core/voider.hpp>
 

@@ -66,18 +66,18 @@ namespace metal
     {
         template<typename, typename = void>
         struct is_just_impl :
-                boolean<false>
+            boolean<false>
         {};
 
         template<typename opt>
         struct is_just_impl<opt, voider_t<eval<opt>, int opt::*>> :
-                boolean<true>
+            boolean<true>
         {};
     }
 
     template<typename opt>
     struct is_just :
-            detail::is_just_impl<opt>
+        detail::is_just_impl<opt>
     {};
 }
 

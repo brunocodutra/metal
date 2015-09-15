@@ -22,12 +22,12 @@ namespace metal
 
     template<typename x, x xv>
     struct mul<number<x, xv>> :
-            number<x, xv>
+        number<x, xv>
     {};
 
     template<typename x, x xv, typename y, y yv, typename... nums>
     struct mul<number<x, xv>, number<y, yv>, nums...> :
-            mul<number<decltype(xv * yv), xv * yv>, nums...>
+        mul<number<decltype(xv * yv), xv * yv>, nums...>
     {};
 }
 

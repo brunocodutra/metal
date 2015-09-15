@@ -42,13 +42,13 @@ namespace metal
             typename key
         >
         struct at_key_impl<map<pairs<keys, vals>...>, key> :
-                decltype(lookup<key>(static_cast<inherit<list<keys, vals>...>*>(0)))
+            decltype(lookup<key>(static_cast<inherit<list<keys, vals>...>*>(0)))
         {};
     }
 
     template<typename map, typename val>
     struct at_key :
-            conditional<is_map_t<map>, detail::at_key_impl<map, val>>
+        conditional<is_map_t<map>, detail::at_key_impl<map, val>>
     {};
 }
 

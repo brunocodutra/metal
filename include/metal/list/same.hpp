@@ -2,29 +2,27 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_LIST_SIZE_HPP
-#define METAL_LIST_SIZE_HPP
+#ifndef METAL_LIST_SAME_HPP
+#define METAL_LIST_SAME_HPP
 
-#include <metal/number/number.hpp>
-
-#include <cstddef>
+#include <metal/core/are_same.hpp>
 
 namespace metal
 {
     /// \ingroup list
     /// \brief ...
     template<typename list>
-    struct size
+    struct same
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref size.
+    /// \brief Eager adaptor for \ref same.
     template<typename list>
-    using size_t = typename metal::size<list>::type;
+    using same_t = typename same<list>::type;
 
     template<template<typename...> class list, typename... vals>
-    struct size<list<vals...>> :
-        number<std::size_t, sizeof...(vals)>
+    struct same<list<vals...>> :
+        are_same<vals...>
     {};
 }
 

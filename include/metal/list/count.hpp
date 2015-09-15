@@ -6,10 +6,10 @@
 #define METAL_LIST_COUNT_HPP
 
 #include <metal/list/list.hpp>
+#include <metal/core/are_same.hpp>
+#include <metal/number/number.hpp>
 #include <metal/number/arithmetic/add.hpp>
-#include <metal/optional/eval.hpp>
 
-#include <type_traits>
 #include <cstddef>
 
 namespace metal
@@ -27,7 +27,7 @@ namespace metal
 
     template<template<typename...> class list, typename... vals, typename val>
     struct count<list<vals...>, val> :
-            add<number<std::ptrdiff_t, 0>, eval<std::is_same<vals, val>>...>
+        add<number<std::ptrdiff_t, 0>, are_same_t<vals, val>...>
     {};
 }
 

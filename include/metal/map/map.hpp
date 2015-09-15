@@ -30,17 +30,17 @@ namespace metal
 
     template<typename... pairs>
     struct map :
-            conditional<is_map_t<map<pairs...>>, just<map<pairs...>>>
+        conditional<is_map_t<map<pairs...>>, just<map<pairs...>>>
     {};
 
     template<typename>
     struct is_map :
-            boolean<false>
+        boolean<false>
     {};
 
     template<template<typename...> class map>
     struct is_map<map<>> :
-            boolean<true>
+        boolean<true>
     {};
 
     template<
@@ -50,7 +50,7 @@ namespace metal
         typename... vals
     >
     struct is_map<map<pairs<keys, vals>...>> :
-            distinct<list<keys...>>
+        distinct<list<keys...>>
     {};
 }
 

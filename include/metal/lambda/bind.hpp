@@ -58,7 +58,7 @@ namespace metal
 
     template<typename lbd, typename... args>
     struct bind<lbd, args...> :
-            invoke<detail::quasiquote_t<lbd>, args...>
+        invoke<detail::quasiquote_t<lbd>, args...>
     {};
 
     template<
@@ -66,7 +66,7 @@ namespace metal
         typename... args
     >
     struct bind<lambda<bind>, args...> :
-            just<bind<args...>>
+        just<bind<args...>>
     {};
 }
 

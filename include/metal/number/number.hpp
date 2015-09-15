@@ -36,12 +36,12 @@ namespace metal
 
     template<typename num>
     struct is_number :
-            boolean<false>
+        boolean<false>
     {};
 
     template<typename type, type value>
     struct is_number<number<type, value>> :
-            boolean<true>
+        boolean<true>
     {};
 }
 

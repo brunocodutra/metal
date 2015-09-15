@@ -23,13 +23,13 @@ namespace metal
 
         template<typename opt>
         struct optional_impl<opt, is_just_t<opt>> :
-                just<typename opt::type>
+            just<typename opt::type>
         {};
     }
 
     template<typename opt>
     struct optional :
-            detail::optional_impl<opt>
+        detail::optional_impl<opt>
     {};
 }
 
