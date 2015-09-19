@@ -5,7 +5,6 @@
 #ifndef METAL_LIST_AT_HPP
 #define METAL_LIST_AT_HPP
 
-#include <metal/list/list.hpp>
 #include <metal/list/zip.hpp>
 #include <metal/list/size.hpp>
 #include <metal/map/at_key.hpp>
@@ -32,7 +31,7 @@ namespace metal
     >
     struct at<list<vals...>, number<t, v>> :
         at_key<
-            zip_t<enumerate_t<size_t<list<vals...>>>, metal::list<vals...>>,
+            zip_t<enumerate_t<size_t<list<vals...>>>, list<vals...>>,
             number<std::size_t, static_cast<std::size_t>(v)>
         >
     {};
