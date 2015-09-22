@@ -5,9 +5,6 @@
 #ifndef METAL_LAMBDA_INVOKE_HPP
 #define METAL_LAMBDA_INVOKE_HPP
 
-#include <metal/lambda/apply.hpp>
-#include <metal/list/list.hpp>
-
 namespace metal
 {
     /// \ingroup lambda
@@ -20,7 +17,13 @@ namespace metal
     /// \brief Eager adaptor for \ref invoke.
     template<typename... args>
     using invoke_t = typename invoke<args...>::type;
+}
 
+#include <metal/lambda/apply.hpp>
+#include <metal/list/list.hpp>
+
+namespace metal
+{
     template<typename lbd, typename... args>
     struct invoke<lbd, args...> :
         apply<lbd, list<args...>>

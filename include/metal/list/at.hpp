@@ -5,12 +5,6 @@
 #ifndef METAL_LIST_AT_HPP
 #define METAL_LIST_AT_HPP
 
-#include <metal/list/zip.hpp>
-#include <metal/list/size.hpp>
-#include <metal/map/at_key.hpp>
-#include <metal/number/number.hpp>
-#include <metal/number/enumerate.hpp>
-
 namespace metal
 {
     /// \ingroup list
@@ -23,7 +17,16 @@ namespace metal
     /// \brief Eager adaptor for \ref at.
     template<typename list, typename val>
     using at_t = typename at<list, val>::type;
+}
 
+#include <metal/list/zip.hpp>
+#include <metal/list/size.hpp>
+#include <metal/map/at_key.hpp>
+#include <metal/number/number.hpp>
+#include <metal/number/enumerate.hpp>
+
+namespace metal
+{
     template<
         template<typename...> class list,
         typename... vals,

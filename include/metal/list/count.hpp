@@ -5,13 +5,6 @@
 #ifndef METAL_LIST_COUNT_HPP
 #define METAL_LIST_COUNT_HPP
 
-#include <metal/list/list.hpp>
-#include <metal/core/are_same.hpp>
-#include <metal/number/number.hpp>
-#include <metal/number/arithmetic/add.hpp>
-
-#include <cstddef>
-
 namespace metal
 {
     /// \ingroup list
@@ -24,7 +17,17 @@ namespace metal
     /// \brief Eager adaptor for \ref count.
     template<typename list, typename val>
     using count_t = typename count<list, val>::type;
+}
 
+#include <metal/list/list.hpp>
+#include <metal/core/are_same.hpp>
+#include <metal/number/number.hpp>
+#include <metal/number/arithmetic/add.hpp>
+
+#include <cstddef>
+
+namespace metal
+{
     template<template<typename...> class list, typename... vals, typename val>
     struct count<list<vals...>, val> :
         add<number<std::ptrdiff_t, 0>, are_same_t<vals, val>...>

@@ -5,8 +5,6 @@
 #ifndef METAL_NUMBER_ARITHMETIC_INC_HPP
 #define METAL_NUMBER_ARITHMETIC_INC_HPP
 
-#include <metal/number/number.hpp>
-
 namespace metal
 {
     /// \ingroup arithmetic
@@ -19,7 +17,12 @@ namespace metal
     /// \brief Eager adaptor for \ref inc.
     template<typename num>
     using inc_t = typename inc<num>::type;
+}
 
+#include <metal/number/number.hpp>
+
+namespace metal
+{
     template<typename t, t v>
     struct inc<number<t, v>> :
         number<t, static_cast<t>(v + 1)>

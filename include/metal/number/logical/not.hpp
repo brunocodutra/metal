@@ -5,8 +5,6 @@
 #ifndef METAL_NUMBER_LOGICAL_NOT_HPP
 #define METAL_NUMBER_LOGICAL_NOT_HPP
 
-#include <metal/number/number.hpp>
-
 namespace metal
 {
     /// \ingroup logical
@@ -19,7 +17,12 @@ namespace metal
     /// \brief Eager adaptor for \ref not_.
     template<typename num>
     using not_t = typename not_<num>::type;
+}
 
+#include <metal/number/number.hpp>
+
+namespace metal
+{
     template<typename t, t v>
     struct not_<number<t, v>> :
         boolean<v ? false : true>

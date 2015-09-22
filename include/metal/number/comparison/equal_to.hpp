@@ -5,8 +5,6 @@
 #ifndef METAL_NUMBER_COMPARISON_EQUAL_TO_HPP
 #define METAL_NUMBER_COMPARISON_EQUAL_TO_HPP
 
-#include <metal/number/number.hpp>
-
 namespace metal
 {
     /// \ingroup comparison
@@ -19,7 +17,12 @@ namespace metal
     /// \brief Eager adaptor for \ref equal_to.
     template<typename x, typename y>
     using equal_to_t = typename equal_to<x, y>::type;
+}
 
+#include <metal/number/number.hpp>
+
+namespace metal
+{
     template<typename x, x xv, typename y, y yv>
     struct equal_to<number<x, xv>, number<y, yv>> :
         boolean<(xv == yv)>

@@ -5,10 +5,6 @@
 #ifndef METAL_LAMBDA_BIND_HPP
 #define METAL_LAMBDA_BIND_HPP
 
-#include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/optional/just.hpp>
-
 namespace metal
 {
     /// \ingroup lambda
@@ -21,7 +17,14 @@ namespace metal
     /// \brief Eager adaptor for \ref bind.
     template<typename... args>
     using bind_t = typename metal::bind<args...>::type;
+}
 
+# include <metal/lambda/invoke.hpp>
+# include <metal/lambda/lambda.hpp>
+# include <metal/optional/just.hpp>
+
+namespace metal
+{
     namespace detail
     {
         template<typename val>

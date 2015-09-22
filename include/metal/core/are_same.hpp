@@ -5,12 +5,6 @@
 #ifndef METAL_CORE_ARE_SAME_HPP
 #define METAL_CORE_ARE_SAME_HPP
 
-#include <metal/number/number.hpp>
-#include <metal/number/logical/and.hpp>
-#include <metal/optional/eval.hpp>
-
-#include <type_traits>
-
 namespace metal
 {
     /// \ingroup core
@@ -23,7 +17,16 @@ namespace metal
     /// \brief Eager adaptor for \ref are_same.
     template<typename... vals>
     using are_same_t = typename metal::are_same<vals...>::type;
+}
 
+#include <metal/number/number.hpp>
+#include <metal/number/logical/and.hpp>
+#include <metal/optional/eval.hpp>
+
+#include <type_traits>
+
+namespace metal
+{
     template<>
     struct are_same<> :
         boolean<true>

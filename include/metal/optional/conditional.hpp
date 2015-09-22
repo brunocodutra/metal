@@ -5,13 +5,6 @@
 #ifndef METAL_OPTIONAL_CONDITIONAL_HPP
 #define METAL_OPTIONAL_CONDITIONAL_HPP
 
-#include <metal/optional/eval.hpp>
-#include <metal/optional/nothing.hpp>
-#include <metal/optional/optional.hpp>
-#include <metal/number/number.hpp>
-
-#include <type_traits>
-
 namespace metal
 {
     /// \ingroup optional
@@ -24,7 +17,17 @@ namespace metal
     /// \brief Eager adaptor for \ref conditional.
     template<typename... args>
     using conditional_t = typename metal::conditional<args...>::type;
+}
 
+#include <metal/optional/eval.hpp>
+#include <metal/optional/nothing.hpp>
+#include <metal/optional/optional.hpp>
+#include <metal/number/number.hpp>
+
+#include <type_traits>
+
+namespace metal
+{
     template<typename pred1, typename then1, typename pred2, typename then2, typename... else_>
     struct conditional<pred1, then1, pred2, then2, else_...> :
         conditional<pred1, then1, conditional<pred2, then2, else_...>>

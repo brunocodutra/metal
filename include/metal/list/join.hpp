@@ -5,11 +5,6 @@
 #ifndef METAL_LIST_JOIN_HPP
 #define METAL_LIST_JOIN_HPP
 
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/optional/eval_or.hpp>
-#include <metal/optional/nothing.hpp>
-
 namespace metal
 {
     /// \ingroup list
@@ -21,7 +16,15 @@ namespace metal
     /// \brief Eager adaptor for \ref join.
     template<typename... lists>
     using join_t = typename join<lists...>::type;
+}
 
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/optional/eval.hpp>
+#include <metal/optional/nothing.hpp>
+
+namespace metal
+{
     namespace detail
     {
         template<typename>

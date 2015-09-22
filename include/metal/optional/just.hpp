@@ -5,10 +5,6 @@
 #ifndef METAL_OPTIONAL_JUST_HPP
 #define METAL_OPTIONAL_JUST_HPP
 
-#include <metal/optional/eval.hpp>
-#include <metal/core/voider.hpp>
-#include <metal/number/number.hpp>
-
 namespace metal
 {
     /// \ingroup optional
@@ -61,7 +57,14 @@ namespace metal
     /// \brief Eager adaptor for \ref is_just.
     template<typename opt>
     using is_just_t = typename metal::is_just<opt>::type;
+}
 
+#include <metal/optional/eval.hpp>
+#include <metal/core/voider.hpp>
+#include <metal/number/number.hpp>
+
+namespace metal
+{
     namespace detail
     {
         template<typename, typename = void>

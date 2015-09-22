@@ -5,8 +5,6 @@
 #ifndef METAL_LIST_EMPTY_HPP
 #define METAL_LIST_EMPTY_HPP
 
-#include <metal/number/number.hpp>
-
 namespace metal
 {
     /// \ingroup list
@@ -19,7 +17,12 @@ namespace metal
     /// \brief Eager adaptor for \ref empty.
     template<typename list>
     using empty_t = typename metal::empty<list>::type;
+}
 
+#include <metal/number/number.hpp>
+
+namespace metal
+{
     template<template<typename...> class list, typename... vals>
     struct empty<list<vals...>> :
         boolean<false>

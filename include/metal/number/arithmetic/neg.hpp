@@ -5,8 +5,6 @@
 #ifndef METAL_NUMBER_ARITHMETIC_NEG_HPP
 #define METAL_NUMBER_ARITHMETIC_NEG_HPP
 
-#include <metal/number/number.hpp>
-
 namespace metal
 {
     /// \ingroup arithmetic
@@ -19,7 +17,12 @@ namespace metal
     /// \brief Eager adaptor for \ref neg.
     template<typename num>
     using neg_t = typename neg<num>::type;
+}
 
+#include <metal/number/number.hpp>
+
+namespace metal
+{
     template<typename t, t v>
     struct neg<number<t, v>> :
         number<decltype(static_cast<t>(0) - v), static_cast<t>(0) - v>

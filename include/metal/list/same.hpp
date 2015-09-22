@@ -5,8 +5,6 @@
 #ifndef METAL_LIST_SAME_HPP
 #define METAL_LIST_SAME_HPP
 
-#include <metal/core/are_same.hpp>
-
 namespace metal
 {
     /// \ingroup list
@@ -19,7 +17,12 @@ namespace metal
     /// \brief Eager adaptor for \ref same.
     template<typename list>
     using same_t = typename same<list>::type;
+}
 
+#include <metal/core/are_same.hpp>
+
+namespace metal
+{
     template<template<typename...> class list, typename... vals>
     struct same<list<vals...>> :
         are_same<vals...>

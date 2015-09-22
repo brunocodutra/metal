@@ -5,8 +5,6 @@
 #ifndef METAL_NUMBER_ARITHMETIC_SUB_HPP
 #define METAL_NUMBER_ARITHMETIC_SUB_HPP
 
-#include <metal/number/number.hpp>
-
 namespace metal
 {
     /// \ingroup arithmetic
@@ -19,7 +17,12 @@ namespace metal
     /// \brief Eager adaptor for \ref sub.
     template<typename... nums>
     using sub_t = typename sub<nums...>::type;
+}
 
+#include <metal/number/number.hpp>
+
+namespace metal
+{
     template<typename x, x xv>
     struct sub<number<x, xv>> :
         number<x, xv>

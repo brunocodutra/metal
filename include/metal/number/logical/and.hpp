@@ -5,10 +5,6 @@
 #ifndef METAL_NUMBER_LOGICAL_AND_HPP
 #define METAL_NUMBER_LOGICAL_AND_HPP
 
-#include <metal/number/logical/or.hpp>
-#include <metal/number/logical/not.hpp>
-#include <metal/optional/eval_or.hpp>
-
 namespace metal
 {
     /// \ingroup logical
@@ -20,7 +16,14 @@ namespace metal
     /// \brief Eager adaptor for \ref and_.
     template<typename... nums>
     using and_t = typename and_<nums...>::type;
+}
 
+#include <metal/number/logical/or.hpp>
+#include <metal/number/logical/not.hpp>
+#include <metal/optional/eval.hpp>
+
+namespace metal
+{
     template<typename... nums>
     struct and_ :
         not_<eval_or<or_<eval_or<not_<nums>, void>...>, void>>

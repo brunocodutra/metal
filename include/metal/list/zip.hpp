@@ -5,8 +5,6 @@
 #ifndef METAL_LIST_ZIP_HPP
 #define METAL_LIST_ZIP_HPP
 
-#include <metal/list/list.hpp>
-
 namespace metal
 {
     /// \ingroup list
@@ -19,7 +17,12 @@ namespace metal
     /// \brief Eager adaptor for \ref zip.
     template<typename list1, typename list2>
     using zip_t = typename zip<list1, list2>::type;
+}
 
+#include <metal/list/list.hpp>
+
+namespace metal
+{
     template<
         template<typename...> class xl, typename... xs,
         template<typename...> class yl, typename... ys

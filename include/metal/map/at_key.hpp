@@ -5,13 +5,6 @@
 #ifndef METAL_MAP_AT_KEY_HPP
 #define METAL_MAP_AT_KEY_HPP
 
-#include <metal/map/map.hpp>
-#include <metal/list/list.hpp>
-#include <metal/core/inherit.hpp>
-#include <metal/optional/conditional.hpp>
-#include <metal/optional/just.hpp>
-#include <metal/optional/nothing.hpp>
-
 namespace metal
 {
     /// \ingroup map
@@ -23,7 +16,17 @@ namespace metal
     /// \brief Eager adaptor for \ref at_key.
     template<typename map, typename val>
     using at_key_t = typename at_key<map, val>::type;
+}
 
+#include <metal/map/map.hpp>
+#include <metal/list/list.hpp>
+#include <metal/core/inherit.hpp>
+#include <metal/optional/conditional.hpp>
+#include <metal/optional/just.hpp>
+#include <metal/optional/nothing.hpp>
+
+namespace metal
+{
     namespace detail
     {
         template<typename key, typename val>

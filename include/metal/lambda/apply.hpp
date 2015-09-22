@@ -5,15 +5,6 @@
 #ifndef METAL_LAMBDA_APPLY_HPP
 #define METAL_LAMBDA_APPLY_HPP
 
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/core/voider.hpp>
-#include <metal/list/at.hpp>
-#include <metal/number/number.hpp>
-#include <metal/number/arithmetic/dec.hpp>
-#include <metal/optional/eval.hpp>
-#include <metal/optional/optional.hpp>
-
 namespace metal
 {
     /// \ingroup lambda
@@ -26,7 +17,19 @@ namespace metal
     /// \brief Eager adaptor for \ref apply.
     template<typename lbd, typename list>
     using apply_t = typename apply<lbd, list>::type;
+}
 
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/core/voider.hpp>
+#include <metal/list/at.hpp>
+#include <metal/number/number.hpp>
+#include <metal/number/arithmetic/dec.hpp>
+#include <metal/optional/eval.hpp>
+#include <metal/optional/optional.hpp>
+
+namespace metal
+{
     namespace detail
     {
         template<template<typename...> class, typename, typename = void>

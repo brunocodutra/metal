@@ -5,8 +5,6 @@
 #ifndef METAL_NUMBER_COMPARISON_LESS_HPP
 #define METAL_NUMBER_COMPARISON_LESS_HPP
 
-#include <metal/number/number.hpp>
-
 namespace metal
 {
     /// \ingroup comparison
@@ -19,7 +17,12 @@ namespace metal
     /// \brief Eager adaptor for \ref less.
     template<typename x, typename y>
     using less_t = typename less<x, y>::type;
+}
 
+#include <metal/number/number.hpp>
+
+namespace metal
+{
     template<typename x, x xv, typename y, y yv>
     struct less<number<x, xv>, number<y, yv>> :
         boolean<(xv < yv)>

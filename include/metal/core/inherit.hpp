@@ -5,6 +5,14 @@
 #ifndef METAL_CORE_INHERIT_HPP
 #define METAL_CORE_INHERIT_HPP
 
+namespace metal
+{
+    /// \ingroup core
+    /// \brief ...
+    template<typename... bases>
+    struct inherit;
+}
+
 #include <metal/number/number.hpp>
 #include <metal/number/enumerate.hpp>
 
@@ -12,11 +20,6 @@
 
 namespace metal
 {
-    /// \ingroup core
-    /// \brief ...
-    template<typename... bases>
-    struct inherit;
-
     namespace detail
     {
         template<typename, typename base>

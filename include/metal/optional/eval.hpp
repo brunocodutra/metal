@@ -13,4 +13,15 @@ namespace metal
     using eval = typename opt::type;
 }
 
+#include <metal/optional/conditional.hpp>
+#include <metal/optional/just.hpp>
+
+namespace metal
+{
+    /// \ingroup optional
+    /// \brief ...
+    template<typename opt, typename default_>
+    using eval_or = conditional_t<is_just_t<opt>, opt, just<default_>>;
+}
+
 #endif

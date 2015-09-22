@@ -5,12 +5,6 @@
 #ifndef METAL_MAP_MAP_HPP
 #define METAL_MAP_MAP_HPP
 
-#include <metal/list/list.hpp>
-#include <metal/list/distinct.hpp>
-#include <metal/number/number.hpp>
-#include <metal/optional/conditional.hpp>
-#include <metal/optional/just.hpp>
-
 namespace metal
 {
     /// \ingroup map
@@ -27,7 +21,16 @@ namespace metal
     /// \brief Eager adaptor for \ref is_map.
     template<typename map>
     using is_map_t = typename metal::is_map<map>::type;
+}
 
+#include <metal/list/list.hpp>
+#include <metal/list/distinct.hpp>
+#include <metal/number/number.hpp>
+#include <metal/optional/conditional.hpp>
+#include <metal/optional/just.hpp>
+
+namespace metal
+{
     template<typename... pairs>
     struct map :
         conditional<is_map_t<map<pairs...>>, just<map<pairs...>>>

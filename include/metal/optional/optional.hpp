@@ -5,16 +5,19 @@
 #ifndef METAL_OPTIONAL_OPTIONAL_HPP
 #define METAL_OPTIONAL_OPTIONAL_HPP
 
-#include <metal/optional/just.hpp>
-#include <metal/number/number.hpp>
-
 namespace metal
 {
     /// \ingroup optional
     /// \brief ...
     template<typename opt>
     struct optional;
+}
 
+#include <metal/optional/just.hpp>
+#include <metal/number/number.hpp>
+
+namespace metal
+{
     namespace detail
     {
         template<typename, typename = boolean<true>>

@@ -5,8 +5,6 @@
 #ifndef METAL_LIST_LIST_HPP
 #define METAL_LIST_LIST_HPP
 
-#include <metal/number/number.hpp>
-
 namespace metal
 {
     /// \ingroup list
@@ -23,7 +21,12 @@ namespace metal
     /// \brief Eager adaptor for \ref is_list.
     template<typename list>
     using is_list_t = typename metal::is_list<list>::type;
+}
 
+#include <metal/number/number.hpp>
+
+namespace metal
+{
     template<typename... vals>
     struct list
     {

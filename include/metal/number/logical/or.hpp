@@ -5,10 +5,6 @@
 #ifndef METAL_NUMBER_LOGICAL_OR_HPP
 #define METAL_NUMBER_LOGICAL_OR_HPP
 
-#include <metal/number/number.hpp>
-#include <metal/number/logical/not.hpp>
-#include <metal/optional/conditional.hpp>
-
 namespace metal
 {
     /// \ingroup logical
@@ -20,10 +16,18 @@ namespace metal
     /// \brief Eager adaptor for \ref or_.
     template<typename... nums>
     using or_t = typename or_<nums...>::type;
+}
 
+#include <metal/number/number.hpp>
+#include <metal/number/logical/and.hpp>
+#include <metal/number/logical/not.hpp>
+#include <metal/optional/conditional.hpp>
+
+namespace metal
+{
     template<typename... nums>
     struct or_ :
-        conditional<not_t<or_t<not_t<is_number_t<nums>>...>>, boolean<true>>
+        conditional<and_t<is_number_t<nums>...>, boolean<true>>
     {};
 
     template<typename... types>

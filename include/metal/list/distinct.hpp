@@ -5,11 +5,6 @@
 #ifndef METAL_LIST_DISTINCT_HPP
 #define METAL_LIST_DISTINCT_HPP
 
-#include <metal/list/list.hpp>
-#include <metal/core/inherit.hpp>
-#include <metal/core/voider.hpp>
-#include <metal/number/number.hpp>
-
 namespace metal
 {
     /// \ingroup list
@@ -22,7 +17,15 @@ namespace metal
     /// \brief Eager adaptor for \ref distinct.
     template<typename list>
     using distinct_t = typename distinct<list>::type;
+}
 
+#include <metal/list/list.hpp>
+#include <metal/core/inherit.hpp>
+#include <metal/core/voider.hpp>
+#include <metal/number/number.hpp>
+
+namespace metal
+{
     namespace detail
     {
         template<typename... bases>

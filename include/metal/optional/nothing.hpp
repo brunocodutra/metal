@@ -5,9 +5,6 @@
 #ifndef METAL_OPTIONAL_NOTHING_HPP
 #define METAL_OPTIONAL_NOTHING_HPP
 
-#include <metal/optional/just.hpp>
-#include <metal/number/logical/not.hpp>
-
 namespace metal
 {
     /// \ingroup optional
@@ -54,14 +51,23 @@ namespace metal
     /// --------
     /// \see is_just
     template<typename opt>
-    struct is_nothing :
-        not_<is_just_t<opt>>
-    {};
+    struct is_nothing;
 
     /// \ingroup optional
     /// \brief Eager adaptor for \ref is_nothing.
     template<typename opt>
     using is_nothing_t = typename metal::is_nothing<opt>::type;
+}
+
+#include <metal/optional/just.hpp>
+#include <metal/number/logical/not.hpp>
+
+namespace metal
+{
+    template<typename opt>
+    struct is_nothing :
+        not_<is_just_t<opt>>
+    {};
 }
 
 #endif

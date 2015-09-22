@@ -5,10 +5,6 @@
 #ifndef METAL_LIST_FLATTEN_HPP
 #define METAL_LIST_FLATTEN_HPP
 
-#include <metal/list/join.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-
 namespace metal
 {
     /// \ingroup list
@@ -21,7 +17,14 @@ namespace metal
     /// \brief Eager adaptor for \ref flatten.
     template<typename list>
     using flatten_t = typename metal::flatten<list>::type;
+}
 
+#include <metal/list/join.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+
+namespace metal
+{
     template<template<typename...> class list, typename... vals>
     struct flatten<list<vals...>> :
         join_t<bind<lambda<list>>, flatten_t<bind<vals>>...>

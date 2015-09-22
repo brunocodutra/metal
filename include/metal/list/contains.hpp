@@ -5,10 +5,6 @@
 #ifndef METAL_LIST_CONTAINS_HPP
 #define METAL_LIST_CONTAINS_HPP
 
-#include <metal/core/are_same.hpp>
-#include <metal/number/number.hpp>
-#include <metal/number/logical/or.hpp>
-
 namespace metal
 {
     /// \ingroup list
@@ -21,7 +17,14 @@ namespace metal
     /// \brief Eager adaptor for \ref contains.
     template<typename list, typename val>
     using contains_t = typename contains<list, val>::type;
+}
 
+#include <metal/core/are_same.hpp>
+#include <metal/number/number.hpp>
+#include <metal/number/logical/or.hpp>
+
+namespace metal
+{
     template<template<typename...> class list, typename val>
     struct contains<list<>, val> :
         boolean<false>
