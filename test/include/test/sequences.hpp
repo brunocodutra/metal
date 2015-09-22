@@ -51,7 +51,5 @@ namespace test
 #define MAP(N) SEQ(N)<PAIRS(N)>
 #define MAPS(N) ENUM(N, LIFT(MAP))
 
-//metal::empty_t<SEQ(3)<EVAL(ENUM, 3, MAP(3) BAR)>
-
 #endif
 

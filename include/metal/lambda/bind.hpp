@@ -7,7 +7,6 @@
 
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/lambda/quote.hpp>
 #include <metal/optional/just.hpp>
 
 namespace metal
@@ -41,18 +40,20 @@ namespace metal
         struct quasiquote<lambda<expr>>
         {
             template<typename... args>
-            using wrapper = just<expr<args...>>;
+            using _ = just<expr<args...>>;
 
-            using type = metal::lambda<wrapper>;
+            using type = metal::lambda<_>;
         };
 
         template<template<typename...> class expr, typename... params>
         struct quasiquote<expr<params...>>
         {
-            using type = invoke<
-                quote_t<quasiquote_t<lambda<expr>>>,
-                quasiquote_t<params>...
-            >;
+            template<typename... args>
+            struct _ :
+                just<expr<args...>>
+            {};
+
+            using type = _<quasiquote_t<params>...>;
         };
     }
 
