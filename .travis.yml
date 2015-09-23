@@ -38,22 +38,6 @@ matrix:
                 sources: *sources
 
       - compiler: clang++
-        env: CXX_VERSION=3.3
-        addons:
-            apt:
-                packages:
-                  - clang-3.3
-                sources: *sources
-
-      - compiler: clang++
-        env: CXX_VERSION=3.4
-        addons:
-            apt:
-                packages:
-                  - clang-3.4
-                sources: *sources
-
-      - compiler: clang++
         env: CXX_VERSION=3.5
         addons:
             apt:
@@ -110,7 +94,7 @@ before_script:
   - cd "${TRAVIS_BUILD_DIR}/build"
 
   - if [[ -n "${CXX_VERSION}" ]]; then CXX=${CXX}-${CXX_VERSION}; fi
-  - cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=/usr/bin/${CXX}
+  - cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=${CXX}
 
 script:
   - if [[ "${BUILD_DOC}" != "true" ]]; then time make metal && ctest --output-on-failure; fi
