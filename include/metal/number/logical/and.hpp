@@ -29,18 +29,19 @@ namespace metal
         not_<eval_or<or_<eval_or<not_<nums>, void>...>, void>>
     {};
 
-    template<typename tx, tx vx, typename ty, ty vy>
-    struct and_<number<tx, vx>, number<ty, vy>> :
+    template<typename tx, tx vx, typename ty, ty vy, typename... tail>
+    struct and_<number<tx, vx>, number<ty, vy>, number<tail, true>...> :
         boolean<vx && vy>
     {};
 
     template<typename t, t v>
     struct and_<number<t, v>> :
-        boolean<v ? true : false>
+        boolean<v && true>
     {};
 
     template<>
-    struct and_<>
+    struct and_<> :
+        boolean<true>
     {};
 }
 

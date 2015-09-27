@@ -9,19 +9,19 @@
 
 #define MATRIX(M, N) \
     ASSERT((metal::is_just_t<metal::not_<VAL(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::and_<VALS(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::or_<VALS(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::and_<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::or_<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::and_<VALS(N)>>), (BOOL(!N))); \
+    ASSERT((metal::is_just_t<metal::or_<VALS(N)>>), (BOOL(!N))); \
+    ASSERT((metal::is_just_t<metal::and_<NUMS(M) COMMA(AND(M, N)) VALS(N)>>), (BOOL(!N))); \
+    ASSERT((metal::is_just_t<metal::or_<NUMS(M) COMMA(AND(M, N)) VALS(N)>>), (BOOL(!N))); \
     ASSERT((metal::is_just_t<metal::not_<NUM(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::and_<NUMS(N)>>), (BOOL(N > 0))); \
-    ASSERT((metal::is_just_t<metal::or_<NUMS(N)>>), (BOOL(N > 0))); \
-    ASSERT((metal::and_t<NUMS(INC(N))>), (FALSE)); \
-    ASSERT((metal::and_t<ENUM(INC(N), NUM(M) BAR)>), (BOOL(M > 0))); \
-    ASSERT((metal::and_t<ENUM(INC(N), NUM(M) BAR), ENUM(INC(M), NUM(N) BAR)>), (BOOL(M && N))); \
-    ASSERT((metal::or_t<NUMS(INC(N))>), (BOOL(N > 0))); \
-    ASSERT((metal::or_t<ENUM(INC(N), NUM(M) BAR)>), (BOOL(M > 0))); \
-    ASSERT((metal::or_t<ENUM(INC(N), NUM(M) BAR), ENUM(INC(M), NUM(N) BAR)>), (BOOL(M || N))); \
+    ASSERT((metal::is_just_t<metal::and_<NUMS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::or_<NUMS(N)>>), (TRUE)); \
+    ASSERT((metal::and_t<NUMS(N)>), (BOOL(!N))); \
+    ASSERT((metal::and_t<ENUM(N, NUM(M) BAR)>), (BOOL(!N || M))); \
+    ASSERT((metal::and_t<ENUM(N, NUM(M) BAR) COMMA(AND(M, N)) ENUM(M, NUM(N) BAR)>), (BOOL((M && N) || (!M && !N)))); \
+    ASSERT((metal::or_t<NUMS(N)>), (BOOL(N > 1))); \
+    ASSERT((metal::or_t<ENUM(N, NUM(M) BAR)>), (BOOL(N && M))); \
+    ASSERT((metal::or_t<ENUM(N, NUM(M) BAR) COMMA(AND(M, N)) ENUM(M, NUM(N) BAR)>), (BOOL(M && N))); \
 /**/
 
 GEN(MATRIX)

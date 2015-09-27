@@ -30,13 +30,19 @@ namespace metal
         conditional<and_t<is_number_t<nums>...>, boolean<true>>
     {};
 
-    template<typename... types>
-    struct or_<number<types, false>...> :
-        boolean<false>
+    template<typename tx, tx vx, typename ty, ty vy, typename... tail>
+    struct or_<number<tx, vx>, number<ty, vy>, number<tail, false>...> :
+        boolean<vx || vy>
+    {};
+
+    template<typename t, t v>
+    struct or_<number<t, v>> :
+        boolean<v || false>
     {};
 
     template<>
-    struct or_<>
+    struct or_<> :
+        boolean<false>
     {};
 }
 

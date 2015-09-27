@@ -25,11 +25,6 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename val>
-    struct contains<list<>, val> :
-        boolean<false>
-    {};
-
     template<template<typename...> class list, typename... vals, typename val>
     struct contains<list<vals...>, val> :
         or_<are_same_t<vals, val>...>
