@@ -19,15 +19,17 @@ namespace metal
     using contains_t = typename contains<list, val>::type;
 }
 
-#include <metal/core/are_same.hpp>
+#include <metal/optional/eval.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/logical/or.hpp>
+
+#include <type_traits>
 
 namespace metal
 {
     template<template<typename...> class list, typename... vals, typename val>
     struct contains<list<vals...>, val> :
-        or_<are_same_t<vals, val>...>
+        or_<eval<std::is_same<vals, val>>...>
     {};
 }
 

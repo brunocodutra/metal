@@ -19,13 +19,31 @@ namespace metal
     using same_t = typename same<list>::type;
 }
 
-#include <metal/core/are_same.hpp>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename...>
+        struct same_impl :
+            boolean<false>
+        {};
+
+        template<template<typename> class... _, typename val>
+        struct same_impl<_<val>...> :
+            boolean<true>
+        {};
+
+        template<>
+        struct same_impl<> :
+            boolean<true>
+        {};
+    }
+
     template<template<typename...> class list, typename... vals>
     struct same<list<vals...>> :
-        are_same<vals...>
+        detail::same_impl<same<vals>...>
     {};
 }
 
