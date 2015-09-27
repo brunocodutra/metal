@@ -11,10 +11,7 @@ namespace metal
     /// \brief ...
     template<template<typename...> class expr>
     struct lambda
-    {
-        template<typename... args>
-        using type = expr<args...>;
-    };
+    {};
 }
 
 #endif

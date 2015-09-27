@@ -59,28 +59,14 @@ namespace metal
     using is_just_t = typename metal::is_just<opt>::type;
 }
 
-#include <metal/optional/eval.hpp>
-#include <metal/core/voider.hpp>
-#include <metal/number/number.hpp>
+#include <metal/optional/nothing.hpp>
+#include <metal/number/logical/not.hpp>
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename, typename = void>
-        struct is_just_impl :
-            boolean<false>
-        {};
-
-        template<typename opt>
-        struct is_just_impl<opt, voider_t<eval<opt>, int opt::*>> :
-            boolean<true>
-        {};
-    }
-
     template<typename opt>
     struct is_just :
-        detail::is_just_impl<opt>
+        not_<is_nothing_t<opt>>
     {};
 }
 

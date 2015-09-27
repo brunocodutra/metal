@@ -13,26 +13,20 @@ namespace metal
     struct optional;
 }
 
-#include <metal/optional/just.hpp>
-#include <metal/number/number.hpp>
+#include<metal/lambda/invoke.hpp>
+#include<metal/lambda/lambda.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename, typename = boolean<true>>
-        struct optional_impl
-        {};
-
         template<typename opt>
-        struct optional_impl<opt, is_just_t<opt>> :
-            just<typename opt::type>
-        {};
+        using identity = opt;
     }
 
     template<typename opt>
     struct optional :
-        detail::optional_impl<opt>
+        invoke<lambda<detail::identity>, opt>
     {};
 }
 

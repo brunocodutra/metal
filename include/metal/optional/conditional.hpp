@@ -19,12 +19,9 @@ namespace metal
     using conditional_t = typename metal::conditional<args...>::type;
 }
 
-#include <metal/optional/eval.hpp>
 #include <metal/optional/nothing.hpp>
 #include <metal/optional/optional.hpp>
 #include <metal/number/number.hpp>
-
-#include <type_traits>
 
 namespace metal
 {
@@ -33,14 +30,24 @@ namespace metal
         conditional<pred1, then1, conditional<pred2, then2, else_...>>
     {};
 
-    template<typename t, t v, typename then, typename else_>
-    struct conditional<number<t, v>, then, else_> :
-        optional<eval<std::conditional<static_cast<bool>(v), then, else_>>>
-    {};
-
     template<typename pred, typename then>
     struct conditional<pred, then> :
         conditional<pred, then, nothing>
+    {};
+
+    template<typename t, t v, typename then, typename else_>
+    struct conditional<number<t, v>, then, else_> :
+        conditional<boolean<v && true>, then, else_>
+    {};
+
+    template<typename then, typename else_>
+    struct conditional<boolean<true>, then, else_> :
+        optional<then>
+    {};
+
+    template<typename then, typename else_>
+    struct conditional<boolean<false>, then, else_> :
+        optional<else_>
     {};
 }
 

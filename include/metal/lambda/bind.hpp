@@ -19,58 +19,61 @@ namespace metal
     using bind_t = typename metal::bind<args...>::type;
 }
 
-# include <metal/lambda/invoke.hpp>
-# include <metal/lambda/lambda.hpp>
-# include <metal/optional/just.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/list/at.hpp>
+#include <metal/number/number.hpp>
+#include <metal/optional/just.hpp>
+#include <metal/optional/nothing.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename val>
-        struct quasiquote
-        {
-            using type = val;
-        };
-
-        template<typename... args>
-        using quasiquote_t = typename quasiquote<args...>::type;
-
         template<
-            template<template<typename...> class> class lambda,
-            template<typename...> class expr
+            template<typename...> class expr,
+            template<typename...> class list,
+            typename... args,
+            typename ret = expr<typename args::type...>
         >
-        struct quasiquote<lambda<expr>>
-        {
-            template<typename... args>
-            using _ = just<expr<args...>>;
+        just<ret> bind_impl(list<args...>*);
 
-            using type = metal::lambda<_>;
-        };
-
-        template<template<typename...> class expr, typename... params>
-        struct quasiquote<expr<params...>>
-        {
-            template<typename... args>
-            struct _ :
-                just<expr<args...>>
-            {};
-
-            using type = _<quasiquote_t<params>...>;
-        };
+        template<template<typename...> class expr>
+        nothing bind_impl(...);
     }
 
-    template<typename lbd, typename... args>
-    struct bind<lbd, args...> :
-        invoke<detail::quasiquote_t<lbd>, args...>
+    template<typename val, typename... args>
+    struct bind<val, args...>
+    {
+        using type = val;
+    };
+
+    template<std::size_t n, typename... args>
+    struct bind<arg<n>, args...> :
+        at<bind<arg<n>, args...>, number<std::size_t, n>>
+    {};
+
+    template<typename... args>
+    struct bind<arg<0U>, args...>
     {};
 
     template<
         template<template<typename...> class> class lambda,
+        template<typename...> class expr,
         typename... args
     >
-    struct bind<lambda<bind>, args...> :
-        just<bind<args...>>
+    struct bind<lambda<expr>, args...> :
+        decltype(detail::bind_impl<expr>(static_cast<bind<just<args>...>*>(0)))
+    {};
+
+    template<
+        template<typename...> class expr,
+        typename... params,
+        typename... args
+    >
+    struct bind<expr<params...>, args...> :
+        decltype(detail::bind_impl<expr>(
+            static_cast<bind<bind<params, args...>...>*>(0)
+        ))
     {};
 }
 

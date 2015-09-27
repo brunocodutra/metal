@@ -17,20 +17,9 @@
 namespace test
 {
     template<template<typename...> class> class lambda;
-    template<template<typename...> class _> using lambda0 = lambda<_>;
-    template<template<EVAL(ENUM,  1, typename BAR)> class> union  lambda1;
-    template<template<EVAL(ENUM,  2, typename BAR)> class> union  lambda2;
-    template<template<EVAL(ENUM,  3, typename BAR)> class> union  lambda3;
-    template<template<EVAL(ENUM,  4, typename BAR)> class> union  lambda4;
-    template<template<EVAL(ENUM,  5, typename BAR)> class> union  lambda5;
-    template<template<EVAL(ENUM,  6, typename BAR)> class> struct lambda6;
-    template<template<EVAL(ENUM,  7, typename BAR)> class> struct lambda7;
-    template<template<EVAL(ENUM,  8, typename BAR)> class> struct lambda8;
-    template<template<EVAL(ENUM,  9, typename BAR)> class> struct lambda9;
-    template<template<EVAL(ENUM, 10, typename BAR)> class> struct lambda10;
 }
 
-#define FUN(...) CAT(test::lambda, __VA_ARGS__)<EXPR(__VA_ARGS__)>
+#define FUN(...) test::lambda<EXPR(__VA_ARGS__)>
 #define FUNS(N) ENUM(N, LIFT(FUN))
 
 #endif

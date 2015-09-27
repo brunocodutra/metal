@@ -19,14 +19,53 @@ namespace metal
     using invoke_t = typename invoke<args...>::type;
 }
 
-#include <metal/lambda/apply.hpp>
-#include <metal/list/list.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/optional/eval.hpp>
+#include <metal/optional/just.hpp>
+#include <metal/optional/nothing.hpp>
 
 namespace metal
 {
-    template<typename lbd, typename... args>
-    struct invoke<lbd, args...> :
-        apply<lbd, list<args...>>
+    namespace detail
+    {
+        template<
+            template<typename...> class expr,
+            template<typename...> class list,
+            typename... args,
+            typename bound = expr<typename args::type...>,
+            typename ret = eval<bound>
+        >
+        just<ret> invoke_impl(list<args...>*, int bound::* = 0);
+
+        template<template<typename...> class expr>
+        nothing invoke_impl(...);
+    }
+
+    template<typename val, typename... args>
+    struct invoke<val, args...> :
+        bind<val, args...>
+    {};
+
+    template<
+        template<template<typename...> class> class lambda,
+        template<typename...> class expr,
+        typename... args
+    >
+    struct invoke<lambda<expr>, args...> :
+        decltype(detail::invoke_impl<expr>(
+            static_cast<invoke<just<args>...>*>(0)
+        ))
+    {};
+
+    template<
+        template<typename...> class expr,
+        typename... params,
+        typename... args
+    >
+    struct invoke<expr<params...>, args...> :
+        decltype(detail::invoke_impl<expr>(
+            static_cast<invoke<invoke<params, args...>...>*>(0)
+        ))
     {};
 }
 
