@@ -9,9 +9,9 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    using CAT(CAT(trunk, N), 0) = SEQ()<VALS(N)>; \
+    using CAT(CAT(trunk, N), 0) = SEQ()<VAL(N)>; \
     using CAT(CAT(trunk, N), INC(M)) = metal::join_t<CAT(CAT(trunk, N), M), CAT(CAT(trunk, N), M)>; \
-    using CAT(CAT(tree, N), M) = SEQ()<VALS(N) COMMA(AND(M, N)) ENUM(M, CAT(tree, N))>; \
+    using CAT(CAT(tree, N), M) = SEQ()<VAL(N) COMMA(M) ENUM(M, CAT(tree, N))>; \
     ASSERT((metal::is_just_t<metal::flatten<VAL(M)>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::flatten<NUM(M)>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::flatten<PAIR(M)>>), (TRUE)); \

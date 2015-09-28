@@ -18,6 +18,7 @@ namespace metal
     using join_t = typename join<lists...>::type;
 }
 
+#include <metal/list/list.hpp>
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/optional/eval.hpp>
@@ -27,19 +28,39 @@ namespace metal
 {
     namespace detail
     {
+        template<typename _>
+        struct join_impl;
+
+        template<typename _>
+        using join_impl_t = typename join_impl<_>::type;
+
         template<typename>
-        struct join_recurse
+        struct join_recurse;
+
+        template<
+            template<typename...> class xl, typename... xs,
+            template<typename...> class yl, typename... ys,
+            template<typename...> class zl, typename... zs,
+            typename... lists
+        >
+        struct join_recurse<list<xl<xs...>, yl<ys...>, zl<zs...>, lists...>> :
+            join_impl<list<xl<xs..., ys..., zs...>, lists...>>
         {};
 
         template<
-            template<typename...> class list,
             template<typename...> class xl, typename... xs,
-            template<typename...> class yl, typename... ys,
-            typename... lists
+            template<typename...> class yl, typename... ys
         >
-        struct join_recurse<list<xl<xs...>, yl<ys...>, lists...>> :
-            eval_or<join<bind<lambda<xl>, xs..., ys...>, lists...>, nothing>
-        {};
+        struct join_recurse<list<xl<xs...>, yl<ys...>>>
+        {
+            using type = xl<xs..., ys...>;
+        };
+
+        template<template<typename...> class xl, typename... xs>
+        struct join_recurse<list<xl<xs...>>>
+        {
+            using type = xl<xs...>;
+        };
 
         template<typename _>
         struct join_impl :
@@ -49,32 +70,26 @@ namespace metal
         template<
             template<typename...> class list,
             template<typename...> class head, typename... hs,
-            template<typename...> class... tail, typename... ts
+            template<typename...> class... lists, typename... ts
         >
-        struct join_impl<list<head<hs...>, tail<ts>...>> :
-            bind<lambda<head>, hs..., ts...>
-        {};
+        struct join_impl<list<head<hs...>, lists<ts>...>>
+        {
+            using type = head<hs..., ts...>;
+        };
     }
 
-    template<typename... lists>
-    struct join :
-        detail::join_impl<join<lists...>>
+    template<template<typename...> class head, typename... hs, typename... tail>
+    struct join<head<hs...>, tail...> :
+        eval_or<
+            detail::join_impl<list<bind<lambda<head>, hs...>, tail...>>,
+            nothing
+        >
     {};
 
-    template<template<typename...> class head, typename... hs>
-    struct join<head<hs...>>
-    {
-        using type = head<hs...>;
-    };
-
-    template<
-        template<typename...> class head, typename... hs,
-        template<typename...> class... tail
-    >
-    struct join<head<hs...>, tail<>...>
-    {
-        using type = head<hs...>;
-    };
+    template<typename... hs, typename... tail>
+    struct join<list<hs...>, tail...> :
+        detail::join_impl<list<list<hs...>, tail...>>
+    {};
 }
 
 #endif
