@@ -18,15 +18,28 @@ namespace metal
     using and_t = typename and_<nums...>::type;
 }
 
+#include <metal/number/number.hpp>
 #include <metal/number/logical/or.hpp>
 #include <metal/number/logical/not.hpp>
+#include <metal/optional/conditional.hpp>
 #include <metal/optional/eval.hpp>
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename... nums>
+        struct and_impl :
+            not_<or_t<not_t<nums>...>>
+        {};
+    }
+
     template<typename... nums>
     struct and_ :
-        not_<eval_or<or_<eval_or<not_<nums>, void>...>, void>>
+        conditional<
+            eval<detail::and_impl<is_number_t<nums>...>>,
+            detail::and_impl<nums...>
+        >
     {};
 
     template<typename tx, tx vx, typename ty, ty vy, typename... tail>

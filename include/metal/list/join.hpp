@@ -68,7 +68,6 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list,
             template<typename...> class head, typename... hs,
             template<typename...> class... lists, typename... ts
         >
