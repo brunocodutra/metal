@@ -20,25 +20,20 @@ namespace metal
 }
 
 #include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/optional/eval.hpp>
 #include <metal/optional/just.hpp>
-#include <metal/optional/nothing.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<
-            template<typename...> class expr,
-            template<typename...> class list,
-            typename... args,
-            typename bound = expr<typename args::type...>,
-            typename ret = eval<bound>
-        >
-        just<ret> invoke_impl(list<args...>*, int bound::* = 0);
-
         template<template<typename...> class expr>
-        nothing invoke_impl(...);
+        struct lift
+        {
+            template<typename... args>
+            using type = eval<bind_t<lambda<expr>, eval<args>...>>;
+        };
     }
 
     template<typename val, typename... args>
@@ -52,9 +47,7 @@ namespace metal
         typename... args
     >
     struct invoke<lambda<expr>, args...> :
-        decltype(detail::invoke_impl<expr>(
-            static_cast<invoke<just<args>...>*>(0)
-        ))
+        bind<lambda<detail::lift<expr>::template type>, just<args>...>
     {};
 
     template<
@@ -63,9 +56,10 @@ namespace metal
         typename... args
     >
     struct invoke<expr<params...>, args...> :
-        decltype(detail::invoke_impl<expr>(
-            static_cast<invoke<invoke<params, args...>...>*>(0)
-        ))
+        bind<
+            lambda<detail::lift<expr>::template type>,
+            invoke<params, args...>...
+        >
     {};
 }
 

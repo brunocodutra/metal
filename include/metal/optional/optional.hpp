@@ -13,20 +13,29 @@ namespace metal
     struct optional;
 }
 
-#include<metal/lambda/invoke.hpp>
-#include<metal/lambda/lambda.hpp>
+#include <metal/optional/eval.hpp>
+#include <metal/optional/just.hpp>
+#include <metal/optional/nothing.hpp>
+#include <metal/core/voider.hpp>
 
 namespace metal
 {
     namespace detail
     {
+        template<typename opt, typename = void>
+        struct optional_impl :
+            nothing
+        {};
+
         template<typename opt>
-        using identity = opt;
+        struct optional_impl<opt, voider_t<eval<opt>, void (opt::*)(void)>> :
+            just<eval<opt>>
+        {};
     }
 
     template<typename opt>
     struct optional :
-        invoke<lambda<detail::identity>, opt>
+        detail::optional_impl<opt>
     {};
 }
 
