@@ -21,6 +21,7 @@
     ASSERT((metal::contains_t<PAIR(M), NUM(N)>), (BOOL(M == N))); \
     ASSERT((metal::contains_t<LIST(M), VAL(N)>), (BOOL(M > N))); \
     ASSERT((metal::contains_t<MAP(M), PAIR(N)>), (BOOL(M > N))); \
+    ASSERT((metal::contains_t<LBD(M), NA(N)>), (BOOL(M < LIMIT))); \
     ASSERT((metal::contains_t<LBD(M), ARG(N)>), (BOOL(M > N))); \
     ASSERT((metal::contains_t<SEQ()<VAL(M), VALS(INC(M))>, VAL(N)>), (BOOL(M >= N))); \
     ASSERT((metal::contains_t<SEQ(M)<ENUM(M, VAL(N) BAR)>, VAL(N)>), (BOOL(M > 0))); \

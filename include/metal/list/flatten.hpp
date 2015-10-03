@@ -21,58 +21,51 @@ namespace metal
 
 #include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
+#include <metal/optional/eval.hpp>
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/lambda.hpp>
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct flatten_impl;
+
+        template<typename... vals>
+        struct flatten_impl<list<vals...>> :
+            join<eval<flatten_impl<list<vals>>>...>
+        {};
+
+        template<template<typename...> class inner, typename... vals>
+        struct flatten_impl<list<inner<vals...>>> :
+            flatten_impl<list<vals...>>
+        {};
+
+        template<typename val>
+        struct flatten_impl<list<val>>
+        {
+            using type = list<val>;
+        };
+
+        template<>
+        struct flatten_impl<list<>>
+        {
+            using type = list<>;
+        };
+    }
+
     template<template<typename...> class list, typename... vals>
     struct flatten<list<vals...>> :
-        join_t<bind<lambda<list>>, flatten_t<metal::list<vals>>...>
+        join_t<
+            bind<lambda<list>>,
+            eval<detail::flatten_impl<metal::list<vals...>>>
+        >
     {};
 
     template<typename... vals>
     struct flatten<list<vals...>> :
-        join<flatten_t<list<vals>>...>
-    {};
-
-    template<
-        template<typename...> class outer,
-        template<typename...> class inner,
-        typename... vals
-    >
-    struct flatten<outer<inner<vals...>>> :
-        flatten_t<bind<lambda<outer>, vals...>>
-    {};
-
-    template<
-        template<typename...> class inner,
-        typename... vals
-    >
-    struct flatten<list<inner<vals...>>> :
-        flatten<list<vals...>>
-    {};
-
-    template<template<typename...> class list, typename val>
-    struct flatten<list<val>>
-    {
-        using type = list<val>;
-    };
-
-    template<typename val>
-    struct flatten<list<val>> :
-        list<val>
-    {};
-
-    template<template<typename...> class list>
-    struct flatten<list<>>
-    {
-        using type = list<>;
-    };
-
-    template<>
-    struct flatten<list<>> :
-        list<>
+        detail::flatten_impl<list<vals...>>
     {};
 }
 

@@ -28,14 +28,8 @@ namespace metal
 {
     namespace detail
     {
-        template<typename _>
-        struct join_impl;
-
-        template<typename _>
-        using join_impl_t = typename join_impl<_>::type;
-
         template<typename>
-        struct join_recurse;
+        struct join_impl;
 
         template<
             template<typename...> class xl, typename... xs,
@@ -43,7 +37,7 @@ namespace metal
             template<typename...> class zl, typename... zs,
             typename... lists
         >
-        struct join_recurse<list<xl<xs...>, yl<ys...>, zl<zs...>, lists...>> :
+        struct join_impl<list<xl<xs...>, yl<ys...>, zl<zs...>, lists...>> :
             join_impl<list<xl<xs..., ys..., zs...>, lists...>>
         {};
 
@@ -51,29 +45,15 @@ namespace metal
             template<typename...> class xl, typename... xs,
             template<typename...> class yl, typename... ys
         >
-        struct join_recurse<list<xl<xs...>, yl<ys...>>>
+        struct join_impl<list<xl<xs...>, yl<ys...>>>
         {
             using type = xl<xs..., ys...>;
         };
 
         template<template<typename...> class xl, typename... xs>
-        struct join_recurse<list<xl<xs...>>>
+        struct join_impl<list<xl<xs...>>>
         {
             using type = xl<xs...>;
-        };
-
-        template<typename _>
-        struct join_impl :
-            join_recurse<_>
-        {};
-
-        template<
-            template<typename...> class head, typename... hs,
-            template<typename...> class... lists, typename... ts
-        >
-        struct join_impl<list<head<hs...>, lists<ts>...>>
-        {
-            using type = head<hs..., ts...>;
         };
     }
 

@@ -42,6 +42,19 @@
 #define DEC_10 9
 #define DEC(N) CAT_(DEC_, N)
 
+#define CMPL_0 10
+#define CMPL_1  9
+#define CMPL_2  8
+#define CMPL_3  7
+#define CMPL_4  6
+#define CMPL_5  5
+#define CMPL_6  4
+#define CMPL_7  3
+#define CMPL_8  2
+#define CMPL_9  1
+#define CMPL_10 0
+#define CMPL(N) CAT_(CMPL_, N)
+
 #define NOT_0  1
 #define NOT_1  0
 #define NOT_2  0
@@ -112,7 +125,7 @@
 #define X1(...) X( , __VA_ARGS__)
 #define X10(...) X1(X1(X1(X1(X1(X1(X1(X1(X1(X1(X( , __VA_ARGS__)))))))))))
 
-#define EVAL(M, ...) X10(X( , M(__VA_ARGS__)))
+#define EVAL(M, ...) X10(X10(X( , M(__VA_ARGS__))))
 
 #define GEN_I0(I, M)
 #define GEN_I1(I, M)  EVAL(M, I, 0)

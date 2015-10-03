@@ -20,7 +20,7 @@
     ASSERT((metal::empty_t<PAIR(M)>), (FALSE)); \
     ASSERT((metal::empty_t<LIST(M)>), (BOOL(!M))); \
     ASSERT((metal::empty_t<MAP(M)>), (BOOL(!M))); \
-    ASSERT((metal::empty_t<LBD(M)>), (BOOL(!M))); \
+    ASSERT((metal::empty_t<LBD(M)>), (FALSE)); \
     ASSERT((metal::empty_t<SEQ()<VAL(M), VALS(INC(M))>>), (FALSE)); \
     ASSERT((metal::empty_t<SEQ(M)<ENUM(M, VAL(N) BAR)>>), (BOOL(!M))); \
     ASSERT((metal::empty_t<SEQ()< \

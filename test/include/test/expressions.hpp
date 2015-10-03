@@ -9,7 +9,9 @@
 
 namespace test
 {
-    template<typename...>
+    enum na {};
+
+    template<EVAL(ENUM, LIMIT, typename = na BAR)>
     class expr
     {
     public:
@@ -31,18 +33,21 @@ namespace test
     template<typename... _>
     using expr0 = typename detail::expr0_impl<_...>::type;
 
-    template<EVAL(ENUM,  1, typename BAR)> union  expr1  {using type = expr1&;};
-    template<EVAL(ENUM,  2, typename BAR)> union  expr2  {using type = expr2&;};
-    template<EVAL(ENUM,  3, typename BAR)> union  expr3  {using type = expr3&;};
-    template<EVAL(ENUM,  4, typename BAR)> union  expr4  {using type = expr4&;};
-    template<EVAL(ENUM,  5, typename BAR)> union  expr5  {using type = expr5&;};
-    template<EVAL(ENUM,  6, typename BAR)> struct expr6  {using type = expr6&;};
-    template<EVAL(ENUM,  7, typename BAR)> struct expr7  {using type = expr7&;};
-    template<EVAL(ENUM,  8, typename BAR)> struct expr8  {using type = expr8&;};
-    template<EVAL(ENUM,  9, typename BAR)> struct expr9  {using type = expr9&;};
-    template<EVAL(ENUM, 10, typename BAR)> struct expr10 {using type = expr10&;};
+    template<EVAL(ENUM,  1, typename _)> using expr1  = expr<EVAL(ENUM,  1, _)>;
+    template<EVAL(ENUM,  2, typename _)> using expr2  = expr<EVAL(ENUM,  2, _)>;
+    template<EVAL(ENUM,  3, typename _)> using expr3  = expr<EVAL(ENUM,  3, _)>;
+    template<EVAL(ENUM,  4, typename _)> using expr4  = expr<EVAL(ENUM,  4, _)>;
+    template<EVAL(ENUM,  5, typename _)> using expr5  = expr<EVAL(ENUM,  5, _)>;
+    template<EVAL(ENUM,  6, typename _)> using expr6  = expr<EVAL(ENUM,  6, _)>;
+    template<EVAL(ENUM,  7, typename _)> using expr7  = expr<EVAL(ENUM,  7, _)>;
+    template<EVAL(ENUM,  8, typename _)> using expr8  = expr<EVAL(ENUM,  8, _)>;
+    template<EVAL(ENUM,  9, typename _)> using expr9  = expr<EVAL(ENUM,  9, _)>;
+    template<EVAL(ENUM, 10, typename _)> using expr10 = expr<EVAL(ENUM, 10, _)>;
 }
 
+
+#define NA(...) test::na
+#define PARAMS(N) ARGS(N) COMMA(AND(N, CMPL(N))) ENUM(CMPL(N), LIFT(NA))
 #define EXPR(...) CAT(test::expr, __VA_ARGS__)
 
 #endif

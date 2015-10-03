@@ -15,7 +15,7 @@
     ASSERT((metal::is_just_t<metal::at<LIST(M), NUM(N)>>), (BOOL(M > N))); \
     ASSERT((metal::is_just_t<metal::at<MAP(M), NUM(N)>>), (BOOL(M > N))); \
     ASSERT((metal::is_just_t<metal::at<ARG(M), NUM(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::at<LBD(M), NUM(N)>>), (BOOL(M > N))); \
+    ASSERT((metal::is_just_t<metal::at<LBD(M), NUM(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::at<FUN(M), NUM(N)>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::at<LIST(M), VAL(N)>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::at<LIST(M), PAIR(N)>>), (FALSE)); \
@@ -28,6 +28,7 @@
     ASSERT((metal::at_t<PAIR(N), NUM(1)>), (VAL(N))); \
     ASSERT((metal::at_t<LIST(LIMIT), NUM(N)>), (VAL(N))); \
     ASSERT((metal::at_t<MAP(LIMIT), NUM(N)>), (PAIR(N))); \
+    ASSERT((metal::at_t<LBD(N), NUM(N)>), (NA(N))); \
     ASSERT((metal::at_t<LBD(LIMIT), NUM(N)>), (ARG(N))); \
     ASSERT((metal::at_t<SEQ()<LISTS(M) COMMA(M) MAPS(INC(N))>, NUM(M)>), (MAP(0))); \
     ASSERT((metal::at_t<SEQ()< \

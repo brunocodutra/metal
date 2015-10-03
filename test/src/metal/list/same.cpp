@@ -20,7 +20,7 @@
     ASSERT((metal::same_t<PAIR(M)>), (FALSE)); \
     ASSERT((metal::same_t<LIST(M)>), (BOOL(M < 2))); \
     ASSERT((metal::same_t<MAP(M)>), (BOOL(M < 2))); \
-    ASSERT((metal::same_t<LBD(M)>), (BOOL(M < 2))); \
+    ASSERT((metal::same_t<LBD(M)>), (BOOL(!M))); \
     ASSERT((metal::same_t<SEQ()<VAL(M), VALS(INC(M))>>), (BOOL(!M))); \
     ASSERT((metal::same_t<SEQ(M)<ENUM(M, VAL(N) BAR)>>), (TRUE)); \
     ASSERT((metal::same_t<SEQ()< \

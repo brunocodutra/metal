@@ -20,7 +20,7 @@
     ASSERT((metal::distinct_t<PAIR(M)>), (TRUE)); \
     ASSERT((metal::distinct_t<LIST(M)>), (TRUE)); \
     ASSERT((metal::distinct_t<MAP(M)>), (TRUE)); \
-    ASSERT((metal::distinct_t<LBD(M)>), (TRUE)); \
+    ASSERT((metal::distinct_t<LBD(M)>), (BOOL(CMPL(M) < 2))); \
     ASSERT((metal::distinct_t<SEQ()<VAL(M), VALS(INC(M))>>), (FALSE)); \
     ASSERT((metal::distinct_t<SEQ(M)<ENUM(M, VAL(N) BAR)>>), (BOOL(M < 2))); \
     ASSERT((metal::distinct_t<SEQ()< \

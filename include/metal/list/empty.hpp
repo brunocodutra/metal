@@ -19,18 +19,14 @@ namespace metal
     using empty_t = typename metal::empty<list>::type;
 }
 
-#include <metal/number/number.hpp>
+#include <metal/list/size.hpp>
+#include <metal/number/logical/not.hpp>
 
 namespace metal
 {
     template<template<typename...> class list, typename... vals>
     struct empty<list<vals...>> :
-        boolean<false>
-    {};
-
-    template<template<typename...> class list>
-    struct empty<list<>> :
-        boolean<true>
+        not_<size_t<list<vals...>>>
     {};
 }
 

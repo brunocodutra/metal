@@ -23,7 +23,7 @@
     ASSERT((metal::size_t<PAIR(M)>), (SIZE(2))); \
     ASSERT((metal::size_t<LIST(M)>), (SIZE(M))); \
     ASSERT((metal::size_t<MAP(M)>), (SIZE(M))); \
-    ASSERT((metal::size_t<LBD(M)>), (SIZE(M))); \
+    ASSERT((metal::size_t<LBD(M)>), (SIZE(LIMIT))); \
     ASSERT((metal::size_t<SEQ()<VALS(M) COMMA(AND(M, N)) VALS(N)>>), (SIZE(M + N))); \
     ASSERT((metal::size_t<SEQ(M)<ENUM(M, VAL(N) BAR)>>), (SIZE(M))); \
     ASSERT((metal::size_t<SEQ()< \

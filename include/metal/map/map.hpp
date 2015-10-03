@@ -25,7 +25,11 @@ namespace metal
 
 #include <metal/list/list.hpp>
 #include <metal/list/distinct.hpp>
+#include <metal/list/size.hpp>
+#include <metal/list/empty.hpp>
 #include <metal/number/number.hpp>
+#include <metal/number/logical/and.hpp>
+#include <metal/number/comparison/equal_to.hpp>
 #include <metal/optional/conditional.hpp>
 #include <metal/optional/just.hpp>
 
@@ -43,7 +47,7 @@ namespace metal
 
     template<template<typename...> class map>
     struct is_map<map<>> :
-        boolean<true>
+        empty<map<>>
     {};
 
     template<
@@ -53,7 +57,10 @@ namespace metal
         typename... vals
     >
     struct is_map<map<pairs<keys, vals>...>> :
-        distinct<list<keys...>>
+        and_<
+            equal_to_t<size_t<pairs<keys, vals>>, integer<2>>...,
+            distinct_t<list<keys...>>
+        >
     {};
 }
 

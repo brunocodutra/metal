@@ -24,6 +24,7 @@
     ASSERT((metal::count_t<PAIR(M), NUM(N)>), (COUNT(M == N))); \
     ASSERT((metal::count_t<LIST(M), VAL(N)>), (COUNT(M > N))); \
     ASSERT((metal::count_t<MAP(M), PAIR(N)>), (COUNT(M > N))); \
+    ASSERT((metal::count_t<LBD(M), NA(N)>), (COUNT(CMPL(M)))); \
     ASSERT((metal::count_t<LBD(M), ARG(N)>), (COUNT(M > N))); \
     ASSERT((metal::count_t<SEQ()<VAL(M), VALS(INC(M))>, VAL(N)>), (COUNT((M >= N) + (M == N)))); \
     ASSERT((metal::count_t<SEQ(M)<ENUM(M, VAL(N) BAR)>, VAL(N)>), (COUNT(M))); \

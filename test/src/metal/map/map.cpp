@@ -24,7 +24,7 @@
     ASSERT((metal::is_map_t<LIST(N)>), (BOOL(!N))); \
     ASSERT((metal::is_map_t<MAP(N)>), (TRUE)); \
     ASSERT((metal::is_map_t<ARG(N)>), (FALSE)); \
-    ASSERT((metal::is_map_t<LBD(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_map_t<LBD(N)>), (FALSE)); \
     ASSERT((metal::is_map_t<FUN(N)>), (FALSE)); \
 /**/
 
