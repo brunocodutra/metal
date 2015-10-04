@@ -20,22 +20,13 @@ namespace metal
 }
 
 #include <metal/lambda/bind.hpp>
+#include <metal/lambda/compose.hpp>
+#include <metal/lambda/identity.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/optional/eval.hpp>
-#include <metal/optional/just.hpp>
+#include <metal/lambda/lift.hpp>
 
 namespace metal
 {
-    namespace detail
-    {
-        template<template<typename...> class expr>
-        struct lift
-        {
-            template<typename... args>
-            using type = eval<bind_t<lambda<expr>, eval<args>...>>;
-        };
-    }
-
     template<typename val, typename... args>
     struct invoke<val, args...> :
         bind<val, args...>
@@ -47,7 +38,7 @@ namespace metal
         typename... args
     >
     struct invoke<lambda<expr>, args...> :
-        bind<lambda<detail::lift<expr>::template type>, just<args>...>
+        bind<compose_t<lambda<expr>, lambda<identity>>, args...>
     {};
 
     template<
@@ -56,8 +47,8 @@ namespace metal
         typename... args
     >
     struct invoke<expr<params...>, args...> :
-        bind<
-            lambda<detail::lift<expr>::template type>,
+        invoke<
+            lift_t<lambda<identity>, lambda<expr>>,
             invoke<params, args...>...
         >
     {};

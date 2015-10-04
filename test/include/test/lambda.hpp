@@ -19,7 +19,9 @@ namespace test
     template<template<typename...> class> class lambda;
 }
 
-#define FUN(...) test::lambda<EXPR(__VA_ARGS__)>
+#define LAMBDA(...) test::lambda
+
+#define FUN(...) LAMBDA(__VA_ARGS__)<EXPR(__VA_ARGS__)>
 #define FUNS(N) ENUM(N, LIFT(FUN))
 
 #endif

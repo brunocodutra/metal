@@ -23,14 +23,14 @@ namespace metal
 
 namespace metal
 {
-    template<typename x, x xv>
-    struct mul<number<x, xv>> :
-        number<x, xv>
+    template<typename tx, tx vx>
+    struct mul<number<tx, vx>> :
+        number<tx, vx>
     {};
 
-    template<typename x, x xv, typename y, y yv, typename... nums>
-    struct mul<number<x, xv>, number<y, yv>, nums...> :
-        mul<number<decltype(xv * yv), xv * yv>, nums...>
+    template<typename tx, tx vx, typename ty, ty vy, typename... nums>
+    struct mul<number<tx, vx>, number<ty, vy>, nums...> :
+        mul<number<decltype(vx * vy), vx * vy>, nums...>
     {};
 }
 

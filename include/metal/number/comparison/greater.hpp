@@ -23,9 +23,9 @@ namespace metal
 
 namespace metal
 {
-    template<typename x, x xv, typename y, y yv>
-    struct greater<number<x, xv>, number<y, yv>> :
-        boolean<(xv > yv)>
+    template<typename tx, tx vx, typename ty, ty vy>
+    struct greater<number<tx, vx>, number<ty, vy>> :
+        boolean<(vx > vy)>
     {};
 }
 

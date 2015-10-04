@@ -20,6 +20,9 @@ namespace metal
 }
 
 #include <metal/lambda/arg.hpp>
+#include <metal/lambda/identity.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/lift.hpp>
 #include <metal/list/at.hpp>
 #include <metal/number/number.hpp>
 #include <metal/optional/just.hpp>
@@ -33,7 +36,7 @@ namespace metal
             template<typename...> class expr,
             template<typename...> class list,
             typename... args,
-            typename ret = expr<typename args::type...>
+            typename ret = expr<args...>
         >
         just<ret> bind_impl(list<args...>*);
 
@@ -62,7 +65,7 @@ namespace metal
         typename... args
     >
     struct bind<lambda<expr>, args...> :
-        decltype(detail::bind_impl<expr>(static_cast<bind<just<args>...>*>(0)))
+        decltype(detail::bind_impl<expr>(static_cast<bind<args...>*>(0)))
     {};
 
     template<
@@ -71,9 +74,7 @@ namespace metal
         typename... args
     >
     struct bind<expr<params...>, args...> :
-        decltype(detail::bind_impl<expr>(
-            static_cast<bind<bind<params, args...>...>*>(0)
-        ))
+        bind<lift_t<lambda<identity>, lambda<expr>>, bind<params, args...>...>
     {};
 }
 

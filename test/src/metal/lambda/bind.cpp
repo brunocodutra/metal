@@ -4,7 +4,6 @@
 
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/lambda.hpp>
 #include <metal/optional/just.hpp>
 
 #include "test.hpp"
@@ -25,7 +24,7 @@
     ASSERT((metal::is_just_t<metal::bind<FUN(M) COMMA(N) VALS(N)>>), (BOOL(M == N))); \
     ASSERT((metal::is_just_t<metal::bind<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)> COMMA(N) VALS(N)>>), (BOOL(M == N))); \
     ASSERT((metal::is_just_t<metal::bind<metal::bind<ARGS(INC(M))>, LBD(M) COMMA(N) VALS(N)>>), (BOOL(M <= N))); \
-    ASSERT((metal::is_just_t<metal::bind<metal::lambda<metal::bind>, FUN(M) COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::bind<LAMBDA(M)<metal::bind>, FUN(M) COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::bind_t<VAL(M) COMMA(N) VALS(N)>), (VAL(M))); \
     ASSERT((metal::bind_t<NUM(M) COMMA(N) VALS(N)>), (NUM(M))); \
     ASSERT((metal::bind_t<PAIR(M) COMMA(N) VALS(N)>), (PAIR(M))); \
@@ -39,7 +38,7 @@
     ASSERT((metal::bind_t<FUN(M) COMMA(M) VALS(M)>), (CAT(opt, M))); \
     ASSERT((metal::bind_t<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)> COMMA(M) VALS(M)>), (EXPR(INC(M))<ENUM(INC(M), opt)>)); \
     ASSERT((metal::bind_t<metal::bind<ARGS(INC(M))>, LBD(M) COMMA(M) VALS(M)>), (metal::bind<LBD(M) COMMA(M) VALS(M)>)); \
-    ASSERT((metal::bind_t<metal::lambda<metal::bind>, FUN(M) COMMA(M) VALS(M)>), (metal::bind<FUN(M) COMMA(M) VALS(M)>)); \
+    ASSERT((metal::bind_t<LAMBDA(M)<metal::bind>, FUN(M) COMMA(M) VALS(M)>), (metal::bind<FUN(M) COMMA(M) VALS(M)>)); \
 /**/
 
 GEN(MATRIX)

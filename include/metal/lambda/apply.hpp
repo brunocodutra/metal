@@ -20,12 +20,21 @@ namespace metal
 }
 
 #include <metal/lambda/invoke.hpp>
+#include <metal/optional/optional.hpp>
 
 namespace metal
 {
     template<typename lbd, template<typename...> class list, typename... args>
     struct apply<lbd, list<args...>> :
         invoke<lbd, args...>
+    {};
+
+    template<
+        template<template<typename...> class> class lambda,
+        template<typename...> class list, typename... args
+    >
+    struct apply<lambda<list>, list<args...>> :
+        optional<list<args...>>
     {};
 }
 
