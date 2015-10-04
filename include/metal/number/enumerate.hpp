@@ -5,9 +5,6 @@
 #ifndef METAL_NUMBER_ENUMERATE_HPP
 #define METAL_NUMBER_ENUMERATE_HPP
 
-#include <metal/number/number.hpp>
-#include <metal/list/list.hpp>
-
 namespace metal
 {
     /// \ingroup number
@@ -19,7 +16,15 @@ namespace metal
     /// \brief Eager adaptor for \ref enumerate.
     template<typename... args>
     using enumerate_t = typename metal::enumerate<args...>::type;
+}
 
+#include <metal/number/number.hpp>
+#include <metal/list/list.hpp>
+#include <metal/list/join.hpp>
+#include <metal/optional/eval.hpp>
+
+namespace metal
+{
     namespace detail
     {
         template<typename t, t... vs>
@@ -27,18 +32,12 @@ namespace metal
             list<number<t, vs>...>
         {};
 
-        template<typename, typename, typename, typename>
-        struct merge;
+        template<typename, typename>
+        struct offset;
 
-        template<
-            template<typename...> class list, typename t,
-            t ox, t... xs, t oy, t... ys
-        >
-        struct merge<
-            number<t, ox>, list<number<t, xs>...>,
-            number<t, oy>, list<number<t, ys>...>
-        > :
-            numbers<t, (ox + xs)..., (oy + ys)...>
+        template<template<typename...> class list, typename t, t... vs, t o>
+        struct offset<list<number<t, vs>...>, number<t, o>> :
+            numbers<t, (o + vs)...>
         {};
     }
 
@@ -52,11 +51,14 @@ namespace metal
 
     template<typename t, t f, t l>
     struct enumerate<number<t, f>, number<t, l>> :
-        detail::merge<
-            number<t, f>,
-            enumerate_t<number<t, (l - f)/2>>,
-            number<t, f + (l - f)/2>,
-            enumerate_t<number<t, l - f - (l - f)/2>>
+        join<
+            enumerate_t<number<t, f>, number<t, (l + f)/2>>,
+            eval<
+                detail::offset<
+                    enumerate_t<number<t, f>, number<t, l + f - (l + f)/2>>,
+                    number<t, (l + f)/2 - f>
+                >
+            >
         >
     {};
 

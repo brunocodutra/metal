@@ -13,8 +13,11 @@
 #include <metal/list/flatten.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
+#include <metal/list/reverse.hpp>
 #include <metal/list/same.hpp>
 #include <metal/list/size.hpp>
+#include <metal/list/splice.hpp>
+#include <metal/list/transform.hpp>
 #include <metal/list/zip.hpp>
 
 /// \defgroup list List

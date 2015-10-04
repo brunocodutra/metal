@@ -23,6 +23,9 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/list/size.hpp>
 #include <metal/list/same.hpp>
+#include <metal/list/transform.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/quote.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/enumerate.hpp>
 #include <metal/optional/eval.hpp>
@@ -34,28 +37,12 @@ namespace metal
 {
     namespace detail
     {
-        template<typename, typename...>
-        struct tier;
-
-        template<typename t, t v, typename... lists>
-        struct tier<number<t, v>, lists...> :
-            list<at_t<lists, number<t, v>>...>
-        {};
-
-        template<typename, typename...>
-        struct grid;
-
-        template<
-            template<typename...> class nl, typename... ns,
-            typename... lists
-        >
-        struct grid<nl<ns...>, lists...> :
-            list<eval<tier<ns, lists...>>...>
-        {};
-
-        template<typename x, typename y, typename... tail>
+        template<typename head, typename... tail>
         struct zip_impl :
-            grid<enumerate_t<size_t<x>>, x, y, tail...>
+            transform<
+                enumerate_t<size_t<head>>,
+                list<at<quote_t<head>, _1>, at<quote_t<tail>, _1>...>
+            >
         {};
 
         template<
