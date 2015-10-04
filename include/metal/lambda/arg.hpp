@@ -11,9 +11,13 @@ namespace metal
 {
     /// \ingroup lambda
     /// \brief ...
-    template<std::size_t>
-    struct arg
-    {};
+    template<std::size_t n, typename...>
+    struct arg;
+
+    /// \ingroup lambda
+    /// \brief Eager adaptor for \ref arg.
+    template<std::size_t n, typename... args>
+    using arg_t = typename metal::arg<n, args...>::type;
 
     /// \defgroup placeholders Placeholders
     /// \ingroup lambda
@@ -22,16 +26,52 @@ namespace metal
     /// \ingroup placeholders
     /// \brief Default placeholder.
     /// \{
-    using _1 = metal::arg<1U>;
-    using _2 = metal::arg<2U>;
-    using _3 = metal::arg<3U>;
-    using _4 = metal::arg<4U>;
-    using _5 = metal::arg<5U>;
-    using _6 = metal::arg<6U>;
-    using _7 = metal::arg<7U>;
-    using _8 = metal::arg<8U>;
-    using _9 = metal::arg<9U>;
+    using _1  = metal::arg<1U>;
+    using _2  = metal::arg<2U>;
+    using _3  = metal::arg<3U>;
+    using _4  = metal::arg<4U>;
+    using _5  = metal::arg<5U>;
+    using _6  = metal::arg<6U>;
+    using _7  = metal::arg<7U>;
+    using _8  = metal::arg<8U>;
+    using _9  = metal::arg<9U>;
+    using _10 = metal::arg<10U>;
     /// \}
+}
+
+#include <metal/list/at.hpp>
+#include <metal/list/list.hpp>
+#include <metal/number/number.hpp>
+
+namespace metal
+{
+    template<std::size_t n, typename... args>
+    struct arg :
+        at<list<args...>, number<std::size_t, n - 1>>
+    {};
+
+    template<typename x, typename y, typename z, typename... tail>
+    struct arg<3U, x, y, z, tail...>
+    {
+        using type = z;
+    };
+
+    template<typename x, typename y, typename... tail>
+    struct arg<2U, x, y, tail...>
+    {
+        using type = y;
+    };
+
+    template<typename head, typename... tail>
+    struct arg<1U, head, tail...>
+    {
+        using type = head;
+    };
+
+    template<typename... args>
+    struct arg<0U, args...>
+    {};
+
 }
 
 #endif

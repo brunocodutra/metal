@@ -3,15 +3,27 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/lambda/arg.hpp>
+#include <metal/optional/just.hpp>
 
 #include "test.hpp"
 
-ASSERT((metal::_1), (metal::arg<1U>));
-ASSERT((metal::_2), (metal::arg<2U>));
-ASSERT((metal::_3), (metal::arg<3U>));
-ASSERT((metal::_4), (metal::arg<4U>));
-ASSERT((metal::_5), (metal::arg<5U>));
-ASSERT((metal::_6), (metal::arg<6U>));
-ASSERT((metal::_7), (metal::arg<7U>));
-ASSERT((metal::_8), (metal::arg<8U>));
-ASSERT((metal::_9), (metal::arg<9U>));
+#define MATRIX(M, N) \
+    ASSERT((CAT(metal::_, INC(M))), (metal::arg<INC(M)>)); \
+    ASSERT((metal::is_just_t<metal::arg<M COMMA(N) VALS(N)>>), (BOOL(M && M <= N))); \
+    ASSERT((metal::is_just_t<metal::arg<M COMMA(N) NUMS(N)>>), (BOOL(M && M <= N))); \
+    ASSERT((metal::is_just_t<metal::arg<M COMMA(N) PAIRS(N)>>), (BOOL(M && M <= N))); \
+    ASSERT((metal::is_just_t<metal::arg<M COMMA(N) LISTS(N)>>), (BOOL(M && M <= N))); \
+    ASSERT((metal::is_just_t<metal::arg<M COMMA(N) MAPS(N)>>), (BOOL(M && M <= N))); \
+    ASSERT((metal::is_just_t<metal::arg<M COMMA(N) ARGS(N)>>), (BOOL(M && M <= N))); \
+    ASSERT((metal::is_just_t<metal::arg<M COMMA(N) LBDS(N)>>), (BOOL(M && M <= N))); \
+    ASSERT((metal::is_just_t<metal::arg<M COMMA(N) FUNS(N)>>), (BOOL(M && M <= N))); \
+    ASSERT((metal::arg_t<INC(M), VALS(INC(M))>), (VAL(M))); \
+    ASSERT((metal::arg_t<INC(M), NUMS(INC(M))>), (NUM(M))); \
+    ASSERT((metal::arg_t<INC(M), PAIRS(INC(M))>), (PAIR(M))); \
+    ASSERT((metal::arg_t<INC(M), LISTS(INC(M))>), (LIST(M))); \
+    ASSERT((metal::arg_t<INC(M), ARGS(INC(M))>), (ARG(M))); \
+    ASSERT((metal::arg_t<INC(M), LBDS(INC(M))>), (LBD(M))); \
+    ASSERT((metal::arg_t<INC(M), FUNS(INC(M))>), (FUN(M))); \
+/**/
+
+GEN(MATRIX)

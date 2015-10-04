@@ -23,8 +23,6 @@ namespace metal
 #include <metal/lambda/identity.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/lift.hpp>
-#include <metal/list/at.hpp>
-#include <metal/number/number.hpp>
 #include <metal/optional/just.hpp>
 #include <metal/optional/nothing.hpp>
 
@@ -52,11 +50,7 @@ namespace metal
 
     template<std::size_t n, typename... args>
     struct bind<arg<n>, args...> :
-        at<bind<arg<n>, args...>, number<std::size_t, n>>
-    {};
-
-    template<typename... args>
-    struct bind<arg<0U>, args...>
+        arg<n, args...>
     {};
 
     template<
