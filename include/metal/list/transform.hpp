@@ -20,7 +20,6 @@ namespace metal
 }
 
 #include <metal/lambda/bind.hpp>
-#include <metal/lambda/identity.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lift.hpp>
 #include <metal/lambda/lambda.hpp>
@@ -29,7 +28,7 @@ namespace metal
 {
     template<template<typename...> class list, typename... args, typename lbd>
     struct transform<list<args...>, lbd> :
-        bind<lift_t<lambda<identity>, lambda<list>>, invoke<lbd, args>...>
+        bind<lift_t<lambda<list>>, invoke<lbd, args>...>
     {};
 }
 

@@ -20,7 +20,6 @@ namespace metal
 }
 
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/identity.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/lift.hpp>
 #include <metal/optional/just.hpp>
@@ -68,7 +67,7 @@ namespace metal
         typename... args
     >
     struct bind<expr<params...>, args...> :
-        bind<lift_t<lambda<identity>, lambda<expr>>, bind<params, args...>...>
+        bind<lift_t<lambda<expr>>, bind<params, args...>...>
     {};
 }
 

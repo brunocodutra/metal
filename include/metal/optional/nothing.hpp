@@ -67,7 +67,7 @@ namespace metal
 {
     template<typename opt>
     struct is_nothing :
-        std::is_same<nothing, optional<opt>>
+        std::is_base_of<nothing, optional<opt>>
     {};
 }
 

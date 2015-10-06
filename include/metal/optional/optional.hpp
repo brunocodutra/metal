@@ -7,16 +7,10 @@
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename opt, typename = void>
-        struct optional_impl;
-    }
-
     /// \ingroup optional
     /// \brief ...
     template<typename opt>
-    using optional = typename detail::optional_impl<opt>::type;
+    struct optional;
 }
 
 #include <metal/optional/eval.hpp>
@@ -28,18 +22,21 @@ namespace metal
 {
     namespace detail
     {
-        template<typename opt, typename>
-        struct optional_impl
-        {
-            using type = nothing;
-        };
+        template<typename opt, typename = void>
+        struct optional_impl :
+            nothing
+        {};
 
         template<typename opt>
-        struct optional_impl<opt, voider_t<eval<opt>, void (opt::*)(void)>>
-        {
-            using type = just<eval<opt>>;
-        };
+        struct optional_impl<opt, voider_t<eval<opt>, void (opt::*)(void)>> :
+            just<eval<opt>>
+        {};
     }
+
+    template<typename opt>
+    struct optional :
+        detail::optional_impl<opt>
+    {};
 }
 
 #endif

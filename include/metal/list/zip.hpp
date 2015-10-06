@@ -32,7 +32,6 @@ namespace metal
 #include <metal/optional/just.hpp>
 #include <metal/optional/conditional.hpp>
 
-
 namespace metal
 {
     namespace detail

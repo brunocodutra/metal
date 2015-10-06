@@ -47,7 +47,7 @@ namespace metal
 {
     template<std::size_t n, typename... args>
     struct arg :
-        at<list<args...>, number<std::size_t, n - 1>>
+        at<list<arg<n>, args...>, number<std::size_t, n>>
     {};
 
     template<typename x, typename y, typename z, typename... tail>
@@ -62,16 +62,19 @@ namespace metal
         using type = y;
     };
 
-    template<typename head, typename... tail>
-    struct arg<1U, head, tail...>
+    template<typename x, typename... tail>
+    struct arg<1U, x, tail...>
     {
-        using type = head;
+        using type = x;
     };
 
     template<typename... args>
     struct arg<0U, args...>
     {};
 
+    template<std::size_t n>
+    struct arg<n>
+    {};
 }
 
 #endif

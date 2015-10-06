@@ -20,10 +20,9 @@ namespace metal
 }
 
 #include <metal/lambda/bind.hpp>
-#include <metal/lambda/compose.hpp>
-#include <metal/lambda/identity.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/lift.hpp>
+#include <metal/optional/eval.hpp>
 
 namespace metal
 {
@@ -38,7 +37,7 @@ namespace metal
         typename... args
     >
     struct invoke<lambda<expr>, args...> :
-        bind<compose_t<lambda<expr>, lambda<identity>>, args...>
+        bind<lift_t<lambda<eval>>, bind<lambda<expr>, args...>>
     {};
 
     template<
@@ -47,10 +46,7 @@ namespace metal
         typename... args
     >
     struct invoke<expr<params...>, args...> :
-        invoke<
-            lift_t<lambda<identity>, lambda<expr>>,
-            invoke<params, args...>...
-        >
+        invoke<lift_t<lambda<expr>>, invoke<params, args...>...>
     {};
 }
 
