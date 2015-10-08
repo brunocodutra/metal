@@ -28,7 +28,8 @@
 #define INC_7 8
 #define INC_8 9
 #define INC_9 10
-#define INC(N) CAT_(INC_, N)
+#define INC_(N) INC_##N
+#define INC(N) INC_(N)
 
 #define DEC_1  0
 #define DEC_2  1
@@ -40,20 +41,22 @@
 #define DEC_8  7
 #define DEC_9  8
 #define DEC_10 9
-#define DEC(N) CAT_(DEC_, N)
+#define DEC_(N) DEC_##N
+#define DEC(N) DEC_(N)
 
-#define CMPL_0 10
-#define CMPL_1  9
-#define CMPL_2  8
-#define CMPL_3  7
-#define CMPL_4  6
-#define CMPL_5  5
-#define CMPL_6  4
-#define CMPL_7  3
-#define CMPL_8  2
-#define CMPL_9  1
-#define CMPL_10 0
-#define CMPL(N) CAT_(CMPL_, N)
+#define CMPL_0  LIMIT
+#define CMPL_1  DEC(CMPL_0)
+#define CMPL_2  DEC(CMPL_1)
+#define CMPL_3  DEC(CMPL_2)
+#define CMPL_4  DEC(CMPL_3)
+#define CMPL_5  DEC(CMPL_4)
+#define CMPL_6  DEC(CMPL_5)
+#define CMPL_7  DEC(CMPL_6)
+#define CMPL_8  DEC(CMPL_7)
+#define CMPL_9  DEC(CMPL_8)
+#define CMPL_10 DEC(CMPL_9)
+#define CMPL_(N) CMPL_##N
+#define CMPL(N) CMPL_(N)
 
 #define NOT_0  1
 #define NOT_1  0
@@ -66,7 +69,8 @@
 #define NOT_8  0
 #define NOT_9  0
 #define NOT_10 0
-#define NOT(N) CAT_(NOT_, N)
+#define NOT_(N) NOT_##N
+#define NOT(N) NOT_(N)
 
 #define IF_0(T, F) F
 #define IF_1(T, F) T

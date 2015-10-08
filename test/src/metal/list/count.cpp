@@ -4,6 +4,7 @@
 
 #include <metal/list/count.hpp>
 #include <metal/lambda/arg.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
 #include <metal/optional/just.hpp>
 
