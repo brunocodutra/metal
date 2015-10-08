@@ -20,6 +20,7 @@ namespace metal
 }
 
 #include <metal/lambda/invoke.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/optional/optional.hpp>
 
 namespace metal
@@ -29,10 +30,7 @@ namespace metal
         invoke<lbd, args...>
     {};
 
-    template<
-        template<template<typename...> class> class lambda,
-        template<typename...> class list, typename... args
-    >
+    template<template<typename...> class list, typename... args>
     struct apply<lambda<list>, list<args...>> :
         optional<list<args...>>
     {};

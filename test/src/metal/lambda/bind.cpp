@@ -4,41 +4,40 @@
 
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/arg.hpp>
+#include <metal/lambda/invoke.hpp>
 #include <metal/optional/just.hpp>
 
 #include "test.hpp"
 
+template<typename x>
+using unptr = typename std::remove_pointer<x>::type;
+
 #define MATRIX(M, N) \
-    using CAT(opt, M) = EXPR(M)<VALS(M)>; \
-    using CAT(rec, M) = EXPR(M)<ENUM(M, rec)>; \
     ASSERT((metal::is_just_t<metal::bind<VAL(M) COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::bind<NUM(M) COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::bind<PAIR(M) COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::bind<LIST(M) COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::bind<MAP(M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<ARG(M) COMMA(N) VALS(N)>>), (BOOL(M < N))); \
-    ASSERT((metal::is_just_t<metal::bind<CAT(opt, M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<CAT(rec, M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<LBD(M) COMMA(N) VALS(N)>>), (BOOL(M <= N))); \
+    ASSERT((metal::is_just_t<metal::bind<ARG(M) COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::bind<LBD(M) COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::bind<FUN() COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<FUN(M) COMMA(N) VALS(N)>>), (BOOL(M == N))); \
-    ASSERT((metal::is_just_t<metal::bind<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)> COMMA(N) VALS(N)>>), (BOOL(M == N))); \
-    ASSERT((metal::is_just_t<metal::bind<metal::bind<ARGS(INC(M))>, LBD(M) COMMA(N) VALS(N)>>), (BOOL(M <= N))); \
-    ASSERT((metal::is_just_t<metal::bind<LAMBDA(M)<metal::bind>, FUN(M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::bind_t<VAL(M) COMMA(N) VALS(N)>), (VAL(M))); \
-    ASSERT((metal::bind_t<NUM(M) COMMA(N) VALS(N)>), (NUM(M))); \
-    ASSERT((metal::bind_t<PAIR(M) COMMA(N) VALS(N)>), (PAIR(M))); \
-    ASSERT((metal::bind_t<LIST(M) COMMA(N) VALS(N)>), (LIST(M))); \
-    ASSERT((metal::bind_t<MAP(M) COMMA(N) VALS(N)>), (MAP(M))); \
-    ASSERT((metal::bind_t<ARG(M), VALS(INC(M))>), (VAL(M))); \
-    ASSERT((metal::bind_t<CAT(opt, M) COMMA(N) VALS(N)>), (CAT(opt, M))); \
-    ASSERT((metal::bind_t<CAT(rec, M) COMMA(N) VALS(N)>), (CAT(rec, M))); \
-    ASSERT((metal::bind_t<LBD(M) COMMA(M) VALS(M)>), (CAT(opt, M))); \
-    ASSERT((metal::bind_t<FUN() COMMA(M) VALS(M)>), (EXPR()<VALS(M)>)); \
-    ASSERT((metal::bind_t<FUN(M) COMMA(M) VALS(M)>), (CAT(opt, M))); \
-    ASSERT((metal::bind_t<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)> COMMA(M) VALS(M)>), (EXPR(INC(M))<ENUM(INC(M), opt)>)); \
-    ASSERT((metal::bind_t<metal::bind<ARGS(INC(M))>, LBD(M) COMMA(M) VALS(M)>), (metal::bind<LBD(M) COMMA(M) VALS(M)>)); \
-    ASSERT((metal::bind_t<LAMBDA(M)<metal::bind>, FUN(M) COMMA(M) VALS(M)>), (metal::bind<FUN(M) COMMA(M) VALS(M)>)); \
+    ASSERT((metal::is_just_t<metal::bind<FUN(M) COMMA(N) VALS(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::bind<LAMBDA(M)<unptr> COMMA(N) ARGS(N)>>), (TRUE)); \
+    ASSERT((metal::invoke_t<metal::bind_t<VAL(M) COMMA(M) VALS(M)> COMMA(N) NUMS(N)>), (VAL(M))); \
+    ASSERT((metal::invoke_t<metal::bind_t<NUM(M) COMMA(M) VALS(M)> COMMA(N) NUMS(N)>), (NUM(M))); \
+    ASSERT((metal::invoke_t<metal::bind_t<LBD(M) COMMA(M) VALS(M)> COMMA(N) NUMS(N)>), (EXPR(M)<VALS(M)>::type)); \
+    ASSERT((metal::invoke_t<metal::bind_t<FUN(M) COMMA(M) VALS(M)> COMMA(N) NUMS(N)>), (EXPR(M)<VALS(M)>::type)); \
+    ASSERT((metal::invoke_t<metal::bind_t<VAL(M) COMMA(M) ARGS(M)> COMMA(M) NUMS(M)>), (VAL(M))); \
+    ASSERT((metal::invoke_t<metal::bind_t<NUM(M) COMMA(M) ARGS(M)> COMMA(M) NUMS(M)>), (NUM(M))); \
+    ASSERT((metal::invoke_t<metal::bind_t<LBD(M) COMMA(M) ARGS(M)> COMMA(M) NUMS(M)>), (EXPR(M)<NUMS(M)>::type)); \
+    ASSERT((metal::invoke_t<metal::bind_t<FUN(M) COMMA(M) ARGS(M)> COMMA(M) NUMS(M)>), (EXPR(M)<NUMS(M)>::type)); \
+    ASSERT((metal::invoke_t<metal::bind_t<VAL(M) COMMA(M) ENUM(M, ARG(N) BAR)>, NUMS(INC(N))>), (VAL(M))); \
+    ASSERT((metal::invoke_t<metal::bind_t<NUM(M) COMMA(M) ENUM(M, ARG(N) BAR)>, NUMS(INC(N))>), (NUM(M))); \
+    ASSERT((metal::invoke_t<metal::bind_t<LBD(M) COMMA(M) ENUM(M, ARG(N) BAR)>, NUMS(INC(N))>), (EXPR(M)<ENUM(M, NUM(N) BAR)>::type)); \
+    ASSERT((metal::invoke_t<metal::bind_t<FUN(M) COMMA(M) ENUM(M, ARG(N) BAR)>, NUMS(INC(N))>), (EXPR(M)<ENUM(M, NUM(N) BAR)>::type)); \
+    ASSERT((metal::invoke_t<metal::bind_t<FUN(), LBD(N)> COMMA(N) NUMS(N)>), (EXPR()<EXPR(N)<NUMS(N)>::type>::type)); \
+    ASSERT((metal::invoke_t<metal::bind_t<FUN(), FUN(N)> COMMA(N) NUMS(N)>), (EXPR()<EXPR(N)<NUMS(N)>::type>::type)); \
+    ASSERT((metal::invoke_t<metal::bind_t<LAMBDA(M)<unptr>, ARG(N)> COMMA(N) VALS(N), NUM(M)*>), (NUM(M))); \
 /**/
 
 GEN(MATRIX)

@@ -21,7 +21,6 @@ namespace metal
 #include <metal/number/number.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
-#include <metal/optional/eval.hpp>
 
 namespace metal
 {
@@ -34,6 +33,9 @@ namespace metal
 
         template<typename, typename>
         struct offset;
+
+        template<typename o, typename ns>
+        using offset_t = typename offset<o, ns>::type;
 
         template<template<typename...> class list, typename t, t... vs, t o>
         struct offset<list<number<t, vs>...>, number<t, o>> :
@@ -53,11 +55,9 @@ namespace metal
     struct enumerate<number<t, f>, number<t, l>> :
         join<
             enumerate_t<number<t, f>, number<t, (l + f)/2>>,
-            eval<
-                detail::offset<
-                    enumerate_t<number<t, f>, number<t, l + f - (l + f)/2>>,
-                    number<t, (l + f)/2 - f>
-                >
+            detail::offset_t<
+                enumerate_t<number<t, f>, number<t, l + f - (l + f)/2>>,
+                number<t, (l + f)/2 - f>
             >
         >
     {};

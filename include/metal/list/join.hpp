@@ -18,8 +18,7 @@ namespace metal
     using join_t = typename join<lists...>::type;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/lambda/bind.hpp>
+#include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/optional/eval.hpp>
 #include <metal/optional/nothing.hpp>
@@ -28,7 +27,7 @@ namespace metal
 {
     namespace detail
     {
-        template<typename>
+        template<typename...>
         struct join_impl;
 
         template<
@@ -37,21 +36,21 @@ namespace metal
             template<typename...> class zl, typename... zs,
             typename... lists
         >
-        struct join_impl<list<xl<xs...>, yl<ys...>, zl<zs...>, lists...>> :
-            join_impl<list<xl<xs..., ys..., zs...>, lists...>>
+        struct join_impl<xl<xs...>, yl<ys...>, zl<zs...>, lists...> :
+            join_impl<xl<xs..., ys..., zs...>, lists...>
         {};
 
         template<
             template<typename...> class xl, typename... xs,
             template<typename...> class yl, typename... ys
         >
-        struct join_impl<list<xl<xs...>, yl<ys...>>>
+        struct join_impl<xl<xs...>, yl<ys...>>
         {
             using type = xl<xs..., ys...>;
         };
 
         template<template<typename...> class xl, typename... xs>
-        struct join_impl<list<xl<xs...>>>
+        struct join_impl<xl<xs...>>
         {
             using type = xl<xs...>;
         };
@@ -60,14 +59,9 @@ namespace metal
     template<template<typename...> class head, typename... hs, typename... tail>
     struct join<head<hs...>, tail...> :
         eval_or<
-            detail::join_impl<list<bind<lambda<head>, hs...>, tail...>>,
+            detail::join_impl<defer<lambda<head>, hs...>, tail...>,
             nothing
         >
-    {};
-
-    template<typename... hs, typename... tail>
-    struct join<list<hs...>, tail...> :
-        detail::join_impl<list<list<hs...>, tail...>>
     {};
 }
 

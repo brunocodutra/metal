@@ -22,7 +22,6 @@ namespace metal
 #include <metal/number/logical/or.hpp>
 #include <metal/number/logical/not.hpp>
 #include <metal/optional/conditional.hpp>
-#include <metal/optional/eval.hpp>
 
 namespace metal
 {
@@ -37,7 +36,7 @@ namespace metal
     template<typename... nums>
     struct and_ :
         conditional<
-            eval<detail::and_impl<is_number_t<nums>...>>,
+            typename detail::and_impl<is_number_t<nums>...>::type,
             detail::and_impl<nums...>
         >
     {};

@@ -19,56 +19,19 @@ namespace metal
     using compose_t = typename metal::compose<lbds...>::type;
 }
 
-#include <metal/lambda/identity.hpp>
-#include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/optional/eval.hpp>
+#include <metal/lambda/bind.hpp>
 
 namespace metal
 {
     template<typename head, typename... tail>
     struct compose<head, tail...> :
-        compose<head, compose_t<tail...>>
+        bind<head, compose_t<tail...>>
     {};
 
-    template<typename x, typename y>
-    struct compose<x, y>
+    template<typename head>
+    struct compose<head>
     {
-        template<typename... args>
-        using _ = bind_t<y, eval<bind_t<x, args>>...>;
-
-        using type = lambda<_>;
-    };
-
-    template<
-        typename x,
-        template<template<typename...> class> class lambda,
-        template<typename...> class y
-    >
-    struct compose<x, lambda<y>>
-    {
-        template<typename... args>
-        using _ = y<eval<bind_t<x, args...>>>;
-
-        using type = lambda<_>;
-    };
-
-    template<
-        typename x,
-        template<template<typename...> class> class lambda
-    >
-    struct compose<x, lambda<identity>>
-    {
-        template<typename... args>
-        using _ = eval<bind_t<x, args...>>;
-
-        using type = lambda<_>;
-    };
-
-    template<typename lbd>
-    struct compose<lbd>
-    {
-        using type = lbd;
+        using type = head;
     };
 }
 

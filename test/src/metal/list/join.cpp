@@ -3,6 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/list/join.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/optional/just.hpp>
 
 #include "test.hpp"

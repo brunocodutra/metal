@@ -4,6 +4,7 @@
 
 #include <metal/optional/eval.hpp>
 #include <metal/lambda/arg.hpp>
+#include <metal/lambda/lambda.hpp>
 
 #include "test.hpp"
 

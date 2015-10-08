@@ -4,6 +4,7 @@
 
 #include <metal/list/flatten.hpp>
 #include <metal/list/join.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/optional/just.hpp>
 
 #include "test.hpp"

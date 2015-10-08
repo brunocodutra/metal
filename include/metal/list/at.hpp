@@ -25,6 +25,8 @@ namespace metal
 #include <metal/number/number.hpp>
 #include <metal/number/enumerate.hpp>
 
+#include <cstddef>
+
 namespace metal
 {
     template<

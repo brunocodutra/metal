@@ -18,9 +18,8 @@ namespace metal
     using lift_t = typename metal::lift<lbd>::type;
 }
 
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
+#include <metal/lambda/defer.hpp>
 #include <metal/optional/eval.hpp>
 
 namespace metal
@@ -29,7 +28,7 @@ namespace metal
     struct lift
     {
         template<typename... args>
-        using _ = bind_t<lbd, eval<args>...>;
+        using _ = defer_t<lbd, eval<args>...>;
 
         using type = lambda<_>;
     };

@@ -4,6 +4,7 @@
 
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/arg.hpp>
+#include <metal/lambda/identity.hpp>
 #include <metal/optional/just.hpp>
 
 #include "test.hpp"
@@ -25,8 +26,8 @@
     ASSERT((metal::is_just_t<metal::invoke<FUN() COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::invoke<FUN(M) COMMA(N) VALS(N)>>), (BOOL(M == N))); \
     ASSERT((metal::is_just_t<metal::invoke<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)> COMMA(N) VALS(N)>>), (BOOL(M == N))); \
-    ASSERT((metal::is_just_t<metal::invoke<metal::invoke<ARGS(INC(M))>, LBD(M) COMMA(N) VALS(N)>>), (BOOL(M <= N))); \
-    ASSERT((metal::is_just_t<metal::invoke<LAMBDA(M)<metal::invoke>, FUN(M) COMMA(N) VALS(N)>>), (BOOL(M == N))); \
+    ASSERT((metal::is_just_t<metal::invoke<metal::invoke<ARGS(INC(M))>, FUN(M) COMMA(N) VALS(N)>>), (BOOL(M <= N))); \
+    ASSERT((metal::is_just_t<metal::invoke<LAMBDA(M)<metal::identity>, VAL(N)>>), (FALSE)); \
     ASSERT((metal::invoke_t<VAL(M) COMMA(N) VALS(N)>), (VAL(M))); \
     ASSERT((metal::invoke_t<NUM(M) COMMA(N) VALS(N)>), (NUM(M))); \
     ASSERT((metal::invoke_t<ARG(M), VALS(INC(M))>), (VAL(M))); \
@@ -36,8 +37,7 @@
     ASSERT((metal::invoke_t<FUN() COMMA(M) VALS(M)>), (EXPR()<VALS(M)>::type)); \
     ASSERT((metal::invoke_t<FUN(M) COMMA(M) VALS(M)>), (CAT(optval, M))); \
     ASSERT((metal::invoke_t<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)> COMMA(M) VALS(M)>), (EXPR(INC(M))<ENUM(INC(M), optval)>::type)); \
-    ASSERT((metal::invoke_t<metal::invoke<ARGS(INC(M))>, LBD(M) COMMA(M) VALS(M)>), (CAT(optval, M))); \
-    ASSERT((metal::invoke_t<LAMBDA(M)<metal::invoke>, FUN(M) COMMA(M) VALS(M)>), (CAT(optval, M))); \
+    ASSERT((metal::invoke_t<metal::invoke<ARGS(INC(M))>, FUN(M) COMMA(M) VALS(M)>), (CAT(optval, M))); \
 /**/
 
 GEN(MATRIX)

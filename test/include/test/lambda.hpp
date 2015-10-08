@@ -14,12 +14,7 @@
 #define LBD(N) EXPR(N)<ARGS(N)>
 #define LBDS(N) ENUM(N, LIFT(LBD))
 
-namespace test
-{
-    template<template<typename...> class> class lambda;
-}
-
-#define LAMBDA(...) test::lambda
+#define LAMBDA(...) metal::lambda
 
 #define FUN(...) LAMBDA(__VA_ARGS__)<EXPR(__VA_ARGS__)>
 #define FUNS(N) ENUM(N, LIFT(FUN))

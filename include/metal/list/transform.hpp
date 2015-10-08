@@ -19,7 +19,7 @@ namespace metal
     using transform_t = typename transform<list, lbd>::type;
 }
 
-#include <metal/lambda/bind.hpp>
+#include <metal/lambda/defer.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lift.hpp>
 #include <metal/lambda/lambda.hpp>
@@ -28,7 +28,7 @@ namespace metal
 {
     template<template<typename...> class list, typename... args, typename lbd>
     struct transform<list<args...>, lbd> :
-        bind<lift_t<lambda<list>>, invoke<lbd, args>...>
+        defer<lift_t<lambda<list>>, invoke<lbd, args>...>
     {};
 }
 

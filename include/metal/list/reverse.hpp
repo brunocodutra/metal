@@ -21,7 +21,7 @@ namespace metal
 
 #include <metal/list/splice.hpp>
 #include <metal/list/size.hpp>
-#include <metal/lambda/bind.hpp>
+#include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
 
@@ -32,7 +32,7 @@ namespace metal
     template<template<typename...> class list, typename... vals>
     struct reverse<list<vals...>> :
         splice_t<
-            bind<lambda<list>, vals...>,
+            defer<lambda<list>, vals...>,
             size_t<list<vals...>>,
             number<std::size_t, 0>
         >

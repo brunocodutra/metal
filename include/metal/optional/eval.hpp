@@ -5,12 +5,14 @@
 #ifndef METAL_OPTIONAL_EVAL_HPP
 #define METAL_OPTIONAL_EVAL_HPP
 
+#include <metal/optional/optional.hpp>
+
 namespace metal
 {
     /// \ingroup optional
     /// \brief ...
     template<typename opt>
-    using eval = typename opt::type;
+    using eval = typename optional<opt>::type;
 }
 
 #include <metal/optional/conditional.hpp>

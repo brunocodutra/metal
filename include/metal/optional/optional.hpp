@@ -13,7 +13,6 @@ namespace metal
     struct optional;
 }
 
-#include <metal/optional/eval.hpp>
 #include <metal/optional/just.hpp>
 #include <metal/optional/nothing.hpp>
 #include <metal/core/voider.hpp>
@@ -28,8 +27,8 @@ namespace metal
         {};
 
         template<typename opt>
-        struct optional_impl<opt, voider_t<eval<opt>, void (opt::*)(void)>> :
-            just<eval<opt>>
+        struct optional_impl<opt, voider_t<typename opt::type, int opt::*>> :
+            just<typename opt::type>
         {};
     }
 
