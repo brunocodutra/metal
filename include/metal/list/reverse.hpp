@@ -19,7 +19,7 @@ namespace metal
     using reverse_t = typename reverse<list>::type;
 }
 
-#include <metal/list/splice.hpp>
+#include <metal/list/slice.hpp>
 #include <metal/list/size.hpp>
 #include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
@@ -31,10 +31,11 @@ namespace metal
 {
     template<template<typename...> class list, typename... vals>
     struct reverse<list<vals...>> :
-        splice_t<
+        slice_t<
             defer<lambda<list>, vals...>,
             size_t<list<vals...>>,
-            number<std::size_t, 0>
+            size_t<list<vals...>>,
+            integer<-1>
         >
     {};
 }

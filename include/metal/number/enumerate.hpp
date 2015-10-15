@@ -31,55 +31,53 @@ namespace metal
             list<number<t, vs>...>
         {};
 
-        template<typename, typename>
-        struct offset;
+        template<typename, typename, typename>
+        struct affine;
 
-        template<typename o, typename ns>
-        using offset_t = typename offset<o, ns>::type;
-
-        template<template<typename...> class list, typename t, t... vs, t o>
-        struct offset<list<number<t, vs>...>, number<t, o>> :
-            numbers<t, (o + vs)...>
+        template<
+            template<typename...> class list, typename t, t... ns,
+            typename u, u a,
+            typename v, v b>
+        struct affine<list<number<t, ns>...>, number<u, a>, number<v, b>> :
+            numbers<decltype(t{0} + u{0} + v{0}), (b + a*ns)...>
         {};
     }
 
-    template<typename f, f fv, typename l, l lv>
-    struct enumerate<number<f, fv>, number<l, lv>> :
-        enumerate<
-            number<decltype(true ? fv : lv), fv>,
-            number<decltype(true ? fv : lv), lv>
+    template<typename t, t start, typename u, u size, typename v, v stride>
+    struct enumerate<number<t, start>, number<u, size>, number<v, stride>> :
+        detail::affine<
+            enumerate_t<number<u, size>>,
+            number<v, stride>,
+            number<t, start>
         >
     {};
 
-    template<typename t, t f, t l>
-    struct enumerate<number<t, f>, number<t, l>> :
+    template<typename t, t start, typename u, u size>
+    struct enumerate<number<t, start>, number<u, size>> :
+        enumerate<number<t, start>, number<u, size>, integer<1>>
+    {};
+
+    template<typename t, t size>
+    struct enumerate<number<t, size>> :
         join<
-            enumerate_t<number<t, f>, number<t, (l + f)/2>>,
-            detail::offset_t<
-                enumerate_t<number<t, f>, number<t, l + f - (l + f)/2>>,
-                number<t, (l + f)/2 - f>
-            >
+            enumerate_t<number<t, size/2>>,
+            enumerate_t<number<t, size/2>, number<t, size - size/2>>
         >
     {};
 
-    template<typename t, t f>
-    struct enumerate<number<t, f>, number<t, f + 1>> :
-        list<number<t, f>>
+    template<typename t>
+    struct enumerate<number<t, t(1)>> :
+        list<number<t, 0>>
     {};
 
-    template<typename t, t f>
-    struct enumerate<number<t, f>, number<t, f - 1>> :
-        list<number<t, f>>
+    template<typename t>
+    struct enumerate<number<t, t(-1)>> :
+        list<number<t, 0>>
     {};
 
-    template<typename t, t f>
-    struct enumerate<number<t, f>, number<t, f>> :
+    template<typename t>
+    struct enumerate<number<t, t(0)>> :
         list<>
-    {};
-
-    template<typename t, t v>
-    struct enumerate<number<t, v>> :
-        enumerate<number<t, 0>, number<t, v>>
     {};
 }
 

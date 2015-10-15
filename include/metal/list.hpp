@@ -16,7 +16,7 @@
 #include <metal/list/reverse.hpp>
 #include <metal/list/same.hpp>
 #include <metal/list/size.hpp>
-#include <metal/list/splice.hpp>
+#include <metal/list/slice.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/list/zip.hpp>
 
