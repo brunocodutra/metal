@@ -39,7 +39,7 @@ namespace metal
             typename u, u a,
             typename v, v b>
         struct affine<list<number<t, ns>...>, number<u, a>, number<v, b>> :
-            numbers<decltype(t{0} + u{0} + v{0}), (b + a*ns)...>
+            numbers<v, static_cast<v>(b + a*ns)...>
         {};
     }
 

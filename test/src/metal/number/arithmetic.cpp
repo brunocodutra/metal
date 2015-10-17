@@ -32,7 +32,7 @@
     ASSERT((metal::equal_to_t<metal::dec_t<NUM(INC(N))>, NUM(N)>), (TRUE)); \
     ASSERT((metal::equal_to_t<metal::inc_t<metal::dec_t<NUM(N)>>, NUM(N)>), (TRUE)); \
     ASSERT((metal::equal_to_t<metal::dec_t<metal::inc_t<NUM(N)>>, NUM(N)>), (TRUE)); \
-    using CAT(triangle, N) = metal::div_t<metal::mul_t<NUM(N), NUM(INC(N))>, NUM(2)>; \
+    using CAT(triangle, N) = metal::div_t<metal::mul_t<NUM(N), metal::inc_t<NUM(N)>>, NUM(2)>; \
     ASSERT((metal::equal_to_t<metal::add_t<NUMS(INC(N))>, CAT(triangle, N)>), (TRUE)); \
     ASSERT((metal::equal_to_t<metal::sub_t<CAT(triangle, N), NUMS(INC(N))>, NUM(0)>), (TRUE)); \
     ASSERT((metal::equal_to_t<metal::add_t<NUM(0) COMMA(N) ENUM(N, NUM(M) BAR)>, metal::mul_t<NUM(M), NUM(N)>>), (TRUE)); \
