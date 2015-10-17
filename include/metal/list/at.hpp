@@ -19,8 +19,9 @@ namespace metal
     using at_t = typename at<list, val>::type;
 }
 
-#include <metal/list/zip.hpp>
+#include <metal/list/list.hpp>
 #include <metal/list/size.hpp>
+#include <metal/list/transpose.hpp>
 #include <metal/map/at_key.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/enumerate.hpp>
@@ -36,7 +37,12 @@ namespace metal
     >
     struct at<list<vals...>, number<t, v>> :
         at_key<
-            zip_t<enumerate_t<size_t<list<vals...>>>, list<vals...>>,
+            transpose_t<
+                metal::list<
+                    enumerate_t<size_t<list<vals...>>>,
+                    list<vals...>
+                >
+            >,
             number<std::size_t, static_cast<std::size_t>(v)>
         >
     {};

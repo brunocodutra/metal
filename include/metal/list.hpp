@@ -18,7 +18,7 @@
 #include <metal/list/size.hpp>
 #include <metal/list/slice.hpp>
 #include <metal/list/transform.hpp>
-#include <metal/list/zip.hpp>
+#include <metal/list/transpose.hpp>
 
 /// \defgroup list List
 /// \ingroup metal
