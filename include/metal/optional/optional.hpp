@@ -7,10 +7,18 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        struct nil;
+
+        template<typename, typename, typename = void>
+        struct optional_impl;
+    }
+
     /// \ingroup optional
     /// \brief ...
-    template<typename opt>
-    struct optional;
+    template<typename opt, typename fallback = detail::nil>
+    using optional = typename detail::optional_impl<opt, fallback>::type;
 }
 
 #include <metal/optional/just.hpp>
@@ -21,21 +29,30 @@ namespace metal
 {
     namespace detail
     {
-        template<typename opt, typename = void>
-        struct optional_impl :
-            nothing
-        {};
+        template<typename opt, typename fallback, typename>
+        struct optional_impl
+        {
+            using type = just<fallback>;
+        };
 
+        template<typename opt, typename _>
+        struct optional_impl<opt, nil, _>
+        {
+            using type = nothing;
+        };
+
+        template<typename opt, typename _>
+        struct optional_impl<opt, _, voider_t<typename opt::type, int opt::*>>
+        {
+            using type = just<typename opt::type>;
+        };
+        
         template<typename opt>
-        struct optional_impl<opt, voider_t<typename opt::type, int opt::*>> :
-            just<typename opt::type>
-        {};
+        struct optional_impl<opt, nil, voider_t<typename opt::type, int opt::*>>
+        {
+            using type = just<typename opt::type>;
+        };
     }
-
-    template<typename opt>
-    struct optional :
-        detail::optional_impl<opt>
-    {};
 }
 
 #endif

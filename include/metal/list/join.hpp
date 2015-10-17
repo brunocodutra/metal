@@ -58,7 +58,7 @@ namespace metal
 
     template<template<typename...> class head, typename... hs, typename... tail>
     struct join<head<hs...>, tail...> :
-        eval_or<
+        eval<
             detail::join_impl<defer<lambda<head>, hs...>, tail...>,
             nothing
         >

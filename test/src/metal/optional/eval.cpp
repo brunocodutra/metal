@@ -11,14 +11,14 @@
 #define MATRIX(M, N) \
     ASSERT((metal::eval<NUM(N)>), (NUM(N))); \
     ASSERT((metal::eval<LBD(N)>), (LBD(N)::type)); \
-    ASSERT((metal::eval_or<VAL(M), VAL(N)>), (VAL(N))); \
-    ASSERT((metal::eval_or<NUM(M), VAL(N)>), (NUM(M))); \
-    ASSERT((metal::eval_or<PAIR(M), VAL(N)>), (VAL(N))); \
-    ASSERT((metal::eval_or<LIST(M), VAL(N)>), (VAL(N))); \
-    ASSERT((metal::eval_or<MAP(M), VAL(N)>), (VAL(N))); \
-    ASSERT((metal::eval_or<ARG(M), VAL(N)>), (VAL(N))); \
-    ASSERT((metal::eval_or<LBD(M), VAL(N)>), (LBD(M)::type)); \
-    ASSERT((metal::eval_or<FUN(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::eval<VAL(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::eval<NUM(M), VAL(N)>), (NUM(M))); \
+    ASSERT((metal::eval<PAIR(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::eval<LIST(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::eval<MAP(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::eval<ARG(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::eval<LBD(M), VAL(N)>), (LBD(M)::type)); \
+    ASSERT((metal::eval<FUN(M), VAL(N)>), (VAL(N))); \
 /**/
 
 GEN(MATRIX)

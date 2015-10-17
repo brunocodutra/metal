@@ -59,14 +59,25 @@ namespace metal
     using is_just_t = typename metal::is_just<opt>::type;
 }
 
+#include <metal/number/number.hpp>
 #include <metal/optional/nothing.hpp>
-#include <metal/number/logical/not.hpp>
+#include <metal/optional/optional.hpp>
 
 namespace metal
 {
     template<typename opt>
     struct is_just :
-        not_<is_nothing_t<opt>>
+        is_just<optional<opt>>
+    {};
+
+    template<typename val>
+    struct is_just<just<val>> :
+        boolean<true>
+    {};
+
+    template<>
+    struct is_just<nothing> :
+        boolean<false>
     {};
 }
 

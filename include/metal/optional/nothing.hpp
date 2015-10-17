@@ -59,15 +59,25 @@ namespace metal
     using is_nothing_t = typename metal::is_nothing<opt>::type;
 }
 
-#include<metal/optional/optional.hpp>
-
-#include <type_traits>
+#include <metal/number/number.hpp>
+#include <metal/optional/just.hpp>
+#include <metal/optional/optional.hpp>
 
 namespace metal
 {
     template<typename opt>
     struct is_nothing :
-        std::is_base_of<nothing, optional<opt>>
+        is_nothing<optional<opt>>
+    {};
+
+    template<typename val>
+    struct is_nothing<just<val>> :
+        boolean<false>
+    {};
+
+    template<>
+    struct is_nothing<nothing> :
+        boolean<true>
     {};
 }
 

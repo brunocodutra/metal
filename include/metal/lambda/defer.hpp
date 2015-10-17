@@ -19,8 +19,12 @@ namespace metal
     using defer_t = typename defer<args...>::type;
 }
 
+#include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
+#include <metal/lambda/lift.hpp>
+#include <metal/list/at.hpp>
+#include <metal/number/number.hpp>
 #include <metal/optional/just.hpp>
 #include <metal/optional/nothing.hpp>
 
@@ -46,9 +50,40 @@ namespace metal
         )
     {};
 
-    template<typename lbd, typename... args>
-    struct defer<lbd, args...> :
-        just<invoke<lbd, args...>>
+    template<
+        template<typename...> class expr,
+        typename... params,
+        typename... args
+    >
+    struct defer<expr<params...>, args...> :
+        defer<lift_t<lambda<expr>>, invoke<params, args...>...>
+    {};
+
+   template<typename val, typename... args>
+    struct defer<val, args...>
+    {
+        using type = just<val>;
+    };
+
+    template<std::size_t n, typename... args>
+    struct defer<arg<n>, args...> :
+        just<at<defer<arg<n>, args...>, number<std::size_t, n>>>
+    {};
+
+    template<typename x, typename y, typename... tail>
+    struct defer<arg<2U>, x, y, tail...>
+    {
+        using type = just<y>;
+    };
+
+    template<typename x, typename... tail>
+    struct defer<arg<1U>, x, tail...>
+    {
+        using type = just<x>;
+    };
+
+    template<typename... args>
+    struct defer<arg<0U>, args...>
     {};
 }
 
