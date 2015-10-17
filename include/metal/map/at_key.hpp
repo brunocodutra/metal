@@ -9,13 +9,13 @@ namespace metal
 {
     /// \ingroup map
     /// \brief ...
-    template<typename map, typename val>
+    template<typename map, typename key>
     struct at_key;
 
     /// \ingroup map
     /// \brief Eager adaptor for \ref at_key.
-    template<typename map, typename val>
-    using at_key_t = typename at_key<map, val>::type;
+    template<typename map, typename key>
+    using at_key_t = typename at_key<map, key>::type;
 }
 
 #include <metal/map/map.hpp>
@@ -31,27 +31,37 @@ namespace metal
     {
         template<typename key, typename val>
         just<val> lookup(list<key, val>*);
+
         template<typename>
         nothing lookup(...);
 
-        template<typename, typename>
-        struct at_key_impl;
+        template<typename>
+        struct hash
+        {
+            static constexpr void* const value = 0;
+        };
 
         template<
             template<typename...> class map,
             template<typename...> class... pairs,
             typename... keys,
-            typename... vals,
-            typename key
+            typename... vals
         >
-        struct at_key_impl<map<pairs<keys, vals>...>, key> :
-            decltype(lookup<key>(static_cast<inherit<list<keys, vals>...>*>(0)))
-        {};
+        struct hash<map<pairs<keys, vals>...>>
+        {
+            static constexpr inherit<list<keys, vals>...>* const value = 0;
+        };
     }
 
-    template<typename map, typename val>
-    struct at_key :
-        conditional<is_map_t<map>, detail::at_key_impl<map, val>>
+    template<typename map, typename key>
+    struct at_key;
+
+    template<typename map, typename key>
+    struct at_key:
+        conditional<
+            is_map_t<map>,
+            decltype(detail::lookup<key>(detail::hash<map>::value))
+        >
     {};
 }
 

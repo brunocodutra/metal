@@ -5,12 +5,14 @@
 #ifndef METAL_MAP_MAP_HPP
 #define METAL_MAP_MAP_HPP
 
+#include <metal/list/list.hpp>
+
 namespace metal
 {
     /// \ingroup map
     /// \brief ...
     template<typename... pairs>
-    struct map;
+    using map = list<pairs...>;
 
     /// \ingroup map
     /// \brief ...
@@ -23,7 +25,7 @@ namespace metal
     using is_map_t = typename metal::is_map<map>::type;
 }
 
-#include <metal/list/list.hpp>
+
 #include <metal/list/distinct.hpp>
 #include <metal/list/size.hpp>
 #include <metal/list/empty.hpp>
@@ -35,11 +37,6 @@ namespace metal
 
 namespace metal
 {
-    template<typename... pairs>
-    struct map :
-        conditional<is_map_t<map<pairs...>>, just<map<pairs...>>>
-    {};
-
     template<typename>
     struct is_map :
         boolean<false>

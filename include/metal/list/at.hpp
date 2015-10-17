@@ -9,14 +9,13 @@ namespace metal
 {
     /// \ingroup list
     /// \brief ...
-    template<typename list, typename val>
-    struct at
-    {};
+    template<typename list, typename idx>
+    struct at;
 
     /// \ingroup list
     /// \brief Eager adaptor for \ref at.
-    template<typename list, typename val>
-    using at_t = typename at<list, val>::type;
+    template<typename list, typename idx>
+    using at_t = typename at<list, idx>::type;
 }
 
 #include <metal/list/list.hpp>
@@ -25,26 +24,30 @@ namespace metal
 #include <metal/map/at_key.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/enumerate.hpp>
+#include <metal/optional/conditional.hpp>
 
 #include <cstddef>
 
 namespace metal
 {
-    template<
-        template<typename...> class list,
-        typename... vals,
-        typename t, t v
-    >
-    struct at<list<vals...>, number<t, v>> :
-        at_key<
-            transpose_t<
-                metal::list<
-                    enumerate_t<size_t<list<vals...>>>,
-                    list<vals...>
-                >
-            >,
-            number<std::size_t, static_cast<std::size_t>(v)>
-        >
+    namespace detail
+    {
+        template<typename, typename>
+        struct at_impl
+        {};
+
+        template<typename list, typename t, t v>
+        struct at_impl<list, number<t, v>> :
+            at_key<
+                transpose_t<metal::list<enumerate_t<size_t<list>>, list>>,
+                number<std::size_t, static_cast<std::size_t>(v)>
+            >
+        {};
+    }
+
+    template<typename list, typename idx>
+    struct at :
+        conditional<is_list_t<list>, detail::at_impl<list, idx>>
     {};
 }
 
