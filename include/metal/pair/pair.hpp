@@ -1,0 +1,45 @@
+// Copyright Bruno Dutra 2015
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+
+#ifndef METAL_PAIR_PAIR_HPP
+#define METAL_PAIR_PAIR_HPP
+
+#include <metal/list/list.hpp>
+
+namespace metal
+{
+    /// \ingroup pair
+    /// \brief ...
+    template<typename x, typename y>
+    using pair = list<x, y>;
+
+    /// \ingroup pair
+    /// \brief ...
+    template<typename pair>
+    struct is_pair;
+
+    /// \ingroup pair
+    /// \brief Eager adaptor for \ref is_pair.
+    template<typename pair>
+    using is_pair_t = typename metal::is_pair<pair>::type;
+}
+
+#include <metal/list/size.hpp>
+#include <metal/number/number.hpp>
+#include <metal/number/comparison/equal_to.hpp>
+
+namespace metal
+{
+    template<typename>
+    struct is_pair :
+        boolean<false>
+    {};
+
+    template<template<typename...> class pair, typename x, typename y>
+    struct is_pair<pair<x, y>> :
+        equal_to<size_t<pair<x, y>>, integer<2>>
+    {};
+}
+
+#endif
