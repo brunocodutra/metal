@@ -13,6 +13,7 @@
 #include <metal/list/flatten.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
+#include <metal/list/reduce.hpp>
 #include <metal/list/reverse.hpp>
 #include <metal/list/same.hpp>
 #include <metal/list/size.hpp>

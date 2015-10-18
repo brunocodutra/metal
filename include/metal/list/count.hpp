@@ -19,6 +19,8 @@ namespace metal
     using count_t = typename count<list, val>::type;
 }
 
+#include <metal/list/reduce.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/arithmetic/add.hpp>
 
@@ -29,7 +31,13 @@ namespace metal
 {
     template<template<typename...> class list, typename... vals, typename val>
     struct count<list<vals...>, val> :
-        add<number<std::ptrdiff_t, 0>, typename std::is_same<vals, val>::type...>
+        reduce<
+            add<
+                number<std::ptrdiff_t, 0>,
+                typename std::is_same<vals, val>::type...
+            >,
+            lambda<add>
+        >
     {};
 }
 

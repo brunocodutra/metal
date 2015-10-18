@@ -3,8 +3,14 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/list.hpp>
+#include <metal/lambda/lambda.hpp>
 
 #include "test.hpp"
 
-using namespace metal;
-using namespace metal::detail;
+#define MATRIX(M, N) \
+    ASSERT((metal::flatten_t<metal::transform_t<LIST(M), metal::lambda<metal::list>>>), (LIST(M))); \
+    ASSERT((metal::flatten_t<metal::reduce_t<LIST(M), metal::lambda<metal::list>>>), (metal::list<VALS(M)>)); \
+    ASSERT((metal::slice_t<LIST(M), metal::size_t<LIST(M)>, metal::size_t<LIST(M)>>), (LIST(M))); \
+/**/
+
+GEN(MATRIX)

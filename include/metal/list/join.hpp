@@ -18,6 +18,7 @@ namespace metal
     using join_t = typename join<lists...>::type;
 }
 
+#include <metal/list/reduce.hpp>
 #include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/optional/eval.hpp>
@@ -37,7 +38,10 @@ namespace metal
             typename... lists
         >
         struct join_impl<xl<xs...>, yl<ys...>, zl<zs...>, lists...> :
-            join_impl<xl<xs..., ys..., zs...>, lists...>
+            reduce<
+                join_impl<xl<xs..., ys..., zs...>, lists...>,
+                lambda<join_impl>
+            >
         {};
 
         template<
@@ -46,13 +50,13 @@ namespace metal
         >
         struct join_impl<xl<xs...>, yl<ys...>>
         {
-            using type = xl<xs..., ys...>;
+            using type = defer<xs..., ys...>;
         };
 
         template<template<typename...> class xl, typename... xs>
         struct join_impl<xl<xs...>>
         {
-            using type = xl<xs...>;
+            using type = defer<xs...>;
         };
     }
 
