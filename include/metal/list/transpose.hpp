@@ -91,7 +91,7 @@ namespace metal
         >
         struct transpose_impl<outer<inner<vals...>>, boolean<true>>
         {
-            using type = inner<outer<vals...>>;
+            using type = inner<outer<vals>...>;
         };
     }
 
