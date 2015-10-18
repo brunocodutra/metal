@@ -22,7 +22,7 @@ namespace metal
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/lambda/lift.hpp>
+#include <metal/list/list.hpp>
 #include <metal/list/at.hpp>
 #include <metal/number/number.hpp>
 #include <metal/optional/just.hpp>
@@ -35,19 +35,20 @@ namespace metal
         template<
             template<typename...> class expr,
             typename... args,
-            typename ret = expr<args...>
+            typename ret = expr<typename args::type...>
         >
-        just<ret> instantiate(defer<lambda<expr>, args...>*);
+        just<ret> instantiate(list<args...>*);
+
+        template<template<typename...> class>
         nothing instantiate(...);
+
+        template<typename... args>
+        list<args...>* forward();
     }
 
     template<template<typename...> class expr, typename... args>
     struct defer<lambda<expr>, args...> :
-        decltype(
-            detail::instantiate(
-                static_cast<defer<lambda<expr>, args...>*>(0)
-            )
-        )
+        decltype(detail::instantiate<expr>(detail::forward<just<args>...>()))
     {};
 
     template<
@@ -56,10 +57,14 @@ namespace metal
         typename... args
     >
     struct defer<expr<params...>, args...> :
-        defer<lift_t<lambda<expr>>, invoke<params, args...>...>
+        decltype(
+            detail::instantiate<expr>(
+                detail::forward<invoke<params, args...>...>()
+            )
+        )
     {};
 
-   template<typename val, typename... args>
+    template<typename val, typename... args>
     struct defer<val, args...>
     {
         using type = just<val>;
