@@ -108,6 +108,11 @@ namespace metal
     struct optional :
         decltype(detail::optional_impl<opt>(0))
     {};
+
+    template<typename val>
+    struct optional<just<val>> :
+        just<val>
+    {};
 }
 
 #endif

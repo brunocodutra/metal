@@ -10,8 +10,19 @@ namespace metal
     /// \ingroup lambda
     /// \brief ...
     template<template<typename...> class expr>
+    struct lambda;
+}
+
+#include <metal/lambda/defer.hpp>
+
+namespace metal
+{
+    template<template<typename...> class expr>
     struct lambda
-    {};
+    {
+        template<typename... args>
+        using call = defer_t<lambda, args...>;
+    };
 }
 
 #endif
