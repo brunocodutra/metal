@@ -30,7 +30,7 @@ namespace metal
 #include <metal/list/empty.hpp>
 #include <metal/number/logical/and.hpp>
 #include <metal/optional/conditional.hpp>
-#include <metal/optional/just.hpp>
+#include <metal/optional/optional.hpp>
 #include <metal/pair/pair.hpp>
 
 namespace metal

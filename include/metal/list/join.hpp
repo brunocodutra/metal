@@ -22,7 +22,7 @@ namespace metal
 #include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/optional/eval.hpp>
-#include <metal/optional/nothing.hpp>
+#include <metal/optional/optional.hpp>
 
 namespace metal
 {

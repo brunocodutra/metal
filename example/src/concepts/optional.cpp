@@ -2,8 +2,7 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#include <metal/optional/just.hpp>
-#include <metal/optional/nothing.hpp>
+#include <metal/optional/optional.hpp>
 
 #include "example.hpp"
 
@@ -25,7 +24,7 @@ namespace ex2
     using opt = void; //nothing - undefined ::type
     /// [ex2]
 
-    static_assert(metal::is_nothing<opt>::value, "");
+    static_assert(!metal::is_just<opt>::value, "");
 }
 
 namespace ex3
@@ -38,7 +37,7 @@ namespace ex3
     };
     /// [ex3]
 
-    static_assert(metal::is_nothing<opt>::value, "");
+    static_assert(!metal::is_just<opt>::value, "");
 }
 
 namespace ex4
@@ -64,6 +63,6 @@ namespace ex4
 
     static_assert(metal::is_just<optional1>::value, "");
     static_assert(metal::is_just<optional2>::value, "");
-    static_assert(metal::is_nothing<optional3>::value, "");
+    static_assert(!metal::is_just<optional3>::value, "");
 }
 

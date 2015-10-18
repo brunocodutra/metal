@@ -4,7 +4,7 @@
 
 #include <metal/lambda/apply.hpp>
 #include <metal/lambda/arg.hpp>
-#include <metal/optional/just.hpp>
+#include <metal/optional/optional.hpp>
 
 #include "test.hpp"
 

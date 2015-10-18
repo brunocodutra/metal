@@ -4,7 +4,7 @@
 
 #include <metal/map/at_key.hpp>
 #include <metal/lambda/arg.hpp>
-#include <metal/optional/just.hpp>
+#include <metal/optional/optional.hpp>
 
 #include "test.hpp"
 

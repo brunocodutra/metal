@@ -28,9 +28,9 @@ namespace metal
     struct lift
     {
         template<typename... args>
-        using call = defer_t<lbd, eval<args>...>;
+        using _ = defer_t<lbd, eval<args>...>;
 
-        using type = lambda<call>;
+        using type = lambda<_>;
     };
 }
 

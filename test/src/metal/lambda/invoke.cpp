@@ -5,7 +5,7 @@
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/identity.hpp>
-#include <metal/optional/just.hpp>
+#include <metal/optional/optional.hpp>
 
 #include "test.hpp"
 

@@ -19,7 +19,6 @@ namespace metal
     using conditional_t = typename metal::conditional<if_, then, else_...>::type;
 }
 
-#include <metal/optional/nothing.hpp>
 #include <metal/optional/optional.hpp>
 #include <metal/number/number.hpp>
 

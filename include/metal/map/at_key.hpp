@@ -22,8 +22,7 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/core/inherit.hpp>
 #include <metal/optional/conditional.hpp>
-#include <metal/optional/just.hpp>
-#include <metal/optional/nothing.hpp>
+#include <metal/optional/optional.hpp>
 
 namespace metal
 {
@@ -45,7 +44,7 @@ namespace metal
             template<typename...> class map,
             template<typename...> class... pairs,
             typename... keys,
-            typename... vals 
+            typename... vals
         >
         struct hash<map<pairs<keys, vals>...>>
         {

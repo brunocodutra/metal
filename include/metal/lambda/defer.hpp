@@ -25,8 +25,7 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/list/at.hpp>
 #include <metal/number/number.hpp>
-#include <metal/optional/just.hpp>
-#include <metal/optional/nothing.hpp>
+#include <metal/optional/optional.hpp>
 
 namespace metal
 {
@@ -35,9 +34,9 @@ namespace metal
         template<
             template<typename...> class expr,
             typename... args,
-            typename ret = expr<typename args::type...>
+            typename ret = just<expr<typename args::type...>>
         >
-        just<ret> instantiate(list<args...>*);
+        ret instantiate(list<args...>*);
 
         template<template<typename...> class>
         nothing instantiate(...);

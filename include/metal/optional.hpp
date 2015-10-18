@@ -7,8 +7,6 @@
 
 #include <metal/optional/conditional.hpp>
 #include <metal/optional/eval.hpp>
-#include <metal/optional/just.hpp>
-#include <metal/optional/nothing.hpp>
 #include <metal/optional/optional.hpp>
 
 /// \defgroup optional Optional

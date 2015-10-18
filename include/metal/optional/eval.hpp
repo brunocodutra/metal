@@ -5,6 +5,7 @@
 #ifndef METAL_OPTIONAL_EVAL_HPP
 #define METAL_OPTIONAL_EVAL_HPP
 
+#include <metal/optional/conditional.hpp>
 #include <metal/optional/optional.hpp>
 
 namespace metal
@@ -12,7 +13,7 @@ namespace metal
     /// \ingroup optional
     /// \brief ...
     template<typename opt, typename fallback = detail::nil>
-    using eval = typename optional<opt, fallback>::type;
+    using eval = conditional_t<is_just_t<opt>, opt, just<fallback>>;
 }
 
 #endif
