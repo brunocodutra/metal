@@ -34,12 +34,17 @@ namespace metal
         template<typename, typename, typename>
         struct affine;
 
+        template<template<typename...> class list, typename a, typename b>
+        struct affine<list<>, a, b> :
+            list<>
+        {};
+
         template<
             template<typename...> class list, typename t, t... ns,
             typename u, u a,
             typename v, v b>
         struct affine<list<number<t, ns>...>, number<u, a>, number<v, b>> :
-            numbers<v, static_cast<v>(b + a*ns)...>
+            numbers<v, b + a*ns...>
         {};
     }
 

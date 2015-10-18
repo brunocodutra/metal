@@ -21,19 +21,16 @@ namespace metal
 
 #include <metal/list/slice.hpp>
 #include <metal/list/size.hpp>
-#include <metal/lambda/defer.hpp>
-#include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
-
-#include <cstddef>
+#include <metal/number/arithmetic/dec.hpp>
 
 namespace metal
 {
     template<template<typename...> class list, typename... vals>
     struct reverse<list<vals...>> :
-        slice_t<
-            defer<lambda<list>, vals...>,
-            size_t<list<vals...>>,
+        slice<
+            list<vals...>,
+            dec_t<size_t<list<vals...>>>,
             size_t<list<vals...>>,
             integer<-1>
         >

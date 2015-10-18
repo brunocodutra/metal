@@ -38,18 +38,18 @@ namespace metal
         template<typename>
         struct hash
         {
-            static constexpr void* const value = 0;
+            static void* make();
         };
 
         template<
             template<typename...> class map,
             template<typename...> class... pairs,
             typename... keys,
-            typename... vals
+            typename... vals 
         >
         struct hash<map<pairs<keys, vals>...>>
         {
-            static constexpr inherit<list<keys, vals>...>* const value = 0;
+            static inherit<list<keys, vals>...>* make();
         };
     }
 
@@ -60,7 +60,7 @@ namespace metal
     struct at_key:
         conditional<
             is_map_t<map>,
-            decltype(detail::lookup<key>(detail::hash<map>::value))
+            decltype(detail::lookup<key>(detail::hash<map>::make()))
         >
     {};
 }
