@@ -56,17 +56,14 @@ namespace metal
                 >
             >
         > :
-            join_t<
-                defer<lambda<xl>>,
-                transform_t<
-                    enumerate_t<size_t<xl<xs...>>>,
-                    defer<
-                        quote_t<lambda<outer>>,
-                        at<quote_t<xl<xs...>>, _1>,
-                        at<quote_t<yl<ys...>>, _1>,
-                        at<quote_t<zl<zs...>>, _1>,
-                        at<quote_t<tail>, _1>...
-                    >
+            transform<
+                indices_t<xl<xs...>>,
+                defer<
+                    quote_t<lambda<outer>>,
+                    at<quote_t<xl<xs...>>, _1>,
+                    at<quote_t<yl<ys...>>, _1>,
+                    at<quote_t<zl<zs...>>, _1>,
+                    at<quote_t<tail>, _1>...
                 >
             >
         {};

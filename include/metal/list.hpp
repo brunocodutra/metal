@@ -11,6 +11,7 @@
 #include <metal/list/distinct.hpp>
 #include <metal/list/empty.hpp>
 #include <metal/list/flatten.hpp>
+#include <metal/list/indices.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/reduce.hpp>
