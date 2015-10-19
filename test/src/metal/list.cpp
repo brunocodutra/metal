@@ -11,6 +11,7 @@
     ASSERT((metal::flatten_t<metal::transform_t<LIST(M), metal::lambda<metal::list>>>), (LIST(M))); \
     ASSERT((metal::flatten_t<metal::reduce_t<LIST(M), metal::lambda<metal::list>>>), (metal::list<VALS(M)>)); \
     ASSERT((metal::slice_t<LIST(M), metal::size_t<LIST(M)>, metal::size_t<LIST(M)>>), (LIST(M))); \
+    ASSERT((metal::transform_t<SEQ(M)<NUMS(M)>, metal::at<metal::quote_t<LIST(M)>, ARG(0)>>), (LIST(M))); \
 /**/
 
 GEN(MATRIX)

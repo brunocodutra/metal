@@ -3,8 +3,16 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/map.hpp>
+#include <metal/list.hpp>
+#include <metal/pair.hpp>
 
 #include "test.hpp"
 
-using namespace metal;
-using namespace metal::detail;
+#define MATRIX(M, N) \
+    ASSERT((metal::transform_t<MAP(M), metal::at<ARG(0), NUM(0)>>), (metal::keys_t<MAP(M)>)); \
+    ASSERT((metal::transform_t<MAP(M), metal::at<ARG(0), NUM(1)>>), (metal::values_t<MAP(M)>)); \
+    ASSERT((metal::first_t<metal::transpose_t<MAP(INC(M))>>), (metal::keys_t<MAP(INC(M))>)); \
+    ASSERT((metal::second_t<metal::transpose_t<MAP(INC(M))>>), (metal::values_t<MAP(INC(M))>)); \
+/**/
+
+GEN(MATRIX)
