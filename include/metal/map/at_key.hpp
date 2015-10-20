@@ -53,9 +53,6 @@ namespace metal
     }
 
     template<typename map, typename key>
-    struct at_key;
-
-    template<typename map, typename key>
     struct at_key:
         conditional<
             is_map_t<map>,
