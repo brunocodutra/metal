@@ -25,7 +25,7 @@ namespace metal
 {
     template<typename t, t v>
     struct inc<number<t, v>> :
-        number<t, v + 1>
+        number<t, static_cast<t>(v + 1)>
     {};
 }
 

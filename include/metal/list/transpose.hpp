@@ -39,18 +39,15 @@ namespace metal
 
         template<
             template<typename...> class outer,
-            typename x, typename y, typename z, typename... tail
+            typename head, typename... tail,
+            typename _
         >
-        struct transpose_impl<outer<x, y, z, tail...>,
-            same_t<outer<size_t<x>, size_t<y>, size_t<z>, size_t<tail>...>>
-        > :
+        struct transpose_impl<outer<head, tail...>, _> :
             transform<
-                indices_t<x>,
+                indices_t<head>,
                 defer<
                     quote_t<lambda<outer>>,
-                    at<quote_t<x>, _1>,
-                    at<quote_t<y>, _1>,
-                    at<quote_t<z>, _1>,
+                    at<quote_t<head>, _1>,
                     at<quote_t<tail>, _1>...
                 >
             >
@@ -73,7 +70,7 @@ namespace metal
             template<typename...> class inner,
             typename... vals
         >
-        struct transpose_impl<outer<inner<vals...>>, boolean<true>>
+        struct transpose_impl<outer<inner<vals...>>>
         {
             using type = inner<outer<vals>...>;
         };

@@ -40,7 +40,7 @@ namespace metal
         struct at_impl<list, number<t, v>> :
             at_key<
                 transpose_t<pair<indices_t<list>, list>>,
-                number<std::size_t, v>
+                number<std::size_t, static_cast<std::size_t>(v)>
             >
         {};
     }
