@@ -19,9 +19,9 @@ namespace metal
     using flatten_t = typename metal::flatten<list>::type;
 }
 
+#include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
-#include <metal/lambda/defer.hpp>
-#include <metal/lambda/lambda.hpp>
+#include <metal/list/swap.hpp>
 
 namespace metal
 {
@@ -33,36 +33,30 @@ namespace metal
         template<typename list>
         using flatten_impl_t = typename flatten_impl<list>::type;
 
-        template<template<typename...> class list, typename... vals>
+        template<typename... vals>
         struct flatten_impl<list<vals...>> :
             join<flatten_impl_t<list<vals>>...>
         {};
 
-        template<
-            template<typename...> class outer,
-            template<typename...> class inner,
-            typename... vals
-        >
-        struct flatten_impl<outer<inner<vals...>>> :
-            flatten_impl<outer<vals...>>
+        template<template<typename...> class inner, typename... vals>
+        struct flatten_impl<list<inner<vals...>>> :
+            flatten_impl<list<vals...>>
         {};
 
-        template<template<typename...> class list, typename val>
-        struct flatten_impl<list<val>>
-        {
-            using type = list<val>;
-        };
+        template<typename val>
+        struct flatten_impl<list<val>> :
+            list<val>
+        {};
 
-        template<template<typename...> class list>
-        struct flatten_impl<list<>>
-        {
-            using type = list<>;
-        };
+        template<>
+        struct flatten_impl<list<>> :
+            list<>
+        {};
     }
 
     template<template<typename...> class list, typename... vals>
     struct flatten<list<vals...>> :
-        detail::flatten_impl_t<defer<lambda<list>, vals...>>
+        swap<list<vals...>, detail::flatten_impl_t<metal::list<vals...>>>
     {};
 }
 

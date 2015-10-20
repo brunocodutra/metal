@@ -28,7 +28,6 @@ namespace metal
 #include <metal/lambda/defer.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/enumerate.hpp>
 
 namespace metal
 {
@@ -40,29 +39,18 @@ namespace metal
 
         template<
             template<typename...> class outer,
-            template<typename...> class xl, typename... xs,
-            template<typename...> class yl, typename... ys,
-            template<typename...> class zl, typename... zs,
-            typename... tail
+            typename x, typename y, typename z, typename... tail
         >
-        struct transpose_impl<
-            outer<xl<xs...>, yl<ys...>, zl<zs...>, tail...>,
-            same_t<
-                outer<
-                    size_t<xl<xs...>>,
-                    size_t<yl<ys...>>,
-                    size_t<zl<zs...>>,
-                    size_t<tail>...
-                >
-            >
+        struct transpose_impl<outer<x, y, z, tail...>,
+            same_t<outer<size_t<x>, size_t<y>, size_t<z>, size_t<tail>...>>
         > :
             transform<
-                indices_t<xl<xs...>>,
+                indices_t<x>,
                 defer<
                     quote_t<lambda<outer>>,
-                    at<quote_t<xl<xs...>>, _1>,
-                    at<quote_t<yl<ys...>>, _1>,
-                    at<quote_t<zl<zs...>>, _1>,
+                    at<quote_t<x>, _1>,
+                    at<quote_t<y>, _1>,
+                    at<quote_t<z>, _1>,
                     at<quote_t<tail>, _1>...
                 >
             >
@@ -73,8 +61,7 @@ namespace metal
             template<typename...> class xl, typename... xs,
             template<typename...> class yl, typename... ys
         >
-        struct transpose_impl<
-            outer<xl<xs...>, yl<ys...>>,
+        struct transpose_impl<outer<xl<xs...>, yl<ys...>>,
             boolean<sizeof...(xs) ==  sizeof...(ys)>
         >
         {

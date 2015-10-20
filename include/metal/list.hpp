@@ -19,6 +19,7 @@
 #include <metal/list/same.hpp>
 #include <metal/list/size.hpp>
 #include <metal/list/slice.hpp>
+#include <metal/list/swap.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/list/transpose.hpp>
 

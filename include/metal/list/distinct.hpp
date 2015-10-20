@@ -32,12 +32,8 @@ namespace metal
         boolean<true> disambiguate(bases*...);
 
         template<typename derived, typename... bases>
-        auto is_unambiguously_derived_from(int) ->
-            decltype(
-                disambiguate<bases...>(
-                    (voider_t<bases>(), static_cast<derived*>(0))...
-                )
-            );
+        auto is_unambiguously_derived_from(derived* _) ->
+            decltype(disambiguate<bases...>((voider_t<bases>(), _)...));
 
         template<typename...>
         boolean<false> is_unambiguously_derived_from(...);

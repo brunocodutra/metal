@@ -19,7 +19,7 @@ namespace metal
 }
 
 #include <metal/list/reduce.hpp>
-#include <metal/lambda/defer.hpp>
+#include <metal/list/swap.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/optional/eval.hpp>
 #include <metal/optional/optional.hpp>
@@ -39,7 +39,7 @@ namespace metal
         >
         struct join_impl<xl<xs...>, yl<ys...>, zl<zs...>, lists...> :
             reduce<
-                join_impl<xl<xs..., ys..., zs...>, lists...>,
+                join_impl<list<xs..., ys..., zs...>, lists...>,
                 lambda<join_impl>
             >
         {};
@@ -48,24 +48,19 @@ namespace metal
             template<typename...> class xl, typename... xs,
             template<typename...> class yl, typename... ys
         >
-        struct join_impl<xl<xs...>, yl<ys...>>
-        {
-            using type = defer<xs..., ys...>;
-        };
+        struct join_impl<xl<xs...>, yl<ys...>> :
+            list<xs..., ys...>
+        {};
 
         template<template<typename...> class xl, typename... xs>
-        struct join_impl<xl<xs...>>
-        {
-            using type = defer<xs...>;
-        };
+        struct join_impl<xl<xs...>> :
+            list<xs...>
+        {};
     }
 
-    template<template<typename...> class head, typename... hs, typename... tail>
-    struct join<head<hs...>, tail...> :
-        eval<
-            detail::join_impl<defer<lambda<head>, hs...>, tail...>,
-            nothing
-        >
+    template<typename head, typename... tail>
+    struct join<head, tail...> :
+        swap<head, eval<detail::join_impl<head, tail...>, nothing>>
     {};
 }
 

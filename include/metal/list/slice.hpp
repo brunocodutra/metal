@@ -32,12 +32,10 @@ namespace metal
 }
 
 #include <metal/list/at.hpp>
-#include <metal/list/join.hpp>
 #include <metal/list/size.hpp>
+#include <metal/list/swap.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/defer.hpp>
-#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/number/enumerate.hpp>
 #include <metal/number/arithmetic/mod.hpp>
@@ -52,8 +50,8 @@ namespace metal
         list<vals...>,
         number<t, start>, number<u, size>, number<v, stride>
     > :
-        join_t<
-            defer<lambda<list>>,
+        swap<
+            list<vals...>,
             transform_t<
                 enumerate_t<
                     number<t, start>, number<u, size>, number<v, stride>

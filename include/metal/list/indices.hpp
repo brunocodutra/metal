@@ -20,16 +20,14 @@ namespace metal
 }
 
 #include <metal/list/size.hpp>
-#include <metal/list/join.hpp>
-#include <metal/lambda/defer.hpp>
-#include <metal/lambda/lambda.hpp>
+#include <metal/list/swap.hpp>
 #include <metal/number/enumerate.hpp>
 
 namespace metal
 {
     template<template<typename...> class list, typename... vals>
     struct indices<list<vals...>> :
-        join_t<defer<lambda<list>>, enumerate_t<size_t<list<vals...>>>>
+        swap<list<vals...>, enumerate_t<size_t<list<vals...>>>>
     {};
 }
 
