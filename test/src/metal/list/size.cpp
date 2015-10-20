@@ -21,6 +21,7 @@
     ASSERT((metal::is_just_t<metal::size<ARG(M)>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::size<LBD(M)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::size<FUN(M)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::size<SEQ()<VALS(M) COMMA(AND(M, N)) VALS(N)>>>), (TRUE)); \
     ASSERT((metal::size_t<PAIR(M)>), (SIZE(2))); \
     ASSERT((metal::size_t<LIST(M)>), (SIZE(M))); \
     ASSERT((metal::size_t<MAP(M)>), (SIZE(M))); \

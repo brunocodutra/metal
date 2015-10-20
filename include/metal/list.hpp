@@ -6,6 +6,7 @@
 #define METAL_LIST_HPP
 
 #include <metal/list/at.hpp>
+#include <metal/list/clear.hpp>
 #include <metal/list/contains.hpp>
 #include <metal/list/count.hpp>
 #include <metal/list/distinct.hpp>
