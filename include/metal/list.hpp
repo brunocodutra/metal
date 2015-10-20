@@ -6,12 +6,14 @@
 #define METAL_LIST_HPP
 
 #include <metal/list/at.hpp>
+#include <metal/list/back.hpp>
 #include <metal/list/clear.hpp>
 #include <metal/list/contains.hpp>
 #include <metal/list/count.hpp>
 #include <metal/list/distinct.hpp>
 #include <metal/list/empty.hpp>
 #include <metal/list/flatten.hpp>
+#include <metal/list/front.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>

@@ -17,10 +17,7 @@ namespace metal
     /// \brief Eager adaptor for \ref second.
     template<typename pair>
     using second_t = typename metal::second<pair>::type;
-}
 
-namespace metal
-{
     template<template<typename...> class pair, typename x, typename y>
     struct second<pair<x, y>>
     {
