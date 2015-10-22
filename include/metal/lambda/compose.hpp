@@ -28,10 +28,10 @@ namespace metal
         bind<head, compose_t<tail...>>
     {};
 
-    template<typename head>
-    struct compose<head>
+    template<typename lbd>
+    struct compose<lbd>
     {
-        using type = head;
+        using type = lbd;
     };
 }
 

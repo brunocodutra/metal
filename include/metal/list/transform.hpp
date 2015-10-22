@@ -28,7 +28,7 @@ namespace metal
 {
     template<template<typename...> class list, typename... args, typename lbd>
     struct transform<list<args...>, lbd> :
-        defer<lift_t<lambda<list>>, invoke<lbd, args>...>
+        invoke<lift_t<defer_t<lambda<list>>>, invoke<lbd, args>...>
     {};
 }
 

@@ -23,9 +23,9 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/list/size.hpp>
 #include <metal/list/same.hpp>
+#include <metal/list/swap.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/defer.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/number/number.hpp>
 
@@ -45,11 +45,7 @@ namespace metal
         struct transpose_impl<outer<head, tail...>, _> :
             transform<
                 indices_t<head>,
-                defer<
-                    quote_t<lambda<outer>>,
-                    at<quote_t<head>, _1>,
-                    at<quote_t<tail>, _1>...
-                >
+                defer_t<outer<at<quote_t<head>, _1>, at<quote_t<tail>, _1>...>>
             >
         {};
 

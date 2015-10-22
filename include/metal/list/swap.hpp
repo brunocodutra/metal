@@ -19,17 +19,15 @@ namespace metal
     using swap_t = typename swap<x, y>::type;
 }
 
+#include <metal/lambda/apply.hpp>
 #include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
 
 namespace metal
 {
-    template<
-        template<typename...> class x, typename... xs,
-        template<typename...> class y, typename... ys
-    >
-    struct swap<x<xs...>, y<ys...>> :
-        defer<lambda<x>, ys...>
+    template<template<typename...> class list, typename... vals, typename other>
+    struct swap<list<vals...>, other> :
+        apply<defer_t<lambda<list>>, other>
     {};
 }
 

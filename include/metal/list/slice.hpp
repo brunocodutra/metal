@@ -42,21 +42,13 @@ namespace metal
 
 namespace metal
 {
-    template<
-        template<typename...> class list, typename... vals,
-        typename t, t start, typename u, u size, typename v, v stride
-    >
-    struct slice<
-        list<vals...>,
-        number<t, start>, number<u, size>, number<v, stride>
-    > :
+    template<typename list, typename t, t a, typename u, u b, typename v, v c>
+    struct slice<list, number<t, a>, number<u, b>, number<v, c>> :
         swap<
-            list<vals...>,
+            list,
             transform_t<
-                enumerate_t<
-                    number<t, start>, number<u, size>, number<v, stride>
-                >,
-                at<quote_t<list<vals...>>, mod<_1, size_t<list<vals...>>>>
+                enumerate_t<number<t, a>, number<u, b>, number<v, c>>,
+                at<quote_t<list>, mod<_1, size<quote_t<list>>>>
             >
         >
     {};

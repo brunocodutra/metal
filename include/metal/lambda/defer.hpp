@@ -9,85 +9,39 @@ namespace metal
 {
     /// \ingroup lambda
     /// \brief ...
-    template<typename...>
-    struct defer
-    {};
+    template<typename lbd>
+    struct defer;
 
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref defer.
-    template<typename... args>
-    using defer_t = typename defer<args...>::type;
+    template<typename lbd>
+    using defer_t = typename defer<lbd>::type;
 }
 
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/invoke.hpp>
+#include <metal/lambda/bind.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/list/list.hpp>
-#include <metal/list/at.hpp>
-#include <metal/number/number.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/lambda/quote.hpp>
+#include <metal/core/instantiate.hpp>
 
 namespace metal
 {
-    namespace detail
+    template<typename lbd>
+    struct defer :
+        quote<lbd>
+    {};
+
+    template<template<typename...> class expr>
+    struct defer<lambda<expr>>
     {
-        template<
-            template<typename...> class expr,
-            typename... args,
-            typename ret = just<expr<typename args::type...>>
-        >
-        ret instantiate(list<args...>*);
-
-        template<template<typename...> class>
-        nothing instantiate(...);
-
         template<typename... args>
-        list<args...>* forward();
-    }
+        using _ = instantiate<expr, args...>;
 
-    template<template<typename...> class expr, typename... args>
-    struct defer<lambda<expr>, args...> :
-        decltype(detail::instantiate<expr>(detail::forward<just<args>...>()))
-    {};
-
-    template<
-        template<typename...> class expr,
-        typename... params,
-        typename... args
-    >
-    struct defer<expr<params...>, args...> :
-        decltype(
-            detail::instantiate<expr>(
-                detail::forward<invoke<params, args...>...>()
-            )
-        )
-    {};
-
-    template<typename val, typename... args>
-    struct defer<val, args...>
-    {
-        using type = just<val>;
+        using type = lambda<_>;
     };
 
-    template<std::size_t n, typename... args>
-    struct defer<arg<n>, args...> :
-        just<at<defer<arg<n>, args...>, number<std::size_t, n>>>
-    {};
-
-    template<typename x, typename y, typename... tail>
-    struct defer<arg<2U>, x, y, tail...>
-    {
-        using type = just<y>;
-    };
-
-    template<typename x, typename... tail>
-    struct defer<arg<1U>, x, tail...>
-    {
-        using type = just<x>;
-    };
-
-    template<typename... args>
-    struct defer<arg<0U>, args...>
+    template<template<typename...> class expr, typename... params>
+    struct defer<expr<params...>> :
+        bind<defer_t<lambda<expr>>, params...>
     {};
 }
 

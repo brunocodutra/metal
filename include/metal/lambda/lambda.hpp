@@ -13,7 +13,7 @@ namespace metal
     struct lambda;
 }
 
-#include <metal/lambda/defer.hpp>
+#include <metal/core/instantiate.hpp>
 
 namespace metal
 {
@@ -21,7 +21,7 @@ namespace metal
     struct lambda
     {
         template<typename... args>
-        using call = defer_t<lambda, args...>;
+        using type = instantiate_t<expr, args...>;
     };
 }
 
