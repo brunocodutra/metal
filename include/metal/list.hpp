@@ -9,20 +9,24 @@
 #include <metal/list/back.hpp>
 #include <metal/list/clear.hpp>
 #include <metal/list/contains.hpp>
+#include <metal/list/copy.hpp>
 #include <metal/list/count.hpp>
 #include <metal/list/distinct.hpp>
 #include <metal/list/empty.hpp>
 #include <metal/list/flatten.hpp>
 #include <metal/list/front.hpp>
 #include <metal/list/indices.hpp>
+#include <metal/list/insert.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
+#include <metal/list/push_back.hpp>
+#include <metal/list/push_front.hpp>
 #include <metal/list/reduce.hpp>
 #include <metal/list/reverse.hpp>
 #include <metal/list/same.hpp>
 #include <metal/list/size.hpp>
 #include <metal/list/slice.hpp>
-#include <metal/list/swap.hpp>
+#include <metal/list/splice.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/list/transpose.hpp>
 

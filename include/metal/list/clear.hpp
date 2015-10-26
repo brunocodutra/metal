@@ -19,13 +19,13 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/swap.hpp>
+#include <metal/list/copy.hpp>
 
 namespace metal
 {
     template<typename list>
     struct clear :
-        swap<list, metal::list<>>
+        copy<list, metal::list<>>
     {};
 }
 

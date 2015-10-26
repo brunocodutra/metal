@@ -19,11 +19,9 @@ namespace metal
 }
 
 #include <metal/list/at.hpp>
-#include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/size.hpp>
 #include <metal/list/same.hpp>
-#include <metal/list/swap.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/quote.hpp>

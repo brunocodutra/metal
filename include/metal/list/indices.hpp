@@ -20,14 +20,14 @@ namespace metal
 }
 
 #include <metal/list/size.hpp>
-#include <metal/list/swap.hpp>
+#include <metal/list/copy.hpp>
 #include <metal/number/enumerate.hpp>
 
 namespace metal
 {
     template<template<typename...> class list, typename... vals>
     struct indices<list<vals...>> :
-        swap<list<vals...>, enumerate_t<size_t<list<vals...>>>>
+        copy<list<vals...>, enumerate_t<size_t<list<vals...>>>>
     {};
 }
 

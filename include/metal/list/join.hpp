@@ -20,7 +20,7 @@ namespace metal
 }
 
 #include <metal/list/reduce.hpp>
-#include <metal/list/swap.hpp>
+#include <metal/list/copy.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/optional/eval.hpp>
 #include <metal/optional/optional.hpp>
@@ -61,7 +61,7 @@ namespace metal
 
     template<typename head, typename... tail>
     struct join<head, tail...> :
-        swap<head, eval<detail::join_impl<head, tail...>, nothing>>
+        copy<head, eval<detail::join_impl<head, tail...>, nothing>>
     {};
 }
 

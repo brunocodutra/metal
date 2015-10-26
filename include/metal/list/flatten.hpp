@@ -21,7 +21,7 @@ namespace metal
 
 #include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
-#include <metal/list/swap.hpp>
+#include <metal/list/copy.hpp>
 
 namespace metal
 {
@@ -56,7 +56,7 @@ namespace metal
 
     template<template<typename...> class list, typename... vals>
     struct flatten<list<vals...>> :
-        swap<list<vals...>, detail::flatten_impl_t<metal::list<vals...>>>
+        copy<list<vals...>, detail::flatten_impl_t<metal::list<vals...>>>
     {};
 }
 

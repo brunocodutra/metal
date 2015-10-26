@@ -33,7 +33,7 @@ namespace metal
 
 #include <metal/list/at.hpp>
 #include <metal/list/size.hpp>
-#include <metal/list/swap.hpp>
+#include <metal/list/copy.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/quote.hpp>
@@ -44,7 +44,7 @@ namespace metal
 {
     template<typename list, typename t, t a, typename u, u b, typename v, v c>
     struct slice<list, number<t, a>, number<u, b>, number<v, c>> :
-        swap<
+        copy<
             list,
             transform_t<
                 enumerate_t<number<t, a>, number<u, b>, number<v, c>>,
