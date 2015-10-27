@@ -20,7 +20,7 @@ namespace metal
 
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/optional/eval.hpp>
+#include <metal/optional/optional.hpp>
 
 namespace metal
 {
@@ -28,7 +28,7 @@ namespace metal
     struct lift
     {
         template<typename... args>
-        using _ = invoke<lbd, eval<args>...>;
+        using _ = invoke<lbd, typename optional<args>::type...>;
 
         using type = lambda<_>;
     };

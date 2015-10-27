@@ -7,10 +7,8 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::lambda<SEQ()>::type<VALS(N)>), (SEQ()<VALS(N)>)); \
-    ASSERT((metal::lambda<SEQ(M)>::type<VALS(M)>), (SEQ(M)<VALS(M)>)); \
-    ASSERT((metal::lambda<EXPR()>::type<VALS(N)>::type), (EXPR()<VALS(N)>::type)); \
-    ASSERT((metal::lambda<EXPR(M)>::type<VALS(M)>::type), (EXPR(M)<VALS(M)>::type)); \
+    ASSERT((metal::lambda<EXPR()>::type<VALS(N)>), (EXPR()<VALS(N)>::type)); \
+    ASSERT((metal::lambda<EXPR(M)>::type<VALS(M)>), (EXPR(M)<VALS(M)>::type)); \
 /**/
 
 GEN(MATRIX)

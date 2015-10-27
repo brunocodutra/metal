@@ -32,7 +32,7 @@ namespace metal
 {
     template<template<typename...> class expr, typename... args>
     struct invoke<lambda<expr>, args...> :
-        optional<eval<instantiate<expr, args...>, nothing>>
+        instantiate<lambda<expr>::template type, args...>
     {};
 
     template<
@@ -45,10 +45,9 @@ namespace metal
     {};
 
     template<typename val, typename... args>
-    struct invoke<val, args...>
-    {
-        using type = val;
-    };
+    struct invoke<val, args...> :
+        just<val>
+    {};
 
     template<std::size_t n, typename... args>
     struct invoke<arg<n>, args...> :
@@ -56,16 +55,14 @@ namespace metal
     {};
 
     template<typename x, typename y, typename... tail>
-    struct invoke<arg<2U>, x, y, tail...>
-    {
-        using type = y;
-    };
+    struct invoke<arg<2U>, x, y, tail...> :
+        just<y>
+    {};
 
     template<typename x, typename... tail>
-    struct invoke<arg<1U>, x, tail...>
-    {
-        using type = x;
-    };
+    struct invoke<arg<1U>, x, tail...> :
+        just<x>
+    {};
 
     template<typename... args>
     struct invoke<arg<0U>, args...>
