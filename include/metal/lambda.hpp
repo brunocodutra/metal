@@ -8,7 +8,6 @@
 #include <metal/lambda/apply.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/bind.hpp>
-#include <metal/lambda/compose.hpp>
 #include <metal/lambda/defer.hpp>
 #include <metal/lambda/identity.hpp>
 #include <metal/lambda/invoke.hpp>
