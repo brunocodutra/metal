@@ -17,12 +17,18 @@ namespace metal
     /// \brief Eager adaptor for \ref second.
     template<typename pair>
     using second_t = typename metal::second<pair>::type;
+}
 
+#include <metal/pair/pair.hpp>
+#include <metal/optional/conditional.hpp>
+#include <metal/optional/optional.hpp>
+
+namespace metal
+{
     template<template<typename...> class pair, typename x, typename y>
-    struct second<pair<x, y>>
-    {
-        using type = y;
-    };
+    struct second<pair<x, y>> :
+        conditional<is_pair_t<pair<x, y>>, just<y>>
+    {};
 }
 
 #endif

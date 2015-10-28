@@ -14,9 +14,7 @@
 #define LBD(N) EXPR(N)<ARGS(N)>
 #define LBDS(N) ENUM(N, LIFT(LBD))
 
-#define LAMBDA(...) metal::lambda
-
-#define FUN(...) LAMBDA(__VA_ARGS__)<EXPR(__VA_ARGS__)>
+#define FUN(...) metal::lambda<EXPR(__VA_ARGS__)>
 #define FUNS(N) ENUM(N, LIFT(FUN))
 
 #endif

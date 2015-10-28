@@ -22,47 +22,28 @@ namespace metal
 #include <metal/list/reduce.hpp>
 #include <metal/list/copy.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/optional/eval.hpp>
-#include <metal/optional/optional.hpp>
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename...>
-        struct join_impl;
-
-        template<
-            template<typename...> class xl, typename... xs,
-            template<typename...> class yl, typename... ys,
-            template<typename...> class zl, typename... zs,
-            typename... lists
-        >
-        struct join_impl<xl<xs...>, yl<ys...>, zl<zs...>, lists...> :
-            reduce<
-                join_impl<list<xs..., ys..., zs...>, lists...>,
-                lambda<join_impl>
-            >
-        {};
-
-        template<
-            template<typename...> class xl, typename... xs,
-            template<typename...> class yl, typename... ys
-        >
-        struct join_impl<xl<xs...>, yl<ys...>> :
-            list<xs..., ys...>
-        {};
-
-        template<template<typename...> class xl, typename... xs>
-        struct join_impl<xl<xs...>> :
-            list<xs...>
-        {};
-    }
-
-    template<typename head, typename... tail>
-    struct join<head, tail...> :
-        copy<head, eval<detail::join_impl<head, tail...>, nothing>>
+    template<
+        template<typename...> class list,
+        typename... xs, typename... ys,
+        typename... lists
+    >
+    struct join<list<xs...>, list<ys...>, lists...> :
+        reduce<join<list<xs...>, list<ys...>, lists...>, lambda<join>>
     {};
+
+    template<template<typename...> class list, typename... xs, typename... ys>
+    struct join<list<xs...>, list<ys...>> :
+        copy<list<xs...>, metal::list<xs..., ys...>>
+    {};
+
+    template<template<typename...> class list, typename... xs>
+    struct join<list<xs...>>
+    {
+        using type = list<xs...>;
+    };
 }
 
 #endif

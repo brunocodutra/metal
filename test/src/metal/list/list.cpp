@@ -21,6 +21,7 @@
     ASSERT((metal::is_just_t<metal::list<FUNS(N)>>), (TRUE)); \
     ASSERT((metal::is_list_t<VAL(N)>), (FALSE)); \
     ASSERT((metal::is_list_t<NUM(N)>), (FALSE)); \
+    ASSERT((metal::is_list_t<VEC(N)>), (TRUE)); \
     ASSERT((metal::is_list_t<PAIR(N)>), (TRUE)); \
     ASSERT((metal::is_list_t<LIST(N)>), (TRUE)); \
     ASSERT((metal::is_list_t<MAP(N)>), (TRUE)); \

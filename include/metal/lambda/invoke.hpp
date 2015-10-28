@@ -54,16 +54,6 @@ namespace metal
         at<invoke<arg<n>, args...>, number<std::size_t, n>>
     {};
 
-    template<typename x, typename y, typename... tail>
-    struct invoke<arg<2U>, x, y, tail...> :
-        just<y>
-    {};
-
-    template<typename x, typename... tail>
-    struct invoke<arg<1U>, x, tail...> :
-        just<x>
-    {};
-
     template<typename... args>
     struct invoke<arg<0U>, args...>
     {};

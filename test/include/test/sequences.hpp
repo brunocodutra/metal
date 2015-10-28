@@ -42,6 +42,9 @@ namespace test
 
 #define SEQ(...) CAT(test::seq, __VA_ARGS__)
 
+#define VEC(N) SEQ()<VALS(N)>
+#define VECS(N) ENUM(N, LIFT(VEC))
+
 #define PAIR(N) SEQ(2)<NUM(N), VAL(N)>
 #define PAIRS(N) ENUM(N, LIFT(PAIR))
 

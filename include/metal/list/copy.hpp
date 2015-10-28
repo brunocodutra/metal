@@ -19,7 +19,7 @@ namespace metal
     using copy_t = typename copy<args...>::type;
 }
 
-#include <metal/lambda/apply.hpp>
+#include <metal/lambda/invoke.hpp>
 #include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/list/list.hpp>
@@ -67,10 +67,19 @@ namespace metal
         copy<to, from<vals...>, number<b, begin>, size_t<from<vals...>>>
     {};
 
-    template<template<typename...> class to, typename... vals, typename from>
-    struct copy<to<vals...>, from> :
-        apply<defer_t<lambda<to>>, from>
+    template<
+        template<typename...> class to, typename... ts,
+        template<typename...> class from, typename... fs
+    >
+    struct copy<to<ts...>, from<fs...>> :
+        invoke<defer_t<lambda<to>>, fs...>
     {};
+
+    template<template<typename...> class list, typename... ts, typename... fs>
+    struct copy<list<ts...>, list<fs...>>
+    {
+        using type = list<fs...>;
+    };
 }
 
 #endif

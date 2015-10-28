@@ -20,6 +20,7 @@ namespace metal
 
 #include <metal/map/map.hpp>
 #include <metal/optional/conditional.hpp>
+#include <metal/optional/optional.hpp>
 
 namespace metal
 {
@@ -29,10 +30,9 @@ namespace metal
         typename... ks,
         typename... vs
     >
-    struct values<map<pairs<ks, vs>...>>
-    {
-        using type = map<vs...>;
-    };
+    struct values<map<pairs<ks, vs>...>> :
+        conditional<is_map_t<map<pairs<ks, vs>...>>, just<map<vs...>>>
+    {};
 
     template<template<typename...> class map>
     struct values<map<>> :

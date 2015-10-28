@@ -17,12 +17,18 @@ namespace metal
     /// \brief Eager adaptor for \ref first.
     template<typename pair>
     using first_t = typename metal::first<pair>::type;
+}
 
+#include <metal/pair/pair.hpp>
+#include <metal/optional/conditional.hpp>
+#include <metal/optional/optional.hpp>
+
+namespace metal
+{
     template<template<typename...> class pair, typename x, typename y>
-    struct first<pair<x, y>>
-    {
-        using type = x;
-    };
+    struct first<pair<x, y>> :
+        conditional<is_pair_t<pair<x, y>>, just<x>>
+    {};
 }
 
 #endif

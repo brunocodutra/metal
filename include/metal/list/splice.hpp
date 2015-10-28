@@ -33,7 +33,7 @@ namespace metal
                 quote_t<list>,
                 join<
                     copy<metal::list<>, quote_t<list>, integer<0>, quote_t<n>>,
-                    quote_t<other>,
+                    copy<metal::list<>, quote_t<other>>,
                     copy<metal::list<>, quote_t<list>, quote_t<n>>
                 >
             >

@@ -24,55 +24,80 @@ namespace metal
 #include <metal/list/same.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/number/number.hpp>
+#include <metal/optional/conditional.hpp>
+#include <metal/optional/eval.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename, typename = boolean<true>>
-        struct transpose_impl
+        template<typename>
+        struct unbind
+        {};
+
+        template<typename list>
+        using unbind_t = typename unbind<list>::type;
+
+        template<template<typename...> class list, typename... vals>
+        struct unbind<list<vals...>>
+        {
+            using type = lambda<list>;
+        };
+
+        template<template<typename...> class, typename...>
+        struct zip
         {};
 
         template<
-            template<typename...> class outer,
-            typename head, typename... tail,
-            typename _
+            template<typename...> class zipper,
+            typename head, typename... tail
         >
-        struct transpose_impl<outer<head, tail...>, _> :
-            transform<
-                indices_t<head>,
-                defer_t<outer<at<quote_t<head>, _1>, at<quote_t<tail>, _1>...>>
+        struct zip<zipper, head, tail...> :
+            conditional<
+                same_t<list<unbind_t<head>, unbind_t<tail>...>>,
+                transform<
+                    indices_t<head>,
+                    defer_t<
+                        zipper<at<quote_t<head>, _1>, at<quote_t<tail>, _1>...>
+                    >
+                >
             >
         {};
 
         template<
-            template<typename...> class outer,
-            template<typename...> class xl, typename... xs,
-            template<typename...> class yl, typename... ys
+            template<typename...> class zipper,
+            template<typename...> class list,
+            typename... xs, typename... ys
         >
-        struct transpose_impl<outer<xl<xs...>, yl<ys...>>,
-            boolean<sizeof...(xs) ==  sizeof...(ys)>
-        >
+        struct zip<zipper, list<xs...>, list<ys...>>
         {
-            using type = xl<outer<xs, ys>...>;
+            using type = list<zipper<xs, ys>...>;
         };
 
         template<
-            template<typename...> class outer,
-            template<typename...> class inner,
-            typename... vals
+            template<typename...> class zipper,
+            template<typename...> class list,
+            typename... xs
         >
-        struct transpose_impl<outer<inner<vals...>>>
+        struct zip<zipper, list<xs...>>
         {
-            using type = inner<outer<vals>...>;
+            using type = list<zipper<xs>...>;
         };
     }
 
-    template<typename list>
-    struct transpose :
-        detail::transpose_impl<list>
+    template<
+        template<typename...> class outer,
+        template<typename...> class head, typename... hs,
+        typename... tail
+    >
+    struct transpose<outer<head<hs...>, tail...>> :
+        conditional<
+            same_t<list<size_t<head<hs...>>, eval<size<tail>, nothing>...>>,
+            detail::zip<outer, head<hs...>, tail...>
+        >
     {};
 }
 

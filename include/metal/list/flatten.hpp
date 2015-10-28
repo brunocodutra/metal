@@ -10,8 +10,7 @@ namespace metal
     /// \ingroup list
     /// \brief ...
     template<typename list>
-    struct flatten
-    {};
+    struct flatten;
 
     /// \ingroup list
     /// \brief Eager adaptor for \ref flatten.
@@ -25,38 +24,29 @@ namespace metal
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename>
-        struct flatten_impl;
+    template<typename list>
+    struct flatten :
+        copy<list, flatten_t<metal::list<list>>>
+    {};
 
-        template<typename list>
-        using flatten_impl_t = typename flatten_impl<list>::type;
-
-        template<typename... vals>
-        struct flatten_impl<list<vals...>> :
-            join<flatten_impl_t<list<vals>>...>
-        {};
-
-        template<template<typename...> class inner, typename... vals>
-        struct flatten_impl<list<inner<vals...>>> :
-            flatten_impl<list<vals...>>
-        {};
-
-        template<typename val>
-        struct flatten_impl<list<val>> :
-            list<val>
-        {};
-
-        template<>
-        struct flatten_impl<list<>> :
-            list<>
-        {};
-    }
-
-    template<template<typename...> class list, typename... vals>
+    template<typename... vals>
     struct flatten<list<vals...>> :
-        copy<list<vals...>, detail::flatten_impl_t<metal::list<vals...>>>
+        join<flatten_t<list<vals>>...>
+    {};
+
+    template<template<typename...> class inner, typename... vals>
+    struct flatten<list<inner<vals...>>> :
+        flatten<list<vals...>>
+    {};
+
+    template<typename val>
+    struct flatten<list<val>> :
+        list<val>
+    {};
+
+    template<>
+    struct flatten<list<>> :
+        list<>
     {};
 }
 

@@ -37,10 +37,10 @@
     ASSERT((metal::is_just_t<metal::apply<FUN(), EXPR(N)<VALS(N)>>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::apply<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)>, SEQ(N)<VALS(N)>>>), (BOOL(M == N))); \
     ASSERT((metal::is_just_t<metal::apply<metal::apply<ARG(0), ARG(1)>, SEQ()<LBD(M), SEQ(N)<VALS(N)>>>>), (BOOL(M <= N))); \
-    ASSERT((metal::is_just_t<metal::apply<LAMBDA(M)<metal::apply>, SEQ()<FUN(M), SEQ(N)<VALS(N)>>>>), (BOOL(M == N))); \
+    ASSERT((metal::is_just_t<metal::apply<metal::lambda<metal::apply>, SEQ()<FUN(M), SEQ(N)<VALS(N)>>>>), (BOOL(M == N))); \
     ASSERT((metal::apply_t<VAL(M), SEQ(N)<VALS(N)>>), (VAL(M))); \
     ASSERT((metal::apply_t<NUM(M), SEQ(N)<VALS(N)>>), (NUM(M))); \
-    ASSERT((metal::apply_t<ARG(M), SEQ()<VALS(INC(M))>>), (VAL(M))); \
+    ASSERT((metal::apply_t<ARG(M), VEC(INC(M))>), (VAL(M))); \
     ASSERT((metal::apply_t<CAT(opt, M), SEQ(N)<VALS(N)>>), (CAT(optval, M))); \
     ASSERT((metal::apply_t<CAT(rec, M), SEQ(N)<VALS(N)>>), (CAT(recval, M))); \
     ASSERT((metal::apply_t<LBD(M), SEQ(M)<VALS(M)>>), (CAT(optval, M))); \
@@ -48,7 +48,7 @@
     ASSERT((metal::apply_t<FUN(), EXPR(M)<VALS(M)>>), (EXPR()<VALS(M)>::type)); \
     ASSERT((metal::apply_t<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)>, SEQ(M)<VALS(M)>>), (EXPR(INC(M))<ENUM(INC(M), optval)>::type)); \
     ASSERT((metal::apply_t<metal::apply<ARG(0), ARG(1)>, SEQ()<LBD(M), SEQ(M)<VALS(M)>>>), (CAT(optval, M))); \
-    ASSERT((metal::apply_t<LAMBDA(M)<metal::apply>, SEQ()<FUN(M), SEQ(M)<VALS(M)>>>), (CAT(optval, M))); \
+    ASSERT((metal::apply_t<metal::lambda<metal::apply>, SEQ()<FUN(M), SEQ(M)<VALS(M)>>>), (CAT(optval, M))); \
 /**/
 
 GEN(MATRIX)
