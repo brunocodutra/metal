@@ -10,7 +10,8 @@ namespace metal
     /// \ingroup map
     /// \brief ...
     template<typename map>
-    struct values;
+    struct values
+    {};
 
     /// \ingroup map
     /// \brief Eager adaptor for \ref values.

@@ -9,6 +9,7 @@
 #include <metal/map/has_key.hpp>
 #include <metal/map/keys.hpp>
 #include <metal/map/map.hpp>
+#include <metal/map/order.hpp>
 #include <metal/map/values.hpp>
 
 /// \defgroup map Map

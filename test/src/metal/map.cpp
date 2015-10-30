@@ -9,10 +9,11 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::transform_t<MAP(M), metal::at<ARG(0), NUM(0)>>), (metal::keys_t<MAP(M)>)); \
-    ASSERT((metal::transform_t<MAP(M), metal::at<ARG(0), NUM(1)>>), (metal::values_t<MAP(M)>)); \
+    ASSERT((metal::transform_t<MAP(M), metal::first<ARG(0)>>), (metal::keys_t<MAP(M)>)); \
+    ASSERT((metal::transform_t<MAP(M), metal::second<ARG(0)>>), (metal::values_t<MAP(M)>)); \
     ASSERT((metal::first_t<metal::transpose_t<MAP(INC(M))>>), (metal::keys_t<MAP(INC(M))>)); \
     ASSERT((metal::second_t<metal::transpose_t<MAP(INC(M))>>), (metal::values_t<MAP(INC(M))>)); \
+    ASSERT((metal::at_t<MAP(LIMIT), metal::order_t<MAP(LIMIT), NUM(N)>>), (PAIR(N))); \
 /**/
 
 GEN(MATRIX)
