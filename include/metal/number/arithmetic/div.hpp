@@ -32,6 +32,10 @@ namespace metal
     struct div<number<tx, vx>, number<ty, vy>, nums...> :
         div<number<decltype(vx / vy), vx / vy>, nums...>
     {};
+
+    template<typename tx, tx vx, typename ty, typename... nums>
+    struct div<number<tx, vx>, number<ty, ty(0)>, nums...>
+    {};
 }
 
 #endif

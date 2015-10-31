@@ -17,8 +17,7 @@ namespace metal
         typename size,
         typename stride = integer<1>
     >
-    struct slice
-    {};
+    struct slice;
 
     /// \ingroup list
     /// \brief Eager adaptor for \ref slice.
@@ -37,18 +36,21 @@ namespace metal
 #include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/quote.hpp>
+#include <metal/lambda/invoke.hpp>
 #include <metal/number/enumerate.hpp>
 #include <metal/number/arithmetic/mod.hpp>
 
 namespace metal
 {
-    template<typename list, typename t, t a, typename u, u b, typename v, v c>
-    struct slice<list, number<t, a>, number<u, b>, number<v, c>> :
-        copy<
-            list,
-            transform_t<
-                enumerate_t<number<t, a>, number<u, b>, number<v, c>>,
-                at<quote_t<list>, mod<_1, size<quote_t<list>>>>
+    template<typename list, typename st, typename sz, typename sd>
+    struct slice :
+        invoke<
+            copy<
+                quote_t<list>,
+                transform<
+                    enumerate<quote_t<st>, quote_t<sz>, quote_t<sd>>,
+                    quote_t<at<quote_t<list>, mod<_1, size<quote_t<list>>>>>
+                >
             >
         >
     {};

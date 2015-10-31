@@ -10,7 +10,8 @@ namespace metal
     /// \ingroup number
     /// \brief ...
     template<typename...>
-    struct enumerate;
+    struct enumerate
+    {};
 
     /// \ingroup number
     /// \brief Eager adaptor for \ref enumerate.

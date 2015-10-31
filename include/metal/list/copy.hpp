@@ -22,10 +22,12 @@ namespace metal
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
+#include <metal/lambda/quote.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/slice.hpp>
 #include <metal/list/size.hpp>
 #include <metal/number/number.hpp>
+#include <metal/number/arithmetic/sub.hpp>
 #include <metal/optional/conditional.hpp>
 
 namespace metal
@@ -33,17 +35,19 @@ namespace metal
     template<
         typename to,
         template<typename...> class from, typename... vals,
-        typename b, b begin, typename e, e end
+        typename begin, begin b, typename end, end e
     >
-    struct copy<to, from<vals...>, number<b, begin>, number<e, end>> :
+    struct copy<to, from<vals...>, number<begin, b>, number<end, e>> :
         conditional<
-            boolean<0 <= begin && begin <= end && end <= sizeof...(vals)>,
-            copy<
-                to,
-                slice_t<
-                    list<vals...>,
-                    number<std::size_t, static_cast<std::size_t>(begin)>,
-                    number<decltype(end - begin), end - begin>
+            boolean<0 <= b && b <= e && e <= sizeof...(vals)>,
+            invoke<
+                copy<
+                    quote_t<to>,
+                    slice<
+                        quote_t<list<vals...>>,
+                        number<begin, b>,
+                        sub_t<number<end, e>, number<begin, b>>
+                    >
                 >
             >
         >
@@ -61,10 +65,10 @@ namespace metal
     template<
         typename to,
         template<typename...> class from, typename... vals,
-        typename b, b begin
+        typename begin, begin b
     >
-    struct copy<to, from<vals...>, number<b, begin>> :
-        copy<to, from<vals...>, number<b, begin>, size_t<from<vals...>>>
+    struct copy<to, from<vals...>, number<begin, b>> :
+        copy<to, from<vals...>, number<begin, b>, size_t<from<vals...>>>
     {};
 
     template<

@@ -52,7 +52,7 @@ namespace metal
     {};
 
     template<typename list, typename t>
-    struct at<list, number<t, 0>> :
+    struct at<list, number<t, t(0)>> :
         front<list>
     {};
 }
