@@ -15,8 +15,8 @@ namespace metal
 
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref bind.
-    template<typename... args>
-    using bind_t = typename metal::bind<args...>::type;
+    template<typename... _>
+    using bind_t = typename metal::bind<_...>::type;
 }
 
 #include <metal/lambda/invoke.hpp>

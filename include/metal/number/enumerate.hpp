@@ -15,8 +15,8 @@ namespace metal
 
     /// \ingroup number
     /// \brief Eager adaptor for \ref enumerate.
-    template<typename... args>
-    using enumerate_t = typename metal::enumerate<args...>::type;
+    template<typename... _>
+    using enumerate_t = typename metal::enumerate<_...>::type;
 }
 
 #include <metal/number/number.hpp>

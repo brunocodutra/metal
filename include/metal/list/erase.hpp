@@ -17,8 +17,8 @@ namespace metal
 
     /// \ingroup list
     /// \brief Eager adaptor for \ref erase.
-    template<typename... args>
-    using erase_t = typename erase<args...>::type;
+    template<typename... _>
+    using erase_t = typename erase<_...>::type;
 }
 
 #include <metal/list/copy.hpp>

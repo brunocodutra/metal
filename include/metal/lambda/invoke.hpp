@@ -15,8 +15,8 @@ namespace metal
 
     /// \ingroup lambda
     /// \brief Eager adaptor for \ref invoke.
-    template<typename... args>
-    using invoke_t = typename invoke<args...>::type;
+    template<typename... _>
+    using invoke_t = typename invoke<_...>::type;
 }
 
 #include <metal/lambda/arg.hpp>

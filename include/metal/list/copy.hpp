@@ -15,8 +15,8 @@ namespace metal
 
     /// \ingroup list
     /// \brief Eager adaptor for \ref copy.
-    template<typename... args>
-    using copy_t = typename copy<args...>::type;
+    template<typename... _>
+    using copy_t = typename copy<_...>::type;
 }
 
 #include <metal/lambda/invoke.hpp>

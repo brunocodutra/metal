@@ -34,7 +34,10 @@ namespace metal
         reduce<
             add<
                 number<std::ptrdiff_t, 0>,
-                typename std::is_same<vals, val>::type...
+                add_t<
+                    number<std::ptrdiff_t, 0>,
+                    typename std::is_same<vals, val>::type
+                >...
             >,
             lambda<add>
         >
