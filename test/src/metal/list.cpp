@@ -14,6 +14,8 @@
     ASSERT((metal::transform_t<SEQ(M)<NUMS(M)>, metal::at<metal::quote_t<LIST(M)>, ARG(0)>>), (LIST(M))); \
     ASSERT((metal::insert_t<VEC(M), NUM(M), VAL(N)>), (metal::push_back_t<VEC(M), VAL(N)>)); \
     ASSERT((metal::insert_t<VEC(M), NUM(0), VAL(N)>), (metal::push_front_t<VEC(M), VAL(N)>)); \
+    ASSERT((metal::erase_t<VEC(INC(M)), NUM(M)>), (metal::pop_back_t<VEC(INC(M))>)); \
+    ASSERT((metal::erase_t<VEC(INC(M)), NUM(0)>), (metal::pop_front_t<VEC(INC(M))>)); \
 /**/
 
 GEN(MATRIX)

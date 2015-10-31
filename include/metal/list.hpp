@@ -13,12 +13,15 @@
 #include <metal/list/count.hpp>
 #include <metal/list/distinct.hpp>
 #include <metal/list/empty.hpp>
+#include <metal/list/erase.hpp>
 #include <metal/list/flatten.hpp>
 #include <metal/list/front.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/list/insert.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
+#include <metal/list/pop_back.hpp>
+#include <metal/list/pop_front.hpp>
 #include <metal/list/push_back.hpp>
 #include <metal/list/push_front.hpp>
 #include <metal/list/reduce.hpp>
