@@ -23,6 +23,7 @@
 #include <metal/list/insert.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
+#include <metal/list/partition.hpp>
 #include <metal/list/pop_back.hpp>
 #include <metal/list/pop_front.hpp>
 #include <metal/list/push_back.hpp>
@@ -36,6 +37,7 @@
 #include <metal/list/same.hpp>
 #include <metal/list/size.hpp>
 #include <metal/list/slice.hpp>
+#include <metal/list/sort.hpp>
 #include <metal/list/splice.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/list/transpose.hpp>

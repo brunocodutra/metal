@@ -43,25 +43,27 @@ namespace metal
             boolean<0 <= b && b <= e && e <= sizeof...(vals)>,
             invoke<
                 copy<
-                    quote_t<to>,
+                    _1,
                     slice<
-                        quote_t<list<vals...>>,
+                        _2,
                         number<begin, b>,
                         sub_t<number<end, e>, number<begin, b>>
                     >
-                >
+                >,
+                to, list<vals...>
             >,
             boolean<0 <= e && e <= b && b <= sizeof...(vals)>,
             invoke<
                 copy<
-                    quote_t<to>,
+                    _1,
                     slice<
-                        quote_t<list<vals...>>,
+                        _2,
                         dec_t<number<begin, b>>,
                         sub_t<number<begin, b>, number<end, e>>,
                         integer<-1>
                     >
-                >
+                >,
+                to, list<vals...>
             >
         >
     {};

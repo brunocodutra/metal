@@ -131,7 +131,7 @@ endif()
 
 if(METAL_ENABLE_EXTRA_WARNINGS)
     extra_warnings_flags(CXX METAL_EXTRA_COMPILE_FLAGS)
-    if(CXX_COMPILER_IS_GNU OR CXX_COMPILER_IS_CLANG)
+    if(CXX_COMPILER_IS_CLANG)
         list(APPEND METAL_EXTRA_COMPILE_FLAGS
             -Wno-c++98-compat
             -Wno-c++98-compat-pedantic

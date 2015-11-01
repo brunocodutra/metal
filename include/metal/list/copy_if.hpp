@@ -19,21 +19,21 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
+#include <metal/list/copy.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/apply.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
-#include <metal/lambda/arg.hpp>
 #include <metal/optional/conditional.hpp>
 
 namespace metal
 {
-    template<typename to, typename from, typename lbd>
-    struct copy_if :
+    template<typename to, template<typename...> class from, typename... fs, typename lbd>
+    struct copy_if<to, from<fs...>, lbd> :
         invoke<
-            lift_t<copy<quote_t<to>, apply<quote_t<lambda<join>>, _1>>>,
-            transform<from, conditional<bind_t<lbd, _1>, list<_1>, list<>>>
+            lift_t<copy<quote_t<to>, lambda<join>>>,
+            invoke<conditional<bind_t<lbd, _1>, list<_1>, list<>>, fs>...
         >
     {};
 }
