@@ -21,7 +21,9 @@ namespace metal
 #include <metal/list/copy.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
+#include <metal/lambda/lift.hpp>
 #include <metal/lambda/quote.hpp>
 
 namespace metal
@@ -29,14 +31,10 @@ namespace metal
     template<typename list, typename n, typename other>
     struct splice :
         invoke<
-            copy<
-                quote_t<list>,
-                join<
-                    copy<metal::list<>, quote_t<list>, integer<0>, quote_t<n>>,
-                    copy<metal::list<>, quote_t<other>>,
-                    copy<metal::list<>, quote_t<list>, quote_t<n>>
-                >
-            >
+            lift_t<copy<quote_t<list>, join<_1, _2, _3>>>,
+            copy<metal::list<>, list, integer<0>, n>,
+            copy<metal::list<>, other>,
+            copy<metal::list<>, list, n>
         >
     {};
 }

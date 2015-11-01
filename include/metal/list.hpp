@@ -11,7 +11,9 @@
 #include <metal/list/clear.hpp>
 #include <metal/list/contains.hpp>
 #include <metal/list/copy.hpp>
+#include <metal/list/copy_if.hpp>
 #include <metal/list/count.hpp>
+#include <metal/list/count_if.hpp>
 #include <metal/list/distinct.hpp>
 #include <metal/list/empty.hpp>
 #include <metal/list/erase.hpp>
@@ -26,6 +28,10 @@
 #include <metal/list/push_back.hpp>
 #include <metal/list/push_front.hpp>
 #include <metal/list/reduce.hpp>
+#include <metal/list/remove.hpp>
+#include <metal/list/remove_if.hpp>
+#include <metal/list/replace.hpp>
+#include <metal/list/replace_if.hpp>
 #include <metal/list/reverse.hpp>
 #include <metal/list/same.hpp>
 #include <metal/list/size.hpp>

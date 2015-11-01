@@ -28,6 +28,7 @@ namespace metal
 #include <metal/list/size.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/arithmetic/sub.hpp>
+#include <metal/number/arithmetic/dec.hpp>
 #include <metal/optional/conditional.hpp>
 
 namespace metal
@@ -47,6 +48,18 @@ namespace metal
                         quote_t<list<vals...>>,
                         number<begin, b>,
                         sub_t<number<end, e>, number<begin, b>>
+                    >
+                >
+            >,
+            boolean<0 <= e && e <= b && b <= sizeof...(vals)>,
+            invoke<
+                copy<
+                    quote_t<to>,
+                    slice<
+                        quote_t<list<vals...>>,
+                        dec_t<number<begin, b>>,
+                        sub_t<number<begin, b>, number<end, e>>,
+                        integer<-1>
                     >
                 >
             >

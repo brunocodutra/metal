@@ -2,23 +2,23 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_LIST_COUNT_HPP
-#define METAL_LIST_COUNT_HPP
+#ifndef METAL_LIST_REMOVE_HPP
+#define METAL_LIST_REMOVE_HPP
 
 namespace metal
 {
     /// \ingroup list
     /// \brief ...
     template<typename list, typename val>
-    struct count;
+    struct remove;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref count.
+    /// \brief Eager adaptor for \ref remove.
     template<typename list, typename val>
-    using count_t = typename count<list, val>::type;
+    using remove_t = typename remove<list, val>::type;
 }
 
-#include <metal/list/count_if.hpp>
+#include <metal/list/remove_if.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/quote.hpp>
 
@@ -27,8 +27,8 @@ namespace metal
 namespace metal
 {
     template<typename list, typename val>
-    struct count :
-        count_if<list, std::is_same<_1, quote_t<val>>>
+    struct remove :
+        remove_if<list, std::is_same<_1, quote_t<val>>>
     {};
 }
 

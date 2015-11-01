@@ -10,7 +10,8 @@ namespace metal
     /// \ingroup list
     /// \brief ...
     template<typename list>
-    struct transpose;
+    struct transpose
+    {};
 
     /// \ingroup list
     /// \brief Eager adaptor for \ref transpose.

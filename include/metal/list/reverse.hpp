@@ -19,21 +19,15 @@ namespace metal
     using reverse_t = typename reverse<list>::type;
 }
 
-#include <metal/list/slice.hpp>
+#include <metal/list/copy.hpp>
 #include <metal/list/size.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/arithmetic/dec.hpp>
 
 namespace metal
 {
     template<template<typename...> class list, typename... vals>
     struct reverse<list<vals...>> :
-        slice<
-            list<vals...>,
-            dec_t<size_t<list<vals...>>>,
-            size_t<list<vals...>>,
-            integer<-1>
-        >
+        copy<list<vals...>, list<vals...>, size_t<list<vals...>>, integer<0>>
     {};
 }
 

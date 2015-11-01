@@ -18,6 +18,8 @@ namespace metal
     using accumulate_t = typename accumulate<_...>::type;
 }
 
+#include <metal/list/size.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lift.hpp>
 #include <metal/lambda/bind.hpp>
@@ -42,16 +44,13 @@ namespace metal
             boolean<(l < r)>,
             invoke<
                 accumulate<
-                    quote_t<list>,
-                    bind_t<
-                        lbd,
-                        quote_t<state>,
-                        at<quote_t<list>, number<t, l>>
-                    >,
-                    quote_t<lbd>,
+                    _1,
+                    invoke<_3, _2, at<_1, number<t, l>>>,
+                    _3,
                     inc_t<number<t, l>>,
                     number<u, r>
-                >
+                >,
+                list, state, lbd
             >,
             invoke<
                 lift_t<lbd>,
@@ -98,13 +97,8 @@ namespace metal
     template<typename list, typename state, typename lbd, typename t, t l>
     struct accumulate<list, state, lbd, number<t, l>> :
         invoke<
-            accumulate<
-                quote_t<list>,
-                quote_t<state>,
-                quote_t<lbd>,
-                number<t, l>,
-                size<quote_t<list>>
-            >
+            accumulate<_1, _2, _3, number<t, l>, size<_1>>,
+            list, state, lbd
           >
     {};
 
