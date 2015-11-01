@@ -68,7 +68,7 @@ namespace metal
         typename t, t l,
         typename u
     >
-    struct accumulate<list, state, lbd, number<t, l>, number<u, l + 1>> :
+    struct accumulate<list, state, lbd, number<t, l>, number<u, u(l + 1)>> :
         invoke<lift_t<lbd>, just<state>, at<list, number<t, l>>>
     {};
 
@@ -79,7 +79,7 @@ namespace metal
         typename t, t l,
         typename u
     >
-    struct accumulate<list, state, lbd, number<t, l>, number<u, l - 1>> :
+    struct accumulate<list, state, lbd, number<t, l>, number<u, u(l - 1)>> :
         invoke<lift_t<lbd>, at<list, number<u, l - 1>>, just<state>>
     {};
 
@@ -90,7 +90,7 @@ namespace metal
         typename t, t l,
         typename u
     >
-    struct accumulate<list, state, lbd, number<t, l>, number<u, l>>
+    struct accumulate<list, state, lbd, number<t, l>, number<u, u(l)>>
     {
         using type = state;
     };

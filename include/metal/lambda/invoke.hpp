@@ -32,7 +32,7 @@ namespace metal
 {
     template<template<typename...> class expr, typename... args>
     struct invoke<lambda<expr>, args...> :
-        instantiate<lambda<expr>::template type, args...>
+        optional<eval<instantiate<expr, args...>, nothing>>
     {};
 
     template<
