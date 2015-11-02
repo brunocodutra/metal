@@ -18,6 +18,8 @@
 #include <metal/list/empty.hpp>
 #include <metal/list/equal.hpp>
 #include <metal/list/erase.hpp>
+#include <metal/list/find.hpp>
+#include <metal/list/find_if.hpp>
 #include <metal/list/flatten.hpp>
 #include <metal/list/front.hpp>
 #include <metal/list/indices.hpp>
