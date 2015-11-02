@@ -14,6 +14,7 @@
     ASSERT((metal::first_t<metal::transpose_t<MAP(INC(M))>>), (metal::keys_t<MAP(INC(M))>)); \
     ASSERT((metal::second_t<metal::transpose_t<MAP(INC(M))>>), (metal::values_t<MAP(INC(M))>)); \
     ASSERT((metal::at_t<MAP(LIMIT), metal::order_t<MAP(LIMIT), NUM(N)>>), (PAIR(N))); \
+    ASSERT((metal::has_key_t<metal::erase_key_t<SEQ()<PAIRS(M)>, NUM(N)>, NUM(N)>), (FALSE)); \
 /**/
 
 GEN(MATRIX)

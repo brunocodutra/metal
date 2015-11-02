@@ -6,6 +6,7 @@
 #define METAL_MAP_HPP
 
 #include <metal/map/at_key.hpp>
+#include <metal/map/erase_key.hpp>
 #include <metal/map/has_key.hpp>
 #include <metal/map/keys.hpp>
 #include <metal/map/map.hpp>
