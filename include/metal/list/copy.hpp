@@ -19,10 +19,10 @@ namespace metal
     using copy_t = typename copy<_...>::type;
 }
 
+#include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/lambda/quote.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/slice.hpp>
 #include <metal/list/size.hpp>
@@ -40,27 +40,18 @@ namespace metal
     >
     struct copy<to, from<vals...>, number<begin, b>, number<end, e>> :
         conditional<
-            boolean<0 <= b && b <= e && e <= sizeof...(vals)>,
-            invoke<
-                copy<
-                    _1,
-                    slice<
-                        _2,
-                        number<begin, b>,
-                        sub_t<number<end, e>, number<begin, b>>
-                    >
-                >,
-                to, list<vals...>
+            boolean<
+                0 <= b && b <= sizeof...(vals) &&
+                0 <= e && e <= sizeof...(vals)
             >,
-            boolean<0 <= e && e <= b && b <= sizeof...(vals)>,
             invoke<
                 copy<
                     _1,
                     slice<
                         _2,
-                        dec_t<number<begin, b>>,
-                        sub_t<number<begin, b>, number<end, e>>,
-                        integer<-1>
+                        number<begin, (b <= e) ? b : b - 1>,
+                        number<decltype(e - b), (b <= e) ? e - b : b - e>,
+                        integer<(b <= e) ? 1 : -1>
                     >
                 >,
                 to, list<vals...>

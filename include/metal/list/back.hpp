@@ -25,9 +25,9 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename... vals>
-    struct back<list<vals...>> :
-        at<list<vals...>, dec_t<size_t<list<vals...>>>>
+    template<template<typename...> class list, typename head, typename... tail>
+    struct back<list<head, tail...>> :
+        at<list<head, tail...>, dec_t<size_t<list<head, tail...>>>>
     {};
 }
 

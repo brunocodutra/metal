@@ -42,10 +42,10 @@ namespace metal
 
         template<
             template<typename...> class list, typename t, t... ns,
-            typename u, u a,
-            typename v, v b>
+            typename u, u a, typename v, v b
+        >
         struct affine<list<number<t, ns>...>, number<u, a>, number<v, b>> :
-            numbers<v, b + a*ns...>
+            numbers<decltype(t() + u() + v()), b + a*ns...>
         {};
     }
 

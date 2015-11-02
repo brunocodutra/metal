@@ -27,11 +27,22 @@ namespace metal
 {
     template<
         template<typename...> class list,
-        typename... xs, typename... ys,
+        typename... xs, typename... ys, typename... zs,
         typename... lists
     >
-    struct join<list<xs...>, list<ys...>, lists...> :
-        reduce<join<list<xs...>, list<ys...>, lists...>, lambda<join>>
+    struct join<list<xs...>, list<ys...>, list<zs...>, lists...> :
+        reduce<
+            join<list<xs...>, list<ys...>, list<zs...>, lists...>,
+            lambda<join>
+        >
+    {};
+
+    template<
+        template<typename...> class list,
+        typename... xs, typename... ys, typename... zs
+    >
+    struct join<list<xs...>, list<ys...>, list<zs...>> :
+        copy<list<xs...>, metal::list<xs..., ys..., zs...>>
     {};
 
     template<template<typename...> class list, typename... xs, typename... ys>

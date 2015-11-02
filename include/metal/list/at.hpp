@@ -18,37 +18,28 @@ namespace metal
     using at_t = typename at<list, n>::type;
 }
 
-#include <metal/list/list.hpp>
 #include <metal/list/front.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/list/transpose.hpp>
 #include <metal/map/at_key.hpp>
 #include <metal/number/number.hpp>
 #include <metal/pair/pair.hpp>
-#include <metal/optional/conditional.hpp>
+#include <metal/lambda/invoke.hpp>
+#include <metal/lambda/arg.hpp>
 
 #include <cstddef>
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename, typename>
-        struct at_impl
-        {};
-
-        template<typename list, typename t, t v>
-        struct at_impl<list, number<t, v>> :
+    template<typename list, typename t, t v>
+    struct at<list, number<t, v>> :
+        invoke<
             at_key<
-                transpose_t<pair<indices_t<list>, list>>,
+                transpose<pair<indices<_1>, _1>>,
                 number<std::size_t, static_cast<std::size_t>(v)>
-            >
-        {};
-    }
-
-    template<typename list, typename n>
-    struct at :
-        conditional<is_list_t<list>, detail::at_impl<list, n>>
+            >,
+            list
+        >
     {};
 
     template<typename list, typename t>

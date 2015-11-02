@@ -42,11 +42,11 @@ namespace metal
                 copy<
                     _1,
                     join<
-                        copy<metal::list<>, _1, integer<0>, number<begin, b>>,
-                        copy<metal::list<>, _1, number<end, e>, size<_1>>
+                        copy<_2, _1, integer<0>, number<begin, b>>,
+                        copy<_2, _1, number<end, e>, size<_1>>
                     >
                 >,
-                list
+                list, metal::list<>
             >
         >
     {};

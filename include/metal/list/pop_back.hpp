@@ -25,9 +25,9 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename... vals>
-    struct pop_back<list<vals...>> :
-        erase<list<vals...>, dec_t<size_t<list<vals...>>>>
+    template<template<typename...> class list, typename head, typename... tail>
+    struct pop_back<list<head, tail...>> :
+        erase<list<head, tail...>, dec_t<size_t<list<head, tail...>>>>
     {};
 }
 
