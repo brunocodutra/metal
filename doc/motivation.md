@@ -1,48 +1,70 @@
 # Motivation {#motivation}
 
-Metaprogramming is the art of writing code that is executed to generate new
-code, which in turn is translated into machine code that is finally assembled
-into an executable program.
-
-Metaprograms are far from a novelty in the C family, in fact they have been part
-of everyday programming since the early days in the form of
-the [C preprocessor][preprocessor].
+Metaprogramming tools are far from a novelty in the C family,
+in fact they have been part of everyday C programming since the early days
+in the form of the [preprocessor].
 In C++, metaprogramming was taken to a whole new level with the development of
-[template metaprogramming][tmp], a technique that employs templates to
-perform computations during compilation time.
+[template metaprogramming][tmp], a technique that exploits the
+template system to perform computations during compilation time.
 Contrary to the C preprocessor, it has long been noticed that
-[C++ templates are indeed Turing complete][tmp.turing], thus making templates
-the standard tool for metaprogramming in C++ since the very beginning.
+[C++ templates are indeed Turing complete][tmp.turing],
+thus consolidating template metaprogramming as the standard idiom for
+compile time computations in C++.
 
-In March of 2003 [Boost.MPL] is officially shipped with Boost version 1.30.0.
-A masterpiece in its field, Boost.MPL went to great lengths to support the
+In March of 2003 the [Boost Metaprogramming Library][Boost.MPL],
+by Aleksey Gurtovoy and David Abrahams,
+is officially shipped with Boost version 1.30.0.
+A masterpiece of template metaprogramming,
+it went to great lengths to support the
 widest variety of poorly conforming if not utterly defective compilers,
 abstracting away the nastiest compiler hackery to present a uniform
-working interface that others could rely on.
-After almost a decade being the best known tool for metaprogramming in C++,
-Boost.MPL started to show its age when [C++11] introduced
-[variadic templates][variadics], [constant expressions][constexpr] and
-[type inference][decltype] to the core language.
-This new machinery have opened path to the development of
-[several new techniques][tmp.modern] with potential to outperform Boost.MPL
-by orders of magnitude in many instances.
-This motivated several attempts to propose a modern tool for metaprogramming,
-most notably [meta] by Eric Niebler and [Boost.Hana] by Louis Dionne,
-with varying degrees of success.
+framework that finally could be relied upon.
+It played a crucial role in the dissemination of metaprogramming in C++ and
+remained undisputed for almost a decade,
+but, eventually, it started showing its age when [C++11] introduced
+[variadic templates][variadics], [alias templates], [type inference][decltype]
+and [constant expressions][constexpr] to the core language.
+The powerful C++11 machinery enabled the development of whole new
+metaprogramming [styles][tmp.simple] and [techniques][tmp.modern] with
+potential to outperform Boost.MPL by orders of magnitude in many instances.
+Moreover, the need for endless automatically generated boilerplate code could
+finally be overcome using variadic templates,
+whereas syntax clutter could finally be mitigated using alias templates,
+vastly improving readability.
 
-Metal is yet another attempt to modernize the way of doing metaprogramming in
-C++ with focus on simplicity, portability and performance.
-Its ultimate goal is to succeed Boost.MPL in every use case where support for
-C++11 is desired, delivering greater performance and expressiveness.
+Eventually, [motivation][mpl.lite] to modernize Boost.MPL emerged from the
+community, even though opinions diverged widely on the matter.
+As diverse has been the development of new metaprogramming libraries
+with varying degrees of success,
+most notably [meta] by Eric Niebler, [turbo] by Manu Sánchez and [Boost.Hana] by
+Louis Dionne, the latter formally accepted into the Boost distribution in July
+2015.
 
-[C++11]:            http://en.wikipedia.org/wiki/C%2B%2B11
-[preprocessor]:     https://en.wikipedia.org/wiki/C_preprocessor
+Metal is yet another approach to modern C++11 metaprogramming.
+Its ultimate goal is to be regarded as the best alternative to Boost.MPL in
+every use case where support for C++11 is desired,
+delivering greater performance and expressiveness without
+cluttering the codebase.
+Although not a perfect drop in replacement for Boost.MPL,
+Metal follows very similar [design principles](\ref overview),
+except that they have been fine tuned to take advantage of C++11,
+so migration is meant to be the smoothest possible.
+
 [Boost.MPL]:        http://www.boost.org/doc/libs/1_58_0/libs/mpl/doc/
+[Boost.Hana]:       http://boostorg.github.io/hana/index.html
+[meta]:             https://github.com/ericniebler/meta
+[turbo]:            https://github.com/Manu343726/Turbo
+
 [tmp]:              https://en.wikipedia.org/wiki/Template_metaprogramming
 [tmp.turing]:       http://ubietylab.net/ubigraph/content/Papers/pdf/CppTuring.pdf
+[tmp.simple]:       http://www.pdimov.com/cpp2/simple_cxx11_metaprogramming.html
 [tmp.modern]:       http://www.pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html
+
+[preprocessor]:     https://en.wikipedia.org/wiki/C_preprocessor
 [variadics]:        http://en.cppreference.com/w/cpp/language/parameter_pack
-[constexpr]:        http://en.cppreference.com/w/cpp/language/constexpr
+[alias templates]:  http://en.cppreference.com/w/cpp/language/type_alias
 [decltype]:         http://en.cppreference.com/w/cpp/language/decltype
-[meta]:             https://github.com/ericniebler/meta
-[Boost.Hana]:       http://boostorg.github.io/hana/index.html
+[constexpr]:        http://en.cppreference.com/w/cpp/language/constexpr
+
+[C++11]:            http://en.wikipedia.org/wiki/C%2B%2B11
+[mpl.lite]:         http://rrsd.com/blincubator.com/bi_suggestion/mpl-lite-or-mpl2/
