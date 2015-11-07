@@ -55,7 +55,7 @@ namespace metal
     ///
     /// Example
     /// -------
-    /// \snippet optional/just.cpp is_just
+    /// \snippet optional/optional.cpp is_just
     ///
     /// See Also
     /// --------

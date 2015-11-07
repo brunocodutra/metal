@@ -1,9 +1,9 @@
 # Motivation {#motivation}
 
-Metaprogramming tools are far from a novelty in the C family,
-in fact they have been part of everyday C programming since the early days
-in the form of the [preprocessor].
-In C++, metaprogramming was taken to a whole new level with the development of
+Metaprogramming is far from a novelty in the C family,
+in fact it has been part of everyday C programming since the early days
+through the [preprocessor].
+In C++, it was taken to a whole new level with the development of
 [template metaprogramming][tmp], a technique that exploits the
 template system to perform computations during compilation time.
 Contrary to the C preprocessor, it has long been noticed that

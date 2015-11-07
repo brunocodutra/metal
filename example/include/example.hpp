@@ -5,7 +5,10 @@
 #ifndef METAL_EXAMPLE_HPP
 #define METAL_EXAMPLE_HPP
 
-#include <type_traits>
+#define CAT_(X, Y) X##Y
+#define CAT(X, Y) CAT_(X, Y)
+
+#define ANONYMOUS namespace CAT(anonymous, __LINE__)
 
 int main()
 {

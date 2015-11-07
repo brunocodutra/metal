@@ -11,7 +11,11 @@
 }
 
 h2, h2.groupheader {
-    font-size: 1.5em;
+    font-size: 1.6em;
+}
+
+h2 ~ *:not(h1):not(h2), h2 ~ .fragment {
+    margin-left: 10px;
 }
 
 h3 {
@@ -28,7 +32,14 @@ h1, h2, h2.groupheader {
 
 h1 {
     border-bottom: 1px solid #989898;
-    padding-bottom: 0.2em;
+    padding-bottom: 0.4em;
+}
+
+code {
+    padding: 1px 5px;
+    background-color: #FBFBFB;
+    border: 1px solid #CBCBCB;
+    white-space: nowrap
 }
 
 h1.glow, h2.glow, h3.glow, h4.glow, h5.glow, h6.glow {
