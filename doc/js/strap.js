@@ -1,8 +1,22 @@
 $( document ).ready(function() {
 
-    $("div.headertitle").remove();
-    $("div.title").addClass("h1");
-    $('h1').addClass("h1 page-header");
+    var menuOffsetY = $('#menu').offset().top;
+    document.onscroll = function() {
+        if ($(window).scrollTop() >= menuOffsetY) {
+            $('#menu').addClass('navbar-fixed-top');
+            $('.content').addClass('menu-padding');
+            $('.hidden')
+                .addClass('blur')
+                .height($('#menu').height())
+                .removeClass('hidden');
+        } else {
+            $('#menu').removeClass('navbar-fixed-top');
+            $('.blur').addClass('hidden').removeClass('blur');
+            $('.content').removeClass('menu-padding');
+        }
+    }
+
+    $("div.title, h1").addClass("h1 page-header");
 
     $('li > a[href="index.html"] > span').before("<i class='octicon octicon-book'></i> ");
     $('li > a[href="files.html"] > span').before("<i class='octicon octicon-file-code'></i> ");
@@ -22,6 +36,7 @@ $( document ).ready(function() {
     $('img[src="ftv2cl.png"]').replaceWith('<span class="label label-danger">C</span> ');
 
     $("div.tabs").removeClass("tabs");
+    $("div.tabs2").removeClass("tabs2");
     $("ul.tablist").removeClass("tablist").addClass("nav nav-pills nav-justified");
     $("ul.tablist").css("margin-top", "0.5em");
     $("ul.tablist").css("margin-bottom", "0.5em");

@@ -2,11 +2,6 @@
     border-bottom: 1px solid #EEEEEE;
 }
 
-.adjust-right {
-    margin-left: 30px !important;
-    font-size: 1.15em !important;
-}
-
 .navbar {
     border: 0px solid !important;
 }
@@ -18,15 +13,35 @@
 }
 
 .nav-pills > li > a:hover, .nav-pills > li > a:focus {
-    background-color: #F7F7F7;
+    background-color: initial;
+    border-left: 1px solid #EEEEEE;
+    border-right: 1px solid #EEEEEE;
 }
 
 .nav-pills > li > a {
     color: #434343;
 }
 
+.hidden {
+    display: none;
+}
+
+.blur {
+    position: fixed;
+    top:0;
+    width: 100%;
+    background: rgba(255,255,255,.8);
+    z-index:1010;
+    -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -o-filter: blur(0px);
+    -ms-filter: blur(0px);
+    filter: blur(0px);
+}
+
 div.toc {
     background-color: #F7F7F7;
+    border: 1px solid #EEEEEE;
 }
 
 .breadcrumb {
@@ -58,7 +73,7 @@ div.fragment, pre.fragment {
     font-size: 90%;
     color: #C7254E;
     background-color: #F7F7F7;
-    border: 1px solid #DCDCDC;
+    border: 1px solid #EEEEEE;
     border-radius: 4px;
 }
 
@@ -67,15 +82,13 @@ div.fragment, pre.fragment {
     display: none;
 }
 
-
-
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     color: #464646;
 }
 
-h2 ~ *:not(h1):not(h2), h2 ~ .fragment {
+/*h2 ~ *:not(h1):not(h2), h2 ~ .fragment {
     margin-left: 10px;
-}
+}*/
 
 div.directory{
     border: 0px
@@ -99,8 +112,9 @@ html, body {
 }
 
 #footer {
-    height: 100px;
+    height: 80px;
     font-size: 0.9em;
+    margin-top: 20px;
     padding: 8px 0px;
     background-color: #F7F7F7;
 }
@@ -112,8 +126,8 @@ html, body {
 }
 
 .social-btns {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .social-btns > ul > li {
@@ -124,44 +138,4 @@ html, body {
 .github-btn {
     overflow: hidden;
     border: 0px none;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .adjust-right {
-    margin: 0px -5px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1199px){
-  .nav > li > a {
-    padding-left: 4px !important;
-    padding-right: 4px !important;
-  }
-}
-
-@media (min-width: 1200px){
-  .nav > li > a {
-    padding-left: 9px !important;
-    padding-right: 9px !important;
-  }
-}
-
-@media (min-width: 992px) {
-    .footer-row {
-        text-align: left;
-    }
-
-    .footer-icons {
-        text-align: right;
-    }
-}
-
-@media (max-width: 991px) {
-    .footer-row {
-        text-align: center;
-    }
-
-    .footer-icons {
-        text-align: center;
-    }
 }
