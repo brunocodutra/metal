@@ -228,24 +228,26 @@ TAB_SIZE               = 4
 # "Side Effects:". You can put \n's in the value part of an alias to insert
 # newlines.
 
-ALIASES +=value="\ref overview_concepts_value"
-ALIASES +=values="\ref overview_concepts_value \"Values\""
-ALIASES +=optional="\ref overview_concepts_optional"
-ALIASES +=optionals="\ref overview_concepts_optional \"Optionals\""
-ALIASES +=number="\ref overview_concepts_number"
-ALIASES +=numbers="\ref overview_concepts_number \"Numbers\""
-ALIASES +=expression="\ref overview_concepts_expression"
-ALIASES +=expressions="\ref overview_concepts_expression \"Expressions\""
-ALIASES +=lambda="\ref overview_concepts_lambda"
-ALIASES +=lambdas="\ref overview_concepts_lambda \"Lambdas\""
-ALIASES +=list="\ref overview_concepts_list"
-ALIASES +=lists="\ref overview_concepts_list \"Lists\""
-ALIASES +=pair="\ref overview_concepts_pair"
-ALIASES +=pairs="\ref overview_concepts_pair \"Pairs\""
-ALIASES +=map="\ref overview_concepts_map"
-ALIASES +=maps="\ref overview_concepts_map \"Maps\""
+ALIASES +=value="\ref concepts_value"
+ALIASES +=values="\ref concepts_value \"Values\""
+ALIASES +=optional="\ref concepts_optional"
+ALIASES +=optionals="\ref concepts_optional \"Optionals\""
+ALIASES +=number="\ref concepts_number"
+ALIASES +=numbers="\ref concepts_number \"Numbers\""
+ALIASES +=expression="\ref concepts_expression"
+ALIASES +=expressions="\ref concepts_expression \"Expressions\""
+ALIASES +=lambda="\ref concepts_lambda"
+ALIASES +=lambdas="\ref concepts_lambda \"Lambdas\""
+ALIASES +=list="\ref concepts_list"
+ALIASES +=lists="\ref concepts_list \"Lists\""
+ALIASES +=pair="\ref concepts_pair"
+ALIASES +=pairs="\ref concepts_pair \"Pairs\""
+ALIASES +=map="\ref concepts_map"
+ALIASES +=maps="\ref concepts_map \"Maps\""
 
-ALIASES +=tip{1}="<dl class=\"section note\"><dt>Pro Tip</dt><dd>\1</dd></dl>"
+ALIASES +=tip{1}="<dl class=\"section note tip\"><dt>Pro Tip</dt><dd>\1</dd></dl>"
+ALIASES +=note{1}="<dl class=\"section note\"><dt>Note</dt><dd>\1</dd></dl>"
+ALIASES +=danger{1}="<dl class=\"section note danger\"><dt>Beware</dt><dd>\1</dd></dl>"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
@@ -775,10 +777,7 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  =    @Metal_SOURCE_DIR@/doc/introduction.md \
-                            @Metal_SOURCE_DIR@/doc/motivation.md \
-                            @Metal_SOURCE_DIR@/doc/overview.md \
-                            @Metal_SOURCE_DIR@/doc/portability.md \
+INPUT                  =    @Metal_SOURCE_DIR@/doc/manual.md \
                             @Metal_SOURCE_DIR@/include \
 
 

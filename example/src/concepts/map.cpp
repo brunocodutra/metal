@@ -17,7 +17,7 @@ struct many;
 template<typename, typename>
 union couple;
 
-using map = many<couple<int, int*>, many<float, float*>, couple<void, void>>;
+using map = many<couple<int, int*>, many<void, void*>, couple<float, float*>>;
 /// [ex1]
 
 static_assert(metal::is_map_t<map>::value, "");
@@ -27,9 +27,9 @@ ANONYMOUS
 {
 /// [ex2]
 template<typename...>
-struct none;
+struct many;
 
-using map = none<>;
+using map = many<>;
 /// [ex2]
 
 static_assert(metal::is_map_t<map>::value, "");

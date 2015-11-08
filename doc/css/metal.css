@@ -63,13 +63,22 @@ div.toc {
     background-color: #F7F7F7;
 }
 
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+   vertical-align: middle;
+}
+
 code {
     background-color: #F7F7F7;
     white-space: nowrap
 }
 
 div.fragment, pre.fragment {
-    padding: 2px 4px;
+    padding: 4px 4px;
     font-size: 90%;
     color: #C7254E;
     background-color: #F7F7F7;
@@ -86,10 +95,6 @@ div.fragment, pre.fragment {
     color: #464646;
 }
 
-/*h2 ~ *:not(h1):not(h2), h2 ~ .fragment {
-    margin-left: 10px;
-}*/
-
 div.directory{
     border: 0px
 }
@@ -97,6 +102,14 @@ div.directory{
 span.octicon {
     margin-right: 5px;
     color: #464646;
+}
+
+dl.tip {
+    border-color: #5BC0DE;
+}
+
+dl.danger {
+    border-color: #C9302C;
 }
 
 html, body {

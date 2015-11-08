@@ -11,10 +11,10 @@
 ANONYMOUS
 {
 /// [ex1]
-template<typename _, typename = _*>
+template<typename, typename>
 struct couple;
 
-using pair = couple<int>; // beware of hidden elements!
+using pair = couple<int, unsigned>;
 /// [ex1]
 
 static_assert(metal::is_pair_t<pair>::value, "");

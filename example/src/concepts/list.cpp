@@ -14,7 +14,7 @@ ANONYMOUS
 template<typename>
 union single;
 
-using list = single<int>; // size == 1
+using list = single<int>;
 /// [ex1]
 
 static_assert(metal::is_list_t<list>::value, "");
@@ -24,24 +24,11 @@ static_assert(metal::size_t<list>::value == 1, "");
 ANONYMOUS
 {
 /// [ex2]
-template<typename _, typename = _*>
-struct couple;
-
-using list = couple<int /*, int* */>; // size == 2 - beware of hidden elements!
-/// [ex2]
-
-static_assert(metal::is_list_t<list>::value, "");
-static_assert(metal::size_t<list>::value == 2, "");
-}
-
-ANONYMOUS
-{
-/// [ex3]
 template<typename...>
 class many;
 
-using list = many<>; // size == 0
-/// [ex3]
+using list = many<>;
+/// [ex2]
 
 static_assert(metal::is_list_t<list>::value, "");
 static_assert(metal::size_t<list>::value == 0, "");
@@ -64,18 +51,6 @@ struct numbers;
 
 using not_a_list = numbers<int /*, ...*/>; // non-type arguments
 /// [nex2]
-
-static_assert(!metal::is_list_t<not_a_list>::value, "");
-}
-
-ANONYMOUS
-{
-/// [nex3]
-template<template<typename...> class>
-class expression;
-
-using not_a_list = expression<std::add_pointer>; // non-type argument
-/// [nex3]
 
 static_assert(!metal::is_list_t<not_a_list>::value, "");
 }
