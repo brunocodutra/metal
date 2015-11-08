@@ -95,7 +95,7 @@ Current compilation status is summarized in the table bellow.
     <table>
         <tr>
             <th rowspan="2">Compiler</th>
-            <th rowspan="2">Minimum Version</th>
+            <th rowspan="2" class="hidden-xs">Minimum Version</th>
             <th colspan="2">Branch</th>
         </tr>
         <tr>
@@ -104,17 +104,17 @@ Current compilation status is summarized in the table bellow.
         </tr>
         <tr>
             <td align="left">GCC</td>
-            <td align="center">4.8</td>
+            <td align="center" class="hidden-xs">4.8</td>
             <td align="center" rowspan="2">![travis.master]</td>
             <td align="center" rowspan="2">![travis.develop]</td>
         </tr>
         <tr>
             <td align="left">Clang</td>
-            <td align="center">3.5</td>
+            <td align="center" class="hidden-xs">3.5</td>
         </tr>
         <tr>
             <td align="left">MSVC</td>
-            <td align="center">14 (2015)</td>
+            <td align="center" class="hidden-xs">14 (2015)</td>
             <td align="center">![appveyor.master]</td>
             <td align="center">![appveyor.develop]</td>
         </tr>

@@ -23,25 +23,37 @@
     <div id="main">
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">$projectname $projectnumber</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a aria-label="Download on GitHub" href="https://github.com/brunocodutra/metal/archive/master.zip">
-                                <span class="hidden-xs"> Download </span>
-                                <span class="octicon octicon-cloud-download" aria-hidden="true"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/brunocodutra/metal">
-                                <span class="hidden-xs"> View on GitHub </span>
-                                <span class="octicon octicon-mark-github" aria-hidden="true"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">$projectname $projectnumber</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a aria-label="Download on GitHub" href="https://github.com/brunocodutra/metal/archive/master.zip">
+                            <span class="hidden-xs"> Download </span>
+                            <span class="hidden-xs octicon octicon-cloud-download" aria-hidden="true"></span>
+                            <span class="visible-xs-block mega-octicon octicon-cloud-download" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/brunocodutra/metal">
+                            <span class="hidden-xs"> View on GitHub </span>
+                            <span class="hidden-xs octicon octicon-mark-github" aria-hidden="true"></span>
+                            <span class="visible-xs-block mega-octicon octicon-mark-github" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </li>
+                </ul>
             </div>
         </nav>
         <div class="content" id="content">
@@ -49,4 +61,4 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="hidden"></div>
-                        <div id="menu">
+                        <div id="menu" class="collapse navbar-collapse">

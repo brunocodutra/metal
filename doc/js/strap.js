@@ -16,6 +16,15 @@ $( document ).ready(function() {
         }
     }
 
+    var module = window.location.href.match(/group__([^/.]+)[.].*$/);
+    if(module != null){
+        $('a[href="modules.html"] > span')
+            .html(module[1].replace(/\b[a-z]/g, function(letter) {
+                return letter.toUpperCase();
+            }))
+            .parent().closest('li').addClass('active');
+    }
+
     $("div.title, h1").addClass("h1 page-header");
 
     $('li > a[href="index.html"] > span').before("<i class='octicon octicon-book'></i> ");
