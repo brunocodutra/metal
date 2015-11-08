@@ -1,14 +1,8 @@
 <doxygenlayout version="1.0">
   <!-- Navigation index tabs for HTML output -->
   <navindex>
-    <tab type="mainpage" visible="yes" title=""/>
-    <tab type="pages" visible="yes" title="" intro=" "/>
+    <tab type="mainpage" visible="yes" title="Documentation"/>
     <tab type="modules" visible="yes" title="Reference" intro=" "/>
-    <tab type="namespacelist"
-         visible="$SHOW_NAMESPACES"
-         title="Namespaces"
-         intro=" "
-    />
     <tab type="filelist" visible="$SHOW_FILES" title="Headers" intro=" "/>
     <tab type="classindex"
          visible="$ALPHABETICAL_INDEX"
@@ -16,6 +10,7 @@
     />
 
     <!-- Hidden -->
+    <tab type="pages" visible="no" title="" intro=" "/>
     <tab type="examples" visible="no" title="" intro=""/>
     <tab type="namespaces" visible="no" title="">
       <tab type="namespacelist" visible="no" title="" intro=""/>

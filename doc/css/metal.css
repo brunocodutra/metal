@@ -1,0 +1,167 @@
+#navrow1, #navrow2, #navrow3, #navrow4, #navrow5{
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.adjust-right {
+    margin-left: 30px !important;
+    font-size: 1.15em !important;
+}
+
+.navbar {
+    border: 0px solid !important;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover{
+    background-color: #464646;
+}
+
+.nav-pills > li > a:hover, .nav-pills > li > a:focus {
+    background-color: #F7F7F7;
+}
+
+.nav-pills > li > a {
+    color: #434343;
+}
+
+div.toc {
+    background-color: #F7F7F7;
+}
+
+.breadcrumb {
+    background-color: initial;
+}
+
+.table > tbody > tr.active > td,
+.table > tbody > tr.active > th,
+.table > tbody > tr > td.active,
+.table > tbody > tr > th.active,
+.table > tfoot > tr.active > td,
+.table > tfoot > tr.active > th,
+.table > tfoot > tr > td.active,
+.table > tfoot > tr > th.active,
+.table > thead > tr.active > td,
+.table > thead > tr.active > th,
+.table > thead > tr > td.active,
+.table > thead > tr > th.active {
+    background-color: #F7F7F7;
+}
+
+code {
+    background-color: #F7F7F7;
+    white-space: nowrap
+}
+
+div.fragment, pre.fragment {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #C7254E;
+    background-color: #F7F7F7;
+    border: 1px solid #DCDCDC;
+    border-radius: 4px;
+}
+
+.section.see dt {
+    all: initial;
+    display: none;
+}
+
+
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: #464646;
+}
+
+h2 ~ *:not(h1):not(h2), h2 ~ .fragment {
+    margin-left: 10px;
+}
+
+div.directory{
+    border: 0px
+}
+
+span.octicon {
+    margin-right: 5px;
+    color: #464646;
+}
+
+html, body {
+    height: 100%;
+    color: #464646;
+}
+
+#main {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -100px;
+    padding: 0 0 100px;
+}
+
+#footer {
+    height: 100px;
+    font-size: 0.9em;
+    padding: 8px 0px;
+    background-color: #F7F7F7;
+}
+
+#footer > .container {
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+}
+
+.social-btns {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.social-btns > ul > li {
+    display: inline-block;
+    margin: 0;
+}
+
+.github-btn {
+    overflow: hidden;
+    border: 0px none;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .adjust-right {
+    margin: 0px -5px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px){
+  .nav > li > a {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+}
+
+@media (min-width: 1200px){
+  .nav > li > a {
+    padding-left: 9px !important;
+    padding-right: 9px !important;
+  }
+}
+
+@media (min-width: 992px) {
+    .footer-row {
+        text-align: left;
+    }
+
+    .footer-icons {
+        text-align: right;
+    }
+}
+
+@media (max-width: 991px) {
+    .footer-row {
+        text-align: center;
+    }
+
+    .footer-icons {
+        text-align: center;
+    }
+}

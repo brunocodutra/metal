@@ -22,7 +22,7 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see is_nothing, is_just
+    /// \see just, is_just
     using nothing = just<>;
 
     /// \ingroup optional
@@ -59,7 +59,7 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see is_nothing
+    /// \see
     template<typename opt>
     struct is_just;
 
