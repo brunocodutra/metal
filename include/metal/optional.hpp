@@ -11,6 +11,5 @@
 
 /// \defgroup optional Optional
 /// \ingroup metal
-/// \brief Basic constructs for manipulating \optionals.
 
 #endif

@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename val>
     struct remove;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref remove.
+    /// Eager adaptor for \ref remove.
     template<typename list, typename val>
-    using remove_t = typename remove<list, val>::type;
+    using remove_t = typename metal::remove<list, val>::type;
 }
 
 #include <metal/list/remove_if.hpp>

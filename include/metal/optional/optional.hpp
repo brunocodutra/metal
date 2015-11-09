@@ -13,20 +13,23 @@ namespace metal
     }
 
     /// \ingroup optional
-    /// \brief ...
+    /// ...
     template<typename val = detail::nil>
     struct just;
 
     /// \ingroup optional
-    /// \brief A model of empty \optional.
+    /// A model of empty \optional.
     ///
     /// See Also
     /// --------
     /// \see just, is_just
-    using nothing = just<>;
+    using nothing = metal::just<>;
+
+    template<typename opt>
+    struct _is_just;
 
     /// \ingroup optional
-    /// \brief Checks whether an \optional represents some \value.
+    /// Checks whether an \optional represents some \value.
     ///
     /// Usage
     /// -----
@@ -34,9 +37,6 @@ namespace metal
     /// \code
     ///     using result = metal::is_just<opt>;
     /// \endcode
-    ///
-    /// \par Model:
-    ///     \number
     ///
     /// \par Semantics:
     ///     if `opt::type` well defined and is a model of \value,
@@ -61,15 +61,15 @@ namespace metal
     /// --------
     /// \see
     template<typename opt>
-    struct is_just;
+    using is_just = _is_just<opt>;
 
     /// \ingroup optional
-    /// \brief Eager adaptor for \ref is_just.
+    /// Eager adaptor for \ref is_just.
     template<typename opt>
     using is_just_t = typename metal::is_just<opt>::type;
 
     /// \ingroup optional
-    /// \brief ...
+    /// ...
     template<typename opt>
     struct optional;
 }
@@ -91,7 +91,7 @@ namespace metal
     {};
 
     template<typename opt>
-    struct is_just :
+    struct _is_just :
         not_<typename std::is_base_of<nothing, optional<opt>>::type>
     {};
 

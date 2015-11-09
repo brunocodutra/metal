@@ -8,7 +8,7 @@
 namespace metal
 {
     /// \ingroup core
-    /// \brief ...
+    /// ...
     template<typename... bases>
     struct inherit;
 }

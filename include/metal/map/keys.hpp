@@ -8,13 +8,13 @@
 namespace metal
 {
     /// \ingroup map
-    /// \brief ...
+    /// ...
     template<typename map>
     struct keys
     {};
 
     /// \ingroup map
-    /// \brief Eager adaptor for \ref keys.
+    /// Eager adaptor for \ref keys.
     template<typename map>
     using keys_t = typename metal::keys<map>::type;
 }

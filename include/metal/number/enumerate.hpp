@@ -8,13 +8,13 @@
 namespace metal
 {
     /// \ingroup number
-    /// \brief ...
+    /// ...
     template<typename...>
     struct enumerate
     {};
 
     /// \ingroup number
-    /// \brief Eager adaptor for \ref enumerate.
+    /// Eager adaptor for \ref enumerate.
     template<typename... _>
     using enumerate_t = typename metal::enumerate<_...>::type;
 }

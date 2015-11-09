@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename... lists>
     struct join
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref join.
+    /// Eager adaptor for \ref join.
     template<typename... lists>
-    using join_t = typename join<lists...>::type;
+    using join_t = typename metal::join<lists...>::type;
 }
 
 #include <metal/list/reduce.hpp>

@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename lbd>
     struct partition;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref partition.
+    /// Eager adaptor for \ref partition.
     template<typename list, typename lbd>
-    using partition_t = typename partition<list, lbd>::type;
+    using partition_t = typename metal::partition<list, lbd>::type;
 }
 
 #include <metal/list/list.hpp>

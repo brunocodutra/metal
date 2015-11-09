@@ -8,12 +8,12 @@
 namespace metal
 {
     /// \ingroup map
-    /// \brief ...
+    /// ...
     template<typename map, typename key>
     struct order;
 
     /// \ingroup map
-    /// \brief Eager adaptor for \ref order.
+    /// Eager adaptor for \ref order.
     template<typename map, typename key>
     using order_t = typename metal::order<map, key>::type;
 }

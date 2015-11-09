@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup lambda
-    /// \brief ...
+    /// ...
     template<typename lbd, typename list>
     struct apply
     {};
 
     /// \ingroup lambda
-    /// \brief Eager adaptor for \ref apply.
+    /// Eager adaptor for \ref apply.
     template<typename lbd, typename list>
-    using apply_t = typename apply<lbd, list>::type;
+    using apply_t = typename metal::apply<lbd, list>::type;
 }
 
 #include <metal/lambda/invoke.hpp>

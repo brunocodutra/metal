@@ -17,7 +17,6 @@
 
 /// \defgroup lambda Lambda
 /// \ingroup metal
-/// \brief Expressive constructs for higher-order functional metaprogramming.
 
 #endif
 

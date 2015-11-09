@@ -11,6 +11,5 @@
 
 /// \defgroup pair Pair
 /// \ingroup metal
-/// \brief ...
 
 #endif

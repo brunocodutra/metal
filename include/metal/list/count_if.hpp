@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename lbd>
     struct count_if
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref count_if.
+    /// Eager adaptor for \ref count_if.
     template<typename list, typename lbd>
-    using count_if_t = typename count_if<list, lbd>::type;
+    using count_if_t = typename metal::count_if<list, lbd>::type;
 }
 
 #include <metal/list/list.hpp>

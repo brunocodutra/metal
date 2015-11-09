@@ -13,7 +13,6 @@
 #include <metal/optional.hpp>
 
 /// \defgroup metal Metal
-/// \brief A small collection of C++11 template metaprogramming tools.
 
 /// \namespace metal
 /// \brief Metaprogramming algorithms.

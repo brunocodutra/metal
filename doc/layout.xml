@@ -30,7 +30,7 @@
 
   <!-- Layout definition for a class page -->
   <class>
-    <briefdescription visible="no"/>
+    <briefdescription visible="yes"/>
     <includes visible="$SHOW_INCLUDE_FILES"/>
     <detaileddescription title="Description"/>
     <inheritancegraph visible="$CLASS_GRAPH"/>
@@ -114,7 +114,7 @@
   <!-- Layout definition for a file page -->
   <file>
     <briefdescription visible="no"/>
-    <detaileddescription title="Description"/>
+<!--     <detaileddescription title="Description"/> -->
     <includes visible="$SHOW_INCLUDE_FILES"/>
     <includegraph visible="$INCLUDE_GRAPH"/>
     <includedbygraph visible="$INCLUDED_BY_GRAPH"/>
@@ -144,16 +144,16 @@
   <!-- Layout definition for a group page -->
   <group>
     <briefdescription visible="no"/>
-    <detaileddescription title="Description"/>
+<!--     <detaileddescription title="Description"/> -->
     <groupgraph visible="$GROUP_GRAPHS"/>
     <memberdecl>
       <nestedgroups visible="yes" title=""/>
       <dirs visible="yes" title=""/>
       <files visible="yes" title=""/>
       <namespaces visible="yes" title=""/>
-      <classes visible="yes" title=""/>
+<!--       <classes visible="yes" title=""/> -->
       <defines title=""/>
-      <typedefs title=""/>
+<!--       <typedefs title=""/> -->
       <enums title=""/>
       <enumvalues title=""/>
       <functions title=""/>
@@ -190,7 +190,7 @@
   <!-- Layout definition for a directory page -->
   <directory>
     <briefdescription visible="no"/>
-    <detaileddescription title=""/>
+<!--     <detaileddescription title=""/> -->
     <directorygraph visible="yes"/>
     <memberdecl>
       <dirs visible="yes"/>

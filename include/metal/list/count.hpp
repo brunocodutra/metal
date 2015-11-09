@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename val>
     struct count;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref count.
+    /// Eager adaptor for \ref count.
     template<typename list, typename val>
-    using count_t = typename count<list, val>::type;
+    using count_t = typename metal::count<list, val>::type;
 }
 
 #include <metal/list/count_if.hpp>

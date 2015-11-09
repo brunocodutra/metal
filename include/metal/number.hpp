@@ -13,7 +13,6 @@
 
 /// \defgroup number Number
 /// \ingroup metal
-/// \brief Basic constructs for manipulating \numbers.
 
 #endif
 

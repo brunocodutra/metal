@@ -10,16 +10,16 @@
 namespace metal
 {
     /// \ingroup lambda
-    /// \brief ...
+    /// ...
     template<std::size_t n>
     struct arg;
 
     /// \defgroup placeholders Placeholders
     /// \ingroup lambda
-    /// \brief Default placeholders for arguments to \lambdas.
+    /// Default placeholders for arguments to \lambdas.
 
     /// \ingroup placeholders
-    /// \brief Default placeholder.
+    /// Default placeholder.
     /// \{
     using _1  = metal::arg<1U>;
     using _2  = metal::arg<2U>;

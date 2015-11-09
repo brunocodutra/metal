@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename lbd>
     struct find_if;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref find_if.
+    /// Eager adaptor for \ref find_if.
     template<typename list, typename lbd>
-    using find_if_t = typename find_if<list, lbd>::type;
+    using find_if_t = typename metal::find_if<list, lbd>::type;
 }
 
 #include <metal/list/list.hpp>

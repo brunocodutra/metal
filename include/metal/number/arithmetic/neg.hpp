@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup arithmetic
-    /// \brief ...
+    /// ...
     template<typename num>
     struct neg
     {};
 
     /// \ingroup arithmetic
-    /// \brief Eager adaptor for \ref neg.
+    /// Eager adaptor for \ref neg.
     template<typename num>
-    using neg_t = typename neg<num>::type;
+    using neg_t = typename metal::neg<num>::type;
 }
 
 #include <metal/number/number.hpp>

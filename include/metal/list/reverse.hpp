@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list>
     struct reverse
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref reverse.
+    /// Eager adaptor for \ref reverse.
     template<typename list>
-    using reverse_t = typename reverse<list>::type;
+    using reverse_t = typename metal::reverse<list>::type;
 }
 
 #include <metal/list/copy.hpp>

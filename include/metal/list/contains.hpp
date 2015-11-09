@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename val>
     struct contains
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref contains.
+    /// Eager adaptor for \ref contains.
     template<typename list, typename val>
-    using contains_t = typename contains<list, val>::type;
+    using contains_t = typename metal::contains<list, val>::type;
 }
 
 #include <metal/number/number.hpp>

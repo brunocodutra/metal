@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename lbd>
     struct transform
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref transform.
+    /// Eager adaptor for \ref transform.
     template<typename list, typename lbd>
-    using transform_t = typename transform<list, lbd>::type;
+    using transform_t = typename metal::transform<list, lbd>::type;
 }
 
 #include <metal/lambda/defer.hpp>

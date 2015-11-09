@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup comparison
-    /// \brief ...
+    /// ...
     template<typename x, typename y>
     struct equal_to
     {};
 
     /// \ingroup comparison
-    /// \brief Eager adaptor for \ref equal_to.
+    /// Eager adaptor for \ref equal_to.
     template<typename x, typename y>
-    using equal_to_t = typename equal_to<x, y>::type;
+    using equal_to_t = typename metal::equal_to<x, y>::type;
 }
 
 #include <metal/number/number.hpp>

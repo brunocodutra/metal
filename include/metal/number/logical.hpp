@@ -11,6 +11,5 @@
 
 /// \defgroup logical Logical
 /// \ingroup number
-/// \brief Basic logical operations.
 
 #endif

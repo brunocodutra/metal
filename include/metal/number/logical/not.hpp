@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup logical
-    /// \brief ...
+    /// ...
     template<typename num>
     struct not_
     {};
 
     /// \ingroup logical
-    /// \brief Eager adaptor for \ref not_.
+    /// Eager adaptor for \ref not_.
     template<typename num>
-    using not_t = typename not_<num>::type;
+    using not_t = typename metal::not_<num>::type;
 }
 
 #include <metal/number/number.hpp>

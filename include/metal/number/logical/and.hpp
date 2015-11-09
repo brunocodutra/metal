@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup logical
-    /// \brief ...
+    /// ...
     template<typename... nums>
     struct and_;
 
     /// \ingroup logical
-    /// \brief Eager adaptor for \ref and_.
+    /// Eager adaptor for \ref and_.
     template<typename... nums>
-    using and_t = typename and_<nums...>::type;
+    using and_t = typename metal::and_<nums...>::type;
 }
 
 #include <metal/number/number.hpp>

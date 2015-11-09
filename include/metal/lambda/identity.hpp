@@ -8,7 +8,7 @@
 namespace metal
 {
     /// \ingroup lambda
-    /// \brief ...
+    /// ...
     template<typename val>
     using identity = val;
 }

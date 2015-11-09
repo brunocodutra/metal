@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename...>
     struct copy
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref copy.
+    /// Eager adaptor for \ref copy.
     template<typename... _>
-    using copy_t = typename copy<_...>::type;
+    using copy_t = typename metal::copy<_...>::type;
 }
 
 #include <metal/lambda/arg.hpp>

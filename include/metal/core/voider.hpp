@@ -8,12 +8,12 @@
 namespace metal
 {
     /// \ingroup core
-    /// \brief ...
+    /// ...
     template<typename...>
     struct voider;
 
     /// \ingroup core
-    /// \brief Eager adaptor for \ref voider.
+    /// Eager adaptor for \ref voider.
     template<typename... _>
     using voider_t = typename metal::voider<_...>::type;
 

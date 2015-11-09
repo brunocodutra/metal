@@ -10,17 +10,17 @@
 namespace metal
 {
     /// \ingroup map
-    /// \brief ...
+    /// ...
     template<typename... pairs>
     using map = list<pairs...>;
 
     /// \ingroup map
-    /// \brief ...
+    /// ...
     template<typename map>
     struct is_map;
 
     /// \ingroup map
-    /// \brief Eager adaptor for \ref is_map.
+    /// Eager adaptor for \ref is_map.
     template<typename map>
     using is_map_t = typename metal::is_map<map>::type;
 }

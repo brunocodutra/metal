@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup arithmetic
-    /// \brief ...
+    /// ...
     template<typename... nums>
     struct sub
     {};
 
     /// \ingroup arithmetic
-    /// \brief Eager adaptor for \ref sub.
+    /// Eager adaptor for \ref sub.
     template<typename... nums>
-    using sub_t = typename sub<nums...>::type;
+    using sub_t = typename metal::sub<nums...>::type;
 }
 
 #include <metal/number/number.hpp>

@@ -8,12 +8,12 @@
 namespace metal
 {
     /// \ingroup core
-    /// \brief ...
+    /// ...
     template<template<typename...> class tmpl, typename... vals>
     struct instantiate;
 
     /// \ingroup core
-    /// \brief Eager adaptor for \ref instantiate.
+    /// Eager adaptor for \ref instantiate.
     template<template<typename...> class tmpl, typename... vals>
     using instantiate_t = typename metal::instantiate<tmpl, vals...>::type;
 }

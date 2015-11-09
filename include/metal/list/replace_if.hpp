@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename lbd, typename val>
     struct replace_if;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref replace_if.
+    /// Eager adaptor for \ref replace_if.
     template<typename list, typename lbd, typename val>
-    using replace_if_t = typename replace_if<list, lbd, val>::type;
+    using replace_if_t = typename metal::replace_if<list, lbd, val>::type;
 }
 
 #include <metal/list/list.hpp>

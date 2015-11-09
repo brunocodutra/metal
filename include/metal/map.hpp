@@ -15,6 +15,5 @@
 
 /// \defgroup map Map
 /// \ingroup metal
-/// \brief ...
 
 #endif

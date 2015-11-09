@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup map
-    /// \brief ...
+    /// ...
     template<typename map, typename key>
     struct has_key;
 
     /// \ingroup map
-    /// \brief Eager adaptor for \ref has_key.
+    /// Eager adaptor for \ref has_key.
     template<typename map, typename key>
-    using has_key_t = typename has_key<map, key>::type;
+    using has_key_t = typename metal::has_key<map, key>::type;
 }
 
 #include <metal/map/map.hpp>

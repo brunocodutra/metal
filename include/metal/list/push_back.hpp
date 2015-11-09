@@ -8,13 +8,13 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename val>
     struct push_back
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref push_back.
+    /// Eager adaptor for \ref push_back.
     template<typename list, typename val>
     using push_back_t = typename metal::push_back<list, val>::type;
 }

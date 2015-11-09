@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename...>
     struct accumulate;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref accumulate.
+    /// Eager adaptor for \ref accumulate.
     template<typename... _>
-    using accumulate_t = typename accumulate<_...>::type;
+    using accumulate_t = typename metal::accumulate<_...>::type;
 }
 
 #include <metal/list/size.hpp>

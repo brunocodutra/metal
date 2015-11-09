@@ -8,13 +8,13 @@
 namespace metal
 {
     /// \ingroup lambda
-    /// \brief ...
+    /// ...
     template<typename...>
     struct bind
     {};
 
     /// \ingroup lambda
-    /// \brief Eager adaptor for \ref bind.
+    /// Eager adaptor for \ref bind.
     template<typename... _>
     using bind_t = typename metal::bind<_...>::type;
 }

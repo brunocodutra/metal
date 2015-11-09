@@ -11,7 +11,6 @@
 
 /// \defgroup core Core
 /// \ingroup metal
-/// \brief Handy tools.
 
 #endif
 

@@ -47,6 +47,5 @@
 
 /// \defgroup list List
 /// \ingroup metal
-/// \brief ...
 
 #endif

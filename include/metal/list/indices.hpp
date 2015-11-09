@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list>
     struct indices
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref indices.
+    /// Eager adaptor for \ref indices.
     template<typename list>
-    using indices_t = typename indices<list>::type;
+    using indices_t = typename metal::indices<list>::type;
 }
 
 #include <metal/list/size.hpp>

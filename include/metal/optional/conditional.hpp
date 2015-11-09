@@ -8,13 +8,13 @@
 namespace metal
 {
     /// \ingroup optional
-    /// \brief ...
+    /// ...
     template<typename if_, typename then, typename... else_>
     struct conditional
     {};
 
     /// \ingroup optional
-    /// \brief Eager adaptor for \ref conditional.
+    /// Eager adaptor for \ref conditional.
     template<typename if_, typename then, typename... else_>
     using conditional_t = typename metal::conditional<if_, then, else_...>::type;
 }

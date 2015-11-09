@@ -8,13 +8,13 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list>
     struct empty
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref empty.
+    /// Eager adaptor for \ref empty.
     template<typename list>
     using empty_t = typename metal::empty<list>::type;
 }

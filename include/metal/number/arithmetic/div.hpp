@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup arithmetic
-    /// \brief ...
+    /// ...
     template<typename... nums>
     struct div
     {};
 
     /// \ingroup arithmetic
-    /// \brief Eager adaptor for \ref div.
+    /// Eager adaptor for \ref div.
     template<typename... nums>
-    using div_t = typename div<nums...>::type;
+    using div_t = typename metal::div<nums...>::type;
 }
 
 #include <metal/number/number.hpp>

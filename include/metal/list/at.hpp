@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename n>
     struct at;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref at.
+    /// Eager adaptor for \ref at.
     template<typename list, typename n>
-    using at_t = typename at<list, n>::type;
+    using at_t = typename metal::at<list, n>::type;
 }
 
 #include <metal/list/front.hpp>

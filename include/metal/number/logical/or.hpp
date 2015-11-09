@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup logical
-    /// \brief ...
+    /// ...
     template<typename... nums>
     struct or_;
 
     /// \ingroup logical
-    /// \brief Eager adaptor for \ref or_.
+    /// Eager adaptor for \ref or_.
     template<typename... nums>
-    using or_t = typename or_<nums...>::type;
+    using or_t = typename metal::or_<nums...>::type;
 }
 
 #include <metal/number/number.hpp>

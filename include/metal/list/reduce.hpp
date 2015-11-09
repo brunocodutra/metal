@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename...>
     struct reduce;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref reduce.
+    /// Eager adaptor for \ref reduce.
     template<typename... _>
-    using reduce_t = typename reduce<_...>::type;
+    using reduce_t = typename metal::reduce<_...>::type;
 }
 
 #include <metal/lambda/invoke.hpp>

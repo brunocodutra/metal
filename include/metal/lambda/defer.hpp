@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup lambda
-    /// \brief ...
+    /// ...
     template<typename lbd>
     struct defer;
 
     /// \ingroup lambda
-    /// \brief Eager adaptor for \ref defer.
+    /// Eager adaptor for \ref defer.
     template<typename lbd>
-    using defer_t = typename defer<lbd>::type;
+    using defer_t = typename metal::defer<lbd>::type;
 }
 
 #include <metal/lambda/bind.hpp>

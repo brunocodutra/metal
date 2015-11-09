@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list>
     struct distinct
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref distinct.
+    /// Eager adaptor for \ref distinct.
     template<typename list>
-    using distinct_t = typename distinct<list>::type;
+    using distinct_t = typename metal::distinct<list>::type;
 }
 
 #include <metal/list/list.hpp>

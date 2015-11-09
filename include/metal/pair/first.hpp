@@ -8,13 +8,13 @@
 namespace metal
 {
     /// \ingroup pair
-    /// \brief ...
+    /// ...
     template<typename pair>
     struct first
     {};
 
     /// \ingroup pair
-    /// \brief Eager adaptor for \ref first.
+    /// Eager adaptor for \ref first.
     template<typename pair>
     using first_t = typename metal::first<pair>::type;
 }

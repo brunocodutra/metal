@@ -16,6 +16,5 @@
 
 /// \defgroup arithmetic Arithmetic
 /// \ingroup number
-/// \brief Basic arithmetic operations.
 
 #endif

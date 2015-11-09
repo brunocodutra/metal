@@ -8,12 +8,12 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list>
     struct clear;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref clear.
+    /// Eager adaptor for \ref clear.
     template<typename list>
     using clear_t = typename metal::clear<list>::type;
 }

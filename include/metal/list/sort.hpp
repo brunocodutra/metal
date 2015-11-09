@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename lbd>
     struct sort
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref sort.
+    /// Eager adaptor for \ref sort.
     template<typename list, typename lbd>
-    using sort_t = typename sort<list, lbd>::type;
+    using sort_t = typename metal::sort<list, lbd>::type;
 }
 
 #include <metal/list/list.hpp>

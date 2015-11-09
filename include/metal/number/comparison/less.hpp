@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup comparison
-    /// \brief ...
+    /// ...
     template<typename x, typename y>
     struct less
     {};
 
     /// \ingroup comparison
-    /// \brief Eager adaptor for \ref less.
+    /// Eager adaptor for \ref less.
     template<typename x, typename y>
-    using less_t = typename less<x, y>::type;
+    using less_t = typename metal::less<x, y>::type;
 }
 
 #include <metal/number/number.hpp>

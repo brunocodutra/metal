@@ -10,7 +10,7 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<
         typename list,
         typename start,
@@ -21,14 +21,14 @@ namespace metal
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref slice.
+    /// Eager adaptor for \ref slice.
     template<
         typename list,
         typename start,
         typename size,
         typename stride = integer<1>
     >
-    using slice_t = typename slice<list, start, size, stride>::type;
+    using slice_t = typename metal::slice<list, start, size, stride>::type;
 }
 
 #include <metal/list/at.hpp>

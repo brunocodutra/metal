@@ -8,17 +8,17 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename... vals>
     struct list;
 
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list>
     struct is_list;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref is_list.
+    /// Eager adaptor for \ref is_list.
     template<typename list>
     using is_list_t = typename metal::is_list<list>::type;
 }

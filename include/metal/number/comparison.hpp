@@ -11,6 +11,5 @@
 
 /// \defgroup comparison Comparison
 /// \ingroup number
-/// \brief Basic comparison operations.
 
 #endif

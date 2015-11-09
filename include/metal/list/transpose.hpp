@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list>
     struct transpose
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref transpose.
+    /// Eager adaptor for \ref transpose.
     template<typename list>
-    using transpose_t = typename transpose<list>::type;
+    using transpose_t = typename metal::transpose<list>::type;
 }
 
 #include <metal/list/at.hpp>

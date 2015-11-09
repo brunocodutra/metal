@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup lambda
-    /// \brief ...
+    /// ...
     template<typename...>
     struct invoke
     {};
 
     /// \ingroup lambda
-    /// \brief Eager adaptor for \ref invoke.
+    /// Eager adaptor for \ref invoke.
     template<typename... _>
-    using invoke_t = typename invoke<_...>::type;
+    using invoke_t = typename metal::invoke<_...>::type;
 }
 
 #include <metal/lambda/arg.hpp>

@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename x, typename y>
     struct equal
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref equal.
+    /// Eager adaptor for \ref equal.
     template<typename x, typename y>
-    using equal_t = typename equal<x, y>::type;
+    using equal_t = typename metal::equal<x, y>::type;
 }
 
 #include <metal/list/list.hpp>

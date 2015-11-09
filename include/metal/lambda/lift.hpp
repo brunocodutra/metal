@@ -8,12 +8,12 @@
 namespace metal
 {
     /// \ingroup lambda
-    /// \brief ...
+    /// ...
     template<typename lbd>
     struct lift;
 
     /// \ingroup lambda
-    /// \brief Eager adaptor for \ref lift.
+    /// Eager adaptor for \ref lift.
     template<typename lbd>
     using lift_t = typename metal::lift<lbd>::type;
 }

@@ -8,13 +8,13 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list>
     struct pop_back
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref pop_back.
+    /// Eager adaptor for \ref pop_back.
     template<typename list>
     using pop_back_t = typename metal::pop_back<list>::type;
 }

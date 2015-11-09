@@ -8,15 +8,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list>
     struct same
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref same.
+    /// Eager adaptor for \ref same.
     template<typename list>
-    using same_t = typename same<list>::type;
+    using same_t = typename metal::same<list>::type;
 }
 
 #include <metal/number/number.hpp>

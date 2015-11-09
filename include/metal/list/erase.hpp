@@ -10,15 +10,15 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename...>
     struct erase
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref erase.
+    /// Eager adaptor for \ref erase.
     template<typename... _>
-    using erase_t = typename erase<_...>::type;
+    using erase_t = typename metal::erase<_...>::type;
 }
 
 #include <metal/list/copy.hpp>

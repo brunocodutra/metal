@@ -8,7 +8,7 @@
 namespace metal
 {
     /// \ingroup lambda
-    /// \brief ...
+    /// ...
     template<template<typename...> class expr>
     struct lambda;
 }

@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename lbd>
     struct remove_if;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref remove_if.
+    /// Eager adaptor for \ref remove_if.
     template<typename list, typename lbd>
-    using remove_if_t = typename remove_if<list, lbd>::type;
+    using remove_if_t = typename metal::remove_if<list, lbd>::type;
 }
 
 #include <metal/list/copy_if.hpp>

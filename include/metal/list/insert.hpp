@@ -8,12 +8,12 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename n, typename val>
     struct insert;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref insert.
+    /// Eager adaptor for \ref insert.
     template<typename list, typename n, typename val>
     using insert_t = typename metal::insert<list, n, val>::type;
 }

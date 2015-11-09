@@ -8,14 +8,14 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename to, typename from, typename lbd>
     struct copy_if;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref copy_if.
+    /// Eager adaptor for \ref copy_if.
     template<typename to, typename from, typename lbd>
-    using copy_if_t = typename copy_if<to, from, lbd>::type;
+    using copy_if_t = typename metal::copy_if<to, from, lbd>::type;
 }
 
 #include <metal/list/list.hpp>

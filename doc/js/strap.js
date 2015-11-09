@@ -16,15 +16,6 @@ $( document ).ready(function() {
         }
     }
 
-    var module = window.location.href.match(/group__([^/.]+)[.].*$/);
-    if(module != null){
-        $('a[href="modules.html"] > span')
-            .html(module[1].replace(/\b[a-z]/g, function(letter) {
-                return letter.toUpperCase();
-            }))
-            .parent().closest('li').addClass('active');
-    }
-
     $("div.title, h1").addClass("h1 page-header");
 
     $('li > a[href="index.html"] > span').before("<i class='octicon octicon-book'></i> ");
@@ -52,7 +43,11 @@ $( document ).ready(function() {
     $("li.current").addClass("active");
     $("iframe").attr("scrolling", "yes");
 
-    $("#nav-path > ul").addClass("breadcrumb");
+    $('#nav-path > ul').html('').append(
+        $('.ingroups').contents('a').wrap('<li>').parent()
+    );
+    $('.ingroups').remove();
+    $("#nav-path > ul").addClass("nav nav-pills nav-justified");
 
     $("table.params").addClass("table");
     $("div.levels").remove();
@@ -61,9 +56,18 @@ $( document ).ready(function() {
     $("div.summary").remove();
     $("table.fieldtable").addClass("table");
     $(".memitem").addClass("panel panel-default");
+    $(".memSeparator").remove();
     $(".memproto").addClass("panel-heading");
     $(".memdoc").addClass("panel-body");
     $("span.mlabel").addClass("label label-info");
+    $('td.memname, td.memTemplItemRight').contents().filter(function() {
+        return this.nodeType == 3
+    }).each(function(){
+        this.textContent =
+            this.textContent
+                .replace('= typedef', '=')
+                .replace(/= _.+[>]$/, '= /*unspecified*/');
+    });
 
     $("table.memberdecls").addClass("table");
     $("table.memberdecls > tbody > tr.separator\\:").remove();

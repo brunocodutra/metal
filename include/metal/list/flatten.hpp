@@ -8,12 +8,12 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list>
     struct flatten;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref flatten.
+    /// Eager adaptor for \ref flatten.
     template<typename list>
     using flatten_t = typename metal::flatten<list>::type;
 }

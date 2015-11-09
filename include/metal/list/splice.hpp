@@ -8,12 +8,12 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list, typename n, typename other>
     struct splice;
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref splice.
+    /// Eager adaptor for \ref splice.
     template<typename list, typename n, typename other>
     using splice_t = typename metal::splice<list, n, other>::type;
 }

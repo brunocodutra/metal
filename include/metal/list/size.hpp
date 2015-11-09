@@ -8,13 +8,13 @@
 namespace metal
 {
     /// \ingroup list
-    /// \brief ...
+    /// ...
     template<typename list>
     struct size
     {};
 
     /// \ingroup list
-    /// \brief Eager adaptor for \ref size.
+    /// Eager adaptor for \ref size.
     template<typename list>
     using size_t = typename metal::size<list>::type;
 }
