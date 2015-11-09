@@ -99,6 +99,10 @@ div.fragment, pre.fragment {
     border-radius: 4px;
 }
 
+.section.user dd {
+    margin-left: 20px;
+}
+
 .section.see dt {
     all: initial;
     display: none;

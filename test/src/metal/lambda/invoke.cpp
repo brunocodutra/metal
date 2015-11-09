@@ -4,10 +4,12 @@
 
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/identity.hpp>
 #include <metal/optional/optional.hpp>
 
 #include "test.hpp"
+
+template<typename val>
+using identity = val;
 
 #define MATRIX(M, N) \
     using CAT(opt, M) = EXPR(M)<VALS(M)>; \
@@ -27,7 +29,7 @@
     ASSERT((metal::is_just_t<metal::invoke<FUN(M) COMMA(N) VALS(N)>>), (BOOL(M == N))); \
     ASSERT((metal::is_just_t<metal::invoke<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)> COMMA(N) VALS(N)>>), (BOOL(M == N))); \
     ASSERT((metal::is_just_t<metal::invoke<metal::invoke<ARGS(INC(M))>, FUN(M) COMMA(N) VALS(N)>>), (BOOL(M <= N))); \
-    ASSERT((metal::is_just_t<metal::invoke<metal::lambda<metal::identity>, VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::invoke<metal::lambda<identity>, VAL(N)>>), (FALSE)); \
     ASSERT((metal::invoke_t<VAL(M) COMMA(N) VALS(N)>), (VAL(M))); \
     ASSERT((metal::invoke_t<NUM(M) COMMA(N) VALS(N)>), (NUM(M))); \
     ASSERT((metal::invoke_t<ARG(M), VALS(INC(M))>), (VAL(M))); \

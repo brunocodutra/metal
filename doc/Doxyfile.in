@@ -1120,8 +1120,8 @@ HTML_EXTRA_STYLESHEET  =    @Metal_SOURCE_DIR@/doc/css/bootstrap.css \
 
 HTML_EXTRA_FILES       =    @Metal_SOURCE_DIR@/doc/js/jquery.js \
                             @Metal_SOURCE_DIR@/doc/js/bootstrap.js \
-                            @Metal_SOURCE_DIR@/doc/js/strap.js \
                             @Metal_SOURCE_DIR@/doc/icons/octicons.ttf \
+                            @Metal_SOURCE_DIR@/doc/js/metal.js \
 
 # The HTML_COLORSTYLE_HUE tag controls the color of the HTML output. Doxygen
 # will adjust the colors in the style sheet and background images according to
