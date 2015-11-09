@@ -1,18 +1,20 @@
 $( document ).ready(function() {
 
     var menuOffsetY = $('#menu').offset().top;
-    document.onscroll = function() {
-        if ($(window).scrollTop() >= menuOffsetY) {
-            $('#menu').addClass('navbar-fixed-top');
-            $('.content').addClass('menu-padding');
-            $('.hidden')
-                .addClass('blur')
-                .height($('#menu').height())
-                .removeClass('hidden');
-        } else {
-            $('#menu').removeClass('navbar-fixed-top');
-            $('.blur').addClass('hidden').removeClass('blur');
-            $('.content').removeClass('menu-padding');
+    if(menuOffsetY > 0){
+        document.onscroll = function() {
+            if ($(window).scrollTop() >= menuOffsetY) {
+                $('#menu').addClass('navbar-fixed-top');
+                $('.content').addClass('menu-padding');
+                $('.hidden')
+                    .addClass('blur')
+                    .height($('#menu').height())
+                    .removeClass('hidden');
+            } else {
+                $('#menu').removeClass('navbar-fixed-top');
+                $('.blur').addClass('hidden').removeClass('blur');
+                $('.content').removeClass('menu-padding');
+            }
         }
     }
 
