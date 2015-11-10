@@ -103,30 +103,17 @@ div.fragment, pre.fragment {
     margin-left: 20px;
 }
 
-.section.see dt {
-    all: initial;
-    display: none;
+div.ttname a {
+    color: white
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     color: #464646;
 }
 
-div.directory{
-    border: 0px
-}
-
 span.octicon {
     margin-right: 5px;
     color: #464646;
-}
-
-dl.tip {
-    border-color: #5BC0DE;
-}
-
-dl.danger {
-    border-color: #C9302C;
 }
 
 html, body {
