@@ -5,6 +5,8 @@
 #include <metal/optional/optional.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/lambda.hpp>
+#include <metal/list/size.hpp>
+#include <metal/number/number.hpp>
 
 #include "test.hpp"
 
@@ -18,6 +20,8 @@
     ASSERT((metal::is_just_t<metal::optional<EXPR()<VAL(N)>>>), (TRUE)); \
     ASSERT((metal::just<>), (metal::nothing)); \
     ASSERT((metal::just<VAL(N)>::type), (VAL(N))); \
+    ASSERT((metal::size_t<metal::just<>>), (metal::number<std::size_t, 0>)); \
+    ASSERT((metal::size_t<metal::just<VAL(N)>>), (metal::number<std::size_t, 1>)); \
     ASSERT((metal::optional<NUM(N)>::type), (NUM(N))); \
     ASSERT((metal::optional<LBD(N)>::type), (LBD(N)::type)); \
     ASSERT((metal::optional<EXPR()<VAL(N)>>::type), (EXPR()<VAL(N)>::type)); \
