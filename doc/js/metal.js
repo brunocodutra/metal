@@ -52,6 +52,8 @@ $( document ).ready(function(){
         })
         .remove();
 
+    $("div.contents").addClass("col-xs-12");
+
     $("h1").addClass("page-header");
 
     $("div.qindex + table td > a[href^='namespace']")
@@ -170,6 +172,7 @@ $( document ).ready(function(){
     $(".memSeparator").remove();
     $("[class^='separator\\:']").remove();
 
+    $(".contents").removeClass("contents");
     $(".params").removeClass("params");
     $(".navpath").removeClass("navpath");
     $(".navelem").removeClass("navelem");

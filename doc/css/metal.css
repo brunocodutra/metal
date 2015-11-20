@@ -1,4 +1,4 @@
-#navrow1, #navrow2, #navrow3, #navrow4, #navrow5{
+#toolbar > * {
     border-bottom: 1px solid #EEEEEE;
 }
 
@@ -7,7 +7,12 @@
 }
 
 .navbar-right {
-    float: right!important;
+    float: right !important;
+}
+
+.nav-pills > li > a:focus,
+.nav-pills > li > a:hover {
+    background-color: #F9F9F9;
 }
 
 .nav-pills > li.active > a,
@@ -22,14 +27,8 @@
     padding-right: 0px;
 }
 
-a.anchor {
-    display: block;
-    position: relative;
-    visibility: hidden;
-    top: -65px;
-}
-
 #toc {
+    background-color: #F9F9F9;
     border: 1px solid #EEEEEE;
     border-radius: 7px;
     margin: 0px 10px 10px 10px;
@@ -44,12 +43,15 @@ a.anchor {
     margin-left: -15px;
 }
 
-.contents {
-    margin: 10px;
-}
-
 .index {
     margin-left: 20px;
+}
+
+a.anchor {
+    display: block;
+    position: relative;
+    visibility: hidden;
+    top: -65px;
 }
 
 .table > tbody > tr > td,
@@ -58,11 +60,11 @@ a.anchor {
 .table > tfoot > tr > th,
 .table > thead > tr > td,
 .table > thead > tr > th {
-   vertical-align: middle;
+    vertical-align: middle;
 }
 
 code {
-    background-color: #F7F7F7;
+    background-color: #F9F9F9;
     white-space: nowrap
 }
 
@@ -70,7 +72,7 @@ div.fragment, pre.fragment {
     padding: 4px 4px;
     font-size: 90%;
     color: #C7254E;
-    background-color: #F7F7F7;
+    background-color: #F9F9F9;
     border: 1px solid #EEEEEE;
     border-radius: 4px;
 }
