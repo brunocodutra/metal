@@ -65,14 +65,28 @@ $( document ).ready(function(){
         .removeClass("memproto")
         .addClass("panel-heading")
         .each(function(){
-            $("<div class='panel-title'>")
+            var x = $("<div class='panel-title'>")
                 .append($(".memtemplate", this).append("<br>").contents())
                 .append($(".memname td", this).contents())
-                .prependTo(this);
+                .prependTo(this)
+                .contents()
+                .filter(function(){
+                    if(this.nodeType == 3){
+                        this.data = this.data
+                            .replace(
+                                /= typedef( typename)? detail::.*/i,
+                                "= /* unspecified */"
+                            )
+                            .replace(/= typedef/i, "=")
+                            .replace(
+                                /detail::[_a-zA-Z_]+/i,
+                                "/* unspecified */"
+                            );
+                    }
+                });
 
             $(".memtemplate", this).remove();
             $(".memname", this).remove();
-
         });
 
     $("div.memitem > div.memdoc").addClass("panel-body");
