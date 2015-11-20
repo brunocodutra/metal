@@ -50,7 +50,7 @@ namespace metal
     /// See Also
     /// --------
     /// \see just, is_just
-    using nothing = just<>;
+    using nothing = metal::just<>;
 
     /// \ingroup optional
     /// Checks whether an \optional represents some \value.
@@ -124,7 +124,7 @@ namespace metal
 
         template<typename val>
         struct optional<just<val>> :
-            just<val>
+            just<val>::_
         {};
     }
 }

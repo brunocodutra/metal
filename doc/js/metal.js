@@ -1,156 +1,159 @@
-$( document ).ready(function() {
-
-    var menuOffsetY = $('#menu').offset().top;
-    if(menuOffsetY > 0){
-        document.onscroll = function() {
-            if ($(window).scrollTop() >= menuOffsetY) {
-                $('#menu').addClass('navbar-fixed-top');
-                $('.content').addClass('menu-padding');
-                $('.hidden')
-                    .addClass('blur')
-                    .height($('#menu').height())
-                    .removeClass('hidden');
-            } else {
-                $('#menu').removeClass('navbar-fixed-top');
-                $('.blur').addClass('hidden').removeClass('blur');
-                $('.content').removeClass('menu-padding');
-            }
-        }
-    }
-
-    $('hr').remove();
-    $('h2.groupheader').remove();
-    $("div.levels").remove();
-    $("div.summary").remove();
-    $('td.desc').remove();
-    $('td.entry > span.arrow').remove();
-    $(".memSeparator").remove();
-    $(".heading").remove();
-    $("table.memberdecls > tbody > tr.separator\\:").remove();
-
-    $(".navpath").removeClass('navpath');
-    $("li.navelem").removeClass('navelem');
-    $("a.el").removeClass('el');
-    $("div.header").removeClass("header");
-    $("div.tabs").removeClass("tabs");
-    $("div.tabs2").removeClass("tabs2");
-    $("div.directory").removeClass("directory");
-    $("table.directory")
-        .removeClass("directory")
-        .addClass("table table-striped");
-    $("ul.tablist")
-        .removeClass("tablist")
-        .addClass("nav nav-pills nav-justified");
-    $("div.ah").removeClass('ah').addClass("btn btn-default");
-    $("span.mlabels").removeClass('mlabels').addClass("pull-right");
-    $("table.mlabels").removeClass('mlabels').css("width", "100%")
-    $("td.mlabels-right").removeClass('mlabels-right').addClass("pull-right");
-    $("table.fieldtable").removeClass("fieldtable").addClass("table");
-    $("[class^=memitem]").addClass("active");
-    $(".memitem").removeClass('memitem').addClass("panel panel-default");
-    $(".memproto").removeClass('memproto').addClass("panel-heading");
-    $(".memdoc").removeClass('memdoc').addClass("panel-body");
-    $("span.mlabel").removeClass('mlabel').addClass("label label-info");
-    $("div.title, h1").addClass("h1 page-header");
-    $("li.current").addClass("active");
-    $("div.ttc").addClass("panel panel-primary");
-    $("div.ttname").addClass("panel-heading");
-    $("div.ttdef,div.ttdoc,div.ttdeci").addClass("panel-body");
-    $("table.params").addClass("table");
-    $('table.doxtable').addClass('table table-bordered');
-
-    $('li > a[href="index.html"] > span')
+$( document ).ready(function(){
+    $("li > a[href='index.html'] > span")
         .before("<i class='octicon octicon-book'></i> ");
-    $('li > a[href="files.html"] > span')
+    $("li > a[href='files.html'] > span")
         .before("<i class='octicon octicon-file-code'></i> ");
-    $('li > a[href="modules.html"] > span')
+    $("li > a[href='modules.html'] > span")
         .before("<i class='octicon octicon-code'></i> ");
-    $('li > a[href="classes.html"] > span')
+    $("li > a[href='namespacemembers.html'] > span")
         .before("<i class='octicon octicon-list-unordered'></i> ");
 
-    $('img[src="ftv2ns.png"]')
-        .replaceWith('<span class="label label-danger">N</span> ');
-    $('img[src="ftv2cl.png"]')
-        .replaceWith('<span class="label label-danger">C</span> ');
-
-    $('div.qindex + table td > a[href^="namespace"]').each(function(){
-        var p = $(this).parent();
-        $(this).remove();
-        p.html(p.html().split("()").join(""));
-    })
-    $('div.qindex').remove();
-
-    $('dl.section.see').replaceWith(function(){
-        return $(this).find('dd').contents();
-    });
-
-    $('#nav-path > ul')
+    $("[id^='navrow'] > ul, #nav-path > ul")
         .addClass("nav nav-pills nav-justified")
-        .html('').append(
-            $('.ingroups').contents('a').wrap('<li>').parent()
-        );
-    $('.ingroups').remove();
+        .find("a.el").removeClass("el");
 
-    $('td.memname, td.memTemplItemRight').contents().filter(function() {
-        return this.nodeType == 3
-    }).each(function(){
-        this.textContent =
-            this.textContent
-                .replace('= typedef', '=')
-                .replace(/= (typename )?detail::.+$/, '= /*unspecified*/');
-    });
+    $("div.toc")
+        .removeClass("toc")
+        .addClass("panel pull-right")
+        .attr("id", "toc");
 
-    $("table.memberdecls")
-        .removeClass('memberdecls')
-        .addClass("table")
-        .find('.memItemRight').each(function(){
-            $(this).contents().appendTo($(this).siblings('.memItemLeft'));
-            $(this).siblings('.memItemLeft').attr('align', 'left');
+    $("div#toc > ul").addClass("panel-body");
+    $("div#toc h3")
+        .addClass("panel-title").wrap("<div class='panel-heading'>");
+
+    $("div.header")
+        .each(function(){
+            $("> div.headertitle > div.title", this)
+                .wrapInner("<h1>")
+                .contents()
+                .prependTo($("+ div.contents", this));
+        })
+        .remove();
+
+    $("h1").addClass("page-header");
+
+    $("div.qindex + table td > a[href^='namespace']")
+        .each(function(){
+            var p = $(this).parent();
+            $(this).remove();
+            p.html(p.html().split("()").join(''));
         });
 
-   $('.mdescLeft').each(function(){
-        if($(this).html()=="&nbsp;") {
-            $(this).siblings('.mdescRight').attr('colspan', 2);
-            $(this).remove();
-        }
-    });
+    $("div.memitem > div.memproto")
+        .removeClass("memproto")
+        .addClass("panel-heading")
+        .each(function(){
+            $("<div class='panel-title'>")
+                .append($(".memtemplate", this).append("<br>").contents())
+                .append($(".memname td", this).contents())
+                .prependTo(this);
 
-    $('td.memItemLeft').each(function(){
-        if($(this).siblings('.memItemRight').html()=="") {
-            $(this).attr('colspan', 2);
-            $(this).siblings('.memItemRight').remove();
-        }
-        if($(this).text().match(/^directory/)) {
-            $(this).html($(this).html().split("directory").join(""));
-            $(this).prepend('<span class="octicon octicon-file-directory">');
-        }
-        if($(this).text().match(/^file/)) {
-            $(this).html($(this).html().split("file").join(""));
-            $(this).prepend('<span class="octicon octicon-file-code">');
-        }
-    });
+            $(".memtemplate", this).remove();
+            $(".memname", this).remove();
 
-    $('td.memItemLeft > span.octicon-file-code + b + a:contains([code])')
+        });
+
+    $("div.memitem > div.memdoc").addClass("panel-body");
+    $("div.memitem").addClass("panel panel-default");
+
+    $("table.memberdecls td.memItemLeft, table.memberdecls td.memTemplItemLeft")
+        .each(function(){
+            $("+ td", this).contents().appendTo(this);
+            $("+ td", this).remove();
+        })
+        .removeAttr("valign")
+        .removeAttr("align");
+
+    $("table.memberdecls td.memTemplParams")
+        .each(function(){
+            $(this).append("<br>").contents()
+                .prependTo($("+ tr td", $(this).parent("tr")));
+            $(this).parent("tr").remove();
+        })
+
+    $("a > span.icondoc")
+        .removeClass("icondoc")
+        .addClass("octicon octicon-file-code")
+        .each(function(){
+            $("+", $(this).parent()).appendTo($(this).parent());
+        });
+
+    $("span.iconfopen")
+        .removeClass("iconfopen")
+        .addClass("octicon octicon-file-directory");
+
+    $("span.iconfclosed")
+        .removeClass("iconfclosed")
+        .addClass("octicon octicon-file-directory")
+
+    $("table.memberdecls td.memItemLeft")
+        .each(function(){
+            if($(this).text().match(/^directory/)){
+                $(this).html($(this).html().split("directory").join(""));
+                $(this).prepend("<span class='octicon octicon-file-directory'>");
+            }
+            if($(this).text().match(/^file/)){
+                $(this).html($(this).html().split("file").join(""));
+                $(this).prepend("<span class='octicon octicon-file-code'>");
+            }
+        });
+
+    $("table.memberdecls td.memItemLeft > b + a:contains([code])")
         .each(function(){
             $(this).html($(this).prev().text());
             $(this).prev().remove();
-            $(this).prepend($(this).prev()).wrapInner('<strong>');
         });
 
-    $('a[href*="_source.html"] > span.icondoc')
-        .removeClass('icondoc')
-        .addClass('octicon octicon-file-code')
+    $("span.octicon-file-directory, span.octicon-file-code")
         .each(function(){
-            $(this).parent().append($(this).parent().next());
+            $("+ a", this).addClass("el").prepend(this);
         });
 
-    $('td.entry > span.iconfopen')
-        .removeClass('iconfopen')
-        .addClass('octicon octicon-file-directory')
-        .removeAttr('onclick');
+    $("a.el").removeClass("el").wrap("<strong>");
 
-    $('span.octicon-file-directory + a').each(function(){
-        $(this).prepend($(this).prev());
-        $(this).wrapInner('<strong>');
+    $("table.memberdecls").addClass("table table-striped");
+
+    $("table.directory").addClass("table table-striped");
+    $("table.doxtable").addClass("table table-bordered");
+    $("table.params").addClass("table");
+
+    $("dl.section.see").replaceWith(function(){
+        return $(this).find("dd").contents();
     });
+
+    $("hr").remove();
+    $(".levels").remove();
+    $(".summary").remove();
+    $(".desc").remove();
+    $(".qindex").remove();
+    $(".arrow").remove();
+    $(".ttc").remove();
+    $(".groupheader").remove();
+    $(".ingroups").remove();
+    $(".heading").remove();
+    $(".memSeparator").remove();
+    $("[class^='separator\\:']").remove();
+
+    $(".params").removeClass("params");
+    $(".navpath").removeClass("navpath");
+    $(".navelem").removeClass("navelem");
+    $(".tabs").removeClass("tabs");
+    $(".tabs2").removeClass("tabs2");
+    $(".tabs3").removeClass("tabs3");
+    $(".tabs4").removeClass("tabs4");
+    $(".header").removeClass("header");
+    $(".headertitle").removeClass("headertitle");
+    $(".textblock").removeClass("textblock");
+    $(".even").removeClass("even");
+    $(".directory").removeClass("directory");
+    $(".tablist").removeClass("tablist");
+    $(".memberdecls").removeClass("memberdecls");
+    $(".memdoc").removeClass("memdoc");
+    $(".memitem").removeClass("memitem");
+    $(".memItemLeft").removeClass("memItemLeft");
+    $(".memTemplItemLeft").removeClass("memTemplItemLeft")
+    $(".memname").removeClass("memname");
+    $(".memtemplate").removeClass("memtemplate");
+    $(".ah").removeClass("ah").addClass("btn btn-default");
+    $(".current").removeClass("current").addClass("active");
 });

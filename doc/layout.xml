@@ -4,9 +4,10 @@
     <tab type="mainpage" visible="yes" title="Documentation"/>
     <tab type="modules" visible="yes" title="Reference" intro=" "/>
     <tab type="filelist" visible="$SHOW_FILES" title="Headers" intro=" "/>
-    <tab type="classindex"
+    <tab type="namespacemembers"
          visible="$ALPHABETICAL_INDEX"
          title="Alphabetical Index"
+         intro=" "
     />
 
     <!-- Hidden -->
@@ -90,7 +91,7 @@
   <!-- Layout definition for a namespace page -->
   <namespace>
     <briefdescription visible="no"/>
-<!--     <detaileddescription title="Description"/> -->
+    <detaileddescription visible="no" title="Description"/>
     <memberdecl>
       <nestednamespaces visible="yes" title=""/>
       <constantgroups visible="yes" title=""/>
@@ -114,7 +115,7 @@
   <!-- Layout definition for a file page -->
   <file>
     <briefdescription visible="no"/>
-<!--     <detaileddescription title="Description"/> -->
+    <detaileddescription visible="no" title="Description"/>
     <includes visible="$SHOW_INCLUDE_FILES"/>
     <includegraph visible="$INCLUDE_GRAPH"/>
     <includedbygraph visible="$INCLUDED_BY_GRAPH"/>
@@ -144,7 +145,7 @@
   <!-- Layout definition for a group page -->
   <group>
     <briefdescription visible="no"/>
-<!--     <detaileddescription title="Description"/> -->
+    <detaileddescription visible="no" title="Description"/>
     <groupgraph visible="$GROUP_GRAPHS"/>
     <memberdecl>
       <nestedgroups visible="yes" title=""/>
@@ -152,19 +153,19 @@
       <files visible="yes" title=""/>
       <namespaces visible="yes" title=""/>
 <!--       <classes visible="yes" title=""/> -->
-      <defines title=""/>
+<!--       <defines title=""/> -->
 <!--       <typedefs title=""/> -->
-      <enums title=""/>
-      <enumvalues title=""/>
-      <functions title=""/>
-      <variables title=""/>
-      <signals title=""/>
-      <publicslots title=""/>
-      <protectedslots title=""/>
-      <privateslots title=""/>
-      <events title=""/>
-      <properties title=""/>
-      <friends title=""/>
+<!--       <enums title=""/> -->
+<!--       <enumvalues title=""/> -->
+<!--       <functions title=""/> -->
+<!--       <variables title=""/> -->
+<!--       <signals title=""/> -->
+<!--       <publicslots title=""/> -->
+<!--       <protectedslots title=""/> -->
+<!--       <privateslots title=""/> -->
+<!--       <events title=""/> -->
+<!--       <properties title=""/> -->
+<!--       <friends title=""/> -->
       <membergroups visible="yes"/>
     </memberdecl>
     <memberdef>
@@ -190,7 +191,7 @@
   <!-- Layout definition for a directory page -->
   <directory>
     <briefdescription visible="no"/>
-<!--     <detaileddescription title=""/> -->
+    <detaileddescription visible="no" title=""/>
     <directorygraph visible="yes"/>
     <memberdecl>
       <dirs visible="yes"/>

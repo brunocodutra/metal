@@ -13,7 +13,7 @@ namespace metal
     /// \ingroup optional
     /// ...
     template<typename opt, typename fallback = detail::nil>
-    using eval = conditional_t<is_just_t<opt>, opt, just<fallback>>;
+    using eval = metal::conditional_t<is_just_t<opt>, opt, just<fallback>>;
 }
 
 #endif
