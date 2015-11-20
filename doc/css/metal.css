@@ -48,6 +48,10 @@ a.anchor {
     margin: 10px;
 }
 
+.index {
+    margin-left: 20px;
+}
+
 .table > tbody > tr > td,
 .table > tbody > tr > th,
 .table > tfoot > tr > td,

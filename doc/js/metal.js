@@ -19,9 +19,16 @@ $( document ).ready(function(){
         .remove();
 
     $("ul > li > a[href^='#index_']").click(function(){
-        $(this).parent().parent().children().removeClass("active");
-        $(this).parent().addClass("active");
+        $(this).parent().addClass("active").siblings().removeClass("active");
     }).parent().removeClass("active");
+
+    $("h3:has(a[id^='index_']) + ul > li")
+        .each(function(){
+            var text = $(this).text().match(/^([_a-zA-Z0-9]+)/g);
+            $(this).html($("> a", this).html(text));
+        })
+        .parent()
+        .addClass("list-inline index");
 
     $("[id^='navrow'] > ul, #nav-path > ul")
         .addClass("nav nav-pills nav-justified")
