@@ -10,12 +10,39 @@ namespace metal
     namespace detail
     {
         struct nil;
+
+        template<typename...>
+        struct just;
+
+        template<typename val>
+        struct just<val>
+        {
+            using _ = just<val>;
+            using type = val;
+        };
+
+        template<>
+        struct just<>
+        {
+            using _ = just<>;
+        };
+
+        template<>
+        struct just<nil> :
+            just<>
+        {};
+
+        template<typename opt>
+        struct is_just;
+
+        template<typename opt>
+        struct optional;
     }
 
     /// \ingroup optional
     /// ...
     template<typename val = detail::nil>
-    struct just;
+    using just = typename detail::just<val>::_;
 
     /// \ingroup optional
     /// A model of empty \optional.
@@ -24,9 +51,6 @@ namespace metal
     /// --------
     /// \see just, is_just
     using nothing = metal::just<>;
-
-    template<typename opt>
-    struct _is_just;
 
     /// \ingroup optional
     /// Checks whether an \optional represents some \value.
@@ -59,9 +83,9 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see
+    /// \see just, nothing
     template<typename opt>
-    using is_just = _is_just<opt>;
+    using is_just = detail::is_just<opt>;
 
     /// \ingroup optional
     /// Eager adaptor for \ref is_just.
@@ -71,7 +95,7 @@ namespace metal
     /// \ingroup optional
     /// ...
     template<typename opt>
-    struct optional;
+    using optional = detail::optional<opt>;
 }
 
 #include <metal/number/logical/not.hpp>
@@ -80,39 +104,29 @@ namespace metal
 
 namespace metal
 {
-    template<typename val>
-    struct just
-    {
-        using type = val;
-    };
-
-    template<>
-    struct just<>
-    {};
-
-    template<typename opt>
-    struct _is_just :
-        not_<typename std::is_base_of<nothing, optional<opt>>::type>
-    {};
-
     namespace detail
     {
+        template<typename opt>
+        struct is_just :
+            not_<typename std::is_base_of<nothing, optional<opt>>::type>
+        {};
+
         template<typename opt, typename ret = just<typename opt::type>>
         ret optional_impl(void (opt::*)(void));
 
         template<typename>
         nothing optional_impl(...);
+
+        template<typename opt>
+        struct optional :
+            decltype(optional_impl<opt>(0))
+        {};
+
+        template<typename val>
+        struct optional<just<val>> :
+            just<val>::_
+        {};
     }
-
-    template<typename opt>
-    struct optional :
-        decltype(detail::optional_impl<opt>(0))
-    {};
-
-    template<typename val>
-    struct optional<just<val>> :
-        just<val>
-    {};
 }
 
 #endif

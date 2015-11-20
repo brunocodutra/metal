@@ -245,9 +245,9 @@ ALIASES +=pairs="\ref concepts_pair \"Pairs\""
 ALIASES +=map="\ref concepts_map"
 ALIASES +=maps="\ref concepts_map \"Maps\""
 
-ALIASES +=tip{1}="<dl class=\"section note tip\"><dt>Pro Tip</dt><dd>\1</dd></dl>"
-ALIASES +=note{1}="<dl class=\"section note\"><dt>Note</dt><dd>\1</dd></dl>"
-ALIASES +=danger{1}="<dl class=\"section note danger\"><dt>Beware</dt><dd>\1</dd></dl>"
+ALIASES +=tip{1}="<div class=\"panel panel-info\"><div class="panel-heading">Pro Tip</div><div class="panel-body">\1</div></div>"
+ALIASES +=note{1}="<div class=\"panel panel-warning\"><div class="panel-heading">Note</div><div class="panel-body">\1</div></div>"
+ALIASES +=beware{1}="<div class=\"panel panel-danger\"><div class="panel-heading">Beware</div><div class="panel-body">\1</div></div>"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
@@ -401,7 +401,7 @@ INLINE_SIMPLE_STRUCTS  = YES
 # types are typedef'ed and only the typedef is referenced, never the tag name.
 # The default value is: NO.
 
-TYPEDEF_HIDES_STRUCT   = YES
+TYPEDEF_HIDES_STRUCT   = NO
 
 # The size of the symbol lookup cache can be set using LOOKUP_CACHE_SIZE. This
 # cache is used to resolve symbols given their name and scope. Since this can be
@@ -1106,9 +1106,7 @@ HTML_STYLESHEET        =
 # list). For an example see the documentation.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_STYLESHEET  =    @Metal_SOURCE_DIR@/doc/css/bootstrap.css \
-                            @Metal_SOURCE_DIR@/doc/css/octicons.css \
-                            @Metal_SOURCE_DIR@/doc/css/metal.css \
+HTML_EXTRA_STYLESHEET  =
 
 # The HTML_EXTRA_FILES tag can be used to specify one or more extra images or
 # other source files which should be copied to the HTML output directory. Note
@@ -1118,10 +1116,16 @@ HTML_EXTRA_STYLESHEET  =    @Metal_SOURCE_DIR@/doc/css/bootstrap.css \
 # files will be copied as-is; there are no commands or markers available.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_FILES       =    @Metal_SOURCE_DIR@/doc/js/jquery.js \
-                            @Metal_SOURCE_DIR@/doc/js/bootstrap.js \
-                            @Metal_SOURCE_DIR@/doc/js/strap.js \
+HTML_EXTRA_FILES       =    @Metal_SOURCE_DIR@/doc/css/octicons.css \
+                            @Metal_SOURCE_DIR@/doc/icons/octicons.eot \
+                            @Metal_SOURCE_DIR@/doc/icons/octicons.svg \
                             @Metal_SOURCE_DIR@/doc/icons/octicons.ttf \
+                            @Metal_SOURCE_DIR@/doc/icons/octicons.woff \
+                            @Metal_SOURCE_DIR@/doc/js/jquery-1.11.3.min.js \
+                            @Metal_SOURCE_DIR@/doc/css/bootstrap.min.css \
+                            @Metal_SOURCE_DIR@/doc/js/bootstrap.min.js \
+                            @Metal_SOURCE_DIR@/doc/css/metal.css \
+                            @Metal_SOURCE_DIR@/doc/js/metal.js \
 
 # The HTML_COLORSTYLE_HUE tag controls the color of the HTML output. Doxygen
 # will adjust the colors in the style sheet and background images according to
@@ -2255,7 +2259,7 @@ CALLER_GRAPH           = NO
 # The default value is: YES.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-GRAPHICAL_HIERARCHY    = YES
+GRAPHICAL_HIERARCHY    = NO
 
 # If the DIRECTORY_GRAPH tag is set to YES then doxygen will show the
 # dependencies a directory has on other directories in a graphical way. The

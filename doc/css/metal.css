@@ -1,79 +1,57 @@
-#navrow1, #navrow2, #navrow3, #navrow4, #navrow5{
+#toolbar > * {
     border-bottom: 1px solid #EEEEEE;
 }
 
-.navbar {
-    border: 0px solid !important;
-}
-
-.navbar-nav>li, .navbar-nav {
+.navbar-nav > li, .navbar-nav {
     float: left !important;
 }
 
-.navbar-nav.navbar-right:last-child {
-    margin-right: -15px !important;
+.navbar-right {
+    float: right !important;
 }
 
-.navbar-right {
-    float: right!important;
+.nav-pills > li > a:focus,
+.nav-pills > li > a:hover {
+    background-color: #F9F9F9;
 }
 
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:focus,
-.nav-pills > li.active > a:hover{
+.nav-pills > li.active > a:hover {
     background-color: #464646;
 }
 
-.nav-pills > li > a:hover, .nav-pills > li > a:focus {
-    background-color: initial;
-    border-left: 1px solid #EEEEEE;
-    border-right: 1px solid #EEEEEE;
-}
-
 .nav-pills > li > a {
-    color: #434343;
+    color: #464646;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
-.hidden {
-    display: none;
-}
-
-.blur {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: rgba(255,255,255,.8);
-    z-index: 1010;
-    -webkit-filter: blur(0px);
-    -moz-filter: blur(0px);
-    -o-filter: blur(0px);
-    -ms-filter: blur(0px);
-    filter: blur(0px);
-}
-
-div.toc {
-    background-color: #F7F7F7;
+#toc {
+    background-color: #F9F9F9;
     border: 1px solid #EEEEEE;
+    border-radius: 7px;
+    margin: 0px 10px 10px 10px;
+    padding: 10px;
 }
 
-.breadcrumb {
-    background-color: initial;
+#toc ul {
+    list-style: outside none none;
 }
 
-.table > tbody > tr.active > td,
-.table > tbody > tr.active > th,
-.table > tbody > tr > td.active,
-.table > tbody > tr > th.active,
-.table > tfoot > tr.active > td,
-.table > tfoot > tr.active > th,
-.table > tfoot > tr > td.active,
-.table > tfoot > tr > th.active,
-.table > thead > tr.active > td,
-.table > thead > tr.active > th,
-.table > thead > tr > td.active,
-.table > thead > tr > th.active {
-    background-color: #F7F7F7;
+#toc > ul > li > ul li {
+    margin-left: -15px;
+}
+
+.index {
+    margin-left: 20px;
+}
+
+a.anchor {
+    display: block;
+    position: relative;
+    visibility: hidden;
+    top: -65px;
 }
 
 .table > tbody > tr > td,
@@ -82,11 +60,11 @@ div.toc {
 .table > tfoot > tr > th,
 .table > thead > tr > td,
 .table > thead > tr > th {
-   vertical-align: middle;
+    vertical-align: middle;
 }
 
 code {
-    background-color: #F7F7F7;
+    background-color: #F9F9F9;
     white-space: nowrap
 }
 
@@ -94,35 +72,28 @@ div.fragment, pre.fragment {
     padding: 4px 4px;
     font-size: 90%;
     color: #C7254E;
-    background-color: #F7F7F7;
+    background-color: #F9F9F9;
     border: 1px solid #EEEEEE;
     border-radius: 4px;
 }
 
-.section.see dt {
-    all: initial;
-    display: none;
+.section.user dd {
+    margin-left: 20px;
 }
 
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
     color: #464646;
+    margin-right: initial;
 }
 
-div.directory{
-    border: 0px
+strong a {
+    font-weight: bold;
 }
 
 span.octicon {
     margin-right: 5px;
     color: #464646;
-}
-
-dl.tip {
-    border-color: #5BC0DE;
-}
-
-dl.danger {
-    border-color: #C9302C;
 }
 
 html, body {
@@ -142,7 +113,7 @@ html, body {
     font-size: 0.9em;
     margin-top: 20px;
     padding: 8px 0px;
-    background-color: #F7F7F7;
+    border-top: 1px solid #EEEEEE;
 }
 
 #footer > .container {
@@ -156,12 +127,7 @@ html, body {
     margin-bottom: 2px;
 }
 
-.social-btns > ul {
-    display: inline-block;
-    margin: 0px;
-}
-
-.social-btns > ul > li {
+.social-btns li {
     display: inline-block;
     margin: 0px;
 }
