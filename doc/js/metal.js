@@ -8,6 +8,21 @@ $( document ).ready(function(){
     $("li > a[href='namespacemembers.html'] > span")
         .before("<i class='octicon octicon-list-unordered'></i> ");
 
+    $(".current").removeClass("current").addClass("active");
+
+    $("[id^='navrow']").each(function(){
+        if($("ul > li", this).length > 4)
+            $(this).addClass("hidden-xs");
+    });
+
+    $("[id^='navrow']:has(a[href^='namespacemembers']):has(a[href^='namespacemembers_type'])")
+        .remove();
+
+    $("ul > li > a[href^='#index_']").click(function(){
+        $(this).parent().parent().children().removeClass("active");
+        $(this).parent().addClass("active");
+    }).parent().removeClass("active");
+
     $("[id^='navrow'] > ul, #nav-path > ul")
         .addClass("nav nav-pills nav-justified")
         .find("a.el").removeClass("el");
@@ -155,5 +170,4 @@ $( document ).ready(function(){
     $(".memname").removeClass("memname");
     $(".memtemplate").removeClass("memtemplate");
     $(".ah").removeClass("ah").addClass("btn btn-default");
-    $(".current").removeClass("current").addClass("active");
 });
