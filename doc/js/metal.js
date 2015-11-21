@@ -28,7 +28,7 @@ $( document ).ready(function(){
             $(this).html($("> a", this).html(text));
         })
         .parent()
-        .addClass("list-inline index");
+        .addClass("list-inline index-entry");
 
     $("[id^='navrow'] > ul, #nav-path > ul")
         .addClass("nav nav-pills nav-justified")
@@ -72,17 +72,17 @@ $( document ).ready(function(){
                 .append($(".memname td", this).contents())
                 .prependTo(this)
                 .contents()
-                .filter(function(){
+                .each(function(){
                     if(this.nodeType == 3){
                         this.data = this.data
                             .replace(
                                 /= typedef( typename)? detail::.*/i,
-                                "= /* unspecified */"
+                                "= /*unspecified*/"
                             )
                             .replace(/= typedef/i, "=")
                             .replace(
                                 /detail::[_a-zA-Z_]+/i,
-                                "/* unspecified */"
+                                "/*unspecified*/"
                             );
                     }
                 });
@@ -147,8 +147,6 @@ $( document ).ready(function(){
             $("+ a", this).addClass("el").prepend(this);
         });
 
-    $("a.el").removeClass("el").wrap("<strong>");
-
     $("table.memberdecls").addClass("table table-striped");
 
     $("table.directory").addClass("table table-striped");
@@ -159,19 +157,46 @@ $( document ).ready(function(){
         return $(this).find("dd").contents();
     });
 
+    $(".ttc").remove();
+    $("div.fragment div.line span.lineno").remove();
+    $("div.fragment")
+        .each(function(){
+            $(this)
+                .contents()
+                .slice($(this).contents().index($("div.line:last-child", this)) + 1)
+                .remove();
+        });
+
+    $("div.fragment div.line")
+        .replaceWith(function(){
+            return $(this).contents();
+        });
+
+    $("div.fragment")
+        .replaceWith(function(){
+            return $("<pre class='fragment'>").append($(this).contents());
+        });
+
+    $("code a").removeClass("el");
+    $("a.el").wrapInner("<strong>");
+    $("span.comment").addClass("text-muted");
+
     $("hr").remove();
     $(".levels").remove();
     $(".summary").remove();
     $(".desc").remove();
     $(".qindex").remove();
     $(".arrow").remove();
-    $(".ttc").remove();
+
     $(".groupheader").remove();
     $(".ingroups").remove();
     $(".heading").remove();
     $(".memSeparator").remove();
     $("[class^='separator\\:']").remove();
 
+    $(".el").removeClass("el")
+    $(".code").removeClass("code");
+    $(".comment").removeClass("comment");
     $(".contents").removeClass("contents");
     $(".params").removeClass("params");
     $(".navpath").removeClass("navpath");

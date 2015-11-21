@@ -43,8 +43,8 @@
     margin-left: -15px;
 }
 
-.index {
-    margin-left: 20px;
+#toc a, #toc a:visited, #toc a:focus, #toc a:active {
+    color: #464646;
 }
 
 a.anchor {
@@ -52,6 +52,21 @@ a.anchor {
     position: relative;
     visibility: hidden;
     top: -65px;
+}
+
+p {
+    text-align: justify;
+}
+
+.index-entry {
+    margin-left: 20px;
+}
+
+.doxtable > tbody > tr > th,
+.doxtable > tfoot > tr > th,
+.doxtable > thead > tr > th {
+    color: white;
+    background-color: #464646;
 }
 
 .table > tbody > tr > td,
@@ -63,37 +78,34 @@ a.anchor {
     vertical-align: middle;
 }
 
-code {
+pre.fragment, code {
     background-color: #F9F9F9;
-    white-space: nowrap
+    color: #C7254E;
+    white-space: pre;
 }
 
-div.fragment, pre.fragment {
-    padding: 4px 4px;
-    font-size: 90%;
-    color: #C7254E;
-    background-color: #F9F9F9;
+pre.fragment {
     border: 1px solid #EEEEEE;
-    border-radius: 4px;
+}
+
+span.keyword, span.keywordflow, span.keywordtype {
+    color: #008000;
+}
+
+span.preprocessor {
+    color: #806020;
+}
+
+span.charliteral, span.stringliteral {
+    color: #e08000;
 }
 
 .section.user dd {
     margin-left: 20px;
 }
 
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-    color: #464646;
-    margin-right: initial;
-}
-
-strong a {
-    font-weight: bold;
-}
-
 span.octicon {
     margin-right: 5px;
-    color: #464646;
 }
 
 html, body {
@@ -111,20 +123,10 @@ html, body {
 #footer {
     height: 80px;
     font-size: 0.9em;
-    margin-top: 20px;
-    padding: 8px 0px;
+    margin-top: 0px;
+    padding: 20px 0px;
     border-top: 1px solid #EEEEEE;
-}
-
-#footer > .container {
-    padding-left: 15px;
-    padding-right: 15px;
     text-align: center;
-}
-
-.social-btns {
-    margin-top: 2px;
-    margin-bottom: 2px;
 }
 
 .social-btns li {
