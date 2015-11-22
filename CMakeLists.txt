@@ -2,7 +2,7 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 2.8)
 
 project(Metal CXX)
 
@@ -18,26 +18,23 @@ endif()
 enable_testing()
 include(CheckCXXCompilerFlag)
 
-function(metal_add_test_tree _tree _prefix)
-    file(GLOB_RECURSE headers ${_prefix}/include/*.hpp)
-    file(GLOB_RECURSE sources ${_prefix}/src/*.cpp)
+function(metal_add_test_tree _tree)
+    file(GLOB_RECURSE headers ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp)
+    file(GLOB_RECURSE sources ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
     list(SORT sources)
 
     foreach(source ${sources})
-        string(REPLACE "${_prefix}/src/" "" target ${source})
+        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/src/" "" target ${source})
         string(REGEX REPLACE "[/\\]" "." target ${target})
         string(REGEX REPLACE "(.*)[.]cpp" "${_tree}.\\1" target ${target})
 
         add_executable(${target} ${source} ${headers})
-        set_property(
-            TARGET ${target}
-            APPEND PROPERTY INCLUDE_DIRECTORIES ${_prefix}/include/
-        )
         add_test(${target} ${CMAKE_CURRENT_BINARY_DIR}/${target})
 
         string(REGEX REPLACE "(.*)[.][^.]+" "\\1" parent ${target})
         while(NOT TARGET ${parent})
-            add_custom_target(${parent} DEPENDS ${target})
+            add_custom_target(${parent})
+            add_dependencies(${parent} ${target})
             set(target ${parent})
             string(REGEX REPLACE "(.*)[.][^.]+" "\\1" parent ${target})
         endwhile()
@@ -89,7 +86,7 @@ if(METAL_STRICT)
 endif()
 
 metal_add_flag(-stdlib=libc++ "-include cstddef")
-metal_add_flag(-ftemplate-depth=256)
+metal_add_flag(-ftemplate-depth=512)
 
 foreach(dialect
     -std=c++17 -std=c++1z
@@ -110,8 +107,6 @@ include_directories(${METAL_INCLUDE_DIR})
 
 install(DIRECTORY ${METAL_INCLUDE_DIR} DESTINATION include)
 
-metal_add_test_tree(examples ${CMAKE_CURRENT_SOURCE_DIR}/example)
-metal_add_test_tree(tests ${CMAKE_CURRENT_SOURCE_DIR}/test)
-
 add_subdirectory(doc)
-
+add_subdirectory(example)
+add_subdirectory(test)

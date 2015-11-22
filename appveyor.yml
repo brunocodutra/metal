@@ -20,4 +20,4 @@ build_script:
   - cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --target tests
 
 test_script:
-  - ctest --output-on-failure
+  - ctest
