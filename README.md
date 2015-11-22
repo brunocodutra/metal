@@ -1,9 +1,8 @@
 # Metal - Metaprogramming Algorithms
 
+[![version]][semver]
 [![travis.badge]][travis.metal]
 [![appveyor.badge]][appveyor.metal]
-
-## Overview
 
 Metal is a general-purpose C++11 template metaprogramming library
 designed to make metaprogramming enjoyable.
@@ -38,6 +37,9 @@ the complete list.
 
 Metal is distributed under the
 [Boost Software License, Version 1.0][boost.license].
+
+[version]:          https://badge.fury.io/gh/brunocodutra%2Fmetal.svg
+[semver]:           http://semver.org
 
 [travis.metal]:     https://travis-ci.org/brunocodutra/metal
 [travis.badge]:     https://travis-ci.org/brunocodutra/metal.svg?branch=master
