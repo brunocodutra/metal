@@ -2,29 +2,28 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
+find_package(Doxygen)
 if(NOT DOXYGEN_FOUND)
     message(
         WARNING
-        "doxygen not found - 'metal.doc' target will be unavailable."
+        "doxygen not found - 'doc' target will be unavailable."
     )
     return()
 endif()
 
 configure_file(Doxyfile.in METAL_DOXYFILE @ONLY)
 add_custom_target(
-    metal.doc
+    doc ALL
     COMMAND ${CMAKE_COMMAND} -E remove_directory html
     COMMAND ${DOXYGEN_EXECUTABLE} METAL_DOXYFILE
     COMMENT "doxygenating..."
 )
-add_custom_target(doc DEPENDS metal.doc)
 
-add_dependencies(metal metal.doc)
-
+find_package(Git)
 if(NOT GIT_FOUND)
     message(
         WARNING
-        "git not found - 'metal.doc.update' target will be unavailable."
+        "git not found - 'doc.update' target will be unavailable."
     )
     return()
 endif()
@@ -49,7 +48,7 @@ execute_process(
 )
 
 add_custom_target(
-    metal.doc.update
+    doc.update
     COMMAND ${CMAKE_COMMAND} -E remove_directory gh-pages
     COMMAND ${GIT_EXECUTABLE} clone ${METAL_ORIGIN_URL} --depth 1 --branch=gh-pages gh-pages
     COMMAND ${CMAKE_COMMAND} -E copy_directory gh-pages/.git html/.git
@@ -59,6 +58,6 @@ add_custom_target(
     COMMAND ${GIT_EXECUTABLE} -C html push origin gh-pages
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "updating online documentation"
-    DEPENDS metal.doc
+    DEPENDS doc
     VERBATIM
 )

@@ -6,166 +6,112 @@ cmake_minimum_required(VERSION 2.8.3)
 
 project(Metal CXX)
 
-option(METAL_INCREASE_VERBOSITY         "increase compiler verbosity"        ON)
-option(METAL_ENABLE_WARNINGS            "enable warnings"                    ON)
-option(METAL_ENABLE_EXTRA_WARNINGS      "enable extra warnings"             OFF)
-option(METAL_ENFORCE_STRICT_BEHAVIOR    "enforce strict behavior"           OFF)
+option(METAL_VERBOSE                "increase output verbosity"             OFF)
+option(METAL_ENABLE_BASIC_WARNINGS  "enable basic compiler warnings"         ON)
+option(METAL_ENABLE_EXTRA_WARNINGS  "enable extra compiler warnings"        OFF)
+option(METAL_STRICT                 "treat compiler warnings as errors"     OFF)
 
 if(METAL_ENABLE_EXTRA_WARNINGS)
-    set(METAL_ENABLE_WARNINGS ON)
+    set(METAL_ENABLE_BASIC_WARNINGS ON)
 endif()
 
-find_package(Doxygen)
-find_package(Git)
 enable_testing()
+include(CheckCXXCompilerFlag)
 
-function(make_dialects_map _dialects _map)
-    unset(${_map})
-    foreach(dialect ${_dialects})
-        unset(dialect_flags)
-        language_dialect_flags(CXX ${dialect} dialect_flags)
-        foreach(flag ${dialect_flags})
-            check_flag(CXX "${flag}" flag)
-            if(flag)
-                set(${_map} ${${_map}} "${dialect}@${flag}")
-                break()
-            endif()
-        endforeach()
-    endforeach()
-    set(${_map} ${${_map}} PARENT_SCOPE)
-endfunction()
-
-function(split _pair _left _right)
-    string(REGEX REPLACE "^([^@]+)[@]([^@]+)$" "\\1" ${_left} ${_pair})
-    string(REGEX REPLACE "^([^@]+)[@]([^@]+)$" "\\2" ${_right} ${_pair})
-    set(${_left} ${${_left}} PARENT_SCOPE)
-    set(${_right} ${${_right}} PARENT_SCOPE)
-endfunction()
-
-function(parent_target _target _parent)
-    string(REGEX REPLACE "(.*)[.][^.]+" "\\1" ${_parent} ${_target})
-    set(${_parent} ${${_parent}} PARENT_SCOPE)
-endfunction()
-
-function(add_test_matrix _target _dialects _prefix)
-    file(GLOB_RECURSE headers "${_prefix}/include/*.hpp")
-    file(GLOB_RECURSE sources "${_prefix}/src/*.cpp")
+function(metal_add_test_tree _tree _prefix)
+    file(GLOB_RECURSE headers ${_prefix}/include/*.hpp)
+    file(GLOB_RECURSE sources ${_prefix}/src/*.cpp)
     list(SORT sources)
 
-    include_directories("${_prefix}/include")
-    add_custom_target(${_target})
+    foreach(source ${sources})
+        string(REPLACE "${_prefix}/src/" "" target ${source})
+        string(REGEX REPLACE "[/\\]" "." target ${target})
+        string(REGEX REPLACE "(.*)[.]cpp" "${_tree}.\\1" target ${target})
 
-    make_dialects_map("${_dialects}" dialects_map)
-    foreach(pair ${dialects_map})
-        split(${pair} dialect flag)
+        add_executable(${target} ${source} ${headers})
+        set_property(
+            TARGET ${target}
+            APPEND PROPERTY INCLUDE_DIRECTORIES ${_prefix}/include/
+        )
+        add_test(${target} ${CMAKE_CURRENT_BINARY_DIR}/${target})
 
-        foreach(source ${sources})
-            string(REPLACE "${_prefix}/src/" "" test_target ${source})
-            string(REGEX REPLACE "[/\\]" "." test_target ${test_target})
-            string(
-                REGEX REPLACE
-                "(.*)[.]cpp"
-                "${_target}.\\1.${dialect}"
-                test_target
-                ${test_target}
-            )
-
-            add_binary_target(
-                EXECUTABLE ${test_target}
-                LANGUAGE CXX
-                SOURCES ${source} ${headers}
-                LIBRARIES
-                ADITIONAL_FLAGS "${flag}"
-                DEPENDENCIES
-            )
-            add_test(${test_target} ${CMAKE_CURRENT_BINARY_DIR}/${test_target})
-
-            parent_target(${test_target} test_target_parent)
-            while(NOT TARGET ${test_target_parent})
-                add_custom_target(${test_target_parent})
-                add_dependencies(${test_target_parent} ${test_target})
-                set(test_target ${test_target_parent})
-                parent_target(${test_target} test_target_parent)
-            endwhile()
-
-            add_dependencies(${test_target_parent} ${test_target})
-        endforeach()
+        string(REGEX REPLACE "(.*)[.][^.]+" "\\1" parent ${target})
+        while(NOT TARGET ${parent})
+            add_custom_target(${parent} DEPENDS ${target})
+            set(target ${parent})
+            string(REGEX REPLACE "(.*)[.][^.]+" "\\1" parent ${target})
+        endwhile()
+        add_dependencies(${parent} ${target})
     endforeach()
 endfunction()
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+macro(metal_add_flag _flag)
+    set(result "${_flag}")
+    string(TOUPPER "${result}" result)
+    string(REGEX REPLACE "[+]" "X" result "${result}")
+    string(REGEX REPLACE "[-/;=]" "_" result "${result}")
+    string(REGEX REPLACE "[^ A-Z_0-9]" "" result "${result}")
+    string(REGEX REPLACE "^[ ]*([A-Z_0-9]+) ?.*$" "\\1" result "${result}")
+    set(result "HAS${result}")
 
-include(DetectToolchain)
-include(CompilerUtilities)
-include(TargetUtilities)
-include(Warnings)
-include(Diagnostics)
-include(Strict)
-include(Dialects)
-
-if(NOT METAL_CXX_DIALECTS)
-    set(METAL_CXX_DIALECTS
-        c++11
-    )
-    if(CXX_COMPILER_IS_GNU OR CXX_COMPILER_IS_CLANG)
-        list(APPEND METAL_CXX_DIALECTS
-            c++14
-            c++17
-        )
+    check_cxx_compiler_flag("${_flag} ${ARGN}" ${result})
+    if(${result})
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${_flag}")
     endif()
+endmacro()
+
+if(METAL_VERBOSE)
+    metal_add_flag(-v)
+    metal_add_flag(-ftemplate-backtrace-limit=0)
+    metal_add_flag(-fdiagnostics-show-template-tree)
+    metal_add_flag(-fno-elide-type)
 endif()
 
-if(METAL_INCREASE_VERBOSITY)
-    diagnostics_flags(CXX METAL_EXTRA_COMPILE_FLAGS)
-endif()
-
-if(METAL_ENABLE_WARNINGS)
-    warnings_flags(CXX METAL_EXTRA_COMPILE_FLAGS)
-    if(CXX_COMPILER_IS_MSVC)
-        list(APPEND METAL_EXTRA_COMPILE_FLAGS
-            /wd4479
-        )
-    endif()
-
+if(METAL_ENABLE_BASIC_WARNINGS)
+    metal_add_flag(-W)
+    metal_add_flag(-Wall)
+    metal_add_flag(/W3)
 endif()
 
 if(METAL_ENABLE_EXTRA_WARNINGS)
-    extra_warnings_flags(CXX METAL_EXTRA_COMPILE_FLAGS)
-    if(CXX_COMPILER_IS_CLANG)
-        list(APPEND METAL_EXTRA_COMPILE_FLAGS
-            -Wno-c++98-compat
-            -Wno-c++98-compat-pedantic
-            -Wno-documentation
-            -Wno-documentation-unknown-command
-        )
+    metal_add_flag(-Wextra)
+    metal_add_flag(-Weverything)
+    metal_add_flag(-Wno-c++98-compat)
+    metal_add_flag(-Wno-c++98-compat-pedantic)
+    metal_add_flag(-Wno-documentation-unknown-command)
+    metal_add_flag(/W4)
+endif()
+
+if(METAL_STRICT)
+    metal_add_flag(-pedantic-errors)
+    metal_add_flag(-Werror)
+    metal_add_flag(/WX)
+endif()
+
+metal_add_flag(-stdlib=libc++ "-include cstddef")
+metal_add_flag(-ftemplate-depth=256)
+
+foreach(dialect
+    -std=c++17 -std=c++1z
+    -std=c++14 -std=c++1y
+    -std=c++11 -std=c++0x
+    /Za
+)
+    metal_add_flag(${dialect})
+    if(${result})
+        break()
     endif()
-endif()
+endforeach()
 
-if(METAL_ENFORCE_STRICT_BEHAVIOR)
-    strict_behavior_flags(CXX METAL_EXTRA_COMPILE_FLAGS)
-endif()
-
-if(CXX_COMPILER_IS_CLANG)
-    check_flag(CXX "-stdlib=libc++ -include cstddef" result)
-    if(result)
-        list(APPEND METAL_EXTRA_COMPILE_FLAGS
-            -stdlib=libc++
-        )
-    endif()
-endif()
-
-add_compile_flags_globally("${METAL_EXTRA_COMPILE_FLAGS}")
-
-set(METAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(METAL_INCLUDE_DIRS ${METAL_INCLUDE_DIR})
-
-include_directories(${METAL_INCLUDE_DIRS})
-
+set(METAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/)
 file(GLOB_RECURSE METAL_HEADERS ${METAL_INCLUDE_DIR}/*.hpp)
 
-add_custom_target(metal SOURCES ${METAL_HEADERS})
-install(FILES ${METAL_HEADERS} DESTINATION include)
+include_directories(${METAL_INCLUDE_DIR})
 
-add_subdirectory(doc        EXCLUDE_FROM_ALL)
-add_subdirectory(example    EXCLUDE_FROM_ALL)
-add_subdirectory(test       EXCLUDE_FROM_ALL)
+install(DIRECTORY ${METAL_INCLUDE_DIR} DESTINATION include)
+
+metal_add_test_tree(examples ${CMAKE_CURRENT_SOURCE_DIR}/example)
+metal_add_test_tree(tests ${CMAKE_CURRENT_SOURCE_DIR}/test)
+
+add_subdirectory(doc)
+

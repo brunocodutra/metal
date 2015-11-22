@@ -11,14 +11,13 @@ environment:
       - GENERATOR: "Visual Studio 14 2015 Win64"
 
 before_build:
-  - git submodule update --init --recursive
-
   - mkdir "%APPVEYOR_BUILD_FOLDER%\build"
   - cd "%APPVEYOR_BUILD_FOLDER%\build"
   - cmake -G"%GENERATOR%" "%APPVEYOR_BUILD_FOLDER%"
 
 build_script:
-  - cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --target metal
+  - cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --target examples
+  - cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --target tests
 
 test_script:
   - ctest --output-on-failure
