@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 2.8)
 project(Metal CXX)
 
 option(METAL_VERBOSE                "increase output verbosity"             OFF)
-option(METAL_ENABLE_BASIC_WARNINGS  "enable basic compiler warnings"         ON)
+option(METAL_ENABLE_BASIC_WARNINGS  "enable basic compiler warnings"        OFF)
 option(METAL_ENABLE_EXTRA_WARNINGS  "enable extra compiler warnings"        OFF)
 option(METAL_STRICT                 "treat compiler warnings as errors"     OFF)
 
@@ -107,6 +107,6 @@ include_directories(${METAL_INCLUDE_DIR})
 
 install(DIRECTORY ${METAL_INCLUDE_DIR} DESTINATION include)
 
-add_subdirectory(doc)
-add_subdirectory(example)
-add_subdirectory(test)
+add_subdirectory(doc        EXCLUDE_FROM_ALL)
+add_subdirectory(example    EXCLUDE_FROM_ALL)
+add_subdirectory(test       EXCLUDE_FROM_ALL)
