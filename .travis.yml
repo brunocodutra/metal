@@ -6,6 +6,18 @@ language: cpp
 os: linux
 sudo: false
 
+env:
+    global:
+      - secure: "DuBGzmeKiWMm5m0+uZhutjzCffB2PbixmuMm3IZWUi7/uAam4PPI37oeqVTIytxxfpgRvfR2ah75eJyU6ab72MBoHxGkHem10RAvhC/vPYbLZu545qfSGatyTI9R6NfERUxi7YIxjs6D8c4D/5k3gMoCbMUkU1Lze1708lknh5U="
+
+    matrix:
+      - BUILD_DOC=true
+
+addons:
+    apt:
+        packages:
+          - doxygen
+
 matrix:
     include:
       - compiler: g++
@@ -14,7 +26,7 @@ matrix:
             apt:
                 packages:
                   - g++-4.8
-                sources: &sources
+                sources: &toolchain
                   - ubuntu-toolchain-r-test
                   - llvm-toolchain-precise
                   - llvm-toolchain-precise-3.5
@@ -27,7 +39,7 @@ matrix:
             apt:
                 packages:
                   - g++-4.9
-                sources: *sources
+                sources: *toolchain
 
       - compiler: g++
         env: CXX_VERSION=5
@@ -35,7 +47,7 @@ matrix:
             apt:
                 packages:
                   - g++-5
-                sources: *sources
+                sources: *toolchain
 
       - compiler: clang++
         env: CXX_VERSION=3.5
@@ -43,7 +55,7 @@ matrix:
             apt:
                 packages:
                   - clang-3.5
-                sources: *sources
+                sources: *toolchain
 
       - compiler: clang++
         env: CXX_VERSION=3.6
@@ -51,7 +63,7 @@ matrix:
             apt:
                 packages:
                   - clang-3.6
-                sources: *sources
+                sources: *toolchain
 
       - compiler: clang++
         env: CXX_VERSION=3.7
@@ -59,7 +71,7 @@ matrix:
             apt:
                 packages:
                   - clang-3.7
-                sources: *sources
+                sources: *toolchain
 
       - compiler: clang++
         env: CXX_VERSION=3.8
@@ -67,16 +79,7 @@ matrix:
             apt:
                 packages:
                   - clang-3.8
-                sources: *sources
-
-env:
-    global:
-      - secure: "DuBGzmeKiWMm5m0+uZhutjzCffB2PbixmuMm3IZWUi7/uAam4PPI37oeqVTIytxxfpgRvfR2ah75eJyU6ab72MBoHxGkHem10RAvhC/vPYbLZu545qfSGatyTI9R6NfERUxi7YIxjs6D8c4D/5k3gMoCbMUkU1Lze1708lknh5U="
-
-    matrix:
-      - BUILD_DOC=true
-
-compiler: g++
+                sources: *toolchain
 
 install:
   - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
@@ -98,8 +101,13 @@ before_script:
   - mkdir "${TRAVIS_BUILD_DIR}/build"
   - cd "${TRAVIS_BUILD_DIR}/build"
 
-  - if [[ -n "${CXX_VERSION}" ]]; then CXX=${CXX}-${CXX_VERSION}; fi
-  - cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=${CXX}
+  - |
+    if [[ -n "${CXX}" && -n "${CXX_VERSION}" ]]
+    then
+        cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=${CXX}-${CXX_VERSION}
+    else
+        cmake "${TRAVIS_BUILD_DIR}"
+    fi
 
 script:
   - |
