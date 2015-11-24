@@ -13,11 +13,6 @@ env:
     matrix:
       - BUILD_DOC=true
 
-addons:
-    apt:
-        packages:
-          - doxygen
-
 matrix:
     include:
       - compiler: g++
@@ -86,7 +81,7 @@ install:
   - mkdir "${DEPS_PATH}"
 
   - |
-    if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_BRANCH}" == "master"  && "${TRAVIS_PULL_REQUEST}" != "true" ]]
+    if [[ "${BUILD_DOC}" == "true" ]]
     then
         DOXYGEN_URL="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.10.linux.bin.tar.gz"
         mkdir "${DEPS_PATH}/doxygen" &&
