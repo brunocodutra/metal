@@ -85,9 +85,9 @@ install:
   - |
     if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_BRANCH}" == "master"  && "${TRAVIS_PULL_REQUEST}" != "true" ]]
     then
-        mkdir "${DEPS_PATH}/doxygen"
         DOXYGEN_URL="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.10.linux.bin.tar.gz"
-        travis_retry wget --quiet -O - ${DOXYGEN_URL} | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen"
+        mkdir "${DEPS_PATH}/doxygen" &&
+        travis_retry wget --quiet -O - ${DOXYGEN_URL} | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" &&
         export PATH=${DEPS_PATH}/doxygen/bin:${PATH}
     fi
 
@@ -105,17 +105,16 @@ script:
   - |
     if [[ "${BUILD_DOC}" == "true" ]]
     then
-        cd doc
-        make doc
+        cd doc &&
+        make doc &&
         if [[ "${TRAVIS_BRANCH}" == "master"  && "${TRAVIS_PULL_REQUEST}" != "true" ]]
         then
-            git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages gh-pages &> /dev/null
-            cp -r gh-pages/.git/ html/.git/  &> /dev/null
-            git -C html/ add --all . &> /dev/null
-            git -C html/ commit --allow-empty -m "updating to $(git -C ${TRAVIS_BUILD_DIR} rev-parse --short HEAD)" &> /dev/null
+            git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages gh-pages &> /dev/null &&
+            cp -r gh-pages/.git/ html/.git/  &> /dev/null &&
+            git -C html/ add --all . &> /dev/null &&
+            git -C html/ commit --allow-empty -m "updating to $(git -C ${TRAVIS_BUILD_DIR} rev-parse --short HEAD)" &> /dev/null &&
             git -C html/ push origin gh-pages &> /dev/null
         fi
     else
-        make -k examples tests
-        ctest
+        make -k examples tests || ctest
     fi
