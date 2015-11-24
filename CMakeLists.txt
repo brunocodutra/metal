@@ -28,7 +28,7 @@ function(metal_add_test_tree _tree)
         string(REGEX REPLACE "[/\\]" "." target ${target})
         string(REGEX REPLACE "(.*)[.]cpp" "${_tree}.\\1" target ${target})
 
-        add_executable(${target} ${source} ${headers})
+        add_executable(${target} EXCLUDE_FROM_ALL ${source} ${headers})
         add_test(${target} ${CMAKE_CURRENT_BINARY_DIR}/${target})
 
         string(REGEX REPLACE "(.*)[.][^.]+" "\\1" parent ${target})
@@ -107,6 +107,6 @@ include_directories(${METAL_INCLUDE_DIR})
 
 install(DIRECTORY ${METAL_INCLUDE_DIR} DESTINATION include)
 
-add_subdirectory(doc        EXCLUDE_FROM_ALL)
-add_subdirectory(example    EXCLUDE_FROM_ALL)
-add_subdirectory(test       EXCLUDE_FROM_ALL)
+add_subdirectory(doc)
+add_subdirectory(example)
+add_subdirectory(test)

@@ -10,7 +10,7 @@ endif()
 
 configure_file(Doxyfile.in METAL_DOXYFILE @ONLY)
 add_custom_target(
-    doc ALL
+    doc
     COMMAND ${CMAKE_COMMAND} -E remove_directory html
     COMMAND ${DOXYGEN_EXECUTABLE} METAL_DOXYFILE
     COMMENT "doxygenating..."
