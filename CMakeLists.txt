@@ -6,6 +6,29 @@ cmake_minimum_required(VERSION 2.8)
 
 project(Metal CXX)
 
+set(METAL_MAJOR_VERSION 0)
+set(METAL_MINOR_VERSION 1)
+set(METAL_PATCH_VERSION 0)
+set(METAL_VERSION
+    ${METAL_MAJOR_VERSION}.${METAL_MINOR_VERSION}.${METAL_PATCH_VERSION}
+)
+
+if(WIN32 AND NOT CYGWIN)
+  set(METAL_CMAKE_INSTALL_DIR_DEF CMake)
+else()
+  set(METAL_CMAKE_INSTALL_DIR_DEF lib/cmake/Metal)
+endif()
+
+set(METAL_CMAKE_INSTALL_DIR
+    ${METAL_CMAKE_INSTALL_DIR_DEF} CACHE PATH
+    "installation directory for Metal CMake files"
+)
+
+set(METAL_INCLUDE_INSTALL_DIR
+    include CACHE PATH
+    "installation directory for Metal header files"
+)
+
 option(METAL_VERBOSE                "increase output verbosity"             OFF)
 option(METAL_ENABLE_BASIC_WARNINGS  "enable basic compiler warnings"        OFF)
 option(METAL_ENABLE_EXTRA_WARNINGS  "enable extra compiler warnings"        OFF)
@@ -101,12 +124,44 @@ foreach(dialect
 endforeach()
 
 set(METAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/)
-file(GLOB_RECURSE METAL_HEADERS ${METAL_INCLUDE_DIR}/*.hpp)
+file(GLOB_RECURSE METAL_HEADERS "${METAL_INCLUDE_DIR}/*.hpp")
 
-include_directories(${METAL_INCLUDE_DIR})
-
-install(DIRECTORY ${METAL_INCLUDE_DIR} DESTINATION include)
+include_directories("${METAL_INCLUDE_DIR}")
 
 add_subdirectory(doc)
 add_subdirectory(example)
 add_subdirectory(test)
+
+foreach(x INCLUDE CMAKE)
+  if(NOT IS_ABSOLUTE "${METAL_${x}_INSTALL_DIR}")
+    set(METAL_${x}_INSTALL_DIR
+        "${CMAKE_INSTALL_PREFIX}/${METAL_${x}_INSTALL_DIR}"
+    )
+  endif()
+endforeach()
+
+file(
+    RELATIVE_PATH METAL_INCLUDE_DIRS_CONF
+    "${METAL_CMAKE_INSTALL_DIR}" "${METAL_INCLUDE_INSTALL_DIR}"
+)
+
+set(METAL_INCLUDE_DIRS_CONF "\${METAL_CMAKE_DIR}/${METAL_INCLUDE_DIRS_CONF}")
+configure_file(cmake/MetalConfig.cmake.in
+    "${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/MetalConfig.cmake"
+    @ONLY
+)
+
+configure_file(cmake/MetalConfigVersion.cmake.in
+    "${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/MetalConfigVersion.cmake"
+    @ONLY
+)
+
+install(DIRECTORY "${METAL_INCLUDE_DIR}"
+    DESTINATION "${METAL_INCLUDE_INSTALL_DIR}"
+)
+
+install(FILES
+  "${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/MetalConfig.cmake"
+  "${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/MetalConfigVersion.cmake"
+  DESTINATION "${METAL_CMAKE_INSTALL_DIR}"
+)
