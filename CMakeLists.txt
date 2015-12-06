@@ -38,7 +38,6 @@ if(METAL_ENABLE_EXTRA_WARNINGS)
     set(METAL_ENABLE_BASIC_WARNINGS ON)
 endif()
 
-enable_testing()
 include(CheckCXXCompilerFlag)
 
 function(metal_add_test_tree _tree)
@@ -127,6 +126,8 @@ set(METAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/)
 file(GLOB_RECURSE METAL_HEADERS "${METAL_INCLUDE_DIR}/*.hpp")
 
 include_directories("${METAL_INCLUDE_DIR}")
+
+enable_testing()
 
 add_subdirectory(doc)
 add_subdirectory(example)

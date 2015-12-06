@@ -8,7 +8,7 @@ metaprogramming enjoyable.
 It provides a powerful high-level abstraction for compile-time algorithms,
 grounded on a concise yet solid [conceptual foundation](\ref concepts).
 
-With focus on [simplicity] and [expressivity],
+With focus on [simplicity] and [expressiveness],
 Metal explores the full potential of modern features, without,
 on the other hand,
 allowing its [portability](\ref portability) to be compromised.
@@ -44,15 +44,16 @@ abstracting away the nastiest compiler hackery to present a uniform
 framework that finally could be relied upon.
 It played a crucial role in the dissemination of metaprogramming in C++ and
 remained undisputed for almost a decade,
-but, eventually, it started showing its age when [C++11] introduced
+but, eventually, it started showing its age when [C++11] introduced,
+among various others,
 [variadic templates][variadics], [alias templates], [type inference][decltype]
 and [constant expressions][constexpr] to the core language.
-The powerful C++11 machinery enabled the development of whole new
+This powerful C++11 machinery enabled the development of whole new
 metaprogramming [styles][tmp.simple] and [techniques][tmp.modern] with
 potential to outperform Boost.MPL by orders of magnitude in many instances.
 Moreover, the need for endless automatically generated boilerplate code could
 finally be overcome using variadic templates,
-whereas syntax clutter could finally be mitigated using alias templates,
+whereas syntax clutter could be mitigated using alias templates,
 vastly improving readability.
 
 Eventually, [motivation][mpl.lite] to modernize Boost.MPL emerged from the
@@ -83,13 +84,14 @@ Portability {#portability}
 
 Great effort is undertaken to keep Metal strictly in conformance with the C++11
 standard and compatible with the widest possible variety of compilers.
-To this end, three of the most popular freely available C++ compilers are
+To this end, some of the most popular freely available C++ compilers are
 officially and actively supported through [Continuous Integration (CI)][ci]
 premisses.
 GCC and Clang are tested with help of [Travis CI][travis.metal],
 while Microsoft Visual Studio is tested using [Appveyor CI][appveyor.metal].
 
-Current compilation status is summarized in the table bellow.
+Current compilation status is summarized in the table bellow,
+if your favorite compiler is not listed, please [let us know][Metal.issues].
 
 <center>
     <table>
@@ -121,6 +123,11 @@ Current compilation status is summarized in the table bellow.
     </table>
 </center>
 
+\note{
+Status badges are updated live to reflect current status as reported by the
+continuous integration tools. If they don't load correctly that
+might be due to a temporary network downtime.
+}
 
 Concepts {#concepts}
 ================================================================================
@@ -148,20 +155,9 @@ Any type is a [Value].
 
 ### Counterexamples
 
-~~~{.cpp}
-int val;
-~~~
-
-~~~{.cpp}
-auto val = 3.14;
-~~~
-
-~~~{.cpp}
-struct
-{
-    //...
-} val;
-~~~
+\snippet concepts/value.cpp nex1
+\snippet concepts/value.cpp nex2
+\snippet concepts/value.cpp nex3
 
 Number {#concepts_number}
 --------------------------------------------------------------------------------
@@ -396,12 +392,11 @@ Just as accurately, it could also be seen as a pair.
 Now that may look silly put in a simple example like this one, but [...]
 
 \tip{
-Most [Expressions] in Metal have an associated eager adaptor
+To save typing, most [Expressions] in Metal have an associated eager adaptor
 suffixed by `_t`, that is,
 given an expression `metal::$`,
 `metal::$_t<...>` is equivalent to `typename metal::$<...>::type`.
 }
-
 
 [Value]:            \ref concepts_value
 [Values]:           \ref concepts_value
@@ -425,13 +420,14 @@ given an expression `metal::$`,
 [STL]:              https://en.wikipedia.org/wiki/Standard_Template_Library
 [pola]:             https://en.wikipedia.org/wiki/Principle_of_least_astonishment
 [simplicity]:       https://en.wikipedia.org/wiki/Simplicity#Quotes_about_simplicity
-[expressivity]:     https://en.wikipedia.org/wiki/Expressive_power_%28computer_science%29
+[expressiveness]:     https://en.wikipedia.org/wiki/Expressive_power_%28computer_science%29
 [higher-order]:     https://en.wikipedia.org/wiki/Higher-order_lambda
 [first-class]:      https://en.wikipedia.org/wiki/First-class_citizen
 [Lambda Calculus]:  https://en.wikipedia.org/wiki/Lambda_calculus
 [s-expressions]:    https://en.wikipedia.org/wiki/S-expression
 [homoiconicity]:    https://en.wikipedia.org/wiki/Homoiconicity
 [ci]:               https://en.wikipedia.org/wiki/Continuous_integration
+[bleeding edge]:    https://en.wikipedia.org/wiki/Bleeding_edge_technology
 
 [tmp]:              https://en.wikipedia.org/wiki/Template_metaprogramming
 [tmp.turing]:       http://ubietylab.net/ubigraph/content/Papers/pdf/CppTuring.pdf
@@ -463,3 +459,6 @@ given an expression `metal::$`,
 [appveyor.metal]:   https://ci.appveyor.com/project/brunocodutra/metal
 [appveyor.master]:  https://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/master?svg=true
 [appveyor.develop]: https://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/develop?svg=true
+
+[Metal.issues]:     https://github.com/brunocodutra/metal/issues
+[Metal.latest]:     https://github.com/brunocodutra/metal/archive/master.zip

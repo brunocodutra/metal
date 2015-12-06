@@ -34,13 +34,10 @@ $( document ).ready(function(){
         .addClass("nav nav-pills nav-justified")
         .find("a.el").removeClass("el");
 
-    $("div.toc")
-        .removeClass("toc")
-        .addClass("panel pull-right")
-        .attr("id", "toc");
+    $("div.toc").addClass("panel pull-right");
 
-    $("div#toc > ul").addClass("panel-body");
-    $("div#toc h3")
+    $("div.toc > ul").addClass("panel-body");
+    $("div.toc h3")
         .addClass("panel-title").wrap("<div class='panel-heading'>");
 
     $("div.header")

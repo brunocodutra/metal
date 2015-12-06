@@ -8,7 +8,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex1]
 template<typename>
@@ -25,7 +25,7 @@ static_assert(std::is_same<
 >::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex2]
 template<typename...>
@@ -41,7 +41,7 @@ static_assert(!metal::is_just<
 >::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex3]
 template<typename integral> //evaluable for integral types
@@ -56,7 +56,7 @@ static_assert(std::is_same<
 >::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [nex1]
 struct not_an_expr //not a template
@@ -66,7 +66,7 @@ struct not_an_expr //not a template
 /// [nex1]
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [nex2]
 template<template<typename...> class... exprs> //non-type parameter
@@ -77,7 +77,7 @@ struct not_an_expr
 /// [nex2]
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [nex3]
 template<typename integral, integral integral_value> //non-type parameter
