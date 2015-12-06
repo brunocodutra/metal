@@ -7,6 +7,8 @@
 
 #include "test/preprocessor.hpp"
 
+#include <type_traits>
+
 namespace test
 {
     enum na {};
@@ -20,18 +22,12 @@ namespace test
 
     namespace detail
     {
-        template<typename...>
-        struct expr0_impl;
-
-        template<>
-        struct expr0_impl<>
-        {
-            using type = expr<>;
-        };
+        template<std::size_t n>
+        using expr0_impl = typename std::enable_if<!n, expr<>>::type;
     }
 
     template<typename... _>
-    using expr0 = typename detail::expr0_impl<_...>::type;
+    using expr0 = detail::expr0_impl<sizeof...(_)>;
 
     template<EVAL(ENUM,  1, typename _)> using expr1  = expr<EVAL(ENUM,  1, _)>;
     template<EVAL(ENUM,  2, typename _)> using expr2  = expr<EVAL(ENUM,  2, _)>;

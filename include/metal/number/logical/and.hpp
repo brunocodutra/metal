@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename... nums>
+        struct and_impl;
+    }
+
     /// \ingroup logical
     /// ...
     template<typename... nums>
-    struct and_;
+    using and_ = detail::and_impl<nums...>;
 
     /// \ingroup logical
     /// Eager adaptor for \ref and_.
@@ -19,42 +25,24 @@ namespace metal
 }
 
 #include <metal/number/number.hpp>
-#include <metal/number/logical/or.hpp>
 #include <metal/number/logical/not.hpp>
-#include <metal/optional/conditional.hpp>
+#include <metal/lambda/invoke.hpp>
+#include <metal/lambda/lift.hpp>
+#include <metal/list/list.hpp>
+#include <metal/list/same.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<typename... nums>
+        using nor = same_t<list<boolean<false>, nums...>>;
+
+        template<typename... nums>
         struct and_impl :
-            not_<or_t<not_t<nums>...>>
+            invoke<lift_t<lambda<nor>>, not_<nums>...>
         {};
     }
-
-    template<typename... nums>
-    struct and_ :
-        conditional<
-            typename detail::and_impl<is_number_t<nums>...>::type,
-            detail::and_impl<nums...>
-        >
-    {};
-
-    template<typename tx, tx vx, typename ty, ty vy, typename... tail>
-    struct and_<number<tx, vx>, number<ty, vy>, number<tail, true>...> :
-        boolean<vx && vy>
-    {};
-
-    template<typename t, t v>
-    struct and_<number<t, v>> :
-        boolean<v && true>
-    {};
-
-    template<>
-    struct and_<> :
-        boolean<true>
-    {};
 }
 
 #endif

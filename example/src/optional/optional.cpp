@@ -8,15 +8,13 @@
 
 ANONYMOUS(struct)
 {
-static constexpr
 /// [just]
-auto obj = {0, 1};
-using some = metal::just<decltype(obj)>;
 using none = metal::just<>;
+using some = metal::just<decltype(3.14)>;
 
-static_assert(!metal::is_just<none>::value, "");
 static_assert(metal::is_just<some>::value, "");
-static_assert(std::is_same<some::type, decltype(obj)>::value, "");
+static_assert(!metal::is_just<none>::value, "");
+static_assert(std::is_same<some::type, decltype(3.14)>::value, "");
 /// [just]
 };
 

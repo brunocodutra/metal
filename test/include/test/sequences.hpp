@@ -9,24 +9,20 @@
 #include "test/preprocessor.hpp"
 #include "test/values.hpp"
 
+#include <type_traits>
+
 namespace test
 {
     template<typename...> class seq;
 
     namespace detail
     {
-        template<typename...>
-        struct seq0_impl;
-
-        template<>
-        struct seq0_impl<>
-        {
-            using type = seq<>;
-        };
+        template<std::size_t n>
+        using seq0_impl = typename std::enable_if<!n, seq<>>::type;
     }
 
     template<typename... _>
-    using seq0 = typename detail::seq0_impl<_...>::type;
+    using seq0 = detail::seq0_impl<sizeof...(_)>;
 
     template<EVAL(ENUM,  1, typename BAR)> union  seq1;
     template<EVAL(ENUM,  2, typename BAR)> union  seq2;

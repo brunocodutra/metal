@@ -18,11 +18,7 @@ union expr
 };
 /// [ex1]
 
-static_assert(metal::is_just<metal::instantiate<expr, void>>::value, "");
-static_assert(std::is_same<
-    metal::invoke_t<metal::lambda<expr>, void>,
-    expr<void>::type
->::value, "");
+static_assert(metal::is_just<expr<void>>::value, "");
 }
 
 ANONYMOUS(namespace)
@@ -35,25 +31,19 @@ struct expr
 };
 /// [ex2]
 
-static_assert(metal::is_just<metal::instantiate<expr>>::value, "");
-static_assert(!metal::is_just<
-    metal::invoke<metal::lambda<expr>, void>
->::value, "");
+static_assert(!metal::is_just<expr<void>>::value, "");
 }
 
 ANONYMOUS(namespace)
 {
 /// [ex3]
-template<typename integral> //evaluable for integral types
-using expr = std::integral_constant<integral, integral{}>;
+template<typename array> //evaluable for array types
+using expr = std::enable_if<!!std::rank<array>::value, array>;
 /// [ex3]
 
-static_assert(!metal::is_just<metal::instantiate<expr, void>>::value, "");
-static_assert(metal::is_just<metal::instantiate<expr, int>>::value, "");
-static_assert(std::is_same<
-    metal::invoke_t<metal::lambda<expr>, int>,
-    expr<int>::type
->::value, "");
+static_assert(!metal::is_just<expr<int>>::value, "");
+static_assert(metal::is_just<expr<int[]>>::value, "");
+static_assert(metal::is_just<expr<int[][1]>>::value, "");
 }
 
 ANONYMOUS(namespace)
