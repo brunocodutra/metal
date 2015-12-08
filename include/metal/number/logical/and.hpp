@@ -10,13 +10,13 @@ namespace metal
     namespace detail
     {
         template<typename... nums>
-        struct and_impl;
+        struct and_;
     }
 
     /// \ingroup logical
     /// ...
     template<typename... nums>
-    using and_ = detail::and_impl<nums...>;
+    using and_ = detail::and_<nums...>;
 
     /// \ingroup logical
     /// Eager adaptor for \ref and_.
@@ -39,7 +39,7 @@ namespace metal
         using nor = same_t<list<boolean<false>, nums...>>;
 
         template<typename... nums>
-        struct and_impl :
+        struct and_ :
             invoke<lift_t<lambda<nor>>, not_<nums>...>
         {};
     }

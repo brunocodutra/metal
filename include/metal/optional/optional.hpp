@@ -12,24 +12,24 @@ namespace metal
         struct nil;
 
         template<typename...>
-        struct just;
+        struct just_impl;
 
         template<typename val>
-        struct just<val>
+        struct just_impl<val>
         {
-            using _ = just<val>;
+            using _ = just_impl<val>;
             using type = val;
         };
 
         template<>
-        struct just<>
+        struct just_impl<>
         {
-            using _ = just<>;
+            using _ = just_impl<>;
         };
 
         template<>
-        struct just<nil> :
-            just<>
+        struct just_impl<nil> :
+            just_impl<>
         {};
 
         template<typename opt>
@@ -73,7 +73,7 @@ namespace metal
     /// --------
     /// \see nothing, is_just
     template<typename val = detail::nil>
-    using just = typename detail::just<val>::_;
+    using just = typename detail::just_impl<val>::_;
 
     /// \ingroup optional
     /// A model of empty \optional.
@@ -186,8 +186,8 @@ namespace metal
         {};
 
         template<typename val>
-        struct optional<just<val>> :
-            just<val>::_
+        struct optional<just_impl<val>> :
+            just<val>
         {};
     }
 }

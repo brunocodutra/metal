@@ -20,20 +20,23 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/core/inherit.hpp>
-#include <metal/core/voider.hpp>
 #include <metal/number/number.hpp>
+
+#include <metal/detail/inherit.hpp>
 
 namespace metal
 {
     namespace detail
     {
+        template<typename... _>
+        using void_t = void;
+
         template<typename... bases>
         boolean<true> disambiguate(bases*...);
 
         template<typename derived, typename... bases>
         auto is_unambiguously_derived_from(derived* _) ->
-            decltype(disambiguate<bases...>((voider_t<bases>(), _)...));
+            decltype(disambiguate<bases...>((void_t<bases>(), _)...));
 
         template<typename...>
         boolean<false> is_unambiguously_derived_from(...);
@@ -43,7 +46,7 @@ namespace metal
     struct distinct<list<vals...>> :
         decltype(
             detail::is_unambiguously_derived_from<
-                inherit<metal::list<vals>...>,
+                detail::inherit<metal::list<vals>...>,
                 metal::list<vals>...
             >(0)
         )

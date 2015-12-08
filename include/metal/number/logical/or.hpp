@@ -10,13 +10,13 @@ namespace metal
     namespace detail
     {
         template<typename... nums>
-        struct or_impl;
+        struct or_;
     }
 
     /// \ingroup logical
     /// ...
     template<typename... nums>
-    using or_ = detail::or_impl<nums...>;
+    using or_ = detail::or_<nums...>;
 
     /// \ingroup logical
     /// Eager adaptor for \ref or_.
@@ -39,7 +39,7 @@ namespace metal
         using nand = not_<same_t<list<boolean<true>, nums...>>>;
 
         template<typename... nums>
-        struct or_impl :
+        struct or_ :
             invoke<lift_t<lambda<nand>>, not_<nums>...>
         {};
     }

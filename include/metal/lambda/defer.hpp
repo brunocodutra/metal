@@ -21,7 +21,8 @@ namespace metal
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
-#include <metal/core/instantiate.hpp>
+
+#include <metal/detail/instantiate.hpp>
 
 namespace metal
 {
@@ -34,7 +35,7 @@ namespace metal
     struct defer<lambda<expr>>
     {
         template<typename... args>
-        using _ = instantiate<expr, args...>;
+        using _ = detail::instantiate<expr, args...>;
 
         using type = lambda<_>;
     };

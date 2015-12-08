@@ -70,15 +70,13 @@ namespace metal
 
         template<
             template<typename...> class zipper,
-            template<typename...> class x, typename... xs,
-            template<typename...> class y, typename... ys
+            template<typename...> class list,
+            typename... xs, typename... ys
         >
-        struct zip<zipper, x<xs...>, y<ys...>> :
-            conditional<
-                same_t<list<lambda<x>, lambda<y>>>,
-                just<x<zipper<xs, ys>...>>
-            >
-        {};
+        struct zip<zipper, list<xs...>, list<ys...>>
+        {
+            using type = list<zipper<xs, ys>...>;
+        };
 
         template<
             template<typename...> class zipper,

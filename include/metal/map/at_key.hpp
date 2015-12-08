@@ -20,9 +20,11 @@ namespace metal
 
 #include <metal/map/map.hpp>
 #include <metal/list/list.hpp>
-#include <metal/core/inherit.hpp>
 #include <metal/optional/conditional.hpp>
 #include <metal/optional/optional.hpp>
+
+#include <metal/detail/inherit.hpp>
+
 
 namespace metal
 {
