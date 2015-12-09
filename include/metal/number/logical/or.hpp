@@ -42,6 +42,21 @@ namespace metal
         struct or_ :
             invoke<lift_t<lambda<nand>>, not_<nums>...>
         {};
+
+        template<typename tx, tx vx, typename ty, ty vy, typename... tail>
+        struct or_<number<tx, vx>, number<ty, vy>, number<tail, false>...> :
+            boolean<vx || vy>
+        {};
+
+        template<typename tx, tx vx>
+        struct or_<number<tx, vx>> :
+            boolean<vx || false>
+        {};
+
+        template<>
+        struct or_<> :
+            boolean<false>
+        {};
     }
 }
 

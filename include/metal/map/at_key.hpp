@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename map, typename key>
+        struct at_key;
+    }
+
     /// \ingroup map
     /// ...
     template<typename map, typename key>
-    struct at_key;
+    using at_key = detail::at_key<map, key>;
 
     /// \ingroup map
     /// Eager adaptor for \ref at_key.
@@ -18,49 +24,43 @@ namespace metal
     using at_key_t = typename metal::at_key<map, key>::type;
 }
 
-#include <metal/map/map.hpp>
-#include <metal/list/list.hpp>
-#include <metal/optional/conditional.hpp>
+#include <metal/map/keys.hpp>
+#include <metal/map/values.hpp>
+#include <metal/pair/pair.hpp>
 #include <metal/optional/optional.hpp>
-
-#include <metal/detail/inherit.hpp>
-
 
 namespace metal
 {
     namespace detail
     {
         template<typename key, typename val>
-        just<val> lookup(list<key, val>*);
+        just<val> lookup(pair<key, val>*);
 
         template<typename>
         nothing lookup(...);
 
-        template<typename>
-        struct hash
-        {
-            static void* make();
-        };
+        template<typename, typename>
+        struct hash;
 
         template<
-            template<typename...> class map,
-            template<typename...> class... pairs,
-            typename... keys,
-            typename... vals
+            template<typename...> class list,
+            typename... keys, typename... vals
         >
-        struct hash<map<pairs<keys, vals>...>>
-        {
-            static inherit<list<keys, vals>...>* make();
-        };
-    }
+        struct hash<list<keys...>, list<vals...>> :
+            pair<keys, vals>...
+        {};
 
-    template<typename map, typename key>
-    struct at_key:
-        conditional<
-            is_map_t<map>,
-            decltype(detail::lookup<key>(detail::hash<map>::make()))
-        >
-    {};
+        template<typename map, typename ret = hash<keys_t<map>, values_t<map>>*>
+        ret make_hash(int);
+
+        template<typename>
+        void* make_hash(...);
+
+        template<typename map, typename key>
+        struct at_key:
+            decltype(lookup<key>(make_hash<map>(0)))
+        {};
+    }
 }
 
 #endif

@@ -48,7 +48,7 @@ namespace metal
             using type = lambda<list>;
         };
 
-        template<template<typename...> class, typename...>
+        template<typename, typename...>
         struct zip
         {};
 
@@ -56,7 +56,7 @@ namespace metal
             template<typename...> class zipper,
             typename head, typename... tail
         >
-        struct zip<zipper, head, tail...> :
+        struct zip<lambda<zipper>, head, tail...> :
             conditional<
                 same_t<list<unbind_t<head>, unbind_t<tail>...>>,
                 transform<
@@ -73,7 +73,7 @@ namespace metal
             template<typename...> class list,
             typename... xs, typename... ys
         >
-        struct zip<zipper, list<xs...>, list<ys...>>
+        struct zip<lambda<zipper>, list<xs...>, list<ys...>>
         {
             using type = list<zipper<xs, ys>...>;
         };
@@ -83,21 +83,20 @@ namespace metal
             template<typename...> class list,
             typename... xs
         >
-        struct zip<zipper, list<xs...>>
+        struct zip<lambda<zipper>, list<xs...>>
         {
             using type = list<zipper<xs>...>;
         };
     }
 
-    template<
-        template<typename...> class outer,
-        template<typename...> class head, typename... hs,
-        typename... tail
-    >
-    struct transpose<outer<head<hs...>, tail...>> :
+    template<template<typename...> class outer, typename head, typename... tail>
+    struct transpose<outer<head, tail...>> :
         conditional<
-            same_t<list<size_t<head<hs...>>, eval<size<tail>, nothing>...>>,
-            detail::zip<outer, head<hs...>, tail...>
+            eval<
+                invoke<lift_t<same<lambda<list>>>, size<head>, size<tail>...>,
+                nothing
+            >,
+            detail::zip<lambda<outer>, head, tail...>
         >
     {};
 }

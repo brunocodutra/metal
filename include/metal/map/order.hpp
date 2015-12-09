@@ -24,18 +24,13 @@ namespace metal
 #include <metal/list/transpose.hpp>
 #include <metal/pair/pair.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/quote.hpp>
+#include <metal/lambda/arg.hpp>
 
 namespace metal
 {
     template<typename map, typename key>
     struct order :
-        invoke<
-            at_key<
-                transpose<pair<keys<quote_t<map>>, indices<quote_t<map>>>>,
-                quote_t<key>
-            >
-        >
+        invoke<at_key<transpose<pair<keys<_1>, indices<_1>>>, _2>, map, key>
     {};
 }
 

@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct distinct;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list>
-    struct distinct
-    {};
+    using distinct = detail::distinct<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref distinct.
@@ -28,29 +33,39 @@ namespace metal
 {
     namespace detail
     {
+        template<typename...>
+        struct voider
+        {
+            using type = void;
+        };
+
         template<typename... _>
-        using void_t = void;
+        using voider_t = typename voider<_...>::type;
 
         template<typename... bases>
         boolean<true> disambiguate(bases*...);
 
         template<typename derived, typename... bases>
         auto is_unambiguously_derived_from(derived* _) ->
-            decltype(disambiguate<bases...>((void_t<bases>(), _)...));
+            decltype(disambiguate<bases...>((voider_t<bases>(), _)...));
 
         template<typename...>
         boolean<false> is_unambiguously_derived_from(...);
-    }
 
-    template<template<typename...> class list, typename... vals>
-    struct distinct<list<vals...>> :
-        decltype(
-            detail::is_unambiguously_derived_from<
-                detail::inherit<metal::list<vals>...>,
-                metal::list<vals>...
-            >(0)
-        )
-    {};
+        template<typename list>
+        struct distinct
+        {};
+
+        template<template<typename...> class list, typename... vals>
+        struct distinct<list<vals...>> :
+            decltype(
+                is_unambiguously_derived_from<
+                    inherit<metal::list<vals>...>,
+                    metal::list<vals>...
+                >(0)
+            )
+        {};
+    }
 }
 
 #endif

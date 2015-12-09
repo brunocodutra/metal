@@ -42,6 +42,21 @@ namespace metal
         struct and_ :
             invoke<lift_t<lambda<nor>>, not_<nums>...>
         {};
+
+        template<typename tx, tx vx, typename ty, ty vy, typename... tail>
+        struct and_<number<tx, vx>, number<ty, vy>, number<tail, true>...> :
+            boolean<vx && vy>
+        {};
+
+        template<typename tx, tx vx>
+        struct and_<number<tx, vx>> :
+            boolean<vx && true>
+        {};
+
+        template<>
+        struct and_<> :
+            boolean<true>
+        {};
     }
 }
 
