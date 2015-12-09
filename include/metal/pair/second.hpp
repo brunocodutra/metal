@@ -32,7 +32,8 @@ namespace metal
     namespace detail
     {
         template<typename pair>
-        struct second_impl;
+        struct second_impl
+        {};
 
         template<template<typename...> class pair, typename x, typename y>
         struct second_impl<pair<x, y>>

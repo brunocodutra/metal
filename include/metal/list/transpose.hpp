@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct transpose;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list>
-    struct transpose
-    {};
+    using transpose = detail::transpose<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref transpose.
@@ -87,18 +92,22 @@ namespace metal
         {
             using type = list<zipper<xs>...>;
         };
-    }
 
-    template<template<typename...> class outer, typename head, typename... tail>
-    struct transpose<outer<head, tail...>> :
-        conditional<
-            eval<
-                invoke<lift_t<same<lambda<list>>>, size<head>, size<tail>...>,
-                nothing
-            >,
-            detail::zip<lambda<outer>, head, tail...>
-        >
-    {};
+        template<typename list>
+        struct transpose
+        {};
+
+        template<template<typename...> class outer, typename head, typename... tail>
+        struct transpose<outer<head, tail...>> :
+            conditional<
+                eval<
+                    invoke<lift_t<same<lambda<list>>>, size<head>, size<tail>...>,
+                    nothing
+                >,
+                zip<lambda<outer>, head, tail...>
+            >
+        {};
+    }
 }
 
 #endif
