@@ -24,17 +24,21 @@ namespace metal
     using at_key_t = typename metal::at_key<map, key>::type;
 }
 
+#include <metal/map/map.hpp>
 #include <metal/map/keys.hpp>
 #include <metal/map/values.hpp>
 #include <metal/pair/pair.hpp>
 #include <metal/optional/optional.hpp>
+#include <metal/optional/conditional.hpp>
+
+#include <utility>
 
 namespace metal
 {
     namespace detail
     {
         template<typename key, typename val>
-        just<val> lookup(pair<key, val>*);
+        just<val> lookup(pair<key, val>&&);
 
         template<typename>
         nothing lookup(...);
@@ -50,15 +54,16 @@ namespace metal
             pair<keys, vals>...
         {};
 
-        template<typename map, typename ret = hash<keys_t<map>, values_t<map>>*>
-        ret make_hash(int);
-
-        template<typename>
-        void* make_hash(...);
+        template<typename map, typename key>
+        struct at_key_impl :
+            decltype(
+                lookup<key>(std::declval<hash<keys_t<map>, values_t<map>>>())
+            )
+        {};
 
         template<typename map, typename key>
-        struct at_key:
-            decltype(lookup<key>(make_hash<map>(0)))
+        struct at_key :
+            conditional<is_map_t<map>, at_key_impl<map, key>>
         {};
     }
 }

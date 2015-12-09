@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename map>
+        struct values;
+    }
+
     /// \ingroup map
     /// ...
     template<typename map>
-    struct values
-    {};
+    using values = detail::values<map>;
 
     /// \ingroup map
     /// Eager adaptor for \ref values.
@@ -21,24 +26,33 @@ namespace metal
 
 #include <metal/map/map.hpp>
 #include <metal/optional/conditional.hpp>
-#include <metal/optional/optional.hpp>
 
 namespace metal
 {
-    template<
-        template<typename...> class map,
-        template<typename...> class... pairs,
-        typename... ks,
-        typename... vs
-    >
-    struct values<map<pairs<ks, vs>...>> :
-        conditional<is_map_t<map<pairs<ks, vs>...>>, just<map<vs...>>>
-    {};
+    namespace detail
+    {
+        template<typename map>
+        struct values_impl
+        {
+            using type = map;
+        };
 
-    template<template<typename...> class map>
-    struct values<map<>> :
-        conditional<is_map_t<map<>>, just<map<>>>
-    {};
+        template<
+            template<typename...> class map,
+            template<typename...> class... pairs,
+            typename... ks,
+            typename... vs
+        >
+        struct values_impl<map<pairs<ks, vs>...>>
+        {
+            using type = map<vs...>;
+        };
+
+        template<typename map>
+        struct values :
+            conditional<is_map_t<map>, values_impl<map>>
+        {};
+    }
 }
 
 #endif
