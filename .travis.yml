@@ -110,7 +110,7 @@ script:
     then
         cd doc &&
         make doc &&
-        if [[ "${TRAVIS_BRANCH}" == "master"  && "${TRAVIS_PULL_REQUEST}" != "true" ]]
+        if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" ]]
         then
             git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages gh-pages &> /dev/null &&
             cp -r gh-pages/.git/ html/.git/  &> /dev/null &&
