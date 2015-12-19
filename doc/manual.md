@@ -77,7 +77,71 @@ so migration is meant to be the smoothest possible.
 Getting Started {#getting_started}
 ================================================================================
 
-[...]
+It's very easy to start enjoying metaprogramming with Metal,
+being header-only with no external dependencies,
+all you have to do is download and optionally install it system-wide.
+
+Downloading {#downloading}
+--------------------------------------------------------------------------------
+
+There are a few ways to get a copy of Metal,
+the easiest might be to simply [download the latest release][Metal.latest]
+as a compressed package.
+
+Alternatively, if you have git installed,
+you can clone current stable branch `master` from GitHub.
+
+    git clone https://github.com/brunocodutra/metal
+
+Likewise, the [bleeding edge] development version can be obtained by cloning
+branch `develop` instead.
+
+    git clone https://github.com/brunocodutra/metal --branch=develop
+
+\note{
+During development it is possible that branch `develop` breaks temporarily.
+Be sure to check current compilation [status](\ref status) prior to cloning.
+}
+
+Metal may be used, as is, immediately after downloading,
+simpĺy add its `include` sub-directory to the include search paths of
+your compiler and you're all set.
+To ease integration, however, specially if your project uses [CMake],
+you might consider [installing](\ref installing) Metal system-wide.
+
+Installing {#installing}
+--------------------------------------------------------------------------------
+
+Metal may optionally be installed system-wide to ease integration with external
+projects. It relies on [CMake] to automate the installation process,
+so you need to have it installed on your system before proceeding.
+
+Open a shell session, move into an empty directory and issue the following.
+
+    cmake /path/to/Metal
+
+Once the configuration step is finished,
+build target `install` with admin privileges.
+
+    cmake --build . --target install
+
+After installation, Metal's include tree will be placed in the default prefix
+for locally installed libraries in your platform unless otherwise specified,
+that is `/usr/local/include/` on [Unix[-like]][unix-like] systems and
+`C:\Program Files` on Windows.
+Simply add the installation prefix to the include search path of your compiler,
+if it hasn't been already that is, and you're good to go.
+
+If your project uses [CMake],
+Metal may also be integrated into your project via `find_package`,
+whereupon `METAL_INCLUDE_DIRS` will be set to contain
+all necessary include prefixes.
+In short, simply add the following to the `CMakeLists.txt` of your project.
+
+    find_package(Metal REQUIRED)
+    include_directories(${METAL_INCLUDE_DIRS})
+
+For more information, please refer to [CMake documentation][find_package].
 
 Portability {#portability}
 ================================================================================
@@ -89,6 +153,9 @@ officially and actively supported through [Continuous Integration (CI)][ci]
 premisses.
 GCC and Clang are tested with help of [Travis CI][travis.metal],
 while Microsoft Visual Studio is tested using [Appveyor CI][appveyor.metal].
+
+Current Status {#status}
+--------------------------------------------------------------------------------
 
 Current compilation status is summarized in the table bellow,
 if your favorite compiler is not listed, please [let us know][Metal.issues].
@@ -122,6 +189,7 @@ if your favorite compiler is not listed, please [let us know][Metal.issues].
         </tr>
     </table>
 </center>
+
 
 \note{
 Status badges are updated live to reflect current status as reported by the
@@ -416,11 +484,11 @@ given an expression `metal::$`,
 [Maps]:             \ref concepts_map
 [Placeholders]:     \ref placeholders
 
-[C++11]:            http://en.wikipedia.org/wiki/C%2B%2B11
+[C++11]:            https://en.wikipedia.org/wiki/C%2B%2B11
 [STL]:              https://en.wikipedia.org/wiki/Standard_Template_Library
 [pola]:             https://en.wikipedia.org/wiki/Principle_of_least_astonishment
 [simplicity]:       https://en.wikipedia.org/wiki/Simplicity#Quotes_about_simplicity
-[expressiveness]:     https://en.wikipedia.org/wiki/Expressive_power_%28computer_science%29
+[expressiveness]:   https://en.wikipedia.org/wiki/Expressive_power_%28computer_science%29
 [higher-order]:     https://en.wikipedia.org/wiki/Higher-order_lambda
 [first-class]:      https://en.wikipedia.org/wiki/First-class_citizen
 [Lambda Calculus]:  https://en.wikipedia.org/wiki/Lambda_calculus
@@ -428,6 +496,7 @@ given an expression `metal::$`,
 [homoiconicity]:    https://en.wikipedia.org/wiki/Homoiconicity
 [ci]:               https://en.wikipedia.org/wiki/Continuous_integration
 [bleeding edge]:    https://en.wikipedia.org/wiki/Bleeding_edge_technology
+[unix-like]:        https://en.wikipedia.org/wiki/Unix-like
 
 [tmp]:              https://en.wikipedia.org/wiki/Template_metaprogramming
 [tmp.turing]:       http://ubietylab.net/ubigraph/content/Papers/pdf/CppTuring.pdf
@@ -440,6 +509,9 @@ given an expression `metal::$`,
 [decltype]:         http://en.cppreference.com/w/cpp/language/decltype
 [constexpr]:        http://en.cppreference.com/w/cpp/language/constexpr
 [integral]:         http://en.cppreference.com/w/cpp/types/integral_constant
+
+[CMake]:            https://cmake.org/
+[find_package]:     https://cmake.org/cmake/help/v3.0/command/find_package.html
 
 [Lisp]:             https://en.wikipedia.org/wiki/Lisp_%28programming_language%29
 [SML]:              https://en.wikipedia.org/wiki/Standard_ML

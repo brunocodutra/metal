@@ -51,15 +51,14 @@ html, body {
     border: 1px solid #EEEEEE;
     border-radius: 7px;
     margin: 0px 10px 10px 10px;
-    padding: 10px;
 }
 
 .toc ul {
-    list-style: outside none none;
+    list-style: none;
 }
 
-.toc > ul > li > ul li {
-    margin-left: -15px;
+.toc > ul > li > ul {
+    padding-left: 1em;
 }
 
 a.anchor {

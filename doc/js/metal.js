@@ -38,7 +38,8 @@ $( document ).ready(function(){
 
     $("div.toc > ul").addClass("panel-body");
     $("div.toc h3")
-        .addClass("panel-title").wrap("<div class='panel-heading'>");
+        .addClass("panel-title text-center")
+        .wrap("<div class='panel-heading'>");
 
     $("div.header")
         .each(function(){
