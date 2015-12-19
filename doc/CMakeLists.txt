@@ -9,9 +9,9 @@ if(NOT DOXYGEN_FOUND)
 endif()
 
 configure_file(Doxyfile.in METAL_DOXYFILE @ONLY)
-add_custom_target(
-    doc
+
+add_custom_target(doc
     COMMAND ${CMAKE_COMMAND} -E remove_directory html
     COMMAND ${DOXYGEN_EXECUTABLE} METAL_DOXYFILE
-    COMMENT "doxygenating..."
+    COMMENT "building documentation..."
 )
