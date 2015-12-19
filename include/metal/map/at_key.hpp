@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename map, typename key>
+        struct at_key;
+    }
+
     /// \ingroup map
     /// ...
     template<typename map, typename key>
-    struct at_key;
+    using at_key = detail::at_key<map, key>;
 
     /// \ingroup map
     /// Eager adaptor for \ref at_key.
@@ -19,46 +25,47 @@ namespace metal
 }
 
 #include <metal/map/map.hpp>
-#include <metal/list/list.hpp>
-#include <metal/core/inherit.hpp>
-#include <metal/optional/conditional.hpp>
+#include <metal/map/keys.hpp>
+#include <metal/map/values.hpp>
+#include <metal/pair/pair.hpp>
 #include <metal/optional/optional.hpp>
+#include <metal/optional/conditional.hpp>
+
+#include <utility>
 
 namespace metal
 {
     namespace detail
     {
         template<typename key, typename val>
-        just<val> lookup(list<key, val>*);
+        just<val> lookup(pair<key, val>&&);
 
         template<typename>
         nothing lookup(...);
 
-        template<typename>
-        struct hash
-        {
-            static void* make();
-        };
+        template<typename, typename>
+        struct hash;
 
         template<
-            template<typename...> class map,
-            template<typename...> class... pairs,
-            typename... keys,
-            typename... vals
+            template<typename...> class list,
+            typename... keys, typename... vals
         >
-        struct hash<map<pairs<keys, vals>...>>
-        {
-            static inherit<list<keys, vals>...>* make();
-        };
-    }
+        struct hash<list<keys...>, list<vals...>> :
+            pair<keys, vals>...
+        {};
 
-    template<typename map, typename key>
-    struct at_key:
-        conditional<
-            is_map_t<map>,
-            decltype(detail::lookup<key>(detail::hash<map>::make()))
-        >
-    {};
+        template<typename map, typename key>
+        struct at_key_impl :
+            decltype(
+                lookup<key>(std::declval<hash<keys_t<map>, values_t<map>>>())
+            )
+        {};
+
+        template<typename map, typename key>
+        struct at_key :
+            conditional<is_map_t<map>, at_key_impl<map, key>>
+        {};
+    }
 }
 
 #endif

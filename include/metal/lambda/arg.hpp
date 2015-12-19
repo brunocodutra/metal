@@ -16,7 +16,6 @@ namespace metal
 
     /// \defgroup placeholders Placeholders
     /// \ingroup lambda
-    /// Default placeholders for arguments to \lambdas.
 
     /// \ingroup placeholders
     /// Default placeholder.

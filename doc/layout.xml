@@ -152,7 +152,7 @@
       <dirs visible="yes" title=""/>
       <files visible="yes" title=""/>
       <namespaces visible="yes" title=""/>
-<!--       <classes visible="yes" title=""/> -->
+      <classes visible="no" title=""/>
 <!--       <defines title=""/> -->
 <!--       <typedefs title=""/> -->
 <!--       <enums title=""/> -->
@@ -166,7 +166,7 @@
 <!--       <events title=""/> -->
 <!--       <properties title=""/> -->
 <!--       <friends title=""/> -->
-      <membergroups visible="yes"/>
+      <membergroups visible="no"/>
     </memberdecl>
     <memberdef>
       <pagedocs/>

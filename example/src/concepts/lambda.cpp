@@ -8,7 +8,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex1]
 using lbd = void;
@@ -17,7 +17,7 @@ using lbd = void;
 static_assert(std::is_same<metal::invoke_t<lbd>, void>::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex2]
 using lbd = metal::_2;
@@ -26,7 +26,7 @@ using lbd = metal::_2;
 static_assert(std::is_same<metal::invoke_t<lbd, int, int>, int>::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex3]
 using lbd = metal::lambda<std::add_pointer>;
@@ -35,7 +35,7 @@ using lbd = metal::lambda<std::add_pointer>;
 static_assert(std::is_same<metal::invoke_t<lbd, void>, void*>::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex4]
 using lbd = std::add_pointer<void>;
@@ -44,7 +44,7 @@ using lbd = std::add_pointer<void>;
 static_assert(std::is_same<metal::invoke_t<lbd>, void*>::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex5]
 using lbd = std::is_convertible<metal::_1, std::add_pointer<metal::_2>>;

@@ -12,24 +12,24 @@ namespace metal
         struct nil;
 
         template<typename...>
-        struct just;
+        struct just_impl;
 
         template<typename val>
-        struct just<val>
+        struct just_impl<val>
         {
-            using _ = just<val>;
+            using _ = just_impl<val>;
             using type = val;
         };
 
         template<>
-        struct just<>
+        struct just_impl<>
         {
-            using _ = just<>;
+            using _ = just_impl<>;
         };
 
         template<>
-        struct just<nil> :
-            just<>
+        struct just_impl<nil> :
+            just_impl<>
         {};
 
         template<typename opt>
@@ -40,9 +40,40 @@ namespace metal
     }
 
     /// \ingroup optional
-    /// ...
+    /// Constructs an \optional.
+    ///
+    /// Usage
+    /// -----
+    /// \code
+    ///     using result = metal::just<>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     equivalent to metal::nothing;
+    ///
+    /// For any \value `val`,
+    /// \code
+    ///     using result = metal::just<val>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     equivalent to
+    ///     \code
+    ///         struct result
+    ///         {
+    ///             using type = val;
+    ///         };
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet optional/optional.cpp just
+    ///
+    /// See Also
+    /// --------
+    /// \see nothing, is_just
     template<typename val = detail::nil>
-    using just = typename detail::just<val>::_;
+    using just = typename detail::just_impl<val>::_;
 
     /// \ingroup optional
     /// A model of empty \optional.
@@ -67,13 +98,13 @@ namespace metal
     ///     then equivalent to
     ///     \code
     ///         struct result :
-    ///             boolean<true>
+    ///             metal::boolean<true>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
     ///         struct result :
-    ///             boolean<false>
+    ///             metal::boolean<false>
     ///         {};
     ///     \endcode
     ///
@@ -93,7 +124,39 @@ namespace metal
     using is_just_t = typename metal::is_just<opt>::type;
 
     /// \ingroup optional
-    /// ...
+    /// The standard representation of \optionals.
+    ///
+    /// Usage
+    /// -----
+    /// For any \optional `opt`,
+    /// \code
+    ///     using result = metal::optional<opt>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     if `opt::type` well defined and is a model of \value,
+    ///     then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::just<typename opt::type>
+    ///         {};
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::nothing
+    ///         {};
+    ///     \endcode
+    ///
+    /// \tip{metal::optional<opt> is guaranteed to be inheritable.}
+    ///
+    /// Example
+    /// -------
+    /// \snippet optional/optional.cpp optional
+    ///
+    /// See Also
+    /// --------
+    /// \see just, nothing
     template<typename opt>
     using optional = detail::optional<opt>;
 }
@@ -123,8 +186,8 @@ namespace metal
         {};
 
         template<typename val>
-        struct optional<just<val>> :
-            just<val>::_
+        struct optional<just_impl<val>> :
+            just<val>
         {};
     }
 }

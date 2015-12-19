@@ -8,7 +8,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex1]
 struct opt
@@ -20,7 +20,7 @@ struct opt
 static_assert(metal::is_just<opt>::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex2]
 using opt = void; //nothing - undefined ::type
@@ -29,7 +29,7 @@ using opt = void; //nothing - undefined ::type
 static_assert(!metal::is_just<opt>::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex3]
 struct opt
@@ -42,7 +42,7 @@ struct opt
 static_assert(!metal::is_just<opt>::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex4]
 struct optional1

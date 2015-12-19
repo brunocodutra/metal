@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename... nums>
+        struct or_;
+    }
+
     /// \ingroup logical
     /// ...
     template<typename... nums>
-    struct or_;
+    using or_ = detail::or_<nums...>;
 
     /// \ingroup logical
     /// Eager adaptor for \ref or_.
@@ -19,31 +25,39 @@ namespace metal
 }
 
 #include <metal/number/number.hpp>
-#include <metal/number/logical/and.hpp>
 #include <metal/number/logical/not.hpp>
-#include <metal/optional/conditional.hpp>
+#include <metal/lambda/invoke.hpp>
+#include <metal/lambda/lift.hpp>
+#include <metal/list/list.hpp>
+#include <metal/list/same.hpp>
 
 namespace metal
 {
-    template<typename... nums>
-    struct or_ :
-        conditional<and_t<is_number_t<nums>...>, boolean<true>>
-    {};
+    namespace detail
+    {
+        template<typename... nums>
+        using nand = not_<same_t<list<boolean<true>, nums...>>>;
 
-    template<typename tx, tx vx, typename ty, ty vy, typename... tail>
-    struct or_<number<tx, vx>, number<ty, vy>, number<tail, false>...> :
-        boolean<vx || vy>
-    {};
+        template<typename... nums>
+        struct or_ :
+            invoke<lift_t<lambda<nand>>, not_<nums>...>
+        {};
 
-    template<typename t, t v>
-    struct or_<number<t, v>> :
-        boolean<v || false>
-    {};
+        template<typename tx, tx vx, typename ty, ty vy, typename... tail>
+        struct or_<number<tx, vx>, number<ty, vy>, number<tail, false>...> :
+            boolean<vx || vy>
+        {};
 
-    template<>
-    struct or_<> :
-        boolean<false>
-    {};
+        template<typename tx, tx vx>
+        struct or_<number<tx, vx>> :
+            boolean<vx || false>
+        {};
+
+        template<>
+        struct or_<> :
+            boolean<false>
+        {};
+    }
 }
 
 #endif

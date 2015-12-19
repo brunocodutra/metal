@@ -8,7 +8,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex1]
 template<typename>
@@ -18,14 +18,10 @@ union expr
 };
 /// [ex1]
 
-static_assert(metal::is_just<metal::instantiate<expr, void>>::value, "");
-static_assert(std::is_same<
-    metal::invoke_t<metal::lambda<expr>, void>,
-    expr<void>::type
->::value, "");
+static_assert(metal::is_just<expr<void>>::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex2]
 template<typename...>
@@ -35,28 +31,22 @@ struct expr
 };
 /// [ex2]
 
-static_assert(metal::is_just<metal::instantiate<expr>>::value, "");
-static_assert(!metal::is_just<
-    metal::invoke<metal::lambda<expr>, void>
->::value, "");
+static_assert(!metal::is_just<expr<void>>::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [ex3]
-template<typename integral> //evaluable for integral types
-using expr = std::integral_constant<integral, integral{}>;
+template<typename array> //evaluable for array types
+using expr = std::enable_if<!!std::rank<array>::value, array>;
 /// [ex3]
 
-static_assert(!metal::is_just<metal::instantiate<expr, void>>::value, "");
-static_assert(metal::is_just<metal::instantiate<expr, int>>::value, "");
-static_assert(std::is_same<
-    metal::invoke_t<metal::lambda<expr>, int>,
-    expr<int>::type
->::value, "");
+static_assert(!metal::is_just<expr<int>>::value, "");
+static_assert(metal::is_just<expr<int[]>>::value, "");
+static_assert(metal::is_just<expr<int[][1]>>::value, "");
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [nex1]
 struct not_an_expr //not a template
@@ -66,7 +56,7 @@ struct not_an_expr //not a template
 /// [nex1]
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [nex2]
 template<template<typename...> class... exprs> //non-type parameter
@@ -77,7 +67,7 @@ struct not_an_expr
 /// [nex2]
 }
 
-ANONYMOUS
+ANONYMOUS(namespace)
 {
 /// [nex3]
 template<typename integral, integral integral_value> //non-type parameter
