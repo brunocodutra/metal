@@ -13,8 +13,9 @@ namespace metal
     struct lambda;
 }
 
-#include <metal/core/instantiate.hpp>
 #include <metal/optional/optional.hpp>
+
+#include <metal/detail/instantiate.hpp>
 
 namespace metal
 {
@@ -22,7 +23,7 @@ namespace metal
     struct lambda
     {
         template<typename... args>
-        using type = typename optional<instantiate_t<expr, args...>>::type;
+        using type = typename optional<detail::instantiate_t<expr, args...>>::type;
     };
 }
 

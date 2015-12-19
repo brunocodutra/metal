@@ -8,7 +8,7 @@ metaprogramming enjoyable.
 It provides a powerful high-level abstraction for compile-time algorithms,
 grounded on a concise yet solid [conceptual foundation](\ref concepts).
 
-With focus on [simplicity] and [expressivity],
+With focus on [simplicity] and [expressiveness],
 Metal explores the full potential of modern features, without,
 on the other hand,
 allowing its [portability](\ref portability) to be compromised.
@@ -44,15 +44,16 @@ abstracting away the nastiest compiler hackery to present a uniform
 framework that finally could be relied upon.
 It played a crucial role in the dissemination of metaprogramming in C++ and
 remained undisputed for almost a decade,
-but, eventually, it started showing its age when [C++11] introduced
+but, eventually, it started showing its age when [C++11] introduced,
+among various others,
 [variadic templates][variadics], [alias templates], [type inference][decltype]
 and [constant expressions][constexpr] to the core language.
-The powerful C++11 machinery enabled the development of whole new
+This powerful C++11 machinery enabled the development of whole new
 metaprogramming [styles][tmp.simple] and [techniques][tmp.modern] with
 potential to outperform Boost.MPL by orders of magnitude in many instances.
 Moreover, the need for endless automatically generated boilerplate code could
 finally be overcome using variadic templates,
-whereas syntax clutter could finally be mitigated using alias templates,
+whereas syntax clutter could be mitigated using alias templates,
 vastly improving readability.
 
 Eventually, [motivation][mpl.lite] to modernize Boost.MPL emerged from the
@@ -76,20 +77,105 @@ so migration is meant to be the smoothest possible.
 Getting Started {#getting_started}
 ================================================================================
 
-[...]
+It's very easy to start enjoying metaprogramming with Metal,
+being header-only with no external dependencies,
+all you have to do is download and optionally install it system-wide.
+
+Downloading {#downloading}
+--------------------------------------------------------------------------------
+
+There are a few ways to get a copy of Metal,
+the easiest might be to simply [download the latest release][Metal.latest]
+as a compressed package.
+
+Alternatively, if you have git installed,
+you can clone current stable branch `master` from GitHub.
+
+    git clone https://github.com/brunocodutra/metal
+
+Likewise, the [bleeding edge] development version can be obtained by cloning
+branch `develop` instead.
+
+    git clone https://github.com/brunocodutra/metal --branch=develop
+
+\note{
+During development it is possible that branch `develop` breaks temporarily.
+Be sure to check current compilation [status](\ref status) prior to cloning.
+}
+
+Metal may be used as is immediately after downloading,
+simply add its `include/` sub-directory to the include search paths of
+your compiler/project and you're all set.
+To ease integration, however, specially if your project uses [CMake],
+you might consider [installing](\ref installing) Metal system-wide.
+
+Installing {#installing}
+--------------------------------------------------------------------------------
+
+Metal may optionally be installed system-wide to ease integration with external
+projects. It relies on [CMake] to automate the installation process,
+so you need to have it installed on your system before proceeding.
+
+From within an empty directory issue the following commands.
+
+    cmake /path/to/Metal
+    cmake --build . --target install
+
+Unless otherwise specified,
+Metal's include tree will be copied into the default prefix
+for locally installed libraries in your platform,
+that is `/usr/local/include` on [Unix[-like]][unix-like] systems and
+`C:\Program Files\Metal\include` on Windows.
+Simply add the installation prefix to the include search path of your
+compiler/project if it hasn't been already, and you're good to go.
+
+If your project uses [CMake],
+Metal may also be integrated into your project via `find_package`,
+whereupon `METAL_INCLUDE_DIRS` will be set to contain
+all necessary include prefixes.
+In short, simply add the following to the `CMakeLists.txt` of your project.
+
+    find_package(Metal REQUIRED)
+    include_directories(${METAL_INCLUDE_DIRS})
+
+For more information, please refer to [CMake documentation][CMake.doc].
+
+Documentation {#documentation}
+--------------------------------------------------------------------------------
+
+An offline copy of this documentation website may be obtained by cloning
+branch `gh-pages`.
+
+    git clone https://github.com/brunocodutra/metal --branch=gh-pages
+
+Alternatively, if you have [CMake] and [Doxygen] installed,
+the documentation may also be built locally.
+From within an empty directory issue the following commands.
+
+    cmake /path/to/Metal
+    cmake --build . --target doc
+
+The documentation will be generated into `doc/html/`.
+
+To browse the documentation offline,
+simply load `index.html` on your favorite web browser.
 
 Portability {#portability}
 ================================================================================
 
 Great effort is undertaken to keep Metal strictly in conformance with the C++11
 standard and compatible with the widest possible variety of compilers.
-To this end, three of the most popular freely available C++ compilers are
+To this end, some of the most popular freely available C++ compilers are
 officially and actively supported through [Continuous Integration (CI)][ci]
 premisses.
 GCC and Clang are tested with help of [Travis CI][travis.metal],
 while Microsoft Visual Studio is tested using [Appveyor CI][appveyor.metal].
 
-Current compilation status is summarized in the table bellow.
+Current Status {#status}
+--------------------------------------------------------------------------------
+
+Current compilation status is summarized in the table bellow,
+if your favorite compiler is not listed, please [let us know][Metal.issues].
 
 <center>
     <table>
@@ -122,6 +208,12 @@ Current compilation status is summarized in the table bellow.
 </center>
 
 
+\note{
+Status badges are updated live to reflect current status as reported by the
+continuous integration tools. If they don't load correctly that
+might be due to a temporary network downtime.
+}
+
 Concepts {#concepts}
 ================================================================================
 
@@ -148,20 +240,9 @@ Any type is a [Value].
 
 ### Counterexamples
 
-~~~{.cpp}
-int val;
-~~~
-
-~~~{.cpp}
-auto val = 3.14;
-~~~
-
-~~~{.cpp}
-struct
-{
-    //...
-} val;
-~~~
+\snippet concepts/value.cpp nex1
+\snippet concepts/value.cpp nex2
+\snippet concepts/value.cpp nex3
 
 Number {#concepts_number}
 --------------------------------------------------------------------------------
@@ -396,12 +477,11 @@ Just as accurately, it could also be seen as a pair.
 Now that may look silly put in a simple example like this one, but [...]
 
 \tip{
-Most [Expressions] in Metal have an associated eager adaptor
+To save typing, most [Expressions] in Metal have an associated eager adaptor
 suffixed by `_t`, that is,
 given an expression `metal::$`,
 `metal::$_t<...>` is equivalent to `typename metal::$<...>::type`.
 }
-
 
 [Value]:            \ref concepts_value
 [Values]:           \ref concepts_value
@@ -422,44 +502,54 @@ given an expression `metal::$`,
 [Placeholders]:     \ref placeholders
 
 [C++11]:            http://en.wikipedia.org/wiki/C%2B%2B11
-[STL]:              https://en.wikipedia.org/wiki/Standard_Template_Library
-[pola]:             https://en.wikipedia.org/wiki/Principle_of_least_astonishment
-[simplicity]:       https://en.wikipedia.org/wiki/Simplicity#Quotes_about_simplicity
-[expressivity]:     https://en.wikipedia.org/wiki/Expressive_power_%28computer_science%29
-[higher-order]:     https://en.wikipedia.org/wiki/Higher-order_lambda
-[first-class]:      https://en.wikipedia.org/wiki/First-class_citizen
-[Lambda Calculus]:  https://en.wikipedia.org/wiki/Lambda_calculus
-[s-expressions]:    https://en.wikipedia.org/wiki/S-expression
-[homoiconicity]:    https://en.wikipedia.org/wiki/Homoiconicity
-[ci]:               https://en.wikipedia.org/wiki/Continuous_integration
+[STL]:              http://en.wikipedia.org/wiki/Standard_Template_Library
+[pola]:             http://en.wikipedia.org/wiki/Principle_of_least_astonishment
+[simplicity]:       http://en.wikipedia.org/wiki/Simplicity#Quotes_about_simplicity
+[expressiveness]:   http://en.wikipedia.org/wiki/Expressive_power_%28computer_science%29
+[higher-order]:     http://en.wikipedia.org/wiki/Higher-order_lambda
+[first-class]:      http://en.wikipedia.org/wiki/First-class_citizen
+[Lambda Calculus]:  http://en.wikipedia.org/wiki/Lambda_calculus
+[s-expressions]:    http://en.wikipedia.org/wiki/S-expression
+[homoiconicity]:    http://en.wikipedia.org/wiki/Homoiconicity
+[ci]:               http://en.wikipedia.org/wiki/Continuous_integration
+[bleeding edge]:    http://en.wikipedia.org/wiki/Bleeding_edge_technology
+[unix-like]:        http://en.wikipedia.org/wiki/Unix-like
 
-[tmp]:              https://en.wikipedia.org/wiki/Template_metaprogramming
+[tmp]:              http://en.wikipedia.org/wiki/Template_metaprogramming
 [tmp.turing]:       http://ubietylab.net/ubigraph/content/Papers/pdf/CppTuring.pdf
-[tmp.simple]:       http://www.pdimov.com/cpp2/simple_cxx11_metaprogramming.html
-[tmp.modern]:       http://www.pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html
+[tmp.simple]:       http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html
+[tmp.modern]:       http://pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html
 
-[preprocessor]:     https://en.wikipedia.org/wiki/C_preprocessor
+[preprocessor]:     http://en.wikipedia.org/wiki/C_preprocessor
 [variadics]:        http://en.cppreference.com/w/cpp/language/parameter_pack
 [alias templates]:  http://en.cppreference.com/w/cpp/language/type_alias
 [decltype]:         http://en.cppreference.com/w/cpp/language/decltype
 [constexpr]:        http://en.cppreference.com/w/cpp/language/constexpr
 [integral]:         http://en.cppreference.com/w/cpp/types/integral_constant
 
-[Lisp]:             https://en.wikipedia.org/wiki/Lisp_%28programming_language%29
-[SML]:              https://en.wikipedia.org/wiki/Standard_ML
-[Haskell]:          https://en.wikipedia.org/wiki/Haskell_%28programming_language%29
+[CMake]:            http://cmake.org/
+[CMake.doc]:        http://cmake.org/documentation/
 
-[Boost.MPL]:        http://www.boost.org/doc/libs/1_58_0/libs/mpl/doc/
-[Boost.Hana]:       http://boostorg.github.io/hana/index.html
-[meta]:             https://github.com/ericniebler/meta
-[turbo]:            https://github.com/Manu343726/Turbo
+[Doxygen]:          http://doxygen.org/
+
+[Lisp]:             http://en.wikipedia.org/wiki/Lisp_%28programming_language%29
+[SML]:              http://en.wikipedia.org/wiki/Standard_ML
+[Haskell]:          http://en.wikipedia.org/wiki/Haskell_%28programming_language%29
+
+[Boost.MPL]:        http://boost.org/doc/libs/1_60_0/libs/mpl/doc
+[Boost.Hana]:       http://boostorg.github.io/hana
+[meta]:             http://github.com/ericniebler/meta
+[turbo]:            http://github.com/Manu343726/Turbo
 
 [mpl.lite]:         http://rrsd.com/blincubator.com/bi_suggestion/mpl-lite-or-mpl2/
 
-[travis.metal]:     https://travis-ci.org/brunocodutra/metal
-[travis.master]:    https://travis-ci.org/brunocodutra/metal.svg?branch=master
-[travis.develop]:   https://travis-ci.org/brunocodutra/metal.svg?branch=develop
+[travis.metal]:     http://travis-ci.org/brunocodutra/metal
+[travis.master]:    http://travis-ci.org/brunocodutra/metal.svg?branch=master
+[travis.develop]:   http://travis-ci.org/brunocodutra/metal.svg?branch=develop
 
-[appveyor.metal]:   https://ci.appveyor.com/project/brunocodutra/metal
-[appveyor.master]:  https://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/master?svg=true
-[appveyor.develop]: https://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/develop?svg=true
+[appveyor.metal]:   http://ci.appveyor.com/project/brunocodutra/metal
+[appveyor.master]:  http://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/master?svg=true
+[appveyor.develop]: http://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/develop?svg=true
+
+[Metal.issues]:     http://github.com/brunocodutra/metal/issues
+[Metal.latest]:     http://github.com/brunocodutra/metal/archive/master.zip

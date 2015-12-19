@@ -6,6 +6,13 @@ language: cpp
 os: linux
 sudo: false
 
+env:
+    global:
+      - secure: "DuBGzmeKiWMm5m0+uZhutjzCffB2PbixmuMm3IZWUi7/uAam4PPI37oeqVTIytxxfpgRvfR2ah75eJyU6ab72MBoHxGkHem10RAvhC/vPYbLZu545qfSGatyTI9R6NfERUxi7YIxjs6D8c4D/5k3gMoCbMUkU1Lze1708lknh5U="
+
+    matrix:
+      - BUILD_DOC=true
+
 matrix:
     include:
       - compiler: g++
@@ -14,7 +21,7 @@ matrix:
             apt:
                 packages:
                   - g++-4.8
-                sources: &sources
+                sources: &toolchain
                   - ubuntu-toolchain-r-test
                   - llvm-toolchain-precise
                   - llvm-toolchain-precise-3.5
@@ -27,7 +34,7 @@ matrix:
             apt:
                 packages:
                   - g++-4.9
-                sources: *sources
+                sources: *toolchain
 
       - compiler: g++
         env: CXX_VERSION=5
@@ -35,7 +42,7 @@ matrix:
             apt:
                 packages:
                   - g++-5
-                sources: *sources
+                sources: *toolchain
 
       - compiler: clang++
         env: CXX_VERSION=3.5
@@ -43,7 +50,7 @@ matrix:
             apt:
                 packages:
                   - clang-3.5
-                sources: *sources
+                sources: *toolchain
 
       - compiler: clang++
         env: CXX_VERSION=3.6
@@ -51,7 +58,7 @@ matrix:
             apt:
                 packages:
                   - clang-3.6
-                sources: *sources
+                sources: *toolchain
 
       - compiler: clang++
         env: CXX_VERSION=3.7
@@ -59,7 +66,7 @@ matrix:
             apt:
                 packages:
                   - clang-3.7
-                sources: *sources
+                sources: *toolchain
 
       - compiler: clang++
         env: CXX_VERSION=3.8
@@ -67,24 +74,20 @@ matrix:
             apt:
                 packages:
                   - clang-3.8
-                sources: *sources
-
-env:
-    global:
-      - secure: "DuBGzmeKiWMm5m0+uZhutjzCffB2PbixmuMm3IZWUi7/uAam4PPI37oeqVTIytxxfpgRvfR2ah75eJyU6ab72MBoHxGkHem10RAvhC/vPYbLZu545qfSGatyTI9R6NfERUxi7YIxjs6D8c4D/5k3gMoCbMUkU1Lze1708lknh5U="
-
-    matrix:
-      - BUILD_DOC=true
-
-compiler: g++
+                sources: *toolchain
 
 install:
   - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
   - mkdir "${DEPS_PATH}"
 
-  - DOXYGEN_URL="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.10.linux.bin.tar.gz"
-  - if [[ "${BUILD_DOC}" == "true" ]]; then mkdir "${DEPS_PATH}/doxygen" && travis_retry wget --quiet -O - ${DOXYGEN_URL} | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen"; fi
-  - if [[ "${BUILD_DOC}" == "true" ]]; then export PATH=${DEPS_PATH}/doxygen/bin:${PATH}; fi
+  - |
+    if [[ "${BUILD_DOC}" == "true" ]]
+    then
+        DOXYGEN_URL="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.10.linux.bin.tar.gz"
+        mkdir "${DEPS_PATH}/doxygen" &&
+        travis_retry wget --quiet -O - ${DOXYGEN_URL} | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" &&
+        export PATH=${DEPS_PATH}/doxygen/bin:${PATH}
+    fi
 
 before_script:
   - git config --global user.name "Travis Bot"
@@ -93,10 +96,28 @@ before_script:
   - mkdir "${TRAVIS_BUILD_DIR}/build"
   - cd "${TRAVIS_BUILD_DIR}/build"
 
-  - if [[ -n "${CXX_VERSION}" ]]; then CXX=${CXX}-${CXX_VERSION}; fi
-  - cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=${CXX}
+  - |
+    if [[ -n "${CXX}" && -n "${CXX_VERSION}" ]]
+    then
+        cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=${CXX}-${CXX_VERSION}
+    else
+        cmake "${TRAVIS_BUILD_DIR}"
+    fi
 
 script:
-  - if [[ "${BUILD_DOC}" != "true" ]]; then time make metal && ctest --output-on-failure; fi
-  - if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_PULL_REQUEST}" != "true" && "${TRAVIS_BRANCH}" == "master" ]]; then make metal.doc.update &> /dev/null; fi
-  - if [[ "${BUILD_DOC}" == "true" && ("${TRAVIS_PULL_REQUEST}" == "true" || "${TRAVIS_BRANCH}" != "master") ]]; then time make metal.doc; fi
+  - |
+    if [[ "${BUILD_DOC}" == "true" ]]
+    then
+        cd doc &&
+        make doc &&
+        if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" ]]
+        then
+            git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages gh-pages &> /dev/null &&
+            cp -r gh-pages/.git/ html/.git/  &> /dev/null &&
+            git -C html/ add --all . &> /dev/null &&
+            git -C html/ commit --allow-empty -m "updating to $(git -C ${TRAVIS_BUILD_DIR} rev-parse --short HEAD)" &> /dev/null &&
+            git -C html/ push origin gh-pages &> /dev/null
+        fi
+    else
+        make -k examples tests || ctest
+    fi

@@ -2,15 +2,16 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_CORE_INHERIT_HPP
-#define METAL_CORE_INHERIT_HPP
+#ifndef METAL_DETAIL_INHERIT_HPP
+#define METAL_DETAIL_INHERIT_HPP
 
 namespace metal
 {
-    /// \ingroup core
-    /// ...
-    template<typename... bases>
-    struct inherit;
+    namespace detail
+    {
+        template<typename... bases>
+        struct inherit;
+    }
 }
 
 #include <metal/number/number.hpp>
@@ -38,15 +39,15 @@ namespace metal
         struct inherit_impl<list<_...>, bases...> :
             inherit_second<_, bases>...
         {};
-    }
 
-    template<typename... bases>
-    struct inherit :
-        detail::inherit_impl<
-            enumerate_t<number<std::size_t, sizeof...(bases)>>,
-            bases...
-        >
-    {};
+        template<typename... bases>
+        struct inherit :
+            detail::inherit_impl<
+                enumerate_t<number<std::size_t, sizeof...(bases)>>,
+                bases...
+            >
+        {};
+    }
 }
 
 #endif

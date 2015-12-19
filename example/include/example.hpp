@@ -8,7 +8,7 @@
 #define CAT_(X, Y) X##Y
 #define CAT(X, Y) CAT_(X, Y)
 
-#define ANONYMOUS namespace CAT(anonymous, __LINE__)
+#define ANONYMOUS(SCOPE) SCOPE CAT(anonymous, __LINE__)
 
 int main()
 {

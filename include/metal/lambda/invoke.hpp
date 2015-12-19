@@ -22,17 +22,18 @@ namespace metal
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/lift.hpp>
-#include <metal/core/instantiate.hpp>
 #include <metal/list/at.hpp>
 #include <metal/number/number.hpp>
 #include <metal/optional/eval.hpp>
 #include <metal/optional/optional.hpp>
 
+#include <metal/detail/instantiate.hpp>
+
 namespace metal
 {
     template<template<typename...> class expr, typename... args>
     struct invoke<lambda<expr>, args...> :
-        optional<eval<instantiate<expr, args...>, nothing>>
+        optional<eval<detail::instantiate<expr, args...>, nothing>>
     {};
 
     template<

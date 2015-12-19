@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename pair>
+        struct second;
+    }
+
     /// \ingroup pair
     /// ...
     template<typename pair>
-    struct second
-    {};
+    using second = detail::second<pair>;
 
     /// \ingroup pair
     /// Eager adaptor for \ref second.
@@ -21,14 +26,26 @@ namespace metal
 
 #include <metal/pair/pair.hpp>
 #include <metal/optional/conditional.hpp>
-#include <metal/optional/optional.hpp>
 
 namespace metal
 {
-    template<template<typename...> class pair, typename x, typename y>
-    struct second<pair<x, y>> :
-        conditional<is_pair_t<pair<x, y>>, just<y>>
-    {};
+    namespace detail
+    {
+        template<typename pair>
+        struct second_impl
+        {};
+
+        template<template<typename...> class pair, typename x, typename y>
+        struct second_impl<pair<x, y>>
+        {
+            using type = y;
+        };
+
+        template<typename pair>
+        struct second :
+            conditional<is_pair_t<pair>, second_impl<pair>>
+        {};
+    }
 }
 
 #endif
