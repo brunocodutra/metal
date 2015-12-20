@@ -7,11 +7,41 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename x, typename y>
+        struct equal_to;
+    }
+
     /// \ingroup comparison
-    /// ...
+    /// Checks whether two \numbers are equal.
+    ///
+    /// Usage
+    /// -----
+    /// For any \values `val1` and `val2`
+    /// \code
+    ///     using result = metal::equal_to<val1, val2>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If both `val1` and `val2` are \numbers, then equivalent to
+    ///     \code
+    ///         using result = metal::boolean<val1::value == valn::value>;
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         using result = metal::nothing;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number/comparison.cpp equal_to
+    ///
+    /// See Also
+    /// --------
+    /// \see number, boolean, greater, less
     template<typename x, typename y>
-    struct equal_to
-    {};
+    using equal_to = detail::equal_to<x, y>;
 
     /// \ingroup comparison
     /// Eager adaptor for \ref equal_to.
@@ -23,10 +53,17 @@ namespace metal
 
 namespace metal
 {
-    template<typename tx, tx vx, typename ty, ty vy>
-    struct equal_to<number<tx, vx>, number<ty, vy>> :
-        boolean<(vx == vy)>
-    {};
+    namespace detail
+    {
+        template<typename x, typename y>
+        struct equal_to
+        {};
+
+        template<typename tx, tx vx, typename ty, ty vy>
+        struct equal_to<number<tx, vx>, number<ty, vy>> :
+            boolean<(vx == vy)>
+        {};
+    }
 }
 
 #endif
