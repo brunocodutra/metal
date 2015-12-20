@@ -7,11 +7,72 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename if_, typename then, typename... else_>
+        struct conditional;
+    }
+
     /// \ingroup optional
-    /// ...
+    /// Conditionally evaluates \optionals.
+    ///
+    /// Usage
+    /// -----
+    /// For any \value `val` and \optional `opt`
+    /// \code
+    ///     using result = metal::conditional<val, opt>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         using result = metal::conditional<val, opt, metal::nothing>;
+    ///     \endcode
+    ///
+    /// ________________________________________________________________________
+    ///
+    /// For any \value `val` and \optionals `opt1` and `opt2`
+    /// \code
+    ///     using result = metal::conditional<val, opt1, opt2>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If `val` is a \number and `!!val::value == true` then equivalent to
+    ///     \code
+    ///         using result = metal::optional<opt1>;
+    ///     \endcode
+    ///     otherwise, if `val` is a \number and `val::value == false`,
+    ///     then equivalent to
+    ///     \code
+    ///         using result = metal::optional<opt2>;
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         using result = metal::nothing;
+    ///     \endcode
+    ///
+    /// ________________________________________________________________________
+    ///
+    /// For any \values `val1`, `val2`, `val3`, `val4` and `vals...`
+    /// \code
+    ///     using result = metal::conditional<val1, val2, val3, val4, vals...>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         using result = metal::conditional<val1, val2, metal::conditional<val3, val4, vals...>>;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet optional/conditional.cpp conditional
+    ///
+    /// See Also
+    /// --------
+    /// \see number, eval
     template<typename if_, typename then, typename... else_>
-    struct conditional
-    {};
+    using conditional = detail::conditional<if_, then, else_...>;
 
     /// \ingroup optional
     /// Eager adaptor for \ref conditional.
@@ -24,34 +85,41 @@ namespace metal
 
 namespace metal
 {
-    template<
-        typename if1, typename then1,
-        typename if2, typename then2,
-        typename... else_
-    >
-    struct conditional<if1, then1, if2, then2, else_...> :
-        conditional<if1, then1, conditional<if2, then2, else_...>>
-    {};
+    namespace detail
+    {
+        template<typename if_, typename then, typename... else_>
+        struct conditional
+        {};
 
-    template<typename if_, typename then>
-    struct conditional<if_, then> :
-        conditional<if_, then, nothing>
-    {};
+        template<
+            typename if1, typename then1,
+            typename if2, typename then2,
+            typename... else_
+        >
+        struct conditional<if1, then1, if2, then2, else_...> :
+            conditional<if1, then1, conditional<if2, then2, else_...>>
+        {};
 
-    template<typename t, t v, typename then, typename else_>
-    struct conditional<number<t, v>, then, else_> :
-        conditional<boolean<v && true>, then, else_>
-    {};
+        template<typename if_, typename then>
+        struct conditional<if_, then> :
+            conditional<if_, then, nothing>
+        {};
 
-    template<typename then, typename else_>
-    struct conditional<boolean<true>, then, else_> :
-        optional<then>
-    {};
+        template<typename t, t v, typename then, typename else_>
+        struct conditional<number<t, v>, then, else_> :
+            conditional<boolean<v && true>, then, else_>
+        {};
 
-    template<typename then, typename else_>
-    struct conditional<boolean<false>, then, else_> :
-        optional<else_>
-    {};
+        template<typename then, typename else_>
+        struct conditional<boolean<true>, then, else_> :
+            optional<then>
+        {};
+
+        template<typename then, typename else_>
+        struct conditional<boolean<false>, then, else_> :
+            optional<else_>
+        {};
+    }
 }
 
 #endif

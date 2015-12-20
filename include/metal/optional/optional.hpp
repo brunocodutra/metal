@@ -49,15 +49,20 @@ namespace metal
     /// \endcode
     ///
     /// \par Semantics:
-    ///     equivalent to metal::nothing;
+    ///     Equivalent to
+    ///     \code
+    ///         struct result {};
+    ///     \endcode
     ///
-    /// For any \value `val`,
+    /// ________________________________________________________________________
+    ///
+    /// For any \value `val`
     /// \code
     ///     using result = metal::just<val>;
     /// \endcode
     ///
     /// \par Semantics:
-    ///     equivalent to
+    ///     Equivalent to
     ///     \code
     ///         struct result
     ///         {
@@ -88,13 +93,13 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \optional `opt`,
+    /// For any \optional `opt`
     /// \code
     ///     using result = metal::is_just<opt>;
     /// \endcode
     ///
     /// \par Semantics:
-    ///     if `opt::type` well defined and is a model of \value,
+    ///     If `opt::type` well defined and is a model of \value,
     ///     then equivalent to
     ///     \code
     ///         struct result :
@@ -128,13 +133,13 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \optional `opt`,
+    /// For any \optional `opt`
     /// \code
     ///     using result = metal::optional<opt>;
     /// \endcode
     ///
     /// \par Semantics:
-    ///     if `opt::type` well defined and is a model of \value,
+    ///     If `opt::type` well defined and is a model of \value,
     ///     then equivalent to
     ///     \code
     ///         struct result :

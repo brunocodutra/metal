@@ -179,7 +179,6 @@ $( document ).ready(function(){
     $("a.el").wrapInner("<strong>");
     $("span.comment").addClass("text-muted");
 
-    $("hr").remove();
     $(".levels").remove();
     $(".summary").remove();
     $(".desc").remove();
