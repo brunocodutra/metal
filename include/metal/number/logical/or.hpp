@@ -14,7 +14,33 @@ namespace metal
     }
 
     /// \ingroup logical
-    /// ...
+    /// Computes the logical or of \numbers.
+    ///
+    /// Usage
+    /// -----
+    /// For any \values `val1, ..., valn`
+    /// \code
+    ///     using result = metal::or_<val1, ..., valn>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If all \values in `[val1, ..., valn]` are \numbers,
+    ///     then equivalent to
+    ///     \code
+    ///         using result = metal::boolean<val1::value || ... || valn::value>;
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         using result = metal::nothing;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number/logical.cpp or_
+    ///
+    /// See Also
+    /// --------
+    /// \see boolean, not_, and_
     template<typename... nums>
     using or_ = detail::or_<nums...>;
 
