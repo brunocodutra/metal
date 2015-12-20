@@ -21,9 +21,14 @@ namespace metal
     /// \endcode
     ///
     /// \par Semantics:
-    ///     Equivalent to `opt::type`
+    ///     Equivalent to
+    ///     \code
+    ///         using result = typename opt::type
+    ///     \endcode
     ///
     /// \beware{Evaluating an empty optional results in a compile time error.}
+    ///
+    /// ________________________________________________________________________
     ///
     /// For any \optional `opt` and \value `val`
     /// \code

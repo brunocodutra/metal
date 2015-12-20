@@ -7,11 +7,41 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename num>
+        struct dec;
+    }
+
     /// \ingroup arithmetic
-    /// ...
+    /// Decrements a \number.
+    ///
+    /// Usage
+    /// -----
+    /// For any \val `val`
+    /// \code
+    ///     using result = metal::dec<val>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If `val` is a \number, then equivalent to
+    ///     \code
+    ///         using result = metal::number<typename val::value_type, val::value - 1>;
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         using result = metal::nothing;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number/arithmetic.cpp dec
+    ///
+    /// See Also
+    /// --------
+    /// \see number, inc, neg, add, sub, mul, div, mod
     template<typename num>
-    struct dec
-    {};
+    using dec = detail::dec<num>;
 
     /// \ingroup arithmetic
     /// Eager adaptor for \ref dec.
@@ -23,10 +53,17 @@ namespace metal
 
 namespace metal
 {
-    template<typename t, t v>
-    struct dec<number<t, v>> :
-        number<t, static_cast<t>(v - 1)>
-    {};
+    namespace detail
+    {
+        template<typename num>
+        struct dec
+        {};
+
+        template<typename t, t v>
+        struct dec<number<t, v>> :
+            number<t, static_cast<t>(v - t(1))>
+        {};
+    }
 }
 
 #endif

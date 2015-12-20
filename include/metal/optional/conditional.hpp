@@ -37,7 +37,7 @@ namespace metal
     /// \endcode
     ///
     /// \par Semantics:
-    ///     If `val` is a \number and `!!val::value == true` then equivalent to
+    ///     If `val` is a \number and `!!val::value == true`, then equivalent to
     ///     \code
     ///         using result = metal::optional<opt1>;
     ///     \endcode
@@ -53,15 +53,17 @@ namespace metal
     ///
     /// ________________________________________________________________________
     ///
-    /// For any \values `val1`, `val2`, `val3`, `val4` and `vals...`
+    /// For any \values `val1, val2, val3, val4, ..., valn`
     /// \code
-    ///     using result = metal::conditional<val1, val2, val3, val4, vals...>;
+    ///     using result = metal::conditional<val1, val2, val3, val4, ..., valn>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         using result = metal::conditional<val1, val2, metal::conditional<val3, val4, vals...>>;
+    ///         using result = metal::conditional<
+    ///             val1, val2, metal::conditional<val3, val4, ..., valn>
+    ///         >;
     ///     \endcode
     ///
     /// Example

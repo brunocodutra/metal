@@ -7,11 +7,41 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename num>
+        struct neg;
+    }
+
     /// \ingroup arithmetic
-    /// ...
+    /// Computes the additive inverse of a \number.
+    ///
+    /// Usage
+    /// -----
+    /// For any \val `val`
+    /// \code
+    ///     using result = metal::neg<val>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If `val` is a \number, then equivalent to
+    ///     \code
+    ///         using result = metal::number<typename val::value_type, -val::value>;
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         using result = metal::nothing;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number/arithmetic.cpp neg
+    ///
+    /// See Also
+    /// --------
+    /// \see number, inc, dec, add, sub, mul, div, mod
     template<typename num>
-    struct neg
-    {};
+    using neg = detail::neg<num>;
 
     /// \ingroup arithmetic
     /// Eager adaptor for \ref neg.
@@ -23,10 +53,17 @@ namespace metal
 
 namespace metal
 {
-    template<typename t, t v>
-    struct neg<number<t, v>> :
-        number<decltype(t(0) - v), t(0) - v>
-    {};
+    namespace detail
+    {
+        template<typename num>
+        struct neg
+        {};
+
+        template<typename t, t v>
+        struct neg<number<t, v>> :
+            number<t, static_cast<t>(t(0) - v)>
+        {};
+    }
 }
 
 #endif
