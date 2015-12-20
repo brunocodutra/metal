@@ -7,13 +7,43 @@
 
 namespace metal
 {
-    /// \ingroup logical
-    /// ...
-    template<typename num>
-    struct not_
-    {};
+    namespace detail
+    {
+        template<typename num>
+        struct not_;
+    }
 
     /// \ingroup logical
+    /// Computes the logical negation of a \number.
+    ///
+    /// Usage
+    /// -----
+    /// For any \val `val`
+    /// \code
+    ///     using result = metal::not_<val>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If `val` is a \number, then equivalent to
+    ///     \code
+    ///         using result = metal::boolean<!val::value>;
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         using result = metal::nothing;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number/logical.cpp not_
+    ///
+    /// See Also
+    /// --------
+    /// \see boolean, and_, or_
+    template<typename num>
+    using not_ = detail::not_<num>;
+
+    /// \ingroup arithmetic
     /// Eager adaptor for \ref not_.
     template<typename num>
     using not_t = typename metal::not_<num>::type;
@@ -23,10 +53,17 @@ namespace metal
 
 namespace metal
 {
-    template<typename t, t v>
-    struct not_<number<t, v>> :
-        boolean<v ? false : true>
-    {};
+    namespace detail
+    {
+        template<typename num>
+        struct not_
+        {};
+
+        template<typename t, t v>
+        struct not_<number<t, v>> :
+            boolean<v ? false : true>
+        {};
+    }
 }
 
 #endif
