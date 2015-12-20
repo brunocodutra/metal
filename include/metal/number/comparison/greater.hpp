@@ -7,11 +7,41 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename x, typename y>
+        struct greater;
+    }
+
     /// \ingroup comparison
-    /// ...
+    /// Checks whether a \number is greater than another.
+    ///
+    /// Usage
+    /// -----
+    /// For any \values `val1` and `val2`
+    /// \code
+    ///     using result = metal::greater<val1, val2>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If both `val1` and `val2` are \numbers, then equivalent to
+    ///     \code
+    ///         using result = metal::boolean<(val1::value > valn::value)>;
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         using result = metal::nothing;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number/comparison.cpp greater
+    ///
+    /// See Also
+    /// --------
+    /// \see number, boolean, equal_to, less
     template<typename x, typename y>
-    struct greater
-    {};
+    using greater = detail::greater<x, y>;
 
     /// \ingroup comparison
     /// Eager adaptor for \ref greater.
@@ -23,10 +53,17 @@ namespace metal
 
 namespace metal
 {
-    template<typename tx, tx vx, typename ty, ty vy>
-    struct greater<number<tx, vx>, number<ty, vy>> :
-        boolean<(vx > vy)>
-    {};
+    namespace detail
+    {
+        template<typename x, typename y>
+        struct greater
+        {};
+
+        template<typename tx, tx vx, typename ty, ty vy>
+        struct greater<number<tx, vx>, number<ty, vy>> :
+            boolean<(vx > vy)>
+        {};
+    }
 }
 
 #endif

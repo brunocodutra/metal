@@ -7,11 +7,41 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename x, typename y>
+        struct less;
+    }
+
     /// \ingroup comparison
-    /// ...
+    /// Checks whether a \number is less than another.
+    ///
+    /// Usage
+    /// -----
+    /// For any \values `val1` and `val2`
+    /// \code
+    ///     using result = metal::less<val1, val2>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If both `val1` and `val2` are \numbers, then equivalent to
+    ///     \code
+    ///         using result = metal::boolean<val1::value < valn::value>;
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         using result = metal::nothing;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number/comparison.cpp less
+    ///
+    /// See Also
+    /// --------
+    /// \see number, boolean, equal_to, greater
     template<typename x, typename y>
-    struct less
-    {};
+    using less = detail::less<x, y>;
 
     /// \ingroup comparison
     /// Eager adaptor for \ref less.
@@ -23,10 +53,17 @@ namespace metal
 
 namespace metal
 {
-    template<typename tx, tx vx, typename ty, ty vy>
-    struct less<number<tx, vx>, number<ty, vy>> :
-        boolean<(vx < vy)>
-    {};
+    namespace detail
+    {
+        template<typename x, typename y>
+        struct less
+        {};
+
+        template<typename tx, tx vx, typename ty, ty vy>
+        struct less<number<tx, vx>, number<ty, vy>> :
+            boolean<(vx < vy)>
+        {};
+    }
 }
 
 #endif
