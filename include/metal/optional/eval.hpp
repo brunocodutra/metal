@@ -8,6 +8,8 @@
 #include <metal/optional/conditional.hpp>
 #include <metal/optional/optional.hpp>
 
+#include <metal/detail/nil.hpp>
+
 namespace metal
 {
     /// \ingroup optional
@@ -49,7 +51,9 @@ namespace metal
     /// --------
     /// \see conditional, just, is_just
     template<typename opt, typename fallback = detail::nil>
-    using eval = metal::conditional_t<is_just_t<opt>, opt, just<fallback>>;
+    using eval = metal::conditional_t<
+        metal::is_just_t<opt>, opt, metal::just<fallback>
+    >;
 }
 
 #endif

@@ -5,12 +5,12 @@
 #ifndef METAL_OPTIONAL_OPTIONAL_HPP
 #define METAL_OPTIONAL_OPTIONAL_HPP
 
+#include <metal/detail/nil.hpp>
+
 namespace metal
 {
     namespace detail
     {
-        struct nil;
-
         template<typename...>
         struct just_impl;
 
