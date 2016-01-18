@@ -5,13 +5,20 @@
 #ifndef METAL_NUMBER_ENUMERATE_HPP
 #define METAL_NUMBER_ENUMERATE_HPP
 
+#include <metal/detail/nil.hpp>
+
 namespace metal
 {
+    namespace detail
+    {
+        template<typename, typename = nil, typename = nil>
+        struct enumerate;
+    }
+
     /// \ingroup number
     /// ...
-    template<typename...>
-    struct enumerate
-    {};
+    template<typename... args>
+    using enumerate = detail::enumerate<args...>;
 
     /// \ingroup number
     /// Eager adaptor for \ref enumerate.
@@ -45,46 +52,50 @@ namespace metal
             typename u, u a, typename v, v b
         >
         struct affine<list<number<t, ns>...>, number<u, a>, number<v, b>> :
-            numbers<decltype(t() + u() + v()), b + a*ns...>
+            numbers<v, b + a*ns...>
+        {};
+
+        template<typename, typename, typename>
+        struct enumerate
+        {};
+
+        template<typename t, t start, typename u, u size, typename v, v stride>
+        struct enumerate<number<t, start>, number<u, size>, number<v, stride>> :
+            affine<
+                enumerate_t<number<u, size>>,
+                number<v, stride>,
+                number<t, start>
+            >
+        {};
+
+        template<typename t, t start, typename u, u size>
+        struct enumerate<number<t, start>, number<u, size>> :
+            enumerate<number<t, start>, number<u, size>, integer<1>>
+        {};
+
+        template<typename t, t size>
+        struct enumerate<number<t, size>> :
+            join<
+                enumerate_t<number<t, size/2>>,
+                enumerate_t<number<t, size/2>, number<t, size - size/2>>
+            >
+        {};
+
+        template<typename t>
+        struct enumerate<number<t, t(1)>> :
+            list<number<t, 0>>
+        {};
+
+        template<typename t>
+        struct enumerate<number<t, t(-1)>> :
+            list<number<t, 0>>
+        {};
+
+        template<typename t>
+        struct enumerate<number<t, t(0)>> :
+            list<>
         {};
     }
-
-    template<typename t, t start, typename u, u size, typename v, v stride>
-    struct enumerate<number<t, start>, number<u, size>, number<v, stride>> :
-        detail::affine<
-            enumerate_t<number<u, size>>,
-            number<v, stride>,
-            number<t, start>
-        >
-    {};
-
-    template<typename t, t start, typename u, u size>
-    struct enumerate<number<t, start>, number<u, size>> :
-        enumerate<number<t, start>, number<u, size>, integer<1>>
-    {};
-
-    template<typename t, t size>
-    struct enumerate<number<t, size>> :
-        join<
-            enumerate_t<number<t, size/2>>,
-            enumerate_t<number<t, size/2>, number<t, size - size/2>>
-        >
-    {};
-
-    template<typename t>
-    struct enumerate<number<t, t(1)>> :
-        list<number<t, 0>>
-    {};
-
-    template<typename t>
-    struct enumerate<number<t, t(-1)>> :
-        list<number<t, 0>>
-    {};
-
-    template<typename t>
-    struct enumerate<number<t, t(0)>> :
-        list<>
-    {};
 }
 
 #endif
