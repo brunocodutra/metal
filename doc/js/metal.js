@@ -165,11 +165,6 @@ $( document ).ready(function(){
                 .remove();
         });
 
-    $("div.fragment div.line")
-        .replaceWith(function(){
-            return $(this).contents();
-        });
-
     $("div.fragment")
         .replaceWith(function(){
             return $("<pre class='fragment'>").append($(this).contents());

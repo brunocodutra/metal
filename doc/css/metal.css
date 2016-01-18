@@ -102,6 +102,11 @@ pre.fragment {
     border: 1px solid #EEEEEE;
 }
 
+pre.fragment div.line:after {
+    content: "\000A";
+    white-space: pre;
+}
+
 span.keyword, span.keywordflow, span.keywordtype {
     color: #008000;
 }
