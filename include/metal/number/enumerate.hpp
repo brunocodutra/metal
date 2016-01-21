@@ -40,10 +40,13 @@ namespace metal
         {};
 
         template<typename, typename, typename>
-        struct affine;
+        struct stretch;
 
-        template<template<typename...> class list, typename a, typename b>
-        struct affine<list<>, a, b> :
+        template<
+            template<typename...> class list,
+            typename u, u a, typename v, v b
+        >
+        struct stretch<list<>, number<u, a>, number<v, b>> :
             list<>
         {};
 
@@ -51,7 +54,7 @@ namespace metal
             template<typename...> class list, typename t, t... ns,
             typename u, u a, typename v, v b
         >
-        struct affine<list<number<t, ns>...>, number<u, a>, number<v, b>> :
+        struct stretch<list<number<t, ns>...>, number<u, a>, number<v, b>> :
             numbers<v, b + a*ns...>
         {};
 
@@ -61,9 +64,9 @@ namespace metal
 
         template<typename t, t start, typename u, u size, typename v, v stride>
         struct enumerate<number<t, start>, number<u, size>, number<v, stride>> :
-            affine<
-                enumerate_t<number<u, size>>,
-                number<v, stride>,
+            stretch<
+                enumerate_t<number<long long, size>>,
+                number<long long, stride>,
                 number<t, start>
             >
         {};
