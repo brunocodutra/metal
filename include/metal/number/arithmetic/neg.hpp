@@ -24,7 +24,7 @@ namespace metal
     /// \endcode
     ///
     /// \par Semantics:
-    ///     If `val` is a \number, then equivalent to
+    ///     If `val` is a \number, but not boolean, then equivalent to
     ///     \code
     ///         using result = metal::number<typename val::value_type, -val::value>;
     ///     \endcode
@@ -57,6 +57,10 @@ namespace metal
     {
         template<typename num>
         struct neg
+        {};
+
+        template<bool v>
+        struct neg<boolean<v>>
         {};
 
         template<typename t, t v>
