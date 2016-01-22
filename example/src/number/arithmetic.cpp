@@ -12,8 +12,6 @@ ANONYMOUS(namespace)
 /// [inc]
 static_assert(std::is_same<metal::inc_t<metal::integer<-10>>, metal::integer<-9>>::value, "");
 static_assert(std::is_same<metal::inc_t<metal::number<short, 0>>, metal::number<short, 1>>::value, "");
-static_assert(std::is_same<metal::inc_t<metal::boolean<false>>, metal::boolean<true>>::value, "");
-static_assert(std::is_same<metal::inc_t<metal::boolean<true>>, metal::boolean<true>>::value, "");
 static_assert(!metal::is_just<metal::inc<void>>::value, "");
 /// [inc]
 }
@@ -23,8 +21,6 @@ ANONYMOUS(namespace)
 /// [dec]
 static_assert(std::is_same<metal::dec_t<metal::integer<-10>>, metal::integer<-11>>::value, "");
 static_assert(std::is_same<metal::dec_t<metal::number<short, 0>>, metal::number<short, -1>>::value, "");
-static_assert(std::is_same<metal::dec_t<metal::boolean<false>>, metal::boolean<true>>::value, "");
-static_assert(std::is_same<metal::dec_t<metal::boolean<true>>, metal::boolean<false>>::value, "");
 static_assert(!metal::is_just<metal::dec<void>>::value, "");
 /// [dec]
 }
@@ -34,8 +30,6 @@ ANONYMOUS(namespace)
 /// [neg]
 static_assert(std::is_same<metal::neg_t<metal::integer<-10>>, metal::integer<10>>::value, "");
 static_assert(std::is_same<metal::neg_t<metal::number<short, 0>>, metal::number<short, 0>>::value, "");
-static_assert(std::is_same<metal::neg_t<metal::boolean<false>>, metal::boolean<false>>::value, "");
-static_assert(std::is_same<metal::neg_t<metal::boolean<true>>, metal::boolean<true>>::value, "");
 static_assert(!metal::is_just<metal::neg<void>>::value, "");
 /// [neg]
 }
