@@ -107,7 +107,6 @@ if(METAL_STRICT)
     metal_add_flag(/WX)
 endif()
 
-metal_add_flag(-stdlib=libc++ "-include cstddef")
 metal_add_flag(-ftemplate-depth=512)
 
 foreach(dialect
