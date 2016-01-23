@@ -13,6 +13,7 @@
 #include <metal/number/arithmetic/mul.hpp>
 #include <metal/number/arithmetic/div.hpp>
 #include <metal/number/arithmetic/mod.hpp>
+#include <metal/number/arithmetic/pow.hpp>
 
 /// \defgroup arithmetic Arithmetic
 /// \ingroup number

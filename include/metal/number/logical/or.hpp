@@ -27,7 +27,9 @@ namespace metal
     ///     If all \values in `[val1, ..., valn]` are \numbers,
     ///     then equivalent to
     ///     \code
-    ///         using result = metal::boolean<val1::value || ... || valn::value>;
+    ///         struct result :
+    ///             metal::boolean<val1::value || ... || valn::value>
+    ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code

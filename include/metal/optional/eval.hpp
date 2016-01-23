@@ -28,7 +28,7 @@ namespace metal
     ///         using result = typename opt::type
     ///     \endcode
     ///
-    /// \beware{Evaluating an empty optional results in a compile time error.}
+    /// \danger{Evaluating an empty optional results in a compile time error.}
     ///
     /// ________________________________________________________________________
     ///

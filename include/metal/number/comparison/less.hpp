@@ -26,7 +26,9 @@ namespace metal
     /// \par Semantics:
     ///     If both `val1` and `val2` are \numbers, then equivalent to
     ///     \code
-    ///         using result = metal::boolean<val1::value < valn::value>;
+    ///         struct result :
+    ///             metal::boolean<(val1::value < val2::value)>
+    ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code

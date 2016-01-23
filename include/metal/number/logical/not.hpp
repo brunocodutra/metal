@@ -26,7 +26,9 @@ namespace metal
     /// \par Semantics:
     ///     If `val` is a \number, then equivalent to
     ///     \code
-    ///         using result = metal::boolean<!val::value>;
+    ///         struct result :
+    ///             metal::boolean<!val::value>
+    ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code

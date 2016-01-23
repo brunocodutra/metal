@@ -26,7 +26,12 @@ namespace metal
     /// \par Semantics:
     ///     If `val` is a \number, but not boolean, then equivalent to
     ///     \code
-    ///         using result = metal::number<typename val::value_type, -val::value>;
+    ///         struct result :
+    ///             metal::number<
+    ///                 val::value_type,
+    ///                 static_cast<val::value_type>(-val::value)
+    ///             >
+    ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
@@ -39,7 +44,7 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see number, inc, dec, add, sub, mul, div, mod
+    /// \see number, inc, dec, add, sub, mul, div, mod, pow
     template<typename num>
     using neg = detail::neg<num>;
 

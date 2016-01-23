@@ -23,6 +23,7 @@
     ASSERT((metal::erase_t<VEC(INC(M)), NUM(0)>), (metal::pop_front_t<VEC(INC(M))>)); \
     ASSERT((metal::at_t<VEC(LIMIT), metal::find_t<VEC(LIMIT), VAL(M)>>), (VAL(M))); \
     ASSERT((metal::sort_t<SEQ(M)<NUMS(M)>, metal::greater<metal::_1, metal::_2>>), (metal::reverse_t<SEQ(M)<NUMS(M)>>)); \
+    ASSERT((metal::same_t<metal::enumerate_t<NUM(M), NUM(N), NUM(0)>>), (TRUE)); \
 /**/
 
 GEN(MATRIX)

@@ -28,10 +28,12 @@ namespace metal
     ///     and all \values in `[val2, ..., valn]` are nonzero \numbers,
     ///     then equivalent to
     ///     \code
-    ///         using result = metal::number<
-    ///             decltype(val1::value / val2::value / ... / valn::value),
-    ///             val1::value / val2::value / ... / valn::value
-    ///         >;
+    ///         struct result :
+    ///             metal::number<
+    ///                 decltype(val1::value / ... / valn::value),
+    ///                 val1::value / ... / valn::value
+    ///             >
+    ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
@@ -44,7 +46,7 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see number, inc, dec, neg, add, sub, mul, mod
+    /// \see number, inc, dec, neg, add, sub, mul, mod, pow
     template<typename... nums>
     using div = detail::div<nums...>;
 

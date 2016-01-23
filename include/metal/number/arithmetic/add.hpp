@@ -27,10 +27,12 @@ namespace metal
     ///     If all \values in `[val1, ..., valn]` are \numbers,
     ///     then equivalent to
     ///     \code
-    ///         using result = metal::number<
-    ///             decltype(val1::value + ... + valn::value),
-    ///             val1::value + ... + valn::value
-    ///         >;
+    ///         struct result :
+    ///             metal::number<
+    ///                 decltype(val1::value + ... + valn::value),
+    ///                 val1::value + ... + valn::value
+    ///             >
+    ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
@@ -43,7 +45,7 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see number, inc, dec, neg, sub, mul, div, mod
+    /// \see number, inc, dec, neg, sub, mul, div, mod, pow
     template<typename... nums>
     using add = detail::add<nums...>;
 

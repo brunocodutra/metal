@@ -40,7 +40,7 @@ ANONYMOUS(namespace)
 using result = metal::add_t<
     metal::integer<-7>,
     metal::number<long, 5>,
-    metal::boolean<true>
+    metal::number<short, 1>
 >;
 
 static_assert(std::is_same<result, metal::number<long, -1>>::value, "");
@@ -54,7 +54,7 @@ ANONYMOUS(namespace)
 using result = metal::sub_t<
     metal::integer<-7>,
     metal::number<long, 5>,
-    metal::boolean<true>
+    metal::number<short, 1>
 >;
 
 static_assert(std::is_same<result, metal::number<long, -13>>::value, "");
@@ -68,7 +68,7 @@ ANONYMOUS(namespace)
 using result = metal::mul_t<
     metal::integer<-7>,
     metal::number<long, 5>,
-    metal::boolean<true>
+    metal::number<short, 1>
 >;
 
 static_assert(std::is_same<result, metal::number<long, -35>>::value, "");
@@ -82,7 +82,7 @@ ANONYMOUS(namespace)
 using result = metal::div_t<
     metal::integer<-7>,
     metal::number<long, 5>,
-    metal::boolean<true>
+    metal::number<short, 1>
 >;
 
 static_assert(std::is_same<result, metal::number<long, -1>>::value, "");
@@ -97,11 +97,27 @@ ANONYMOUS(namespace)
 using result = metal::mod_t<
     metal::integer<-7>,
     metal::number<long, 5>,
-    metal::boolean<true>
+    metal::number<short, 1>
 >;
 
 static_assert(std::is_same<result, metal::number<long, 0>>::value, "");
 static_assert(!metal::is_just<metal::mod<metal::integer<1>, void>>::value, "");
 static_assert(!metal::is_just<metal::mod<metal::integer<1>, metal::integer<0>>>::value, "");
 /// [mod]
+}
+
+ANONYMOUS(namespace)
+{
+/// [pow]
+using result = metal::pow_t<
+    metal::integer<-7>,
+    metal::number<long, 5>,
+    metal::number<short, 1>
+>;
+
+static_assert(std::is_same<result, metal::number<long, -16807>>::value, "");
+static_assert(!metal::is_just<metal::pow<metal::integer<1>, void>>::value, "");
+static_assert(!metal::is_just<metal::pow<metal::integer<0>, metal::integer<0>>>::value, "");
+static_assert(!metal::is_just<metal::pow<metal::integer<0>, metal::integer<-3>>>::value, "");
+/// [pow]
 }
