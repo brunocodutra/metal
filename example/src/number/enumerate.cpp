@@ -9,12 +9,12 @@
 ANONYMOUS(namespace)
 {
 /// [enumerate]
-using x = metal::enumerate_t<metal::integer<2>>;
-using y = metal::enumerate_t<metal::integer<2>, metal::integer<3>>;
-using z = metal::enumerate_t<metal::integer<2>, metal::integer<3>, metal::integer<-5>>;
+using x = metal::enumerate_t</**/metal::integer<2>>;
+using y = metal::enumerate_t</**/metal::integer<2>, metal::integer<3>>;
+using z = metal::enumerate_t</**/metal::integer<2>, metal::integer<3>, metal::integer<-5>>;
 
-static_assert(std::is_same<x, metal::list<metal::integer<0>, metal::integer<1>>>::value, "");
-static_assert(std::is_same<y, metal::list<metal::integer<2>, metal::integer<3>, metal::integer<4>>>::value, "");
-static_assert(std::is_same<z, metal::list<metal::integer<2>, metal::integer<-3>, metal::integer<-8>>>::value, "");
+static_assert(std::is_same<x, metal::list</**/metal::integer<0>, metal::integer<1>>>::value, "");
+static_assert(std::is_same<y, metal::list</**/metal::integer<2>, metal::integer<3>, metal::integer<4>>>::value, "");
+static_assert(std::is_same<z, metal::list</**/metal::integer<2>, metal::integer<-3>, metal::integer<-8>>>::value, "");
 /// [enumerate]
 }

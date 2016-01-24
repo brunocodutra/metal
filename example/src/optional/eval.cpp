@@ -17,8 +17,8 @@ struct some
     struct type;
 };
 
-static_assert(std::is_same<metal::eval<some>, some::type>::value, "");
-static_assert(std::is_same<metal::eval<some, void>, some::type>::value, "");
-static_assert(std::is_same<metal::eval<none, void>, void>::value, "");
+static_assert(std::is_same</**/metal::eval<some>, some::type>::value, "");
+static_assert(std::is_same</**/metal::eval<some, void>, some::type>::value, "");
+static_assert(std::is_same</**/metal::eval<none, void>, void>::value, "");
 /// [eval]
 }
