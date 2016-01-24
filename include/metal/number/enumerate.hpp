@@ -16,7 +16,95 @@ namespace metal
     }
 
     /// \ingroup number
-    /// ...
+    /// Generates a \list of \numbers.
+    ///
+    /// Usage
+    /// -----
+    /// For any \value `size`
+    /// \code
+    ///     using result = metal::enumerate<size>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If `size` is a model of \number, then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::enumerate<metal::number<size::value_type, 0>, size>
+    ///         {};
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         using result = metal::nothing;
+    ///     \endcode
+    ///
+    /// ________________________________________________________________________
+    ///
+    /// For any \values `start` and `size`
+    /// \code
+    ///     using result = metal::enumerate<start, size>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::enumerate<start, size, metal::integer<1>>
+    ///         {};
+    ///     \endcode
+    ///
+    /// ________________________________________________________________________
+    ///
+    /// For any \values `start`, `size` and `stride`
+    /// \code
+    ///     using result = metal::enumerate<start, size, stride>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If `start`, `size` and `stride` are models of \number and
+    ///     `size` is null, then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::list<>
+    ///         {};
+    ///     \endcode
+    ///     otherwise, if `start`, `size` and `stride` are models of \number and
+    ///     `size` is positive, then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::list<
+    ///                 start,
+    ///                 metal::number<start::value_type, start::value + stride::value>,
+    ///                 metal::number<start::value_type, start::value + 2*stride::value>,
+    ///                 ...,
+    ///                 metal::number<start::value_type, start::value + (size::value - 1)*stride::value>,
+    ///             >
+    ///         {};
+    ///     \endcode
+    ///     otherwise, if `start`, `size` and `stride` are models of \number and
+    ///     `size` is negative, then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::list<
+    ///                 start,
+    ///                 metal::number<start::value_type, start::value - stride::value>,
+    ///                 metal::number<start::value_type, start::value - 2*stride::value>,
+    ///                 ...,
+    ///                 metal::number<start::value_type, start::value - (size::value - 1)*stride::value>,
+    ///             >
+    ///         {};
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         using result = metal::nothing;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number/enumerate.cpp enumerate
+    ///
+    /// See Also
+    /// --------
+    /// \see number
     template<typename... args>
     using enumerate = detail::enumerate<args...>;
 
