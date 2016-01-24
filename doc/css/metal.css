@@ -96,6 +96,8 @@ pre.fragment, code {
     background-color: #F9F9F9;
     color: #C7254E;
     white-space: pre;
+    word-wrap: normal;
+    word-break: keep-all;
 }
 
 pre.fragment {

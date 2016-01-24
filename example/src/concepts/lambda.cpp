@@ -14,7 +14,7 @@ ANONYMOUS(namespace)
 using lbd = void;
 /// [ex1]
 
-static_assert(std::is_same<metal::invoke_t<lbd>, void>::value, "");
+static_assert(std::is_same</**/metal::invoke_t<lbd>, void>::value, "");
 }
 
 ANONYMOUS(namespace)
@@ -23,7 +23,7 @@ ANONYMOUS(namespace)
 using lbd = metal::_2;
 /// [ex2]
 
-static_assert(std::is_same<metal::invoke_t<lbd, int, int>, int>::value, "");
+static_assert(std::is_same</**/metal::invoke_t<lbd, int, int>, int>::value, "");
 }
 
 ANONYMOUS(namespace)
@@ -32,7 +32,7 @@ ANONYMOUS(namespace)
 using lbd = metal::lambda<std::add_pointer>;
 /// [ex3]
 
-static_assert(std::is_same<metal::invoke_t<lbd, void>, void*>::value, "");
+static_assert(std::is_same</**/metal::invoke_t<lbd, void>, void*>::value, "");
 }
 
 ANONYMOUS(namespace)
@@ -41,13 +41,13 @@ ANONYMOUS(namespace)
 using lbd = std::add_pointer<void>;
 /// [ex4]
 
-static_assert(std::is_same<metal::invoke_t<lbd>, void*>::value, "");
+static_assert(std::is_same</**/metal::invoke_t<lbd>, void*>::value, "");
 }
 
 ANONYMOUS(namespace)
 {
 /// [ex5]
-using lbd = std::is_convertible<metal::_1, std::add_pointer<metal::_2>>;
+using lbd = std::is_convertible</**/metal::_1, std::add_pointer</**/metal::_2>>;
 /// [ex5]
 
 static_assert(metal::invoke_t<lbd, lbd*, void>::value, "");

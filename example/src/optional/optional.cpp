@@ -45,10 +45,10 @@ struct some
     struct type;
 };
 
-static_assert(!metal::is_just<metal::optional<none>>::value, "");
-static_assert(metal::is_just<metal::optional<some>>::value, "");
+static_assert(!metal::is_just</**/metal::optional<none>>::value, "");
+static_assert(metal::is_just</**/metal::optional<some>>::value, "");
 
-static_assert(std::is_base_of<metal::nothing, metal::optional<none>>::value, "");
-static_assert(std::is_base_of<metal::just<some::type>, metal::optional<some>>::value, "");
+static_assert(std::is_base_of</**/metal::nothing, metal::optional<none>>::value, "");
+static_assert(std::is_base_of</**/metal::just<some::type>, metal::optional<some>>::value, "");
 /// [optional]
 }

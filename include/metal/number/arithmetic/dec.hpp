@@ -18,7 +18,7 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \val `val`
+    /// For any \value `val`
     /// \code
     ///     using result = metal::dec<val>;
     /// \endcode
