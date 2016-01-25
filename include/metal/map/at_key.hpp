@@ -31,14 +31,14 @@ namespace metal
 #include <metal/optional/optional.hpp>
 #include <metal/optional/conditional.hpp>
 
-#include <utility>
+#include <metal/detail/declptr.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<typename key, typename val>
-        just<val> lookup(pair<key, val>&&);
+        just<val> lookup(pair<key, val>*);
 
         template<typename>
         nothing lookup(...);
@@ -57,7 +57,7 @@ namespace metal
         template<typename map, typename key>
         struct at_key_impl :
             decltype(
-                lookup<key>(std::declval<hash<keys_t<map>, values_t<map>>>())
+                lookup<key>(declptr<hash<keys_t<map>, values_t<map>>>())
             )
         {};
 

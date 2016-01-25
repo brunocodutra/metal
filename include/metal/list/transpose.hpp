@@ -30,6 +30,9 @@ namespace metal
 #include <metal/list/same.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
+#include <metal/lambda/invoke.hpp>
+#include <metal/lambda/lift.hpp>
+#include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/number/number.hpp>
@@ -67,7 +70,10 @@ namespace metal
                 transform<
                     indices_t<head>,
                     defer_t<
-                        zipper<at<quote_t<head>, _1>, at<quote_t<tail>, _1>...>
+                        zipper<
+                            at<quote_t<head>, _1>,
+                            at<quote_t<tail>, _1>...
+                        >
                     >
                 >
             >
@@ -101,7 +107,11 @@ namespace metal
         struct transpose<outer<head, tail...>> :
             conditional<
                 eval<
-                    invoke<lift_t<same<lambda<list>>>, size<head>, size<tail>...>,
+                    invoke<
+                        same<lift_t<lambda<list>>>,
+                        size<head>,
+                        size<tail>...
+                    >,
                     nothing
                 >,
                 zip<lambda<outer>, head, tail...>

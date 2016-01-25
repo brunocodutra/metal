@@ -23,6 +23,7 @@ namespace metal
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/invoke.hpp>
+#include <metal/lambda/lift.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/optional/conditional.hpp>
@@ -32,7 +33,7 @@ namespace metal
     template<typename to, template<typename...> class from, typename... fs, typename lbd>
     struct copy_if<to, from<fs...>, lbd> :
         invoke<
-            lift_t<copy<quote_t<to>, lambda<join>>>,
+            copy<quote_t<to>, lift_t<lambda<join>>>,
             invoke<conditional<bind_t<lbd, _1>, list<_1>, list<>>, fs>...
         >
     {};

@@ -99,7 +99,7 @@ namespace metal
         invoke<
             accumulate<_1, _2, _3, number<t, l>, size<_1>>,
             list, state, lbd
-          >
+        >
     {};
 
     template<typename list, typename state, typename lbd>

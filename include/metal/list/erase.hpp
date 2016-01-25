@@ -27,7 +27,6 @@ namespace metal
 #include <metal/list/size.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/quote.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/arithmetic/inc.hpp>
 #include <metal/optional/conditional.hpp>
@@ -53,7 +52,7 @@ namespace metal
 
     template<typename list, typename begin, begin b>
     struct erase<list, number<begin, b>> :
-        invoke<erase<quote_t<list>, number<begin, b>, inc_t<number<begin, b>>>>
+        invoke<erase<_1, number<begin, b>, inc_t<number<begin, b>>>, list>
     {};
 }
 

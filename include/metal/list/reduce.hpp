@@ -20,8 +20,8 @@ namespace metal
 
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lift.hpp>
-#include <metal/lambda/quote.hpp>
 #include <metal/number/number.hpp>
+#include <metal/list/at.hpp>
 
 #include <cstddef>
 
@@ -76,14 +76,7 @@ namespace metal
 
     template<typename list, typename lbd, typename t, t l>
     struct reduce<list, lbd, number<t, l>> :
-        invoke<
-            reduce<
-                quote_t<list>,
-                quote_t<lbd>,
-                number<t, l>,
-                size<quote_t<list>>
-            >
-        >
+        invoke<reduce<_1, _2, number<t, l>, size<_1>>, list, lbd>
     {};
 
     template<typename list, typename lbd>
