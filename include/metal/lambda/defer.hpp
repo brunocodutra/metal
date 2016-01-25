@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename lbd>
+        struct defer;
+    }
+
     /// \ingroup lambda
     /// ...
     template<typename lbd>
-    struct defer;
+    using defer = detail::defer<lbd>;
 
     /// \ingroup lambda
     /// Eager adaptor for \ref defer.
@@ -21,29 +27,46 @@ namespace metal
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
+#include <metal/lambda/quote.hpp>
+#include <metal/optional/optional.hpp>
 
-#include <metal/detail/instantiate.hpp>
+#include <metal/detail/declptr.hpp>
 
 namespace metal
 {
-    template<typename lbd>
-    struct defer :
-        quote<lbd>
-    {};
-
-    template<template<typename...> class expr>
-    struct defer<lambda<expr>>
+    namespace detail
     {
-        template<typename... args>
-        using _ = detail::instantiate<expr, args...>;
+        template<
+            template<typename...> class expr, typename... args,
+            typename ret = just<expr<typename args::type...>>
+        >
+        ret defer_impl(lambda<expr>*, args*...);
+        nothing defer_impl(...);
 
-        using type = lambda<_>;
-    };
+        template<typename lbd>
+        struct defer :
+            quote<lbd>
+        {};
 
-    template<template<typename...> class expr, typename... params>
-    struct defer<expr<params...>> :
-        bind<defer_t<lambda<expr>>, params...>
-    {};
+        template<template<typename...> class expr>
+        struct defer<lambda<expr>>
+        {
+            template<typename... args>
+            using _ = decltype(
+                defer_impl(
+                    declptr<lambda<expr>>(),
+                    declptr<just<args>>()...
+                )
+            );
+
+            using type = lambda<_>;
+        };
+
+        template<template<typename...> class expr, typename... params>
+        struct defer<expr<params...>> :
+            bind<defer_t<lambda<expr>>, params...>
+        {};
+    }
 }
 
 #endif

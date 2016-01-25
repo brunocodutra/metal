@@ -22,9 +22,9 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/list/reduce.hpp>
 #include <metal/list/flatten.hpp>
-#include <metal/lambda/arg.hpp>
+#include <metal/lambda/invoke.hpp>
 #include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/quote.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/arithmetic/add.hpp>
 #include <metal/optional/conditional.hpp>
@@ -36,16 +36,14 @@ namespace metal
     template<template<typename...> class list, typename... vals, typename lbd>
     struct count_if<list<vals...>, lbd> :
         invoke<
-            lift_t<lambda<add>>,
-            number<std::ptrdiff_t, 0>,
-            invoke<
+            add<
+                number<std::ptrdiff_t, 0>,
                 conditional<
-                    bind_t<lbd, _1>,
+                    bind_t<lbd, quote_t<vals>>,
                     number<std::ptrdiff_t, 1>,
                     number<std::ptrdiff_t, 0>
-                >,
-                vals
-            >...
+                >...
+            >
         >
     {};
 }

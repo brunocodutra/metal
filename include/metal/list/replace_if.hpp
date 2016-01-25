@@ -32,14 +32,13 @@ namespace metal
     template<typename list, typename lbd, typename val>
     struct replace_if :
         invoke<
-            lift_t<copy<quote_t<list>, apply<quote_t<lambda<join>>, _1>>>,
-            transform<
-                list,
-                conditional<
-                    bind_t<lbd, _1>,
-                    metal::list<quote_t<val>>,
-                    metal::list<_1>
-                >
+            copy<_1, apply<_2, transform<_1, _3>>>,
+            list,
+            lambda<join>,
+            conditional<
+                bind_t<lbd, _1>,
+                quote_t<metal::list<val>>,
+                metal::list<_1>
             >
         >
     {};
