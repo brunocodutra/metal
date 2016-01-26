@@ -63,11 +63,11 @@ namespace metal
     namespace detail
     {
         template<typename... nums>
-        using or_impl = not_<same_t<list<boolean<true>, not_t<nums>...>>>;
+        using or_impl = not_<same_t<list<typename not_<nums>::type...>>>;
 
         template<typename... nums>
         struct or_ :
-            invoke<lambda<or_impl>, nums...>
+            invoke<lambda<or_impl>, boolean<false>, nums...>
         {};
 
         template<typename tx, tx vx, typename ty, ty vy, typename... tail>

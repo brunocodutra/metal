@@ -63,11 +63,11 @@ namespace metal
     namespace detail
     {
         template<typename... nums>
-        using and_impl = same<list<boolean<false>, not_t<nums>...>>;
+        using and_impl = same<list<typename not_<nums>::type...>>;
 
         template<typename... nums>
         struct and_ :
-            invoke<lambda<and_impl>, nums...>
+            invoke<lambda<and_impl>, boolean<true>, nums...>
         {};
 
         template<typename tx, tx vx, typename ty, ty vy, typename... tail>
