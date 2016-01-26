@@ -18,7 +18,6 @@ namespace metal
     using partition_t = typename metal::partition<list, lbd>::type;
 }
 
-#include <metal/list/list.hpp>
 #include <metal/list/copy_if.hpp>
 #include <metal/pair/pair.hpp>
 #include <metal/lambda/invoke.hpp>
