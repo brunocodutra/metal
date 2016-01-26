@@ -27,6 +27,7 @@ namespace metal
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/list/at.hpp>
+#include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 #include <metal/optional/optional.hpp>
 
@@ -40,7 +41,9 @@ namespace metal
             template<typename...> class expr, typename... args,
             typename ret = optional<expr<typename args::type...>>
         >
-        ret invoke_impl(lambda<expr>*, args*...);
+        ret invoke_impl(list<args...>*);
+
+        template<template<typename...> class>
         nothing invoke_impl(...);
 
         template<typename val, typename... vals>
@@ -50,12 +53,7 @@ namespace metal
 
         template<template<typename...> class expr, typename... vals>
         struct invoke<lambda<expr>, vals...> :
-            decltype(
-                invoke_impl(
-                    declptr<lambda<expr>>(),
-                    declptr<just<vals>>()...
-                )
-            )
+            decltype(invoke_impl<expr>(declptr<list<just<vals>...>>()))
         {};
 
         template<
@@ -65,9 +63,8 @@ namespace metal
         >
         struct invoke<expr<params...>, vals...> :
             decltype(
-                invoke_impl(
-                    declptr<lambda<expr>>(),
-                    declptr<invoke<params, vals...>>()...
+                invoke_impl<expr>(
+                    declptr<list<invoke<params, vals...>...>>()
                 )
             )
         {};

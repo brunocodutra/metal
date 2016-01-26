@@ -27,22 +27,12 @@ namespace metal
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
-#include <metal/lambda/quote.hpp>
 #include <metal/optional/optional.hpp>
-
-#include <metal/detail/declptr.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<
-            template<typename...> class expr, typename... args,
-            typename ret = just<expr<typename args::type...>>
-        >
-        ret defer_impl(lambda<expr>*, args*...);
-        nothing defer_impl(...);
-
         template<typename lbd>
         struct defer :
             quote<lbd>
@@ -52,12 +42,13 @@ namespace metal
         struct defer<lambda<expr>>
         {
             template<typename... args>
-            using _ = decltype(
-                defer_impl(
-                    declptr<lambda<expr>>(),
-                    declptr<just<args>>()...
-                )
-            );
+            static just<expr<args...>> impl(just<expr<args...>>*);
+
+            template<typename... args>
+            static nothing impl(...);
+
+            template<typename... args>
+            using _ = decltype(impl<args...>(0));
 
             using type = lambda<_>;
         };

@@ -54,7 +54,7 @@ namespace metal
     template<template<typename...> class list, typename... vals, typename lbd>
     struct sort<list<vals...>, lbd> :
         invoke<
-            lift_t<copy<_1, _2>>,
+            lift_t<lambda<copy>>,
             just<list<vals...>>,
             sort<metal::list<vals...>, lbd>
         >
