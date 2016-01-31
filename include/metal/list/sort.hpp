@@ -63,13 +63,13 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list, typename... vals,
-            typename lbd
+            template<typename...> class expr,
+            typename... vals, typename lbd
         >
-        struct sort<list<vals...>, lbd> :
+        struct sort<expr<vals...>, lbd> :
             invoke<
                 copy<_1, sort<_2, _3>>,
-                list<vals...>, metal::list<vals...>, lbd
+                expr<vals...>, list<vals...>, lbd
             >
         {};
     }

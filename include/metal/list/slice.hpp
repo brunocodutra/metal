@@ -54,15 +54,15 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list, typename... vals,
+            template<typename...> class expr, typename... vals,
             typename t, t a, typename u, u b, typename v, v c
         >
-        struct slice<list<vals...>, number<t, a>, number<u, b>, number<v, c>> :
+        struct slice<expr<vals...>, number<t, a>, number<u, b>, number<v, c>> :
             copy<
-                list<vals...>,
+                expr<vals...>,
                 transform_t<
                     enumerate_t<number<t, a>, number<u, b>, number<v, c>>,
-                    at<quote_t<list<vals...>>, mod<_1, size_t<list<vals...>>>>
+                    at<quote_t<expr<vals...>>, mod<_1, size_t<expr<vals...>>>>
                 >
             >
         {};

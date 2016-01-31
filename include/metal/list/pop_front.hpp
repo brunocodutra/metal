@@ -36,12 +36,11 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list,
-            typename head,
-            typename... tail
+            template<typename...> class expr,
+            typename head, typename... tail
         >
-        struct pop_front<list<head, tail...>> :
-            copy<list<head, tail...>, metal::list<tail...>>
+        struct pop_front<expr<head, tail...>> :
+            copy<expr<head, tail...>, list<tail...>>
         {};
     }
 }

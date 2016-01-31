@@ -36,11 +36,11 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list, typename... vals,
-            typename val
+            template<typename...> class expr,
+            typename... vals, typename val
         >
-        struct push_back<list<vals...>, val> :
-            copy<list<vals...>, metal::list<vals..., val>>
+        struct push_back<expr<vals...>, val> :
+            copy<expr<vals...>, list<vals..., val>>
         {};
     }
 }

@@ -35,9 +35,9 @@ namespace metal
         struct empty
         {};
 
-        template<template<typename...> class list, typename... vals>
-        struct empty<list<vals...>> :
-            not_<size_t<list<vals...>>>
+        template<template<typename...> class expr, typename... vals>
+        struct empty<expr<vals...>> :
+            not_<size_t<expr<vals...>>>
         {};
     }
 }

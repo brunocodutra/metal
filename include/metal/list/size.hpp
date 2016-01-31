@@ -36,8 +36,8 @@ namespace metal
         struct size
         {};
 
-        template<template<typename...> class list, typename... vals>
-        struct size<list<vals...>> :
+        template<template<typename...> class expr, typename... vals>
+        struct size<expr<vals...>> :
             number<std::size_t, sizeof...(vals)>
         {};
     }

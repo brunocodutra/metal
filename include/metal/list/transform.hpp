@@ -38,12 +38,12 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list,
+            template<typename...> class expr,
             typename... vals,
             typename lbd
         >
-        struct transform<list<vals...>, lbd> :
-            invoke<lift_t<defer_t<lambda<list>>>, invoke<lbd, vals>...>
+        struct transform<expr<vals...>, lbd> :
+            invoke<lift_t<defer_t<lambda<expr>>>, invoke<lbd, vals>...>
         {};
     }
 }

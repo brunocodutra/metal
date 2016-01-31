@@ -36,9 +36,12 @@ namespace metal
         struct back
         {};
 
-        template<template<typename...> class list, typename head, typename... tail>
-        struct back<list<head, tail...>> :
-            at<list<head, tail...>, dec_t<size_t<list<head, tail...>>>>
+        template<
+            template<typename...> class expr,
+            typename head, typename... tail
+        >
+        struct back<expr<head, tail...>> :
+            at<expr<head, tail...>, dec_t<size_t<expr<head, tail...>>>>
         {};
     }
 }

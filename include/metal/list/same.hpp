@@ -45,15 +45,15 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list,
+            template<typename...> class expr,
             typename head, typename... tail
         >
-        struct same<list<head, tail...>> :
+        struct same<expr<head, tail...>> :
             same_impl<same<head>, same<tail>...>
         {};
 
-        template<template<typename...> class list, typename... vals>
-        struct same<list<vals...>> :
+        template<template<typename...> class expr, typename... vals>
+        struct same<expr<vals...>> :
             boolean<true>
         {};
     }
