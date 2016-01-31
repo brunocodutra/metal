@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename n, typename val>
+        struct insert;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename n, typename val>
-    struct insert;
+    using insert = detail::insert<list, n, val>;
 
     /// \ingroup list
     /// Eager adaptor for \ref insert.
@@ -23,10 +29,13 @@ namespace metal
 
 namespace metal
 {
-    template<typename list, typename n, typename val>
-    struct insert :
-        splice<list, n, metal::list<val>>
-    {};
+    namespace detail
+    {
+        template<typename list, typename n, typename val>
+        struct insert :
+            splice<list, n, metal::list<val>>
+        {};
+    }
 }
 
 #endif

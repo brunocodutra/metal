@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename n, typename other>
+        struct splice;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename n, typename other>
-    struct splice;
+    using splice = detail::splice<list, n, other>;
 
     /// \ingroup list
     /// Eager adaptor for \ref splice.
@@ -28,15 +34,18 @@ namespace metal
 
 namespace metal
 {
-    template<typename list, typename n, typename other>
-    struct splice :
-        invoke<
-            copy<quote_t<list>, lift_t<lambda<join>>>,
-            copy<metal::list<>, list, integer<0>, n>,
-            copy<metal::list<>, other>,
-            copy<metal::list<>, list, n>
-        >
-    {};
+    namespace detail
+    {
+        template<typename list, typename n, typename other>
+        struct splice :
+            invoke<
+                copy<quote_t<list>, lift_t<lambda<join>>>,
+                copy<metal::list<>, list, integer<0>, n>,
+                copy<metal::list<>, other>,
+                copy<metal::list<>, list, n>
+            >
+        {};
+    }
 }
 
 #endif

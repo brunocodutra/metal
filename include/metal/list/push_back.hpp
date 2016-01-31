@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename val>
+        struct push_back;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename val>
-    struct push_back
-    {};
+    using push_back = detail::push_back<list, val>;
 
     /// \ingroup list
     /// Eager adaptor for \ref push_back.
@@ -24,10 +29,20 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename... vals, typename val>
-    struct push_back<list<vals...>, val> :
-        copy<list<vals...>, metal::list<vals..., val>>
-    {};
+    namespace detail
+    {
+        template<typename list, typename val>
+        struct push_back
+        {};
+
+        template<
+            template<typename...> class list, typename... vals,
+            typename val
+        >
+        struct push_back<list<vals...>, val> :
+            copy<list<vals...>, metal::list<vals..., val>>
+        {};
+    }
 }
 
 #endif

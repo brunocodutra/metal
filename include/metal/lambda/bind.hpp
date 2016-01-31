@@ -7,16 +7,21 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename lbd, typename... vals>
+        struct bind;
+    }
+
     /// \ingroup lambda
     /// ...
-    template<typename...>
-    struct bind
-    {};
+    template<typename lbd, typename... vals>
+    using bind = detail::bind<lbd, vals...>;
 
     /// \ingroup lambda
     /// Eager adaptor for \ref bind.
-    template<typename... _>
-    using bind_t = typename metal::bind<_...>::type;
+    template<typename lbd, typename... vals>
+    using bind_t = typename metal::bind<lbd, vals...>::type;
 }
 
 #include <metal/lambda/invoke.hpp>
@@ -24,11 +29,14 @@ namespace metal
 
 namespace metal
 {
-    template<typename lbd, typename... args>
-    struct bind<lbd, args...>
+    namespace detail
     {
-        using type = invoke<quote_t<lbd>, args...>;
-    };
+        template<typename lbd, typename... args>
+        struct bind
+        {
+            using type = invoke<quote_t<lbd>, args...>;
+        };
+    }
 }
 
 #endif

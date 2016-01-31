@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename lbd>
+        struct partition;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename lbd>
-    struct partition;
+    using partition = detail::partition<list, lbd>;
 
     /// \ingroup list
     /// Eager adaptor for \ref partition.
@@ -21,20 +27,21 @@ namespace metal
 #include <metal/list/copy_if.hpp>
 #include <metal/pair/pair.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lift.hpp>
-#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/number/logical/not.hpp>
 
 namespace metal
 {
-    template<typename list, typename lbd>
-    struct partition :
-        invoke<
-            lift_t<lambda<pair>>,
-            copy_if<list, list, lbd>,
-            copy_if<list, list, not_<lbd>>
-        >
-    {};
+    namespace detail
+    {
+        template<typename list, typename lbd>
+        struct partition :
+            invoke<
+                pair<copy_if<_1, _1, _2>, copy_if<_1, _1, _3>>,
+                list, lbd, not_<lbd>
+            >
+        {};
+    }
 }
 
 #endif

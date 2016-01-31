@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename lbd>
+        struct find_if;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename lbd>
-    struct find_if;
+    using find_if = detail::find_if<list, lbd>;
 
     /// \ingroup list
     /// Eager adaptor for \ref find_if.
@@ -31,13 +37,16 @@ namespace metal
 
 namespace metal
 {
-    template<typename list, typename lbd>
-    struct find_if :
-        invoke<
-            first<front<copy_if<_1, transpose<pair<indices<_2>, _2>>, _3>>>,
-            metal::list<>, list, bind_t<lbd, second<_1>>
-        >
-    {};
+    namespace detail
+    {
+        template<typename list, typename lbd>
+        struct find_if :
+            invoke<
+                first<front<copy_if<_1, transpose<pair<indices<_2>, _2>>, _3>>>,
+                metal::list<>, list, bind_t<lbd, second<_1>>
+            >
+        {};
+    }
 }
 
 #endif

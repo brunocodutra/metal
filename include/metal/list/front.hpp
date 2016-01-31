@@ -7,22 +7,34 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct front;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list>
-    struct front
-    {};
+    using front = detail::front<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref front.
     template<typename list>
     using front_t = typename metal::front<list>::type;
 
-    template<template<typename...> class list, typename head, typename... tail>
-    struct front<list<head, tail...>>
+    namespace detail
     {
-        using type = head;
-    };
+        template<typename list>
+        struct front
+        {};
+
+        template<template<typename...> class list, typename head, typename... tail>
+        struct front<list<head, tail...>>
+        {
+            using type = head;
+        };
+    }
 }
 
 #endif

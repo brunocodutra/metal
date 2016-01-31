@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename lbd>
+        struct count_if;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename lbd>
-    struct count_if
-    {};
+    using count_if = detail::count_if<list, lbd>;
 
     /// \ingroup list
     /// Eager adaptor for \ref count_if.
@@ -33,19 +38,26 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename... vals, typename lbd>
-    struct count_if<list<vals...>, lbd> :
-        invoke<
-            add<
-                number<std::ptrdiff_t, 0>,
-                conditional<
-                    bind_t<lbd, quote_t<vals>>,
-                    number<std::ptrdiff_t, 1>,
-                    number<std::ptrdiff_t, 0>
-                >...
+    namespace detail
+    {
+        template<typename list, typename lbd>
+        struct count_if
+        {};
+
+        template<template<typename...> class list, typename... vals, typename lbd>
+        struct count_if<list<vals...>, lbd> :
+            invoke<
+                add<
+                    number<std::ptrdiff_t, 0>,
+                    conditional<
+                        bind_t<lbd, quote_t<vals>>,
+                        number<std::ptrdiff_t, 1>,
+                        number<std::ptrdiff_t, 0>
+                    >...
+                >
             >
-        >
-    {};
+        {};
+    }
 }
 
 #endif

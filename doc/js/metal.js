@@ -74,12 +74,12 @@ $( document ).ready(function(){
                     if(this.nodeType == 3){
                         this.data = this.data
                             .replace(
-                                /= typedef( typename)? detail::.*/i,
+                                /= typedef( typename)? detail::.*/g,
                                 "= /*unspecified*/"
                             )
-                            .replace(/= typedef/i, "=")
+                            .replace(/= typedef/g, "=")
                             .replace(
-                                /detail::[_a-zA-Z_]+/i,
+                                /detail::[_a-zA-Z_]+/g,
                                 "/*unspecified*/"
                             );
                     }

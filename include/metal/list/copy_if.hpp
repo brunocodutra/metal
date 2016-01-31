@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename to, typename from, typename lbd>
+        struct copy_if;
+    }
+
     /// \ingroup list
     /// ...
     template<typename to, typename from, typename lbd>
-    struct copy_if;
+    using copy_if = detail::copy_if<to, from, lbd>;
 
     /// \ingroup list
     /// Eager adaptor for \ref copy_if.
@@ -20,23 +26,27 @@ namespace metal
 
 #include <metal/list/list.hpp>
 #include <metal/list/copy.hpp>
+#include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lift.hpp>
+#include <metal/lambda/apply.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/optional/conditional.hpp>
 
 namespace metal
 {
-    template<typename to, template<typename...> class from, typename... fs, typename lbd>
-    struct copy_if<to, from<fs...>, lbd> :
-        invoke<
-            copy<quote_t<to>, lift_t<lambda<join>>>,
-            invoke<conditional<bind_t<lbd, _1>, list<_1>, list<>>, fs>...
-        >
-    {};
+    namespace detail
+    {
+        template<typename to, typename from, typename lbd>
+        struct copy_if :
+            invoke<
+                copy<_1, apply<quote_t<lambda<join>>, transform<_2, _3>>>,
+                to, from, conditional<bind_t<lbd, _1>, list<_1>, list<>>
+            >
+        {};
+    }
 }
 
 #endif

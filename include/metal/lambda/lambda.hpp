@@ -7,22 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<template<typename...> class expr>
+        struct lambda;
+    }
+
     /// \ingroup lambda
     /// ...
     template<template<typename...> class expr>
-    struct lambda;
-}
-
-#include <metal/lambda/invoke.hpp>
-
-namespace metal
-{
-    template<template<typename...> class expr>
-    struct lambda
-    {
-        template<typename... args>
-        using type = invoke_t<lambda, args...>;
-    };
+    using lambda = detail::lambda<expr>;
 }
 
 #endif

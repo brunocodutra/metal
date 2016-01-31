@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct indices;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list>
-    struct indices
-    {};
+    using indices = detail::indices<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref indices.
@@ -25,10 +30,17 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename... vals>
-    struct indices<list<vals...>> :
-        copy<list<vals...>, enumerate_t<size_t<list<vals...>>>>
-    {};
+    namespace detail
+    {
+        template<typename list>
+        struct indices
+        {};
+
+        template<template<typename...> class list, typename... vals>
+        struct indices<list<vals...>> :
+            copy<list<vals...>, enumerate_t<size_t<list<vals...>>>>
+        {};
+    }
 }
 
 #endif

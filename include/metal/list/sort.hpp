@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename lbd>
+        struct sort;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename lbd>
-    struct sort
-    {};
+    using sort = detail::sort<list, lbd>;
 
     /// \ingroup list
     /// Eager adaptor for \ref sort.
@@ -27,38 +32,47 @@ namespace metal
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lift.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/lambda/quote.hpp>
 
 namespace metal
 {
-    template<typename head, typename... tail, typename lbd>
-    struct sort<list<head, tail...>, lbd> :
-        invoke<
-            lift_t<join<sort<first<_1>, _2>, _3, sort<second<_1>, _2>>>,
-            partition<list<tail...>, bind_t<lbd, _1, head>>,
-            just<lbd>,
-            list<head>
+    namespace detail
+    {
+        template<typename list, typename lbd>
+        struct sort
+        {};
+
+        template<typename head, typename... tail, typename lbd>
+        struct sort<list<head, tail...>, lbd> :
+            invoke<
+                lift_t<join<sort<first<_1>, _2>, _3, sort<second<_1>, _2>>>,
+                partition<list<tail...>, bind_t<lbd, _1, head>>,
+                quote_t<lbd>,
+                list<head>
+            >
+        {};
+
+        template<typename val, typename lbd>
+        struct sort<list<val>, lbd> :
+            list<val>
+        {};
+
+        template<typename lbd>
+        struct sort<list<>, lbd> :
+            list<>
+        {};
+
+        template<
+            template<typename...> class list, typename... vals,
+            typename lbd
         >
-    {};
-
-    template<typename val, typename lbd>
-    struct sort<list<val>, lbd> :
-        list<val>
-    {};
-
-    template<typename lbd>
-    struct sort<list<>, lbd> :
-        list<>
-    {};
-
-    template<template<typename...> class list, typename... vals, typename lbd>
-    struct sort<list<vals...>, lbd> :
-        invoke<
-            lift_t<lambda<copy>>,
-            just<list<vals...>>,
-            sort<metal::list<vals...>, lbd>
-        >
-    {};
+        struct sort<list<vals...>, lbd> :
+            invoke<
+                copy<_1, sort<_2, _3>>,
+                list<vals...>, metal::list<vals...>, lbd
+            >
+        {};
+    }
 }
 
 #endif

@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename lbd, typename list>
+        struct apply;
+    }
+
     /// \ingroup lambda
     /// ...
     template<typename lbd, typename list>
-    struct apply
-    {};
+    using apply = detail::apply<lbd, list>;
 
     /// \ingroup lambda
     /// Eager adaptor for \ref apply.
@@ -25,15 +30,25 @@ namespace metal
 
 namespace metal
 {
-    template<typename lbd, template<typename...> class list, typename... args>
-    struct apply<lbd, list<args...>> :
-        invoke<lbd, args...>
-    {};
+    namespace detail
+    {
+        template<typename lbd, typename list>
+        struct apply
+        {};
 
-    template<template<typename...> class list, typename... args>
-    struct apply<lambda<list>, list<args...>> :
-        optional<list<args...>>
-    {};
+        template<
+            typename lbd,
+            template<typename...> class list, typename... vals
+        >
+        struct apply<lbd, list<vals...>> :
+            invoke<lbd, vals...>
+        {};
+
+        template<template<typename...> class list, typename... vals>
+        struct apply<lambda<list>, list<vals...>> :
+            optional<list<vals...>>
+        {};
+    }
 }
 
 #endif

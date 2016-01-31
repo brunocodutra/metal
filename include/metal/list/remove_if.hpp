@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename lbd>
+        struct remove_if;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename lbd>
-    struct remove_if;
+    using remove_if = detail::remove_if<list, lbd>;
 
     /// \ingroup list
     /// Eager adaptor for \ref remove_if.
@@ -23,10 +29,13 @@ namespace metal
 
 namespace metal
 {
-    template<typename list, typename lbd>
-    struct remove_if :
-        copy_if<list, list, not_<lbd>>
-    {};
+    namespace detail
+    {
+        template<typename list, typename lbd>
+        struct remove_if :
+            copy_if<list, list, not_<lbd>>
+        {};
+    }
 }
 
 #endif
