@@ -5,55 +5,89 @@
 #ifndef METAL_LIST_ERASE_HPP
 #define METAL_LIST_ERASE_HPP
 
-#include <metal/number/number.hpp>
+#include <metal/detail/nil.hpp>
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename, typename, typename = nil>
+        struct erase;
+    }
+
     /// \ingroup list
     /// ...
-    template<typename...>
-    struct erase
-    {};
+    template<typename list, typename begin, typename end = detail::nil>
+    using erase = detail::erase<list, begin, end>;
 
     /// \ingroup list
     /// Eager adaptor for \ref erase.
-    template<typename... _>
-    using erase_t = typename metal::erase<_...>::type;
+    template<typename list, typename begin, typename end = detail::nil>
+    using erase_t = typename metal::erase<list, begin, end>::type;
 }
 
 #include <metal/list/copy.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/size.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/invoke.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/arithmetic/inc.hpp>
-#include <metal/optional/conditional.hpp>
 
 namespace metal
 {
-    template<typename list, typename begin, begin b, typename end, end e>
-    struct erase<list, number<begin, b>, number<end, e>> :
-        conditional<
-            boolean<(e >= b)>,
-            invoke<
-                copy<
-                    _1,
-                    join<
-                        copy<_2, _1, integer<0>, number<begin, b>>,
-                        copy<_2, _1, number<end, e>, size<_1>>
-                    >
-                >,
-                list, metal::list<>
-            >
-        >
-    {};
+    namespace detail
+    {
+        template<typename, typename, typename, typename = boolean<true>>
+        struct erase_impl
+        {};
 
-    template<typename list, typename begin, begin b>
-    struct erase<list, number<begin, b>> :
-        invoke<erase<_1, number<begin, b>, inc_t<number<begin, b>>>, list>
-    {};
+        template<
+            template<typename...> class list, typename... vals,
+            typename begin, begin b, typename end, end e
+        >
+        struct erase_impl<
+            list<vals...>, number<begin, b>, number<end, e>,
+            boolean<(0 <= b && b < e && e <= sizeof...(vals))>
+        > :
+            copy<
+                list<vals...>,
+                join_t<
+                    copy_t<
+                        metal::list<>, list<vals...>,
+                        integer<0>, number<begin, b>
+                    >,
+                    copy_t<
+                        metal::list<>, list<vals...>,
+                        number<end, e>, size_t<list<vals...>>
+                    >
+                >
+            >
+        {};
+
+        template<typename list, typename begin, begin b, typename end, end e>
+        struct erase_impl<
+            list, number<begin, b>, number<end, e>,
+            boolean<(e < b)>
+        > :
+            erase_impl<list, number<end, e>, number<begin, b>>
+        {};
+
+        template<typename list, typename begin, typename end>
+        struct erase :
+            erase_impl<list, begin, end>
+        {};
+
+        template<typename list, typename begin, begin b, typename end>
+        struct erase<list, number<begin, b>, number<end, end(b)>>
+        {
+            using type = list;
+        };
+
+        template<typename list, typename begin, begin b>
+        struct erase<list, number<begin, b>> :
+            erase<list, number<begin, b>, inc_t<number<begin, b>>>
+        {};
+    }
 }
 
 #endif

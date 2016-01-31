@@ -9,10 +9,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<std::size_t n>
+        struct arg;
+    }
+
     /// \ingroup lambda
     /// ...
     template<std::size_t n>
-    struct arg;
+    using arg = detail::arg<n>;
 
     /// \defgroup placeholders Placeholders
     /// \ingroup lambda

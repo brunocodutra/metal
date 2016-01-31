@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename map, typename key>
+        struct erase_key;
+    }
+
     /// \ingroup map
     /// ...
     template<typename map, typename key>
-    struct erase_key;
+    using erase_key = detail::erase_key<map, key>;
 
     /// \ingroup map
     /// Eager adaptor for \ref erase_key.
@@ -21,20 +27,33 @@ namespace metal
 #include <metal/map/has_key.hpp>
 #include <metal/map/order.hpp>
 #include <metal/list/erase.hpp>
-#include <metal/optional/conditional.hpp>
-#include <metal/optional/optional.hpp>
-#include <metal/optional/eval.hpp>
+#include <metal/number/number.hpp>
+#include <metal/number/logical/not.hpp>
 
 namespace metal
 {
-    template<typename map, typename key>
-    struct erase_key:
-        conditional<
-            eval<has_key<map, key>, nothing>,
-            invoke<erase<_1, order<_1, _2>>, map, key>,
-            just<map>
-        >
-    {};
+    namespace detail
+    {
+        template<typename map, typename key, typename = boolean<true>>
+        struct erase_key_impl
+        {};
+
+        template<typename map, typename key>
+        struct erase_key_impl<map, key, not_t<has_key_t<map, key>>>
+        {
+            using type = map;
+        };
+
+        template<typename map, typename key>
+        struct erase_key_impl<map, key, has_key_t<map, key>> :
+            erase<map, order_t<map, key>>
+        {};
+
+        template<typename map, typename key>
+        struct erase_key :
+            erase_key_impl<map, key>
+        {};
+    }
 }
 
 #endif

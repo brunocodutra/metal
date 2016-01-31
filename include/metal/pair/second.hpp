@@ -25,25 +25,25 @@ namespace metal
 }
 
 #include <metal/pair/pair.hpp>
-#include <metal/optional/conditional.hpp>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename pair>
+        template<typename pair, typename = boolean<true>>
         struct second_impl
         {};
 
         template<template<typename...> class pair, typename x, typename y>
-        struct second_impl<pair<x, y>>
+        struct second_impl<pair<x, y>, is_pair_t<pair<x, y>>>
         {
             using type = y;
         };
 
         template<typename pair>
         struct second :
-            conditional<is_pair_t<pair>, second_impl<pair>>
+            second_impl<pair>
         {};
     }
 }

@@ -105,8 +105,8 @@ namespace metal
     /// See Also
     /// --------
     /// \see number
-    template<typename... args>
-    using enumerate = detail::enumerate<args...>;
+    template<typename... _>
+    using enumerate = detail::enumerate<_...>;
 
     /// \ingroup number
     /// Eager adaptor for \ref enumerate.

@@ -7,27 +7,36 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename val>
+        struct quote;
+    }
+
     /// \ingroup lambda
     /// ...
     template<typename val>
-    struct quote;
+    using quote = detail::quote<val>;
 
     /// \ingroup lambda
     /// Eager adaptor for \ref quote.
     template<typename val>
     using quote_t = typename metal::quote<val>::type;
 
-    template<typename val>
-    struct quote
+    namespace detail
     {
-        template<typename...>
-        struct _
+        template<typename val>
+        struct quote
         {
-            using type = val;
-        };
+            template<typename...>
+            struct _
+            {
+                using type = val;
+            };
 
-        using type = _<>;
-    };
+            using type = _<>;
+        };
+    }
 }
 
 #endif

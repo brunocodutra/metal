@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename val>
+        struct remove;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename val>
-    struct remove;
+    using remove = detail::remove<list, val>;
 
     /// \ingroup list
     /// Eager adaptor for \ref remove.
@@ -26,10 +32,13 @@ namespace metal
 
 namespace metal
 {
-    template<typename list, typename val>
-    struct remove :
-        remove_if<list, std::is_same<_1, quote_t<val>>>
-    {};
+    namespace detail
+    {
+        template<typename list, typename val>
+        struct remove :
+            remove_if<list, std::is_same<_1, quote_t<val>>>
+        {};
+    }
 }
 
 #endif

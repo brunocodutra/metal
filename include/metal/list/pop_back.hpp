@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct pop_back;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list>
-    struct pop_back
-    {};
+    using pop_back = detail::pop_back<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref pop_back.
@@ -25,10 +30,21 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename head, typename... tail>
-    struct pop_back<list<head, tail...>> :
-        erase<list<head, tail...>, dec_t<size_t<list<head, tail...>>>>
-    {};
+    namespace detail
+    {
+        template<typename list>
+        struct pop_back
+        {};
+
+        template<
+            template<typename...> class list,
+            typename head,
+            typename... tail
+        >
+        struct pop_back<list<head, tail...>> :
+            erase<list<head, tail...>, dec_t<size_t<list<head, tail...>>>>
+        {};
+    }
 }
 
 #endif

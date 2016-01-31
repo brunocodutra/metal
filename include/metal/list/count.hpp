@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename val>
+        struct count;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename val>
-    struct count;
+    using count = detail::count<list, val>;
 
     /// \ingroup list
     /// Eager adaptor for \ref count.
@@ -26,10 +32,13 @@ namespace metal
 
 namespace metal
 {
-    template<typename list, typename val>
-    struct count :
-        count_if<list, std::is_same<_1, quote_t<val>>>
-    {};
+    namespace detail
+    {
+        template<typename list, typename val>
+        struct count :
+            count_if<list, std::is_same<_1, quote_t<val>>>
+        {};
+    }
 }
 
 #endif

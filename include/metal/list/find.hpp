@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename val>
+        struct find;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename val>
-    struct find;
+    using find = detail::find<list, val>;
 
     /// \ingroup list
     /// Eager adaptor for \ref find.
@@ -26,10 +32,13 @@ namespace metal
 
 namespace metal
 {
-    template<typename list, typename val>
-    struct find :
-        find_if<list, std::is_same<_1, quote_t<val>>>
-    {};
+    namespace detail
+    {
+        template<typename list, typename val>
+        struct find :
+            find_if<list, std::is_same<_1, quote_t<val>>>
+        {};
+    }
 }
 
 #endif

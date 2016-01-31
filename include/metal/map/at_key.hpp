@@ -28,8 +28,8 @@ namespace metal
 #include <metal/map/keys.hpp>
 #include <metal/map/values.hpp>
 #include <metal/pair/pair.hpp>
+#include <metal/number/number.hpp>
 #include <metal/optional/optional.hpp>
-#include <metal/optional/conditional.hpp>
 
 #include <metal/detail/declptr.hpp>
 
@@ -54,16 +54,18 @@ namespace metal
             pair<keys, vals>...
         {};
 
+        template<typename map, typename key, typename = boolean<true>>
+        struct at_key_impl
+        {};
+
         template<typename map, typename key>
-        struct at_key_impl :
-            decltype(
-                lookup<key>(declptr<hash<keys_t<map>, values_t<map>>>())
-            )
+        struct at_key_impl<map, key, is_map_t<map>> :
+            decltype(lookup<key>(declptr<hash<keys_t<map>, values_t<map>>>()))
         {};
 
         template<typename map, typename key>
         struct at_key :
-            conditional<is_map_t<map>, at_key_impl<map, key>>
+            at_key_impl<map, key>
         {};
     }
 }
