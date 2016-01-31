@@ -130,18 +130,12 @@ namespace metal
         template<typename, typename, typename>
         struct stretch;
 
-        template<
-            template<typename...> class list,
-            typename u, u a, typename v, v b
-        >
+        template<typename u, u a, typename v, v b>
         struct stretch<list<>, number<u, a>, number<v, b>> :
             list<>
         {};
 
-        template<
-            template<typename...> class list, typename t, t... ns,
-            typename u, u a, typename v, v b
-        >
+        template<typename t, t... ns, typename u, u a, typename v, v b>
         struct stretch<list<number<t, ns>...>, number<u, a>, number<v, b>> :
             numbers<v, b + a*ns...>
         {};

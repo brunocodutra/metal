@@ -37,10 +37,10 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list,
+            template<typename...> class expr,
             typename... vals, typename val
         >
-        struct contains<list<vals...>, val> :
+        struct contains<expr<vals...>, val> :
             or_<typename std::is_same<vals, val>::type...>
         {};
     }

@@ -37,12 +37,11 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list,
-            typename head,
-            typename... tail
+            template<typename...> class expr,
+            typename head, typename... tail
         >
-        struct pop_back<list<head, tail...>> :
-            erase<list<head, tail...>, dec_t<size_t<list<head, tail...>>>>
+        struct pop_back<expr<head, tail...>> :
+            erase<expr<head, tail...>, dec_t<size_t<expr<head, tail...>>>>
         {};
     }
 }

@@ -57,20 +57,20 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list,
+            template<typename...> class expr,
             typename head, typename... tail
         >
-        struct distinct<list<head, tail...>> :
+        struct distinct<expr<head, tail...>> :
             decltype(
                 is_unambiguously_derived_from<
-                    inherit<metal::list<head>, metal::list<tail>...>,
-                    metal::list<head>, metal::list<tail>...
+                    inherit<list<head>, list<tail>...>,
+                    list<head>, list<tail>...
                 >(0)
             )
         {};
 
-        template<template<typename...> class list, typename... vals>
-        struct distinct<list<vals...>> :
+        template<template<typename...> class expr, typename... vals>
+        struct distinct<expr<vals...>> :
             boolean<true>
         {};
     }

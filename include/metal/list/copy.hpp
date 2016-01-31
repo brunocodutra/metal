@@ -135,12 +135,12 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list,
+            template<typename...> class expr,
             typename... ts, typename... fs
         >
-        struct copy<list<ts...>, list<fs...>>
+        struct copy<expr<ts...>, expr<fs...>>
         {
-            using type = list<fs...>;
+            using type = expr<fs...>;
         };
     }
 }

@@ -44,8 +44,11 @@ namespace metal
         struct count_if
         {};
 
-        template<template<typename...> class list, typename... vals, typename lbd>
-        struct count_if<list<vals...>, lbd> :
+        template<
+            template<typename...> class expr,
+            typename... vals, typename lbd
+        >
+        struct count_if<expr<vals...>, lbd> :
             invoke<
                 add<
                     number<std::ptrdiff_t, 0>,

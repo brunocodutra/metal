@@ -37,34 +37,34 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list,
+            template<typename...> class expr,
             typename... xs, typename... ys, typename... zs,
             typename... lists
         >
-        struct join<list<xs...>, list<ys...>, list<zs...>, lists...> :
+        struct join<expr<xs...>, expr<ys...>, expr<zs...>, lists...> :
             reduce<
-                join<list<xs...>, list<ys...>, list<zs...>, lists...>,
+                join<expr<xs...>, expr<ys...>, expr<zs...>, lists...>,
                 lambda<join>
             >
         {};
 
         template<
-            template<typename...> class list,
+            template<typename...> class expr,
             typename... xs, typename... ys, typename... zs
         >
-        struct join<list<xs...>, list<ys...>, list<zs...>> :
-            copy<list<xs...>, metal::list<xs..., ys..., zs...>>
+        struct join<expr<xs...>, expr<ys...>, expr<zs...>> :
+            copy<expr<xs...>, list<xs..., ys..., zs...>>
         {};
 
-        template<template<typename...> class list, typename... xs, typename... ys>
-        struct join<list<xs...>, list<ys...>> :
-            copy<list<xs...>, metal::list<xs..., ys...>>
+        template<template<typename...> class expr, typename... xs, typename... ys>
+        struct join<expr<xs...>, expr<ys...>> :
+            copy<expr<xs...>, list<xs..., ys...>>
         {};
 
-        template<template<typename...> class list, typename... xs>
-        struct join<list<xs...>>
+        template<template<typename...> class expr, typename... xs>
+        struct join<expr<xs...>>
         {
-            using type = list<xs...>;
+            using type = expr<xs...>;
         };
 
         template<typename x, typename y, typename z, typename... tail>

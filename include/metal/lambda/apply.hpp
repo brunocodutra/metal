@@ -38,15 +38,15 @@ namespace metal
 
         template<
             typename lbd,
-            template<typename...> class list, typename... vals
+            template<typename...> class expr, typename... vals
         >
-        struct apply<lbd, list<vals...>> :
+        struct apply<lbd, expr<vals...>> :
             invoke<lbd, vals...>
         {};
 
-        template<template<typename...> class list, typename... vals>
-        struct apply<lambda<list>, list<vals...>> :
-            optional<list<vals...>>
+        template<template<typename...> class expr, typename... vals>
+        struct apply<lambda<expr>, expr<vals...>> :
+            optional<expr<vals...>>
         {};
     }
 }

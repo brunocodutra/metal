@@ -36,9 +36,9 @@ namespace metal
         struct indices
         {};
 
-        template<template<typename...> class list, typename... vals>
-        struct indices<list<vals...>> :
-            copy<list<vals...>, enumerate_t<size_t<list<vals...>>>>
+        template<template<typename...> class expr, typename... vals>
+        struct indices<expr<vals...>> :
+            copy<expr<vals...>, enumerate_t<size_t<expr<vals...>>>>
         {};
     }
 }

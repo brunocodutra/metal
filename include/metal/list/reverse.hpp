@@ -32,12 +32,12 @@ namespace metal
 {
     namespace detail
     {
-        template<template<typename...> class list, typename... vals>
-        struct reverse<list<vals...>> :
+        template<template<typename...> class expr, typename... vals>
+        struct reverse<expr<vals...>> :
             copy<
-                list<vals...>,
-                list<vals...>,
-                size_t<list<vals...>>,
+                expr<vals...>,
+                expr<vals...>,
+                size_t<expr<vals...>>,
                 integer<0>
             >
         {};

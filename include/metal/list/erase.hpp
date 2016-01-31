@@ -42,23 +42,23 @@ namespace metal
         {};
 
         template<
-            template<typename...> class list, typename... vals,
+            template<typename...> class expr, typename... vals,
             typename begin, begin b, typename end, end e
         >
         struct erase_impl<
-            list<vals...>, number<begin, b>, number<end, e>,
+            expr<vals...>, number<begin, b>, number<end, e>,
             boolean<(0 <= b && b < e && e <= sizeof...(vals))>
         > :
             copy<
-                list<vals...>,
+                expr<vals...>,
                 join_t<
                     copy_t<
-                        metal::list<>, list<vals...>,
+                        list<>, expr<vals...>,
                         integer<0>, number<begin, b>
                     >,
                     copy_t<
-                        metal::list<>, list<vals...>,
-                        number<end, e>, size_t<list<vals...>>
+                        list<>, expr<vals...>,
+                        number<end, e>, size_t<expr<vals...>>
                     >
                 >
             >

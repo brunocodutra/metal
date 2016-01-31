@@ -47,10 +47,10 @@ namespace metal
         struct hash;
 
         template<
-            template<typename...> class list,
+            template<typename...> class expr,
             typename... keys, typename... vals
         >
-        struct hash<list<keys...>, list<vals...>> :
+        struct hash<expr<keys...>, expr<vals...>> :
             pair<keys, vals>...
         {};
 

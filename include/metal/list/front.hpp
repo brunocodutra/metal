@@ -29,8 +29,8 @@ namespace metal
         struct front
         {};
 
-        template<template<typename...> class list, typename head, typename... tail>
-        struct front<list<head, tail...>>
+        template<template<typename...> class expr, typename head, typename... tail>
+        struct front<expr<head, tail...>>
         {
             using type = head;
         };

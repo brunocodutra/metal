@@ -49,8 +49,8 @@ namespace metal
             boolean<false>
         {};
 
-        template<template<typename...> class list, typename... vals>
-        struct is_list<list<vals...>> :
+        template<template<typename...> class expr, typename... vals>
+        struct is_list<expr<vals...>> :
             boolean<true>
         {};
     }
