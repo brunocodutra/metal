@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct back;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list>
-    struct back
-    {};
+    using back = detail::back<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref back.
@@ -25,10 +30,20 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename head, typename... tail>
-    struct back<list<head, tail...>> :
-        at<list<head, tail...>, dec_t<size_t<list<head, tail...>>>>
-    {};
+    namespace detail
+    {
+        template<typename list>
+        struct back
+        {};
+
+        template<
+            template<typename...> class expr,
+            typename head, typename... tail
+        >
+        struct back<expr<head, tail...>> :
+            at<expr<head, tail...>, dec_t<size_t<expr<head, tail...>>>>
+        {};
+    }
 }
 
 #endif

@@ -479,8 +479,8 @@ Now that may look silly put in a simple example like this one, but [...]
 \tip{
 To save typing, most [Expressions] in Metal have an associated eager adaptor
 suffixed by `_t`, that is,
-given an expression `metal::$`,
-`metal::$_t<...>` is equivalent to `typename metal::$<...>::type`.
+given an expression `metal::expr`,
+`metal::expr_t<...>` is equivalent to `typename metal::expr<...>::type`.
 }
 
 [Value]:            \ref concepts_value

@@ -32,17 +32,17 @@ namespace metal
         struct inherit_impl;
 
         template<
-            template<typename...> class list,
+            template<typename...> class expr,
             typename... _,
             typename... bases
         >
-        struct inherit_impl<list<_...>, bases...> :
+        struct inherit_impl<expr<_...>, bases...> :
             inherit_second<_, bases>...
         {};
 
         template<typename... bases>
         struct inherit :
-            detail::inherit_impl<
+            inherit_impl<
                 enumerate_t<number<std::size_t, sizeof...(bases)>>,
                 bases...
             >

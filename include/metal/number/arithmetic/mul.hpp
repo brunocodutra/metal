@@ -7,11 +7,47 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename... nums>
+        struct mul;
+    }
+
     /// \ingroup arithmetic
-    /// ...
+    /// Computes the multiplication of \numbers.
+    ///
+    /// Usage
+    /// -----
+    /// For any \values `val1, ..., valn`
+    /// \code
+    ///     using result = metal::mul<val1, ..., valn>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If all \values in `[val1, ..., valn]` are \numbers,
+    ///     then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::number<
+    ///                 decltype(val1::value * ... * valn::value),
+    ///                 val1::value * ... * valn::value
+    ///             >
+    ///         {};
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         using result = metal::nothing;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number/arithmetic.cpp mul
+    ///
+    /// See Also
+    /// --------
+    /// \see number, inc, dec, neg, add, sub, div, mod, pow
     template<typename... nums>
-    struct mul
-    {};
+    using mul = detail::mul<nums...>;
 
     /// \ingroup arithmetic
     /// Eager adaptor for \ref mul.
@@ -23,15 +59,22 @@ namespace metal
 
 namespace metal
 {
-    template<typename tx, tx vx>
-    struct mul<number<tx, vx>> :
-        number<tx, vx>
-    {};
+    namespace detail
+    {
+        template<typename... nums>
+        struct mul
+        {};
 
-    template<typename tx, tx vx, typename ty, ty vy, typename... nums>
-    struct mul<number<tx, vx>, number<ty, vy>, nums...> :
-        mul<number<decltype(vx * vy), vx * vy>, nums...>
-    {};
+        template<typename tx, tx vx>
+        struct mul<number<tx, vx>> :
+            number<tx, vx>
+        {};
+
+        template<typename tx, tx vx, typename ty, ty vy, typename... nums>
+        struct mul<number<tx, vx>, number<ty, vy>, nums...> :
+            mul<number<decltype(vx * vy), vx * vy>, nums...>
+        {};
+    }
 }
 
 #endif

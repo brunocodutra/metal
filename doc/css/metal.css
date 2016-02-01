@@ -96,10 +96,17 @@ pre.fragment, code {
     background-color: #F9F9F9;
     color: #C7254E;
     white-space: pre;
+    word-wrap: normal;
+    word-break: keep-all;
 }
 
 pre.fragment {
     border: 1px solid #EEEEEE;
+}
+
+pre.fragment div.line:after {
+    content: "\000A";
+    white-space: pre;
 }
 
 span.keyword, span.keywordflow, span.keywordtype {

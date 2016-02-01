@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct empty;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list>
-    struct empty
-    {};
+    using empty = detail::empty<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref empty.
@@ -24,10 +29,17 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename... vals>
-    struct empty<list<vals...>> :
-        not_<size_t<list<vals...>>>
-    {};
+    namespace detail
+    {
+        template<typename list>
+        struct empty
+        {};
+
+        template<template<typename...> class expr, typename... vals>
+        struct empty<expr<vals...>> :
+            not_<size_t<expr<vals...>>>
+        {};
+    }
 }
 
 #endif

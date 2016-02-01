@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct same;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list>
-    struct same
-    {};
+    using same = detail::same<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref same.
@@ -35,16 +40,23 @@ namespace metal
             boolean<true>
         {};
 
-        template<>
-        struct same_impl<> :
+        template<typename list>
+        struct same
+        {};
+
+        template<
+            template<typename...> class expr,
+            typename head, typename... tail
+        >
+        struct same<expr<head, tail...>> :
+            same_impl<same<head>, same<tail>...>
+        {};
+
+        template<template<typename...> class expr, typename... vals>
+        struct same<expr<vals...>> :
             boolean<true>
         {};
     }
-
-    template<template<typename...> class list, typename... vals>
-    struct same<list<vals...>> :
-        detail::same_impl<same<vals>...>
-    {};
 }
 
 #endif

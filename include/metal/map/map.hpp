@@ -9,15 +9,21 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename map>
+        struct is_map;
+    }
+
     /// \ingroup map
     /// ...
     template<typename... pairs>
-    using map = list<pairs...>;
+    using map = metal::list<pairs...>;
 
     /// \ingroup map
     /// ...
     template<typename map>
-    struct is_map;
+    using is_map = detail::is_map<map>;
 
     /// \ingroup map
     /// Eager adaptor for \ref is_map.
@@ -26,34 +32,35 @@ namespace metal
 }
 
 
-#include <metal/list/distinct.hpp>
-#include <metal/list/empty.hpp>
-#include <metal/number/logical/and.hpp>
-#include <metal/optional/conditional.hpp>
-#include <metal/optional/optional.hpp>
 #include <metal/pair/pair.hpp>
+#include <metal/list/empty.hpp>
+#include <metal/list/distinct.hpp>
+#include <metal/number/logical/and.hpp>
 
 namespace metal
 {
-    template<typename>
-    struct is_map :
-        boolean<false>
-    {};
+    namespace detail
+    {
+        template<typename>
+        struct is_map :
+            boolean<false>
+        {};
 
-    template<template<typename...> class map>
-    struct is_map<map<>> :
-        empty<map<>>
-    {};
+        template<template<typename...> class map>
+        struct is_map<map<>> :
+            empty<map<>>
+        {};
 
-    template<
-        template<typename...> class map,
-        template<typename...> class... pairs,
-        typename... keys,
-        typename... vals
-    >
-    struct is_map<map<pairs<keys, vals>...>> :
-        and_<is_pair_t<pairs<keys, vals>>..., distinct_t<list<keys...>>>
-    {};
+        template<
+            template<typename...> class map,
+            template<typename...> class... pairs,
+            typename... keys,
+            typename... vals
+        >
+        struct is_map<map<pairs<keys, vals>...>> :
+            and_<is_pair_t<pairs<keys, vals>>..., distinct_t<map<keys...>>>
+        {};
+    }
 }
 
 #endif

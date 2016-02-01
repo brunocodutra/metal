@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename from, typename to>
+        struct replace;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename from, typename to>
-    struct replace;
+    using replace = detail::replace<list, from, to>;
 
     /// \ingroup list
     /// Eager adaptor for \ref replace.
@@ -26,10 +32,13 @@ namespace metal
 
 namespace metal
 {
-    template<typename list, typename from, typename to>
-    struct replace :
-        replace_if<list, std::is_same<_1, quote_t<from>>, to>
-    {};
+    namespace detail
+    {
+        template<typename list, typename from, typename to>
+        struct replace :
+            replace_if<list, std::is_same<_1, quote_t<from>>, to>
+        {};
+    }
 }
 
 #endif

@@ -9,15 +9,21 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename pair>
+        struct is_pair;
+    }
+
     /// \ingroup pair
     /// ...
     template<typename x, typename y>
-    using pair = list<x, y>;
+    using pair = metal::list<x, y>;
 
     /// \ingroup pair
     /// ...
     template<typename pair>
-    struct is_pair;
+    using is_pair = detail::is_pair<pair>;
 
     /// \ingroup pair
     /// Eager adaptor for \ref is_pair.
@@ -31,15 +37,18 @@ namespace metal
 
 namespace metal
 {
-    template<typename>
-    struct is_pair :
-        boolean<false>
-    {};
+    namespace detail
+    {
+        template<typename>
+        struct is_pair :
+            boolean<false>
+        {};
 
-    template<template<typename...> class pair, typename x, typename y>
-    struct is_pair<pair<x, y>> :
-        equal_to<size_t<pair<x, y>>, integer<2>>
-    {};
+        template<template<typename...> class pair, typename x, typename y>
+        struct is_pair<pair<x, y>> :
+            equal_to<size_t<pair<x, y>>, integer<2>>
+        {};
+    }
 }
 
 #endif

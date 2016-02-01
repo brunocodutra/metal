@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct reverse;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list>
-    struct reverse
-    {};
+    using reverse = detail::reverse<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref reverse.
@@ -25,10 +30,18 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename... vals>
-    struct reverse<list<vals...>> :
-        copy<list<vals...>, list<vals...>, size_t<list<vals...>>, integer<0>>
-    {};
+    namespace detail
+    {
+        template<template<typename...> class expr, typename... vals>
+        struct reverse<expr<vals...>> :
+            copy<
+                expr<vals...>,
+                expr<vals...>,
+                size_t<expr<vals...>>,
+                integer<0>
+            >
+        {};
+    }
 }
 
 #endif

@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename lbd>
+        struct transform;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename lbd>
-    struct transform
-    {};
+    using transform = detail::transform<list, lbd>;
 
     /// \ingroup list
     /// Eager adaptor for \ref transform.
@@ -26,10 +31,21 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename... args, typename lbd>
-    struct transform<list<args...>, lbd> :
-        invoke<lift_t<defer_t<lambda<list>>>, invoke<lbd, args>...>
-    {};
+    namespace detail
+    {
+        template<typename list, typename lbd>
+        struct transform
+        {};
+
+        template<
+            template<typename...> class expr,
+            typename... vals,
+            typename lbd
+        >
+        struct transform<expr<vals...>, lbd> :
+            invoke<lift_t<defer_t<lambda<expr>>>, invoke<lbd, vals>...>
+        {};
+    }
 }
 
 #endif

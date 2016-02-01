@@ -7,72 +7,97 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename lbd, typename... args>
+        struct invoke;
+    }
+
     /// \ingroup lambda
     /// ...
-    template<typename...>
-    struct invoke
-    {};
+    template<typename lbd, typename... args>
+    using invoke = detail::invoke<lbd, args...>;
 
     /// \ingroup lambda
     /// Eager adaptor for \ref invoke.
-    template<typename... _>
-    using invoke_t = typename metal::invoke<_...>::type;
+    template<typename lbd, typename... args>
+    using invoke_t = typename metal::invoke<lbd, args...>::type;
 }
 
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/lambda/lift.hpp>
+#include <metal/lambda/quote.hpp>
 #include <metal/list/at.hpp>
+#include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
-#include <metal/optional/eval.hpp>
 #include <metal/optional/optional.hpp>
 
-#include <metal/detail/instantiate.hpp>
+#include <metal/detail/declptr.hpp>
 
 namespace metal
 {
-    template<template<typename...> class expr, typename... args>
-    struct invoke<lambda<expr>, args...> :
-        optional<eval<detail::instantiate<expr, args...>, nothing>>
-    {};
+    namespace detail
+    {
+        template<
+            template<typename...> class expr, typename... args,
+            typename ret = optional<expr<typename args::type...>>
+        >
+        ret invoke_impl(list<args...>*);
 
-    template<
-        template<typename...> class expr,
-        typename... params,
-        typename... args
-    >
-    struct invoke<expr<params...>, args...> :
-        invoke<lift_t<lambda<expr>>, invoke<params, args...>...>
-    {};
+        template<template<typename...> class>
+        nothing invoke_impl(...);
 
-    template<typename val, typename... args>
-    struct invoke<val, args...> :
-        just<val>
-    {};
+        template<typename val, typename... args>
+        struct invoke
+        {
+            using type = val;
+        };
 
-    template<std::size_t n, typename... args>
-    struct invoke<arg<n>, args...> :
-        at<invoke<arg<n>, args...>, number<std::size_t, n>>
-    {};
+        template<template<typename...> class expr, typename... args>
+        struct invoke<lambda<expr>, args...> :
+            decltype(invoke_impl<expr>(declptr<list<quote_t<args>...>>()))
+        {};
 
-    template<typename x, typename y, typename z, typename... tail>
-    struct invoke<arg<3U>, x, y, z, tail...> :
-        just<z>
-    {};
+        template<
+            template<typename...> class expr,
+            typename... params,
+            typename... args
+        >
+        struct invoke<expr<params...>, args...> :
+            decltype(
+                invoke_impl<expr>(
+                    declptr<list<invoke<params, args...>...>>()
+                )
+            )
+        {};
 
-    template<typename x, typename y, typename... tail>
-    struct invoke<arg<2U>, x, y, tail...> :
-        just<y>
-    {};
+        template<std::size_t n, typename... args>
+        struct invoke<arg<n>, args...> :
+            at<invoke<arg<n>, args...>, number<std::size_t, n>>
+        {};
 
-    template<typename x, typename... tail>
-    struct invoke<arg<1U>, x, tail...> :
-        just<x>
-    {};
+        template<typename x, typename y, typename z, typename... tail>
+        struct invoke<arg<3U>, x, y, z, tail...>
+        {
+            using type = z;
+        };
 
-    template<typename... args>
-    struct invoke<arg<0U>, args...>
-    {};
+        template<typename x, typename y, typename... tail>
+        struct invoke<arg<2U>, x, y, tail...>
+        {
+            using type = y;
+        };
+
+        template<typename x, typename... tail>
+        struct invoke<arg<1U>, x, tail...>
+        {
+            using type = x;
+        };
+
+        template<typename... args>
+        struct invoke<arg<0U>, args...>
+        {};
+    }
 }
 
 #endif

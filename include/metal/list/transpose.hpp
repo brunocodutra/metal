@@ -25,16 +25,15 @@ namespace metal
 }
 
 #include <metal/list/at.hpp>
-#include <metal/list/list.hpp>
 #include <metal/list/size.hpp>
 #include <metal/list/same.hpp>
+#include <metal/list/indices.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
+#include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/number/number.hpp>
-#include <metal/optional/conditional.hpp>
-#include <metal/optional/eval.hpp>
 
 namespace metal
 {
@@ -47,66 +46,64 @@ namespace metal
         template<typename list>
         using unbind_t = typename unbind<list>::type;
 
-        template<template<typename...> class list, typename... vals>
-        struct unbind<list<vals...>>
+        template<template<typename...> class expr, typename... vals>
+        struct unbind<expr<vals...>>
         {
-            using type = lambda<list>;
+            using type = lambda<expr>;
         };
 
-        template<typename, typename...>
-        struct zip
+        template<
+            typename,
+            typename = boolean<true>,
+            typename = boolean<true>,
+            typename = boolean<true>
+        >
+        struct transpose_impl
         {};
 
         template<
-            template<typename...> class zipper,
+            template<typename...> class outer,
             typename head, typename... tail
         >
-        struct zip<lambda<zipper>, head, tail...> :
-            conditional<
-                same_t<list<unbind_t<head>, unbind_t<tail>...>>,
-                transform<
-                    indices_t<head>,
-                    defer_t<
-                        zipper<at<quote_t<head>, _1>, at<quote_t<tail>, _1>...>
-                    >
-                >
+        struct transpose_impl<
+            outer<head, tail...>,
+            same_t<outer<size_t<head>, size_t<tail>...>>,
+            same_t<outer<unbind_t<head>, unbind_t<tail>...>>,
+            boolean<(sizeof...(tail) > 1)>
+        > :
+            transform<
+                indices_t<head>,
+                defer_t<outer<at<quote_t<head>, _1>, at<quote_t<tail>, _1>...>>
             >
         {};
 
         template<
-            template<typename...> class zipper,
-            template<typename...> class list,
+            template<typename...> class outer,
+            template<typename...> class inner,
             typename... xs, typename... ys
         >
-        struct zip<lambda<zipper>, list<xs...>, list<ys...>>
-        {
-            using type = list<zipper<xs, ys>...>;
-        };
-
-        template<
-            template<typename...> class zipper,
-            template<typename...> class list,
-            typename... xs
+        struct transpose_impl<
+            outer<inner<xs...>, inner<ys...>>,
+            boolean<sizeof...(xs) == sizeof...(ys)>
         >
-        struct zip<lambda<zipper>, list<xs...>>
         {
-            using type = list<zipper<xs>...>;
+            using type = inner<outer<xs, ys>...>;
         };
 
         template<typename list>
-        struct transpose
+        struct transpose :
+            transpose_impl<list>
         {};
 
-        template<template<typename...> class outer, typename head, typename... tail>
-        struct transpose<outer<head, tail...>> :
-            conditional<
-                eval<
-                    invoke<lift_t<same<lambda<list>>>, size<head>, size<tail>...>,
-                    nothing
-                >,
-                zip<lambda<outer>, head, tail...>
-            >
-        {};
+        template<
+            template<typename...> class outer,
+            template<typename...> class inner,
+            typename... xs
+        >
+        struct transpose<outer<inner<xs...>>>
+        {
+            using type = inner<outer<xs>...>;
+        };
     }
 }
 

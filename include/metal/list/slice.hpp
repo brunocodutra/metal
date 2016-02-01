@@ -9,6 +9,12 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename start, typename size, typename stride>
+        struct slice;
+    }
+
     /// \ingroup list
     /// ...
     template<
@@ -17,8 +23,7 @@ namespace metal
         typename size,
         typename stride = integer<1>
     >
-    struct slice
-    {};
+    using slice = detail::slice<list, start, size, stride>;
 
     /// \ingroup list
     /// Eager adaptor for \ref slice.
@@ -37,21 +42,31 @@ namespace metal
 #include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/quote.hpp>
-#include <metal/lambda/invoke.hpp>
 #include <metal/number/enumerate.hpp>
 #include <metal/number/arithmetic/mod.hpp>
 
 namespace metal
 {
-    template<typename list, typename t, t a, typename u, u b, typename v, v c>
-    struct slice<list, number<t, a>, number<u, b>, number<v, c>> :
-        invoke<
-            copy<_1, transform<_2, _3>>,
-            list,
-            enumerate_t<number<t, a>, number<u, b>, number<v, c>>,
-            at<quote_t<list>, mod<_1, size<quote_t<list>>>>
+    namespace detail
+    {
+        template<typename list, typename start, typename size, typename stride>
+        struct slice
+        {};
+
+        template<
+            template<typename...> class expr, typename... vals,
+            typename t, t a, typename u, u b, typename v, v c
         >
-    {};
+        struct slice<expr<vals...>, number<t, a>, number<u, b>, number<v, c>> :
+            copy<
+                expr<vals...>,
+                transform_t<
+                    enumerate_t<number<t, a>, number<u, b>, number<v, c>>,
+                    at<quote_t<expr<vals...>>, mod<_1, size_t<expr<vals...>>>>
+                >
+            >
+        {};
+    }
 }
 
 #endif
