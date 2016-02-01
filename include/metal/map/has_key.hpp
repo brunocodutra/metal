@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename map, typename key>
+        struct has_key;
+    }
+
     /// \ingroup map
     /// ...
     template<typename map, typename key>
-    struct has_key;
+    using has_key = detail::has_key<map, key>;
 
     /// \ingroup map
     /// Eager adaptor for \ref has_key.
@@ -20,15 +26,27 @@ namespace metal
 
 #include <metal/map/map.hpp>
 #include <metal/map/at_key.hpp>
-#include <metal/optional/conditional.hpp>
+#include <metal/number/number.hpp>
 #include <metal/optional/optional.hpp>
 
 namespace metal
 {
-    template<typename map, typename key>
-    struct has_key:
-        conditional<is_map_t<map>, is_just<at_key<map, key>>>
-    {};
+    namespace detail
+    {
+        template<typename map, typename key, typename = boolean<true>>
+        struct has_key_impl
+        {};
+
+        template<typename map, typename key>
+        struct has_key_impl<map, key, is_map_t<map>> :
+            is_just<at_key<map, key>>
+        {};
+
+        template<typename map, typename key>
+        struct has_key :
+            has_key_impl<map, key>
+        {};
+    }
 }
 
 #endif

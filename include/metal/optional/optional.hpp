@@ -5,31 +5,31 @@
 #ifndef METAL_OPTIONAL_OPTIONAL_HPP
 #define METAL_OPTIONAL_OPTIONAL_HPP
 
+#include <metal/detail/nil.hpp>
+
 namespace metal
 {
     namespace detail
     {
-        struct nil;
-
         template<typename...>
-        struct just_impl;
+        struct just;
 
         template<typename val>
-        struct just_impl<val>
+        struct just<val>
         {
-            using _ = just_impl<val>;
+            using _ = just<val>;
             using type = val;
         };
 
         template<>
-        struct just_impl<>
+        struct just<>
         {
-            using _ = just_impl<>;
+            using _ = just<>;
         };
 
         template<>
-        struct just_impl<nil> :
-            just_impl<>
+        struct just<nil> :
+            just<>
         {};
 
         template<typename opt>
@@ -49,15 +49,20 @@ namespace metal
     /// \endcode
     ///
     /// \par Semantics:
-    ///     equivalent to metal::nothing;
+    ///     Equivalent to
+    ///     \code
+    ///         struct result {};
+    ///     \endcode
     ///
-    /// For any \value `val`,
+    /// ________________________________________________________________________
+    ///
+    /// For any \value `val`
     /// \code
     ///     using result = metal::just<val>;
     /// \endcode
     ///
     /// \par Semantics:
-    ///     equivalent to
+    ///     Equivalent to
     ///     \code
     ///         struct result
     ///         {
@@ -73,7 +78,7 @@ namespace metal
     /// --------
     /// \see nothing, is_just
     template<typename val = detail::nil>
-    using just = typename detail::just_impl<val>::_;
+    using just = typename detail::just<val>::_;
 
     /// \ingroup optional
     /// A model of empty \optional.
@@ -88,13 +93,13 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \optional `opt`,
+    /// For any \optional `opt`
     /// \code
     ///     using result = metal::is_just<opt>;
     /// \endcode
     ///
     /// \par Semantics:
-    ///     if `opt::type` well defined and is a model of \value,
+    ///     If `opt::type` well defined and is a model of \value,
     ///     then equivalent to
     ///     \code
     ///         struct result :
@@ -128,13 +133,13 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \optional `opt`,
+    /// For any \optional `opt`
     /// \code
     ///     using result = metal::optional<opt>;
     /// \endcode
     ///
     /// \par Semantics:
-    ///     if `opt::type` well defined and is a model of \value,
+    ///     If `opt::type` well defined and is a model of \value,
     ///     then equivalent to
     ///     \code
     ///         struct result :
@@ -186,7 +191,12 @@ namespace metal
         {};
 
         template<typename val>
-        struct optional<just_impl<val>> :
+        struct optional<optional<val>> :
+            optional<val>
+        {};
+
+        template<typename val>
+        struct optional<just<val>> :
             just<val>
         {};
     }

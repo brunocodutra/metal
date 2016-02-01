@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename lbd, typename val>
+        struct replace_if;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list, typename lbd, typename val>
-    struct replace_if;
+    using replace_if = detail::replace_if<list, lbd, val>;
 
     /// \ingroup list
     /// Eager adaptor for \ref replace_if.
@@ -29,20 +35,22 @@ namespace metal
 
 namespace metal
 {
-    template<typename list, typename lbd, typename val>
-    struct replace_if :
-        invoke<
-            lift_t<copy<quote_t<list>, apply<quote_t<lambda<join>>, _1>>>,
-            transform<
+    namespace detail
+    {
+        template<typename list, typename lbd, typename val>
+        struct replace_if :
+            invoke<
+                copy<_1, apply<_2, transform<_1, _3>>>,
                 list,
+                lambda<join>,
                 conditional<
                     bind_t<lbd, _1>,
-                    metal::list<quote_t<val>>,
+                    quote_t<metal::list<val>>,
                     metal::list<_1>
                 >
             >
-        >
-    {};
+        {};
+    }
 }
 
 #endif

@@ -74,12 +74,12 @@ $( document ).ready(function(){
                     if(this.nodeType == 3){
                         this.data = this.data
                             .replace(
-                                /= typedef( typename)? detail::.*/i,
+                                /= typedef( typename)? detail::.*/g,
                                 "= /*unspecified*/"
                             )
-                            .replace(/= typedef/i, "=")
+                            .replace(/= typedef/g, "=")
                             .replace(
-                                /detail::[_a-zA-Z_]+/i,
+                                /detail::[_a-zA-Z_]+/g,
                                 "/*unspecified*/"
                             );
                     }
@@ -165,11 +165,6 @@ $( document ).ready(function(){
                 .remove();
         });
 
-    $("div.fragment div.line")
-        .replaceWith(function(){
-            return $(this).contents();
-        });
-
     $("div.fragment")
         .replaceWith(function(){
             return $("<pre class='fragment'>").append($(this).contents());
@@ -179,7 +174,6 @@ $( document ).ready(function(){
     $("a.el").wrapInner("<strong>");
     $("span.comment").addClass("text-muted");
 
-    $("hr").remove();
     $(".levels").remove();
     $(".summary").remove();
     $(".desc").remove();

@@ -7,7 +7,7 @@
 #include "example.hpp"
 
 /// [sum]
-using sum = metal::add<metal::integer<3>, metal::integer<4>>;
+using sum = metal::add</**/metal::integer<3>, metal::integer<4>>;
 /// [sum]
 
 /// [first]

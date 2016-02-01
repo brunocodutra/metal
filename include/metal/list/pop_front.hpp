@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct pop_front;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list>
-    struct pop_front
-    {};
+    using pop_front = detail::pop_front<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref pop_front.
@@ -24,10 +29,20 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename head, typename... tail>
-    struct pop_front<list<head, tail...>> :
-        copy<list<head, tail...>, metal::list<tail...>>
-    {};
+    namespace detail
+    {
+        template<typename list>
+        struct pop_front
+        {};
+
+        template<
+            template<typename...> class expr,
+            typename head, typename... tail
+        >
+        struct pop_front<expr<head, tail...>> :
+            copy<expr<head, tail...>, list<tail...>>
+        {};
+    }
 }
 
 #endif

@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct clear;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list>
-    struct clear;
+    using clear = detail::clear<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref clear.
@@ -23,10 +29,13 @@ namespace metal
 
 namespace metal
 {
-    template<typename list>
-    struct clear :
-        copy<list, metal::list<>>
-    {};
+    namespace detail
+    {
+        template<typename list>
+        struct clear :
+            copy<list, metal::list<>>
+        {};
+    }
 }
 
 #endif

@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename x, typename y>
+        struct equal;
+    }
+
     /// \ingroup list
     /// ...
     template<typename x, typename y>
-    struct equal
-    {};
+    using equal = detail::equal<x, y>;
 
     /// \ingroup list
     /// Eager adaptor for \ref equal.
@@ -25,13 +30,20 @@ namespace metal
 
 namespace metal
 {
-    template<
-        template<typename...> class x, typename... xs,
-        template<typename...> class y, typename... ys
-    >
-    struct equal<x<xs...>, y<ys...>> :
-        std::is_same<list<xs...>, list<ys...>>
-    {};
+    namespace detail
+    {
+        template<typename x, typename y>
+        struct equal
+        {};
+
+        template<
+            template<typename...> class x, typename... xs,
+            template<typename...> class y, typename... ys
+        >
+        struct equal<x<xs...>, y<ys...>> :
+            std::is_same<list<xs...>, list<ys...>>
+        {};
+    }
 }
 
 #endif

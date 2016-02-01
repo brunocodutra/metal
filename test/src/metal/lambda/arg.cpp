@@ -8,6 +8,7 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
+    ASSERT((metal::is_just_t<metal::arg<M>>), (FALSE)); \
     ASSERT((CAT(metal::_, INC(M))), (metal::arg<INC(M)>)); \
 /**/
 

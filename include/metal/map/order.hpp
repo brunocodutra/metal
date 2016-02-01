@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename map, typename key>
+        struct order;
+    }
+
     /// \ingroup map
     /// ...
     template<typename map, typename key>
-    struct order;
+    using order = detail::order<map, key>;
 
     /// \ingroup map
     /// Eager adaptor for \ref order.
@@ -28,10 +34,13 @@ namespace metal
 
 namespace metal
 {
-    template<typename map, typename key>
-    struct order :
-        invoke<at_key<transpose<pair<keys<_1>, indices<_1>>>, _2>, map, key>
-    {};
+    namespace detail
+    {
+        template<typename map, typename key>
+        struct order :
+            invoke<at_key<transpose<pair<keys<_1>, indices<_1>>>, _2>, map, key>
+        {};
+    }
 }
 
 #endif

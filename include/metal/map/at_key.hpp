@@ -28,17 +28,17 @@ namespace metal
 #include <metal/map/keys.hpp>
 #include <metal/map/values.hpp>
 #include <metal/pair/pair.hpp>
+#include <metal/number/number.hpp>
 #include <metal/optional/optional.hpp>
-#include <metal/optional/conditional.hpp>
 
-#include <utility>
+#include <metal/detail/declptr.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<typename key, typename val>
-        just<val> lookup(pair<key, val>&&);
+        just<val> lookup(pair<key, val>*);
 
         template<typename>
         nothing lookup(...);
@@ -47,23 +47,25 @@ namespace metal
         struct hash;
 
         template<
-            template<typename...> class list,
+            template<typename...> class expr,
             typename... keys, typename... vals
         >
-        struct hash<list<keys...>, list<vals...>> :
+        struct hash<expr<keys...>, expr<vals...>> :
             pair<keys, vals>...
         {};
 
+        template<typename map, typename key, typename = boolean<true>>
+        struct at_key_impl
+        {};
+
         template<typename map, typename key>
-        struct at_key_impl :
-            decltype(
-                lookup<key>(std::declval<hash<keys_t<map>, values_t<map>>>())
-            )
+        struct at_key_impl<map, key, is_map_t<map>> :
+            decltype(lookup<key>(declptr<hash<keys_t<map>, values_t<map>>>()))
         {};
 
         template<typename map, typename key>
         struct at_key :
-            conditional<is_map_t<map>, at_key_impl<map, key>>
+            at_key_impl<map, key>
         {};
     }
 }

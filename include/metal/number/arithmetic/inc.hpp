@@ -7,11 +7,46 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename num>
+        struct inc;
+    }
+
     /// \ingroup arithmetic
-    /// ...
+    /// Increments a \number.
+    ///
+    /// Usage
+    /// -----
+    /// For any \value `val`
+    /// \code
+    ///     using result = metal::inc<val>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If `val` is a \number, but not a boolean, then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::number<
+    ///                 val::value_type,
+    ///                 static_cast<val::value_type>(val::value + 1)
+    ///             >
+    ///         {};
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         using result = metal::nothing;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number/arithmetic.cpp inc
+    ///
+    /// See Also
+    /// --------
+    /// \see number, dec, neg, add, sub, mul, div, mod, pow
     template<typename num>
-    struct inc
-    {};
+    using inc = detail::inc<num>;
 
     /// \ingroup arithmetic
     /// Eager adaptor for \ref inc.
@@ -23,10 +58,21 @@ namespace metal
 
 namespace metal
 {
-    template<typename t, t v>
-    struct inc<number<t, v>> :
-        number<t, static_cast<t>(v + 1)>
-    {};
+    namespace detail
+    {
+        template<typename num>
+        struct inc
+        {};
+
+        template<bool v>
+        struct inc<boolean<v>>
+        {};
+
+        template<typename t, t v>
+        struct inc<number<t, v>> :
+            number<t, static_cast<t>(v + t(1))>
+        {};
+    }
 }
 
 #endif

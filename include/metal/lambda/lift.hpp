@@ -7,10 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename lbd>
+        struct lift;
+    }
+
     /// \ingroup lambda
     /// ...
     template<typename lbd>
-    struct lift;
+    using lift = detail::lift<lbd>;
 
     /// \ingroup lambda
     /// Eager adaptor for \ref lift.
@@ -24,14 +30,17 @@ namespace metal
 
 namespace metal
 {
-    template<typename lbd>
-    struct lift
+    namespace detail
     {
-        template<typename... args>
-        using _ = invoke<lbd, typename optional<args>::type...>;
+        template<typename lbd>
+        struct lift
+        {
+            template<typename... args>
+            using _ = invoke<lbd, typename optional<args>::type...>;
 
-        using type = lambda<_>;
-    };
+            using type = lambda<_>;
+        };
+    }
 }
 
 #endif

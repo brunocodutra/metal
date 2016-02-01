@@ -7,11 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list>
+        struct size;
+    }
+
     /// \ingroup list
     /// ...
     template<typename list>
-    struct size
-    {};
+    using size = detail::size<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref size.
@@ -25,10 +30,17 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename... vals>
-    struct size<list<vals...>> :
-        number<std::size_t, sizeof...(vals)>
-    {};
+    namespace detail
+    {
+        template<typename list>
+        struct size
+        {};
+
+        template<template<typename...> class expr, typename... vals>
+        struct size<expr<vals...>> :
+            number<std::size_t, sizeof...(vals)>
+        {};
+    }
 }
 
 #endif

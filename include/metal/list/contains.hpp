@@ -7,11 +7,15 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename list, typename val>
+        struct contains;
+    }
     /// \ingroup list
     /// ...
     template<typename list, typename val>
-    struct contains
-    {};
+    using contains = detail::contains<list, val>;
 
     /// \ingroup list
     /// Eager adaptor for \ref contains.
@@ -26,10 +30,20 @@ namespace metal
 
 namespace metal
 {
-    template<template<typename...> class list, typename... vals, typename val>
-    struct contains<list<vals...>, val> :
-        or_<typename std::is_same<vals, val>::type...>
-    {};
+    namespace detail
+    {
+        template<typename list, typename val>
+        struct contains
+        {};
+
+        template<
+            template<typename...> class expr,
+            typename... vals, typename val
+        >
+        struct contains<expr<vals...>, val> :
+            or_<typename std::is_same<vals, val>::type...>
+        {};
+    }
 }
 
 #endif

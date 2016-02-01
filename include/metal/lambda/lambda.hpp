@@ -7,24 +7,16 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<template<typename...> class expr>
+        struct lambda;
+    }
+
     /// \ingroup lambda
     /// ...
     template<template<typename...> class expr>
-    struct lambda;
-}
-
-#include <metal/optional/optional.hpp>
-
-#include <metal/detail/instantiate.hpp>
-
-namespace metal
-{
-    template<template<typename...> class expr>
-    struct lambda
-    {
-        template<typename... args>
-        using type = typename optional<detail::instantiate_t<expr, args...>>::type;
-    };
+    using lambda = detail::lambda<expr>;
 }
 
 #endif

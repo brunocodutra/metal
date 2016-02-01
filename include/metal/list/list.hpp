@@ -7,15 +7,24 @@
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename... vals>
+        struct list;
+
+        template<typename list>
+        struct is_list;
+    }
+
     /// \ingroup list
     /// ...
     template<typename... vals>
-    struct list;
+    using list = detail::list<vals...>;
 
     /// \ingroup list
     /// ...
     template<typename list>
-    struct is_list;
+    using is_list = detail::is_list<list>;
 
     /// \ingroup list
     /// Eager adaptor for \ref is_list.
@@ -27,21 +36,24 @@ namespace metal
 
 namespace metal
 {
-    template<typename... vals>
-    struct list
+    namespace detail
     {
-        using type = list;
-    };
+        template<typename... vals>
+        struct list
+        {
+            using type = list;
+        };
 
-    template<typename list>
-    struct is_list :
-        boolean<false>
-    {};
+        template<typename list>
+        struct is_list :
+            boolean<false>
+        {};
 
-    template<template<typename...> class list, typename... vals>
-    struct is_list<list<vals...>> :
-        boolean<true>
-    {};
+        template<template<typename...> class expr, typename... vals>
+        struct is_list<expr<vals...>> :
+            boolean<true>
+        {};
+    }
 }
 
 #endif
