@@ -34,10 +34,7 @@ namespace metal
     ///             >
     ///         {};
     ///     \endcode
-    ///     otherwise, equivalent to
-    ///     \code
-    ///         using result = metal::nothing;
-    ///     \endcode
+    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
