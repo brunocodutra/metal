@@ -32,10 +32,7 @@ namespace metal
     ///             metal::enumerate<metal::number<size::value_type, 0>, size>
     ///         {};
     ///     \endcode
-    ///     otherwise, equivalent to
-    ///     \code
-    ///         using result = metal::nothing;
-    ///     \endcode
+    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// ________________________________________________________________________
     ///
@@ -93,10 +90,7 @@ namespace metal
     ///             >
     ///         {};
     ///     \endcode
-    ///     otherwise, equivalent to
-    ///     \code
-    ///         using result = metal::nothing;
-    ///     \endcode
+    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------

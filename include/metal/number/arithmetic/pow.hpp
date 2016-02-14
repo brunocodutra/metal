@@ -35,12 +35,9 @@ namespace metal
     ///             >
     ///         {};
     ///     \endcode
-    ///     otherwise, equivalent to
-    ///     \code
-    ///         using result = metal::nothing;
-    ///     \endcode
+    ///     otherwise, equivalent to `metal::nothing`
     ///     \note{
-    ///         Borrowing from Fortran, `x ** y` shall be understood as
+    ///         Borrowing from Fortran, `x ** y` means
     ///         `x` raised to the power of `y`.
     ///     }
     ///     \danger{
