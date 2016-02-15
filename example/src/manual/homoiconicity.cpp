@@ -24,7 +24,7 @@ static_assert(metal::size_t<sum>::value == 3, "");
 /// [3]
 
 /// [4]
-using sqsum = metal::transform_t<sum, metal::pow<metal::_1, metal::integer<2>>>;
+using sqsum = metal::transform_t<metal::pow<metal::_1, metal::integer<2>>, sum>;
 /// [4]
 
 /// [5]

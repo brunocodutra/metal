@@ -42,7 +42,7 @@ namespace metal
         template<typename to, typename from, typename lbd>
         struct copy_if :
             invoke<
-                copy<_1, apply<quote_t<lambda<join>>, transform<_2, _3>>>,
+                copy<_1, apply<quote_t<lambda<join>>, transform<_3, _2>>>,
                 to, from, conditional<bind_t<lbd, _1>, list<_1>, list<>>
             >
         {};

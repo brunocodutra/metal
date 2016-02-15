@@ -72,8 +72,8 @@ namespace metal
             boolean<(sizeof...(tail) > 1)>
         > :
             transform<
-                indices_t<head>,
-                defer_t<outer<at<quote_t<head>, _1>, at<quote_t<tail>, _1>...>>
+                defer_t<outer<at<quote_t<head>, _1>, at<quote_t<tail>, _1>...>>,
+                indices_t<head>
             >
         {};
 

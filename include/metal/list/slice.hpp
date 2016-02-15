@@ -61,8 +61,8 @@ namespace metal
             copy<
                 expr<vals...>,
                 transform_t<
-                    enumerate_t<number<t, a>, number<u, b>, number<v, c>>,
-                    at<quote_t<expr<vals...>>, mod<_1, size_t<expr<vals...>>>>
+                    at<quote_t<expr<vals...>>, mod<_1, size_t<expr<vals...>>>>,
+                    enumerate_t<number<t, a>, number<u, b>, number<v, c>>
                 >
             >
         {};
