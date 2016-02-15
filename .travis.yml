@@ -21,6 +21,12 @@ matrix:
             apt:
                 packages:
                   - g++-4.8
+                sources: &toolchain
+                  - ubuntu-toolchain-r-test
+                  - llvm-toolchain-precise
+                  - llvm-toolchain-precise-3.5
+                  - llvm-toolchain-precise-3.6
+                  - llvm-toolchain-precise-3.7
 
       - compiler: g++
         env: CXX_VERSION=4.9
@@ -28,6 +34,7 @@ matrix:
             apt:
                 packages:
                   - g++-4.9
+                sources: *toolchain
 
       - compiler: g++
         env: CXX_VERSION=5
@@ -35,6 +42,7 @@ matrix:
             apt:
                 packages:
                   - g++-5
+                sources: *toolchain
 
       - compiler: clang++
         env: CXX_VERSION=3.5
@@ -42,6 +50,7 @@ matrix:
             apt:
                 packages:
                   - clang-3.5
+                sources: *toolchain
 
       - compiler: clang++
         env: CXX_VERSION=3.6
@@ -49,6 +58,7 @@ matrix:
             apt:
                 packages:
                   - clang-3.6
+                sources: *toolchain
 
       - compiler: clang++
         env: CXX_VERSION=3.7
@@ -56,6 +66,7 @@ matrix:
             apt:
                 packages:
                   - clang-3.7
+                sources: *toolchain
 
       - compiler: clang++
         env: CXX_VERSION=3.8
@@ -63,15 +74,7 @@ matrix:
             apt:
                 packages:
                   - clang-3.8
-
-addons:
-    apt:
-        sources:
-          - ubuntu-toolchain-r-test
-          - llvm-toolchain-precise
-          - llvm-toolchain-precise-3.5
-          - llvm-toolchain-precise-3.6
-          - llvm-toolchain-precise-3.7
+                sources: *toolchain
 
 install:
   - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
