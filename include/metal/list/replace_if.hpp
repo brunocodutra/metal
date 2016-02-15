@@ -40,7 +40,7 @@ namespace metal
         template<typename list, typename lbd, typename val>
         struct replace_if :
             invoke<
-                copy<_1, apply<_2, transform<_1, _3>>>,
+                copy<_1, apply<_2, transform<_3, _1>>>,
                 list,
                 lambda<join>,
                 conditional<
