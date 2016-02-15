@@ -2,23 +2,11 @@
 
 \tableofcontents
 
-Metal is a general-purpose, header-only [C++11][C++11]
-[template metaprogramming][tmp] library designed to make
-metaprogramming enjoyable.
-It provides a powerful high-level abstraction for compile-time algorithms,
-grounded on a concise yet solid [conceptual foundation](\ref concepts).
-
-With focus on [simplicity] and [expressiveness],
-Metal explores the full potential of modern features, without,
-on the other hand,
-allowing its [portability](\ref portability) to be compromised.
-Metal does its best to follow the
-[principle of least astonishment][pola],
-mimicking well established concepts used by the [STL], much like its ancestor
-and main source of inspiration, the [Boost.MPL].
-In fact, Metal was born *MPL2*, an independent attempt to modernize Boost.MPL,
-but soon it became clear that it was something more than just a remake,
-so thus became **Metal** - <b>Meta</b>programming <b>Al</b>gorithms.
+Metal is a [portable](\ref portability) header-only [C++11][C++11] library
+designed to make [template metaprogramming][tmp] enjoyable.
+To that end, it provides a powerful high-level [abstraction](\ref concepts) for
+compile-time algorithms that mimic the [standard algorithms library][algorithm],
+hence **Metal** - <b>Meta</b>programming <b>Al</b>gorithms.
 
 Motivation {#motivation}
 ================================================================================
@@ -39,16 +27,16 @@ by Aleksey Gurtovoy and David Abrahams,
 is officially shipped with Boost version 1.30.0.
 A masterpiece of template metaprogramming,
 it went to great lengths to support the
-widest variety of poorly conforming if not utterly defective compilers,
+widest variety of poorly conforming compilers,
 abstracting away the nastiest compiler hackery to present a uniform
-framework that finally could be relied upon.
-It played a crucial role in the dissemination of metaprogramming in C++ and
-remained undisputed for almost a decade,
-but, eventually, it started showing its age when [C++11] introduced,
+framework that finally could be relied upon,
+thus playing a crucial role in the dissemination of metaprogramming in C++.
+The Boost.MPL remained undisputed for almost a decade, but
+eventually, it started showing its age when [C++11] introduced,
 among various others,
 [variadic templates][variadics], [alias templates], [type inference][decltype]
 and [constant expressions][constexpr] to the core language.
-This powerful C++11 machinery enabled the development of whole new
+The powerful C++11 machinery enabled the development of whole new
 metaprogramming [styles][tmp.simple] and [techniques][tmp.modern] with
 potential to outperform Boost.MPL by orders of magnitude in many instances.
 Moreover, the need for endless automatically generated boilerplate code could
@@ -56,7 +44,7 @@ finally be overcome using variadic templates,
 whereas syntax clutter could be mitigated using alias templates,
 vastly improving readability.
 
-Eventually, [motivation][mpl.lite] to modernize Boost.MPL emerged from the
+Eventually, [motivation][mpl.lite] to modernize Boost.MPL emerged from the Boost
 community, even though opinions diverged widely on the matter.
 As diverse has been the development of new metaprogramming libraries
 with varying degrees of success,
@@ -65,8 +53,8 @@ Louis Dionne, the latter formally accepted into the Boost distribution in July
 2015.
 
 Metal is yet another approach to modern C++11 metaprogramming.
-Its ultimate goal is to be regarded as the best alternative to Boost.MPL in
-every use case where support for C++11 is desired,
+Its ultimate goal is to be regarded as the natural successor of Boost.MPL in
+every use case where C++11 is available,
 delivering greater performance and expressiveness without
 cluttering the codebase.
 Although not a perfect drop in replacement for Boost.MPL,
@@ -79,7 +67,7 @@ Getting Started {#getting_started}
 
 It's very easy to start enjoying metaprogramming with Metal,
 being header-only with no external dependencies,
-all you have to do is download and optionally install it system-wide.
+all you have to do is download it.
 
 Downloading {#downloading}
 --------------------------------------------------------------------------------
@@ -93,7 +81,7 @@ you can clone current stable branch `master` from GitHub.
 
     git clone https://github.com/brunocodutra/metal
 
-Likewise, the [bleeding edge] development version can be obtained by cloning
+Likewise, the bleeding edge development version can be obtained by cloning
 branch `develop` instead.
 
     git clone https://github.com/brunocodutra/metal --branch=develop
@@ -124,14 +112,14 @@ From within an empty directory issue the following commands.
 Unless otherwise specified,
 Metal's include tree will be copied into the default prefix
 for locally installed libraries in your platform,
-that is `/usr/local/include` on [Unix[-like]][unix-like] systems and
+that is `/usr/local/include` on Unix[-like] systems and
 `C:\Program Files\Metal\include` on Windows.
 Simply add the installation prefix to the include search path of your
-compiler/project if it hasn't been already, and you're good to go.
+compiler/project if it isn't by default, and you're good to go.
 
 If your project uses [CMake],
 Metal may also be integrated into your project via `find_package`,
-whereupon `METAL_INCLUDE_DIRS` will be set to contain
+whereupon `METAL_INCLUDE_DIRS` is set to contain
 all necessary include prefixes.
 In short, simply add the following to the `CMakeLists.txt` of your project.
 
@@ -143,7 +131,7 @@ For more information, please refer to [CMake documentation][CMake.doc].
 Documentation {#documentation}
 --------------------------------------------------------------------------------
 
-An offline copy of this documentation website may be obtained by cloning
+An offline copy of this documentation may be obtained by cloning
 branch `gh-pages`.
 
     git clone https://github.com/brunocodutra/metal --branch=gh-pages
@@ -158,7 +146,7 @@ From within an empty directory issue the following commands.
 The documentation will be generated into `doc/html/`.
 
 To browse the documentation offline,
-simply load `index.html` on your favorite web browser.
+simply load `index.html` on any web browser that supports [JavaScript].
 
 Portability {#portability}
 ================================================================================
@@ -166,8 +154,7 @@ Portability {#portability}
 Great effort is undertaken to keep Metal strictly in conformance with the C++11
 standard and compatible with the widest possible variety of compilers.
 To this end, some of the most popular freely available C++ compilers are
-officially and actively supported through [Continuous Integration (CI)][ci]
-premisses.
+actively supported through [Continuous Integration (CI)][ci] premisses.
 GCC and Clang are tested with help of [Travis CI][travis.metal],
 while Microsoft Visual Studio is tested using [Appveyor CI][appveyor.metal].
 
@@ -276,7 +263,7 @@ represent either *just* some other [Value] or *nothing*.
 In order to *evaluate* an [Optional]
 one must explicitly name its nested `::type`.
 An [Optional] is said to be empty,
-whenever a nested `::type` is undefined or ambiguously defined,
+whenever a nested [Value] called `::type` is undefined or ambiguously defined,
 thus attempting to *evaluate* an empty [Optional] leads to a compile-time error.
 
 \tip{
@@ -286,7 +273,7 @@ for any [Optional] `opt`.
 
 ### Requirements
 
-Any type is an [Optional].
+Any [Value] is also an [Optional].
 
 ### Examples
 
@@ -313,15 +300,15 @@ In general, however, an [Expression] may be *empty* for some set of arguments,
 thus attempting to *evaluate* such an [Expression] for such set of arguments
 leads to a compile-time error.
 
-\note{
-Because [Expressions] are not themselves [Values],
-it is not possible to write [higher-order] expressions.
-}
-
 ### Requirements
 
 `expr` is a model of [Expression] if and only if `expr` is a
 template class, union or alias that only expects types as arguments.
+
+\note{
+Because [Expressions] are not themselves [Values],
+it is not possible to define [higher-order] expressions directly.
+}
 
 ### Examples
 
@@ -349,20 +336,20 @@ the [Lambda Calculus].
 
 ### Requirements
 
-Any type is a [Lambda].
+Any [Value] is also a [Lambda].
 
 ### Semantics
 
 Let `expr` be an [Expression], `[a1, ..., ai, ..., an]` atomic [Values],
 `[_1, ..., _i, ..., _n]` [Placeholders] and `[l1, ..., li, ..., ln]` [Lambdas].
 
-* Invoking `ai` for any (possibly empty) set of [Values] yields `ai`
-* Invoking `_i` for `[a1, ..., ai, ..., an]` yields `ai`
-* Invoking `metal::lambda<expr>` for `[a1, ..., an]` yields
+* Invoking `ai` with any (possibly empty) set of [Values] yields `ai`
+* Invoking `_i` with `[a1, ..., ai, ..., an]` yields `ai`
+* Invoking `metal::lambda<expr>` with `[a1, ..., an]` yields
 `expr<a1, ..., an>::type`
-* Invoking `expr<l1, ..., li, ..., ln>` for `[a1, ..., an]`
-invokes `metal::lambda<expr>` for the set of [Values] yielded by
-invoking each `li` for `[l1, ..., ln]`.
+* Invoking `expr<l1, ..., li, ..., ln>` with `[a1, ..., an]`
+invokes `metal::lambda<expr>` with the [Values] yielded by
+recursively invoking each `li` with `[a1, ..., an]`.
 
 \tip{
 `metal::lambda<expr>` can be used to adapt any [Expression] `expr`
@@ -388,7 +375,7 @@ A [List] is a sequence of [Values].
 
 ### Requirements
 
-A [List] is any specialization of any template class or union,
+A [List] is any specialization of any template class or union
 that only expects types as arguments.
 
 ### Examples
@@ -436,7 +423,7 @@ each of which is associated with another [Value].
 
 A [Map] is a [List] of [Pairs], whose first elements are all distinct, that is
 
-    [[k0, v0], ..., [kn, vn]]; ki != kj for all i, j in {0, n}
+    [[k0, v0], ..., [kn, vn]]; ki != kj for all i, j in {0, n} and i != j
 
 ### Examples
 
@@ -456,25 +443,32 @@ Data-Code Duality {#concepts_duality}
 ================================================================================
 
 Markedly influenced by various functional programming languages,
-such as [Haskell] and [SML], Metal owes much of its design to [Lisp]
-in particular.
+such as [Haskell] and [SML],
+Metal owes much of its design particularly to [Lisp].
 From it, Metal borrowed [s-expressions] and
 the notion that data structures and algorithms are nothing
-but [two sides of the same coin][homoiconicity].
+but [two sides of the same coin][homoiconicity], that is,
+Metal makes no difference between lists and unevaluated expressions.
 
-Much like Lisp, Metal makes no difference between lists and unevaluated
-expressions.
-The following, for example, could be seen as an unevaluated expression
-that represents the sum of two numbers.
+Take for instance the following definition.
 
-\snippet manual.cpp sum
+\snippet manual/homoiconicity.cpp 1
 
-Just as accurately, it could also be seen as a pair.
+Here `sum` could be understood as an unevaluated addition of three numbers, thus
 
-\snippet manual.cpp first
-\snippet manual.cpp second
+\snippet manual/homoiconicity.cpp 2
 
-Now that may look silly put in a simple example like this one, but [...]
+Alternativelly, `sum` could also be seen as a [List] that contains three values
+
+\snippet manual/homoiconicity.cpp 3
+
+Now, just like any [List], `sum` may be transformed into a new [List]
+
+\snippet manual/homoiconicity.cpp 4
+
+... which in turn may be seen as the sum of the squares of the same three numbers.
+
+\snippet manual/homoiconicity.cpp 5
 
 \tip{
 To save typing, most [Expressions] in Metal have an associated eager adaptor
@@ -502,24 +496,20 @@ given an expression `metal::expr`,
 [Placeholders]:     \ref placeholders
 
 [C++11]:            http://en.wikipedia.org/wiki/C%2B%2B11
-[STL]:              http://en.wikipedia.org/wiki/Standard_Template_Library
-[pola]:             http://en.wikipedia.org/wiki/Principle_of_least_astonishment
-[simplicity]:       http://en.wikipedia.org/wiki/Simplicity#Quotes_about_simplicity
-[expressiveness]:   http://en.wikipedia.org/wiki/Expressive_power_%28computer_science%29
+[JavaScript]:       http://en.wikipedia.org/wiki/JavaScript
 [higher-order]:     http://en.wikipedia.org/wiki/Higher-order_lambda
 [first-class]:      http://en.wikipedia.org/wiki/First-class_citizen
 [Lambda Calculus]:  http://en.wikipedia.org/wiki/Lambda_calculus
 [s-expressions]:    http://en.wikipedia.org/wiki/S-expression
 [homoiconicity]:    http://en.wikipedia.org/wiki/Homoiconicity
 [ci]:               http://en.wikipedia.org/wiki/Continuous_integration
-[bleeding edge]:    http://en.wikipedia.org/wiki/Bleeding_edge_technology
-[unix-like]:        http://en.wikipedia.org/wiki/Unix-like
 
 [tmp]:              http://en.wikipedia.org/wiki/Template_metaprogramming
 [tmp.turing]:       http://ubietylab.net/ubigraph/content/Papers/pdf/CppTuring.pdf
 [tmp.simple]:       http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html
 [tmp.modern]:       http://pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html
 
+[algorithm]:        http://en.cppreference.com/w/cpp/algorithm
 [preprocessor]:     http://en.wikipedia.org/wiki/C_preprocessor
 [variadics]:        http://en.cppreference.com/w/cpp/language/parameter_pack
 [alias templates]:  http://en.cppreference.com/w/cpp/language/type_alias

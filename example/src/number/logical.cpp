@@ -7,7 +7,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [not_]
 static_assert(std::is_same</**/metal::not_t</**/metal::integer<-10>>, metal::boolean<false>>::value, "");
@@ -17,7 +17,7 @@ static_assert(std::is_same</**/metal::not_t</**/metal::boolean<true>>, metal::bo
 /// [not_]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [and_]
 using x = metal::and_t<
@@ -30,7 +30,7 @@ static_assert(std::is_same<x, metal::boolean<false>>::value, "");
 /// [and_]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [or_]
 using x = metal::or_t<

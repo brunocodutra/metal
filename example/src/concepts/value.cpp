@@ -4,21 +4,21 @@
 
 #include "example.hpp"
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [ex1]
 using val = int;
 /// [ex1]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [ex2]
 using val = decltype(3.14);
 /// [ex2]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [ex3]
 struct val
@@ -28,27 +28,27 @@ struct val
 /// [ex3]
 }
 
-ANONYMOUS(struct)
+HIDDEN(struct)
 {
 /// [nex1]
-int val;
+int not_a_value;
 /// [nex1]
 };
 
-ANONYMOUS(struct)
+HIDDEN(struct)
 {
 static constexpr
 /// [nex2]
-auto val = 3.14;
+auto not_a_value = 3.14;
 /// [nex2]
 };
 
-ANONYMOUS(struct)
+HIDDEN(struct)
 {
 /// [nex3]
 struct
 {
     //...
-} val;
+} not_a_value;
 /// [nex3]
 };

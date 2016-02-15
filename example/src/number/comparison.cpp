@@ -6,7 +6,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [equal_to]
 static_assert(std::is_same</**/metal::equal_to_t</**/metal::integer<-10>, metal::number<long, 10>>, metal::boolean<false>>::value, "");
@@ -14,7 +14,7 @@ static_assert(std::is_same</**/metal::equal_to_t</**/metal::number<short, 0>, me
 /// [equal_to]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [greater]
 static_assert(std::is_same</**/metal::greater_t</**/metal::integer<-10>, metal::number<long, 10>>, metal::boolean<false>>::value, "");
@@ -22,7 +22,7 @@ static_assert(std::is_same</**/metal::greater_t</**/metal::number<short, 0>, met
 /// [greater]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [less]
 static_assert(std::is_same</**/metal::less_t</**/metal::integer<-10>, metal::number<long, 10>>, metal::boolean<true>>::value, "");

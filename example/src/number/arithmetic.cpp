@@ -7,7 +7,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [inc]
 static_assert(std::is_same</**/metal::inc_t</**/metal::integer<-10>>, metal::integer<-9>>::value, "");
@@ -15,7 +15,7 @@ static_assert(std::is_same</**/metal::inc_t</**/metal::number<short, 0>>, metal:
 /// [inc]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [dec]
 static_assert(std::is_same</**/metal::dec_t</**/metal::integer<-10>>, metal::integer<-11>>::value, "");
@@ -23,7 +23,7 @@ static_assert(std::is_same</**/metal::dec_t</**/metal::number<short, 0>>, metal:
 /// [dec]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [neg]
 static_assert(std::is_same</**/metal::neg_t</**/metal::integer<-10>>, metal::integer<10>>::value, "");
@@ -31,7 +31,7 @@ static_assert(std::is_same</**/metal::neg_t</**/metal::number<short, 0>>, metal:
 /// [neg]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [add]
 using x = metal::add_t<
@@ -44,7 +44,7 @@ static_assert(std::is_same<x, metal::number<long, -1>>::value, "");
 /// [add]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [sub]
 using x = metal::sub_t<
@@ -57,7 +57,7 @@ static_assert(std::is_same<x, metal::number<long, -13>>::value, "");
 /// [sub]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [mul]
 using x = metal::mul_t<
@@ -70,7 +70,7 @@ static_assert(std::is_same<x, metal::number<long, -35>>::value, "");
 /// [mul]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [div]
 using x = metal::div_t<
@@ -84,7 +84,7 @@ static_assert(!metal::is_just</**/metal::div</**/metal::integer<1>, metal::integ
 /// [div]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [mod]
 using x = metal::mod_t<
@@ -98,7 +98,7 @@ static_assert(!metal::is_just</**/metal::mod</**/metal::integer<1>, metal::integ
 /// [mod]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [pow]
 using x = metal::pow_t<
