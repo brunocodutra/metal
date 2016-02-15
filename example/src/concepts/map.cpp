@@ -8,7 +8,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [ex1]
 template<typename...>
@@ -23,7 +23,7 @@ using map = many<couple<int, int*>, many<void, void*>, couple<float, float*>>;
 static_assert(metal::is_map_t<map>::value, "");
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [ex2]
 template<typename...>
@@ -35,7 +35,7 @@ using map = many<>;
 static_assert(metal::is_map_t<map>::value, "");
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [nex1]
 template<typename...>
@@ -50,7 +50,7 @@ using not_a_map = many<couple<int, int*>, couple<int, int&>>; // repeated keys
 static_assert(!metal::is_map_t<not_a_map>::value, "");
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [nex2]
 template<typename...>

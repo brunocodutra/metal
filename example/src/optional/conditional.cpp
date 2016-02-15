@@ -6,7 +6,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [conditional]
 //TODO

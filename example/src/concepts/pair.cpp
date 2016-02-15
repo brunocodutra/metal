@@ -8,7 +8,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [ex1]
 template<typename, typename>
@@ -20,7 +20,7 @@ using pair = couple<int, unsigned>;
 static_assert(metal::is_pair_t<pair>::value, "");
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [nex1]
 template<typename...>

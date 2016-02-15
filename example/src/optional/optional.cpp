@@ -6,7 +6,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS(struct)
+HIDDEN(struct)
 {
 /// [just]
 using none = metal::just<>;
@@ -18,7 +18,7 @@ static_assert(std::is_same<some::type, decltype(3.14)>::value, "");
 /// [just]
 };
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [is_just]
 struct none
@@ -34,7 +34,7 @@ static_assert(metal::is_just<some>::value, "");
 /// [is_just]
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [optional]
 struct none

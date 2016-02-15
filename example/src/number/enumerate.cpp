@@ -6,7 +6,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [enumerate]
 using x = metal::enumerate_t</**/metal::integer<2>>;

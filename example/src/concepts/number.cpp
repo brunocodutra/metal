@@ -8,7 +8,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [ex1]
 using num = std::false_type;
@@ -17,7 +17,7 @@ using num = std::false_type;
 static_assert(metal::is_number<num>::value, "");
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [ex2]
 using num = std::integral_constant<int, -1>;
@@ -26,14 +26,14 @@ using num = std::integral_constant<int, -1>;
 static_assert(metal::is_number<num>::value, "");
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [nex1]
-struct num :
+struct not_a_number :
     std::true_type
 {};
 /// [nex1]
 
-static_assert(!metal::is_number<num>::value, "");
+static_assert(!metal::is_number<not_a_number>::value, "");
 }
 
