@@ -6,6 +6,7 @@
 #define METAL_LIST_HPP
 
 #include <metal/list/accumulate.hpp>
+#include <metal/list/apply.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/back.hpp>
 #include <metal/list/clear.hpp>

@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#ifndef METAL_LAMBDA_APPLY_HPP
-#define METAL_LAMBDA_APPLY_HPP
+#ifndef METAL_LIST_APPLY_HPP
+#define METAL_LIST_APPLY_HPP
 
 namespace metal
 {
@@ -13,12 +13,12 @@ namespace metal
         struct apply;
     }
 
-    /// \ingroup lambda
+    /// \ingroup list
     /// ...
     template<typename lbd, typename list>
     using apply = detail::apply<lbd, list>;
 
-    /// \ingroup lambda
+    /// \ingroup list
     /// Eager adaptor for \ref apply.
     template<typename lbd, typename list>
     using apply_t = typename metal::apply<lbd, list>::type;

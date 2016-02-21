@@ -25,8 +25,8 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
+#include <metal/list/apply.hpp>
 #include <metal/list/transpose.hpp>
-#include <metal/lambda/apply.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/defer.hpp>
 #include <metal/lambda/invoke.hpp>
