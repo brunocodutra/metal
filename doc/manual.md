@@ -2,7 +2,7 @@
 
 \tableofcontents
 
-Metal is a [portable](\ref portability) header-only [C++11][C++11] library
+Metal is a [portable](\ref portability) header-only [C++11] library
 designed to make [template metaprogramming][tmp] enjoyable.
 To that end, it provides a powerful high-level [abstraction](\ref concepts) for
 compile-time algorithms that mimic the [standard algorithms library][algorithm],
@@ -252,7 +252,7 @@ specialization of [std::integral_constant][integral].
 
 ### See Also
 
-metal::number, metal::boolean, metal::integer
+metal::number, metal::boolean, metal::integer, metal::character
 
 Optional {#concepts_optional}
 --------------------------------------------------------------------------------
@@ -477,6 +477,200 @@ given an expression `metal::expr`,
 `metal::expr_t<...>` is equivalent to `typename metal::expr<...>::type`.
 }
 
+Metal in Action {#metal_in_action}
+================================================================================
+
+Enough theory, lets see some action!
+
+Parsing Raw Literals {#parsing_raw_literals}
+--------------------------------------------------------------------------------
+
+If you ever considered augmenting [`std::tuple`][tuple],
+so that instead of the rather odd [`std::get<N>()`][get]
+
+\snippet tutorial/literal.cpp teaser_1
+
+one could just use the more intuitive subscript operator `[N]`,
+
+\strike{
+\snippet tutorial/literal.cpp teaser_2
+}
+
+chances are you realized the hard way
+that the reason why such an operator is not overloaded by default is because
+there's simply no way of overloading such an operator!
+
+All is not lost however if you can live with the subscript operator taking an
+object of type `std::integral_constant`, or in Metal's parlance [Number],
+instead of an usual integral value.
+
+\snippet tutorial/literal.cpp super_tuple
+
+\snippet tutorial/literal.cpp teaser_3
+
+Neat isn't it?
+Now we need a [literal operator][literal] `_c` that encodes an integral value
+as a [Number]. Sounds simple enough, right?
+
+\strike{
+\snippet tutorial/literal.cpp naive
+}
+
+Not really. While `constexpr` tells the compiler the value returned by
+`operator ""_c` might be a compile time constant,
+it tells no such thing about its argument.
+We are thus left no other option but to parse raw literals ourselves,
+in other words, we are in for some fun!
+
+### The Raw Literal Operator Template
+
+Raw literal operator templates are defined as a nullary function templated over
+`char...`, such as
+
+\snippet tutorial/literal.cpp raw
+
+where `tokens...` are mapped to the exact characters that make up the literal,
+including the prefixes `0x` and `0b`
+
+\snippet tutorial/literal.cpp raw_examples_1
+
+as well as the digit separator `'` introduced by [C++14]
+
+\snippet tutorial/literal.cpp raw_examples_2
+
+### The `operator ""_c`
+
+We start by defining our very own literal operator `_c`.
+It simply wraps each token into a `metal::character` and forwards them to an
+[Expression] that effectively parses the [Number], we'll call it,
+suggestively, `make_number`.
+
+\snippet tutorial/literal.cpp _c
+
+### Resolving the Radix
+
+In its turn `make_number` strips the prefix, if any, thus resolving the radix,
+then forwards the remaining tokens to `parse_digits`,
+which is in charge of translating the raw characters to a [List] of
+integral [Numbers].
+The radix and digits are then forwarded to `compute`, which adds up the digits
+according to the radix.
+
+\snippet tutorial/literal.cpp make_number
+
+Notice that we followed the notation used by Metal and defined `make_number_t`
+as an alias to `typename make_number<>::type` to save typing.
+
+### Parsing the Digits
+
+To parse the characters into the corresponding integral, we need first to remove
+all digit separators.
+That can be easily accomplished using `metal::remove`, which takes a [List] `l`
+and a [Value] `v` and returns another [List] that contains every element from
+`l` and in the same order, except for those that are identical to `v`.
+
+\snippet tutorial/literal.cpp remove
+
+The remaining digits can then be transformed into the corresponding
+[Numbers] using `metal::transform`, which takes a [Lambda] `lbd` and a
+[List] `l` and returns another [List] containing the results of *invoking* `lbd`
+for each element in `l`.
+
+    [lbd(l[0]), lbd(l[1]), ..., lbd(l[n-2]), lbd(l[n-1])]
+
+First we need an [Expression] that maps characters to
+[Numbers] from which we can construct our `lbd`.
+We'll call it `to_number` and it is rather trivial.
+
+\snippet tutorial/literal.cpp to_number
+
+Now we can transform characters to [Numbers].
+
+\snippet tutorial/literal.cpp transform_1
+
+That peculiar `metal::_1` is a placeholder and it works like this:
+when `to_number<metal::_1>` is invoked with some argument,
+`metal::_1` will be substituted for that argument and only then `to_number`
+is *evaluated*.
+
+Putting it all together we have
+
+\snippet tutorial/literal.cpp parse_digits
+
+### Computing the Number
+
+Now we turn our attention to `compute`.
+It takes the radix and a list of [Numbers] representing the digits and is in
+charge of adding up the digits according to the radix, that is
+
+    D0*radix^(n-1) + D1*radix^(n-2) + ... + D{n-2}*radix + D{n-1}
+
+The first thing we notice is that the *ith* digit actually corresponds to the
+<em>(n-1-i)th</em> power of the radix, so, to make things simpler,
+we need to `metal::reverse` the order of digits.
+
+\snippet tutorial/literal.cpp reverse
+
+Then we have
+
+    D0 + D1*radix + ... + D{n-2}*radix^(n-2) + D{n-1}*radix^(n-1)
+
+Now we need to `metal::enumerate` the exponents that correspond to each digit.
+
+\snippet tutorial/literal.cpp enumerate
+
+This version of `metal::enumerate` takes two [Numbers], `start` and `size`,
+and returns a [List] containing a sequence of [Numbers] beginning with `start`
+and ending in `size - 1`.
+
+    [start, start + 1, ..., size - 2, size - 1]
+
+\note{
+All [Numbers] in the sequence have the same type as `start`
+regardless of the type of `size`.
+}
+
+The next step is to compute each term of the sum.
+We'll be using `metal::transform` again, but this time it takes a *binary*
+[Lambda] `lbd` and two [Lists] `l1` and `l2` and returns a new [List] formed by
+*invoking* `lbd` for the elements of `l1` and `l2` pairwise.
+
+    [lbd(l1[0], l2[0]), lbd(l1[1], l2[1]), ..., lbd(l1[n-2], l2[n-2]), lbd(l1[n-1], l2[n-1])]
+
+\snippet tutorial/literal.cpp transform_2
+
+Here again `metal::_1` and `metal::_2` are placeholders that get substituted for
+the first and second arguments with which `lbd` is invoked,
+prior to the recursive *evaluation* of the [Expressions] that form the [Lambda].
+
+Finally we need to sum up the terms, so basically we need to invoke `metal::add`
+for the elements contained in a [List].
+That's exactly what `metal::apply` is for.
+
+\snippet tutorial/literal.cpp sum
+
+Here we used `metal::lambda<metal::add>` which is basically a synonym for
+`metal::add<metal::_1, metal::_2, ..., metal::arg<n-2>, metal::arg<n-1>>`,
+where `n` is the number of arguments with which `metal::lambda<metal::add>` is
+invoked, that is the size of the [List] in this particular case.
+This way we don't need to care about the actual number of arguments.
+
+We now have all the pieces needed to define `compute`.
+
+\snippet tutorial/literal.cpp compute
+
+And we are done.
+
+\snippet tutorial/literal.cpp test_1
+
+It even works for very long binary literals.
+
+\snippet tutorial/literal.cpp test_2
+
+And also ignores digit separators.
+
+\snippet tutorial/literal.cpp test_3
+
 [Value]:            \ref concepts_value
 [Values]:           \ref concepts_value
 [Optional]:         \ref concepts_optional
@@ -496,6 +690,7 @@ given an expression `metal::expr`,
 [Placeholders]:     \ref placeholders
 
 [C++11]:            http://en.wikipedia.org/wiki/C%2B%2B11
+[C++14]:            http://en.wikipedia.org/wiki/C%2B%2B14
 [JavaScript]:       http://en.wikipedia.org/wiki/JavaScript
 [higher-order]:     http://en.wikipedia.org/wiki/Higher-order_lambda
 [first-class]:      http://en.wikipedia.org/wiki/First-class_citizen
@@ -516,6 +711,9 @@ given an expression `metal::expr`,
 [decltype]:         http://en.cppreference.com/w/cpp/language/decltype
 [constexpr]:        http://en.cppreference.com/w/cpp/language/constexpr
 [integral]:         http://en.cppreference.com/w/cpp/types/integral_constant
+[tuple]:            http://en.cppreference.com/w/cpp/utility/tuple
+[get]:              http://en.cppreference.com/w/cpp/utility/tuple/get
+[literal]:          http://en.cppreference.com/w/cpp/language/user_literal
 
 [CMake]:            http://cmake.org/
 [CMake.doc]:        http://cmake.org/documentation/
