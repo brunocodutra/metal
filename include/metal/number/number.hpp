@@ -24,6 +24,11 @@ namespace metal
     template<int value>
     using integer = metal::number<int, value>;
 
+    /// \ingroup number
+    /// Standard representation for [characters](\numbers).
+    template<char value>
+    using character = metal::number<char, value>;
+
     namespace detail
     {
         template<typename num>
