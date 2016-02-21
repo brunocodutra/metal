@@ -18,8 +18,9 @@
     ASSERT((metal::is_number_t<LBD(M)>), (FALSE)); \
     ASSERT((metal::is_number_t<FUN(M)>), (FALSE)); \
     ASSERT((metal::is_number_t<metal::number<std::size_t, 0>>), (TRUE)); \
-    ASSERT((metal::is_number_t<metal::integer<0>>), (TRUE)); \
     ASSERT((metal::is_number_t<metal::boolean<0>>), (TRUE)); \
+    ASSERT((metal::is_number_t<metal::integer<0>>), (TRUE)); \
+    ASSERT((metal::is_number_t<metal::character<0>>), (TRUE)); \
 /**/
 
 GEN(MATRIX)
