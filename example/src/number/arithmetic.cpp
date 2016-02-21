@@ -108,7 +108,6 @@ using x = metal::pow_t<
 >;
 
 static_assert(std::is_same<x, metal::number<long, -16807>>::value, "");
-static_assert(!metal::is_just</**/metal::pow</**/metal::integer<0>, metal::integer<0>>>::value, "");
 static_assert(!metal::is_just</**/metal::pow</**/metal::integer<0>, metal::integer<-3>>>::value, "");
 /// [pow]
 }
