@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/number.hpp>
-#include <metal/lambda/apply.hpp>
+#include <metal/list/apply.hpp>
 #include <metal/lambda/lambda.hpp>
 
 #include "test.hpp"
