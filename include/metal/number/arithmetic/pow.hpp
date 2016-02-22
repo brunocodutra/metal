@@ -35,12 +35,9 @@ namespace metal
     ///             >
     ///         {};
     ///     \endcode
-    ///     otherwise, equivalent to
-    ///     \code
-    ///         using result = metal::nothing;
-    ///     \endcode
+    ///     otherwise, equivalent to `metal::nothing`
     ///     \note{
-    ///         Borrowing from Fortran, `x ** y` shall be understood as
+    ///         Borrowing from Fortran, `x ** y` means
     ///         `x` raised to the power of `y`.
     ///     }
     ///     \danger{
@@ -71,12 +68,10 @@ namespace metal
     namespace detail
     {
         template<typename T>
-        constexpr T pow_impl(T base, T exp, T result = 1){
-            return !exp ?
-                result :
-                exp < 0 ?
-                    pow_impl(1/(base*base), -exp/2, -exp%2 ? result/base : result) :
-                    pow_impl(base*base, exp/2, exp%2 ? result*base : result);
+        constexpr T pow_impl(T base, T exp, T result = 1) {
+            return exp == 1 ?
+                base*result :
+                pow_impl(base*base, exp/2, exp%2 ? result*base : result);
         }
 
         template<typename... nums>
@@ -90,9 +85,13 @@ namespace metal
 
         template<typename tx, tx vx, typename ty, ty vy, typename... nums>
         struct pow<number<tx, vx>, number<ty, vy>, nums...> :
-            pow<
-                number<decltype(vx*vy), pow_impl<decltype(vx*vy)>(vx, vy)>,
-                nums...
+            conditional<
+                boolean<vy < 0>,
+                pow<number<decltype(vx*vy), 0>, nums...>,
+                pow<
+                    number<decltype(vx*vy), pow_impl<decltype(vx*vy)>(vx, vy)>,
+                    nums...
+                >
             >
         {};
 
@@ -100,8 +99,28 @@ namespace metal
         struct pow<number<tx, tx(0)>, number<ty, vy>, nums...> :
             conditional<
                 boolean<(vy > 0)>,
-                pow<number<decltype(tx(0)*vy), 0>, nums...>
+                pow<number<decltype(tx()*vy), 0>, nums...>
             >
+        {};
+
+        template<typename tx, typename ty, ty vy, typename... nums>
+        struct pow<number<tx, tx(1)>, number<ty, vy>, nums...> :
+            pow<number<decltype(tx()*vy), 1>, nums...>
+        {};
+
+        template<typename tx, tx vx, typename ty, typename... nums>
+        struct pow<number<tx, vx>, number<ty, ty(0)>, nums...> :
+            pow<number<decltype(vx*ty()), 1>, nums...>
+        {};
+
+        template<typename tx, typename ty, typename... nums>
+        struct pow<number<tx, tx(0)>, number<ty, ty(0)>, nums...> :
+            pow<number<decltype(tx()*ty()), 1>, nums...>
+        {};
+
+        template<typename tx, typename ty, typename... nums>
+        struct pow<number<tx, tx(1)>, number<ty, ty(0)>, nums...> :
+            pow<number<decltype(tx()*ty()), 1>, nums...>
         {};
     }
 }

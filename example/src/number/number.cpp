@@ -6,7 +6,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [is_number]
 static_assert(metal::is_number_t</**/metal::number<short, 0>>::value, "");

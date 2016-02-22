@@ -26,7 +26,9 @@ namespace metal
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         using result = metal::conditional<val, opt, metal::nothing>;
+    ///         struct result :
+    ///             metal::conditional<val, opt, metal::nothing>
+    ///         {};
     ///     \endcode
     ///
     /// ________________________________________________________________________
@@ -39,17 +41,18 @@ namespace metal
     /// \par Semantics:
     ///     If `val` is a \number and `!!val::value == true`, then equivalent to
     ///     \code
-    ///         using result = metal::optional<opt1>;
+    ///         struct result :
+    ///             metal::optional<opt1>
+    ///         {};
     ///     \endcode
     ///     otherwise, if `val` is a \number and `val::value == false`,
     ///     then equivalent to
     ///     \code
-    ///         using result = metal::optional<opt2>;
+    ///         struct result :
+    ///             metal::optional<opt2>
+    ///         {};
     ///     \endcode
-    ///     otherwise, equivalent to
-    ///     \code
-    ///         using result = metal::nothing;
-    ///     \endcode
+    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// ________________________________________________________________________
     ///
@@ -61,9 +64,11 @@ namespace metal
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         using result = metal::conditional<
-    ///             val1, val2, metal::conditional<val3, val4, ..., valn>
-    ///         >;
+    ///         struct result :
+    ///             metal::conditional<
+    ///                 val1, val2, metal::conditional<val3, val4, ..., valn>
+    ///             >
+    ///         {};
     ///     \endcode
     ///
     /// Example
