@@ -8,7 +8,7 @@
 
 #include "example.hpp"
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [ex1]
 template<typename>
@@ -21,7 +21,7 @@ static_assert(metal::is_list_t<list>::value, "");
 static_assert(metal::size_t<list>::value == 1, "");
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [ex2]
 template<typename...>
@@ -34,16 +34,16 @@ static_assert(metal::is_list_t<list>::value, "");
 static_assert(metal::size_t<list>::value == 0, "");
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [nex1]
-using not_a_list = union{}; // not a template instantiation
+using not_a_list = struct{}; // not a template instantiation
 /// [nex1]
 
 static_assert(!metal::is_list_t<not_a_list>::value, "");
 }
 
-ANONYMOUS(namespace)
+HIDDEN(namespace)
 {
 /// [nex2]
 template<typename t, t...>

@@ -5,7 +5,6 @@
 #ifndef METAL_LAMBDA_HPP
 #define METAL_LAMBDA_HPP
 
-#include <metal/lambda/apply.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/defer.hpp>

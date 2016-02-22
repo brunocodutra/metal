@@ -228,6 +228,8 @@ TAB_SIZE               = 4
 # "Side Effects:". You can put \n's in the value part of an alias to insert
 # newlines.
 
+ALIASES += strike{1}="<div class=\"strike\">\1</div>"
+
 ALIASES +=value="\ref concepts_value"
 ALIASES +=values="\ref concepts_value \"Values\""
 ALIASES +=optional="\ref concepts_optional"

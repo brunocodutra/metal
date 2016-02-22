@@ -25,9 +25,9 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
+#include <metal/list/apply.hpp>
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/apply.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/lambda/arg.hpp>
@@ -40,7 +40,7 @@ namespace metal
         template<typename list, typename lbd, typename val>
         struct replace_if :
             invoke<
-                copy<_1, apply<_2, transform<_1, _3>>>,
+                copy<_1, apply<_2, transform<_3, _1>>>,
                 list,
                 lambda<join>,
                 conditional<

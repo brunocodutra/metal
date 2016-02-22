@@ -94,10 +94,6 @@ endif()
 
 if(METAL_ENABLE_EXTRA_WARNINGS)
     metal_add_flag(-Wextra)
-    metal_add_flag(-Weverything)
-    metal_add_flag(-Wno-c++98-compat)
-    metal_add_flag(-Wno-c++98-compat-pedantic)
-    metal_add_flag(-Wno-documentation-unknown-command)
     metal_add_flag(/W4)
 endif()
 
@@ -106,8 +102,6 @@ if(METAL_STRICT)
     metal_add_flag(-Werror)
     metal_add_flag(/WX)
 endif()
-
-metal_add_flag(-ftemplate-depth=512)
 
 foreach(dialect
     -std=c++17 -std=c++1z

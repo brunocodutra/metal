@@ -26,11 +26,11 @@ namespace metal
 
 #include <metal/list/list.hpp>
 #include <metal/list/copy.hpp>
+#include <metal/list/apply.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/apply.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/optional/conditional.hpp>
@@ -42,7 +42,7 @@ namespace metal
         template<typename to, typename from, typename lbd>
         struct copy_if :
             invoke<
-                copy<_1, apply<quote_t<lambda<join>>, transform<_2, _3>>>,
+                copy<_1, apply<quote_t<lambda<join>>, transform<_3, _2>>>,
                 to, from, conditional<bind_t<lbd, _1>, list<_1>, list<>>
             >
         {};

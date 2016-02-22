@@ -30,10 +30,7 @@ namespace metal
     ///             metal::boolean<(val1::value < val2::value)>
     ///         {};
     ///     \endcode
-    ///     otherwise, equivalent to
-    ///     \code
-    ///         using result = metal::nothing;
-    ///     \endcode
+    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------

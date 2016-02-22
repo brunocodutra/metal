@@ -83,7 +83,7 @@ install:
   - |
     if [[ "${BUILD_DOC}" == "true" ]]
     then
-        DOXYGEN_URL="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.10.linux.bin.tar.gz"
+        DOXYGEN_URL="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.11.linux.bin.tar.gz"
         mkdir "${DEPS_PATH}/doxygen" &&
         travis_retry wget --quiet -O - ${DOXYGEN_URL} | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" &&
         export PATH=${DEPS_PATH}/doxygen/bin:${PATH}

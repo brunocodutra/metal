@@ -129,6 +129,10 @@ span.octicon {
     margin-right: 5px;
 }
 
+.strike {
+    text-decoration: line-through;
+}
+
 #footer {
     height: 100px;
     font-size: 0.9em;

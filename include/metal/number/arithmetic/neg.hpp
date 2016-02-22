@@ -27,16 +27,10 @@ namespace metal
     ///     If `val` is a \number, but not boolean, then equivalent to
     ///     \code
     ///         struct result :
-    ///             metal::number<
-    ///                 val::value_type,
-    ///                 static_cast<val::value_type>(-val::value)
-    ///             >
+    ///             metal::number<val::value_type, -val::value>
     ///         {};
     ///     \endcode
-    ///     otherwise, equivalent to
-    ///     \code
-    ///         using result = metal::nothing;
-    ///     \endcode
+    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
