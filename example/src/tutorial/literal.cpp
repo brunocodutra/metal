@@ -45,7 +45,11 @@ static_assert(std::is_same<
 ///[raw_examples_2]
 static_assert(std::is_same<
     decltype(4'2_raw),
-    metal::list<metal::character<'4'>, metal::character<'\''>, metal::character<'2'>>
+    metal::list<
+        metal::character<'4'>,
+        metal::character<'\''>,
+        metal::character<'2'>
+    >
 >::value, "");
 ///[raw_examples_2]
 
@@ -111,7 +115,10 @@ static_assert(std::is_same<
 HIDDEN(namespace)
 {
 ///[reverse]
-using digits = metal::list</**/metal::number<long long, 4>, metal::number<long long, 2>>;
+using digits = metal::list<
+    metal::number<long long, 4>,
+    metal::number<long long, 2>
+>;
 
 static_assert(std::is_same<
     metal::reverse_t<digits>,
@@ -123,7 +130,10 @@ static_assert(std::is_same<
 HIDDEN(namespace)
 {
 ///[enumerate]
-using digits = metal::list</**/metal::number<long long, 2>, metal::number<long long, 4>>;
+using digits = metal::list<
+    metal::number<long long, 2>,
+    metal::number<long long, 4>
+>;
 
 static_assert(std::is_same<
     metal::enumerate_t<metal::number<long long, 0>, metal::size_t<digits>>,
@@ -136,8 +146,14 @@ HIDDEN(namespace)
 {
 ///[transform_2]
 using radix = metal::number<long long, 10>;
-using digits = metal::list</**/metal::number<long long, 2>, metal::number<long long, 4>>;
-using exponents = metal::list</**/metal::number<long long, 0>, metal::number<long long, 1>>;
+using digits = metal::list<
+    metal::number<long long, 2>,
+    metal::number<long long, 4>
+>;
+using exponents = metal::list<
+    metal::number<long long, 0>,
+    metal::number<long long, 1>
+>;
 
 static_assert(std::is_same<
     metal::transform_t<
@@ -153,7 +169,10 @@ static_assert(std::is_same<
 HIDDEN(namespace)
 {
 ///[sum]
-using terms = metal::list</**/metal::number<long long, 2>, metal::number<long long, 40>>;
+using terms = metal::list<
+    metal::number<long long, 2>,
+    metal::number<long long, 40>
+>;
 
 static_assert(std::is_same<
     metal::apply_t<metal::lambda<metal::add>, terms>,
@@ -307,7 +326,7 @@ struct SuperTuple :
 
     template<typename I, I i>
     constexpr auto operator [](metal::number<I, i>)
-        -> metal::at_t<SuperTuple, metal::number<I, i>>& {
+        -> typename std::tuple_element<i, std::tuple<T...>>::type& {
         return std::get<i>(*this);
     }
 };
