@@ -47,8 +47,10 @@ static_assert(std::is_same</**/metal::invoke_t<lbd>, void*>::value, "");
 HIDDEN(namespace)
 {
 /// [ex5]
-using lbd = std::is_convertible</**/metal::_1, std::add_pointer</**/metal::_2>>;
+using lbd = std::is_same</**/metal::_1, metal::lambda</**/std::common_type>>;
 /// [ex5]
 
-static_assert(metal::invoke_t<lbd, lbd*, void>::value, "");
+static_assert(metal::invoke_t<lbd, long, int, short>::value, "");
+static_assert(!metal::invoke_t<lbd, int, long, short>::value, "");
+static_assert(!metal::invoke_t<lbd, short, int, long>::value, "");
 }

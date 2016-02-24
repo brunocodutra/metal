@@ -2,9 +2,9 @@
 
 \tableofcontents
 
-Metal is a [portable](\ref portability) header-only [C++11] library
+Metal is a [portable](#portability) header-only [C++11] library
 designed to make [template metaprogramming][tmp] enjoyable.
-To that end, it provides a powerful high-level [abstraction](\ref concepts) for
+To that end, it provides a powerful high-level [abstraction](#concepts) for
 compile-time algorithms that mimic the [standard algorithms library][algorithm],
 hence **Metal** - <b>Meta</b>programming <b>Al</b>gorithms.
 
@@ -73,11 +73,12 @@ Downloading {#downloading}
 --------------------------------------------------------------------------------
 
 There are a few ways to get a copy of Metal,
-the easiest might be to simply [download the latest release][Metal.latest]
+the easiest might be to simply
+<a class="download" href="#">download the latest release</a>
 as a compressed package.
 
-Alternatively, if you have git installed,
-you can clone current stable branch `master` from GitHub.
+If you have git installed and would rather have the latest stable Metal,
+you may consider cloning branch `master` from GitHub.
 
     git clone https://github.com/brunocodutra/metal
 
@@ -88,14 +89,14 @@ branch `develop` instead.
 
 \note{
 During development it is possible that branch `develop` breaks temporarily.
-Be sure to check current compilation [status](\ref status) prior to cloning.
+Be sure to check current compilation [status](#status) prior to cloning.
 }
 
 Metal may be used as is immediately after downloading,
 simply add its `include/` sub-directory to the include search paths of
 your compiler/project and you're all set.
 To ease integration, however, specially if your project uses [CMake],
-you might consider [installing](\ref installing) Metal system-wide.
+you might consider [installing](#installing) Metal system-wide.
 
 Installing {#installing}
 --------------------------------------------------------------------------------
@@ -131,7 +132,7 @@ For more information, please refer to [CMake documentation][CMake.doc].
 Documentation {#documentation}
 --------------------------------------------------------------------------------
 
-An offline copy of this documentation may be obtained by cloning
+An offline copy of this very documentation may be obtained by cloning
 branch `gh-pages`.
 
     git clone https://github.com/brunocodutra/metal --branch=gh-pages
@@ -147,6 +148,31 @@ The documentation will be generated into `doc/html/`.
 
 To browse the documentation offline,
 simply load `index.html` on any web browser that supports [JavaScript].
+
+Header Organization {#header_organization}
+--------------------------------------------------------------------------------
+
+Each header in Metal is named after the construct it defines,
+so for instance distinct.hpp defines metal::distinct,
+while invoke.hpp defines metal::invoke and so on.
+
+Headers are semantically organized within modules,
+which are named after each [concept](#concepts).
+Each module corresponds to a directory in the filesystem and may
+naturally contain sub-modules, that is, sub-directories.
+Along each directory, on the same level in the filesystem,
+there is a also header file with the same name of that directory that includes
+every header therein.
+
+The complete hierarchy of modules and headers that comprise Metal is available
+in section [Headers](files.html).
+
+Finaly, headers within `detail/` are undocumented and should be expected to
+undergo breaking changes without prior notice,
+so directly depending on these headers or,
+likewise anything within `namespace metal::detail`,
+is strongly discouraged.
+
 
 Portability {#portability}
 ================================================================================
@@ -164,35 +190,34 @@ Current Status {#status}
 Current compilation status is summarized in the table bellow,
 if your favorite compiler is not listed, please [let us know][Metal.issues].
 
-<center>
-    <table>
-        <tr>
-            <th rowspan="2">Compiler</th>
-            <th rowspan="2" class="hidden-xs">Minimum Version</th>
-            <th colspan="2">Branch</th>
-        </tr>
-        <tr>
-            <th align="center">Master</th>
-            <th align="center">Develop</th>
-        </tr>
-        <tr>
-            <td align="left">GCC</td>
-            <td align="center" class="hidden-xs">4.8</td>
-            <td align="center" rowspan="2">![travis.master]</td>
-            <td align="center" rowspan="2">![travis.develop]</td>
-        </tr>
-        <tr>
-            <td align="left">Clang</td>
-            <td align="center" class="hidden-xs">3.5</td>
-        </tr>
-        <tr>
-            <td align="left">MSVC</td>
-            <td align="center" class="hidden-xs">14 (2015)</td>
-            <td align="center">![appveyor.master]</td>
-            <td align="center">![appveyor.develop]</td>
-        </tr>
-    </table>
-</center>
+<table>
+    <tr>
+        <th rowspan="2">Compiler</th>
+        <th rowspan="2" class="hidden-xs">Minimum Version</th>
+        <th colspan="2">Branch</th>
+    </tr>
+    <tr>
+        <th>Master</th>
+        <th>Develop</th>
+    </tr>
+
+    <tr>
+        <th>GCC</th>
+        <td class="hidden-xs">4.8</td>
+        <td rowspan="2">![travis.master]</td>
+        <td rowspan="2">![travis.develop]</td>
+    </tr>
+    <tr>
+        <th>Clang</th>
+        <td class="hidden-xs">3.5</td>
+    </tr>
+    <tr>
+        <th>MSVC</th>
+        <td class="hidden-xs">14 (2015)</td>
+        <td>![appveyor.master]</td>
+        <td>![appveyor.develop]</td>
+    </tr>
+</table>
 
 
 \note{
@@ -210,7 +235,7 @@ Because constructs assume different meanings during template metaprogramming
 from what they usually mean in an actual C++ context, some key concepts must be
 defined.
 
-Value {#concepts_value}
+Value {#value}
 --------------------------------------------------------------------------------
 
 [Values] are the objects of metaprogramming.
@@ -231,7 +256,7 @@ Any type is a [Value].
 \snippet concepts/value.cpp nex2
 \snippet concepts/value.cpp nex3
 
-Number {#concepts_number}
+Number {#number}
 --------------------------------------------------------------------------------
 
 A [Number] is a compile-time representation of a numerical value.
@@ -254,7 +279,7 @@ specialization of [std::integral_constant][integral].
 
 metal::number, metal::boolean, metal::integer, metal::character
 
-Optional {#concepts_optional}
+Optional {#optional}
 --------------------------------------------------------------------------------
 
 [Optionals] are [Values] that
@@ -286,7 +311,7 @@ Any [Value] is also an [Optional].
 
 metal::optional, metal::just, metal::nothing, metal::eval
 
-Expression {#concepts_expression}
+Expression {#expression}
 --------------------------------------------------------------------------------
 
 [Expressions], also called *metafunctions*,
@@ -300,15 +325,17 @@ In general, however, an [Expression] may be *empty* for some set of arguments,
 thus attempting to *evaluate* such an [Expression] for such set of arguments
 leads to a compile-time error.
 
+\tip{
+To save typing, most [Expressions] in Metal have an associated eager adaptor
+suffixed by `_t`, that is,
+given an expression `metal::expr`,
+`metal::expr_t<...>` is equivalent to `typename metal::expr<...>::type`.
+}
+
 ### Requirements
 
 `expr` is a model of [Expression] if and only if `expr` is a
 template class, union or alias that only expects types as arguments.
-
-\note{
-Because [Expressions] are not themselves [Values],
-it is not possible to define [higher-order] expressions directly.
-}
 
 ### Examples
 
@@ -322,7 +349,9 @@ it is not possible to define [higher-order] expressions directly.
 \snippet concepts/expression.cpp nex2
 \snippet concepts/expression.cpp nex3
 
-Lambda {#concepts_lambda}
+
+
+Lambda {#lambda}
 --------------------------------------------------------------------------------
 
 [Lambdas], short for *Lambda Expressions*,
@@ -368,7 +397,7 @@ into a [Lambda].
 
 metal::invoke, metal::arg, metal::lambda
 
-List {#concepts_list}
+List {#list}
 --------------------------------------------------------------------------------
 
 A [List] is a sequence of [Values].
@@ -392,7 +421,7 @@ that only expects types as arguments.
 
 metal::list, metal::is_list
 
-Pair {#concepts_pair}
+Pair {#pair}
 --------------------------------------------------------------------------------
 
 A [Pair] is a couple of [Values].
@@ -413,7 +442,7 @@ A [Pair] is any [List] whose size is 2.
 
 metal::pair, metal::is_pair, metal::first, metal::second
 
-Map {#concepts_map}
+Map {#map}
 --------------------------------------------------------------------------------
 
 A [Map] is a collection of unique [Values],
@@ -439,7 +468,7 @@ A [Map] is a [List] of [Pairs], whose first elements are all distinct, that is
 
 metal::map, metal::is_map, metal::keys, metal::values
 
-Data-Code Duality {#concepts_duality}
+Data-Code Duality {#duality}
 ================================================================================
 
 Markedly influenced by various functional programming languages,
@@ -469,13 +498,6 @@ Now, just like any [List], `sum` may be transformed into a new [List]
 ... which in turn may be seen as the sum of the squares of the same three numbers.
 
 \snippet manual/homoiconicity.cpp 5
-
-\tip{
-To save typing, most [Expressions] in Metal have an associated eager adaptor
-suffixed by `_t`, that is,
-given an expression `metal::expr`,
-`metal::expr_t<...>` is equivalent to `typename metal::expr<...>::type`.
-}
 
 Metal in Action {#metal_in_action}
 ================================================================================
@@ -588,7 +610,7 @@ Now we can transform characters to [Numbers].
 
 \snippet tutorial/literal.cpp transform_1
 
-That peculiar `metal::_1` is a placeholder and it works like this:
+That peculiar `metal::_1` is a [Placeholder] and it works like this:
 when `to_number<metal::_1>` is invoked with some argument,
 `metal::_1` will be substituted for that argument and only then `to_number`
 is *evaluated*.
@@ -639,8 +661,8 @@ We'll be using `metal::transform` again, but this time it takes a *binary*
 
 \snippet tutorial/literal.cpp transform_2
 
-Here again `metal::_1` and `metal::_2` are placeholders that get substituted for
-the first and second arguments with which `lbd` is invoked,
+Here again `metal::_1` and `metal::_2` are [Placeholders] that get substituted
+for the first and second arguments with which `lbd` is invoked,
 prior to the recursive *evaluation* of the [Expressions] that form the [Lambda].
 
 Finally we need to sum up the terms, so basically we need to invoke `metal::add`
@@ -650,7 +672,9 @@ That's exactly what `metal::apply` is for.
 \snippet tutorial/literal.cpp sum
 
 Here we used `metal::lambda<metal::add>` which is basically a synonym for
-`metal::add<metal::_1, metal::_2, ..., metal::arg<n-2>, metal::arg<n-1>>`,
+
+    metal::add<metal::_1, metal::_2, ..., metal::arg<n-2>, metal::arg<n-1>>
+
 where `n` is the number of arguments with which `metal::lambda<metal::add>` is
 invoked, that is the size of the [List] in this particular case.
 This way we don't need to care about the actual number of arguments.
@@ -671,22 +695,23 @@ And also ignores digit separators.
 
 \snippet tutorial/literal.cpp test_3
 
-[Value]:            \ref concepts_value
-[Values]:           \ref concepts_value
-[Optional]:         \ref concepts_optional
-[Optionals]:        \ref concepts_optional
-[Number]:           \ref concepts_number
-[Numbers]:          \ref concepts_number
-[Expression]:       \ref concepts_expression
-[Expressions]:      \ref concepts_expression
-[Lambda]:           \ref concepts_lambda
-[Lambdas]:          \ref concepts_lambda
-[List]:             \ref concepts_list
-[Lists]:            \ref concepts_list
-[Pair]:             \ref concepts_pair
-[Pairs]:            \ref concepts_pair
-[Map]:              \ref concepts_map
-[Maps]:             \ref concepts_map
+[Value]:            #value
+[Values]:           #value
+[Optional]:         #optional
+[Optionals]:        #optional
+[Number]:           #number
+[Numbers]:          #number
+[Expression]:       #expression
+[Expressions]:      #expression
+[Lambda]:           #lambda
+[Lambdas]:          #lambda
+[List]:             #list
+[Lists]:            #list
+[Pair]:             #pair
+[Pairs]:            #pair
+[Map]:              #map
+[Maps]:             #map
+[Placeholder]:      \ref placeholders
 [Placeholders]:     \ref placeholders
 
 [C++11]:            http://en.wikipedia.org/wiki/C%2B%2B11
