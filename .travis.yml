@@ -11,9 +11,12 @@ env:
       - secure: "DuBGzmeKiWMm5m0+uZhutjzCffB2PbixmuMm3IZWUi7/uAam4PPI37oeqVTIytxxfpgRvfR2ah75eJyU6ab72MBoHxGkHem10RAvhC/vPYbLZu545qfSGatyTI9R6NfERUxi7YIxjs6D8c4D/5k3gMoCbMUkU1Lze1708lknh5U="
 
     matrix:
-      - BUILD_DOC=true
+      - BOGUS_JOB=true
 
 matrix:
+    exclude:
+      - env: BOGUS_JOB=true
+
     include:
       - compiler: g++
         env: CXX_VERSION=4.8
@@ -75,6 +78,8 @@ matrix:
                 packages:
                   - clang-3.8
                 sources: *toolchain
+
+      - env: BUILD_DOC=true
 
 install:
   - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
