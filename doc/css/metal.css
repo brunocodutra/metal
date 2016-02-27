@@ -1,3 +1,8 @@
+/* Copyright Bruno Dutra 2015-2016
+ * Distributed under the Boost Software License, Version 1.0.
+ * (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+ */
+
 html, body {
     height: 100%;
     color: #464646;
@@ -50,7 +55,7 @@ html, body {
     background-color: #F9F9F9;
     border: 1px solid #EEEEEE;
     border-radius: 7px;
-    margin: 0px 10px 10px 10px;
+    margin: 0px 5px 10px 10px;
 }
 
 .toc ul {
