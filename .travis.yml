@@ -88,9 +88,11 @@ install:
   - |
     if [[ "${BUILD_DOC}" == "true" ]]
     then
-        DOXYGEN_URL="http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.11.linux.bin.tar.gz"
+        DOXYGEN_FTP="ftp://ftp.stack.nl/pub/users/dimitri/"
+        DOXYGEN_LATEST=$(curl -s ${DOXYGEN_FTP} | grep -Eo "doxygen[0-9.-]+linux.bin.tar.gz" | sort -V | tail -1)
+        DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_LATEST}"
         mkdir "${DEPS_PATH}/doxygen" &&
-        travis_retry wget --quiet -O - ${DOXYGEN_URL} | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" &&
+        travis_retry curl -L ${DOXYGEN_URL} | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" &&
         export PATH=${DEPS_PATH}/doxygen/bin:${PATH}
     fi
 
@@ -118,7 +120,7 @@ script:
         if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" ]]
         then
             git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages gh-pages &> /dev/null &&
-            cp -r gh-pages/.git/ html/.git/  &> /dev/null &&
+            cp -r gh-pages/.git/ html/.git/ &> /dev/null &&
             git -C html/ add --all . &> /dev/null &&
             git -C html/ commit --allow-empty -m "updating to $(git -C ${TRAVIS_BUILD_DIR} rev-parse --short HEAD)" &> /dev/null &&
             git -C html/ push origin gh-pages &> /dev/null
