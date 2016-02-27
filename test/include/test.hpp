@@ -15,8 +15,7 @@
 
 #include <type_traits>
 
-int main()
-{
+int main() {
     return 0;
 }
 

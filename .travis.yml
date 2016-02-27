@@ -86,6 +86,7 @@ before_install:
   - git config --global user.email "\<\>"
 
   - METAL_SOURCE_PATH="${TRAVIS_BUILD_DIR}"
+  - EXTERNAL_SOURCE_PATH="${METAL_SOURCE_PATH}/example/external/"
 
   - METAL_BUILD_PATH="${TRAVIS_BUILD_DIR}/build"
   - mkdir -p "${METAL_BUILD_PATH}"
@@ -93,16 +94,50 @@ before_install:
   - METAL_INSTALL_PATH="${TRAVIS_BUILD_DIR}/install"
   - mkdir -p "${METAL_INSTALL_PATH}"
 
+  - EXTERNAL_BUILD_PATH="${METAL_BUILD_PATH}/example/external/"
+  - mkdir -p "${EXTERNAL_BUILD_PATH}"
+
   - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
   - mkdir -p "${DEPS_PATH}"
 
+  - |
+    if [[ -n "${TRAVIS_TAG}" ]]
+    then
+        METAL_VERSION="${TRAVIS_TAG}"
+    else
+        METAL_VERSION=$(git -C "${METAL_SOURCE_PATH}" describe --abbrev=0 --tags)
+    fi
+
+  - METAL_VERSION="${METAL_VERSION%%-*}"
+  - METAL_VERSION="${METAL_VERSION##*v}"
+  - echo "METAL_VERSION=${METAL_VERSION}"
+
 install:
+  - CMAKE_ROOT="http://www.cmake.org/files/"
+  - CMAKE_MAJOR_MINOR=$(travis_retry curl -Ls "${CMAKE_ROOT}" | grep -Po 'href="\Kv[0-9.]+(?=/")' | sort -V | tail -2 | head -1)
+  - CMAKE_PKG=$(travis_retry curl -Ls "${CMAKE_ROOT}/${CMAKE_MAJOR_MINOR}" | grep -Eo "cmake-${CMAKE_MAJOR_MINOR##*v}[0-9.]+-Linux-x86_64[.]tar[.]gz" | sort -V | tail -1)
+  - CMAKE_URL="${CMAKE_ROOT}/${CMAKE_MAJOR_MINOR}/${CMAKE_PKG}"
+
+  - |
+    if ! curl -ILsf "${CMAKE_URL}" &> /dev/null
+    then
+        #fallback to known URL
+        CMAKE_URL="https://cmake.org/files/v3.1/cmake-3.1.0-Linux-x86_64.tar.gz"
+    fi
+
+  - echo "CMAKE_URL=${CMAKE_URL}"
+  - mkdir -p "${DEPS_PATH}/cmake"
+  - travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake"
+  - export PATH=${DEPS_PATH}/cmake/bin:${PATH}
+  - cmake --version
+
   - |
     if [[ "${BUILD_DOC}" == "true" ]]
     then
         DOXYGEN_FTP="ftp://ftp.stack.nl/pub/users/dimitri/"
-        DOXYGEN_LATEST=$(curl -s "${DOXYGEN_FTP}" | grep -Eo "doxygen[0-9.-]+linux.bin.tar.gz" | sort -V | tail -1)
-        DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_LATEST}"
+        DOXYGEN_PKG=$(travis_retry curl -Ls "${DOXYGEN_FTP}" | grep -Eo "doxygen-[0-9.]+linux[.]bin[.]tar[.]gz" | sort -V | tail -1)
+        DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_PKG}"
+        echo "DOXYGEN_URL=${DOXYGEN_URL}" &&
         mkdir -p "${DEPS_PATH}/doxygen" &&
         travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" &&
         export PATH=${DEPS_PATH}/doxygen/bin:${PATH} &&
@@ -119,6 +154,15 @@ before_script:
 
   - (cd "${METAL_BUILD_PATH}" && cmake "${METAL_SOURCE_PATH}" ${CMAKE_ARGS[@]} && make install)
 
+  - CMAKE_ARGS=("-DCMAKE_PREFIX_PATH=${METAL_INSTALL_PATH}")
+  - |
+    if [[ -n "${METAL_VERSION}" ]]
+    then
+        CMAKE_ARGS+=("-DMETAL_VERSION=${METAL_VERSION}")
+    fi
+
+  - (cd "${EXTERNAL_BUILD_PATH}" && cmake "${EXTERNAL_SOURCE_PATH}" ${CMAKE_ARGS[@]})
+
 script:
   - |
     if [[ "${BUILD_DOC}" == "true" ]]
@@ -133,5 +177,6 @@ script:
             git -C "${METAL_BUILD_PATH}/doc/html/" push origin gh-pages &> /dev/null
         fi
     else
+        (cd "${EXTERNAL_BUILD_PATH}" && make all) &&
         (cd "${METAL_BUILD_PATH}" && (make -k clean examples tests || ctest))
     fi
