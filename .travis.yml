@@ -154,7 +154,7 @@ before_script:
 
   - (cd "${METAL_BUILD_PATH}" && cmake "${METAL_SOURCE_PATH}" ${CMAKE_ARGS[@]} && make install)
 
-  - CMAKE_ARGS=("-DCMAKE_PREFIX_PATH=${METAL_INSTALL_PATH}")
+  - CMAKE_ARGS+=("-DCMAKE_PREFIX_PATH=${METAL_INSTALL_PATH}")
   - |
     if [[ -n "${METAL_VERSION}" ]]
     then
