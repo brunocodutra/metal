@@ -81,50 +81,57 @@ matrix:
 
       - env: BUILD_DOC=true
 
-install:
-  - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
-  - mkdir "${DEPS_PATH}"
+before_install:
+  - git config --global user.name "Travis Bot"
+  - git config --global user.email "\<\>"
 
+  - METAL_SOURCE_PATH="${TRAVIS_BUILD_DIR}"
+
+  - METAL_BUILD_PATH="${TRAVIS_BUILD_DIR}/build"
+  - mkdir -p "${METAL_BUILD_PATH}"
+
+  - METAL_INSTALL_PATH="${TRAVIS_BUILD_DIR}/install"
+  - mkdir -p "${METAL_INSTALL_PATH}"
+
+  - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
+  - mkdir -p "${DEPS_PATH}"
+
+install:
   - |
     if [[ "${BUILD_DOC}" == "true" ]]
     then
         DOXYGEN_FTP="ftp://ftp.stack.nl/pub/users/dimitri/"
-        DOXYGEN_LATEST=$(curl -s ${DOXYGEN_FTP} | grep -Eo "doxygen[0-9.-]+linux.bin.tar.gz" | sort -V | tail -1)
+        DOXYGEN_LATEST=$(curl -s "${DOXYGEN_FTP}" | grep -Eo "doxygen[0-9.-]+linux.bin.tar.gz" | sort -V | tail -1)
         DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_LATEST}"
-        mkdir "${DEPS_PATH}/doxygen" &&
-        travis_retry curl -L ${DOXYGEN_URL} | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" &&
-        export PATH=${DEPS_PATH}/doxygen/bin:${PATH}
+        mkdir -p "${DEPS_PATH}/doxygen" &&
+        travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" &&
+        export PATH=${DEPS_PATH}/doxygen/bin:${PATH} &&
+        doxygen --version
     fi
 
 before_script:
-  - git config --global user.name "Travis Bot"
-  - git config --global user.email "\<\>"
-
-  - mkdir "${TRAVIS_BUILD_DIR}/build"
-  - cd "${TRAVIS_BUILD_DIR}/build"
-
+  - CMAKE_ARGS=("-DCMAKE_INSTALL_PREFIX=${METAL_INSTALL_PATH}")
   - |
     if [[ -n "${CXX}" && -n "${CXX_VERSION}" ]]
     then
-        cmake "${TRAVIS_BUILD_DIR}" -DCMAKE_CXX_COMPILER=${CXX}-${CXX_VERSION}
-    else
-        cmake "${TRAVIS_BUILD_DIR}"
+        CMAKE_ARGS+=("-DCMAKE_CXX_COMPILER=${CXX}-${CXX_VERSION}")
     fi
+
+  - (cd "${METAL_BUILD_PATH}" && cmake "${METAL_SOURCE_PATH}" ${CMAKE_ARGS[@]} && make install)
 
 script:
   - |
     if [[ "${BUILD_DOC}" == "true" ]]
     then
-        cd doc &&
-        make doc &&
+        (cd "${METAL_BUILD_PATH}" && make doc) &&
         if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" ]]
         then
-            git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages gh-pages &> /dev/null &&
-            cp -r gh-pages/.git/ html/.git/ &> /dev/null &&
-            git -C html/ add --all . &> /dev/null &&
-            git -C html/ commit --allow-empty -m "updating to $(git -C ${TRAVIS_BUILD_DIR} rev-parse --short HEAD)" &> /dev/null &&
-            git -C html/ push origin gh-pages &> /dev/null
+            git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages "${METAL_BUILD_PATH}/doc/gh-pages" &> /dev/null &&
+            cp -r "${METAL_BUILD_PATH}/doc/gh-pages/.git/" "${METAL_BUILD_PATH}/doc/html/" &> /dev/null &&
+            git -C "${METAL_BUILD_PATH}/doc/html/" add --all . &> /dev/null &&
+            git -C "${METAL_BUILD_PATH}/doc/html/" commit --allow-empty -m "updating to $(git -C ${METAL_SOURCE_PATH} rev-parse --short HEAD)" &> /dev/null &&
+            git -C "${METAL_BUILD_PATH}/doc/html/" push origin gh-pages &> /dev/null
         fi
     else
-        make -k examples tests || ctest
+        (cd "${METAL_BUILD_PATH}" && (make -k clean examples tests || ctest))
     fi
