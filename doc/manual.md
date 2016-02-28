@@ -74,7 +74,7 @@ Downloading {#downloading}
 
 There are a few ways to get a copy of Metal,
 the easiest might be to simply
-<a class="download" href="#">download the latest release</a>
+<a class="download" href="">download the latest release</a>
 as a compressed package.
 
 If you have git installed and would rather have the latest stable Metal,
@@ -727,7 +727,7 @@ And ignores digit separators too.
 [C++11]:            http://en.wikipedia.org/wiki/C%2B%2B11
 [C++14]:            http://en.wikipedia.org/wiki/C%2B%2B14
 [JavaScript]:       http://en.wikipedia.org/wiki/JavaScript
-[higher-order]:     http://en.wikipedia.org/wiki/Higher-order_lambda
+[higher-order]:     http://en.wikipedia.org/wiki/Higher-order_function
 [first-class]:      http://en.wikipedia.org/wiki/First-class_citizen
 [Lambda Calculus]:  http://en.wikipedia.org/wiki/Lambda_calculus
 [s-expressions]:    http://en.wikipedia.org/wiki/S-expression
@@ -735,7 +735,7 @@ And ignores digit separators too.
 [ci]:               http://en.wikipedia.org/wiki/Continuous_integration
 
 [tmp]:              http://en.wikipedia.org/wiki/Template_metaprogramming
-[tmp.turing]:       http://ubietylab.net/ubigraph/content/Papers/pdf/CppTuring.pdf
+[tmp.turing]:       http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.14.3670
 [tmp.simple]:       http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html
 [tmp.modern]:       http://pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html
 

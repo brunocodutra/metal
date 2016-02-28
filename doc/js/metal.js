@@ -185,6 +185,7 @@ $( document ).ready(function(){
     $("span.comment").addClass("text-muted");
     $("code a").removeClass("el");
     $("a.el").wrapInner("<strong>");
+    $("a.download").attr("href", $("a#download").attr("href"));
     $("a.anchor").each(function(){
         $(this).attr("href", "#" + $(this).attr("id"));
     });
