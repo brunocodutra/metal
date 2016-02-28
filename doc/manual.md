@@ -492,23 +492,23 @@ Metal makes no difference between lists and unevaluated expressions.
 
 Take for instance the following definition.
 
-\snippet manual/homoiconicity.cpp 1
+\snippet homoiconicity.cpp 1
 
 Here `sum` could be understood as an unevaluated addition of three numbers, thus
 
-\snippet manual/homoiconicity.cpp 2
+\snippet homoiconicity.cpp 2
 
 Alternativelly, `sum` could also be seen as a [List] that contains three values
 
-\snippet manual/homoiconicity.cpp 3
+\snippet homoiconicity.cpp 3
 
 Now, just like any [List], `sum` may be transformed into a new [List]
 
-\snippet manual/homoiconicity.cpp 4
+\snippet homoiconicity.cpp 4
 
 ... which in turn may be seen as the sum of the squares of the same three numbers.
 
-\snippet manual/homoiconicity.cpp 5
+\snippet homoiconicity.cpp 5
 
 Metal in Action {#metal_in_action}
 ================================================================================
@@ -521,12 +521,12 @@ Parsing Raw Literals {#parsing_raw_literals}
 If you ever considered augmenting [`std::tuple`][tuple],
 so that instead of the rather odd [`std::get<N>()`][get]
 
-\snippet tutorial/literal.cpp teaser_1
+\snippet literal.cpp teaser_1
 
 one could just use the more intuitive subscript operator `[N]`,
 
 \strike{
-\snippet tutorial/literal.cpp teaser_2
+\snippet literal.cpp teaser_2
 }
 
 chances are you realized the hard way that there is simply no way of
@@ -536,16 +536,16 @@ All is not lost however if you can live with the subscript operator taking an
 object of type `std::integral_constant`, or in Metal's parlance [Number],
 instead of an usual integral value.
 
-\snippet tutorial/literal.cpp super_tuple
+\snippet literal.cpp super_tuple
 
-\snippet tutorial/literal.cpp teaser_3
+\snippet literal.cpp teaser_3
 
 Neat isn't it?
 Now we need a [literal operator][literal] `_c` that encodes an integral value
 as a [Number]. Sounds simple enough, right?
 
 \strike{
-\snippet tutorial/literal.cpp naive
+\snippet literal.cpp naive
 }
 
 Not really. While `constexpr` tells the compiler the value returned by
@@ -559,16 +559,16 @@ in other words, we are in for some fun!
 Raw literal operator templates are defined as a nullary function templated over
 `char...`, such as
 
-\snippet tutorial/literal.cpp raw
+\snippet literal.cpp raw
 
 where `tokens...` are mapped to the exact characters that make up the literal,
 including the prefixes `0x` and `0b`
 
-\snippet tutorial/literal.cpp raw_examples_1
+\snippet literal.cpp raw_examples_1
 
 as well as the digit separator `'` introduced in [C++14]
 
-\snippet tutorial/literal.cpp raw_examples_2
+\snippet literal.cpp raw_examples_2
 
 ### The `operator ""_c`
 
@@ -577,7 +577,7 @@ It simply wraps each token into a `metal::character` and forwards them to an
 [Expression] that effectively parses the [Number], we'll call it,
 suggestively, `make_number`.
 
-\snippet tutorial/literal.cpp _c
+\snippet literal.cpp _c
 
 ### Resolving the Radix
 
@@ -588,7 +588,7 @@ integral [Numbers].
 The radix and digits are then forwarded to `compute`, which adds up the digits
 according to the radix.
 
-\snippet tutorial/literal.cpp make_number
+\snippet literal.cpp make_number
 
 Notice that we followed the notation used by Metal and defined `make_number_t`
 as an alias to `typename make_number<>::type` to save typing.
@@ -601,7 +601,7 @@ That can be easily accomplished using `metal::remove`, which takes a [List] `l`
 and a [Value] `v` and returns another [List] that contains every element from
 `l` and in the same order, except for those that are identical to `v`.
 
-\snippet tutorial/literal.cpp remove
+\snippet literal.cpp remove
 
 The remaining digits can then be transformed into the corresponding
 [Numbers] using `metal::transform`, which takes a [Lambda] `lbd` and a
@@ -614,11 +614,11 @@ First we need an [Expression] that maps characters to
 [Numbers] from which we can construct our `lbd`.
 We'll call it `to_number` and it is rather trivial.
 
-\snippet tutorial/literal.cpp to_number
+\snippet literal.cpp to_number
 
 Now we can transform characters to [Numbers].
 
-\snippet tutorial/literal.cpp transform_1
+\snippet literal.cpp transform_1
 
 That peculiar `metal::_1` is a [Placeholder] and it works like this:
 when `to_number<metal::_1>` is invoked with some argument,
@@ -627,7 +627,7 @@ is *evaluated*.
 
 Putting it all together we have
 
-\snippet tutorial/literal.cpp parse_digits
+\snippet literal.cpp parse_digits
 
 ### Computing the Number
 
@@ -641,7 +641,7 @@ The first thing we notice is that the *ith* digit actually corresponds to the
 <em>(n-1-i)th</em> power of the radix, so, to make things simpler,
 we need to `metal::reverse` the order of digits.
 
-\snippet tutorial/literal.cpp reverse
+\snippet literal.cpp reverse
 
 Then we have
 
@@ -649,7 +649,7 @@ Then we have
 
 Now we need to `metal::enumerate` the exponents that correspond to each digit.
 
-\snippet tutorial/literal.cpp enumerate
+\snippet literal.cpp enumerate
 
 This version of `metal::enumerate` takes two [Numbers], `start` and `size`,
 and returns a [List] containing a sequence of [Numbers] beginning with `start`
@@ -669,7 +669,7 @@ We'll be using `metal::transform` again, but this time it takes a *binary*
 
     [lbd(l1[0], l2[0]), lbd(l1[1], l2[1]), ..., lbd(l1[n-2], l2[n-2]), lbd(l1[n-1], l2[n-1])]
 
-\snippet tutorial/literal.cpp transform_2
+\snippet literal.cpp transform_2
 
 Here again `metal::_1` and `metal::_2` are [Placeholders] that get substituted
 for the first and second arguments with which `lbd` is invoked,
@@ -679,7 +679,7 @@ Finally we need to sum up the terms, so basically we need to invoke `metal::add`
 for the elements contained in a [List].
 That's exactly what `metal::apply` is for.
 
-\snippet tutorial/literal.cpp sum
+\snippet literal.cpp sum
 
 Here we used `metal::lambda<metal::add>` which is basically a synonym for
 
@@ -691,19 +691,19 @@ This way we don't need to care about the actual number of arguments.
 
 We now have all the pieces needed to define `compute`.
 
-\snippet tutorial/literal.cpp compute
+\snippet literal.cpp compute
 
 And we are done.
 
-\snippet tutorial/literal.cpp test_1
+\snippet literal.cpp test_1
 
 It also works for very long binary literals.
 
-\snippet tutorial/literal.cpp test_2
+\snippet literal.cpp test_2
 
 And ignores digit separators too.
 
-\snippet tutorial/literal.cpp test_3
+\snippet literal.cpp test_3
 
 [Value]:            #value
 [Values]:           #value
