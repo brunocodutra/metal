@@ -1,4 +1,4 @@
-# Copyright Bruno Dutra 2015
+# Copyright Bruno Dutra 2015-2016
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
@@ -13,14 +13,34 @@ environment:
       - GENERATOR: Visual Studio 14 2015
       - GENERATOR: Visual Studio 14 2015 Win64
 
+install:
+  - choco install doxygen.portable
+
 before_build:
-  - mkdir "%APPVEYOR_BUILD_FOLDER%\build"
-  - cd "%APPVEYOR_BUILD_FOLDER%\build"
-  - cmake -G"%GENERATOR%" "%APPVEYOR_BUILD_FOLDER%"
+  - set "METAL_SOURCE_PATH=%APPVEYOR_BUILD_FOLDER%"
+  - set "EXTERNAL_SOURCE_PATH=%METAL_SOURCE_PATH%\example\external"
+
+  - set "METAL_BUILD_PATH=%APPVEYOR_BUILD_FOLDER%\build"
+  - mkdir "%METAL_BUILD_PATH%"
+
+  - set "METAL_INSTALL_PATH=%APPVEYOR_BUILD_FOLDER%\install"
+  - mkdir "%METAL_INSTALL_PATH%"
+
+  - set "EXTERNAL_BUILD_PATH=%METAL_BUILD_PATH%/example/external"
+  - mkdir "%EXTERNAL_BUILD_PATH%"
+
+
+  - pushd "%METAL_BUILD_PATH%" && cmake -G"%GENERATOR%" "%METAL_SOURCE_PATH%" -DCMAKE_INSTALL_PREFIX="%METAL_INSTALL_PATH%" & popd
+  - cmake --build "%METAL_BUILD_PATH%" --target install
+
+  - pushd "%EXTERNAL_BUILD_PATH%" && cmake -G"%GENERATOR%" "%EXTERNAL_SOURCE_PATH%" -DCMAKE_PREFIX_PATH="%METAL_INSTALL_PATH%" & popd
 
 build_script:
-  - cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --target examples
-  - cmake --build "%APPVEYOR_BUILD_FOLDER%\build" --target tests
+  - cmake --build "%EXTERNAL_BUILD_PATH%" --target external
+
+  - cmake --build "%METAL_BUILD_PATH%" --target doc
+  - cmake --build "%METAL_BUILD_PATH%" --target examples
+  - cmake --build "%METAL_BUILD_PATH%" --target tests
 
 test_script:
-  - ctest
+  - pushd "%METAL_BUILD_PATH%" && ctest & popd

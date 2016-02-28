@@ -1,4 +1,4 @@
-# Copyright Bruno Dutra 2015
+# Copyright Bruno Dutra 2015-2016
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
@@ -64,7 +64,7 @@ function(metal_add_test_tree _tree)
     endforeach()
 endfunction()
 
-macro(metal_add_flag _flag)
+macro(add_flag _flag)
     set(result "${_flag}")
     string(TOUPPER "${result}" result)
     string(REGEX REPLACE "[+]" "X" result "${result}")
@@ -80,27 +80,27 @@ macro(metal_add_flag _flag)
 endmacro()
 
 if(METAL_VERBOSE)
-    metal_add_flag(-v)
-    metal_add_flag(-ftemplate-backtrace-limit=0)
-    metal_add_flag(-fdiagnostics-show-template-tree)
-    metal_add_flag(-fno-elide-type)
+    add_flag(-v)
+    add_flag(-ftemplate-backtrace-limit=0)
+    add_flag(-fdiagnostics-show-template-tree)
+    add_flag(-fno-elide-type)
 endif()
 
 if(METAL_ENABLE_BASIC_WARNINGS)
-    metal_add_flag(-W)
-    metal_add_flag(-Wall)
-    metal_add_flag(/W3)
+    add_flag(-W)
+    add_flag(-Wall)
+    add_flag(/W3)
 endif()
 
 if(METAL_ENABLE_EXTRA_WARNINGS)
-    metal_add_flag(-Wextra)
-    metal_add_flag(/W4)
+    add_flag(-Wextra)
+    add_flag(/W4)
 endif()
 
 if(METAL_STRICT)
-    metal_add_flag(-pedantic-errors)
-    metal_add_flag(-Werror)
-    metal_add_flag(/WX)
+    add_flag(-pedantic-errors)
+    add_flag(-Werror)
+    add_flag(/WX)
 endif()
 
 foreach(dialect
@@ -109,7 +109,7 @@ foreach(dialect
     -std=c++11 -std=c++0x
     /Za
 )
-    metal_add_flag(${dialect})
+    add_flag(${dialect})
     if(${result})
         break()
     endif()
@@ -126,10 +126,10 @@ add_subdirectory(doc)
 add_subdirectory(example)
 add_subdirectory(test)
 
-foreach(x INCLUDE CMAKE)
-  if(NOT IS_ABSOLUTE "${METAL_${x}_INSTALL_DIR}")
-    set(METAL_${x}_INSTALL_DIR
-        "${CMAKE_INSTALL_PREFIX}/${METAL_${x}_INSTALL_DIR}"
+foreach(_ INCLUDE CMAKE)
+  if(NOT IS_ABSOLUTE "${METAL_${_}_INSTALL_DIR}")
+    set(METAL_${_}_INSTALL_DIR
+        "${CMAKE_INSTALL_PREFIX}/${METAL_${_}_INSTALL_DIR}"
     )
   endif()
 endforeach()
