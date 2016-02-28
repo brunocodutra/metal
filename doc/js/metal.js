@@ -1,3 +1,7 @@
+// Copyright Bruno Dutra 2015-2016
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+
 $( document ).ready(function(){
     $("li > a[href='index.html'] > span")
         .before("<i class='octicon octicon-book'></i> ");
@@ -146,10 +150,18 @@ $( document ).ready(function(){
         });
 
     $("table.memberdecls").addClass("table table-striped");
-
-    $("table.directory").addClass("table table-striped");
-    $("table.doxtable").addClass("table table-bordered");
     $("table.params").addClass("table");
+    $("table.directory").addClass("table table-striped");
+    $("table.doxtable")
+        .addClass("table table-bordered")
+        .wrap("<div class='table-responsive'>");
+    $("table.doxtable p.starttd").replaceWith(function(){
+        return $(this).html();
+    });
+    $("table.doxtable p.endtd").replaceWith(function(){
+        return $(this).html();
+    });
+
 
     $("dl.section.see").replaceWith(function(){
         return $(this).find("dd").contents();
@@ -170,9 +182,23 @@ $( document ).ready(function(){
             return $("<pre class='fragment'>").append($(this).contents());
         });
 
+    $("span.comment").addClass("text-muted");
     $("code a").removeClass("el");
     $("a.el").wrapInner("<strong>");
-    $("span.comment").addClass("text-muted");
+    $("a.download").attr("href", $("a#download").attr("href"));
+    $("a.anchor").each(function(){
+        $(this).attr("href", "#" + $(this).attr("id"));
+    });
+    $("a[href^=#]").click(function(){
+        var href = $.attr(this, "href");
+        $("html, body").animate({
+            scrollTop: $(href).offset().top
+        }, 300, function(){
+            window.location.hash = href;
+        });
+
+        return false;
+    });
 
     $(".levels").remove();
     $(".summary").remove();
@@ -211,4 +237,6 @@ $( document ).ready(function(){
     $(".memname").removeClass("memname");
     $(".memtemplate").removeClass("memtemplate");
     $(".ah").removeClass("ah").addClass("btn btn-default");
+
+    $("body").fadeIn(150);
 });

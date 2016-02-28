@@ -1,6 +1,6 @@
-// Copyright Bruno Dutra 2015
+// Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSEmetal::_1_0.txt)
+// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal.hpp>
 
@@ -28,15 +28,19 @@ constexpr auto operator ""/**/_raw()
 
 ///[raw_examples_1]
 static_assert(std::is_same<
-    decltype(42_raw),
-    metal::list<metal::character<'4'>, metal::character<'2'>>
+    decltype(371_raw),
+    metal::list<
+        metal::character<'3'>,
+        metal::character<'7'>,
+        metal::character<'1'>
+    >
 >::value, "");
 
 static_assert(std::is_same<
-    decltype(0x42_raw),
+    decltype(0x371_raw),
     metal::list<
         metal::character<'0'>, metal::character<'x'>,
-        metal::character<'4'>,metal::character<'2'>
+        metal::character<'3'>, metal::character<'7'>, metal::character<'1'>
     >
 >::value, "");
 ///[raw_examples_1]
@@ -44,8 +48,14 @@ static_assert(std::is_same<
 #ifdef __cpp_digit_separators
 ///[raw_examples_2]
 static_assert(std::is_same<
-    decltype(4'2_raw),
-    metal::list<metal::character<'4'>, metal::character<'\''>, metal::character<'2'>>
+    decltype(3'7'1_raw),
+    metal::list<
+        metal::character<'3'>,
+        metal::character<'\''>,
+        metal::character<'7'>,
+        metal::character<'\''>,
+        metal::character<'1'>
+    >
 >::value, "");
 ///[raw_examples_2]
 
@@ -53,14 +63,20 @@ HIDDEN(namespace)
 {
 ///[remove]
 using tokens = metal::list<
-    metal::character<'4'>,
+    metal::character<'3'>,
     metal::character<'\''>,
-    metal::character<'2'>
+    metal::character<'7'>,
+    metal::character<'\''>,
+    metal::character<'1'>
 >;
 
 static_assert(std::is_same<
     metal::remove_t<tokens, metal::character<'\''>>,
-    metal::list<metal::character<'4'>, metal::character<'2'>>
+    metal::list<
+        metal::character<'3'>,
+        metal::character<'7'>,
+        metal::character<'1'>
+    >
 >::value, "");
 ///[remove]
 }
@@ -99,11 +115,19 @@ struct to_number :
 HIDDEN(namespace)
 {
 ///[transform_1]
-using digits = metal::list</**/metal::character<'4'>, metal::character<'2'>>;
+using digits = metal::list<
+    metal::character<'3'>,
+    metal::character<'7'>,
+    metal::character<'1'>
+>;
 
 static_assert(std::is_same<
     metal::transform_t<to_number<metal::_1>, digits>,
-    metal::list<metal::number<long long, 4>, metal::number<long long, 2>>
+    metal::list<
+        metal::number<long long, 3>,
+        metal::number<long long, 7>,
+        metal::number<long long, 1>
+    >
 >::value, "");
 ///[transform_1]
 }
@@ -111,11 +135,19 @@ static_assert(std::is_same<
 HIDDEN(namespace)
 {
 ///[reverse]
-using digits = metal::list</**/metal::number<long long, 4>, metal::number<long long, 2>>;
+using digits = metal::list<
+    metal::number<long long, 3>,
+    metal::number<long long, 7>,
+    metal::number<long long, 1>
+>;
 
 static_assert(std::is_same<
     metal::reverse_t<digits>,
-    metal::list<metal::number<long long, 2>, metal::number<long long, 4>>
+    metal::list<
+        metal::number<long long, 1>,
+        metal::number<long long, 7>,
+        metal::number<long long, 3>
+    >
 >::value, "");
 ///[reverse]
 }
@@ -123,11 +155,19 @@ static_assert(std::is_same<
 HIDDEN(namespace)
 {
 ///[enumerate]
-using digits = metal::list</**/metal::number<long long, 2>, metal::number<long long, 4>>;
+using digits = metal::list<
+    metal::number<long long, 1>,
+    metal::number<long long, 7>,
+    metal::number<long long, 3>
+>;
 
 static_assert(std::is_same<
     metal::enumerate_t<metal::number<long long, 0>, metal::size_t<digits>>,
-    metal::list<metal::number<long long, 0>, metal::number<long long, 1>>
+    metal::list<
+        metal::number<long long, 0>,
+        metal::number<long long, 1>,
+        metal::number<long long, 2>
+    >
 >::value, "");
 ///[enumerate]
 }
@@ -136,8 +176,16 @@ HIDDEN(namespace)
 {
 ///[transform_2]
 using radix = metal::number<long long, 10>;
-using digits = metal::list</**/metal::number<long long, 2>, metal::number<long long, 4>>;
-using exponents = metal::list</**/metal::number<long long, 0>, metal::number<long long, 1>>;
+using digits = metal::list<
+    metal::number<long long, 1>,
+    metal::number<long long, 7>,
+    metal::number<long long, 3>
+>;
+using exponents = metal::list<
+    metal::number<long long, 0>,
+    metal::number<long long, 1>,
+    metal::number<long long, 2>
+>;
 
 static_assert(std::is_same<
     metal::transform_t<
@@ -145,7 +193,11 @@ static_assert(std::is_same<
         digits,
         exponents
     >,
-    metal::list<metal::number<long long, 2>, metal::number<long long, 40>>
+    metal::list<
+        metal::number<long long, 1>,
+        metal::number<long long, 70>,
+        metal::number<long long, 300>
+    >
 >::value, "");
 ///[transform_2]
 }
@@ -153,11 +205,15 @@ static_assert(std::is_same<
 HIDDEN(namespace)
 {
 ///[sum]
-using terms = metal::list</**/metal::number<long long, 2>, metal::number<long long, 40>>;
+using terms = metal::list<
+    metal::number<long long, 1>,
+    metal::number<long long, 70>,
+    metal::number<long long, 300>
+>;
 
 static_assert(std::is_same<
     metal::apply_t<metal::lambda<metal::add>, terms>,
-    metal::number<long long, 42>
+    metal::number<long long, 371>
 >::value, "");
 ///[sum]
 }
@@ -307,7 +363,7 @@ struct SuperTuple :
 
     template<typename I, I i>
     constexpr auto operator [](metal::number<I, i>)
-        -> metal::at_t<SuperTuple, metal::number<I, i>>& {
+        -> typename std::tuple_element<i, std::tuple<T...>>::type& {
         return std::get<i>(*this);
     }
 };
