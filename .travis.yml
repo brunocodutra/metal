@@ -119,7 +119,7 @@ install:
   - CMAKE_URL="${CMAKE_ROOT}/${CMAKE_MAJOR_MINOR}/${CMAKE_PKG}"
 
   - |
-    if ! curl -ILsf "${CMAKE_URL}" &> /dev/null
+    if [[ -z "${CMAKE_MAJOR_MINOR}" || -z "${CMAKE_PKG}" ]] || ! curl -ILsf "${CMAKE_URL}" &> /dev/null
     then
         #fallback to known URL
         CMAKE_URL="https://cmake.org/files/v3.1/cmake-3.1.0-Linux-x86_64.tar.gz"
