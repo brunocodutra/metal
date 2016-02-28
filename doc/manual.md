@@ -92,17 +92,12 @@ During development it is possible that branch `develop` breaks temporarily.
 Be sure to check current compilation [status](#status) prior to cloning.
 }
 
-Metal may be used as is immediately after downloading,
-simply add its `include/` sub-directory to the include search paths of
-your compiler/project and you're all set.
-To ease integration, however, specially if your project uses [CMake],
-you might consider [installing](#installing) Metal system-wide.
-
 Installing {#installing}
 --------------------------------------------------------------------------------
 
 Metal may optionally be installed system-wide to ease integration with external
-projects. It relies on [CMake] to automate the installation process,
+projects.
+It relies on [CMake] v2.8 or newer to automate the installation process,
 so you need to have it installed on your system before proceeding.
 
 From within an empty directory issue the following commands.
@@ -118,16 +113,32 @@ that is `/usr/local/include` on Unix[-like] systems and
 Simply add the installation prefix to the include search path of your
 compiler/project if it isn't by default, and you're good to go.
 
+Using Metal {#using_metal}
+--------------------------------------------------------------------------------
+
+Metal may be used as is immediately after downloading,
+simply add its `include/` sub-directory to the include search paths of
+your compiler/project and you're all set.
+
 If your project uses [CMake],
-Metal may also be integrated into your project via `find_package`,
-whereupon `METAL_INCLUDE_DIRS` is set to contain
-all necessary include prefixes.
-In short, simply add the following to the `CMakeLists.txt` of your project.
+Metal may easily be integrated into your project via `find_package`,
+whereupon `METAL_INCLUDE_DIRS` is set to contain all necessary include prefixes.
+If you have installed Metal system-wide,
+it should suffice to add the following to the `CMakeLists.txt` of your project.
 
     find_package(Metal REQUIRED)
     include_directories(${METAL_INCLUDE_DIRS})
 
-For more information, please refer to [CMake documentation][CMake.doc].
+\note{Please remember to enable at least C++11 support in order to use Metal.}
+
+\tip{
+If your project is using CMake 3.1 or newer,
+[`CMAKE_CXX_STANDARD`][CMake.doc.std] may be used to globally enable
+specific C++ standards. Simply set it to `11` or later before adding any target
+that depends on Metal.
+}
+
+For more information, please refer to the [CMake documentation][CMake.doc].
 
 Documentation {#documentation}
 --------------------------------------------------------------------------------
@@ -169,8 +180,8 @@ in section [Headers](files.html).
 
 Finaly, headers within `detail/` are undocumented and should be expected to
 undergo breaking changes without prior notice,
-so directly depending on these headers or,
-likewise anything within `namespace metal::detail`,
+so directly depending on these headers or,likewise,
+anything within `namespace metal::detail`,
 is strongly discouraged.
 
 
@@ -518,9 +529,8 @@ one could just use the more intuitive subscript operator `[N]`,
 \snippet tutorial/literal.cpp teaser_2
 }
 
-chances are you realized the hard way
-that the reason why such an operator is not overloaded by default is because
-there's simply no way of overloading such an operator!
+chances are you realized the hard way that there is simply no way of
+overloading such an operator!
 
 All is not lost however if you can live with the subscript operator taking an
 object of type `std::integral_constant`, or in Metal's parlance [Number],
@@ -556,7 +566,7 @@ including the prefixes `0x` and `0b`
 
 \snippet tutorial/literal.cpp raw_examples_1
 
-as well as the digit separator `'` introduced by [C++14]
+as well as the digit separator `'` introduced in [C++14]
 
 \snippet tutorial/literal.cpp raw_examples_2
 
@@ -687,11 +697,11 @@ And we are done.
 
 \snippet tutorial/literal.cpp test_1
 
-It even works for very long binary literals.
+It also works for very long binary literals.
 
 \snippet tutorial/literal.cpp test_2
 
-And also ignores digit separators.
+And ignores digit separators too.
 
 \snippet tutorial/literal.cpp test_3
 
@@ -742,6 +752,7 @@ And also ignores digit separators.
 
 [CMake]:            http://cmake.org/
 [CMake.doc]:        http://cmake.org/documentation/
+[CMake.doc.std]:    https://cmake.org/cmake/help/v3.1/variable/CMAKE_CXX_STANDARD.html
 
 [Doxygen]:          http://doxygen.org/
 

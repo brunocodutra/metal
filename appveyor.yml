@@ -5,9 +5,6 @@
 clone_depth: 1
 platform: x64
 
-build:
-  verbosity: detailed
-
 matrix:
     fast_finish: false
 
