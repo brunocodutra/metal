@@ -479,7 +479,7 @@ A [Map] is a [List] of [Pairs], whose first elements are all distinct, that is
 
 metal::map, metal::is_map, metal::keys, metal::values
 
-Data-Code Duality {#duality}
+Data-Code Duality {#homoiconicity}
 ================================================================================
 
 Markedly influenced by various functional programming languages,

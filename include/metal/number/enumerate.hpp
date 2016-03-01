@@ -26,7 +26,7 @@ namespace metal
     /// \endcode
     ///
     /// \par Semantics:
-    ///     If `size` is a model of \number, then equivalent to
+    ///     If `size` is a \number, then equivalent to
     ///     \code
     ///         struct result :
     ///             metal::enumerate<metal::number<size::value_type, 0>, size>

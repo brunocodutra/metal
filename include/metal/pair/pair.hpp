@@ -16,12 +16,41 @@ namespace metal
     }
 
     /// \ingroup pair
-    /// ...
+    /// The standard constructor for \pairs.
     template<typename x, typename y>
     using pair = metal::list<x, y>;
 
     /// \ingroup pair
-    /// ...
+    /// Checks whether some \value is a \pair.
+    ///
+    /// Usage
+    /// -----
+    /// For any \value `val`
+    /// \code
+    ///     using result = metal::is_pair<val>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If `val` is a model of \pair, then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::boolean<true>
+    ///         {};
+    ///     \endcode
+    ///     otherwise, equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::boolean<false>
+    ///         {};
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet pair/pair.cpp is_pair
+    ///
+    /// See Also
+    /// --------
+    /// \see pair
     template<typename pair>
     using is_pair = detail::is_pair<pair>;
 
