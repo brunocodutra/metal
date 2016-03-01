@@ -14,7 +14,31 @@ namespace metal
     }
 
     /// \ingroup pair
-    /// ...
+    /// Returns the second element of a \pair.
+    ///
+    /// Usage
+    /// -----
+    /// For any \value `val`
+    /// \code
+    ///     using result = metal::second<val>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If `val` is a \pair, then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::at<val, metal::integer<1>>
+    ///         {};
+    ///     \endcode
+    ///     otherwise, equivalent to `metal::nothing`
+    ///
+    /// Example
+    /// -------
+    /// \snippet pair/second.cpp second
+    ///
+    /// See Also
+    /// --------
+    /// \see pair, first, at
     template<typename pair>
     using second = detail::second<pair>;
 

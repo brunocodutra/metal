@@ -99,7 +99,7 @@ namespace metal
     /// \endcode
     ///
     /// \par Semantics:
-    ///     If `opt::type` well defined and is a model of \value,
+    ///     If `opt::type` is well defined and is a \value,
     ///     then equivalent to
     ///     \code
     ///         struct result :
@@ -139,7 +139,7 @@ namespace metal
     /// \endcode
     ///
     /// \par Semantics:
-    ///     If `opt::type` well defined and is a model of \value,
+    ///     If `opt::type` is well defined and is a \value,
     ///     then equivalent to
     ///     \code
     ///         struct result :

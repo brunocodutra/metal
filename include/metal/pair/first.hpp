@@ -14,7 +14,31 @@ namespace metal
     }
 
     /// \ingroup pair
-    /// ...
+    /// Returns the first element of a \pair.
+    ///
+    /// Usage
+    /// -----
+    /// For any \value `val`
+    /// \code
+    ///     using result = metal::first<val>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If `val` is a \pair, then equivalent to
+    ///     \code
+    ///         struct result :
+    ///             metal::at<val, metal::integer<0>>
+    ///         {};
+    ///     \endcode
+    ///     otherwise, equivalent to `metal::nothing`
+    ///
+    /// Example
+    /// -------
+    /// \snippet pair/first.cpp first
+    ///
+    /// See Also
+    /// --------
+    /// \see pair, second, at
     template<typename pair>
     using first = detail::first<pair>;
 
