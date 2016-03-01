@@ -20,14 +20,15 @@ namespace metal
     /// -----
     /// For any \values `val1, ..., valn`
     /// \code
-    ///     using result = metal::and_<val1, ..., valn>;
+    ///     metal::and_<val1, ..., valn>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If all \values in `[val1, ..., valn]` are \numbers,
     ///     then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::and_<val1, ..., valn>
     ///             metal::boolean<val1::value && ... && valn::value>
     ///         {};
     ///     \endcode

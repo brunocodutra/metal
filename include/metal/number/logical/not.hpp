@@ -20,13 +20,14 @@ namespace metal
     /// -----
     /// For any \value `val`
     /// \code
-    ///     using result = metal::not_<val>;
+    ///     metal::not_<val>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If `val` is a \number, then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::not_<val>
     ///             metal::boolean<!val::value>
     ///         {};
     ///     \endcode

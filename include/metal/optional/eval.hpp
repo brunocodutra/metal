@@ -19,13 +19,13 @@ namespace metal
     /// -----
     /// For any \optional `opt`
     /// \code
-    ///     using result = metal::eval<opt>;
+    ///     metal::eval<opt>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         using result = typename opt::type
+    ///         typename opt::type
     ///     \endcode
     ///
     /// \danger{Evaluating an empty optional leads to a compile time error.}
@@ -34,13 +34,13 @@ namespace metal
     ///
     /// For any \optional `opt` and \value `val`
     /// \code
-    ///     using result = metal::eval<opt, val>;
+    ///     metal::eval<opt, val>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         using result = metal::conditional_t<metal::is_just_t<opt>, opt, metal::just<val>>;
+    ///         metal::conditional_t<metal::is_just_t<opt>, opt, metal::just<val>>;
     ///     \endcode
     ///
     /// Example

@@ -27,19 +27,21 @@ namespace metal
     /// -----
     /// For any \value `val`
     /// \code
-    ///     using result = metal::is_pair<val>;
+    ///     metal::is_pair<val>;
     /// \endcode
     ///
     /// \par Semantics:
-    ///     If `val` is a model of \pair, then equivalent to
+    ///     If `val` is a \pair, then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::is_pair<val>
     ///             metal::boolean<true>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::is_pair<val>
     ///             metal::boolean<false>
     ///         {};
     ///     \endcode

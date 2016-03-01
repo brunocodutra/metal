@@ -20,13 +20,14 @@ namespace metal
     /// -----
     /// For any \value `val`
     /// \code
-    ///     using result = metal::inc<val>;
+    ///     metal::inc<val>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If `val` is a \number, but not a boolean, then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::inc<val>
     ///             metal::number<val::value_type, val::value + 1>
     ///         {};
     ///     \endcode

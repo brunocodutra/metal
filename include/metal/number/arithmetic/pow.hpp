@@ -20,7 +20,7 @@ namespace metal
     /// -----
     /// For any \values `val1, val2, ..., valn`
     /// \code
-    ///     using result = metal::pow<val1, val2, ..., valn>;
+    ///     metal::pow<val1, val2, ..., valn>;
     /// \endcode
     ///
     /// \par Semantics:
@@ -28,7 +28,8 @@ namespace metal
     ///     and `val1::value ** ... ** val{m-1}::value` is nonzero for all
     ///     nonpositive `valm`, then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::pow<val1, val2, ..., valn>
     ///             metal::number<
     ///                 decltype(val1::value ** ... ** valn::value),
     ///                 val1::value ** ... ** valn::value

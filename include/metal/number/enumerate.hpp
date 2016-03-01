@@ -22,13 +22,14 @@ namespace metal
     /// -----
     /// For any \value `size`
     /// \code
-    ///     using result = metal::enumerate<size>;
+    ///     metal::enumerate<size>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If `size` is a \number, then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::enumerate<size>
     ///             metal::enumerate<metal::number<size::value_type, 0>, size>
     ///         {};
     ///     \endcode
@@ -38,13 +39,14 @@ namespace metal
     ///
     /// For any \values `start` and `size`
     /// \code
-    ///     using result = metal::enumerate<start, size>;
+    ///     metal::enumerate<start, size>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::enumerate<start, size>
     ///             metal::enumerate<start, size, metal::integer<1>>
     ///         {};
     ///     \endcode
@@ -53,21 +55,23 @@ namespace metal
     ///
     /// For any \values `start`, `size` and `stride`
     /// \code
-    ///     using result = metal::enumerate<start, size, stride>;
+    ///     metal::enumerate<start, size, stride>;
     /// \endcode
     ///
     /// \par Semantics:
-    ///     If `start`, `size` and `stride` are models of \number and
-    ///     `size` is null, then equivalent to
+    ///     If `start`, `size` and `stride` are \numbers and
+    ///     `size` is equal to zero, then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::enumerate<start, size, stride>
     ///             metal::list<>
     ///         {};
     ///     \endcode
-    ///     otherwise, if `start`, `size` and `stride` are models of \number and
+    ///     otherwise, if `start`, `size` and `stride` are \numbers and
     ///     `size` is positive, then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::enumerate<start, size, stride>
     ///             metal::list<
     ///                 start,
     ///                 metal::number<start::value_type, start::value + stride::value>,
@@ -77,10 +81,11 @@ namespace metal
     ///             >
     ///         {};
     ///     \endcode
-    ///     otherwise, if `start`, `size` and `stride` are models of \number and
+    ///     otherwise, if `start`, `size` and `stride` are \numbers and
     ///     `size` is negative, then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::enumerate<start, size, stride>
     ///             metal::list<
     ///                 start,
     ///                 metal::number<start::value_type, start::value - stride::value>,

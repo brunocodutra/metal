@@ -20,13 +20,14 @@ namespace metal
     /// -----
     /// For any \values `val1` and `val2`
     /// \code
-    ///     using result = metal::equal_to<val1, val2>;
+    ///     metal::equal_to<val1, val2>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If both `val1` and `val2` are \numbers, then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::equal_to<val1, val2>
     ///             metal::boolean<val1::value == val2::value>
     ///         {};
     ///     \endcode
