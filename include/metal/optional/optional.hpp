@@ -45,26 +45,30 @@ namespace metal
     /// Usage
     /// -----
     /// \code
-    ///     using result = metal::just<>;
+    ///     metal::just<>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         struct result {};
+    ///         template<>
+    ///         struct metal::just<>
+    ///         {
+    ///         };
     ///     \endcode
     ///
     /// ________________________________________________________________________
     ///
     /// For any \value `val`
     /// \code
-    ///     using result = metal::just<val>;
+    ///     metal::just<val>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         struct result
+    ///         template<>
+    ///         struct metal::just<val>
     ///         {
     ///             using type = val;
     ///         };
@@ -95,20 +99,22 @@ namespace metal
     /// -----
     /// For any \optional `opt`
     /// \code
-    ///     using result = metal::is_just<opt>;
+    ///     metal::is_just<opt>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If `opt::type` is well defined and is a \value,
     ///     then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::is_just<opt>
     ///             metal::boolean<true>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::is_just<opt>
     ///             metal::boolean<false>
     ///         {};
     ///     \endcode
@@ -135,20 +141,22 @@ namespace metal
     /// -----
     /// For any \optional `opt`
     /// \code
-    ///     using result = metal::optional<opt>;
+    ///     metal::optional<opt>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If `opt::type` is well defined and is a \value,
     ///     then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::optional<opt>
     ///             metal::just<typename opt::type>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::optional<opt>
     ///             metal::nothing
     ///         {};
     ///     \endcode

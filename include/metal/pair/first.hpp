@@ -20,13 +20,14 @@ namespace metal
     /// -----
     /// For any \value `val`
     /// \code
-    ///     using result = metal::first<val>;
+    ///     metal::first<val>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If `val` is a \pair, then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::first<val>
     ///             metal::at<val, metal::integer<0>>
     ///         {};
     ///     \endcode

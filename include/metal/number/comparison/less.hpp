@@ -20,13 +20,14 @@ namespace metal
     /// -----
     /// For any \values `val1` and `val2`
     /// \code
-    ///     using result = metal::less<val1, val2>;
+    ///     metal::less<val1, val2>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If both `val1` and `val2` are \numbers, then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::less<val1, val2>
     ///             metal::boolean<(val1::value < val2::value)>
     ///         {};
     ///     \endcode

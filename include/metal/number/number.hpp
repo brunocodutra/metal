@@ -42,19 +42,21 @@ namespace metal
     /// -----
     /// For any \value `val`
     /// \code
-    ///     using result = metal::is_number<val>;
+    ///     metal::is_number<val>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If `val` is a \number, then equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::is_number<val>
     ///             metal::boolean<true>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
-    ///         struct result :
+    ///         template<>
+    ///         struct metal::is_number<val>
     ///             metal::boolean<false>
     ///         {};
     ///     \endcode
