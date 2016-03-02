@@ -34,15 +34,15 @@ namespace metal
     ///     If `val` is a \pair, then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::is_pair<val>
-    ///             metal::boolean<true>
+    ///         struct is_pair<val> :
+    ///             boolean<true>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::is_pair<val>
-    ///             metal::boolean<false>
+    ///         struct is_pair<val> :
+    ///             boolean<false>
     ///         {};
     ///     \endcode
     ///

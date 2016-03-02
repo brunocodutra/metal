@@ -28,8 +28,8 @@ namespace metal
     ///     then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::mul<val1, ..., valn>
-    ///             metal::number<
+    ///         struct mul<val1, ..., valn> :
+    ///             number<
     ///                 decltype(val1::value * ... * valn::value),
     ///                 val1::value * ... * valn::value
     ///             >

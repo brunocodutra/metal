@@ -27,8 +27,8 @@ namespace metal
     ///     If `val` is a \number, then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::not_<val>
-    ///             metal::boolean<!val::value>
+    ///         struct not_<val> :
+    ///             boolean<!val::value>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to `metal::nothing`

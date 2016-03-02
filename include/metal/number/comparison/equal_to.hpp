@@ -27,8 +27,8 @@ namespace metal
     ///     If both `val1` and `val2` are \numbers, then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::equal_to<val1, val2>
-    ///             metal::boolean<val1::value == val2::value>
+    ///         struct equal_to<val1, val2> :
+    ///             boolean<val1::value == val2::value>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to `metal::nothing`
