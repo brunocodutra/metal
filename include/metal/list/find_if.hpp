@@ -40,10 +40,26 @@ namespace metal
     namespace detail
     {
         template<typename list, typename lbd>
-        struct find_if :
+        struct find_if;
+
+        template<
+            template<typename...> class expr,
+            typename... vals, typename lbd
+        >
+        struct find_if<expr<vals...>, lbd> :
             invoke<
-                first<front<copy_if<_1, transpose<pair<indices<_2>, _2>>, _3>>>,
-                metal::list<>, list, bind_t<lbd, second<_1>>
+                first<
+                    front<
+                        conditional<
+                            empty<copy_if<_1, _2, _3>>,
+                            list<pair<size<_2>, nil>>,
+                            copy_if<_1, _2, _3>
+                        >
+                    >
+                >,
+                metal::list<>,
+                transpose_t<pair<indices_t<expr<vals...>>, expr<vals...>>>,
+                bind_t<lbd, second<_1>>
             >
         {};
     }
