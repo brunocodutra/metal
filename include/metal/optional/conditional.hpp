@@ -27,8 +27,8 @@ namespace metal
     ///     Equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::conditional<val, opt>
-    ///             metal::conditional<val, opt, metal::nothing>
+    ///         struct conditional<val, opt> :
+    ///             conditional<val, opt, nothing>
     ///         {};
     ///     \endcode
     ///
@@ -43,16 +43,16 @@ namespace metal
     ///     If `val` is a \number and `!!val::value == true`, then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::conditional<val, opt1, opt2>
-    ///             metal::optional<opt1>
+    ///         struct conditional<val, opt1, opt2> :
+    ///             optional<opt1>
     ///         {};
     ///     \endcode
     ///     otherwise, if `val` is a \number and `val::value == false`,
     ///     then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::conditional<val, opt1, opt2>
-    ///             metal::optional<opt2>
+    ///         struct conditional<val, opt1, opt2> :
+    ///             optional<opt2>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to `metal::nothing`
@@ -68,8 +68,8 @@ namespace metal
     ///     Equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::conditional<val1, val2, val3, val4, ..., valn>
-    ///             metal::conditional<val1, val2, metal::conditional<val3, val4, ..., valn>>
+    ///         struct conditional<val1, val2, val3, val4, ..., valn> :
+    ///             conditional<val1, val2, conditional<val3, val4, ..., valn>>
     ///         {};
     ///     \endcode
     ///

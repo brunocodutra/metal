@@ -49,15 +49,15 @@ namespace metal
     ///     If `val` is a \number, then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::is_number<val>
-    ///             metal::boolean<true>
+    ///         struct is_number<val> :
+    ///             boolean<true>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::is_number<val>
-    ///             metal::boolean<false>
+    ///         struct is_number<val> :
+    ///             boolean<false>
     ///         {};
     ///     \endcode
     ///

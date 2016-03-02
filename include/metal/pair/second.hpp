@@ -27,8 +27,8 @@ namespace metal
     ///     If `val` is a \pair, then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::second<val>
-    ///             metal::at<val, metal::integer<1>>
+    ///         struct second<val> :
+    ///             at<val, integer<1>>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to `metal::nothing`

@@ -29,8 +29,8 @@ namespace metal
     ///     nonpositive `valm`, then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::pow<val1, val2, ..., valn>
-    ///             metal::number<
+    ///         struct pow<val1, val2, ..., valn> :
+    ///             number<
     ///                 decltype(val1::value ** ... ** valn::value),
     ///                 val1::value ** ... ** valn::value
     ///             >

@@ -20,78 +20,78 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \value `size`
+    /// For any \value `sz`
     /// \code
-    ///     metal::enumerate<size>;
+    ///     metal::enumerate<sz>;
     /// \endcode
     ///
     /// \par Semantics:
-    ///     If `size` is a \number, then equivalent to
+    ///     If `sz` is a \number, then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::enumerate<size>
-    ///             metal::enumerate<metal::number<size::value_type, 0>, size>
+    ///         struct enumerate<sz> :
+    ///             enumerate<number<sz::value_type, 0>, sz>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to `metal::nothing`
     ///
     /// ________________________________________________________________________
     ///
-    /// For any \values `start` and `size`
+    /// For any \values `st` and `sz`
     /// \code
-    ///     metal::enumerate<start, size>;
+    ///     metal::enumerate<st, sz>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::enumerate<start, size>
-    ///             metal::enumerate<start, size, metal::integer<1>>
+    ///         struct enumerate<st, sz> :
+    ///             enumerate<st, sz, integer<1>>
     ///         {};
     ///     \endcode
     ///
     /// ________________________________________________________________________
     ///
-    /// For any \values `start`, `size` and `stride`
+    /// For any \values `st`, `sz` and `sd`
     /// \code
-    ///     metal::enumerate<start, size, stride>;
+    ///     metal::enumerate<st, sz, sd>;
     /// \endcode
     ///
     /// \par Semantics:
-    ///     If `start`, `size` and `stride` are \numbers and
-    ///     `size` is equal to zero, then equivalent to
+    ///     If `st`, `sz` and `sd` are \numbers and
+    ///     `sz` is equal to zero, then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::enumerate<start, size, stride>
-    ///             metal::list<>
+    ///         struct enumerate<st, sz, sd> :
+    ///             list<>
     ///         {};
     ///     \endcode
-    ///     otherwise, if `start`, `size` and `stride` are \numbers and
-    ///     `size` is positive, then equivalent to
+    ///     otherwise, if `st`, `sz` and `sd` are \numbers and
+    ///     `sz` is positive, then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::enumerate<start, size, stride>
-    ///             metal::list<
-    ///                 start,
-    ///                 metal::number<start::value_type, start::value + stride::value>,
-    ///                 metal::number<start::value_type, start::value + 2*stride::value>,
+    ///         struct enumerate<st, sz, sd> :
+    ///             list<
+    ///                 st,
+    ///                 number<st::value_type, st::value + sd::value>,
+    ///                 number<st::value_type, st::value + 2*sd::value>,
     ///                 ...,
-    ///                 metal::number<start::value_type, start::value + (size::value - 1)*stride::value>,
+    ///                 number<st::value_type, st::value + (sz::value - 1)*sd::value>,
     ///             >
     ///         {};
     ///     \endcode
-    ///     otherwise, if `start`, `size` and `stride` are \numbers and
-    ///     `size` is negative, then equivalent to
+    ///     otherwise, if `st`, `sz` and `sd` are \numbers and
+    ///     `sz` is negative, then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::enumerate<start, size, stride>
-    ///             metal::list<
-    ///                 start,
-    ///                 metal::number<start::value_type, start::value - stride::value>,
-    ///                 metal::number<start::value_type, start::value - 2*stride::value>,
+    ///         struct enumerate<st, sz, sd> :
+    ///             list<
+    ///                 st,
+    ///                 number<st::value_type, st::value - sd::value>,
+    ///                 number<st::value_type, st::value - 2*sd::value>,
     ///                 ...,
-    ///                 metal::number<start::value_type, start::value - (size::value - 1)*stride::value>,
+    ///                 number<st::value_type, st::value - (sz::value - 1)*sd::value>,
     ///             >
     ///         {};
     ///     \endcode

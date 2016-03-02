@@ -52,7 +52,7 @@ namespace metal
     ///     Equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::just<>
+    ///         struct just<>
     ///         {
     ///         };
     ///     \endcode
@@ -68,7 +68,7 @@ namespace metal
     ///     Equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::just<val>
+    ///         struct just<val>
     ///         {
     ///             using type = val;
     ///         };
@@ -107,15 +107,15 @@ namespace metal
     ///     then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::is_just<opt>
-    ///             metal::boolean<true>
+    ///         struct is_just<opt> :
+    ///             boolean<true>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::is_just<opt>
-    ///             metal::boolean<false>
+    ///         struct is_just<opt> :
+    ///             boolean<false>
     ///         {};
     ///     \endcode
     ///
@@ -149,15 +149,15 @@ namespace metal
     ///     then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::optional<opt>
-    ///             metal::just<typename opt::type>
+    ///         struct optional<opt> :
+    ///             just<typename opt::type>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::optional<opt>
-    ///             metal::nothing
+    ///         struct optional<opt> :
+    ///             nothing
     ///         {};
     ///     \endcode
     ///

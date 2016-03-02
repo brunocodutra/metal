@@ -15,6 +15,8 @@ namespace metal
     /// \ingroup optional
     /// Evaluates an \optional.
     ///
+    /// A fallback \value may be specified in case the \optional is empty.
+    ///
     /// Usage
     /// -----
     /// For any \optional `opt`
@@ -40,7 +42,7 @@ namespace metal
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         metal::conditional_t<metal::is_just_t<opt>, opt, metal::just<val>>;
+    ///         conditional_t<is_just_t<opt>, opt, just<val>>;
     ///     \endcode
     ///
     /// Example

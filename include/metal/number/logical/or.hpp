@@ -28,8 +28,8 @@ namespace metal
     ///     then equivalent to
     ///     \code
     ///         template<>
-    ///         struct metal::or_<val1, ..., valn>
-    ///             metal::boolean<val1::value || ... || valn::value>
+    ///         struct or_<val1, ..., valn> :
+    ///             boolean<val1::value || ... || valn::value>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to `metal::nothing`
