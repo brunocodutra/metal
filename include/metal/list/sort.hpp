@@ -26,35 +26,64 @@ namespace metal
 
 #include <metal/list/list.hpp>
 #include <metal/list/copy.hpp>
-#include <metal/list/partition.hpp>
-#include <metal/pair/first.hpp>
-#include <metal/pair/second.hpp>
+#include <metal/list/reduce.hpp>
+#include <metal/list/push_front.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lift.hpp>
 #include <metal/lambda/quote.hpp>
 
 namespace metal
 {
     namespace detail
     {
+        template<typename, typename, typename, typename = boolean<true>>
+        struct merge
+        {};
+
+        template<typename... xs, typename lbd>
+        struct merge<list<xs...>, list<>, lbd> :
+            list<xs...>
+        {};
+
+        template<typename... ys, typename lbd>
+        struct merge<list<>, list<ys...>, lbd> :
+            list<ys...>
+        {};
+
+        template<
+            typename xh, typename... xt,
+            typename yh, typename... yt,
+            typename lbd
+        >
+        struct merge<list<xh, xt...>, list<yh, yt...>, lbd,
+            invoke_t<lbd, xh, yh>
+        > :
+            invoke<
+                push_front<merge<_1, _2, quote_t<lbd>>, _3>,
+                list<xt...>, list<yh, yt...>, xh
+            >
+        {};
+
+        template<
+            typename xh, typename... xt,
+            typename yh, typename... yt,
+            typename lbd,
+            typename _
+        >
+        struct merge<list<xh, xt...>, list<yh, yt...>, lbd, _> :
+            invoke<
+                push_front<merge<_1, _2, quote_t<lbd>>, _3>,
+                list<xh, xt...>, list<yt...>, yh
+            >
+        {};
+
         template<typename list, typename lbd>
         struct sort
         {};
 
-        template<typename head, typename... tail, typename lbd>
-        struct sort<list<head, tail...>, lbd> :
-            invoke<
-                lift_t<join<sort<first<_1>, _2>, _3, sort<second<_1>, _2>>>,
-                partition<list<tail...>, bind_t<lbd, _1, head>>,
-                quote_t<lbd>,
-                list<head>
-            >
-        {};
-
-        template<typename val, typename lbd>
-        struct sort<list<val>, lbd> :
-            list<val>
+        template<typename... vals, typename lbd>
+        struct sort<list<vals...>, lbd> :
+            reduce<list<list<vals>...>, merge<_1, _2, quote_t<lbd>>>
         {};
 
         template<typename lbd>
