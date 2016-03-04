@@ -38,46 +38,8 @@ if(METAL_ENABLE_EXTRA_WARNINGS)
     set(METAL_ENABLE_BASIC_WARNINGS ON)
 endif()
 
-include(CheckCXXCompilerFlag)
-
-function(metal_add_test_tree _tree)
-    file(GLOB_RECURSE headers ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp)
-    file(GLOB_RECURSE sources ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
-    list(SORT sources)
-
-    foreach(source ${sources})
-        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/src/" "" target ${source})
-        string(REGEX REPLACE "[/\\]" "." target ${target})
-        string(REGEX REPLACE "(.*)[.]cpp" "${_tree}.\\1" target ${target})
-
-        add_executable(${target} EXCLUDE_FROM_ALL ${source} ${headers})
-        add_test(${target} ${CMAKE_CURRENT_BINARY_DIR}/${target})
-
-        string(REGEX REPLACE "(.*)[.][^.]+" "\\1" parent ${target})
-        while(NOT TARGET ${parent})
-            add_custom_target(${parent})
-            add_dependencies(${parent} ${target})
-            set(target ${parent})
-            string(REGEX REPLACE "(.*)[.][^.]+" "\\1" parent ${target})
-        endwhile()
-        add_dependencies(${parent} ${target})
-    endforeach()
-endfunction()
-
-macro(add_flag _flag)
-    set(result "${_flag}")
-    string(TOUPPER "${result}" result)
-    string(REGEX REPLACE "[+]" "X" result "${result}")
-    string(REGEX REPLACE "[-/;=]" "_" result "${result}")
-    string(REGEX REPLACE "[^ A-Z_0-9]" "" result "${result}")
-    string(REGEX REPLACE "^[ ]*([A-Z_0-9]+) ?.*$" "\\1" result "${result}")
-    set(result "HAS${result}")
-
-    check_cxx_compiler_flag("${_flag} ${ARGN}" ${result})
-    if(${result})
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${_flag}")
-    endif()
-endmacro()
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+include(Utility)
 
 if(METAL_VERBOSE)
     add_flag(-v)
@@ -140,22 +102,26 @@ file(
 )
 
 set(METAL_INCLUDE_DIRS_CONF "\${METAL_CMAKE_DIR}/${METAL_INCLUDE_DIRS_CONF}")
-configure_file(cmake/MetalConfig.cmake.in
+configure_file(
+    cmake/MetalConfig.cmake.in
     "${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/MetalConfig.cmake"
     @ONLY
 )
 
-configure_file(cmake/MetalConfigVersion.cmake.in
+configure_file(
+    cmake/MetalConfigVersion.cmake.in
     "${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/MetalConfigVersion.cmake"
     @ONLY
 )
 
-install(DIRECTORY "${METAL_INCLUDE_DIR}"
+install(
+    DIRECTORY "${METAL_INCLUDE_DIR}"
     DESTINATION "${METAL_INCLUDE_INSTALL_DIR}"
 )
 
-install(FILES
-  "${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/MetalConfig.cmake"
-  "${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/MetalConfigVersion.cmake"
-  DESTINATION "${METAL_CMAKE_INSTALL_DIR}"
+install(
+    FILES
+    "${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/MetalConfig.cmake"
+    "${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/MetalConfigVersion.cmake"
+    DESTINATION "${METAL_CMAKE_INSTALL_DIR}"
 )
