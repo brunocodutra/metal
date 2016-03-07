@@ -2,14 +2,15 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
 
 project(Metal CXX)
 
 set(METAL_MAJOR_VERSION 0)
 set(METAL_MINOR_VERSION 1)
 set(METAL_PATCH_VERSION 0)
-set(METAL_VERSION
+set(
+    METAL_VERSION
     ${METAL_MAJOR_VERSION}.${METAL_MINOR_VERSION}.${METAL_PATCH_VERSION}
 )
 
@@ -39,30 +40,30 @@ if(METAL_ENABLE_EXTRA_WARNINGS)
 endif()
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-include(Utility)
+include(metal)
 
 if(METAL_VERBOSE)
-    add_flag(-v)
-    add_flag(-ftemplate-backtrace-limit=0)
-    add_flag(-fdiagnostics-show-template-tree)
-    add_flag(-fno-elide-type)
+    metal_try_add_flag(-v)
+    metal_try_add_flag(-ftemplate-backtrace-limit=0)
+    metal_try_add_flag(-fdiagnostics-show-template-tree)
+    metal_try_add_flag(-fno-elide-type)
 endif()
 
 if(METAL_ENABLE_BASIC_WARNINGS)
-    add_flag(-W)
-    add_flag(-Wall)
-    add_flag(/W3)
+    metal_try_add_flag(-W)
+    metal_try_add_flag(-Wall)
+    metal_try_add_flag(/W3)
 endif()
 
 if(METAL_ENABLE_EXTRA_WARNINGS)
-    add_flag(-Wextra)
-    add_flag(/W4)
+    metal_try_add_flag(-Wextra)
+    metal_try_add_flag(/W4)
 endif()
 
 if(METAL_STRICT)
-    add_flag(-pedantic-errors)
-    add_flag(-Werror)
-    add_flag(/WX)
+    metal_try_add_flag(-pedantic-errors)
+    metal_try_add_flag(-Werror)
+    metal_try_add_flag(/WX)
 endif()
 
 foreach(dialect
@@ -71,7 +72,7 @@ foreach(dialect
     -std=c++11 -std=c++0x
     /Za
 )
-    add_flag(${dialect})
+    metal_try_add_flag(${dialect} result)
     if(${result})
         break()
     endif()
@@ -90,7 +91,8 @@ add_subdirectory(test)
 
 foreach(_ INCLUDE CMAKE)
   if(NOT IS_ABSOLUTE "${METAL_${_}_INSTALL_DIR}")
-    set(METAL_${_}_INSTALL_DIR
+    set(
+        METAL_${_}_INSTALL_DIR
         "${CMAKE_INSTALL_PREFIX}/${METAL_${_}_INSTALL_DIR}"
     )
   endif()
