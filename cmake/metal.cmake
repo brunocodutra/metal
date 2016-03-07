@@ -61,9 +61,8 @@ function(metal_add_test_tree _root _prefix)
     foreach(target ${targets})
         add_test(
             NAME ${target}
-            COMMAND ${CMAKE_COMMAND}
-                --build "${CMAKE_CURRENT_BINARY_DIR}"
-                --target ${target}
+            COMMAND ${CMAKE_COMMAND} --build . --target ${target}
+            WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
         )
     endforeach()
 
