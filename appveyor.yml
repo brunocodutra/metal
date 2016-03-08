@@ -5,16 +5,15 @@
 clone_depth: 1
 platform: x64
 
-matrix:
-    fast_finish: false
-
 environment:
     matrix:
       - GENERATOR: Visual Studio 14 2015
       - GENERATOR: Visual Studio 14 2015 Win64
+      - GENERATOR: Visual Studio 14 2015
+        BUILD_DOC: true
 
 install:
-  - choco install doxygen.portable
+  - if "%BUILD_DOC%" equ "true" (choco install doxygen.portable)
 
 before_build:
   - set "METAL_SOURCE_PATH=%APPVEYOR_BUILD_FOLDER%"
@@ -29,13 +28,15 @@ before_build:
   - set "EXTERNAL_BUILD_PATH=%METAL_BUILD_PATH%/example/external"
   - mkdir "%EXTERNAL_BUILD_PATH%"
 
-
   - pushd "%METAL_BUILD_PATH%" && cmake -G"%GENERATOR%" "%METAL_SOURCE_PATH%" -DCMAKE_INSTALL_PREFIX="%METAL_INSTALL_PATH%" & popd
   - cmake --build "%METAL_BUILD_PATH%" --target install
 
   - pushd "%EXTERNAL_BUILD_PATH%" && cmake -G"%GENERATOR%" "%EXTERNAL_SOURCE_PATH%" -DCMAKE_PREFIX_PATH="%METAL_INSTALL_PATH%" & popd
 
 build_script:
-  - cmake --build "%EXTERNAL_BUILD_PATH%" --target external
-  - cmake --build "%METAL_BUILD_PATH%" --target doc
-  - pushd "%METAL_BUILD_PATH%" && ctest -C Release --output-on-failure & popd
+  - if "%BUILD_DOC%" equ "true" (
+        cmake --build "%METAL_BUILD_PATH%" --target doc
+    ) else (
+        cmake --build "%EXTERNAL_BUILD_PATH%" --target external &
+        pushd "%METAL_BUILD_PATH%" && ctest -C Debug --output-on-failure & popd
+    )
