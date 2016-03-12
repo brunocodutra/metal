@@ -56,7 +56,10 @@ namespace metal
             copy<expr<xs...>, list<xs..., ys..., zs...>>
         {};
 
-        template<template<typename...> class expr, typename... xs, typename... ys>
+        template<
+            template<typename...> class expr,
+            typename... xs, typename... ys
+        >
         struct join<expr<xs...>, expr<ys...>> :
             copy<expr<xs...>, list<xs..., ys...>>
         {};
@@ -75,16 +78,6 @@ namespace metal
         template<typename x, typename y, typename z>
         struct join<list<x>, list<y>, list<z>> :
             list<x, y, z>
-        {};
-
-        template<typename x, typename y>
-        struct join<list<x>, list<y>> :
-            list<x, y>
-        {};
-
-        template<typename x>
-        struct join<list<x>> :
-            list<x>
         {};
     }
 }
