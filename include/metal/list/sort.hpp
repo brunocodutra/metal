@@ -40,6 +40,58 @@ namespace metal
         struct merge
         {};
 
+        template<
+            typename xh, typename... xt,
+            typename yh, typename... yt,
+            typename lbd
+        >
+        struct merge<list<xh, xt...>, list<yh, yt...>, lbd,
+            invoke_t<lbd, xh, yh>
+        > :
+            invoke<
+                join<
+                    quote_t<list<xh>>, first<optional<_1>>, quote_t<list<yh>>,
+                    merge<second<optional<_1>>, _2, _3>
+                >,
+                partition<list<xt...>, bind_t<lbd, _1, yh>>,
+                list<yt...>,
+                lbd
+            >
+        {};
+
+        template<
+            typename xh, typename... xt,
+            typename yh, typename... yt,
+            typename lbd
+        >
+        struct merge<list<xh, xt...>, list<yh, yt...>, lbd,
+            not_t<invoke_t<lbd, xh, yh>>
+        > :
+            invoke<
+                join<
+                    quote_t<list<yh>>, first<optional<_1>>, quote_t<list<xh>>,
+                    merge<_2, second<optional<_1>>, _3>
+                >,
+                partition<list<yt...>, bind_t<lbd, _1, xh>>,
+                list<xt...>,
+                lbd
+            >
+        {};
+
+        template<typename xh, typename yh, typename lbd>
+        struct merge<list<xh>, list<yh>, lbd,
+            invoke_t<lbd, xh, yh>
+        > :
+            list<xh, yh>
+        {};
+
+        template<typename xh, typename yh, typename lbd>
+        struct merge<list<xh>, list<yh>, lbd,
+            not_t<invoke_t<lbd, xh, yh>>
+        > :
+            list<yh, xh>
+        {};
+
         template<typename... xs, typename lbd>
         struct merge<list<xs...>, list<>, lbd> :
             list<xs...>
@@ -50,31 +102,9 @@ namespace metal
             list<ys...>
         {};
 
-        template<
-            typename xh, typename... xt,
-            typename yh, typename... yt,
-            typename lbd
-        >
-        struct merge<list<xh, xt...>, list<yh, yt...>, lbd,
-            invoke_t<lbd, xh, yh>
-        > :
-            invoke<
-                push_front<merge<_1, _2, quote_t<lbd>>, _3>,
-                list<xt...>, list<yh, yt...>, xh
-            >
-        {};
-
-        template<
-            typename xh, typename... xt,
-            typename yh, typename... yt,
-            typename lbd,
-            typename _
-        >
-        struct merge<list<xh, xt...>, list<yh, yt...>, lbd, _> :
-            invoke<
-                push_front<merge<_1, _2, quote_t<lbd>>, _3>,
-                list<xh, xt...>, list<yt...>, yh
-            >
+        template<typename lbd>
+        struct merge<list<>, list<>, lbd> :
+            list<>
         {};
 
         template<typename list, typename lbd>
