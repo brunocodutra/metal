@@ -17,6 +17,15 @@ namespace metal
     /// ...
     template<template<typename...> class expr>
     using lambda = detail::lambda<expr>;
+
+    namespace detail
+    {
+        template<template<typename...> class expr>
+        struct lambda
+        {
+            using type = lambda;
+        };
+    }
 }
 
 #endif

@@ -35,8 +35,18 @@ namespace metal
     namespace detail
     {
         template<typename list, typename val>
-        struct count :
-            count_if<list, std::is_same<_1, quote_t<val>>>
+        struct count
+        {};
+
+        template<
+            template<typename...> class expr,
+            typename... vals, typename val
+        >
+        struct count<expr<vals...>, val> :
+            add<
+                number<std::ptrdiff_t, 0>,
+                typename std::is_same<vals, val>::type...
+            >
         {};
     }
 }

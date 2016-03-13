@@ -47,10 +47,9 @@ namespace metal
         using unbind_t = typename unbind<list>::type;
 
         template<template<typename...> class expr, typename... vals>
-        struct unbind<expr<vals...>>
-        {
-            using type = lambda<expr>;
-        };
+        struct unbind<expr<vals...>> :
+            lambda<expr>
+        {};
 
         template<
             typename,

@@ -18,7 +18,7 @@
     ASSERT((metal::eval<MAP(M), VAL(N)>), (VAL(N))); \
     ASSERT((metal::eval<ARG(M), VAL(N)>), (VAL(N))); \
     ASSERT((metal::eval<LBD(M), VAL(N)>), (LBD(M)::type)); \
-    ASSERT((metal::eval<FUN(M), VAL(N)>), (VAL(N))); \
+    ASSERT((metal::eval<FUN(M), VAL(N)>), (FUN(M)::type)); \
 /**/
 
 GEN(MATRIX)

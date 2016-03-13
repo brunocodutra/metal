@@ -27,6 +27,7 @@ namespace metal
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
+#include <metal/list/list.hpp>
 #include <metal/optional/optional.hpp>
 
 #include <metal/detail/declptr.hpp>
@@ -61,6 +62,16 @@ namespace metal
         template<template<typename...> class expr, typename... params>
         struct defer<expr<params...>> :
             bind<defer_t<lambda<expr>>, params...>
+        {};
+
+        template<>
+        struct defer<lambda<list>> :
+            lambda<list>
+        {};
+
+        template<typename... params>
+        struct defer<list<params...>> :
+            list<params...>
         {};
     }
 }

@@ -26,7 +26,10 @@ namespace metal
 
 #include <metal/list/reduce.hpp>
 #include <metal/list/copy.hpp>
+#include <metal/list/list.hpp>
 #include <metal/lambda/lambda.hpp>
+#include <metal/optional/conditional.hpp>
+#include <metal/number/comparison/greater.hpp>
 
 namespace metal
 {
@@ -43,8 +46,30 @@ namespace metal
         >
         struct join<expr<xs...>, expr<ys...>, expr<zs...>, lists...> :
             reduce<
-                join<expr<xs...>, expr<ys...>, expr<zs...>, lists...>,
+                list<expr<xs...>, expr<ys...>, expr<zs...>, lists...>,
                 lambda<join>
+            >
+        {};
+
+        template<
+            template<typename...> class expr,
+            typename... xs, typename... ys, typename... zs,
+            typename head, typename... tail
+        >
+        struct join<
+            expr<xs...>, expr<ys...>, expr<zs...>,
+            expr<head>, expr<tail>...
+        > :
+            conditional<
+                greater_t<size_t<expr<head>>, integer<1>>,
+                reduce<
+                    list<
+                        expr<xs...>, expr<ys...>, expr<zs...>,
+                        expr<head>, expr<tail>...
+                    >,
+                    lambda<join>
+                >,
+                copy<expr<xs...>, list<xs..., ys..., zs..., head, tail...>>
             >
         {};
 
@@ -69,16 +94,6 @@ namespace metal
         {
             using type = expr<xs...>;
         };
-
-        template<typename x, typename y, typename z, typename... tail>
-        struct join<list<x>, list<y>, list<z>, list<tail>...> :
-            list<x, y, z, tail...>
-        {};
-
-        template<typename x, typename y, typename z>
-        struct join<list<x>, list<y>, list<z>> :
-            list<x, y, z>
-        {};
     }
 }
 

@@ -50,14 +50,8 @@ namespace metal
         >
         struct count_if<expr<vals...>, lbd> :
             invoke<
-                add<
-                    number<std::ptrdiff_t, 0>,
-                    conditional<
-                        bind_t<lbd, quote_t<vals>>,
-                        number<std::ptrdiff_t, 1>,
-                        number<std::ptrdiff_t, 0>
-                    >...
-                >
+                lift_t<lambda<add>>,
+                number<std::ptrdiff_t, 0>, invoke<lbd, vals>...
             >
         {};
     }

@@ -18,6 +18,15 @@
     ASSERT((metal::is_just_t<metal::map<ARGS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::map<LBDS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::map<FUNS(N)>>), (TRUE)); \
+    ASSERT((metal::map<VALS(N)>::type), (metal::map<VALS(N)>)); \
+    ASSERT((metal::map<NUMS(N)>::type), (metal::map<NUMS(N)>)); \
+    ASSERT((metal::map<PAIRS(N)>::type), (metal::map<PAIRS(N)>)); \
+    ASSERT((metal::map<PAIR(M) COMMA(N) PAIRS(N)>::type), (metal::map<PAIR(M) COMMA(N) PAIRS(N)>)); \
+    ASSERT((metal::map<LISTS(N)>::type), (metal::map<LISTS(N)>)); \
+    ASSERT((metal::map<MAPS(N)>::type), (metal::map<MAPS(N)>)); \
+    ASSERT((metal::map<ARGS(N)>::type), (metal::map<ARGS(N)>)); \
+    ASSERT((metal::map<LBDS(N)>::type), (metal::map<LBDS(N)>)); \
+    ASSERT((metal::map<FUNS(N)>::type), (metal::map<FUNS(N)>)); \
     ASSERT((metal::is_map_t<VAL(N)>), (FALSE)); \
     ASSERT((metal::is_map_t<NUM(N)>), (FALSE)); \
     ASSERT((metal::is_map_t<PAIR(N)>), (FALSE)); \
