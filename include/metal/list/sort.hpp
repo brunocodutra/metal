@@ -26,8 +26,8 @@ namespace metal
 
 #include <metal/list/list.hpp>
 #include <metal/list/copy.hpp>
+#include <metal/list/merge.hpp>
 #include <metal/list/reduce.hpp>
-#include <metal/list/push_front.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/quote.hpp>
@@ -36,84 +36,13 @@ namespace metal
 {
     namespace detail
     {
-        template<typename, typename, typename, typename = boolean<true>>
-        struct merge
-        {};
-
-        template<
-            typename xh, typename... xt,
-            typename yh, typename... yt,
-            typename lbd
-        >
-        struct merge<list<xh, xt...>, list<yh, yt...>, lbd,
-            invoke_t<lbd, xh, yh>
-        > :
-            invoke<
-                join<
-                    quote_t<list<xh>>, first<optional<_1>>, quote_t<list<yh>>,
-                    merge<second<optional<_1>>, _2, _3>
-                >,
-                partition<list<xt...>, bind_t<lbd, _1, yh>>,
-                list<yt...>,
-                lbd
-            >
-        {};
-
-        template<
-            typename xh, typename... xt,
-            typename yh, typename... yt,
-            typename lbd
-        >
-        struct merge<list<xh, xt...>, list<yh, yt...>, lbd,
-            not_t<invoke_t<lbd, xh, yh>>
-        > :
-            invoke<
-                join<
-                    quote_t<list<yh>>, first<optional<_1>>, quote_t<list<xh>>,
-                    merge<_2, second<optional<_1>>, _3>
-                >,
-                partition<list<yt...>, bind_t<lbd, _1, xh>>,
-                list<xt...>,
-                lbd
-            >
-        {};
-
-        template<typename xh, typename yh, typename lbd>
-        struct merge<list<xh>, list<yh>, lbd,
-            invoke_t<lbd, xh, yh>
-        > :
-            list<xh, yh>
-        {};
-
-        template<typename xh, typename yh, typename lbd>
-        struct merge<list<xh>, list<yh>, lbd,
-            not_t<invoke_t<lbd, xh, yh>>
-        > :
-            list<yh, xh>
-        {};
-
-        template<typename... xs, typename lbd>
-        struct merge<list<xs...>, list<>, lbd> :
-            list<xs...>
-        {};
-
-        template<typename... ys, typename lbd>
-        struct merge<list<>, list<ys...>, lbd> :
-            list<ys...>
-        {};
-
-        template<typename lbd>
-        struct merge<list<>, list<>, lbd> :
-            list<>
-        {};
-
         template<typename list, typename lbd>
         struct sort
         {};
 
         template<typename... vals, typename lbd>
         struct sort<list<vals...>, lbd> :
-            reduce<list<list<vals>...>, merge<_1, _2, quote_t<lbd>>>
+            reduce<list<list<vals>...>, merge<quote_t<lbd>, _1, _2>>
         {};
 
         template<typename lbd>
