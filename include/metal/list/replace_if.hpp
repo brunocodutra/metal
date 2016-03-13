@@ -37,8 +37,11 @@ namespace metal
 {
     namespace detail
     {
-        template<typename list, typename lbd, typename val>
-        struct replace_if :
+        template<
+            typename list, typename lbd, typename val,
+            typename = boolean<true>
+        >
+        struct replace_if_impl :
             invoke<
                 copy<_1, apply<_2, transform<_3, _1>>>,
                 list,
@@ -49,6 +52,17 @@ namespace metal
                     metal::list<_1>
                 >
             >
+        {};
+
+        template<typename list, typename lbd, typename val>
+        struct replace_if_impl<list, lbd, val, empty_t<list>>
+        {
+            using type = list;
+        };
+
+        template<typename list, typename lbd, typename val>
+        struct replace_if :
+            replace_if_impl<list, lbd, val>
         {};
     }
 }
