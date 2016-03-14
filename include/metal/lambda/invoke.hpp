@@ -40,9 +40,9 @@ namespace metal
     {
         template<
             template<typename...> class expr, typename... args,
-            typename ret = optional<expr<typename args::type...>>
+            typename ret = expr<typename args::type...>
         >
-        ret invoke_impl(list<args...>*);
+        optional<ret> invoke_impl(list<args...>*);
 
         template<template<typename...> class>
         nothing invoke_impl(...);
