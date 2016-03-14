@@ -54,7 +54,7 @@ namespace metal
     /// \see conditional, just, is_just
     template<typename opt, typename fallback = detail::nil>
     using eval = metal::conditional_t<
-        metal::is_just_t<opt>, opt, metal::just<fallback>
+        metal::is_just<opt>, opt, metal::just<fallback>
     >;
 }
 
