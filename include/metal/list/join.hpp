@@ -28,8 +28,6 @@ namespace metal
 #include <metal/list/copy.hpp>
 #include <metal/list/list.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/optional/conditional.hpp>
-#include <metal/number/comparison/greater.hpp>
 
 namespace metal
 {
@@ -41,59 +39,53 @@ namespace metal
 
         template<
             template<typename...> class expr,
-            typename... xs, typename... ys, typename... zs,
-            typename... lists
+            typename... ws, typename... xs, typename... ys, typename... zs,
+            typename... _
         >
-        struct join<expr<xs...>, expr<ys...>, expr<zs...>, lists...> :
+        struct join<expr<ws...>, expr<xs...>, expr<ys...>, expr<zs...>, _...> :
             reduce<
-                list<expr<xs...>, expr<ys...>, expr<zs...>, lists...>,
+                list<expr<ws...>, expr<xs...>, expr<ys...>, expr<zs...>, _...>,
                 lambda<join>
             >
         {};
 
         template<
             template<typename...> class expr,
-            typename... xs, typename... ys, typename... zs,
-            typename head, typename... tail
+            typename... ws, typename... xs, typename... ys, typename... zs
         >
-        struct join<
-            expr<xs...>, expr<ys...>, expr<zs...>,
-            expr<head>, expr<tail>...
-        > :
-            conditional<
-                greater_t<size_t<expr<head>>, integer<1>>,
-                reduce<
-                    list<
-                        expr<xs...>, expr<ys...>, expr<zs...>,
-                        expr<head>, expr<tail>...
-                    >,
-                    lambda<join>
-                >,
-                copy<expr<xs...>, list<xs..., ys..., zs..., head, tail...>>
-            >
+        struct join<expr<ws...>, expr<xs...>, expr<ys...>, expr<zs...>> :
+            copy<expr<ws...>, list<ws..., xs..., ys..., zs...>>
         {};
 
         template<
             template<typename...> class expr,
-            typename... xs, typename... ys, typename... zs
+            typename... ws, typename... xs, typename... ys
         >
-        struct join<expr<xs...>, expr<ys...>, expr<zs...>> :
-            copy<expr<xs...>, list<xs..., ys..., zs...>>
+        struct join<expr<ws...>, expr<xs...>, expr<ys...>> :
+            copy<expr<ws...>, list<ws..., xs..., ys...>>
         {};
 
         template<
             template<typename...> class expr,
-            typename... xs, typename... ys
+            typename... ws, typename... xs
         >
-        struct join<expr<xs...>, expr<ys...>> :
-            copy<expr<xs...>, list<xs..., ys...>>
+        struct join<expr<ws...>, expr<xs...>> :
+            copy<expr<ws...>, list<ws..., xs...>>
         {};
 
-        template<template<typename...> class expr, typename... xs>
-        struct join<expr<xs...>>
+        template<template<typename...> class expr, typename... ws>
+        struct join<expr<ws...>>
         {
-            using type = expr<xs...>;
+            using type = expr<ws...>;
         };
+
+        template<
+            typename w, typename x, typename y, typename z,
+            typename h, typename... t
+        >
+        struct join<list<w>, list<x>, list<y>, list<z>, list<h>, list<t>...> :
+            list<w, x, y, z, h, t...>
+        {};
     }
 }
 
