@@ -20,15 +20,16 @@ namespace metal
     /// -----
     /// For any \values `val1, ..., valn`
     /// \code
-    ///     using result = metal::mul<val1, ..., valn>;
+    ///     metal::mul<val1, ..., valn>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If all \values in `[val1, ..., valn]` are \numbers,
     ///     then equivalent to
     ///     \code
-    ///         struct result :
-    ///             metal::number<
+    ///         template<>
+    ///         struct mul<val1, ..., valn> :
+    ///             number<
     ///                 decltype(val1::value * ... * valn::value),
     ///                 val1::value * ... * valn::value
     ///             >

@@ -2,21 +2,33 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-clone_depth: 1
-platform: x64
-
-matrix:
-    fast_finish: false
+shallow_clone: true
 
 environment:
     matrix:
-      - GENERATOR: Visual Studio 14 2015
-      - GENERATOR: Visual Studio 14 2015 Win64
+      - GENERATOR: "Ninja"
+        COMPILER: cl
+
+      - GENERATOR: "Ninja"
+        COMPILER: g++
+
+      - GENERATOR: "NMake Makefiles"
+      - GENERATOR: "MinGW Makefiles"
+      - BUILD_DOC: true
+
+configuration:
+  - Debug
 
 install:
-  - choco install doxygen.portable
+  - if "%GENERATOR%" equ "Ninja" (choco install ninja)
+  - if "%BUILD_DOC%" equ "true" (choco install doxygen.portable)
 
 before_build:
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+
+  # MinGW complains about sh.exe being in PATH
+  - set PATH=C:\MinGW\bin;%PATH:C:\Program Files\Git\usr\bin;=%
+
   - set "METAL_SOURCE_PATH=%APPVEYOR_BUILD_FOLDER%"
   - set "EXTERNAL_SOURCE_PATH=%METAL_SOURCE_PATH%\example\external"
 
@@ -29,18 +41,19 @@ before_build:
   - set "EXTERNAL_BUILD_PATH=%METAL_BUILD_PATH%/example/external"
   - mkdir "%EXTERNAL_BUILD_PATH%"
 
+  - set "CMAKE_ARGS=-DCMAKE_BUILD_TYPE=%CONFIGURATION% -DCMAKE_INSTALL_PREFIX=%METAL_INSTALL_PATH%"
+  - if defined COMPILER (set "CMAKE_ARGS=-DCMAKE_CXX_COMPILER=%COMPILER% %CMAKE_ARGS%")
+  - if defined GENERATOR (set "CMAKE_ARGS=-G"%GENERATOR%" %CMAKE_ARGS%")
+  - pushd "%METAL_BUILD_PATH%" && cmake "%METAL_SOURCE_PATH%" %CMAKE_ARGS% & popd
+  - cmake --build "%METAL_BUILD_PATH%" --target install --config "%CONFIGURATION%"
 
-  - pushd "%METAL_BUILD_PATH%" && cmake -G"%GENERATOR%" "%METAL_SOURCE_PATH%" -DCMAKE_INSTALL_PREFIX="%METAL_INSTALL_PATH%" & popd
-  - cmake --build "%METAL_BUILD_PATH%" --target install
-
-  - pushd "%EXTERNAL_BUILD_PATH%" && cmake -G"%GENERATOR%" "%EXTERNAL_SOURCE_PATH%" -DCMAKE_PREFIX_PATH="%METAL_INSTALL_PATH%" & popd
+  - set "CMAKE_ARGS=%CMAKE_ARGS% -DCMAKE_PREFIX_PATH=%METAL_INSTALL_PATH%"
+  - pushd "%EXTERNAL_BUILD_PATH%" && cmake "%EXTERNAL_SOURCE_PATH%" %CMAKE_ARGS% & popd
 
 build_script:
-  - cmake --build "%EXTERNAL_BUILD_PATH%" --target external
-
-  - cmake --build "%METAL_BUILD_PATH%" --target doc
-  - cmake --build "%METAL_BUILD_PATH%" --target examples
-  - cmake --build "%METAL_BUILD_PATH%" --target tests
-
-test_script:
-  - pushd "%METAL_BUILD_PATH%" && ctest & popd
+  - if "%BUILD_DOC%" equ "true" (
+        cmake --build "%METAL_BUILD_PATH%" --target doc --config "%CONFIGURATION%"
+    ) else (
+        cmake --build "%EXTERNAL_BUILD_PATH%" --target external --config "%CONFIGURATION%" &
+        pushd "%METAL_BUILD_PATH%" && ctest -C "%CONFIGURATION%" --output-on-failure & popd
+    )

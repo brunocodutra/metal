@@ -6,6 +6,8 @@
 #define METAL_LIST_HPP
 
 #include <metal/list/accumulate.hpp>
+#include <metal/list/all.hpp>
+#include <metal/list/any.hpp>
 #include <metal/list/apply.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/back.hpp>
@@ -27,6 +29,8 @@
 #include <metal/list/insert.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
+#include <metal/list/merge.hpp>
+#include <metal/list/none.hpp>
 #include <metal/list/partition.hpp>
 #include <metal/list/pop_back.hpp>
 #include <metal/list/pop_front.hpp>

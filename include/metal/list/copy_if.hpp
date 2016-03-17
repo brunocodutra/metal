@@ -25,6 +25,7 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
+#include <metal/list/empty.hpp>
 #include <metal/list/copy.hpp>
 #include <metal/list/apply.hpp>
 #include <metal/list/transform.hpp>
@@ -39,12 +40,25 @@ namespace metal
 {
     namespace detail
     {
-        template<typename to, typename from, typename lbd>
-        struct copy_if :
+        template<
+            typename to, typename from, typename lbd,
+            typename = boolean<true>
+        >
+        struct copy_if_impl :
             invoke<
                 copy<_1, apply<quote_t<lambda<join>>, transform<_3, _2>>>,
                 to, from, conditional<bind_t<lbd, _1>, list<_1>, list<>>
             >
+        {};
+
+        template<typename to, typename from, typename lbd>
+        struct copy_if_impl<to, from, lbd, empty_t<from>> :
+            copy<to, list<>>
+        {};
+
+        template<typename to, typename from, typename lbd>
+        struct copy_if :
+            copy_if_impl<to, from, lbd>
         {};
     }
 }

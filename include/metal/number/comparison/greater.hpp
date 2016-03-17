@@ -20,14 +20,15 @@ namespace metal
     /// -----
     /// For any \values `val1` and `val2`
     /// \code
-    ///     using result = metal::greater<val1, val2>;
+    ///     metal::greater<val1, val2>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If both `val1` and `val2` are \numbers, then equivalent to
     ///     \code
-    ///         struct result :
-    ///             metal::boolean<(val1::value > val2::value)>
+    ///         template<>
+    ///         struct greater<val1, val2> :
+    ///             boolean<(val1::value > val2::value)>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to `metal::nothing`

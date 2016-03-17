@@ -26,12 +26,10 @@ namespace metal
 
 #include <metal/list/list.hpp>
 #include <metal/list/copy.hpp>
-#include <metal/list/partition.hpp>
-#include <metal/pair/first.hpp>
-#include <metal/pair/second.hpp>
+#include <metal/list/merge.hpp>
+#include <metal/list/reduce.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lift.hpp>
 #include <metal/lambda/quote.hpp>
 
 namespace metal
@@ -42,19 +40,9 @@ namespace metal
         struct sort
         {};
 
-        template<typename head, typename... tail, typename lbd>
-        struct sort<list<head, tail...>, lbd> :
-            invoke<
-                lift_t<join<sort<first<_1>, _2>, _3, sort<second<_1>, _2>>>,
-                partition<list<tail...>, bind_t<lbd, _1, head>>,
-                quote_t<lbd>,
-                list<head>
-            >
-        {};
-
-        template<typename val, typename lbd>
-        struct sort<list<val>, lbd> :
-            list<val>
+        template<typename... vals, typename lbd>
+        struct sort<list<vals...>, lbd> :
+            reduce<list<list<vals>...>, merge<quote_t<lbd>, _1, _2>>
         {};
 
         template<typename lbd>

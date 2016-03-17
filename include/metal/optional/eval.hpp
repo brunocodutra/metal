@@ -15,17 +15,19 @@ namespace metal
     /// \ingroup optional
     /// Evaluates an \optional.
     ///
+    /// A fallback \value may be specified in case the \optional is empty.
+    ///
     /// Usage
     /// -----
     /// For any \optional `opt`
     /// \code
-    ///     using result = metal::eval<opt>;
+    ///     metal::eval<opt>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         using result = typename opt::type
+    ///         typename opt::type
     ///     \endcode
     ///
     /// \danger{Evaluating an empty optional leads to a compile time error.}
@@ -34,13 +36,13 @@ namespace metal
     ///
     /// For any \optional `opt` and \value `val`
     /// \code
-    ///     using result = metal::eval<opt, val>;
+    ///     metal::eval<opt, val>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         using result = metal::conditional_t<metal::is_just_t<opt>, opt, metal::just<val>>;
+    ///         conditional_t<is_just_t<opt>, opt, just<val>>;
     ///     \endcode
     ///
     /// Example

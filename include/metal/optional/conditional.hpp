@@ -20,14 +20,15 @@ namespace metal
     /// -----
     /// For any \value `val` and \optional `opt`
     /// \code
-    ///     using result = metal::conditional<val, opt>;
+    ///     metal::conditional<val, opt>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         struct result :
-    ///             metal::conditional<val, opt, metal::nothing>
+    ///         template<>
+    ///         struct conditional<val, opt> :
+    ///             conditional<val, opt, nothing>
     ///         {};
     ///     \endcode
     ///
@@ -35,21 +36,23 @@ namespace metal
     ///
     /// For any \value `val` and \optionals `opt1` and `opt2`
     /// \code
-    ///     using result = metal::conditional<val, opt1, opt2>;
+    ///     metal::conditional<val, opt1, opt2>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     If `val` is a \number and `!!val::value == true`, then equivalent to
     ///     \code
-    ///         struct result :
-    ///             metal::optional<opt1>
+    ///         template<>
+    ///         struct conditional<val, opt1, opt2> :
+    ///             optional<opt1>
     ///         {};
     ///     \endcode
     ///     otherwise, if `val` is a \number and `val::value == false`,
     ///     then equivalent to
     ///     \code
-    ///         struct result :
-    ///             metal::optional<opt2>
+    ///         template<>
+    ///         struct conditional<val, opt1, opt2> :
+    ///             optional<opt2>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to `metal::nothing`
@@ -58,16 +61,15 @@ namespace metal
     ///
     /// For any \values `val1, val2, val3, val4, ..., valn`
     /// \code
-    ///     using result = metal::conditional<val1, val2, val3, val4, ..., valn>;
+    ///     metal::conditional<val1, val2, val3, val4, ..., valn>;
     /// \endcode
     ///
     /// \par Semantics:
     ///     Equivalent to
     ///     \code
-    ///         struct result :
-    ///             metal::conditional<
-    ///                 val1, val2, metal::conditional<val3, val4, ..., valn>
-    ///             >
+    ///         template<>
+    ///         struct conditional<val1, val2, val3, val4, ..., valn> :
+    ///             conditional<val1, val2, conditional<val3, val4, ..., valn>>
     ///         {};
     ///     \endcode
     ///

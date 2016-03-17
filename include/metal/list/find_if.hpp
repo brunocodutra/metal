@@ -25,13 +25,16 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
+#include <metal/list/any.hpp>
+#include <metal/list/none.hpp>
 #include <metal/list/copy_if.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/list/front.hpp>
+#include <metal/list/size.hpp>
 #include <metal/list/transpose.hpp>
 #include <metal/pair/first.hpp>
 #include <metal/pair/second.hpp>
-#include <metal/lambda/arg.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/bind.hpp>
 
@@ -39,12 +42,28 @@ namespace metal
 {
     namespace detail
     {
+        template<typename list, typename lbd, typename = boolean<true>>
+        struct find_if_impl
+        {};
+
+        template<typename list, typename lbd>
+        struct find_if_impl<list, lbd, none_t<list, lbd>> :
+            size<list>
+        {};
+
+        template<typename list, typename lbd>
+        struct find_if_impl<list, lbd, any_t<list, lbd>> :
+            invoke<
+                first<front<lambda<copy_if>>>,
+                metal::list<>,
+                transpose_t<pair<indices_t<list>, list>>,
+                bind_t<lbd, second<_1>>
+            >
+        {};
+
         template<typename list, typename lbd>
         struct find_if :
-            invoke<
-                first<front<copy_if<_1, transpose<pair<indices<_2>, _2>>, _3>>>,
-                metal::list<>, list, bind_t<lbd, second<_1>>
-            >
+            find_if_impl<list, lbd>
         {};
     }
 }

@@ -20,7 +20,7 @@ namespace metal
     /// -----
     /// For any \values `val1, val2, ..., valn`
     /// \code
-    ///     using result = metal::mod<val1, val2, ..., valn>;
+    ///     metal::mod<val1, val2, ..., valn>;
     /// \endcode
     ///
     /// \par Semantics:
@@ -28,8 +28,9 @@ namespace metal
     ///     and all \values in `[val2, ..., valn]` are nonzero \numbers,
     ///     then equivalent to
     ///     \code
-    ///         struct result :
-    ///             metal::number<
+    ///         template<>
+    ///         struct mod<val1, val2, ..., valn> :
+    ///             number<
     ///                 decltype(val1::value % ... % valn::value),
     ///                 val1::value % ... % valn::value
     ///             >

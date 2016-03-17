@@ -10,22 +10,22 @@
 namespace metal
 {
     /// \ingroup number
-    /// Standard representation for \numbers.
+    /// The standard constructor for \numbers.
     template<typename type, type value>
     using number = std::integral_constant<type, value>;
 
     /// \ingroup number
-    /// Standard representation for [booleans](\numbers).
+    /// The standard constructor for [booleans](\numbers).
     template<bool value>
     using boolean = metal::number<bool, value>;
 
     /// \ingroup number
-    /// Standard representation for [integers](\numbers).
+    /// The standard constructor for [integers](\numbers).
     template<int value>
     using integer = metal::number<int, value>;
 
     /// \ingroup number
-    /// Standard representation for [characters](\numbers).
+    /// The standard constructor for [characters](\numbers).
     template<char value>
     using character = metal::number<char, value>;
 
@@ -42,20 +42,22 @@ namespace metal
     /// -----
     /// For any \value `val`
     /// \code
-    ///     using result = metal::is_number<val>;
+    ///     metal::is_number<val>;
     /// \endcode
     ///
     /// \par Semantics:
-    ///     If `val` is a model of \number, then equivalent to
+    ///     If `val` is a \number, then equivalent to
     ///     \code
-    ///         struct result :
-    ///             metal::boolean<true>
+    ///         template<>
+    ///         struct is_number<val> :
+    ///             boolean<true>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
-    ///         struct result :
-    ///             metal::boolean<false>
+    ///         template<>
+    ///         struct is_number<val> :
+    ///             boolean<false>
     ///         {};
     ///     \endcode
     ///
