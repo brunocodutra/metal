@@ -27,10 +27,9 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/list/front.hpp>
 #include <metal/list/indices.hpp>
-#include <metal/list/transpose.hpp>
-#include <metal/map/at_key.hpp>
-#include <metal/pair/pair.hpp>
 #include <metal/number/number.hpp>
+
+#include <metal/detail/lookup.hpp>
 
 #include <cstddef>
 
@@ -44,7 +43,7 @@ namespace metal
 
         template<typename list, typename n>
         struct at_impl<list, n, is_list_t<list>> :
-            at_key<transpose_t<pair<indices_t<list>, list>>, n>
+            lookup<indices_t<list>, list, n>
         {};
 
         template<typename list, typename n>
@@ -53,7 +52,7 @@ namespace metal
 
         template<typename list, typename t, t v>
         struct at<list, number<t, v>> :
-            at_impl<list, number<std::size_t, static_cast<std::size_t>(v)>>
+            at_impl<list, number<std::size_t, v>>
         {};
 
         template<typename list, typename t>
