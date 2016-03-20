@@ -25,44 +25,31 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/apply.hpp>
-#include <metal/lambda/bind.hpp>
+#include <metal/list/copy.hpp>
+#include <metal/list/join.hpp>
+#include <metal/lambda/lift.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
-#include <metal/lambda/arg.hpp>
 #include <metal/optional/conditional.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<
-            typename list, typename lbd, typename val,
-            typename = boolean<true>
-        >
-        struct replace_if_impl :
-            invoke<
-                copy<_1, apply<_2, transform<_3, _1>>>,
-                list,
-                lambda<join>,
-                conditional<
-                    bind_t<lbd, _1>,
-                    quote_t<metal::list<val>>,
-                    metal::list<_1>
-                >
-            >
+        template<typename list, typename lbd, typename val>
+        struct replace_if
         {};
 
-        template<typename list, typename lbd, typename val>
-        struct replace_if_impl<list, lbd, val, empty_t<list>>
-        {
-            using type = list;
-        };
-
-        template<typename list, typename lbd, typename val>
-        struct replace_if :
-            replace_if_impl<list, lbd, val>
+        template<
+            template<typename...> class expr, typename... vals,
+            typename lbd, typename val
+        >
+        struct replace_if<expr<vals...>, lbd, val> :
+            invoke<
+                copy<quote_t<expr<vals...>>, lift_t<lambda<join>>>,
+                list<>, conditional<invoke<lbd, vals>, list<val>, list<vals>>...
+            >
         {};
     }
 }
