@@ -5,18 +5,14 @@
 #ifndef METAL_LIST_ACCUMULATE_HPP
 #define METAL_LIST_ACCUMULATE_HPP
 
+#include <metal/list/fold.hpp>
+
 #include <metal/detail/nil.hpp>
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename, typename, typename, typename = nil, typename = nil>
-        struct accumulate;
-    }
-
     /// \ingroup list
-    /// ...
+    /// An alias for \ref fold.
     template<
         typename list,
         typename state,
@@ -24,7 +20,7 @@ namespace metal
         typename begin = detail::nil,
         typename end = detail::nil
     >
-    using accumulate = detail::accumulate<list, state, lbd, begin, end>;
+    using accumulate = detail::fold<list, state, lbd, begin, end>;
 
     /// \ingroup list
     /// Eager adaptor for \ref accumulate.
@@ -37,99 +33,6 @@ namespace metal
     >
     using accumulate_t =
         typename metal::accumulate<list, state, lbd, begin, end>::type;
-}
-
-#include <metal/list/at.hpp>
-#include <metal/list/size.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lift.hpp>
-#include <metal/number/number.hpp>
-
-namespace metal
-{
-    namespace detail
-    {
-        template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l, t r
-        >
-        struct accumulate<list, state, lbd, number<t, l>, number<t, r>> :
-            invoke<
-                accumulate<
-                    _1,
-                    accumulate<_1, _2, _3, number<t, l>, number<t, (l + r)/2>>,
-                    _3,
-                    number<t, (l + r)/2>,
-                    number<t, r>
-                >,
-                list, state, lbd
-            >
-        {};
-
-        template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l
-        >
-        struct accumulate<list, state, lbd, number<t, l>, number<t, t(l + 1)>> :
-            invoke<lift_t<lbd>, just<state>, at<list, number<t, l>>>
-        {};
-
-        template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l
-        >
-        struct accumulate<list, state, lbd, number<t, l>, number<t, t(l - 1)>> :
-            invoke<lift_t<lbd>, just<state>, at<list, number<t, l - 1>>>
-        {};
-
-        template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l
-        >
-        struct accumulate<list, state, lbd, number<t, l>, number<t, t(l)>>
-        {
-            using type = state;
-        };
-
-        template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l,
-            typename u, u r
-        >
-        struct accumulate<list, state, lbd, number<t, l>, number<u, r>> :
-            accumulate<
-                list,
-                state,
-                lbd,
-                number<decltype(l + r), l>,
-                number<decltype(l + r), r>
-            >
-        {};
-
-        template<typename list, typename state, typename lbd, typename t, t l>
-        struct accumulate<list, state, lbd, number<t, l>> :
-            invoke<
-                accumulate<_1, _2, _3, number<t, l>, size<_1>>,
-                list, state, lbd
-            >
-        {};
-
-        template<typename list, typename state, typename lbd>
-        struct accumulate<list, state, lbd> :
-            accumulate<list, state, lbd, integer<0>>
-        {};
-    }
 }
 
 #endif
