@@ -94,8 +94,8 @@ namespace metal
         > :
             invoke<
                 lift_t<lbd>,
-                at<list, number<u, r>>,
-                accumulate<list, state, lbd, number<t, l>, inc_t<number<u, r>>>
+                accumulate<list, state, lbd, number<t, l>, inc_t<number<u, r>>>,
+                at<list, number<u, r>>
             >
         {};
 
@@ -129,7 +129,7 @@ namespace metal
             typename u
         >
         struct accumulate<list, state, lbd, number<t, l>, number<u, u(l - 1)>> :
-            invoke<lift_t<lbd>, at<list, number<u, l - 1>>, just<state>>
+            invoke<lift_t<lbd>, just<state>, at<list, number<u, l - 1>>>
         {};
 
         template<
