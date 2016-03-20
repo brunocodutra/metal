@@ -54,6 +54,9 @@ namespace metal
 }
 
 #include <metal/number/number.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/list.hpp>
+#include <metal/list/reduce.hpp>
 
 namespace metal
 {
@@ -68,9 +71,14 @@ namespace metal
             number<tx, vx>
         {};
 
+        template<typename tx, tx vx, typename ty, ty vy>
+        struct add<number<tx, vx>, number<ty, vy>> :
+            number<decltype(vx + vy), vx + vy>
+        {};
+
         template<typename tx, tx vx, typename ty, ty vy, typename... nums>
         struct add<number<tx, vx>, number<ty, vy>, nums...> :
-            add<number<decltype(vx + vy), vx + vy>, nums...>
+            reduce<list<number<tx, vx>, number<ty, vy>, nums...>, lambda<add>>
         {};
     }
 }
