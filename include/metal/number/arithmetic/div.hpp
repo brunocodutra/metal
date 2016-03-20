@@ -77,8 +77,8 @@ namespace metal
             div<number<decltype(vx / vy), vx / vy>>
         {};
 
-        template<typename tx, tx vx, typename ty, typename... nums>
-        struct div<number<tx, vx>, number<ty, ty(0)>, nums...>
+        template<typename tx, tx vx, typename ty>
+        struct div<number<tx, vx>, number<ty, ty(0)>>
         {};
 
         template<typename tx, tx vx, typename ty, ty vy, typename... nums>
