@@ -45,37 +45,25 @@ namespace metal
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lift.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/arithmetic/inc.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<
-            typename, typename, typename, typename, typename,
-            typename = boolean<true>
-        >
-        struct accumulate_impl
-        {};
-
-        template<
             typename list,
             typename state,
             typename lbd,
-            typename t, t l,
-            typename u, u r
+            typename t, t l, t r
         >
-        struct accumulate_impl<
-            list, state, lbd, number<t, l>, number<u, r>,
-            boolean<(l < r)>
-        > :
+        struct accumulate<list, state, lbd, number<t, l>, number<t, r>> :
             invoke<
                 accumulate<
                     _1,
-                    invoke<_3, _2, at<_1, number<t, l>>>,
+                    accumulate<_1, _2, _3, number<t, l>, number<t, (l + r)/2>>,
                     _3,
-                    inc_t<number<t, l>>,
-                    number<u, r>
+                    number<t, (l + r)/2>,
+                    number<t, r>
                 >,
                 list, state, lbd
             >
@@ -85,19 +73,32 @@ namespace metal
             typename list,
             typename state,
             typename lbd,
-            typename t, t l,
-            typename u, u r
+            typename t, t l
         >
-        struct accumulate_impl<
-            list, state, lbd, number<t, l>, number<u, r>,
-            boolean<(l > r)>
-        > :
-            invoke<
-                lift_t<lbd>,
-                accumulate<list, state, lbd, number<t, l>, inc_t<number<u, r>>>,
-                at<list, number<u, r>>
-            >
+        struct accumulate<list, state, lbd, number<t, l>, number<t, t(l + 1)>> :
+            invoke<lift_t<lbd>, just<state>, at<list, number<t, l>>>
         {};
+
+        template<
+            typename list,
+            typename state,
+            typename lbd,
+            typename t, t l
+        >
+        struct accumulate<list, state, lbd, number<t, l>, number<t, t(l - 1)>> :
+            invoke<lift_t<lbd>, just<state>, at<list, number<t, l - 1>>>
+        {};
+
+        template<
+            typename list,
+            typename state,
+            typename lbd,
+            typename t, t l
+        >
+        struct accumulate<list, state, lbd, number<t, l>, number<t, t(l)>>
+        {
+            using type = state;
+        };
 
         template<
             typename list,
@@ -107,42 +108,14 @@ namespace metal
             typename u, u r
         >
         struct accumulate<list, state, lbd, number<t, l>, number<u, r>> :
-            accumulate_impl<list, state, lbd, number<t, l>, number<u, r>>
+            accumulate<
+                list,
+                state,
+                lbd,
+                number<decltype(l + r), l>,
+                number<decltype(l + r), r>
+            >
         {};
-
-        template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l,
-            typename u
-        >
-        struct accumulate<list, state, lbd, number<t, l>, number<u, u(l + 1)>> :
-            invoke<lift_t<lbd>, just<state>, at<list, number<t, l>>>
-        {};
-
-        template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l,
-            typename u
-        >
-        struct accumulate<list, state, lbd, number<t, l>, number<u, u(l - 1)>> :
-            invoke<lift_t<lbd>, just<state>, at<list, number<u, l - 1>>>
-        {};
-
-        template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l,
-            typename u
-        >
-        struct accumulate<list, state, lbd, number<t, l>, number<u, u(l)>>
-        {
-            using type = state;
-        };
 
         template<typename list, typename state, typename lbd, typename t, t l>
         struct accumulate<list, state, lbd, number<t, l>> :
