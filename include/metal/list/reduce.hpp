@@ -97,8 +97,8 @@ namespace metal
             reduce<
                 list,
                 lbd,
-                number<decltype(l + r), static_cast<decltype(l + r)>(l)>,
-                number<decltype(l + r), static_cast<decltype(l + r)>(r)>
+                number<decltype(l + r), l>,
+                number<decltype(l + r), r>
             >
         {};
 
