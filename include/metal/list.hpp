@@ -24,6 +24,7 @@
 #include <metal/list/find.hpp>
 #include <metal/list/find_if.hpp>
 #include <metal/list/flatten.hpp>
+#include <metal/list/fold.hpp>
 #include <metal/list/front.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/list/insert.hpp>
