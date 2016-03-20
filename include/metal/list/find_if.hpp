@@ -53,11 +53,14 @@ namespace metal
 
         template<typename list, typename lbd>
         struct find_if_impl<list, lbd, any_t<list, lbd>> :
-            invoke<
-                first<front<lambda<copy_if>>>,
-                metal::list<>,
-                transpose_t<pair<indices_t<list>, list>>,
-                bind_t<lbd, second<_1>>
+            first<
+                front_t<
+                    copy_if_t<
+                        metal::list<>,
+                        transpose_t<pair<indices_t<list>, list>>,
+                        bind_t<lbd, second<_1>>
+                    >
+                >
             >
         {};
 

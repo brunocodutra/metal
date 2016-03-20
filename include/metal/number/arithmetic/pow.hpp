@@ -87,7 +87,7 @@ namespace metal
         template<typename tx, tx vx, typename ty, ty vy, typename... nums>
         struct pow<number<tx, vx>, number<ty, vy>, nums...> :
             conditional<
-                boolean<vy < 0>,
+                boolean<(vy < 0)>,
                 pow<number<decltype(vx*vy), 0>, nums...>,
                 pow<
                     number<decltype(vx*vy), pow_impl<decltype(vx*vy)>(vx, vy)>,

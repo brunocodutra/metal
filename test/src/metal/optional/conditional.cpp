@@ -8,10 +8,12 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_just_t<metal::conditional<VAL(M), VALS(INC(N))>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::conditional<VAL(M), NUMS(INC(N))>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::conditional<NUM(M), NUMS(INC(N))>>), (BOOL(M || N))); \
+    ASSERT((metal::is_just_t<metal::conditional<metal::just<VAL(M)>, NUMS(INC(N))>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::conditional<metal::just<NUM(M)>, NUMS(INC(N))>>), (BOOL(M || N))); \
     ASSERT((metal::conditional_t<ENUM(M, NUM(0) BAR) COMMA(M) NUM(INC(N)), EXPR()<VAL(N)>>), (EXPR()<VAL(N)>::type)); \
-    ASSERT((metal::conditional_t<NUM(INC(N)), EXPR()<VAL(N)> COMMA(M) VALS(M)>), (EXPR()<VAL(N)>::type)); \
+    ASSERT((metal::conditional_t<metal::just<NUM(INC(N))>, EXPR()<VAL(N)> COMMA(M) VALS(M)>), (EXPR()<VAL(N)>::type)); \
 /**/
 
 GEN(MATRIX)
