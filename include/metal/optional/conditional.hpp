@@ -34,7 +34,7 @@ namespace metal
     ///
     /// ________________________________________________________________________
     ///
-    /// For any \optionals `cond` `opt1` and `opt2`
+    /// For any \optionals `cond`, `opt1` and `opt2`
     /// \code
     ///     metal::conditional<cond, opt1, opt2>;
     /// \endcode
