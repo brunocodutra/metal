@@ -50,7 +50,7 @@ namespace metal
 
         template<typename map>
         struct values :
-            conditional<is_map_t<map>, values_impl<map>>
+            conditional<is_map<map>, values_impl<map>>
         {};
     }
 }

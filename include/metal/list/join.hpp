@@ -80,11 +80,14 @@ namespace metal
         };
 
         template<
-            typename w, typename x, typename y, typename z,
-            typename h, typename... t
+            typename... xs, typename... ys, typename... zs,
+            typename a, typename b, typename... _
         >
-        struct join<list<w>, list<x>, list<y>, list<z>, list<h>, list<t>...> :
-            list<w, x, y, z, h, t...>
+        struct join<
+            list<xs...>, list<ys...>, list<zs...>,
+            list<a>, list<b>, list<_>...
+        > :
+            list<xs..., ys..., zs..., a, b, _...>
         {};
     }
 }

@@ -24,30 +24,25 @@ namespace metal
     using distinct_t = typename metal::distinct<list>::type;
 }
 
-#include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 
 #include <metal/detail/inherit.hpp>
+#include <metal/detail/declptr.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename...>
-        struct voider
-        {
-            using type = void;
-        };
-
-        template<typename... _>
-        using voider_t = typename voider<_...>::type;
+        template<typename>
+        struct wrapper
+        {};
 
         template<typename... bases>
         boolean<true> disambiguate(bases*...);
 
         template<typename derived, typename... bases>
         auto is_unambiguously_derived_from(derived* _) ->
-            decltype(disambiguate<bases...>((voider_t<bases>(), _)...));
+            decltype(disambiguate<bases...>((declptr<bases>(), _)...));
 
         template<typename...>
         boolean<false> is_unambiguously_derived_from(...);
@@ -63,8 +58,8 @@ namespace metal
         struct distinct<expr<head, tail...>> :
             decltype(
                 is_unambiguously_derived_from<
-                    inherit<list<head>, list<tail>...>,
-                    list<head>, list<tail>...
+                    inherit<wrapper<head>, wrapper<tail>...>,
+                    wrapper<head>, wrapper<tail>...
                 >(0)
             )
         {};
