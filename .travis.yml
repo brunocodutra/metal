@@ -30,6 +30,7 @@ matrix:
                   - llvm-toolchain-precise-3.5
                   - llvm-toolchain-precise-3.6
                   - llvm-toolchain-precise-3.7
+                  - llvm-toolchain-precise-3.8
 
       - compiler: g++
         env: CXX_VERSION=4.9
