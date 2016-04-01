@@ -56,9 +56,11 @@ namespace metal
         > :
             invoke<
                 join<
-                    quote_t<list<xh>>, first<optional<_2>>, quote_t<list<yh>>,
-                    merge_impl<_1, second<optional<_2>>, _3>
+                    _1, first<optional<_4>>, _2,
+                    merge_impl<_3, second<optional<_4>>, _5>
                 >,
+                list<xh>,
+                list<yh>,
                 lbd,
                 partition<list<xt...>, bind_t<lbd, _1, yh>>,
                 list<yt...>
@@ -75,9 +77,11 @@ namespace metal
         > :
             invoke<
                 join<
-                    quote_t<list<yh>>, first<optional<_3>>, quote_t<list<xh>>,
-                    merge_impl<_1, _2, second<optional<_3>>>
+                    _1, first<optional<_5>>, _2,
+                    merge_impl<_3, _4, second<optional<_5>>>
                 >,
+                list<yh>,
+                list<xh>,
                 lbd,
                 list<xt...>,
                 partition<list<yt...>, bind_t<lbd, _1, xh>>
@@ -125,8 +129,8 @@ namespace metal
         >
         struct merge<lbd, expr<xs...>, expr<ys...>> :
             invoke<
-                copy<quote_t<expr<xs...>>, lambda<merge_impl>>,
-                lbd, list<xs...>, list<ys...>
+                copy<_1, merge_impl<_2, _3, _4>>,
+                expr<xs...>, lbd, list<xs...>, list<ys...>
             >
         {
             using type = expr<xs...>;
