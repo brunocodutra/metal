@@ -49,9 +49,11 @@ namespace metal
             template<typename val>
             static val impl(void_<head>*, void_<tail>*..., val*);
 
-            using type = typename decltype(
+            using opt = decltype(
                 impl(0, declptr<just<head>>(), declptr<just<tail>>()...)
-            )::type;
+            );
+
+            using type = typename opt::type;
         };
     }
 }
