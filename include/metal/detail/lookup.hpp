@@ -5,7 +5,6 @@
 #ifndef METAL_DETAIL_LOOKUP_HPP
 #define METAL_DETAIL_LOOKUP_HPP
 
-#include <metal/pair/pair.hpp>
 #include <metal/optional/optional.hpp>
 
 #include <metal/detail/declptr.hpp>
@@ -14,8 +13,12 @@ namespace metal
 {
     namespace detail
     {
+        template<typename, typename>
+        struct entry
+        {};
+
         template<typename key, typename val>
-        just<val> lookup_impl(pair<key, val>*);
+        just<val> lookup_impl(entry<key, val>*);
 
         template<typename>
         nothing lookup_impl(...);
@@ -28,7 +31,7 @@ namespace metal
             typename... keys, typename... vals
         >
         struct hash<expr<keys...>, expr<vals...>> :
-            pair<keys, vals>...
+            entry<keys, vals>...
         {};
 
         template<typename keys, typename vals, typename key>

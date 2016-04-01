@@ -26,6 +26,8 @@ namespace metal
 
 #include <metal/list/list.hpp>
 #include <metal/list/front.hpp>
+#include <metal/list/back.hpp>
+#include <metal/list/size.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/number/number.hpp>
 
@@ -41,23 +43,30 @@ namespace metal
         struct at_impl
         {};
 
-        template<typename list, typename n>
-        struct at_impl<list, n, is_list_t<list>> :
-            lookup<indices_t<list>, list, n>
-        {};
-
-        template<typename list, typename n>
-        struct at
-        {};
-
         template<typename list, typename t, t v>
-        struct at<list, number<t, v>> :
-            at_impl<list, number<std::size_t, v>>
+        struct at_impl<list, number<t, v>,
+            boolean<(0 < v) && (v < size_t<list>::value - 1)>
+        > :
+            lookup<indices_t<list>, list, number<std::size_t, v>>
         {};
 
         template<typename list, typename t>
-        struct at<list, number<t, t(0)>> :
+        struct at_impl<list, number<t, t(0)>,
+            boolean<(size_t<list>::value > 0)>
+        > :
             front<list>
+        {};
+
+        template<typename list, typename t>
+        struct at_impl<list, number<t, t(size_t<list>::value - 1)>,
+            boolean<(size_t<list>::value > 1)>
+        > :
+            back<list>
+        {};
+
+        template<typename list, typename n>
+        struct at :
+            at_impl<list, n>
         {};
     }
 }
