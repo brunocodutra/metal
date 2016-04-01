@@ -25,13 +25,17 @@ namespace metal
 }
 
 #include <metal/list/at.hpp>
-#include <metal/list/size.hpp>
-#include <metal/number/arithmetic/dec.hpp>
+#include <metal/optional/optional.hpp>
+
+#include <metal/detail/declptr.hpp>
 
 namespace metal
 {
     namespace detail
     {
+        template<typename>
+        using void_ = void;
+
         template<typename list>
         struct back
         {};
@@ -40,9 +44,15 @@ namespace metal
             template<typename...> class expr,
             typename head, typename... tail
         >
-        struct back<expr<head, tail...>> :
-            at<expr<head, tail...>, dec_t<size_t<expr<head, tail...>>>>
-        {};
+        struct back<expr<head, tail...>>
+        {
+            template<typename val>
+            static val impl(void_<head>*, void_<tail>*..., val*);
+
+            using type = typename decltype(
+                impl(0, declptr<just<head>>(), declptr<just<tail>>()...)
+            )::type;
+        };
     }
 }
 
