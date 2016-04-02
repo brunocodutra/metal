@@ -117,6 +117,12 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
 
+#if defined(__has_builtin)
+#   if __has_builtin(__make_integer_seq)
+#       define NUMBERS(T, N) __make_integer_seq<numbers, T, (N)>
+#   endif
+#endif
+
 namespace metal
 {
     namespace detail
@@ -127,7 +133,8 @@ namespace metal
         {};
 
         template<typename, typename, typename>
-        struct stretch;
+        struct stretch
+        {};
 
         template<typename u, u a, typename v, v b>
         struct stretch<list<>, number<u, a>, number<v, b>> :
@@ -138,6 +145,13 @@ namespace metal
         struct stretch<list<number<t, ns>...>, number<u, a>, number<v, b>> :
             numbers<v, b + a*ns...>
         {};
+
+#if defined(NUMBERS)
+        template<typename t, t... ns, typename u, u a, typename v, v b>
+        struct stretch<numbers<t, ns...>, number<u, a>, number<v, b>> :
+            numbers<v, b + a*ns...>
+        {};
+#endif
 
         template<typename, typename, typename>
         struct enumerate
@@ -157,6 +171,16 @@ namespace metal
             enumerate<number<t, start>, number<u, size>, integer<1>>
         {};
 
+#if defined(NUMBERS)
+        template<typename t, t size>
+        struct enumerate<number<t, size>> :
+            stretch<
+                NUMBERS(long long, size > 0 ? size : -size),
+                number<long long, (size > 0 ? 1 : -1)>,
+                number<t, 0>
+            >
+        {};
+#else
         template<typename t, t size>
         struct enumerate<number<t, size>> :
             join<
@@ -179,7 +203,9 @@ namespace metal
         struct enumerate<number<t, t(0)>> :
             list<>
         {};
+#endif
     }
 }
 
+#undef NUMBERS
 #endif
