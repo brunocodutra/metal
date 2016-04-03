@@ -8,16 +8,19 @@ html, body {
     color: #464646;
 }
 
-.navbar-nav > li, .navbar-nav {
-    float: left !important;
-    padding: 0;
-    margin: 0;
+.container {
+    position: relative;
 }
 
 .navbar-right {
-    float: right !important;
-    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
     margin: 0;
+}
+
+.navbar-right > li {
+    float: left;
 }
 
 #content {
