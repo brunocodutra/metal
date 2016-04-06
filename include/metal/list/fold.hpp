@@ -27,7 +27,7 @@ namespace metal
     using fold = detail::fold<list, state, lbd, begin, end>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref fold.
+    /// Eager adaptor for metal::fold.
     template<
         typename list,
         typename state,

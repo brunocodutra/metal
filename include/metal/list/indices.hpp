@@ -19,7 +19,7 @@ namespace metal
     using indices = detail::indices<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref indices.
+    /// Eager adaptor for metal::indices.
     template<typename list>
     using indices_t = typename metal::indices<list>::type;
 }

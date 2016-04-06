@@ -26,7 +26,7 @@ namespace metal
     using reduce = detail::reduce<list, lbd, begin, end>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref reduce.
+    /// Eager adaptor for metal::reduce.
     template<
         typename list,
         typename lbd,

@@ -19,7 +19,7 @@ namespace metal
     using at = detail::at<list, n>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref at.
+    /// Eager adaptor for metal::at.
     template<typename list, typename n>
     using at_t = typename metal::at<list, n>::type;
 }

@@ -19,7 +19,7 @@ namespace metal
     using find_if = detail::find_if<list, lbd>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref find_if.
+    /// Eager adaptor for metal::find_if.
     template<typename list, typename lbd>
     using find_if_t = typename metal::find_if<list, lbd>::type;
 }

@@ -19,7 +19,7 @@ namespace metal
     using none = detail::none<list, lbd>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref none.
+    /// Eager adaptor for metal::none.
     template<typename list, typename lbd>
     using none_t = typename metal::none<list, lbd>::type;
 }

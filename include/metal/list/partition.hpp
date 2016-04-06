@@ -19,7 +19,7 @@ namespace metal
     using partition = detail::partition<list, lbd>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref partition.
+    /// Eager adaptor for metal::partition.
     template<typename list, typename lbd>
     using partition_t = typename metal::partition<list, lbd>::type;
 }

@@ -44,7 +44,7 @@ namespace metal
     using not_ = detail::not_<num>;
 
     /// \ingroup arithmetic
-    /// Eager adaptor for \ref not_.
+    /// Eager adaptor for metal::not_.
     template<typename num>
     using not_t = typename metal::not_<num>::type;
 }

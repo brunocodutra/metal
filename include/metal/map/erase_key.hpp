@@ -19,7 +19,7 @@ namespace metal
     using erase_key = detail::erase_key<map, key>;
 
     /// \ingroup map
-    /// Eager adaptor for \ref erase_key.
+    /// Eager adaptor for metal::erase_key.
     template<typename map, typename key>
     using erase_key_t = typename metal::erase_key<map, key>::type;
 }

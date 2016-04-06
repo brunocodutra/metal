@@ -45,7 +45,7 @@ namespace metal
     using and_ = detail::and_<nums...>;
 
     /// \ingroup logical
-    /// Eager adaptor for \ref and_.
+    /// Eager adaptor for metal::and_.
     template<typename... nums>
     using and_t = typename metal::and_<nums...>::type;
 }

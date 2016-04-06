@@ -19,7 +19,7 @@ namespace metal
     using invoke = detail::invoke<lbd, args...>;
 
     /// \ingroup lambda
-    /// Eager adaptor for \ref invoke.
+    /// Eager adaptor for metal::invoke.
     template<typename lbd, typename... args>
     using invoke_t = typename metal::invoke<lbd, args...>::type;
 }

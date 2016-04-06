@@ -85,7 +85,7 @@ namespace metal
     using conditional = detail::conditional<if_, then, else_...>;
 
     /// \ingroup optional
-    /// Eager adaptor for \ref conditional.
+    /// Eager adaptor for metal::conditional.
     template<typename if_, typename then, typename... else_>
     using conditional_t = typename metal::conditional<if_, then, else_...>::type;
 }

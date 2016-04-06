@@ -108,7 +108,7 @@ namespace metal
     using enumerate = detail::enumerate<_...>;
 
     /// \ingroup number
-    /// Eager adaptor for \ref enumerate.
+    /// Eager adaptor for metal::enumerate.
     template<typename... _>
     using enumerate_t = typename metal::enumerate<_...>::type;
 }

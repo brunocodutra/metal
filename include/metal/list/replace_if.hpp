@@ -19,7 +19,7 @@ namespace metal
     using replace_if = detail::replace_if<list, lbd, val>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref replace_if.
+    /// Eager adaptor for metal::replace_if.
     template<typename list, typename lbd, typename val>
     using replace_if_t = typename metal::replace_if<list, lbd, val>::type;
 }

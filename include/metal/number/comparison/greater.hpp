@@ -44,7 +44,7 @@ namespace metal
     using greater = detail::greater<x, y>;
 
     /// \ingroup comparison
-    /// Eager adaptor for \ref greater.
+    /// Eager adaptor for metal::greater.
     template<typename x, typename y>
     using greater_t = typename metal::greater<x, y>::type;
 }

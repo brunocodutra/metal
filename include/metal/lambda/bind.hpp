@@ -19,7 +19,7 @@ namespace metal
     using bind = detail::bind<lbd, vals...>;
 
     /// \ingroup lambda
-    /// Eager adaptor for \ref bind.
+    /// Eager adaptor for metal::bind.
     template<typename lbd, typename... vals>
     using bind_t = typename metal::bind<lbd, vals...>::type;
 }

@@ -18,7 +18,7 @@ namespace metal
     using contains = detail::contains<list, val>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref contains.
+    /// Eager adaptor for metal::contains.
     template<typename list, typename val>
     using contains_t = typename metal::contains<list, val>::type;
 }

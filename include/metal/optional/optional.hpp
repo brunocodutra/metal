@@ -130,7 +130,7 @@ namespace metal
     using is_just = detail::is_just<opt>;
 
     /// \ingroup optional
-    /// Eager adaptor for \ref is_just.
+    /// Eager adaptor for metal::is_just.
     template<typename opt>
     using is_just_t = typename metal::is_just<opt>::type;
 
@@ -187,8 +187,8 @@ namespace metal
             not_<typename std::is_base_of<nothing, optional<opt>>::type>
         {};
 
-        template<typename opt, typename ret = just<typename opt::type>>
-        ret optional_impl(void (opt::*)(void));
+        template<typename opt, typename ret = typename opt::type>
+        just<ret> optional_impl(void (opt::*)(void));
 
         template<typename>
         nothing optional_impl(...);

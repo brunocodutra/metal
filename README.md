@@ -25,7 +25,7 @@ placed into `doc/html/`.
 
 ## Portability
 
-Metal has no dependencies other than the sandard C++ library,
+Metal has no dependencies other than the standard C++ library,
 so any compiler that supports C++11 should be able to handle it just fine.
 Nevertheless, Metal is continuously and automatically tested upon every commit
 against some of the most popular freely available compilers.

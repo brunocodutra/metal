@@ -45,7 +45,7 @@ namespace metal
     using or_ = detail::or_<nums...>;
 
     /// \ingroup logical
-    /// Eager adaptor for \ref or_.
+    /// Eager adaptor for metal::or_.
     template<typename... nums>
     using or_t = typename metal::or_<nums...>::type;
 }

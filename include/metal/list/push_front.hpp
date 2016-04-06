@@ -19,7 +19,7 @@ namespace metal
     using push_front = detail::push_front<list, val>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref push_front.
+    /// Eager adaptor for metal::push_front.
     template<typename list, typename val>
     using push_front_t = typename metal::push_front<list, val>::type;
 }

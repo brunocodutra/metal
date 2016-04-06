@@ -72,7 +72,7 @@ namespace metal
     using is_number = detail::is_number<num>;
 
     /// \ingroup number
-    /// Eager adaptor for \ref is_number.
+    /// Eager adaptor for metal::is_number.
     template<typename num>
     using is_number_t = typename metal::is_number<num>::type;
 

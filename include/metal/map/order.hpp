@@ -19,7 +19,7 @@ namespace metal
     using order = detail::order<map, key>;
 
     /// \ingroup map
-    /// Eager adaptor for \ref order.
+    /// Eager adaptor for metal::order.
     template<typename map, typename key>
     using order_t = typename metal::order<map, key>::type;
 }

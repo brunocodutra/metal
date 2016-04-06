@@ -19,7 +19,7 @@ namespace metal
     using pop_back = detail::pop_back<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref pop_back.
+    /// Eager adaptor for metal::pop_back.
     template<typename list>
     using pop_back_t = typename metal::pop_back<list>::type;
 }

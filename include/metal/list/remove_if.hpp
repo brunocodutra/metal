@@ -19,7 +19,7 @@ namespace metal
     using remove_if = detail::remove_if<list, lbd>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref remove_if.
+    /// Eager adaptor for metal::remove_if.
     template<typename list, typename lbd>
     using remove_if_t = typename metal::remove_if<list, lbd>::type;
 }

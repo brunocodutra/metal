@@ -44,7 +44,7 @@ namespace metal
     using less = detail::less<x, y>;
 
     /// \ingroup comparison
-    /// Eager adaptor for \ref less.
+    /// Eager adaptor for metal::less.
     template<typename x, typename y>
     using less_t = typename metal::less<x, y>::type;
 }

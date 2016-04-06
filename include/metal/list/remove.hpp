@@ -19,7 +19,7 @@ namespace metal
     using remove = detail::remove<list, val>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref remove.
+    /// Eager adaptor for metal::remove.
     template<typename list, typename val>
     using remove_t = typename metal::remove<list, val>::type;
 }

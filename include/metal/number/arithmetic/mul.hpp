@@ -48,7 +48,7 @@ namespace metal
     using mul = detail::mul<nums...>;
 
     /// \ingroup arithmetic
-    /// Eager adaptor for \ref mul.
+    /// Eager adaptor for metal::mul.
     template<typename... nums>
     using mul_t = typename metal::mul<nums...>::type;
 }

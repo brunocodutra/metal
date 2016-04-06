@@ -26,7 +26,7 @@ namespace metal
     using copy = detail::copy<to, from, begin, end>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref copy.
+    /// Eager adaptor for metal::copy.
     template<
         typename to,
         typename from,

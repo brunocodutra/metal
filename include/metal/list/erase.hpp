@@ -21,7 +21,7 @@ namespace metal
     using erase = detail::erase<list, begin, end>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref erase.
+    /// Eager adaptor for metal::erase.
     template<typename list, typename begin, typename end = detail::nil>
     using erase_t = typename metal::erase<list, begin, end>::type;
 }

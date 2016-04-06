@@ -44,7 +44,7 @@ namespace metal
     using inc = detail::inc<num>;
 
     /// \ingroup arithmetic
-    /// Eager adaptor for \ref inc.
+    /// Eager adaptor for metal::inc.
     template<typename num>
     using inc_t = typename metal::inc<num>::type;
 }

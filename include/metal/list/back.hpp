@@ -19,7 +19,7 @@ namespace metal
     using back = detail::back<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref back.
+    /// Eager adaptor for metal::back.
     template<typename list>
     using back_t = typename metal::back<list>::type;
 }

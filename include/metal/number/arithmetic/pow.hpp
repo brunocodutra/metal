@@ -56,7 +56,7 @@ namespace metal
     using pow = detail::pow<nums...>;
 
     /// \ingroup arithmetic
-    /// Eager adaptor for \ref pow.
+    /// Eager adaptor for metal::pow.
     template<typename... nums>
     using pow_t = typename metal::pow<nums...>::type;
 }

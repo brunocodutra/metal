@@ -48,7 +48,7 @@ namespace metal
     using sub = detail::sub<nums...>;
 
     /// \ingroup arithmetic
-    /// Eager adaptor for \ref sub.
+    /// Eager adaptor for metal::sub.
     template<typename... nums>
     using sub_t = typename metal::sub<nums...>::type;
 }

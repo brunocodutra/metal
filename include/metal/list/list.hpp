@@ -27,7 +27,7 @@ namespace metal
     using is_list = detail::is_list<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref is_list.
+    /// Eager adaptor for metal::is_list.
     template<typename list>
     using is_list_t = typename metal::is_list<list>::type;
 }

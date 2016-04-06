@@ -44,7 +44,7 @@ namespace metal
     using dec = detail::dec<num>;
 
     /// \ingroup arithmetic
-    /// Eager adaptor for \ref dec.
+    /// Eager adaptor for metal::dec.
     template<typename num>
     using dec_t = typename metal::dec<num>::type;
 }

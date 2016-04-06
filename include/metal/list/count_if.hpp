@@ -19,7 +19,7 @@ namespace metal
     using count_if = detail::count_if<list, lbd>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref count_if.
+    /// Eager adaptor for metal::count_if.
     template<typename list, typename lbd>
     using count_if_t = typename metal::count_if<list, lbd>::type;
 }

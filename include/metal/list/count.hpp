@@ -19,7 +19,7 @@ namespace metal
     using count = detail::count<list, val>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref count.
+    /// Eager adaptor for metal::count.
     template<typename list, typename val>
     using count_t = typename metal::count<list, val>::type;
 }

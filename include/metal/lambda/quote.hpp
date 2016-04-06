@@ -19,7 +19,7 @@ namespace metal
     using quote = detail::quote<val>;
 
     /// \ingroup lambda
-    /// Eager adaptor for \ref quote.
+    /// Eager adaptor for metal::quote.
     template<typename val>
     using quote_t = typename metal::quote<val>::type;
 

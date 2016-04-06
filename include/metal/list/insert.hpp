@@ -19,7 +19,7 @@ namespace metal
     using insert = detail::insert<list, n, val>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref insert.
+    /// Eager adaptor for metal::insert.
     template<typename list, typename n, typename val>
     using insert_t = typename metal::insert<list, n, val>::type;
 }

@@ -19,7 +19,7 @@ namespace metal
     using merge = detail::merge<lbd, lists...>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref merge.
+    /// Eager adaptor for metal::merge.
     template<typename lbd, typename... lists>
     using merge_t = typename metal::merge<lbd, lists...>::type;
 }

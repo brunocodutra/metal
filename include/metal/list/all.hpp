@@ -19,7 +19,7 @@ namespace metal
     using all = detail::all<list, lbd>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref all.
+    /// Eager adaptor for metal::all.
     template<typename list, typename lbd>
     using all_t = typename metal::all<list, lbd>::type;
 }

@@ -26,7 +26,7 @@ namespace metal
     using slice = detail::slice<list, start, size, stride>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref slice.
+    /// Eager adaptor for metal::slice.
     template<
         typename list,
         typename start,

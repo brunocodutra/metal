@@ -19,7 +19,7 @@ namespace metal
     using transform = detail::transform<lbd, lists...>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref transform.
+    /// Eager adaptor for metal::transform.
     template<typename lbd, typename... lists>
     using transform_t = typename metal::transform<lbd, lists...>::type;
 }

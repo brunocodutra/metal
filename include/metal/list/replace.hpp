@@ -19,7 +19,7 @@ namespace metal
     using replace = detail::replace<list, from, to>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref replace.
+    /// Eager adaptor for metal::replace.
     template<typename list, typename from, typename to>
     using replace_t = typename metal::replace<list, from, to>::type;
 }
