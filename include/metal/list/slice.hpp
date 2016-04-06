@@ -11,7 +11,7 @@ namespace metal
 {
     namespace detail
     {
-        template<typename list, typename start, typename size, typename stride>
+        template<typename, typename, typename, typename = integer<1>>
         struct slice;
     }
 
