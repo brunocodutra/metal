@@ -83,7 +83,7 @@ static_assert(std::is_same<
 ///[to_number]
 template<typename c>
 struct to_number :
-    metal::conditional<
+    metal::cond<
         metal::equal_to<c, metal::character<'0'>>, metal::number<long long, 0>,
         metal::equal_to<c, metal::character<'1'>>, metal::number<long long, 1>,
         metal::equal_to<c, metal::character<'2'>>, metal::number<long long, 2>,

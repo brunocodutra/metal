@@ -31,7 +31,7 @@ namespace metal
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
-#include <metal/optional/conditional.hpp>
+#include <metal/optional/cond.hpp>
 
 namespace metal
 {
@@ -49,7 +49,7 @@ namespace metal
         struct copy_if<to, expr<vals...>, lbd> :
             invoke<
                 copy<quote_t<to>, lift_t<lambda<join>>>,
-                list<>, conditional<invoke<lbd, vals>, list<vals>, list<>>...
+                list<>, cond<invoke<lbd, vals>, list<vals>, list<>>...
             >
         {};
     }
