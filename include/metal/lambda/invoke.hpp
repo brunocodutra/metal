@@ -25,6 +25,8 @@ namespace metal
 }
 
 #include <metal/lambda/arg.hpp>
+#include <metal/lambda/lift.hpp>
+#include <metal/lambda/quote.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/list.hpp>
@@ -41,9 +43,8 @@ namespace metal
             template<typename...> class expr, typename... args,
             typename ret = expr<typename args::type...>
         >
-        optional<ret> invoke_impl(list<args...>*);
+        optional<ret> invoke_impl(lambda<expr>*, args*...);
 
-        template<template<typename...> class>
         nothing invoke_impl(...);
 
         template<typename val, typename... args>
@@ -52,9 +53,35 @@ namespace metal
             using type = val;
         };
 
+        template<typename lbd, typename... args>
+        struct invoke<lifted<lifted<lbd>>, args...> :
+            decltype(
+                invoke_impl(
+                    declptr<lambda<invoke>>(),
+                    declptr<lifted<lbd>>(),
+                    declptr<optional<args>>()...
+                )
+            )
+        {};
+
+        template<template<typename...> class expr, typename... args>
+        struct invoke<lifted<lambda<expr>>, args...> :
+            decltype(
+                invoke_impl(
+                    declptr<lambda<expr>>(),
+                    declptr<optional<args>>()...
+                )
+            )
+        {};
+
         template<template<typename...> class expr, typename... args>
         struct invoke<lambda<expr>, args...> :
-            decltype(invoke_impl<expr>(declptr<list<just<args>...>>()))
+            decltype(
+                invoke_impl(
+                    declptr<lambda<expr>>(),
+                    declptr<quote_t<args>>()...
+                )
+            )
         {};
 
         template<
@@ -64,8 +91,9 @@ namespace metal
         >
         struct invoke<expr<params...>, args...> :
             decltype(
-                invoke_impl<expr>(
-                    declptr<list<invoke<params, args...>...>>()
+                invoke_impl(
+                    declptr<lambda<expr>>(),
+                    declptr<invoke<params, args...>>()...
                 )
             )
         {};
