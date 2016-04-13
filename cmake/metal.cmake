@@ -13,9 +13,9 @@ function(metal_try_add_flag _flag)
     string(REGEX REPLACE "^[ ]*([A-Z_0-9]+) ?.*$" "\\1" result "${result}")
     set(result "HAS${result}")
 
-    check_cxx_compiler_flag("${_flag}" ${result})
+    check_cxx_compiler_flag(${_flag} ${result})
     if(${result})
-        add_compile_options("${_flag}")
+        add_compile_options(${_flag})
     endif()
 
     if(ARGN)

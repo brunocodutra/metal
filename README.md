@@ -4,7 +4,7 @@
 [![travis.badge]][travis.metal]
 [![appveyor.badge]][appveyor.metal]
 
-Metal is a general-purpose C++11 template metaprogramming library
+Metal is a general-purpose C++14 template metaprogramming library
 designed to make metaprogramming enjoyable.
 
 ## Documentation
@@ -26,7 +26,7 @@ placed into `doc/html/`.
 ## Portability
 
 Metal has no dependencies other than the standard C++ library,
-so any compiler that supports C++11 should be able to handle it just fine.
+so any compiler that supports C++14 should be able to handle it just fine.
 Nevertheless, Metal is continuously and automatically tested upon every commit
 against some of the most popular freely available compilers.
 Please visit http://brunocodutra.github.io/metal/index.html#portability for

@@ -69,7 +69,6 @@ endif()
 foreach(dialect
     -std=c++17 -std=c++1z
     -std=c++14 -std=c++1y
-    -std=c++11 -std=c++0x
     /Za
 )
     metal_try_add_flag(${dialect} result)
