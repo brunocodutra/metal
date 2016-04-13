@@ -2,7 +2,7 @@
 
 \tableofcontents
 
-Metal is a [portable](#portability) header-only [C++11] library
+Metal is a [portable](#portability) header-only [C++14] library
 designed to make [template metaprogramming][tmp] enjoyable.
 To that end, it provides a powerful high-level [abstraction](#concepts) for
 compile-time algorithms that mimic the [standard algorithms library][algorithm],
@@ -52,14 +52,14 @@ most notably [meta] by Eric Niebler, [turbo] by Manu Sánchez and [Boost.Hana] b
 Louis Dionne, the latter formally accepted into the Boost distribution in July
 2015.
 
-Metal is yet another approach to modern C++11 metaprogramming.
+Metal is yet another approach to modern metaprogramming.
 Its ultimate goal is to be regarded as the natural successor of Boost.MPL in
-every use case where C++11 is available,
+every use case where C++14 is available,
 delivering greater performance and expressiveness without
 cluttering the codebase.
 Although not a perfect drop in replacement for Boost.MPL,
 Metal follows very similar design principles,
-except that they have been fine tuned to take advantage of C++11,
+except that they have been fine tuned to take advantage of C++14,
 so migration is meant to be the smoothest possible.
 
 Getting Started {#getting_started}
@@ -129,12 +129,12 @@ it should suffice to add the following to the `CMakeLists.txt` of your project.
     find_package(Metal REQUIRED)
     include_directories(${METAL_INCLUDE_DIRS})
 
-\note{Please remember to enable at least C++11 support in order to use Metal.}
+\note{Please remember to enable at least C++14 support in order to use Metal.}
 
 \tip{
 If your project is using CMake 3.1 or newer,
 [`CMAKE_CXX_STANDARD`][CMake.doc.std] may be used to globally enable
-specific C++ standards. Simply set it to `11` or later before adding any target
+specific C++ standards. Simply set it to `14` or later before adding any target
 that depends on Metal.
 }
 
@@ -188,7 +188,7 @@ is strongly discouraged.
 Portability {#portability}
 ================================================================================
 
-Great effort is undertaken to keep Metal strictly in conformance with the C++11
+Great effort is undertaken to keep Metal strictly in conformance with the C++14
 standard and compatible with the widest possible variety of compilers.
 To this end, some of the most popular freely available C++ compilers are
 actively supported through [Continuous Integration (CI)][ci] premisses.
