@@ -199,7 +199,7 @@ Current Status {#status}
 --------------------------------------------------------------------------------
 
 Current compilation status is summarized in the table bellow,
-if your favorite compiler is not listed, please [let us know][Metal.issues].
+if your favorite compiler is not included, please [let us know][Metal.issues].
 
 <table>
     <tr>
@@ -214,7 +214,7 @@ if your favorite compiler is not listed, please [let us know][Metal.issues].
 
     <tr>
         <th>GCC</th>
-        <td class="hidden-xs">4.8</td>
+        <td class="hidden-xs">4.9</td>
         <td rowspan="2">![travis.master]</td>
         <td rowspan="2">![travis.develop]</td>
     </tr>

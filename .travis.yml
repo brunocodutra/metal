@@ -18,12 +18,16 @@ matrix:
       - env: BOGUS_JOB=true
 
     include:
-      - compiler: g++
-        env: CXX_VERSION=4.8
+      - compiler: clang++
+        env: BUILD_DOC=true
+
+      - compiler: clang++
+        env: CXX_VERSION=3.5
         addons:
             apt:
                 packages:
-                  - g++-4.8
+                  - clang-3.5
+                  - libstdc++-5-dev
                 sources: &toolchain
                   - ubuntu-toolchain-r-test
                   - llvm-toolchain-precise
@@ -31,6 +35,33 @@ matrix:
                   - llvm-toolchain-precise-3.6
                   - llvm-toolchain-precise-3.7
                   - llvm-toolchain-precise-3.8
+
+      - compiler: clang++
+        env: CXX_VERSION=3.6
+        addons:
+            apt:
+                packages:
+                  - clang-3.6
+                  - libstdc++-5-dev
+                sources: *toolchain
+
+      - compiler: clang++
+        env: CXX_VERSION=3.7
+        addons:
+            apt:
+                packages:
+                  - clang-3.7
+                  - libstdc++-5-dev
+                sources: *toolchain
+
+      - compiler: clang++
+        env: CXX_VERSION=3.8
+        addons:
+            apt:
+                packages:
+                  - clang-3.8
+                  - libstdc++-5-dev
+                sources: *toolchain
 
       - compiler: g++
         env: CXX_VERSION=4.9
@@ -47,40 +78,6 @@ matrix:
                 packages:
                   - g++-5
                 sources: *toolchain
-
-      - compiler: clang++
-        env: CXX_VERSION=3.5
-        addons:
-            apt:
-                packages:
-                  - clang-3.5
-                sources: *toolchain
-
-      - compiler: clang++
-        env: CXX_VERSION=3.6
-        addons:
-            apt:
-                packages:
-                  - clang-3.6
-                sources: *toolchain
-
-      - compiler: clang++
-        env: CXX_VERSION=3.7
-        addons:
-            apt:
-                packages:
-                  - clang-3.7
-                sources: *toolchain
-
-      - compiler: clang++
-        env: CXX_VERSION=3.8
-        addons:
-            apt:
-                packages:
-                  - clang-3.8
-                sources: *toolchain
-
-      - env: BUILD_DOC=true
 
 before_install:
   - git config --global user.name "Travis Bot"
