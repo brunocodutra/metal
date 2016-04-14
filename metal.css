@@ -1,0 +1,184 @@
+/* Copyright Bruno Dutra 2015-2016
+ * Distributed under the Boost Software License, Version 1.0.
+ * (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+ */
+
+html, body {
+    height: 100%;
+    color: #464646;
+}
+
+.container {
+    position: relative;
+}
+
+.navbar-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+}
+
+.navbar-right > li {
+    float: left;
+}
+
+#content {
+    height: auto;
+    min-height: 100%;
+    padding-top: 60px;
+    padding-bottom: 100px;
+    margin-bottom: -100px;
+}
+
+#toolbar > * {
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus,
+.nav-pills > li > a:active {
+    background-color: #F9F9F9;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:active {
+    background-color: #464646;
+}
+
+.nav-pills > li > a {
+    color: #464646;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.toc {
+    background-color: #F9F9F9;
+    border: 1px solid #EEEEEE;
+    border-radius: 7px;
+    margin: 0px 5px 10px 10px;
+}
+
+.toc ul {
+    list-style: none;
+}
+
+.toc > ul > li > ul {
+    padding-left: 1em;
+}
+
+h1:hover > a.anchor:after,
+h2:hover > a.anchor:after {
+    content: "§";
+    position: absolute;
+    visibility: visible;
+    width: 1em;
+    height: 1em;
+    left: -1em;
+    top: 65px;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+}
+
+a:not([href]) {
+    visibility: hidden;
+}
+
+a.anchor {
+    display: block;
+    position: relative;
+    top: -65px;
+}
+
+a:focus {
+    outline: none;
+}
+
+p {
+    text-align: justify;
+}
+
+.index-entry {
+    margin-left: 20px;
+}
+
+.doxtable th,
+.doxtable td {
+    text-align: center;
+}
+
+.doxtable th {
+    color: white;
+    background-color: #464646;
+}
+
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+    vertical-align: middle;
+}
+
+pre.fragment, code {
+    background-color: #F9F9F9;
+    color: #C7254E;
+    white-space: pre;
+    word-wrap: normal;
+    word-break: keep-all;
+}
+
+pre.fragment {
+    border: 1px solid #EEEEEE;
+}
+
+pre.fragment div.line:after {
+    content: "\000A";
+    white-space: pre;
+}
+
+span.keyword, span.keywordflow, span.keywordtype {
+    color: #008000;
+}
+
+span.preprocessor {
+    color: #806020;
+}
+
+span.charliteral, span.stringliteral {
+    color: #E08000;
+}
+
+.section.user dd {
+    margin-left: 20px;
+}
+
+span.octicon {
+    margin-right: 5px;
+}
+
+.strike {
+    text-decoration: line-through;
+}
+
+#footer {
+    height: 100px;
+    font-size: 0.9em;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #EEEEEE;
+}
+
+.social-btns .social-btn {
+    display: inline-block;
+    margin: 0;
+}
+
+.github-btn {
+    overflow: hidden;
+    border: 0px none;
+}
