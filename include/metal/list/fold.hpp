@@ -21,10 +21,10 @@ namespace metal
         typename list,
         typename state,
         typename lbd,
-        typename begin = detail::nil,
+        typename beg = detail::nil,
         typename end = detail::nil
     >
-    using fold = detail::fold<list, state, lbd, begin, end>;
+    using fold = detail::fold<list, state, lbd, beg, end>;
 
     /// \ingroup list
     /// Eager adaptor for metal::fold.
@@ -32,10 +32,10 @@ namespace metal
         typename list,
         typename state,
         typename lbd,
-        typename begin = detail::nil,
+        typename beg = detail::nil,
         typename end = detail::nil
     >
-    using fold_t = typename metal::fold<list, state, lbd, begin, end>::type;
+    using fold_t = typename metal::fold<list, state, lbd, beg, end>::type;
 }
 
 #include <metal/list/at.hpp>
@@ -74,7 +74,10 @@ namespace metal
             typename lbd,
             typename t, t l
         >
-        struct fold<list, state, lbd, number<t, l>, number<t, t(l + 1)>> :
+        struct fold<
+            list, state, lbd,
+            number<t, l>, number<t, static_cast<t>(l + 1)>
+        > :
             invoke<lift_t<lbd>, just<state>, at<list, number<t, l>>>
         {};
 
@@ -84,7 +87,10 @@ namespace metal
             typename lbd,
             typename t, t l
         >
-        struct fold<list, state, lbd, number<t, l>, number<t, t(l - 1)>> :
+        struct fold<
+            list, state, lbd,
+            number<t, l>, number<t, static_cast<t>(l - 1)>
+        > :
             invoke<lift_t<lbd>, just<state>, at<list, number<t, l - 1>>>
         {};
 
@@ -94,7 +100,7 @@ namespace metal
             typename lbd,
             typename t, t l
         >
-        struct fold<list, state, lbd, number<t, l>, number<t, t(l)>>
+        struct fold<list, state, lbd, number<t, l>, number<t, l>>
         {
             using type = state;
         };

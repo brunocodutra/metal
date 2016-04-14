@@ -65,7 +65,7 @@ namespace metal
 
         template<typename t, t v>
         struct neg<number<t, v>> :
-            number<t, static_cast<t>(t(0) - v)>
+            number<t, static_cast<t>(0 - v)>
         {};
     }
 }

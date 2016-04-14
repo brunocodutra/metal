@@ -45,7 +45,6 @@ static_assert(std::is_same<
 >::value, "");
 ///[raw_examples_1]
 
-#ifdef __cpp_digit_separators
 ///[raw_examples_2]
 static_assert(std::is_same<
     decltype(3'7'1_raw),
@@ -80,7 +79,6 @@ static_assert(std::is_same<
 >::value, "");
 ///[remove]
 }
-#endif
 
 ///[to_number]
 template<typename c>
@@ -314,7 +312,6 @@ static_assert(std::is_same<
 >::value, "");
 
 
-#if __cpp_binary_literals
 ///[test_2]
 static_assert(std::is_same<
     decltype(0b111101101011011101011010101100101011110001000111000111000111000_c),
@@ -326,18 +323,30 @@ static_assert(std::is_same<
     decltype(0B111101101011011101011010101100101011110001000111000111000111000_c),
     metal::number<long long, 8888888888888888888>
 >::value, "");
-#endif
 
-#ifdef __cpp_digit_separators
 ///[test_3]
 static_assert(std::is_same<
     decltype(1'2'3'4'5'6'7'8'9_c),
     metal::number<long long, 123456789>
 >::value, "");
 ///[test_3]
-#endif
 
-#if __cpp_constexpr < 201304
+#if __cpp_constexpr >= 201304
+///[super_tuple]
+template<typename... T>
+struct SuperTuple :
+    std::tuple<T...>
+{
+    using std::tuple<T...>::tuple;
+
+    template<typename I, I i>
+    constexpr auto operator [](metal::number<I, i>)
+        -> typename std::tuple_element<i, std::tuple<T...>>::type& {
+        return std::get<i>(*this);
+    }
+};
+///[super_tuple]
+#else
 template<typename... T>
 struct SuperTuple :
     std::tuple<T...>
@@ -353,21 +362,6 @@ struct SuperTuple :
         return std::get<i>(*this);
     }
 };
-#else
-///[super_tuple]
-template<typename... T>
-struct SuperTuple :
-    std::tuple<T...>
-{
-    using std::tuple<T...>::tuple;
-
-    template<typename I, I i>
-    constexpr auto operator [](metal::number<I, i>)
-        -> typename std::tuple_element<i, std::tuple<T...>>::type& {
-        return std::get<i>(*this);
-    }
-};
-///[super_tuple]
 #endif
 
 ///[teaser_1]

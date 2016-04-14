@@ -51,14 +51,14 @@ namespace metal
         {};
 
         template<typename list, typename t>
-        struct at_impl<list, number<t, t(0)>,
+        struct at_impl<list, number<t, static_cast<t>(0)>,
             boolean<(size_t<list>::value > 0)>
         > :
             front<list>
         {};
 
         template<typename list, typename t>
-        struct at_impl<list, number<t, t(size_t<list>::value - 1)>,
+        struct at_impl<list, number<t, static_cast<t>(size_t<list>::value - 1)>,
             boolean<(size_t<list>::value > 1)>
         > :
             back<list>

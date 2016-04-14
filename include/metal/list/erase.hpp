@@ -36,6 +36,7 @@ namespace metal
 #include <metal/lambda/quote.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
+#include <metal/number/logical/and.hpp>
 #include <metal/number/arithmetic/inc.hpp>
 
 namespace metal
@@ -48,7 +49,7 @@ namespace metal
 
         template<typename list, typename beg, beg b, typename end, end e>
         struct erase_impl<list, number<beg, b>, number<end, e>,
-            boolean<(b <= e)>
+            boolean<(b < e)>
         > :
             invoke<
                 copy<quote_t<list>, lift_t<lambda<join>>>,
@@ -59,25 +60,27 @@ namespace metal
 
         template<typename list, typename beg, beg b, typename end, end e>
         struct erase_impl<list, number<beg, b>, number<end, e>,
-            boolean<(e < b)>
+            boolean<(b > e)>
         > :
             erase_impl<list, number<end, e>, number<beg, b>>
         {};
+
+        template<typename list, typename beg, beg b, typename end, end e>
+        struct erase_impl<list, number<beg, b>, number<end, e>,
+            and_t<boolean<(b == e)>, is_list_t<list>>
+        >
+        {
+            using type = list;
+        };
 
         template<typename list, typename beg, typename end>
         struct erase :
             erase_impl<list, beg, end>
         {};
 
-        template<typename list, typename beg, beg b, typename end>
-        struct erase<list, number<beg, b>, number<end, end(b)>>
-        {
-            using type = list;
-        };
-
         template<typename list, typename beg, beg b>
         struct erase<list, number<beg, b>> :
-            erase<list, number<beg, b>, inc_t<number<beg, b>>>
+            erase_impl<list, number<beg, b>, inc_t<number<beg, b>>>
         {};
     }
 }

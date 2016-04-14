@@ -9,7 +9,7 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_just_t<metal::pop_back<VAL(M)>>), (FALSE)); \
+    /*ASSERT((metal::is_just_t<metal::pop_back<VAL(M)>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::pop_back<NUM(M)>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::pop_back<VEC(M)>>), (BOOL(M > 0))); \
     ASSERT((metal::is_just_t<metal::pop_back<PAIR(M)>>), (FALSE)); \
@@ -19,7 +19,7 @@
     ASSERT((metal::is_just_t<metal::pop_back<LBD(M)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::pop_back<FUN(M)>>), (FALSE)); \
     ASSERT((metal::pop_back_t<LBD(M)>), (LBD(M))); \
-    ASSERT((metal::pop_back_t<SEQ()<VALS(N) COMMA(N) VAL(M)>>), (VEC(N))); \
+    ASSERT((metal::pop_back_t<SEQ()<VALS(N) COMMA(N) VAL(M)>>), (VEC(N)));*/ \
 /**/
 
 GEN(MATRIX)

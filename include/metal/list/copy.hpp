@@ -56,12 +56,11 @@ namespace metal
         {};
 
         template<
-            typename to,
-            template<typename...> class from, typename... vals,
+            typename to, typename from,
             typename beg, beg b, typename end, end e
         >
-        struct copy_impl<to, from<vals...>, number<beg, b>, number<end, e>,
-            boolean<(0 <= b && b <= e && e <= sizeof...(vals))>
+        struct copy_impl<to, from, number<beg, b>, number<end, e>,
+            boolean<(0 <= b && b < e && e <= size_t<from>::value)>
         > :
             invoke<
                 slice<
@@ -69,17 +68,16 @@ namespace metal
                     number<beg, b>,
                     number<decltype(e - b), e - b>
                 >,
-                to, from<vals...>
+                to, from
             >
         {};
 
         template<
-            typename to,
-            template<typename...> class from, typename... vals,
+            typename to, typename from,
             typename beg, beg b, typename end, end e
         >
-        struct copy_impl<to, from<vals...>, number<beg, b>, number<end, e>,
-            boolean<(0 <= e && e < b && b <= sizeof...(vals))>
+        struct copy_impl<to, from, number<beg, b>, number<end, e>,
+            boolean<(0 <= e && e < b && b <= size_t<from>::value)>
         > :
             invoke<
                 slice<
@@ -88,8 +86,18 @@ namespace metal
                     number<decltype(e - b), b - e>,
                     integer<-1>
                 >,
-                to, from<vals...>
+                to, from
             >
+        {};
+
+        template<
+            typename to, typename from,
+            typename beg, beg b, typename end, end e
+        >
+        struct copy_impl<to, from, number<beg, b>, number<end, e>,
+            boolean<(0 <= e && e == b && b <= size_t<from>::value)>
+        > :
+            copy<to, list<>>
         {};
 
         template<typename to, typename from, typename beg, typename end>
@@ -97,25 +105,13 @@ namespace metal
             copy_impl<to, from, beg, end>
         {};
 
-        template<
-            typename to,
-            template<typename...> class from, typename head, typename... tail,
-            typename beg, typename end
-        >
+        template<typename to, typename from, typename beg, typename end>
         struct copy<
-            to, from<head, tail...>,
-            number<beg, beg(0)>, number<end, end(1 + sizeof...(tail))>
+            to, from,
+            number<beg, static_cast<beg>(0)>,
+            number<end, size_t<from>::value>
         > :
-            copy<to, from<head, tail...>>
-        {};
-
-        template<
-            typename to,
-            template<typename...> class from, typename... vals,
-            typename beg, beg b, typename end
-        >
-        struct copy<to, from<vals...>, number<beg, b>, number<end, end(b)>> :
-            copy<to, list<>>
+            copy<to, from>
         {};
 
         template<

@@ -97,7 +97,7 @@ namespace metal
         {};
 
         template<typename tx, typename ty, ty vy, typename... nums>
-        struct pow<number<tx, tx(0)>, number<ty, vy>, nums...> :
+        struct pow<number<tx, static_cast<tx>(0)>, number<ty, vy>, nums...> :
             conditional<
                 boolean<(vy > 0)>,
                 pow<number<decltype(tx()*vy), 0>, nums...>
@@ -105,22 +105,30 @@ namespace metal
         {};
 
         template<typename tx, typename ty, ty vy, typename... nums>
-        struct pow<number<tx, tx(1)>, number<ty, vy>, nums...> :
+        struct pow<number<tx, static_cast<tx>(1)>, number<ty, vy>, nums...> :
             pow<number<decltype(tx()*vy), 1>, nums...>
         {};
 
         template<typename tx, tx vx, typename ty, typename... nums>
-        struct pow<number<tx, vx>, number<ty, ty(0)>, nums...> :
+        struct pow<number<tx, vx>, number<ty, static_cast<ty>(0)>, nums...> :
             pow<number<decltype(vx*ty()), 1>, nums...>
         {};
 
         template<typename tx, typename ty, typename... nums>
-        struct pow<number<tx, tx(0)>, number<ty, ty(0)>, nums...> :
+        struct pow<
+            number<tx, static_cast<tx>(0)>,
+            number<ty, static_cast<ty>(0)>,
+            nums...
+        > :
             pow<number<decltype(tx()*ty()), 1>, nums...>
         {};
 
         template<typename tx, typename ty, typename... nums>
-        struct pow<number<tx, tx(1)>, number<ty, ty(0)>, nums...> :
+        struct pow<
+            number<tx, static_cast<tx>(1)>,
+            number<ty, static_cast<ty>(0)>,
+            nums...
+        > :
             pow<number<decltype(tx()*ty()), 1>, nums...>
         {};
     }

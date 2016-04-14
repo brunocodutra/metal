@@ -122,6 +122,8 @@ namespace metal
 }
 
 #include <metal/number/number.hpp>
+#include <metal/number/comparison.hpp>
+#include <metal/number/logical/not.hpp>
 #include <metal/list/list.hpp>
 
 #include <utility>
@@ -147,22 +149,27 @@ namespace metal
         using make_numbers_t = std::make_integer_sequence<t, n>;
 #endif
 
+        template<typename t, t... vs>
+        struct as_list :
+            list<number<t, vs>...>
+        {};
+
         template<typename, typename, typename>
         struct stretch
         {};
 
         template<typename t, t... ns, typename u, u a, typename v, v b>
         struct stretch<numbers<t, ns...>, number<u, a>, number<v, b>> :
-            list<number<v, b + a*ns>...>
+            as_list<v, (b + a*ns)...>
         {};
 
-        template<typename, typename = nil, typename = nil, typename = boolean<true>>
+        template<typename, typename, typename, typename = boolean<true>>
         struct enumerate_impl
         {};
 
         template<typename t, t st, typename u, u sz, typename v, v sd>
         struct enumerate_impl<number<t, st>, number<u, sz>, number<v, sd>,
-            boolean<(sz >= 0)>
+            not_t<less_t<number<u, sz>, integer<0>>>
         > :
             stretch<
                 make_numbers_t<long long, sz>,
@@ -173,7 +180,7 @@ namespace metal
 
         template<typename t, t st, typename u, u sz, typename v, v sd>
         struct enumerate_impl<number<t, st>, number<u, sz>, number<v, sd>,
-            boolean<(sz < 0)>
+            less_t<number<u, sz>, integer<0>>
         > :
             stretch<
                 make_numbers_t<long long, 0 - static_cast<long long>(sz)>,
