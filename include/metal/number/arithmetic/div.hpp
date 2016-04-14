@@ -49,7 +49,7 @@ namespace metal
     using div = detail::div<nums...>;
 
     /// \ingroup arithmetic
-    /// Eager adaptor for \ref div.
+    /// Eager adaptor for metal::div.
     template<typename... nums>
     using div_t = typename metal::div<nums...>::type;
 }

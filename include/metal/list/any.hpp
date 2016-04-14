@@ -19,7 +19,7 @@ namespace metal
     using any = detail::any<list, lbd>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref any.
+    /// Eager adaptor for metal::any.
     template<typename list, typename lbd>
     using any_t = typename metal::any<list, lbd>::type;
 }

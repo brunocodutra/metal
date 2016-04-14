@@ -19,7 +19,7 @@ namespace metal
     using same = detail::same<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref same.
+    /// Eager adaptor for metal::same.
     template<typename list>
     using same_t = typename metal::same<list>::type;
 }

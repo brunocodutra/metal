@@ -26,7 +26,7 @@ namespace metal
     using is_map = detail::is_map<map>;
 
     /// \ingroup map
-    /// Eager adaptor for \ref is_map.
+    /// Eager adaptor for metal::is_map.
     template<typename map>
     using is_map_t = typename metal::is_map<map>::type;
 }

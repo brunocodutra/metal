@@ -44,7 +44,7 @@ namespace metal
     using first = detail::first<pair>;
 
     /// \ingroup pair
-    /// Eager adaptor for \ref first.
+    /// Eager adaptor for metal::first.
     template<typename pair>
     using first_t = typename metal::first<pair>::type;
 }

@@ -19,7 +19,7 @@ namespace metal
     using flatten = detail::flatten<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref flatten.
+    /// Eager adaptor for metal::flatten.
     template<typename list>
     using flatten_t = typename metal::flatten<list>::type;
 }

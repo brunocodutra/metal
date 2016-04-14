@@ -19,7 +19,7 @@ namespace metal
     using size = detail::size<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref size.
+    /// Eager adaptor for metal::size.
     template<typename list>
     using size_t = typename metal::size<list>::type;
 }

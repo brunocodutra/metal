@@ -19,7 +19,7 @@ namespace metal
     using empty = detail::empty<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref empty.
+    /// Eager adaptor for metal::empty.
     template<typename list>
     using empty_t = typename metal::empty<list>::type;
 }

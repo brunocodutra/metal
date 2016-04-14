@@ -19,7 +19,7 @@ namespace metal
     using values = detail::values<map>;
 
     /// \ingroup map
-    /// Eager adaptor for \ref values.
+    /// Eager adaptor for metal::values.
     template<typename map>
     using values_t = typename metal::values<map>::type;
 }

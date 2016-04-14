@@ -19,7 +19,7 @@ namespace metal
     using splice = detail::splice<list, n, other>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref splice.
+    /// Eager adaptor for metal::splice.
     template<typename list, typename n, typename other>
     using splice_t = typename metal::splice<list, n, other>::type;
 }

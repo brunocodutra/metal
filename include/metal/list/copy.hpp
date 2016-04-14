@@ -20,28 +20,28 @@ namespace metal
     template<
         typename to,
         typename from,
-        typename begin = detail::nil,
+        typename beg = detail::nil,
         typename end = detail::nil
     >
-    using copy = detail::copy<to, from, begin, end>;
+    using copy = detail::copy<to, from, beg, end>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref copy.
+    /// Eager adaptor for metal::copy.
     template<
         typename to,
         typename from,
-        typename begin = detail::nil,
+        typename beg = detail::nil,
         typename end = detail::nil
     >
-    using copy_t = typename metal::copy<to, from, begin, end>::type;
+    using copy_t = typename metal::copy<to, from, beg, end>::type;
 }
 
-#include <metal/lambda/invoke.hpp>
-#include <metal/lambda/defer.hpp>
-#include <metal/lambda/lambda.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/slice.hpp>
 #include <metal/list/size.hpp>
+#include <metal/lambda/invoke.hpp>
+#include <metal/lambda/defer.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
 
 namespace metal
@@ -56,74 +56,71 @@ namespace metal
         {};
 
         template<
-            typename to,
-            template<typename...> class from, typename... vals,
-            typename begin, begin b, typename end, end e
+            typename to, typename from,
+            typename beg, beg b, typename end, end e
         >
-        struct copy_impl<
-            to, from<vals...>, number<begin, b>, number<end, e>,
-            boolean<(0 <= b && b < e && e <= sizeof...(vals))>
+        struct copy_impl<to, from, number<beg, b>, number<end, e>,
+            boolean<(0 <= b && b < e && e <= size_t<from>::value)>
         > :
-            copy<
-                to,
-                slice_t<
-                    list<vals...>,
-                    number<begin, b>,
+            invoke<
+                slice<
+                    lambda<copy>,
+                    number<beg, b>,
                     number<decltype(e - b), e - b>
-                >
+                >,
+                to, from
             >
         {};
 
         template<
-            typename to,
-            template<typename...> class from, typename... vals,
-            typename begin, begin b, typename end, end e
+            typename to, typename from,
+            typename beg, beg b, typename end, end e
         >
-        struct copy_impl<
-            to, from<vals...>, number<begin, b>, number<end, e>,
-            boolean<(0 <= e && e < b && b <= sizeof...(vals))>
+        struct copy_impl<to, from, number<beg, b>, number<end, e>,
+            boolean<(0 <= e && e < b && b <= size_t<from>::value)>
         > :
-            copy<
-                to,
-                slice_t<
-                    list<vals...>,
-                    number<begin, b - 1>,
+            invoke<
+                slice<
+                    lambda<copy>,
+                    number<beg, b - 1>,
                     number<decltype(e - b), b - e>,
                     integer<-1>
-                >
+                >,
+                to, from
             >
         {};
 
-        template<typename to, typename from, typename begin, typename end>
-        struct copy :
-            copy_impl<to, from, begin, end>
-        {};
-
         template<
-            typename to,
-            template<typename...> class from, typename... vals,
-            typename begin, begin b, typename end
+            typename to, typename from,
+            typename beg, beg b, typename end, end e
         >
-        struct copy<to, from<vals...>, number<begin, b>, number<end, end(b)>> :
+        struct copy_impl<to, from, number<beg, b>, number<end, e>,
+            boolean<(0 <= e && e == b && b <= size_t<from>::value)>
+        > :
             copy<to, list<>>
         {};
 
-        template<
-            typename to,
-            template<typename...> class from, typename... vals,
-            typename begin, begin b
-        >
-        struct copy<to, from<vals...>, number<begin, b>> :
-            copy<to, from<vals...>, number<begin, b>, size_t<from<vals...>>>
+        template<typename to, typename from, typename beg, typename end>
+        struct copy :
+            copy_impl<to, from, beg, end>
+        {};
+
+        template<typename to, typename from, typename beg, typename end>
+        struct copy<
+            to, from,
+            number<beg, static_cast<beg>(0)>,
+            number<end, size_t<from>::value>
+        > :
+            copy<to, from>
         {};
 
         template<
             typename to,
             template<typename...> class from, typename... vals,
-            typename begin
+            typename beg, beg b
         >
-        struct copy<to, from<vals...>, number<begin, begin(0)>> :
-            copy<to, from<vals...>>
+        struct copy<to, from<vals...>, number<beg, b>> :
+            copy<to, from<vals...>, number<beg, b>, size_t<from<vals...>>>
         {};
 
         template<

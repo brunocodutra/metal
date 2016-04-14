@@ -19,7 +19,7 @@ namespace metal
     using keys = detail::keys<map>;
 
     /// \ingroup map
-    /// Eager adaptor for \ref keys.
+    /// Eager adaptor for metal::keys.
     template<typename map>
     using keys_t = typename metal::keys<map>::type;
 }

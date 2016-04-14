@@ -6,15 +6,11 @@ shallow_clone: true
 
 environment:
     matrix:
+      - BUILD_DOC: true
+      - GENERATOR: "NMake Makefiles"
       - GENERATOR: "Ninja"
         COMPILER: cl
 
-      - GENERATOR: "Ninja"
-        COMPILER: g++
-
-      - GENERATOR: "NMake Makefiles"
-      - GENERATOR: "MinGW Makefiles"
-      - BUILD_DOC: true
 
 configuration:
   - Debug

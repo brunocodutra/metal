@@ -44,7 +44,7 @@ namespace metal
     using inc = detail::inc<num>;
 
     /// \ingroup arithmetic
-    /// Eager adaptor for \ref inc.
+    /// Eager adaptor for metal::inc.
     template<typename num>
     using inc_t = typename metal::inc<num>::type;
 }
@@ -65,7 +65,7 @@ namespace metal
 
         template<typename t, t v>
         struct inc<number<t, v>> :
-            number<t, static_cast<t>(v + t(1))>
+            number<t, v + 1>
         {};
     }
 }

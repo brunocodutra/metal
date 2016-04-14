@@ -19,7 +19,7 @@ namespace metal
     using transpose = detail::transpose<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref transpose.
+    /// Eager adaptor for metal::transpose.
     template<typename list>
     using transpose_t = typename metal::transpose<list>::type;
 }

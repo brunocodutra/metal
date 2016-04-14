@@ -19,14 +19,14 @@ namespace metal
     using pop_back = detail::pop_back<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref pop_back.
+    /// Eager adaptor for metal::pop_back.
     template<typename list>
     using pop_back_t = typename metal::pop_back<list>::type;
 }
 
+#include <metal/list/list.hpp>
 #include <metal/list/erase.hpp>
 #include <metal/list/size.hpp>
-#include <metal/number/arithmetic/dec.hpp>
 
 namespace metal
 {
@@ -41,7 +41,7 @@ namespace metal
             typename head, typename... tail
         >
         struct pop_back<expr<head, tail...>> :
-            erase<expr<head, tail...>, dec_t<size_t<expr<head, tail...>>>>
+            erase<expr<head, tail...>, size_t<list<tail...>>>
         {};
     }
 }

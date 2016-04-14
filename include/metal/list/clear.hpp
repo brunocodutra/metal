@@ -19,7 +19,7 @@ namespace metal
     using clear = detail::clear<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref clear.
+    /// Eager adaptor for metal::clear.
     template<typename list>
     using clear_t = typename metal::clear<list>::type;
 }

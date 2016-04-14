@@ -14,7 +14,7 @@ endif()
 find_package(Metal ${FIND_PACKAGE_ARGS})
 include_directories(${METAL_INCLUDE_DIRS})
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(external external.cpp)

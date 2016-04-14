@@ -57,7 +57,7 @@ namespace metal
     using is_pair = detail::is_pair<pair>;
 
     /// \ingroup pair
-    /// Eager adaptor for \ref is_pair.
+    /// Eager adaptor for metal::is_pair.
     template<typename pair>
     using is_pair_t = typename metal::is_pair<pair>::type;
 }

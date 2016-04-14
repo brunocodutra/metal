@@ -19,7 +19,7 @@ namespace metal
     using reverse = detail::reverse<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref reverse.
+    /// Eager adaptor for metal::reverse.
     template<typename list>
     using reverse_t = typename metal::reverse<list>::type;
 }
@@ -32,6 +32,10 @@ namespace metal
 {
     namespace detail
     {
+        template<typename list>
+        struct reverse
+        {};
+
         template<template<typename...> class expr, typename... vals>
         struct reverse<expr<vals...>> :
             copy<

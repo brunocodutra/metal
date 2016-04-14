@@ -19,7 +19,7 @@ namespace metal
     using front = detail::front<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref front.
+    /// Eager adaptor for metal::front.
     template<typename list>
     using front_t = typename metal::front<list>::type;
 

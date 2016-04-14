@@ -19,7 +19,7 @@ namespace metal
     using apply = detail::apply<lbd, list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref apply.
+    /// Eager adaptor for metal::apply.
     template<typename lbd, typename list>
     using apply_t = typename metal::apply<lbd, list>::type;
 }

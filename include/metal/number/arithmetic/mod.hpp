@@ -49,7 +49,7 @@ namespace metal
     using mod = detail::mod<nums...>;
 
     /// \ingroup arithmetic
-    /// Eager adaptor for \ref mod.
+    /// Eager adaptor for metal::mod.
     template<typename... nums>
     using mod_t = typename metal::mod<nums...>::type;
 }

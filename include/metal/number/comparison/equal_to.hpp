@@ -44,7 +44,7 @@ namespace metal
     using equal_to = detail::equal_to<x, y>;
 
     /// \ingroup comparison
-    /// Eager adaptor for \ref equal_to.
+    /// Eager adaptor for metal::equal_to.
     template<typename x, typename y>
     using equal_to_t = typename metal::equal_to<x, y>::type;
 }

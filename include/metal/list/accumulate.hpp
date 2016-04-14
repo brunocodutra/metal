@@ -23,7 +23,7 @@ namespace metal
     using accumulate = detail::fold<list, state, lbd, begin, end>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref accumulate.
+    /// Eager adaptor for metal::accumulate.
     template<
         typename list,
         typename state,

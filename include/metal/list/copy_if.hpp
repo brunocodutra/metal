@@ -19,7 +19,7 @@ namespace metal
     using copy_if = detail::copy_if<to, from, lbd>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref copy_if.
+    /// Eager adaptor for metal::copy_if.
     template<typename to, typename from, typename lbd>
     using copy_if_t = typename metal::copy_if<to, from, lbd>::type;
 }

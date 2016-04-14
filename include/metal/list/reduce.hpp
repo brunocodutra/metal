@@ -20,20 +20,20 @@ namespace metal
     template<
         typename list,
         typename lbd,
-        typename begin = detail::nil,
+        typename beg = detail::nil,
         typename end = detail::nil
     >
-    using reduce = detail::reduce<list, lbd, begin, end>;
+    using reduce = detail::reduce<list, lbd, beg, end>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref reduce.
+    /// Eager adaptor for metal::reduce.
     template<
         typename list,
         typename lbd,
-        typename begin = detail::nil,
+        typename beg = detail::nil,
         typename end = detail::nil
     >
-    using reduce_t = typename metal::reduce<list, lbd, begin, end>::type;
+    using reduce_t = typename metal::reduce<list, lbd, beg, end>::type;
 }
 
 #include <metal/lambda/invoke.hpp>

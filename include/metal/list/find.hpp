@@ -19,7 +19,7 @@ namespace metal
     using find = detail::find<list, val>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref find.
+    /// Eager adaptor for metal::find.
     template<typename list, typename val>
     using find_t = typename metal::find<list, val>::type;
 }

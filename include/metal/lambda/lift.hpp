@@ -19,7 +19,7 @@ namespace metal
     using lift = detail::lift<lbd>;
 
     /// \ingroup lambda
-    /// Eager adaptor for \ref lift.
+    /// Eager adaptor for metal::lift.
     template<typename lbd>
     using lift_t = typename metal::lift<lbd>::type;
 }

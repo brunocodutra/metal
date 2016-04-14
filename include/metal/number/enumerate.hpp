@@ -74,10 +74,10 @@ namespace metal
     ///         struct enumerate<st, sz, sd> :
     ///             list<
     ///                 st,
-    ///                 number<st::value_type, st::value + sd::value>,
-    ///                 number<st::value_type, st::value + 2*sd::value>,
+    ///                 number<st::value_type, st{} + sd{}>,
+    ///                 number<st::value_type, st{} + 2*sd{}>,
     ///                 ...,
-    ///                 number<st::value_type, st::value + (sz::value - 1)*sd::value>,
+    ///                 number<st::value_type, st{} + (sz{} - 1)*sd{}>,
     ///             >
     ///         {};
     ///     \endcode
@@ -88,10 +88,10 @@ namespace metal
     ///         struct enumerate<st, sz, sd> :
     ///             list<
     ///                 st,
-    ///                 number<st::value_type, st::value - sd::value>,
-    ///                 number<st::value_type, st::value - 2*sd::value>,
+    ///                 number<st::value_type, st{} - sd{}>,
+    ///                 number<st::value_type, st{} - 2*sd{}>,
     ///                 ...,
-    ///                 number<st::value_type, st::value - (sz::value - 1)*sd::value>,
+    ///                 number<st::value_type, st{} - (1 - sz{})*sd{}>,
     ///             >
     ///         {};
     ///     \endcode
@@ -104,80 +104,104 @@ namespace metal
     /// See Also
     /// --------
     /// \see number
-    template<typename... _>
-    using enumerate = detail::enumerate<_...>;
+    template<
+        typename start,
+        typename size = detail::nil,
+        typename stride = detail::nil
+    >
+    using enumerate = detail::enumerate<start, size, stride>;
 
     /// \ingroup number
-    /// Eager adaptor for \ref enumerate.
-    template<typename... _>
-    using enumerate_t = typename metal::enumerate<_...>::type;
+    /// Eager adaptor for metal::enumerate.
+    template<
+        typename start,
+        typename size = detail::nil,
+        typename stride = detail::nil
+    >
+    using enumerate_t = typename metal::enumerate<start, size, stride>::type;
 }
 
 #include <metal/number/number.hpp>
+#include <metal/number/comparison.hpp>
+#include <metal/number/logical/not.hpp>
 #include <metal/list/list.hpp>
-#include <metal/list/join.hpp>
+
+#include <utility>
+
+#if defined(__has_builtin)
+#   if __has_builtin(__make_integer_seq)
+#       define METAL_HAS_MAKE_INTEGER_SEQ
+#   endif
+#endif
 
 namespace metal
 {
     namespace detail
     {
+        template<typename t, t... v>
+        using numbers = std::integer_sequence<t, v...>;
+
+#if defined(METAL_HAS_MAKE_INTEGER_SEQ)
+        template<typename t, t n>
+        using make_numbers_t = __make_integer_seq<numbers, t, n>;
+#else
+        template<typename t, t n>
+        using make_numbers_t = std::make_integer_sequence<t, n>;
+#endif
+
         template<typename t, t... vs>
-        struct numbers :
+        struct as_list :
             list<number<t, vs>...>
         {};
 
         template<typename, typename, typename>
-        struct stretch;
-
-        template<typename u, u a, typename v, v b>
-        struct stretch<list<>, number<u, a>, number<v, b>> :
-            list<>
+        struct stretch
         {};
 
         template<typename t, t... ns, typename u, u a, typename v, v b>
-        struct stretch<list<number<t, ns>...>, number<u, a>, number<v, b>> :
-            numbers<v, b + a*ns...>
+        struct stretch<numbers<t, ns...>, number<u, a>, number<v, b>> :
+            as_list<v, (b + a*ns)...>
         {};
 
-        template<typename, typename, typename>
-        struct enumerate
+        template<typename, typename, typename, typename = boolean<true>>
+        struct enumerate_impl
         {};
 
-        template<typename t, t start, typename u, u size, typename v, v stride>
-        struct enumerate<number<t, start>, number<u, size>, number<v, stride>> :
+        template<typename t, t st, typename u, u sz, typename v, v sd>
+        struct enumerate_impl<number<t, st>, number<u, sz>, number<v, sd>,
+            not_t<less_t<number<u, sz>, integer<0>>>
+        > :
             stretch<
-                enumerate_t<number<long long, size>>,
-                number<long long, stride>,
-                number<t, start>
+                make_numbers_t<long long, sz>,
+                number<long long, sd>,
+                number<t, st>
             >
+        {};
+
+        template<typename t, t st, typename u, u sz, typename v, v sd>
+        struct enumerate_impl<number<t, st>, number<u, sz>, number<v, sd>,
+            less_t<number<u, sz>, integer<0>>
+        > :
+            stretch<
+                make_numbers_t<long long, 0 - static_cast<long long>(sz)>,
+                number<long long, 0 - static_cast<long long>(sd)>,
+                number<t, st>
+            >
+        {};
+
+        template<typename start, typename size, typename stride>
+        struct enumerate :
+            enumerate_impl<start, size, stride>
         {};
 
         template<typename t, t start, typename u, u size>
         struct enumerate<number<t, start>, number<u, size>> :
-            enumerate<number<t, start>, number<u, size>, integer<1>>
+            enumerate_impl<number<t, start>, number<u, size>, integer<1>>
         {};
 
         template<typename t, t size>
         struct enumerate<number<t, size>> :
-            join<
-                enumerate_t<number<t, size/2>>,
-                enumerate_t<number<t, size/2>, number<t, size - size/2>>
-            >
-        {};
-
-        template<typename t>
-        struct enumerate<number<t, t(1)>> :
-            list<number<t, 0>>
-        {};
-
-        template<typename t>
-        struct enumerate<number<t, t(-1)>> :
-            list<number<t, 0>>
-        {};
-
-        template<typename t>
-        struct enumerate<number<t, t(0)>> :
-            list<>
+            enumerate_impl<number<t, 0>, number<t, size>, integer<1>>
         {};
     }
 }

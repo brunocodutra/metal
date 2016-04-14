@@ -19,7 +19,7 @@ namespace metal
     using distinct = detail::distinct<list>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref distinct.
+    /// Eager adaptor for metal::distinct.
     template<typename list>
     using distinct_t = typename metal::distinct<list>::type;
 }

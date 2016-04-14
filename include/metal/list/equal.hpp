@@ -19,7 +19,7 @@ namespace metal
     using equal = detail::equal<x, y>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref equal.
+    /// Eager adaptor for metal::equal.
     template<typename x, typename y>
     using equal_t = typename metal::equal<x, y>::type;
 }

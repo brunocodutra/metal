@@ -4,6 +4,7 @@
 
 #include <metal/list/distinct.hpp>
 #include <metal/lambda/arg.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/optional/optional.hpp>
 
 #include "test.hpp"

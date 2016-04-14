@@ -44,7 +44,7 @@ namespace metal
     using dec = detail::dec<num>;
 
     /// \ingroup arithmetic
-    /// Eager adaptor for \ref dec.
+    /// Eager adaptor for metal::dec.
     template<typename num>
     using dec_t = typename metal::dec<num>::type;
 }
@@ -65,7 +65,7 @@ namespace metal
 
         template<typename t, t v>
         struct dec<number<t, v>> :
-            number<t, static_cast<t>(v - t(1))>
+            number<t, v - 1>
         {};
     }
 }

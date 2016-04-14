@@ -44,7 +44,7 @@ namespace metal
     using second = detail::second<pair>;
 
     /// \ingroup pair
-    /// Eager adaptor for \ref second.
+    /// Eager adaptor for metal::second.
     template<typename pair>
     using second_t = typename metal::second<pair>::type;
 }

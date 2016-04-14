@@ -19,7 +19,7 @@ namespace metal
     using sort = detail::sort<list, lbd>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref sort.
+    /// Eager adaptor for metal::sort.
     template<typename list, typename lbd>
     using sort_t = typename metal::sort<list, lbd>::type;
 }

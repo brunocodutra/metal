@@ -19,7 +19,7 @@ namespace metal
     using join = detail::join<lists...>;
 
     /// \ingroup list
-    /// Eager adaptor for \ref join.
+    /// Eager adaptor for metal::join.
     template<typename... lists>
     using join_t = typename metal::join<lists...>::type;
 }

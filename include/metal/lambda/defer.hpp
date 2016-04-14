@@ -19,7 +19,7 @@ namespace metal
     using defer = detail::defer<lbd>;
 
     /// \ingroup lambda
-    /// Eager adaptor for \ref defer.
+    /// Eager adaptor for metal::defer.
     template<typename lbd>
     using defer_t = typename metal::defer<lbd>::type;
 }

@@ -44,7 +44,7 @@ namespace metal
     using neg = detail::neg<num>;
 
     /// \ingroup arithmetic
-    /// Eager adaptor for \ref neg.
+    /// Eager adaptor for metal::neg.
     template<typename num>
     using neg_t = typename metal::neg<num>::type;
 }
@@ -65,7 +65,7 @@ namespace metal
 
         template<typename t, t v>
         struct neg<number<t, v>> :
-            number<t, static_cast<t>(t(0) - v)>
+            number<t, static_cast<t>(0 - v)>
         {};
     }
 }
