@@ -7,10 +7,12 @@ shallow_clone: true
 environment:
     matrix:
       - BUILD_DOC: true
+
       - GENERATOR: "NMake Makefiles"
-      - GENERATOR: "Ninja"
         COMPILER: cl
 
+      - GENERATOR: "Ninja"
+        COMPILER: cl
 
 configuration:
   - Debug
@@ -20,10 +22,7 @@ install:
   - if "%BUILD_DOC%" equ "true" (choco install doxygen.portable)
 
 before_build:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
-
-  # MinGW complains about sh.exe being in PATH
-  - set PATH=C:\MinGW\bin;%PATH:C:\Program Files\Git\usr\bin;=%
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 
   - set "METAL_SOURCE_PATH=%APPVEYOR_BUILD_FOLDER%"
   - set "EXTERNAL_SOURCE_PATH=%METAL_SOURCE_PATH%\example\external"
