@@ -42,7 +42,7 @@ namespace metal
         };
 
         template<typename t, typename true_, typename false_>
-        struct if_<number<t, 0>, true_, false_>
+        struct if_<number<t, static_cast<t>(0)>, true_, false_>
         {
             using type = false_;
         };
