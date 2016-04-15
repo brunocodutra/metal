@@ -28,11 +28,10 @@ namespace metal
 #include <metal/list/reduce.hpp>
 #include <metal/list/flatten.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/quote.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/lift.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/arithmetic/add.hpp>
-#include <metal/optional/conditional.hpp>
 
 #include <cstddef>
 

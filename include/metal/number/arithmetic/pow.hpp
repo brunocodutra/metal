@@ -62,7 +62,7 @@ namespace metal
 }
 
 #include <metal/number/number.hpp>
-#include <metal/optional/conditional.hpp>
+#include <metal/optional/cond.hpp>
 
 namespace metal
 {
@@ -86,7 +86,7 @@ namespace metal
 
         template<typename tx, tx vx, typename ty, ty vy, typename... nums>
         struct pow<number<tx, vx>, number<ty, vy>, nums...> :
-            conditional<
+            cond<
                 boolean<(vy < 0)>,
                 pow<number<decltype(vx*vy), 0>, nums...>,
                 pow<
@@ -98,10 +98,7 @@ namespace metal
 
         template<typename tx, typename ty, ty vy, typename... nums>
         struct pow<number<tx, static_cast<tx>(0)>, number<ty, vy>, nums...> :
-            conditional<
-                boolean<(vy > 0)>,
-                pow<number<decltype(tx()*vy), 0>, nums...>
-            >
+            cond<boolean<(vy > 0)>, pow<number<decltype(tx()*vy), 0>, nums...>>
         {};
 
         template<typename tx, typename ty, ty vy, typename... nums>

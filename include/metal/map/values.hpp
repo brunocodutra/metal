@@ -25,7 +25,7 @@ namespace metal
 }
 
 #include <metal/map/map.hpp>
-#include <metal/optional/conditional.hpp>
+#include <metal/optional/cond.hpp>
 
 namespace metal
 {
@@ -50,7 +50,7 @@ namespace metal
 
         template<typename map>
         struct values :
-            conditional<is_map<map>, values_impl<map>>
+            cond<is_map<map>, values_impl<map>>
         {};
     }
 }
