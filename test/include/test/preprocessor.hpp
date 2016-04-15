@@ -90,6 +90,20 @@
     ) \
 /**/
 
+#define HEAD(_, ...) _
+#define TAIL(_, ...) __VA_ARGS__
+#define RECURSE_ID() RECURSE
+#define RECURSE(N, MACRO, ...) \
+    IF(N)(HEAD, TAIL)( \
+        RECURSE_ID NIL NIL()()()( \
+            DEC(N), \
+            MACRO, \
+            MACRO NIL NIL()()(DEC(N), __VA_ARGS__) \
+        ), \
+        __VA_ARGS__ \
+    ) \
+/**/
+
 #define BAR_0
 #define BAR_1
 #define BAR_2
