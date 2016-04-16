@@ -34,18 +34,66 @@ namespace metal
 #include <metal/optional/optional.hpp>
 
 #include <metal/detail/declptr.hpp>
+#include <metal/detail/void.hpp>
 
 namespace metal
 {
     namespace detail
     {
+#if defined(_MSC_VER)
+        template<typename, typename>
+        struct invoke_impl;
+
+        nothing invoke_impl_(...);
+
+        template<
+            typename lbd, typename... args,
+            typename ret = invoke_impl<lifted<lbd>, list<typename args::type...>>
+        >
+        ret invoke_impl_(lifted<lifted<lbd>>*, list<args...>*);
+
         template<
             template<typename...> class expr, typename... args,
             typename ret = expr<typename args::type...>
         >
-        optional<ret> invoke_impl(lambda<expr>*, args*...);
+        optional<ret> invoke_impl_(lifted<lambda<expr>>*, list<args...>*);
 
-        nothing invoke_impl(...);
+        template<
+            template<typename...> class expr, typename... args,
+            typename ret = expr<args...>
+        >
+        optional<ret> invoke_impl_(lambda<expr>*, list<args...>*);
+
+        template<typename lbd, typename args>
+        struct invoke_impl :
+            decltype(invoke_impl_(declptr<lbd>(), declptr<args>()))
+        {};
+#else
+        template<typename, typename, typename = void>
+        struct invoke_impl
+        {};
+
+        template<typename lbd, typename... args>
+        struct invoke_impl<lifted<lifted<lbd>>, list<args...>,
+            void_t<list<typename args::type...>>
+        > :
+            invoke_impl<lifted<lbd>, list<typename args::type...>>
+        {};
+
+        template<template<typename...> class expr, typename... args>
+        struct invoke_impl<lifted<lambda<expr>>, list<args...>,
+            void_t<expr<typename args::type...>>
+        > :
+            optional<expr<typename args::type...>>
+        {};
+
+        template<template<typename...> class expr, typename... args>
+        struct invoke_impl<lambda<expr>, list<args...>,
+            void_t<expr<args...>>
+        > :
+            optional<expr<args...>>
+        {};
+#endif
 
         template<typename val, typename... args>
         struct invoke
@@ -54,34 +102,13 @@ namespace metal
         };
 
         template<typename lbd, typename... args>
-        struct invoke<lifted<lifted<lbd>>, args...> :
-            decltype(
-                invoke_impl(
-                    declptr<lambda<invoke>>(),
-                    declptr<lifted<lbd>>(),
-                    declptr<optional<args>>()...
-                )
-            )
-        {};
-
-        template<template<typename...> class expr, typename... args>
-        struct invoke<lifted<lambda<expr>>, args...> :
-            decltype(
-                invoke_impl(
-                    declptr<lambda<expr>>(),
-                    declptr<optional<args>>()...
-                )
-            )
+        struct invoke<lifted<lbd>, args...> :
+            invoke_impl<lifted<lbd>, list<args...>>
         {};
 
         template<template<typename...> class expr, typename... args>
         struct invoke<lambda<expr>, args...> :
-            decltype(
-                invoke_impl(
-                    declptr<lambda<expr>>(),
-                    declptr<quote_t<args>>()...
-                )
-            )
+            invoke_impl<lambda<expr>, list<args...>>
         {};
 
         template<
@@ -90,12 +117,7 @@ namespace metal
             typename... args
         >
         struct invoke<expr<params...>, args...> :
-            decltype(
-                invoke_impl(
-                    declptr<lambda<expr>>(),
-                    declptr<invoke<params, args...>>()...
-                )
-            )
+            invoke_impl<lifted<lambda<expr>>, list<invoke<params, args...>...>>
         {};
 
         template<std::size_t n, typename... args>

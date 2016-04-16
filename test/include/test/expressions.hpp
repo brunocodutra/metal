@@ -20,14 +20,8 @@ namespace test
         using type = expr*;
     };
 
-    namespace detail
-    {
-        template<std::size_t n>
-        using expr0_impl = typename std::enable_if<!n, expr<>>::type;
-    }
-
     template<typename... _>
-    using expr0 = detail::expr0_impl<sizeof...(_)>;
+    using expr0 = std::enable_if_t<sizeof...(_) == 0, expr<_...>>;
 
     template<EVAL(ENUM,  1, typename _)> using expr1  = expr<EVAL(ENUM,  1, _)>;
     template<EVAL(ENUM,  2, typename _)> using expr2  = expr<EVAL(ENUM,  2, _)>;
@@ -40,7 +34,6 @@ namespace test
     template<EVAL(ENUM,  9, typename _)> using expr9  = expr<EVAL(ENUM,  9, _)>;
     template<EVAL(ENUM, 10, typename _)> using expr10 = expr<EVAL(ENUM, 10, _)>;
 }
-
 
 #define NA(...) test::na
 #define PARAMS(N) ARGS(N) COMMA(AND(N, CMPL(N))) ENUM(CMPL(N), LIFT(NA))

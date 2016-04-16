@@ -28,8 +28,9 @@ using identity = val;
     ASSERT((metal::is_just_t<metal::invoke<FUN() COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::invoke<FUN(M) COMMA(N) VALS(N)>>), (BOOL(M == N))); \
     ASSERT((metal::is_just_t<metal::invoke<EXPR(INC(M))<LBDS(M) COMMA(M) FUN(M)> COMMA(N) VALS(N)>>), (BOOL(M == N))); \
-    ASSERT((metal::is_just_t<metal::invoke<metal::invoke<ARGS(INC(M))>, FUN(M) COMMA(N) VALS(N)>>), (BOOL(M <= N))); \
+    ASSERT((metal::is_just_t<metal::invoke<metal::lambda<SEQ(M)> COMMA(N) VALS(N)>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::invoke<metal::lambda<identity>, VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::invoke<metal::invoke<ARGS(INC(M))>, FUN(M) COMMA(N) VALS(N)>>), (BOOL(M <= N))); \
     ASSERT((metal::invoke_t<VAL(M) COMMA(N) VALS(N)>), (VAL(M))); \
     ASSERT((metal::invoke_t<NUM(M) COMMA(N) VALS(N)>), (NUM(M))); \
     ASSERT((metal::invoke_t<ARG(M), VALS(INC(M))>), (VAL(M))); \

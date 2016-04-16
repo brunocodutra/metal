@@ -21,6 +21,7 @@
     ASSERT((metal::is_just_t<metal::invoke<RECURSE(M, LIFT_T, ARG(N)), ENUM(LIMIT, LIFT(BOX))>>), (BOOL(M <= N))); \
     ASSERT((metal::is_just_t<metal::invoke<RECURSE(M, LIFT_T, LBD(N)) COMMA(N) ENUM(N, BOX(N) BAR) COMMA(CMPL(N)) VALS(CMPL(N))>>), (BOOL(!N || M <= N))); \
     ASSERT((metal::is_just_t<metal::invoke<RECURSE(M, LIFT_T, FUN(INC(N))), ENUM(INC(N), BOX(N) BAR)>>), (BOOL(M <= N))); \
+    ASSERT((metal::is_just_t<metal::invoke<RECURSE(M, LIFT_T, metal::lambda<SEQ(INC(N)>)), ENUM(INC(N), BOX(N) BAR)>>), (FALSE)); \
     ASSERT((metal::invoke_t<RECURSE(M, LIFT_T, VAL(N)), BOX(N)>), (VAL(N))); \
     ASSERT((metal::invoke_t<RECURSE(M, LIFT_T, NUM(N)), BOX(N)>), (NUM(N))); \
     ASSERT((metal::invoke_t<RECURSE(M, LIFT_T, ARG(N)) COMMA(N) ENUM(N, LIFT(VAL)), BOX(M) COMMA(CMPL(N)) VALS(CMPL(N))>), (VAL(M))); \
