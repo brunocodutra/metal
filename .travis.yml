@@ -6,6 +6,9 @@ language: cpp
 os: linux
 sudo: false
 
+git:
+  depth: 1
+
 env:
     global:
       - secure: "DuBGzmeKiWMm5m0+uZhutjzCffB2PbixmuMm3IZWUi7/uAam4PPI37oeqVTIytxxfpgRvfR2ah75eJyU6ab72MBoHxGkHem10RAvhC/vPYbLZu545qfSGatyTI9R6NfERUxi7YIxjs6D8c4D/5k3gMoCbMUkU1Lze1708lknh5U="
@@ -117,7 +120,10 @@ before_install:
     then
         METAL_VERSION="${TRAVIS_TAG}"
     else
-        METAL_VERSION=$(git -C "${METAL_SOURCE_PATH}" describe --abbrev=0 --tags)
+        METAL_VERSION=$( \
+            curl -Ls https://api.github.com/repos/brunocodutra/metal/releases/latest | \
+            awk -F'"' '/tag_name/{print $4}' \
+        )
     fi
 
   - METAL_VERSION="${METAL_VERSION%%-*}"
