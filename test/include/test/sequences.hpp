@@ -15,14 +15,8 @@ namespace test
 {
     template<typename...> class seq;
 
-    namespace detail
-    {
-        template<std::size_t n>
-        using seq0_impl = typename std::enable_if<!n, seq<>>::type;
-    }
-
     template<typename... _>
-    using seq0 = detail::seq0_impl<sizeof...(_)>;
+    using seq0 = std::enable_if_t<sizeof...(_) == 0, seq<_...>>;
 
     template<EVAL(ENUM,  1, typename BAR)> union  seq1;
     template<EVAL(ENUM,  2, typename BAR)> union  seq2;

@@ -56,8 +56,8 @@ namespace metal
         > :
             invoke<
                 join<
-                    _1, first<optional<_4>>, _2,
-                    merge_impl<_3, second<optional<_4>>, _5>
+                    _1, first<lift_t<_4>>, _2,
+                    merge_impl<_3, second<lift_t<_4>>, _5>
                 >,
                 list<xh>,
                 list<yh>,
@@ -77,8 +77,8 @@ namespace metal
         > :
             invoke<
                 join<
-                    _1, first<optional<_5>>, _2,
-                    merge_impl<_3, _4, second<optional<_5>>>
+                    _1, first<lift_t<_5>>, _2,
+                    merge_impl<_3, _4, second<lift_t<_5>>>
                 >,
                 list<yh>,
                 list<xh>,

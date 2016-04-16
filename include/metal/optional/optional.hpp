@@ -176,6 +176,8 @@ namespace metal
 
 #include <metal/number/logical/not.hpp>
 
+#include <metal/detail/void.hpp>
+
 #include <type_traits>
 
 namespace metal
@@ -187,15 +189,19 @@ namespace metal
             not_<typename std::is_base_of<nothing, optional<opt>>::type>
         {};
 
-        template<typename opt, typename ret = typename opt::type>
-        just<ret> optional_impl(void (opt::*)(void));
+        template<typename opt, typename = void>
+        struct optional_impl :
+            nothing
+        {};
 
-        template<typename>
-        nothing optional_impl(...);
+        template<typename opt>
+        struct optional_impl<opt, void_t<typename opt::type>> :
+            just<typename opt::type>
+        {};
 
         template<typename opt>
         struct optional :
-            decltype(optional_impl<opt>(0))
+            optional_impl<opt>
         {};
 
         template<typename val>
