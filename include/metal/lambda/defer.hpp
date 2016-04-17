@@ -9,6 +9,9 @@ namespace metal
 {
     namespace detail
     {
+        template<template<typename...> class expr>
+        struct deferred;
+
         template<typename lbd>
         struct defer;
     }
@@ -25,53 +28,48 @@ namespace metal
 }
 
 #include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/lift.hpp>
 #include <metal/lambda/quote.hpp>
-#include <metal/list/list.hpp>
-#include <metal/optional/optional.hpp>
-
-#include <metal/detail/declptr.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/invoke.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<
-            template<typename...> class expr, typename... args,
-            typename ret = just<expr<args...>>
-        >
-        ret defer_impl(list<args...>*);
-
-        template<template<typename...> class>
-        nothing defer_impl(...);
+        template<template<typename...> class expr>
+        struct deferred
+        {
+            using type = deferred;
+        };
 
         template<typename lbd>
         struct defer :
             quote<lbd>
         {};
 
+        template<typename lbd>
+        struct defer<lifted<lbd>> :
+            lifted<defer_t<lbd>>
+        {};
+
         template<template<typename...> class expr>
-        struct defer<lambda<expr>>
+        struct defer<lambda<expr>> :
+            deferred<expr>
+        {};
+
+        template<template<typename...> class expr>
+        struct defer<deferred<expr>>
         {
             template<typename... args>
-            using _ = decltype(defer_impl<expr>(declptr<list<args...>>()));
+            using _ = invoke<deferred<expr>, args...>;
 
-            using type = lambda<_>;
+            using type = deferred<_>;
         };
 
         template<template<typename...> class expr, typename... params>
         struct defer<expr<params...>> :
-            bind<defer_t<lambda<expr>>, params...>
-        {};
-
-        template<>
-        struct defer<lambda<list>> :
-            lambda<list>
-        {};
-
-        template<typename... params>
-        struct defer<list<params...>> :
-            list<params...>
+            bind<deferred<expr>, params...>
         {};
     }
 }

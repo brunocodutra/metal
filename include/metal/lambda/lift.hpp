@@ -31,6 +31,7 @@ namespace metal
 }
 
 #include <metal/lambda/arg.hpp>
+#include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/optional/optional.hpp>
 
@@ -52,6 +53,11 @@ namespace metal
         template<template<typename...> class expr>
         struct lift<lambda<expr>> :
             lifted<lambda<expr>>
+        {};
+
+        template<template<typename...> class expr>
+        struct lift<deferred<expr>> :
+            lifted<deferred<expr>>
         {};
 
         template<template<typename...> class expr, typename... params>
