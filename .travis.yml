@@ -121,8 +121,8 @@ before_install:
         METAL_VERSION="${TRAVIS_TAG}"
     else
         METAL_VERSION=$( \
-            curl -Ls https://api.github.com/repos/brunocodutra/metal/releases/latest | \
-            awk -F'"' '/tag_name/{print $4}' \
+            curl -Ls https://github.com/brunocodutra/metal/tags | \
+            awk '/tag-name/{print $3;exit}' FS='[<>]' \
         )
     fi
 
