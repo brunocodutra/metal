@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 2.8.12)
 project(Metal CXX)
 
 set(METAL_MAJOR_VERSION 0)
-set(METAL_MINOR_VERSION 1)
+set(METAL_MINOR_VERSION 2)
 set(METAL_PATCH_VERSION 0)
 set(
     METAL_VERSION
