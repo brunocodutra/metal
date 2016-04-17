@@ -23,12 +23,12 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="#">
-            Metal <small>0.1.0</small>
+            Metal <small>0.2.0</small>
           </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/archive/v0.1.0.zip">
+            <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/archive/v0.2.0.zip">
               <span class="hidden-xs">Download</span>
               <span class="hidden-xs octicon octicon-cloud-download" aria-hidden="true"></span>
               <span class="visible-xs-block mega-octicon octicon-cloud-download" aria-hidden="true"></span>
@@ -150,6 +150,40 @@ template&lt;typename start , typename size  = detail::nil, typename stride  = de
 
 <p><code>#include &lt;metal/number/enumerate.hpp&gt;</code></p>
 <p>Eager adaptor for <a class="el" href="group__number.html#gaaea8abdb5a6906c8402c450981de2dc5">metal::enumerate</a>. </p>
+
+</div>
+</div>
+<a class="anchor" id="gac18878e211090dbc707533afce9ff987"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename cond , typename true_ , typename false_ &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__number.html#gac18878e211090dbc707533afce9ff987">metal::if_</a> = typedef detail::if_&lt;cond, true_, false_&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;metal/number/logical/if.hpp&gt;</code></p>
+<p>... </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0274c0c1b28615497c0d9e5301ee3a16"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename cond , typename true_ , typename false_ &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__number.html#ga0274c0c1b28615497c0d9e5301ee3a16">metal::if_t</a> = typedef typename <a class="el" href="group__number.html#gac18878e211090dbc707533afce9ff987">metal::if_</a>&lt;cond, true_, false_&gt;::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;metal/number/logical/if.hpp&gt;</code></p>
+<p>Eager adaptor for <a class="el" href="group__number.html#gac18878e211090dbc707533afce9ff987">metal::if_</a>. </p>
 
 </div>
 </div>

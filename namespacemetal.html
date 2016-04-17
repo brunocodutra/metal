@@ -23,12 +23,12 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="#">
-            Metal <small>0.1.0</small>
+            Metal <small>0.2.0</small>
           </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/archive/v0.1.0.zip">
+            <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/archive/v0.2.0.zip">
               <span class="hidden-xs">Download</span>
               <span class="hidden-xs octicon octicon-cloud-download" aria-hidden="true"></span>
               <span class="visible-xs-block mega-octicon octicon-cloud-download" aria-hidden="true"></span>
@@ -143,12 +143,12 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga85fc5ce628d7d7736317ab8a1b5f83c8"><td class="memTemplParams" colspan="2">template&lt;typename list &gt; </td></tr>
 <tr class="memitem:ga85fc5ce628d7d7736317ab8a1b5f83c8"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__list.html#ga85fc5ce628d7d7736317ab8a1b5f83c8">clear_t</a> = typename <a class="el" href="group__list.html#ga41624c871a0d63626ae506a89ec06d44">metal::clear</a>&lt; <a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">list</a> &gt;::type</td></tr>
 <tr class="separator:ga85fc5ce628d7d7736317ab8a1b5f83c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae9ae7819dbc91fe0662b6d7e0323f4e2"><td class="memTemplParams" colspan="2">template&lt;typename if_ , typename then , typename... else_&gt; </td></tr>
-<tr class="memitem:gae9ae7819dbc91fe0662b6d7e0323f4e2"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__optional.html#gae9ae7819dbc91fe0662b6d7e0323f4e2">conditional</a> = detail::conditional&lt; if_, then, else_... &gt;</td></tr>
-<tr class="separator:gae9ae7819dbc91fe0662b6d7e0323f4e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga26377eb93a708947bbfc534dce58e2c4"><td class="memTemplParams" colspan="2">template&lt;typename if_ , typename then , typename... else_&gt; </td></tr>
-<tr class="memitem:ga26377eb93a708947bbfc534dce58e2c4"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__optional.html#ga26377eb93a708947bbfc534dce58e2c4">conditional_t</a> = typename <a class="el" href="group__optional.html#gae9ae7819dbc91fe0662b6d7e0323f4e2">metal::conditional</a>&lt; if_, then, else_... &gt;::type</td></tr>
-<tr class="separator:ga26377eb93a708947bbfc534dce58e2c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39cd1f0c733205cc6fd1cdbb7ad64d0b"><td class="memTemplParams" colspan="2">template&lt;typename if_ , typename then , typename... else_&gt; </td></tr>
+<tr class="memitem:ga39cd1f0c733205cc6fd1cdbb7ad64d0b"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__optional.html#ga39cd1f0c733205cc6fd1cdbb7ad64d0b">cond</a> = detail::cond&lt; <a class="el" href="group__number.html#gac18878e211090dbc707533afce9ff987">if_</a>, then, else_... &gt;</td></tr>
+<tr class="separator:ga39cd1f0c733205cc6fd1cdbb7ad64d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7ab631df7820d64f52dfcdbe9cf8fcc9"><td class="memTemplParams" colspan="2">template&lt;typename if_ , typename then , typename... else_&gt; </td></tr>
+<tr class="memitem:ga7ab631df7820d64f52dfcdbe9cf8fcc9"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__optional.html#ga7ab631df7820d64f52dfcdbe9cf8fcc9">cond_t</a> = typename <a class="el" href="group__optional.html#ga39cd1f0c733205cc6fd1cdbb7ad64d0b">metal::cond</a>&lt; <a class="el" href="group__number.html#gac18878e211090dbc707533afce9ff987">if_</a>, then, else_... &gt;::type</td></tr>
+<tr class="separator:ga7ab631df7820d64f52dfcdbe9cf8fcc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2d4dd5501c1b0a25f888305e43d351b9"><td class="memTemplParams" colspan="2">template&lt;typename list , typename val &gt; </td></tr>
 <tr class="memitem:ga2d4dd5501c1b0a25f888305e43d351b9"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__list.html#ga2d4dd5501c1b0a25f888305e43d351b9">contains</a> = detail::contains&lt; <a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">list</a>, val &gt;</td></tr>
 <tr class="separator:ga2d4dd5501c1b0a25f888305e43d351b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,9 +239,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:gaa5d0c8bcfba83239edc83c1c547178b0"><td class="memTemplParams" colspan="2">template&lt;typename list , typename beg , typename end  = detail::nil&gt; </td></tr>
 <tr class="memitem:gaa5d0c8bcfba83239edc83c1c547178b0"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__list.html#gaa5d0c8bcfba83239edc83c1c547178b0">erase_t</a> = typename <a class="el" href="group__list.html#ga235fb15add99dd7aa9a3b3f8495c01aa">metal::erase</a>&lt; <a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">list</a>, beg, end &gt;::type</td></tr>
 <tr class="separator:gaa5d0c8bcfba83239edc83c1c547178b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8e4d816047a5b51c0bc4abf24801c9ed"><td class="memTemplParams" colspan="2">template&lt;typename opt , typename fallback  = detail::nil&gt; </td></tr>
-<tr class="memitem:ga8e4d816047a5b51c0bc4abf24801c9ed"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__optional.html#ga8e4d816047a5b51c0bc4abf24801c9ed">eval</a> = <a class="el" href="group__optional.html#ga26377eb93a708947bbfc534dce58e2c4">metal::conditional_t</a>&lt; <a class="el" href="group__optional.html#ga8ccdf3f07f0d807b3332bb138f4012e9">metal::is_just</a>&lt; opt &gt;, opt, <a class="el" href="group__optional.html#ga5eab6218db35d3c18aa1e729ef084653">metal::just</a>&lt; fallback &gt; &gt;</td></tr>
-<tr class="separator:ga8e4d816047a5b51c0bc4abf24801c9ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab9f0eb6e48966564181d51b53083a119"><td class="memTemplParams" colspan="2">template&lt;typename opt , typename fallback  = detail::nil&gt; </td></tr>
+<tr class="memitem:gab9f0eb6e48966564181d51b53083a119"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__optional.html#gab9f0eb6e48966564181d51b53083a119">eval</a> = <a class="el" href="group__optional.html#ga7ab631df7820d64f52dfcdbe9cf8fcc9">metal::cond_t</a>&lt; <a class="el" href="group__optional.html#ga8ccdf3f07f0d807b3332bb138f4012e9">metal::is_just</a>&lt; opt &gt;, opt, <a class="el" href="group__optional.html#ga5eab6218db35d3c18aa1e729ef084653">metal::just</a>&lt; fallback &gt; &gt;</td></tr>
+<tr class="separator:gab9f0eb6e48966564181d51b53083a119"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga739857f6a15625a1228a9d4b3283311a"><td class="memTemplParams" colspan="2">template&lt;typename list , typename val &gt; </td></tr>
 <tr class="memitem:ga739857f6a15625a1228a9d4b3283311a"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__list.html#ga739857f6a15625a1228a9d4b3283311a">find</a> = detail::find&lt; <a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">list</a>, val &gt;</td></tr>
 <tr class="separator:ga739857f6a15625a1228a9d4b3283311a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -290,6 +290,12 @@ Typedefs</h2></td></tr>
 <tr class="memitem:gafc2e09dd1ba05bc560014df1f9951bec"><td class="memTemplParams" colspan="2">template&lt;typename map , typename key &gt; </td></tr>
 <tr class="memitem:gafc2e09dd1ba05bc560014df1f9951bec"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__map.html#gafc2e09dd1ba05bc560014df1f9951bec">has_key_t</a> = typename <a class="el" href="group__map.html#ga2a6e2fac00e796c4f0ff3b59ec975b7f">metal::has_key</a>&lt; <a class="el" href="group__map.html#gae0cd7c57566eae1abed8c1b32e76f997">map</a>, key &gt;::type</td></tr>
 <tr class="separator:gafc2e09dd1ba05bc560014df1f9951bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac18878e211090dbc707533afce9ff987"><td class="memTemplParams" colspan="2">template&lt;typename cond , typename true_ , typename false_ &gt; </td></tr>
+<tr class="memitem:gac18878e211090dbc707533afce9ff987"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__number.html#gac18878e211090dbc707533afce9ff987">if_</a> = detail::if_&lt; <a class="el" href="group__optional.html#ga39cd1f0c733205cc6fd1cdbb7ad64d0b">cond</a>, true_, false_ &gt;</td></tr>
+<tr class="separator:gac18878e211090dbc707533afce9ff987"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0274c0c1b28615497c0d9e5301ee3a16"><td class="memTemplParams" colspan="2">template&lt;typename cond , typename true_ , typename false_ &gt; </td></tr>
+<tr class="memitem:ga0274c0c1b28615497c0d9e5301ee3a16"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__number.html#ga0274c0c1b28615497c0d9e5301ee3a16">if_t</a> = typename <a class="el" href="group__number.html#gac18878e211090dbc707533afce9ff987">metal::if_</a>&lt; <a class="el" href="group__optional.html#ga39cd1f0c733205cc6fd1cdbb7ad64d0b">cond</a>, true_, false_ &gt;::type</td></tr>
+<tr class="separator:ga0274c0c1b28615497c0d9e5301ee3a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga054f3f2f207eb68d7d414bcbeeb5200a"><td class="memTemplParams" colspan="2">template&lt;typename num &gt; </td></tr>
 <tr class="memitem:ga054f3f2f207eb68d7d414bcbeeb5200a"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__arithmetic.html#ga054f3f2f207eb68d7d414bcbeeb5200a">inc</a> = detail::inc&lt; num &gt;</td></tr>
 <tr class="separator:ga054f3f2f207eb68d7d414bcbeeb5200a"><td class="memSeparator" colspan="2">&#160;</td></tr>
