@@ -9,7 +9,7 @@
 
 namespace test
 {
-    enum val0 {type};
+    enum val0 {};
     union val1 {template<typename...> struct type;};
     using val2 = void;
     using val3 = void();

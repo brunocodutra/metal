@@ -7,7 +7,7 @@
 
 #include "test.hpp"
 
-#define MATRIX(_, N) \
+#define MATRIX(M, N) \
     ASSERT((metal::quote_t<VAL(N)>::type), (VAL(N))); \
     ASSERT((metal::quote_t<NUM(N)>::type), (NUM(N))); \
     ASSERT((metal::quote_t<PAIR(N)>::type), (PAIR(N))); \
@@ -16,14 +16,14 @@
     ASSERT((metal::quote_t<ARG(N)>::type), (ARG(N))); \
     ASSERT((metal::quote_t<LBD(N)>::type), (LBD(N))); \
     ASSERT((metal::quote_t<FUN(N)>::type), (FUN(N))); \
-    ASSERT((metal::invoke_t<metal::quote_t<VAL(N)>>), (VAL(N))); \
-    ASSERT((metal::invoke_t<metal::quote_t<NUM(N)>>), (NUM(N))); \
-    ASSERT((metal::invoke_t<metal::quote_t<PAIR(N)>>), (PAIR(N))); \
-    ASSERT((metal::invoke_t<metal::quote_t<LIST(N)>>), (LIST(N))); \
-    ASSERT((metal::invoke_t<metal::quote_t<MAP(N)>>), (MAP(N))); \
-    ASSERT((metal::invoke_t<metal::quote_t<ARG(N)>>), (ARG(N))); \
-    ASSERT((metal::invoke_t<metal::quote_t<LBD(N)>>), (LBD(N))); \
-    ASSERT((metal::invoke_t<metal::quote_t<FUN(N)>>), (FUN(N))); \
+    ASSERT((metal::invoke_t<metal::quote_t<VAL(M)> COMMA(N) VALS(N)>), (VAL(M))); \
+    ASSERT((metal::invoke_t<metal::quote_t<NUM(M)> COMMA(N) VALS(N)>), (NUM(M))); \
+    ASSERT((metal::invoke_t<metal::quote_t<PAIR(M)> COMMA(N) VALS(N)>), (PAIR(M))); \
+    ASSERT((metal::invoke_t<metal::quote_t<LIST(M)> COMMA(N) VALS(N)>), (LIST(M))); \
+    ASSERT((metal::invoke_t<metal::quote_t<MAP(M)> COMMA(N) VALS(N)>), (MAP(M))); \
+    ASSERT((metal::invoke_t<metal::quote_t<ARG(M)> COMMA(N) VALS(N)>), (ARG(M))); \
+    ASSERT((metal::invoke_t<metal::quote_t<LBD(M)> COMMA(N) VALS(N)>), (LBD(M))); \
+    ASSERT((metal::invoke_t<metal::quote_t<FUN(M)> COMMA(N) VALS(N)>), (FUN(M))); \
 /**/
 
 GEN(MATRIX)

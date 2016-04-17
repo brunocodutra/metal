@@ -2,17 +2,17 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-#include <metal/optional/conditional.hpp>
+#include <metal/optional/cond.hpp>
 #include <metal/number/comparison.hpp>
 
 #include "example.hpp"
 
 HIDDEN(namespace)
 {
-/// [conditional]
+/// [cond]
 template<typename num, typename min, typename max>
 struct clip :
-    metal::conditional<
+    metal::cond<
         metal::greater<num, max>, max,
         metal::less<num, min>, min,
         num
@@ -37,5 +37,5 @@ static_assert(std::is_same<
     metal::integer<0>
 >::value, "");
 
-/// [conditional]
+/// [cond]
 }

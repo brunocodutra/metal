@@ -28,14 +28,12 @@ namespace metal
 #include <metal/optional/optional.hpp>
 
 #include <metal/detail/declptr.hpp>
+#include <metal/detail/void.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename>
-        using void_ = void;
-
         template<typename list>
         struct back
         {};
@@ -47,7 +45,7 @@ namespace metal
         struct back<expr<head, tail...>>
         {
             template<typename val>
-            static val impl(void_<head>*, void_<tail>*..., val*);
+            static val impl(void_t<head>*, void_t<tail>*..., val*);
 
             using opt = decltype(
                 impl(0, declptr<just<head>>(), declptr<just<tail>>()...)

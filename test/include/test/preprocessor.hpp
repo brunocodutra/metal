@@ -90,6 +90,20 @@
     ) \
 /**/
 
+#define HEAD(_, ...) _
+#define TAIL(_, ...) __VA_ARGS__
+#define RECURSE_ID() RECURSE
+#define RECURSE(N, MACRO, ...) \
+    IF(N)(HEAD, TAIL)( \
+        RECURSE_ID NIL NIL()()()( \
+            DEC(N), \
+            MACRO, \
+            MACRO NIL NIL()()(DEC(N), __VA_ARGS__) \
+        ), \
+        __VA_ARGS__ \
+    ) \
+/**/
+
 #define BAR_0
 #define BAR_1
 #define BAR_2
@@ -119,7 +133,7 @@
 #define ENUM_2(N, _0, _1) COMMA(N) _0##N, _1##N
 #define ENUM(N, ...) REPEAT(N, CAT(ENUM_, SIZEOF(__VA_ARGS__)), __VA_ARGS__)
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
     #define X_(...) __VA_ARGS__
     #define X(_, ...) X_(__VA_ARGS__)
 #else
