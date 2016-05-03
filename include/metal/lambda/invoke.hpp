@@ -27,7 +27,6 @@ namespace metal
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/lambda/defer.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
@@ -52,12 +51,6 @@ namespace metal
         >
         optional<ret> invoke_impl_(lambda<expr>*, list<args...>*);
 
-        template<
-            template<typename...> class expr, typename... args,
-            typename ret = expr<typename args::type...>
-        >
-        just<ret> invoke_impl_(deferred<expr>*, list<args...>*);
-
         template<typename lbd, typename args>
         struct invoke_impl :
             decltype(invoke_impl_(declptr<lbd>(), declptr<args>()))
@@ -73,14 +66,6 @@ namespace metal
         > :
             optional<expr<typename args::type...>>
         {};
-
-        template<template<typename...> class expr, typename... args>
-        struct invoke_impl<deferred<expr>, list<args...>,
-            void_t<expr<typename args::type...>>
-        >
-        {
-            using type = expr<typename args::type...>;
-        };
 #endif
 
         template<typename val, typename... args>
@@ -92,11 +77,6 @@ namespace metal
         template<template<typename...> class expr, typename... args>
         struct invoke<lambda<expr>, args...> :
             invoke_impl<lambda<expr>, list<just<args>...>>
-        {};
-
-        template<template<typename...> class expr, typename... args>
-        struct invoke<deferred<expr>, args...> :
-            invoke_impl<deferred<expr>, list<just<args>...>>
         {};
 
         template<

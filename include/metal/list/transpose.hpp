@@ -30,7 +30,6 @@ namespace metal
 #include <metal/list/indices.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/number/number.hpp>
@@ -40,14 +39,14 @@ namespace metal
     namespace detail
     {
         template<typename>
-        struct unbind
+        struct unwrap
         {};
 
         template<typename list>
-        using unbind_t = typename unbind<list>::type;
+        using unwrap_t = typename unwrap<list>::type;
 
         template<template<typename...> class expr, typename... vals>
-        struct unbind<expr<vals...>> :
+        struct unwrap<expr<vals...>> :
             lambda<expr>
         {};
 
@@ -64,14 +63,16 @@ namespace metal
             template<typename...> class outer,
             typename head, typename... tail
         >
-        struct transpose_impl<
-            outer<head, tail...>,
+        struct transpose_impl<outer<head, tail...>,
             same_t<outer<size_t<head>, size_t<tail>...>>,
-            same_t<outer<unbind_t<head>, unbind_t<tail>...>>,
+            same_t<outer<unwrap_t<head>, unwrap_t<tail>...>>,
             boolean<(sizeof...(tail) > 1)>
         > :
             transform<
-                defer_t<outer<at<quote_t<head>, _1>, at<quote_t<tail>, _1>...>>,
+                copy<
+                    quote_t<outer<head, tail...>>,
+                    list<at<quote_t<head>, _1>, at<quote_t<tail>, _1>...>
+                >,
                 indices_t<head>
             >
         {};
@@ -81,8 +82,7 @@ namespace metal
             template<typename...> class inner,
             typename... xs, typename... ys
         >
-        struct transpose_impl<
-            outer<inner<xs...>, inner<ys...>>,
+        struct transpose_impl<outer<inner<xs...>, inner<ys...>>,
             boolean<sizeof...(xs) == sizeof...(ys)>
         >
         {

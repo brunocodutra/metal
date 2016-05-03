@@ -28,16 +28,31 @@ namespace metal
 #include <metal/list/apply.hpp>
 #include <metal/list/transpose.hpp>
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/defer.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lift.hpp>
-#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
+
+#include <metal/detail/void.hpp>
 
 namespace metal
 {
     namespace detail
     {
+        template<typename lbd, typename list, typename = void>
+        struct transform_impl
+        {};
+
+        template<
+            typename lbd,
+            template<typename...> class expr,
+            typename... vals
+        >
+        struct transform_impl<lbd, expr<vals...>,
+            void_t<expr<invoke_t<lbd, vals>...>>
+        >
+        {
+            using type = expr<invoke_t<lbd, vals>...>;
+        };
+
         template<typename lbd, typename... lists>
         struct transform :
             invoke<
@@ -46,13 +61,9 @@ namespace metal
             >
         {};
 
-        template<
-            typename lbd,
-            template<typename...> class expr,
-            typename... vals
-        >
-        struct transform<lbd, expr<vals...>> :
-            invoke<lift_t<defer_t<lambda<expr>>>, invoke<lbd, vals>...>
+        template<typename lbd, typename list>
+        struct transform<lbd, list> :
+            transform_impl<lbd, list>
         {};
     }
 }

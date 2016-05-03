@@ -47,7 +47,7 @@ namespace metal
         >
         struct replace_if<expr<vals...>, lbd, val> :
             invoke<
-                lift_t<defer_t<lambda<expr>>>,
+                copy<quote_t<expr<vals...>>, lift_t<lambda<list>>>,
                 cond<invoke<lbd, vals>, just<val>, just<vals>>...
             >
         {};

@@ -11,7 +11,10 @@ namespace metal
 {
     namespace detail
     {
-        template<typename, typename, typename = nil, typename = nil>
+        template<
+            typename, typename, typename = nil, typename = nil,
+            typename = void
+        >
         struct copy;
     }
 
@@ -37,19 +40,20 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/slice.hpp>
 #include <metal/list/size.hpp>
+#include <metal/list/slice.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/defer.hpp>
-#include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
+
+#include <metal/detail/void.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<
-            typename, typename, typename, typename,
+            typename to, typename from, typename beg, typename end,
             typename = boolean<true>
         >
         struct copy_impl
@@ -63,12 +67,8 @@ namespace metal
             boolean<(0 <= b && b < e && e <= size_t<from>::value)>
         > :
             invoke<
-                slice<
-                    lambda<copy>,
-                    number<beg, b>,
-                    number<decltype(e - b), e - b>
-                >,
-                to, from
+                copy<_1, slice<copy<list<>, _2>, _3, _4>>,
+                to, from, number<std::size_t, b>, number<std::size_t, e - b>
             >
         {};
 
@@ -80,13 +80,12 @@ namespace metal
             boolean<(0 <= e && e < b && b <= size_t<from>::value)>
         > :
             invoke<
-                slice<
-                    lambda<copy>,
-                    number<beg, b - 1>,
-                    number<decltype(e - b), b - e>,
-                    integer<-1>
-                >,
-                to, from
+                copy<_1, slice<copy<list<>, _2>, _3, _4, _5>>,
+                to,
+                from,
+                number<std::size_t, b - 1>,
+                number<std::size_t, b - e>,
+                integer<-1>
             >
         {};
 
@@ -100,7 +99,10 @@ namespace metal
             copy<to, list<>>
         {};
 
-        template<typename to, typename from, typename beg, typename end>
+        template<
+            typename to, typename from, typename beg, typename end,
+            typename
+        >
         struct copy :
             copy_impl<to, from, beg, end>
         {};
@@ -114,30 +116,22 @@ namespace metal
             copy<to, from>
         {};
 
-        template<
-            typename to,
-            template<typename...> class from, typename... vals,
-            typename beg, beg b
-        >
-        struct copy<to, from<vals...>, number<beg, b>> :
-            copy<to, from<vals...>, number<beg, b>, size_t<from<vals...>>>
+        template<typename to, typename from, typename beg, beg b>
+        struct copy<to, from, number<beg, b>, nil,
+            void_t<size_t<from>>
+        > :
+            copy<to, from, number<std::size_t, b>, size_t<from>>
         {};
 
         template<
             template<typename...> class to, typename... ts,
             template<typename...> class from, typename... fs
         >
-        struct copy<to<ts...>, from<fs...>> :
-            invoke<defer_t<lambda<to>>, fs...>
-        {};
-
-        template<
-            template<typename...> class expr,
-            typename... ts, typename... fs
+        struct copy<to<ts...>, from<fs...>, nil, nil,
+            void_t<to<fs...>>
         >
-        struct copy<expr<ts...>, expr<fs...>>
         {
-            using type = expr<fs...>;
+            using type = to<fs...>;
         };
     }
 }
