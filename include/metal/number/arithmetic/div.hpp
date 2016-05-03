@@ -74,11 +74,11 @@ namespace metal
 
         template<typename tx, tx vx, typename ty, ty vy>
         struct div<number<tx, vx>, number<ty, vy>> :
-            div<number<decltype(vx / vy), vx / vy>>
+            number<decltype(vx / vy), vx / vy>
         {};
 
         template<typename tx, tx vx, typename ty>
-        struct div<number<tx, vx>, number<ty, ty(0)>>
+        struct div<number<tx, vx>, number<ty, static_cast<ty>(0)>>
         {};
 
         template<typename tx, tx vx, typename ty, ty vy, typename... nums>

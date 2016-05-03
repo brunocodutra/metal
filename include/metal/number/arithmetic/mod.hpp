@@ -55,6 +55,9 @@ namespace metal
 }
 
 #include <metal/number/number.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/list.hpp>
+#include <metal/list/fold.hpp>
 
 namespace metal
 {
@@ -69,13 +72,18 @@ namespace metal
             number<tx, vx>
         {};
 
-        template<typename tx, tx vx, typename ty, ty vy, typename... nums>
-        struct mod<number<tx, vx>, number<ty, vy>, nums...> :
-            mod<number<decltype(vx % vy), vx % vy>, nums...>
+        template<typename tx, tx vx, typename ty, ty vy>
+        struct mod<number<tx, vx>, number<ty, vy>> :
+            number<decltype(vx % vy), vx % vy>
         {};
 
-        template<typename tx, tx vx, typename ty, typename... nums>
-        struct mod<number<tx, vx>, number<ty, ty(0)>, nums...>
+        template<typename tx, tx vx, typename ty>
+        struct mod<number<tx, vx>, number<ty, static_cast<ty>(0)>>
+        {};
+
+        template<typename tx, tx vx, typename ty, ty vy, typename... nums>
+        struct mod<number<tx, vx>, number<ty, vy>, nums...> :
+            fold<list<number<ty, vy>, nums...>, number<tx, vx>, lambda<mod>>
         {};
     }
 }
