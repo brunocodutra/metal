@@ -42,8 +42,9 @@ namespace metal
 #include <metal/list/size.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lift.hpp>
 #include <metal/number/number.hpp>
+
+#include <cstddef>
 
 namespace metal
 {
@@ -78,7 +79,7 @@ namespace metal
             list, state, lbd,
             number<t, l>, number<t, static_cast<t>(l + 1)>
         > :
-            invoke<lift_t<lbd>, just<state>, at<list, number<t, l>>>
+            invoke<invoke<_1, _2, at<_3, number<t, l>>>, lbd, state, list>
         {};
 
         template<
@@ -91,7 +92,7 @@ namespace metal
             list, state, lbd,
             number<t, l>, number<t, static_cast<t>(l - 1)>
         > :
-            invoke<lift_t<lbd>, just<state>, at<list, number<t, l - 1>>>
+            invoke<invoke<_1, _2, at<_3, number<t, l - 1>>>, lbd, state, list>
         {};
 
         template<
@@ -132,7 +133,7 @@ namespace metal
 
         template<typename list, typename state, typename lbd>
         struct fold<list, state, lbd> :
-            fold<list, state, lbd, integer<0>>
+            fold<list, state, lbd, number<std::size_t, 0>>
         {};
     }
 }

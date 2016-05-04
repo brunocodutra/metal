@@ -9,7 +9,6 @@
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/lambda/lift.hpp>
 #include <metal/lambda/partial.hpp>
 #include <metal/lambda/quote.hpp>
 

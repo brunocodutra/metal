@@ -28,15 +28,13 @@ namespace metal
 #include <metal/list/copy.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/reduce.hpp>
-#include <metal/list/partition.hpp>
+#include <metal/list/copy_if.hpp>
+#include <metal/list/remove_if.hpp>
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/invoke.hpp>
-#include <metal/lambda/quote.hpp>
 #include <metal/lambda/bind.hpp>
-#include <metal/pair/first.hpp>
-#include <metal/pair/second.hpp>
+#include <metal/lambda/quote.hpp>
+#include <metal/lambda/invoke.hpp>
 #include <metal/number/logical/not.hpp>
-#include <metal/optional/optional.hpp>
 
 namespace metal
 {
@@ -55,12 +53,10 @@ namespace metal
             invoke_t<lbd, xh, yh>
         > :
             invoke<
-                lift_t<join<_1, first<_4>, _2, merge<_3, second<_4>, _5>>>,
-                list<xh>,
-                list<yh>,
-                just<lbd>,
-                partition<list<xt...>, bind_t<lbd, _1, yh>>,
-                list<yt...>
+                join<_1, copy_if<_2, _2, _5>, _3, merge<quote_t<lbd>, remove_if<_2, _5>, _4>>,
+                list<xh>, list<xt...>,
+                list<yh>, list<yt...>,
+                bind_t<lbd, _1, yh>
             >
         {};
 
@@ -73,12 +69,10 @@ namespace metal
             not_t<invoke_t<lbd, xh, yh>>
         > :
             invoke<
-                lift_t<join<_1, first<_5>, _2, merge<_3, _4, second<_5>>>>,
-                list<yh>,
-                list<xh>,
-                just<lbd>,
-                list<xt...>,
-                partition<list<yt...>, bind_t<lbd, _1, xh>>
+                join<_3, copy_if<_4, _4, _5>, _1, merge<quote_t<lbd>, _2, remove_if<_4, _5>>>,
+                list<xh>, list<xt...>,
+                list<yh>, list<yt...>,
+                bind_t<lbd, _1, xh>
             >
         {};
 

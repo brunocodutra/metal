@@ -27,29 +27,26 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/list/copy.hpp>
 #include <metal/list/join.hpp>
-#include <metal/lambda/lift.hpp>
+#include <metal/list/apply.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/quote.hpp>
-#include <metal/optional/cond.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/partial.hpp>
+#include <metal/number/logical/if.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<typename to, typename from, typename lbd>
-        struct copy_if
-        {};
-
-        template<
-            typename to,
-            template<typename...> class expr, typename... vals,
-            typename lbd
-        >
-        struct copy_if<to, expr<vals...>, lbd> :
+        struct copy_if :
             invoke<
-                copy<quote_t<to>, lift_t<lambda<join>>>,
-                list<>, cond<invoke<lbd, vals>, list<vals>, list<>>...
+                copy<_1, apply<_3, transform<_4, _2>>>,
+                to,
+                from,
+                partial_t<lambda<join>, list<>>,
+                if_<lbd, lambda<list>, list<>>
             >
         {};
     }

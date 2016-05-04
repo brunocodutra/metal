@@ -24,25 +24,20 @@ namespace metal
     using all_t = typename metal::all<list, lbd>::type;
 }
 
-#include <metal/number/logical/and.hpp>
+#include <metal/list/apply.hpp>
+#include <metal/list/transform.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lift.hpp>
+#include <metal/number/logical/and.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<typename list, typename lbd>
-        struct all
-        {};
-
-        template<
-            template<typename...> class expr, typename... vals,
-            typename lbd
-        >
-        struct all<expr<vals...>, lbd> :
-            invoke<lift_t<lambda<and_>>, invoke<lbd, vals>...>
+        struct all :
+            invoke<apply<_1, transform<_3, _2>>, lambda<and_>, list, lbd>
         {};
     }
 }

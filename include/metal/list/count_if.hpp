@@ -24,12 +24,12 @@ namespace metal
     using count_if_t = typename metal::count_if<list, lbd>::type;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/list/reduce.hpp>
-#include <metal/list/flatten.hpp>
+#include <metal/list/apply.hpp>
+#include <metal/list/transform.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/lambda/lift.hpp>
+#include <metal/lambda/partial.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/arithmetic/add.hpp>
 
@@ -40,17 +40,10 @@ namespace metal
     namespace detail
     {
         template<typename list, typename lbd>
-        struct count_if
-        {};
-
-        template<
-            template<typename...> class expr,
-            typename... vals, typename lbd
-        >
-        struct count_if<expr<vals...>, lbd> :
+        struct count_if :
             invoke<
-                lift_t<lambda<add>>,
-                number<std::ptrdiff_t, 0>, invoke<lbd, vals>...
+                apply<_1, transform<_2, _3>>,
+                partial_t<lambda<add>, number<std::ptrdiff_t, 0>>, lbd, list
             >
         {};
     }

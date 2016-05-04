@@ -36,10 +36,11 @@ namespace metal
     using reduce_t = typename metal::reduce<list, lbd, beg, end>::type;
 }
 
-#include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lift.hpp>
-#include <metal/number/number.hpp>
 #include <metal/list/at.hpp>
+#include <metal/list/size.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/invoke.hpp>
+#include <metal/number/number.hpp>
 
 #include <cstddef>
 
@@ -54,18 +55,16 @@ namespace metal
         template<typename list, typename lbd, typename t, t l, t r>
         struct reduce<list, lbd, number<t, l>, number<t, r>> :
             invoke<
-                lift_t<lbd>,
-                reduce<list, lbd, number<t, l>, number<t, (l + r)/2>>,
-                reduce<list, lbd, number<t, (l + r)/2>, number<t, r>>
+                invoke<_1, reduce<_2, _1, _3, _4>, reduce<_2, _1, _4, _5>>,
+                lbd, list, number<t, l>, number<t, (l + r)/2>, number<t, r>
             >
         {};
 
         template<typename list, typename lbd, typename t, t l>
         struct reduce<list, lbd, number<t, l>, number<t, l + 2>> :
             invoke<
-                lift_t<lbd>,
-                at<list, number<t, l>>,
-                at<list, number<t, l + 1>>
+                invoke<_1, at<_2, _3>, at<_2, _4>>,
+                lbd, list, number<t, l>, number<t, l + 1>
             >
         {};
 
@@ -77,9 +76,8 @@ namespace metal
         template<typename list, typename lbd, typename t, t l>
         struct reduce<list, lbd, number<t, l>, number<t, l - 2>> :
             invoke<
-                lift_t<lbd>,
-                at<list, number<t, l - 1>>,
-                at<list, number<t, l - 2>>
+                invoke<_1, at<_2, _3>, at<_2, _4>>,
+                lbd, list, number<t, l - 1>, number<t, l - 2>
             >
         {};
 

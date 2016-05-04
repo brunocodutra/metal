@@ -24,27 +24,23 @@ namespace metal
     using any_t = typename metal::any<list, lbd>::type;
 }
 
-#include <metal/number/logical/or.hpp>
+#include <metal/list/apply.hpp>
+#include <metal/list/transform.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lift.hpp>
+#include <metal/number/logical/or.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<typename list, typename lbd>
-        struct any
-        {};
-
-        template<
-            template<typename...> class expr, typename... vals,
-            typename lbd
-        >
-        struct any<expr<vals...>, lbd> :
-            invoke<lift_t<lambda<or_>>, invoke<lbd, vals>...>
+        struct any :
+            invoke<apply<_1, transform<_3, _2>>, lambda<or_>, list, lbd>
         {};
     }
 }
+
 
 #endif

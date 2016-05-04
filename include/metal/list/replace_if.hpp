@@ -24,32 +24,18 @@ namespace metal
     using replace_if_t = typename metal::replace_if<list, lbd, val>::type;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/list/copy.hpp>
-#include <metal/list/join.hpp>
-#include <metal/lambda/lift.hpp>
-#include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lambda.hpp>
+#include <metal/list/transform.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/lambda/quote.hpp>
-#include <metal/optional/cond.hpp>
+#include <metal/number/logical/if.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<typename list, typename lbd, typename val>
-        struct replace_if
-        {};
-
-        template<
-            template<typename...> class expr, typename... vals,
-            typename lbd, typename val
-        >
-        struct replace_if<expr<vals...>, lbd, val> :
-            invoke<
-                copy<quote_t<expr<vals...>>, lift_t<lambda<list>>>,
-                cond<invoke<lbd, vals>, just<val>, just<vals>>...
-            >
+        struct replace_if :
+            transform<if_<lbd, quote_t<val>, _1>, list>
         {};
     }
 }

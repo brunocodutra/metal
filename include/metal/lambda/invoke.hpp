@@ -25,7 +25,6 @@ namespace metal
 }
 
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/quote.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/list.hpp>
@@ -40,9 +39,6 @@ namespace metal
     namespace detail
     {
 #if defined(_MSC_VER)
-        template<typename, typename>
-        struct invoke_impl;
-
         nothing invoke_impl_(...);
 
         template<
