@@ -25,9 +25,9 @@ namespace metal
 }
 
 #include <metal/map/map.hpp>
-#include <metal/map/at_key.hpp>
+#include <metal/map/keys.hpp>
+#include <metal/list/contains.hpp>
 #include <metal/number/number.hpp>
-#include <metal/optional/optional.hpp>
 
 namespace metal
 {
@@ -39,7 +39,7 @@ namespace metal
 
         template<typename map, typename key>
         struct has_key_impl<map, key, is_map_t<map>> :
-            is_just<at_key<map, key>>
+            contains<keys_t<map>, key>
         {};
 
         template<typename map, typename key>
