@@ -33,8 +33,12 @@ namespace metal
     namespace detail
     {
         template<typename list>
-        struct flatten :
-            copy<list, flatten_t<metal::list<list>>>
+        struct flatten
+        {};
+
+        template<template<typename...> class expr, typename... vals>
+        struct flatten<expr<vals...>> :
+            copy<expr<vals...>, flatten_t<list<vals...>>>
         {};
 
         template<typename... vals>
