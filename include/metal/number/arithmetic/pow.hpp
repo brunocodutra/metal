@@ -62,18 +62,81 @@ namespace metal
 }
 
 #include <metal/number/number.hpp>
-#include <metal/optional/cond.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/list.hpp>
+#include <metal/list/fold.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename T>
-        constexpr T pow_impl(T base, T exp, T result = 1) {
-            return exp == 1 ?
-                base*result :
-                pow_impl(base*base, exp/2, exp%2 ? result*base : result);
-        }
+        template<typename base, typename exp, typename ret = integer<1>>
+        struct pow_impl
+        {};
+
+        template<
+            typename base, base b,
+            typename exp, exp e,
+            typename ret, ret r
+        >
+        struct pow_impl<number<base, b>, number<exp, e>, number<ret, r>> :
+            pow_impl<
+                number<decltype(b*b), b*b>,
+                number<decltype(e/2), e/2>,
+                number<decltype(b*e*r), (e%2 ? b*r : r)>
+            >
+        {};
+
+        template<
+            typename base, base b,
+            typename exp,
+            typename ret, ret r
+        >
+        struct pow_impl<
+            number<base, b>,
+            number<exp, static_cast<exp>(0)>,
+            number<ret, r>
+        > :
+            number<decltype(b*exp()), 1>
+        {};
+
+        template<
+            typename base, base b,
+            typename exp,
+            typename ret, ret r
+        >
+        struct pow_impl<
+            number<base, b>,
+            number<exp, static_cast<exp>(1)>,
+            number<ret, r>
+        > :
+            number<decltype(b*exp()), b*r>
+        {};
+
+        template<
+            typename base, base b,
+            typename exp,
+            typename ret, ret r
+        >
+        struct pow_impl<
+            number<base, b>,
+            number<exp, static_cast<exp>(-1)>,
+            number<ret, r>
+        > :
+            number<decltype(b*exp()), 1/(b*r)>
+        {};
+
+        template<
+            typename base,
+            typename exp,
+            typename ret, ret r
+        >
+        struct pow_impl<
+            number<base, static_cast<base>(0)>,
+            number<exp, static_cast<exp>(-1)>,
+            number<ret, r>
+        >
+        {};
 
         template<typename... nums>
         struct pow
@@ -84,49 +147,14 @@ namespace metal
             number<tx, vx>
         {};
 
+        template<typename tx, tx vx, typename ty, ty vy>
+        struct pow<number<tx, vx>, number<ty, vy>> :
+            pow_impl<number<tx, vx>, number<ty, vy>>
+        {};
+
         template<typename tx, tx vx, typename ty, ty vy, typename... nums>
         struct pow<number<tx, vx>, number<ty, vy>, nums...> :
-            cond<
-                boolean<(vy < 0)>,
-                pow<number<decltype(vx*vy), 0>, nums...>,
-                pow<
-                    number<decltype(vx*vy), pow_impl<decltype(vx*vy)>(vx, vy)>,
-                    nums...
-                >
-            >
-        {};
-
-        template<typename tx, typename ty, ty vy, typename... nums>
-        struct pow<number<tx, static_cast<tx>(0)>, number<ty, vy>, nums...> :
-            cond<boolean<(vy > 0)>, pow<number<decltype(tx()*vy), 0>, nums...>>
-        {};
-
-        template<typename tx, typename ty, ty vy, typename... nums>
-        struct pow<number<tx, static_cast<tx>(1)>, number<ty, vy>, nums...> :
-            pow<number<decltype(tx()*vy), 1>, nums...>
-        {};
-
-        template<typename tx, tx vx, typename ty, typename... nums>
-        struct pow<number<tx, vx>, number<ty, static_cast<ty>(0)>, nums...> :
-            pow<number<decltype(vx*ty()), 1>, nums...>
-        {};
-
-        template<typename tx, typename ty, typename... nums>
-        struct pow<
-            number<tx, static_cast<tx>(0)>,
-            number<ty, static_cast<ty>(0)>,
-            nums...
-        > :
-            pow<number<decltype(tx()*ty()), 1>, nums...>
-        {};
-
-        template<typename tx, typename ty, typename... nums>
-        struct pow<
-            number<tx, static_cast<tx>(1)>,
-            number<ty, static_cast<ty>(0)>,
-            nums...
-        > :
-            pow<number<decltype(tx()*ty()), 1>, nums...>
+            fold<list<number<ty, vy>, nums...>, number<tx, vx>, lambda<pow>>
         {};
     }
 }
