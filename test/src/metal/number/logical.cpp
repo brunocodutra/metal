@@ -8,18 +8,17 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_just_t<metal::if_<VAL(N), VAL(M), VAL(N)>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::if_<VAL(M), NUMS(INC(N))>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::not_<VAL(N)>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::and_<VALS(N)>>), (BOOL(!N))); \
     ASSERT((metal::is_just_t<metal::and_<NUMS(M) COMMA(AND(M, N)) VALS(N)>>), (BOOL(!N))); \
     ASSERT((metal::is_just_t<metal::or_<VALS(N)>>), (BOOL(!N))); \
     ASSERT((metal::is_just_t<metal::or_<NUMS(M) COMMA(AND(M, N)) VALS(N)>>), (BOOL(!N))); \
-    ASSERT((metal::is_just_t<metal::if_<NUM(N), VAL(M), VAL(N)>>), (TRUE)); \
+    ASSERT((metal::is_just_t<metal::if_<NUM(M), NUMS(INC(N))>>), (BOOL(M || N))); \
     ASSERT((metal::is_just_t<metal::not_<NUM(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::and_<NUMS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::or_<NUMS(N)>>), (TRUE)); \
-    ASSERT((metal::if_t<NUM(0), VAL(M), VAL(N)>), (VAL(N))); \
-    ASSERT((metal::if_t<NUM(INC(N)), VAL(M), VAL(N)>), (VAL(M))); \
+    ASSERT((metal::if_t<ENUM(M, NUM(0) BAR) COMMA(M) NUM(INC(N)), VAL(N)>), (VAL(N))); \
     ASSERT((metal::not_t<NUM(N)>), (BOOL(!N))); \
     ASSERT((metal::and_t<NUMS(N)>), (BOOL(!N))); \
     ASSERT((metal::and_t<ENUM(N, NUM(M) BAR)>), (BOOL(!N || M))); \
