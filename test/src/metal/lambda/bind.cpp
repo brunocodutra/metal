@@ -9,9 +9,6 @@
 
 #include "test.hpp"
 
-template<typename x>
-using unptr = typename std::remove_pointer<x>::type;
-
 #define MATRIX(M, N) \
     ASSERT((metal::is_just_t<metal::bind<VAL(M) COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::bind<NUM(M) COMMA(N) VALS(N)>>), (TRUE)); \
@@ -22,7 +19,6 @@ using unptr = typename std::remove_pointer<x>::type;
     ASSERT((metal::is_just_t<metal::bind<LBD(M) COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::bind<FUN() COMMA(N) VALS(N)>>), (TRUE)); \
     ASSERT((metal::is_just_t<metal::bind<FUN(M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<metal::lambda<unptr> COMMA(N) ARGS(N)>>), (TRUE)); \
     ASSERT((metal::invoke_t<metal::bind_t<VAL(M) COMMA(M) VALS(M)> COMMA(N) NUMS(N)>), (VAL(M))); \
     ASSERT((metal::invoke_t<metal::bind_t<NUM(M) COMMA(M) VALS(M)> COMMA(N) NUMS(N)>), (NUM(M))); \
     ASSERT((metal::invoke_t<metal::bind_t<LBD(M) COMMA(M) VALS(M)> COMMA(N) NUMS(N)>), (EXPR(M)<VALS(M)>::type)); \
@@ -37,7 +33,6 @@ using unptr = typename std::remove_pointer<x>::type;
     ASSERT((metal::invoke_t<metal::bind_t<FUN(M) COMMA(M) ENUM(M, ARG(N) BAR)>, NUMS(INC(N))>), (EXPR(M)<ENUM(M, NUM(N) BAR)>::type)); \
     ASSERT((metal::invoke_t<metal::bind_t<FUN(), LBD(N)> COMMA(N) NUMS(N)>), (EXPR()<EXPR(N)<NUMS(N)>::type>::type)); \
     ASSERT((metal::invoke_t<metal::bind_t<FUN(), FUN(N)> COMMA(N) NUMS(N)>), (EXPR()<EXPR(N)<NUMS(N)>::type>::type)); \
-    ASSERT((metal::invoke_t<metal::bind_t<metal::lambda<unptr>, ARG(N)> COMMA(N) VALS(N), NUM(M)*>), (NUM(M))); \
 /**/
 
 GEN(MATRIX)
