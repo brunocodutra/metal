@@ -6,7 +6,7 @@
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/optional/just.hpp>
 
 #include "test.hpp"
 

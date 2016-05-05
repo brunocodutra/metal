@@ -25,7 +25,7 @@ namespace metal
 }
 
 #include <metal/map/map.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/optional/just.hpp>
 #include <metal/number/logical/if.hpp>
 
 namespace metal

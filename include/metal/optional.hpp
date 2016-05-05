@@ -6,7 +6,7 @@
 #define METAL_OPTIONAL_HPP
 
 #include <metal/optional/eval.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/optional/just.hpp>
 
 /// \defgroup optional Optional
 /// \ingroup metal

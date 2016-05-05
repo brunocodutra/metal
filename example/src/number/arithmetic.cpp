@@ -3,7 +3,7 @@
 // (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 #include <metal/number/arithmetic.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/optional/just.hpp>
 
 #include "example.hpp"
 

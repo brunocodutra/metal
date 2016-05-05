@@ -4,7 +4,7 @@
 
 #include <metal/number/arithmetic.hpp>
 #include <metal/number/comparison/equal_to.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/optional/just.hpp>
 
 #include "test.hpp"
 

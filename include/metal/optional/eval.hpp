@@ -5,7 +5,7 @@
 #ifndef METAL_OPTIONAL_EVAL_HPP
 #define METAL_OPTIONAL_EVAL_HPP
 
-#include <metal/optional/optional.hpp>
+#include <metal/optional/just.hpp>
 #include <metal/number/logical/if.hpp>
 
 #include <metal/detail/nil.hpp>

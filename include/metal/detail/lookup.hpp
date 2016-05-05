@@ -5,7 +5,7 @@
 #ifndef METAL_DETAIL_LOOKUP_HPP
 #define METAL_DETAIL_LOOKUP_HPP
 
-#include <metal/optional/optional.hpp>
+#include <metal/optional/just.hpp>
 
 #include <metal/detail/declptr.hpp>
 

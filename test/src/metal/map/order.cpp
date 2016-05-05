@@ -4,7 +4,7 @@
 
 #include <metal/map/order.hpp>
 #include <metal/lambda/arg.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/optional/just.hpp>
 
 #include "test.hpp"
 

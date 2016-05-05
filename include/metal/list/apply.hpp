@@ -26,7 +26,6 @@ namespace metal
 
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/optional/optional.hpp>
 
 namespace metal
 {
@@ -42,11 +41,6 @@ namespace metal
         >
         struct apply<lbd, expr<vals...>> :
             invoke<lbd, vals...>
-        {};
-
-        template<template<typename...> class expr, typename... vals>
-        struct apply<lambda<expr>, expr<vals...>> :
-            optional<expr<vals...>>
         {};
     }
 }

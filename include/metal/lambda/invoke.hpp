@@ -29,7 +29,7 @@ namespace metal
 #include <metal/list/at.hpp>
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/optional/just.hpp>
 
 #include <metal/detail/declptr.hpp>
 #include <metal/detail/void.hpp>
@@ -43,9 +43,9 @@ namespace metal
 
         template<
             template<typename...> class expr, typename... args,
-            typename ret = expr<typename args::type...>
+            typename ret = typename expr<typename args::type...>::type
         >
-        optional<ret> invoke_impl_(lambda<expr>*, list<args...>*);
+        just<ret> invoke_impl_(lambda<expr>*, list<args...>*);
 
         template<typename lbd, typename args>
         struct invoke_impl :
@@ -58,9 +58,9 @@ namespace metal
 
         template<template<typename...> class expr, typename... args>
         struct invoke_impl<lambda<expr>, list<args...>,
-            void_t<expr<typename args::type...>>
+            void_t<typename expr<typename args::type...>::type>
         > :
-            optional<expr<typename args::type...>>
+            just<typename expr<typename args::type...>::type>
         {};
 #endif
 

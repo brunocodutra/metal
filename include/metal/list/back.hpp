@@ -25,7 +25,7 @@ namespace metal
 }
 
 #include <metal/list/at.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/optional/just.hpp>
 
 #include <metal/detail/declptr.hpp>
 #include <metal/detail/void.hpp>
