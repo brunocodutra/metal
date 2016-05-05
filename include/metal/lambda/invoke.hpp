@@ -25,9 +25,9 @@ namespace metal
 }
 
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/lift.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/lambda/lambda.hpp>
+#include <metal/lambda/defer.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
@@ -47,32 +47,14 @@ namespace metal
         nothing invoke_impl_(...);
 
         template<
-            typename lbd, typename... args,
-            typename ret = invoke_impl<lifted<lbd>, list<typename args::type...>>
-        >
-        ret invoke_impl_(lifted<lifted<lbd>>*, list<args...>*);
-
-        template<
             template<typename...> class expr, typename... args,
             typename ret = expr<typename args::type...>
-        >
-        optional<ret> invoke_impl_(lifted<lambda<expr>>*, list<args...>*);
-
-        template<
-            template<typename...> class expr, typename... args,
-            typename ret = expr<args...>
         >
         optional<ret> invoke_impl_(lambda<expr>*, list<args...>*);
 
         template<
             template<typename...> class expr, typename... args,
             typename ret = expr<typename args::type...>
-        >
-        just<ret> invoke_impl_(lifted<deferred<expr>>*, list<args...>*);
-
-        template<
-            template<typename...> class expr, typename... args,
-            typename ret = expr<args...>
         >
         just<ret> invoke_impl_(deferred<expr>*, list<args...>*);
 
@@ -85,41 +67,19 @@ namespace metal
         struct invoke_impl
         {};
 
-        template<typename lbd, typename... args>
-        struct invoke_impl<lifted<lifted<lbd>>, list<args...>,
-            void_t<list<typename args::type...>>
-        > :
-            invoke_impl<lifted<lbd>, list<typename args::type...>>
-        {};
-
         template<template<typename...> class expr, typename... args>
-        struct invoke_impl<lifted<lambda<expr>>, list<args...>,
+        struct invoke_impl<lambda<expr>, list<args...>,
             void_t<expr<typename args::type...>>
         > :
             optional<expr<typename args::type...>>
         {};
 
         template<template<typename...> class expr, typename... args>
-        struct invoke_impl<lambda<expr>, list<args...>,
-            void_t<expr<args...>>
-        > :
-            optional<expr<args...>>
-        {};
-
-        template<template<typename...> class expr, typename... args>
-        struct invoke_impl<lifted<deferred<expr>>, list<args...>,
+        struct invoke_impl<deferred<expr>, list<args...>,
             void_t<expr<typename args::type...>>
         >
         {
             using type = expr<typename args::type...>;
-        };
-
-        template<template<typename...> class expr, typename... args>
-        struct invoke_impl<deferred<expr>, list<args...>,
-            void_t<expr<args...>>
-        >
-        {
-            using type = expr<args...>;
         };
 #endif
 
@@ -129,19 +89,14 @@ namespace metal
             using type = val;
         };
 
-        template<typename lbd, typename... args>
-        struct invoke<lifted<lbd>, args...> :
-            invoke_impl<lifted<lbd>, list<args...>>
-        {};
-
         template<template<typename...> class expr, typename... args>
         struct invoke<lambda<expr>, args...> :
-            invoke_impl<lambda<expr>, list<args...>>
+            invoke_impl<lambda<expr>, list<just<args>...>>
         {};
 
         template<template<typename...> class expr, typename... args>
         struct invoke<deferred<expr>, args...> :
-            invoke_impl<deferred<expr>, list<args...>>
+            invoke_impl<deferred<expr>, list<just<args>...>>
         {};
 
         template<
@@ -150,7 +105,7 @@ namespace metal
             typename... args
         >
         struct invoke<expr<params...>, args...> :
-            invoke_impl<lifted<lambda<expr>>, list<invoke<params, args...>...>>
+            invoke_impl<lambda<expr>, list<invoke<params, args...>...>>
         {};
 
         template<std::size_t n, typename... args>

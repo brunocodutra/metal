@@ -36,7 +36,7 @@ namespace test
 }
 
 #define NA(...) test::na
-#define PARAMS(N) ARGS(N) COMMA(AND(N, CMPL(N))) ENUM(CMPL(N), LIFT(NA))
+#define PARAMS(N) ARGS(N) COMMA(AND(N, CMPL(N))) ENUM(CMPL(N), ADAPT(NA))
 #define EXPR(...) CAT(test::expr, __VA_ARGS__)
 
 #endif

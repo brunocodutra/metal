@@ -28,7 +28,6 @@ namespace metal
 }
 
 #include <metal/lambda/bind.hpp>
-#include <metal/lambda/lift.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
@@ -46,11 +45,6 @@ namespace metal
         template<typename lbd>
         struct defer :
             quote<lbd>
-        {};
-
-        template<typename lbd>
-        struct defer<lifted<lbd>> :
-            lifted<defer_t<lbd>>
         {};
 
         template<template<typename...> class expr>

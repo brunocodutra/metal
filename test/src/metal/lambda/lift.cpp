@@ -9,27 +9,24 @@
 
 #include "test.hpp"
 
-#define LIFT_T_(_, ...) metal::lift_t<__VA_ARGS__>
-#define LIFT_T(N, ...) RECURSE(N, LIFT_T_, __VA_ARGS__)
+#define LIFT_(_, ...) metal::lift_t<__VA_ARGS__>
+#define LIFT(N, ...) RECURSE(N, LIFT_, __VA_ARGS__)
 
-#define QUOTE_T_(_, ...) metal::quote_t<__VA_ARGS__>
-#define QUOTE_T(N, ...) RECURSE(N, QUOTE_T_, __VA_ARGS__)
+#define QUOTE_(_, ...) metal::quote_t<__VA_ARGS__>
+#define QUOTE(N, ...) RECURSE(N, QUOTE_, __VA_ARGS__)
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_just_t<metal::invoke<LIFT_T(M, VAL(N)), QUOTE_T(N, VAL(N))>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::invoke<LIFT_T(M, NUM(N)), QUOTE_T(N, VAL(N))>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::invoke<LIFT_T(M, PAIR(N)), QUOTE_T(N, VAL(N))>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::invoke<LIFT_T(M, LIST(N)), QUOTE_T(N, VAL(N))>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::invoke<LIFT_T(M, MAP(N)), QUOTE_T(N, VAL(N))>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::invoke<LIFT_T(M, ARG(N)), ENUM(LIMIT, QUOTE_T(N, VAL(N)) BAR)>>), (BOOL(M <= N))); \
-    ASSERT((metal::is_just_t<metal::invoke<LIFT_T(M, LBD(N)) COMMA(N) ENUM(N, QUOTE_T(N, VAL(N)) BAR) COMMA(CMPL(N)) VALS(CMPL(N))>>), (BOOL(!N || M <= N))); \
-    ASSERT((metal::is_just_t<metal::invoke<LIFT_T(M, FUN(INC(N))), ENUM(INC(N), QUOTE_T(N, VAL(N)) BAR)>>), (BOOL(M <= N))); \
-    ASSERT((metal::is_just_t<metal::invoke<LIFT_T(M, metal::lambda<SEQ(INC(N))>), ENUM(INC(N), QUOTE_T(N, VAL(N)) BAR)>>), (FALSE)); \
-    ASSERT((metal::invoke_t<LIFT_T(M, VAL(N)), QUOTE_T(N, VAL(N))>), (VAL(N))); \
-    ASSERT((metal::invoke_t<LIFT_T(M, NUM(N)), QUOTE_T(N, VAL(N))>), (NUM(N))); \
-    ASSERT((metal::invoke_t<LIFT_T(M, ARG(N)) COMMA(N) ENUM(N, LIFT(VAL)), QUOTE_T(M, VAL(N)) COMMA(CMPL(N)) VALS(CMPL(N))>), (VAL(N))); \
-    ASSERT((metal::invoke_t<LIFT_T(M, LBD(N)) COMMA(N) ENUM(N, QUOTE_T(M, VAL(N)) BAR) COMMA(CMPL(N)) VALS(CMPL(N))>), (EXPR(N)<ENUM(N, VAL(N) BAR)>::type)); \
-    ASSERT((metal::invoke_t<LIFT_T(M, FUN(INC(N))), ENUM(INC(N), QUOTE_T(M, VAL(N)) BAR)>), (EXPR(INC(N))<ENUM(INC(N), VAL(N) BAR)>::type)); \
+    ASSERT((metal::is_just_t<metal::invoke<LIFT(M, VAL(N)), QUOTE(N, VAL(N))>>), (BOOL(M <= N))); \
+    ASSERT((metal::is_just_t<metal::invoke<LIFT(M, NUM(N)), QUOTE(N, VAL(N))>>), (BOOL(M <= N))); \
+    ASSERT((metal::is_just_t<metal::invoke<LIFT(M, PAIR(N)), QUOTE(N, VAL(N))>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::invoke<LIFT(M, LIST(N)), QUOTE(N, VAL(N))>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::invoke<LIFT(M, MAP(N)), QUOTE(N, VAL(N))>>), (FALSE)); \
+    ASSERT((metal::is_just_t<metal::invoke<LIFT(M, LBD(N)) COMMA(N) ENUM(N, QUOTE(N, VAL(N)) BAR)>>), (BOOL(!N || M <= N))); \
+    ASSERT((metal::is_just_t<metal::invoke<LIFT(M, FUN(N)) COMMA(N) ENUM(N, QUOTE(N, VAL(N)) BAR)>>), (BOOL(!N || M <= N))); \
+    ASSERT((metal::invoke_t<LIFT(M, VAL(N)), QUOTE(M, VAL(N))>), (VAL(N))); \
+    ASSERT((metal::invoke_t<LIFT(M, NUM(N)), QUOTE(M, VAL(N))>), (NUM(N))); \
+    ASSERT((metal::invoke_t<LIFT(M, LBD(N)) COMMA(N) ENUM(N, QUOTE(M, VAL(N)) BAR)>), (EXPR(N)<ENUM(N, VAL(N) BAR)>::type)); \
+    ASSERT((metal::invoke_t<LIFT(M, FUN(INC(N))), ENUM(INC(N), QUOTE(M, VAL(N)) BAR)>), (EXPR(INC(N))<ENUM(INC(N), VAL(N) BAR)>::type)); \
 /**/
 
 GEN(MATRIX)

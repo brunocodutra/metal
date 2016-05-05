@@ -55,13 +55,10 @@ namespace metal
             invoke_t<lbd, xh, yh>
         > :
             invoke<
-                join<
-                    _1, first<lift_t<_4>>, _2,
-                    merge_impl<_3, second<lift_t<_4>>, _5>
-                >,
+                lift_t<join<_1, first<_4>, _2, merge<_3, second<_4>, _5>>>,
                 list<xh>,
                 list<yh>,
-                lbd,
+                just<lbd>,
                 partition<list<xt...>, bind_t<lbd, _1, yh>>,
                 list<yt...>
             >
@@ -76,13 +73,10 @@ namespace metal
             not_t<invoke_t<lbd, xh, yh>>
         > :
             invoke<
-                join<
-                    _1, first<lift_t<_5>>, _2,
-                    merge_impl<_3, _4, second<lift_t<_5>>>
-                >,
+                lift_t<join<_1, first<_5>, _2, merge<_3, _4, second<_5>>>>,
                 list<yh>,
                 list<xh>,
-                lbd,
+                just<lbd>,
                 list<xt...>,
                 partition<list<yt...>, bind_t<lbd, _1, xh>>
             >

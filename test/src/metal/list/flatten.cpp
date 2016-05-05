@@ -26,7 +26,7 @@
     ASSERT((metal::flatten_t<LIST(M)>), (LIST(M))); \
     ASSERT((metal::flatten_t<LBD(M)>), (LBD(M))); \
     ASSERT((metal::flatten_t<SEQ()<FUN(M)>>), (SEQ()<FUN(M)>)); \
-    ASSERT((metal::flatten_t<SEQ()<MAP(M)>>), (SEQ()<ENUM(M, LIFT(NUM), LIFT(VAL))>)); \
+    ASSERT((metal::flatten_t<SEQ()<MAP(M)>>), (SEQ()<ENUM(M, ADAPT(NUM), ADAPT(VAL))>)); \
     ASSERT((metal::flatten_t<CAT(CAT(tree, N), M)>), (CAT(CAT(trunk, N), M))); \
 /**/
 

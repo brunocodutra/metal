@@ -19,7 +19,7 @@
     ASSERT((metal::is_just_t<metal::join<ARGS(M)>>), (FALSE)); \
     ASSERT((metal::is_just_t<metal::join<LBD(M) COMMA(N) LBDS(N)>>), (BOOL(!N))); \
     ASSERT((metal::is_just_t<metal::join<FUNS(M)>>), (FALSE)); \
-    ASSERT((metal::join_t<VEC(INC(M)) COMMA(N) VECS(N)>), (SEQ()<VALS(INC(M)) ENUM(N, LIFT(VALS))>)); \
+    ASSERT((metal::join_t<VEC(INC(M)) COMMA(N) VECS(N)>), (SEQ()<VALS(INC(M)) ENUM(N, ADAPT(VALS))>)); \
 /**/
 
 GEN(MATRIX)

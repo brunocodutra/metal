@@ -9,12 +9,12 @@
 #include "test/preprocessor.hpp"
 
 #define ARG(N) metal::arg<INC(N)>
-#define ARGS(N) ENUM(N, LIFT(ARG))
+#define ARGS(N) ENUM(N, ADAPT(ARG))
 
 #define LBD(N) EXPR(N)<ARGS(N)>
-#define LBDS(N) ENUM(N, LIFT(LBD))
+#define LBDS(N) ENUM(N, ADAPT(LBD))
 
 #define FUN(...) metal::lambda<EXPR(__VA_ARGS__)>
-#define FUNS(N) ENUM(N, LIFT(FUN))
+#define FUNS(N) ENUM(N, ADAPT(FUN))
 
 #endif

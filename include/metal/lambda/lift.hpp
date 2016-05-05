@@ -10,12 +10,6 @@ namespace metal
     namespace detail
     {
         template<typename lbd>
-        struct lifted
-        {
-            using type = lifted;
-        };
-
-        template<typename lbd>
         struct lift;
     }
 
@@ -30,46 +24,20 @@ namespace metal
     using lift_t = typename metal::lift<lbd>::type;
 }
 
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/defer.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/lambda/invoke.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename val>
+        template<typename lbd>
         struct lift
         {
-            using type = val;
-        };
+            template<typename... args>
+            using _ = invoke<lbd, typename args::type...>;
 
-        template<typename lbd>
-        struct lift<lifted<lbd>> :
-            lifted<lifted<lbd>>
-        {};
-
-        template<template<typename...> class expr>
-        struct lift<lambda<expr>> :
-            lifted<lambda<expr>>
-        {};
-
-        template<template<typename...> class expr>
-        struct lift<deferred<expr>> :
-            lifted<deferred<expr>>
-        {};
-
-        template<template<typename...> class expr, typename... params>
-        struct lift<expr<params...>>
-        {
-            using type = expr<lift_t<params>...>;
-        };
-
-        template<std::size_t n>
-        struct lift<arg<n>>
-        {
-            using type = optional<arg<n>>;
+            using type = lambda<_>;
         };
     }
 }

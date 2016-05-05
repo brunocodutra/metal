@@ -116,18 +116,18 @@
 #define BAR_9
 #define BAR BAR_
 
-#define LIFT_0  (0)
-#define LIFT_1  (1)
-#define LIFT_2  (2)
-#define LIFT_3  (3)
-#define LIFT_4  (4)
-#define LIFT_5  (5)
-#define LIFT_6  (6)
-#define LIFT_7  (7)
-#define LIFT_8  (8)
-#define LIFT_9  (9)
-#define LIFT_10 (10)
-#define LIFT(M) M LIFT_
+#define ADAPT_0  (0)
+#define ADAPT_1  (1)
+#define ADAPT_2  (2)
+#define ADAPT_3  (3)
+#define ADAPT_4  (4)
+#define ADAPT_5  (5)
+#define ADAPT_6  (6)
+#define ADAPT_7  (7)
+#define ADAPT_8  (8)
+#define ADAPT_9  (9)
+#define ADAPT_10 (10)
+#define ADAPT(M) M ADAPT_
 
 #define ENUM_1(N, _0) COMMA(N) _0##N
 #define ENUM_2(N, _0, _1) COMMA(N) _0##N, _1##N

@@ -33,16 +33,16 @@ namespace test
 #define SEQ(...) CAT(test::seq, __VA_ARGS__)
 
 #define VEC(N) SEQ()<VALS(N)>
-#define VECS(N) ENUM(N, LIFT(VEC))
+#define VECS(N) ENUM(N, ADAPT(VEC))
 
 #define PAIR(N) SEQ(2)<NUM(N), VAL(N)>
-#define PAIRS(N) ENUM(N, LIFT(PAIR))
+#define PAIRS(N) ENUM(N, ADAPT(PAIR))
 
 #define LIST(N) SEQ(N)<VALS(N)>
-#define LISTS(N) ENUM(N, LIFT(LIST))
+#define LISTS(N) ENUM(N, ADAPT(LIST))
 
 #define MAP(N) SEQ(N)<PAIRS(N)>
-#define MAPS(N) ENUM(N, LIFT(MAP))
+#define MAPS(N) ENUM(N, ADAPT(MAP))
 
 #endif
 
