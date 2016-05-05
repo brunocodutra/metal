@@ -5,8 +5,8 @@
 #ifndef METAL_OPTIONAL_EVAL_HPP
 #define METAL_OPTIONAL_EVAL_HPP
 
-#include <metal/optional/cond.hpp>
 #include <metal/optional/optional.hpp>
+#include <metal/number/logical/if.hpp>
 
 #include <metal/detail/nil.hpp>
 
@@ -53,9 +53,9 @@ namespace metal
     /// --------
     /// \see cond, just, is_just
     template<typename opt, typename fallback = detail::nil>
-    using eval = metal::cond_t<
-        metal::is_just<opt>, opt, metal::just<fallback>
-    >;
+    using eval = typename metal::if_t<
+        metal::is_just_t<opt>, opt, metal::just<fallback>
+    >::type;
 }
 
 #endif

@@ -83,29 +83,29 @@ static_assert(std::is_same<
 ///[to_number]
 template<typename c>
 struct to_number :
-    metal::cond<
-        metal::equal_to<c, metal::character<'0'>>, metal::number<long long, 0>,
-        metal::equal_to<c, metal::character<'1'>>, metal::number<long long, 1>,
-        metal::equal_to<c, metal::character<'2'>>, metal::number<long long, 2>,
-        metal::equal_to<c, metal::character<'3'>>, metal::number<long long, 3>,
-        metal::equal_to<c, metal::character<'4'>>, metal::number<long long, 4>,
-        metal::equal_to<c, metal::character<'5'>>, metal::number<long long, 5>,
-        metal::equal_to<c, metal::character<'6'>>, metal::number<long long, 6>,
-        metal::equal_to<c, metal::character<'7'>>, metal::number<long long, 7>,
-        metal::equal_to<c, metal::character<'8'>>, metal::number<long long, 8>,
-        metal::equal_to<c, metal::character<'9'>>, metal::number<long long, 9>,
-        metal::equal_to<c, metal::character<'a'>>, metal::number<long long, 10>,
-        metal::equal_to<c, metal::character<'b'>>, metal::number<long long, 11>,
-        metal::equal_to<c, metal::character<'c'>>, metal::number<long long, 12>,
-        metal::equal_to<c, metal::character<'d'>>, metal::number<long long, 13>,
-        metal::equal_to<c, metal::character<'e'>>, metal::number<long long, 14>,
-        metal::equal_to<c, metal::character<'f'>>, metal::number<long long, 15>,
-        metal::equal_to<c, metal::character<'A'>>, metal::number<long long, 10>,
-        metal::equal_to<c, metal::character<'B'>>, metal::number<long long, 11>,
-        metal::equal_to<c, metal::character<'C'>>, metal::number<long long, 12>,
-        metal::equal_to<c, metal::character<'D'>>, metal::number<long long, 13>,
-        metal::equal_to<c, metal::character<'E'>>, metal::number<long long, 14>,
-        metal::equal_to<c, metal::character<'F'>>, metal::number<long long, 15>
+    metal::if_t<
+        metal::equal_to_t<c, metal::character<'0'>>, metal::number<long long, 0>,
+        metal::equal_to_t<c, metal::character<'1'>>, metal::number<long long, 1>,
+        metal::equal_to_t<c, metal::character<'2'>>, metal::number<long long, 2>,
+        metal::equal_to_t<c, metal::character<'3'>>, metal::number<long long, 3>,
+        metal::equal_to_t<c, metal::character<'4'>>, metal::number<long long, 4>,
+        metal::equal_to_t<c, metal::character<'5'>>, metal::number<long long, 5>,
+        metal::equal_to_t<c, metal::character<'6'>>, metal::number<long long, 6>,
+        metal::equal_to_t<c, metal::character<'7'>>, metal::number<long long, 7>,
+        metal::equal_to_t<c, metal::character<'8'>>, metal::number<long long, 8>,
+        metal::equal_to_t<c, metal::character<'9'>>, metal::number<long long, 9>,
+        metal::equal_to_t<c, metal::character<'a'>>, metal::number<long long, 10>,
+        metal::equal_to_t<c, metal::character<'b'>>, metal::number<long long, 11>,
+        metal::equal_to_t<c, metal::character<'c'>>, metal::number<long long, 12>,
+        metal::equal_to_t<c, metal::character<'d'>>, metal::number<long long, 13>,
+        metal::equal_to_t<c, metal::character<'e'>>, metal::number<long long, 14>,
+        metal::equal_to_t<c, metal::character<'f'>>, metal::number<long long, 15>,
+        metal::equal_to_t<c, metal::character<'A'>>, metal::number<long long, 10>,
+        metal::equal_to_t<c, metal::character<'B'>>, metal::number<long long, 11>,
+        metal::equal_to_t<c, metal::character<'C'>>, metal::number<long long, 12>,
+        metal::equal_to_t<c, metal::character<'D'>>, metal::number<long long, 13>,
+        metal::equal_to_t<c, metal::character<'E'>>, metal::number<long long, 14>,
+        metal::equal_to_t<c, metal::character<'F'>>, metal::number<long long, 15>
     >
 {};
 ///[to_number]
