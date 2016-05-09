@@ -1,6 +1,6 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_JOIN_HPP
 #define METAL_LIST_JOIN_HPP
@@ -9,86 +9,71 @@ namespace metal
 {
     namespace detail
     {
-        template<typename... lists>
-        struct join;
+        template<typename head, typename... tail>
+        struct _join;
     }
 
     /// \ingroup list
     /// ...
-    template<typename... lists>
-    using join = detail::join<lists...>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::join.
-    template<typename... lists>
-    using join_t = typename metal::join<lists...>::type;
+    template<typename head, typename... tail>
+    using join = typename detail::_join<head, tail...>::type;
 }
 
-#include <metal/list/reduce.hpp>
-#include <metal/list/copy.hpp>
 #include <metal/list/list.hpp>
+#include <metal/lambda/invoke.hpp>
+#include <metal/list/reduce.hpp>
 #include <metal/lambda/lambda.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename... lists>
-        struct join
+        template<typename head, typename... tail>
+        struct _join
         {};
 
         template<
-            template<typename...> class expr,
+            template<typename...> class seq,
             typename... ws, typename... xs, typename... ys, typename... zs,
             typename... _
         >
-        struct join<expr<ws...>, expr<xs...>, expr<ys...>, expr<zs...>, _...> :
-            reduce<
-                list<expr<ws...>, expr<xs...>, expr<ys...>, expr<zs...>, _...>,
-                lambda<join>
+        struct _join<seq<ws...>, seq<xs...>, seq<ys...>, seq<zs...>, _...> :
+            _reduce<
+                list<seq<ws...>, seq<xs...>, seq<ys...>, seq<zs...>, _...>,
+                lambda<join>,
+                size_t<0>, size_t<sizeof...(_) + 4>
             >
         {};
 
         template<
-            template<typename...> class expr,
+            template<typename...> class seq,
             typename... ws, typename... xs, typename... ys, typename... zs
         >
-        struct join<expr<ws...>, expr<xs...>, expr<ys...>, expr<zs...>> :
-            copy<expr<ws...>, list<ws..., xs..., ys..., zs...>>
+        struct _join<seq<ws...>, seq<xs...>, seq<ys...>, seq<zs...>> :
+            _invoke<lambda<seq>, ws..., xs..., ys..., zs...>
         {};
 
         template<
-            template<typename...> class expr,
+            template<typename...> class seq,
             typename... ws, typename... xs, typename... ys
         >
-        struct join<expr<ws...>, expr<xs...>, expr<ys...>> :
-            copy<expr<ws...>, list<ws..., xs..., ys...>>
+        struct _join<seq<ws...>, seq<xs...>, seq<ys...>> :
+            _invoke<lambda<seq>, ws..., xs..., ys...>
         {};
 
         template<
-            template<typename...> class expr,
+            template<typename...> class seq,
             typename... ws, typename... xs
         >
-        struct join<expr<ws...>, expr<xs...>> :
-            copy<expr<ws...>, list<ws..., xs...>>
+        struct _join<seq<ws...>, seq<xs...>> :
+            _invoke<lambda<seq>, ws..., xs...>
         {};
 
-        template<template<typename...> class expr, typename... ws>
-        struct join<expr<ws...>>
+        template<template<typename...> class seq, typename... ws>
+        struct _join<seq<ws...>>
         {
-            using type = expr<ws...>;
+            using type = seq<ws...>;
         };
-
-        template<
-            typename... xs, typename... ys, typename... zs,
-            typename a, typename b, typename... _
-        >
-        struct join<
-            list<xs...>, list<ys...>, list<zs...>,
-            list<a>, list<b>, list<_>...
-        > :
-            list<xs..., ys..., zs..., a, b, _...>
-        {};
     }
 }
 

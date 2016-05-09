@@ -1,29 +1,26 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_TEST_EXPRESSIONS_HPP
 #define METAL_TEST_EXPRESSIONS_HPP
 
+#include "test/values.hpp"
 #include "test/preprocessor.hpp"
 
 #include <type_traits>
 
 namespace test
 {
-    enum na {};
-
     template<EVAL(ENUM, LIMIT, typename = na BAR)>
-    class expr
-    {
-    public:
-        using type = expr*;
-    };
+    union expr;
 
     template<typename... _>
-    using expr0 = std::enable_if_t<sizeof...(_) == 0, expr<_...>>;
+    using expr0 = typename std::enable_if<sizeof...(_) == 0, expr<_...>>::type;
 
-    template<EVAL(ENUM,  1, typename _)> using expr1  = expr<EVAL(ENUM,  1, _)>;
+    template<typename... _>
+    using expr1 = typename std::enable_if<sizeof...(_) == 1, expr<_...>>::type;
+
     template<EVAL(ENUM,  2, typename _)> using expr2  = expr<EVAL(ENUM,  2, _)>;
     template<EVAL(ENUM,  3, typename _)> using expr3  = expr<EVAL(ENUM,  3, _)>;
     template<EVAL(ENUM,  4, typename _)> using expr4  = expr<EVAL(ENUM,  4, _)>;
@@ -35,8 +32,6 @@ namespace test
     template<EVAL(ENUM, 10, typename _)> using expr10 = expr<EVAL(ENUM, 10, _)>;
 }
 
-#define NA(...) test::na
-#define PARAMS(N) ARGS(N) COMMA(AND(N, CMPL(N))) ENUM(CMPL(N), ADAPT(NA))
 #define EXPR(...) CAT(test::expr, __VA_ARGS__)
 
 #endif

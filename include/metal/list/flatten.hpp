@@ -1,6 +1,6 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_FLATTEN_HPP
 #define METAL_LIST_FLATTEN_HPP
@@ -9,57 +9,55 @@ namespace metal
 {
     namespace detail
     {
-        template<typename list>
-        struct flatten;
+        template<typename seq>
+        struct _flatten;
     }
 
     /// \ingroup list
     /// ...
-    template<typename list>
-    using flatten = detail::flatten<list>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::flatten.
-    template<typename list>
-    using flatten_t = typename metal::flatten<list>::type;
+    template<typename seq>
+    using flatten = typename detail::_flatten<seq>::type;
 }
 
 #include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
-#include <metal/list/copy.hpp>
+#include <metal/lambda/apply.hpp>
+#include <metal/lambda/lambda.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename list>
-        struct flatten
+        template<typename seq>
+        struct _flatten
         {};
 
-        template<template<typename...> class expr, typename... vals>
-        struct flatten<expr<vals...>> :
-            copy<expr<vals...>, flatten_t<list<vals...>>>
+        template<template<typename...> class seq, typename... vals>
+        struct _flatten<seq<vals...>> :
+            _apply<lambda<seq>, flatten<list<vals...>>>
         {};
 
         template<typename... vals>
-        struct flatten<list<vals...>> :
-            join<flatten_t<list<vals>>...>
+        struct _flatten<list<vals...>> :
+            _join<flatten<list<vals>>...>
         {};
 
         template<template<typename...> class inner, typename... vals>
-        struct flatten<list<inner<vals...>>> :
-            flatten<list<vals...>>
+        struct _flatten<list<inner<vals...>>> :
+            _flatten<list<vals...>>
         {};
 
         template<typename val>
-        struct flatten<list<val>> :
-            list<val>
-        {};
+        struct _flatten<list<val>>
+        {
+            using type = list<val>;
+        };
 
         template<>
-        struct flatten<list<>> :
-            list<>
-        {};
+        struct _flatten<list<>>
+        {
+            using type = list<>;
+        };
     }
 }
 

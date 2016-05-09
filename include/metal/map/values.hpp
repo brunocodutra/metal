@@ -1,58 +1,44 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_MAP_VALUES_HPP
 #define METAL_MAP_VALUES_HPP
 
+#include <metal/map/map.hpp>
+#include <metal/number/if.hpp>
+
 namespace metal
 {
     namespace detail
     {
-        template<typename map>
-        struct values;
+        template<typename seq>
+        struct _values;
     }
 
     /// \ingroup map
     /// ...
-    template<typename map>
-    using values = detail::values<map>;
+    template<typename seq>
+    using values = typename if_<is_map<seq>, detail::_values<seq>>::type;
 
-    /// \ingroup map
-    /// Eager adaptor for metal::values.
-    template<typename map>
-    using values_t = typename metal::values<map>::type;
-}
-
-#include <metal/map/map.hpp>
-#include <metal/optional/just.hpp>
-#include <metal/number/logical/if.hpp>
-
-namespace metal
-{
     namespace detail
     {
-        template<typename map>
-        struct values_impl
+        template<typename seq>
+        struct _values
         {
-            using type = map;
+            using type = seq;
         };
 
         template<
-            template<typename...> class map,
+            template<typename...> class seq,
             template<typename...> class... pairs,
             typename... ks,
             typename... vs
         >
-        struct values_impl<map<pairs<ks, vs>...>>
+        struct _values<seq<pairs<ks, vs>...>>
         {
-            using type = map<vs...>;
+            using type = seq<vs...>;
         };
-
-        template<typename map>
-        struct values :
-            if_t<is_map_t<map>, values_impl<map>, nothing>
-        {};
     }
 }
 

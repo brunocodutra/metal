@@ -1,6 +1,6 @@
 # Copyright Bruno Dutra 2015-2016
 # Distributed under the Boost Software License, Version 1.0.
-# (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+# See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 os: linux
 sudo: false
@@ -66,15 +66,6 @@ matrix:
                 packages:
                   - *base_packages
                   - libstdc++-4.8-dev
-                sources: *base_sources
-
-      - compiler: g++
-        env: CXX_VERSION=4.9
-        addons:
-            apt:
-                packages:
-                  - *base_packages
-                  - g++-4.9
                 sources: *base_sources
 
       - compiler: g++

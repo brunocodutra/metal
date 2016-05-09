@@ -1,13 +1,13 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_TEST_SEQUENCES_HPP
 #define METAL_TEST_SEQUENCES_HPP
 
+#include "test/values.hpp"
 #include "test/numbers.hpp"
 #include "test/preprocessor.hpp"
-#include "test/values.hpp"
 
 #include <type_traits>
 
@@ -16,7 +16,7 @@ namespace test
     template<typename...> class seq;
 
     template<typename... _>
-    using seq0 = std::enable_if_t<sizeof...(_) == 0, seq<_...>>;
+    using seq0 = typename std::enable_if<sizeof...(_) == 0, seq<_...>>::type;
 
     template<EVAL(ENUM,  1, typename BAR)> union  seq1;
     template<EVAL(ENUM,  2, typename BAR)> union  seq2;

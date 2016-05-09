@@ -1,18 +1,17 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_PAIR_FIRST_HPP
 #define METAL_PAIR_FIRST_HPP
 
+#include <metal/pair/pair.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/apply.hpp>
+#include <metal/number/if.hpp>
+
 namespace metal
 {
-    namespace detail
-    {
-        template<typename pair>
-        struct first;
-    }
-
     /// \ingroup pair
     /// Returns the first element of a \pair.
     ///
@@ -28,7 +27,7 @@ namespace metal
     ///     \code
     ///         template<>
     ///         struct first<val> :
-    ///             at<val, integer<0>>
+    ///             at<val, size_t<0>>
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to `metal::nothing`
@@ -40,38 +39,8 @@ namespace metal
     /// See Also
     /// --------
     /// \see pair, second, at
-    template<typename pair>
-    using first = detail::first<pair>;
-
-    /// \ingroup pair
-    /// Eager adaptor for metal::first.
-    template<typename pair>
-    using first_t = typename metal::first<pair>::type;
+    template<typename seq>
+    using first = if_<is_pair<seq>, apply<_1, seq>>;
 }
-
-#include <metal/pair/pair.hpp>
-#include <metal/number/number.hpp>
-
-namespace metal
-{
-    namespace detail
-    {
-        template<typename pair, typename = boolean<true>>
-        struct first_impl
-        {};
-
-        template<template<typename...> class pair, typename x, typename y>
-        struct first_impl<pair<x, y>, is_pair_t<pair<x, y>>>
-        {
-            using type = x;
-        };
-
-        template<typename pair>
-        struct first :
-            first_impl<pair>
-        {};
-    }
-}
-
 
 #endif

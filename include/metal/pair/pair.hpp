@@ -1,6 +1,6 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_PAIR_PAIR_HPP
 #define METAL_PAIR_PAIR_HPP
@@ -11,14 +11,9 @@ namespace metal
 {
     namespace detail
     {
-        template<typename pair>
-        struct is_pair;
+        template<typename val>
+        struct _is_pair;
     }
-
-    /// \ingroup pair
-    /// The standard constructor for \pairs.
-    template<typename x, typename y>
-    using pair = metal::list<x, y>;
 
     /// \ingroup pair
     /// Checks whether some \value is a \pair.
@@ -35,14 +30,14 @@ namespace metal
     ///     \code
     ///         template<>
     ///         struct is_pair<val> :
-    ///             boolean<true>
+    ///             true_
     ///         {};
     ///     \endcode
     ///     otherwise, equivalent to
     ///     \code
     ///         template<>
     ///         struct is_pair<val> :
-    ///             boolean<false>
+    ///             false_
     ///         {};
     ///     \endcode
     ///
@@ -53,31 +48,29 @@ namespace metal
     /// See Also
     /// --------
     /// \see pair
-    template<typename pair>
-    using is_pair = detail::is_pair<pair>;
+    template<typename val>
+    using is_pair = typename detail::_is_pair<val>::type;
 
     /// \ingroup pair
-    /// Eager adaptor for metal::is_pair.
-    template<typename pair>
-    using is_pair_t = typename metal::is_pair<pair>::type;
+    /// The standard constructor for \pairs.
+    template<typename x, typename y>
+    using pair = metal::list<x, y>;
 }
 
-#include <metal/list/size.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/comparison/equal_to.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename>
-        struct is_pair :
-            boolean<false>
+        template<typename val>
+        struct _is_pair :
+            false_
         {};
 
-        template<template<typename...> class pair, typename x, typename y>
-        struct is_pair<pair<x, y>> :
-            equal_to<size_t<pair<x, y>>, integer<2>>
+        template<template<typename...> class seq, typename... vals>
+        struct _is_pair<seq<vals...>> :
+            bool_<sizeof...(vals) == 2>
         {};
     }
 }

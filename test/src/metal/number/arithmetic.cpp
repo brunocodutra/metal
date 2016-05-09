@@ -1,68 +1,70 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-#include <metal/number/arithmetic.hpp>
-#include <metal/number/comparison/equal_to.hpp>
-#include <metal/optional/just.hpp>
+#include <metal/number/add.hpp>
+#include <metal/number/dec.hpp>
+#include <metal/number/div.hpp>
+#include <metal/number/inc.hpp>
+#include <metal/number/max.hpp>
+#include <metal/number/min.hpp>
+#include <metal/number/mod.hpp>
+#include <metal/number/mul.hpp>
+#include <metal/number/neg.hpp>
+#include <metal/number/pow.hpp>
+#include <metal/number/sub.hpp>
+#include <metal/number/equal_to.hpp>
+#include <metal/lambda/invoke.hpp>
 
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    using CAT(triangle, N) = metal::div_t<metal::mul_t<NUM(N), metal::inc_t<NUM(N)>>, NUM(2)>; \
-    ASSERT((metal::is_just_t<metal::neg<VAL(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::inc<VAL(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::dec<VAL(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::add<VALS(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::sub<VALS(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::mul<VALS(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::div<VALS(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::mod<VALS(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::pow<VALS(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::max<VALS(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::min<VALS(N)>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::add<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::sub<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::mul<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::div<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::mod<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::pow<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::max<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::min<NUMS(M) COMMA(M) VALS(INC(N))>>), (FALSE)); \
-    ASSERT((metal::is_just_t<metal::neg<NUM(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::inc<NUM(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::dec<NUM(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::add<NUMS(N)>>), (BOOL(N > 0))); \
-    ASSERT((metal::is_just_t<metal::sub<NUMS(N)>>), (BOOL(N > 0))); \
-    ASSERT((metal::is_just_t<metal::mul<NUMS(N)>>), (BOOL(N > 0))); \
-    ASSERT((metal::is_just_t<metal::div<NUMS(N)>>), (BOOL(N > 0))); \
-    ASSERT((metal::is_just_t<metal::mod<NUMS(N)>>), (BOOL(N > 0))); \
-    ASSERT((metal::is_just_t<metal::pow<NUMS(N)>>), (BOOL(N > 0))); \
-    ASSERT((metal::is_just_t<metal::max<NUMS(N)>>), (BOOL(N > 0))); \
-    ASSERT((metal::is_just_t<metal::min<NUMS(N)>>), (BOOL(N > 0))); \
-    ASSERT((metal::is_just_t<metal::div<NUMS(M) COMMA(AND(M, N)) NUMS(N)>>), (BOOL(!M ^ !N))); \
-    ASSERT((metal::is_just_t<metal::mod<NUMS(M) COMMA(AND(M, N)) NUMS(N)>>), (BOOL(!M ^ !N))); \
-    ASSERT((metal::is_just_t<metal::pow<NUMS(M) COMMA(AND(M, N)) NUMS(N)>>), (BOOL(M || N))); \
-    ASSERT((metal::is_just_t<metal::pow<NUMS(M) COMMA(M) metal::integer<-N>>>), (BOOL(!M || !N))); \
-    ASSERT((metal::equal_to_t<metal::neg_t<metal::neg_t<NUM(N)>>, NUM(N)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::inc_t<NUM(N)>, NUM(INC(N))>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::dec_t<NUM(INC(N))>, NUM(N)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::inc_t<metal::dec_t<NUM(N)>>, NUM(N)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::dec_t<metal::inc_t<NUM(N)>>, NUM(N)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::add_t<NUMS(INC(N))>, CAT(triangle, N)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::sub_t<CAT(triangle, N), NUMS(INC(N))>, NUM(0)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::add_t<NUM(0) COMMA(N) ENUM(N, NUM(M) BAR)>, metal::mul_t<NUM(M), NUM(N)>>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::sub_t<metal::mul_t<NUM(M), NUM(N)> COMMA(N) ENUM(N, NUM(M) BAR)>, NUM(0)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::mul_t<NUMS(INC(N))>, NUM(0)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::div_t<NUMS(INC(N))>, NUM(0)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::mod_t<NUMS(INC(N))>, NUM(0)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::pow_t<NUMS(INC(N))>, NUM(0)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::max_t<NUMS(INC(N))>, NUM(N)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::min_t<NUMS(INC(N))>, NUM(0)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::add_t<metal::mul_t<metal::div_t<NUM(M), NUM(INC(N))>, NUM(INC(N))>, metal::mod_t<NUM(M), NUM(INC(N))>>, NUM(M)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::pow_t<NUM(0) COMMA(N) NUMS(N)>, metal::integer<!!N>>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::pow_t<NUM(1) COMMA(N) NUMS(N)>, NUM(1)>), (TRUE)); \
-    ASSERT((metal::equal_to_t<metal::pow_t<NUM(2), NUM(N)>, metal::integer<1 << N>>), (TRUE)); \
+    using CAT(triangle, N) = metal::div<metal::mul<NUM(N), metal::inc<NUM(N)>>, NUM(2)>; \
+    ASSERT((metal::is_invocable<FUNC(metal::neg), VAL(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::inc), VAL(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::dec), VAL(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::add) COMMA(N) VALS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::sub) COMMA(N) VALS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::mul) COMMA(N) VALS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::div) COMMA(N) VALS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::mod) COMMA(N) VALS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::pow) COMMA(N) VALS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::add) COMMA(M) NUMS(M), VALS(INC(N))>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::sub) COMMA(M) NUMS(M), VALS(INC(N))>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::mul) COMMA(M) NUMS(M), VALS(INC(N))>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::div) COMMA(M) NUMS(M), VALS(INC(N))>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::mod) COMMA(M) NUMS(M), VALS(INC(N))>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::pow) COMMA(M) NUMS(M), VALS(INC(N))>), (FALSE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::neg), NUM(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::inc), NUM(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::dec), NUM(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<FUNC(metal::add) COMMA(N) NUMS(N)>), (BOOL(N > 0))); \
+    ASSERT((metal::is_invocable<FUNC(metal::sub) COMMA(N) NUMS(N)>), (BOOL(N > 0))); \
+    ASSERT((metal::is_invocable<FUNC(metal::mul) COMMA(N) NUMS(N)>), (BOOL(N > 0))); \
+    ASSERT((metal::is_invocable<FUNC(metal::div) COMMA(N) NUMS(N)>), (BOOL(N > 0))); \
+    ASSERT((metal::is_invocable<FUNC(metal::mod) COMMA(N) NUMS(N)>), (BOOL(N > 0))); \
+    ASSERT((metal::is_invocable<FUNC(metal::pow) COMMA(N) NUMS(N)>), (BOOL(N > 0))); \
+    ASSERT((metal::is_invocable<FUNC(metal::div) COMMA(M) NUMS(M) COMMA(N) NUMS(N)>), (BOOL(!M ^ !N))); \
+    ASSERT((metal::is_invocable<FUNC(metal::mod) COMMA(M) NUMS(M) COMMA(N) NUMS(N)>), (BOOL(!M ^ !N))); \
+    ASSERT((metal::is_invocable<FUNC(metal::pow) COMMA(M) NUMS(M) COMMA(N) NUMS(N)>), (BOOL(M || N))); \
+    ASSERT((metal::is_invocable<FUNC(metal::pow) COMMA(M) NUMS(M), metal::int_<-N>>), (BOOL(!M || !N))); \
+    ASSERT((metal::equal_to<metal::neg<metal::neg<NUM(N)>>, NUM(N)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::inc<NUM(N)>, NUM(INC(N))>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::dec<NUM(INC(N))>, NUM(N)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::inc<metal::dec<NUM(N)>>, NUM(N)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::dec<metal::inc<NUM(N)>>, NUM(N)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::add<NUMS(INC(N))>, CAT(triangle, N)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::sub<CAT(triangle, N), NUMS(INC(N))>, NUM(0)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::add<NUM(0) COMMA(N) ENUM(N, NUM(M) BAR)>, metal::mul<NUM(M), NUM(N)>>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::sub<metal::mul<NUM(M), NUM(N)> COMMA(N) ENUM(N, NUM(M) BAR)>, NUM(0)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::mul<NUMS(INC(N))>, NUM(0)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::div<NUMS(INC(N))>, NUM(0)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::mod<NUMS(INC(N))>, NUM(0)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::pow<NUMS(INC(N))>, NUM(0)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::add<metal::mul<metal::div<NUM(M), NUM(INC(N))>, NUM(INC(N))>, metal::mod<NUM(M), NUM(INC(N))>>, NUM(M)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::pow<NUM(0) COMMA(N) NUMS(N)>, metal::int_<!!N>>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::pow<NUM(1) COMMA(N) NUMS(N)>, NUM(1)>), (TRUE)); \
+    ASSERT((metal::equal_to<metal::pow<NUM(2), NUM(N)>, metal::int_<1 << N>>), (TRUE)); \
 /**/
 
 GEN(MATRIX)

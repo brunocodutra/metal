@@ -214,7 +214,7 @@ if your favorite compiler is not included, please [let us know][Metal.issues].
 
     <tr>
         <th>GCC</th>
-        <td class="hidden-xs">4.9</td>
+        <td class="hidden-xs">5</td>
         <td rowspan="2">![travis.master]</td>
         <td rowspan="2">![travis.develop]</td>
     </tr>
@@ -229,7 +229,6 @@ if your favorite compiler is not included, please [let us know][Metal.issues].
         <td>![appveyor.develop]</td>
     </tr>
 </table>
-
 
 \note{
 Status badges are updated live to reflect current status as reported by the
@@ -479,37 +478,6 @@ A [Map] is a [List] of [Pairs], whose first elements are all distinct, that is
 
 metal::map, metal::is_map, metal::keys, metal::values
 
-Data-Code Duality {#homoiconicity}
-================================================================================
-
-Markedly influenced by various functional programming languages,
-such as [Haskell] and [SML],
-Metal owes much of its design particularly to [Lisp].
-From it, Metal borrowed [s-expressions] and
-the notion that data structures and algorithms are nothing
-but [two sides of the same coin][homoiconicity], that is,
-Metal makes no difference between lists and unevaluated expressions.
-
-Take for instance the following definition.
-
-\snippet homoiconicity.cpp 1
-
-Here `sum` could be understood as an unevaluated addition of three numbers, thus
-
-\snippet homoiconicity.cpp 2
-
-Alternativelly, `sum` could also be seen as a [List] that contains three values
-
-\snippet homoiconicity.cpp 3
-
-Now, just like any [List], `sum` may be transformed into a new [List]
-
-\snippet homoiconicity.cpp 4
-
-... which in turn may be seen as the sum of the squares of the same three numbers.
-
-\snippet homoiconicity.cpp 5
-
 Metal in Action {#metal_in_action}
 ================================================================================
 
@@ -731,7 +699,6 @@ And ignores digit separators too.
 [first-class]:      http://en.wikipedia.org/wiki/First-class_citizen
 [Lambda Calculus]:  http://en.wikipedia.org/wiki/Lambda_calculus
 [s-expressions]:    http://en.wikipedia.org/wiki/S-expression
-[homoiconicity]:    http://en.wikipedia.org/wiki/Homoiconicity
 [ci]:               http://en.wikipedia.org/wiki/Continuous_integration
 
 [tmp]:              http://en.wikipedia.org/wiki/Template_metaprogramming

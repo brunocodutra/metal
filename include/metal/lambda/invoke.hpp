@@ -1,132 +1,79 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LAMBDA_INVOKE_HPP
 #define METAL_LAMBDA_INVOKE_HPP
+
+#include <metal/number/not.hpp>
+
+#include <metal/detail/nil.hpp>
+
+#include <type_traits>
 
 namespace metal
 {
     namespace detail
     {
         template<typename lbd, typename... args>
-        struct invoke;
+        struct _invoke;
     }
 
     /// \ingroup lambda
     /// ...
     template<typename lbd, typename... args>
-    using invoke = detail::invoke<lbd, args...>;
+    using invoke = typename detail::_invoke<lbd, args...>::type;
 
     /// \ingroup lambda
-    /// Eager adaptor for metal::invoke.
+    /// ...
     template<typename lbd, typename... args>
-    using invoke_t = typename metal::invoke<lbd, args...>::type;
+    using is_invocable = not_<
+        typename std::is_base_of<
+            detail::nil,
+            detail::_invoke<lbd, args...>
+        >::type
+    >;
 }
 
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/at.hpp>
 #include <metal/list/list.hpp>
-#include <metal/number/number.hpp>
-#include <metal/optional/just.hpp>
 
-#include <metal/detail/declptr.hpp>
 #include <metal/detail/void.hpp>
 
 namespace metal
 {
     namespace detail
     {
-#if defined(_MSC_VER)
-        nothing invoke_impl_(...);
-
-        template<
-            template<typename...> class expr, typename... args,
-            typename ret = typename expr<typename args::type...>::type
-        >
-        just<ret> invoke_impl_(lambda<expr>*, list<args...>*);
-
-        template<typename lbd, typename args>
-        struct invoke_impl :
-            decltype(invoke_impl_(declptr<lbd>(), declptr<args>()))
-        {};
-#else
-        template<typename, typename, typename = void>
-        struct invoke_impl
-        {};
-
-        template<template<typename...> class expr, typename... args>
-        struct invoke_impl<lambda<expr>, list<args...>,
-            void_t<typename expr<typename args::type...>::type>
-        > :
-            just<typename expr<typename args::type...>::type>
-        {};
-#endif
-
-        template<typename val, typename... args>
-        struct invoke
-        {
-            using type = val;
-        };
-
-        template<template<typename...> class expr, typename... args>
-        struct invoke<lambda<expr>, args...> :
-            invoke_impl<lambda<expr>, list<just<args>...>>
+        template<typename lbd, typename seq, typename = void>
+        struct _invoke_impl :
+            detail::nil
         {};
 
         template<
+            template<template<typename...> class> class lbd,
             template<typename...> class expr,
-            typename... params,
-            typename... args
+            typename head, typename... tail
         >
-        struct invoke<expr<params...>, args...> :
-            invoke_impl<lambda<expr>, list<invoke<params, args...>...>>
-        {};
-
-        template<std::size_t n, typename... args>
-        struct invoke<arg<n>, args...> :
-            at<list<arg<n>, args...>, number<std::size_t, n>>
-        {};
-
-        template<
-            typename h1, typename h2, typename h3, typename h4, typename h5,
-            typename... tail
+        struct _invoke_impl<lbd<expr>, list<head, tail...>,
+            void_<expr<head, tail...>>
         >
-        struct invoke<_5, h1, h2, h3, h4, h5, tail...>
         {
-            using type = h5;
+            using type = expr<head, tail...>;
         };
 
         template<
-            typename h1, typename h2, typename h3, typename h4,
-            typename... tail
+            template<template<typename...> class> class lbd,
+            template<typename...> class expr
         >
-        struct invoke<_4, h1, h2, h3, h4, tail...>
+        struct _invoke_impl<lbd<expr>, list<>,
+            void_<expr<>>
+        >
         {
-            using type = h4;
+            using type = expr<>;
         };
 
-        template<typename h1, typename h2, typename h3, typename... tail>
-        struct invoke<_3, h1, h2, h3, tail...>
-        {
-            using type = h3;
-        };
-
-        template<typename h1, typename h2, typename... tail>
-        struct invoke<_2, h1, h2, tail...>
-        {
-            using type = h2;
-        };
-
-        template<typename h1, typename... tail>
-        struct invoke<_1, h1, tail...>
-        {
-            using type = h1;
-        };
-
-        template<typename... args>
-        struct invoke<arg<0U>, args...>
+        template<typename lbd, typename... args>
+        struct _invoke :
+            _invoke_impl<lbd, list<args...>>
         {};
     }
 }

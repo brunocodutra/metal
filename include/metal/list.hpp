@@ -1,14 +1,12 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_HPP
 #define METAL_LIST_HPP
 
-#include <metal/list/accumulate.hpp>
 #include <metal/list/all.hpp>
 #include <metal/list/any.hpp>
-#include <metal/list/apply.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/back.hpp>
 #include <metal/list/clear.hpp>
@@ -50,6 +48,7 @@
 #include <metal/list/splice.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/list/transpose.hpp>
+#include <metal/list/unwrap.hpp>
 
 /// \defgroup list List
 /// \ingroup metal

@@ -1,0 +1,68 @@
+// Copyright Bruno Dutra 2015-2016
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
+
+#ifndef METAL_NUMBER_INC_HPP
+#define METAL_NUMBER_INC_HPP
+
+namespace metal
+{
+    namespace detail
+    {
+        template<typename num>
+        struct _inc;
+    }
+
+    /// \ingroup number
+    /// Increments a \number.
+    ///
+    /// Usage
+    /// -----
+    /// For any \value `val`
+    /// \code
+    ///     metal::inc<val>;
+    /// \endcode
+    ///
+    /// \par Semantics:
+    ///     If `val` is a \number, but not a boolean, then equivalent to
+    ///     \code
+    ///         template<>
+    ///         struct inc<val> :
+    ///             number<val::value_type, val::value + 1>
+    ///         {};
+    ///     \endcode
+    ///     otherwise, equivalent to `metal::nothing`
+    ///
+    /// Example
+    /// -------
+    /// \snippet number/arithmetic.cpp inc
+    ///
+    /// See Also
+    /// --------
+    /// \see number, dec, neg, add, sub, mul, div, mod, pow
+    template<typename num>
+    using inc = typename detail::_inc<num>::type;
+}
+
+#include <metal/number/number.hpp>
+
+namespace metal
+{
+    namespace detail
+    {
+        template<typename num>
+        struct _inc
+        {};
+
+        template<bool v>
+        struct _inc<bool_<v>>
+        {};
+
+        template<typename t, t v>
+        struct _inc<number<t, v>> :
+            number<t, v + 1>
+        {};
+    }
+}
+
+#endif

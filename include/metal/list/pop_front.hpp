@@ -1,48 +1,32 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_POP_FRONT_HPP
 #define METAL_LIST_POP_FRONT_HPP
 
+#include <metal/list/size.hpp>
+#include <metal/list/slice.hpp>
+#include <metal/number/if.hpp>
+#include <metal/number/not.hpp>
+#include <metal/number/sub.hpp>
+#include <metal/number/cast.hpp>
+#include <metal/number/less.hpp>
+#include <metal/number/number.hpp>
+
 namespace metal
 {
-    namespace detail
-    {
-        template<typename list>
-        struct pop_front;
-    }
-
     /// \ingroup list
     /// ...
-    template<typename list>
-    using pop_front = detail::pop_front<list>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::pop_front.
-    template<typename list>
-    using pop_front_t = typename metal::pop_front<list>::type;
-}
-
-#include <metal/list/copy.hpp>
-#include <metal/list/list.hpp>
-
-namespace metal
-{
-    namespace detail
-    {
-        template<typename list>
-        struct pop_front
-        {};
-
-        template<
-            template<typename...> class expr,
-            typename head, typename... tail
+    template<typename seq, typename n = metal::size_t<1>>
+    using pop_front = slice<
+        seq,
+        n,
+        if_<
+            not_<less<size<seq>, cast<n, std::size_t>>>,
+            sub<size<seq>, n>
         >
-        struct pop_front<expr<head, tail...>> :
-            copy<expr<head, tail...>, list<tail...>>
-        {};
-    }
+    >;
 }
 
 #endif

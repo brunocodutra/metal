@@ -1,6 +1,6 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal.hpp>
 
@@ -17,8 +17,8 @@ union single;
 using list = single<int>;
 /// [ex1]
 
-static_assert(metal::is_list_t<list>::value, "");
-static_assert(metal::size_t<list>::value == 1, "");
+static_assert(metal::is_list<list>::value, "");
+static_assert(metal::size<list>::value == 1, "");
 }
 
 HIDDEN(namespace)
@@ -30,8 +30,8 @@ class many;
 using list = many<>;
 /// [ex2]
 
-static_assert(metal::is_list_t<list>::value, "");
-static_assert(metal::size_t<list>::value == 0, "");
+static_assert(metal::is_list<list>::value, "");
+static_assert(metal::size<list>::value == 0, "");
 }
 
 HIDDEN(namespace)
@@ -40,7 +40,7 @@ HIDDEN(namespace)
 using not_a_list = struct{}; // not a template instantiation
 /// [nex1]
 
-static_assert(!metal::is_list_t<not_a_list>::value, "");
+static_assert(!metal::is_list<not_a_list>::value, "");
 }
 
 HIDDEN(namespace)
@@ -52,5 +52,5 @@ struct numbers;
 using not_a_list = numbers<int /*, ...*/>; // non-type arguments
 /// [nex2]
 
-static_assert(!metal::is_list_t<not_a_list>::value, "");
+static_assert(!metal::is_list<not_a_list>::value, "");
 }

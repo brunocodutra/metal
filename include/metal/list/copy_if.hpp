@@ -1,55 +1,32 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_COPY_IF_HPP
 #define METAL_LIST_COPY_IF_HPP
 
-namespace metal
-{
-    namespace detail
-    {
-        template<typename to, typename from, typename lbd>
-        struct copy_if;
-    }
-
-    /// \ingroup list
-    /// ...
-    template<typename to, typename from, typename lbd>
-    using copy_if = detail::copy_if<to, from, lbd>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::copy_if.
-    template<typename to, typename from, typename lbd>
-    using copy_if_t = typename metal::copy_if<to, from, lbd>::type;
-}
-
 #include <metal/list/list.hpp>
 #include <metal/list/copy.hpp>
 #include <metal/list/join.hpp>
-#include <metal/list/apply.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/invoke.hpp>
+#include <metal/list/transform.hpp>
+#include <metal/lambda/apply.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
-#include <metal/number/logical/if.hpp>
+#include <metal/number/if.hpp>
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename to, typename from, typename lbd>
-        struct copy_if :
-            invoke<
-                copy<_1, apply<_3, transform<_4, _2>>>,
-                to,
-                from,
-                partial_t<lambda<join>, list<>>,
-                if_<lbd, lambda<list>, list<>>
-            >
-        {};
-    }
+    /// \ingroup list
+    /// ...
+    template<typename seq, typename lbd>
+    using copy_if = copy<
+        seq,
+        apply<
+            partial<lambda<join>, list<>>,
+            transform<bind<lambda<if_>, lbd, lambda<list>, quote<list<>>>, seq>
+        >
+    >;
 }
 
 #endif
