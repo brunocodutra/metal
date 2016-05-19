@@ -42,51 +42,25 @@ namespace metal
 #include <metal/list/transform.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/quote.hpp>
-#include <metal/number/number.hpp>
+#include <metal/lambda/invoke.hpp>
 #include <metal/number/enumerate.hpp>
-#include <metal/number/arithmetic/mod.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<
-            typename list, typename start, typename size, typename stride,
-            typename = boolean<true>
-        >
-        struct slice_impl
-        {};
-
-        template<
-            typename list,
-            typename t, t a, typename u, u b, typename v, v c
-        >
-        struct slice_impl<list, number<t, a>, number<u, b>, number<v, c>,
-            boolean<(size_t<list>::value > 0)>
-        > :
-            copy<
-                list,
-                transform_t<
-                    at<quote_t<list>, mod<_1, size_t<list>>>,
-                    enumerate_t<number<t, a>, number<u, b>, number<v, c>>
-                >
-            >
-        {};
-
-        template<
-            typename list,
-            typename t, t a, typename u, u b, typename v, v c
-        >
-        struct slice_impl<list, number<t, a>, number<u, b>, number<v, c>,
-            boolean<!size_t<list>::value>
-        >
-        {
-            using type = list;
-        };
-
         template<typename list, typename start, typename size, typename stride>
-        struct slice :
-            slice_impl<list, start, size, stride>
+        struct slice
+        {};
+
+        template<typename list, typename t, t a, typename u, u b, typename v, v c>
+        struct slice<list, number<t, a>, number<u, b>, number<v, c>> :
+            invoke<
+                copy<_1, transform<_2, _3>>,
+                list,
+                at<quote_t<list>, _1>,
+                enumerate_t<number<t, a>, number<u, b>, number<v, c>>
+            >
         {};
     }
 }
