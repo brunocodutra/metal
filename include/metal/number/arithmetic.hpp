@@ -10,6 +10,8 @@
 #include <metal/number/arithmetic/inc.hpp>
 #include <metal/number/arithmetic/add.hpp>
 #include <metal/number/arithmetic/sub.hpp>
+#include <metal/number/arithmetic/max.hpp>
+#include <metal/number/arithmetic/min.hpp>
 #include <metal/number/arithmetic/mul.hpp>
 #include <metal/number/arithmetic/div.hpp>
 #include <metal/number/arithmetic/mod.hpp>
