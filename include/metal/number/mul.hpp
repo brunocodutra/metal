@@ -14,32 +14,27 @@ namespace metal
     }
 
     /// \ingroup number
-    /// Computes the multiplication of \numbers.
+    /// Computes the arithmetic multiplication of \numbers.
     ///
     /// Usage
     /// -----
-    /// For any \values `val1, ..., valn`
+    /// For any \numbers `num_1, ..., num_n`
     /// \code
-    ///     metal::mul<val1, ..., valn>;
+    ///     using result = metal::mul<num_1, ..., num_n>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If all \values in `[val1, ..., valn]` are \numbers,
-    ///     then equivalent to
+    /// \returns: \number
+    /// \semantics:
     ///     \code
-    ///         template<>
-    ///         struct mul<val1, ..., valn> :
-    ///             number<
-    ///                 decltype(val1::value * ... * valn::value),
-    ///                 val1::value * ... * valn::value
-    ///             >
-    ///         {};
+    ///         using result = metal::number<
+    ///             decltype(num_1{} * ... * num_n{}),
+    ///             num_1{} * ... * num_n{}
+    ///         >;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet number/arithmetic.cpp mul
+    /// \snippet number.cpp mul
     ///
     /// See Also
     /// --------

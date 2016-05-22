@@ -19,7 +19,7 @@ namespace metal
     /// ...
     template<
         typename seq,
-        typename start, typename size, typename stride = int_<1>
+        typename start, typename size, typename stride = metal::int_<1>
     >
     using slice = copy<
         seq,

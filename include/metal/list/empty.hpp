@@ -13,7 +13,7 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq>
-    using empty = not_<size<seq>>;
+    using empty = metal::not_<metal::size<seq>>;
 }
 
 #endif

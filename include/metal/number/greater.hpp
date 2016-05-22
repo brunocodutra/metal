@@ -14,30 +14,26 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \values `val1` and `val2`
+    /// For any \numbers `num_1` and `num_2`
     /// \code
-    ///     metal::greater<val1, val2>;
+    ///     using result = metal::greater<num_1, num_2>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If both `val1` and `val2` are \numbers, then equivalent to
+    /// \returns: \boolean
+    /// \semantics:
     ///     \code
-    ///         template<>
-    ///         struct greater<val1, val2> :
-    ///             bool_<(val1::value > val2::value)>
-    ///         {};
+    ///         using result = metal::bool_<(num_1{} > num_2{})>;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet number/comparison.cpp greater
+    /// \snippet number.cpp greater
     ///
     /// See Also
     /// --------
-    /// \see number, boolean, equal_to, less
+    /// \see number, equal_to, less
     template<typename x, typename y>
-    using greater = less<y, x>;
+    using greater = metal::less<y, x>;
 }
 
 #endif

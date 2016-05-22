@@ -13,33 +13,28 @@
 namespace metal
 {
     /// \ingroup number
-    /// Computes the logical and of \numbers.
+    /// Computes the logical conjunction of \numbers.
     ///
     /// Usage
     /// -----
-    /// For any \values `val1, ..., valn`
+    /// For any \numbers `num_1, ..., num_n`
     /// \code
-    ///     metal::and_<val1, ..., valn>;
+    ///     using result = metal::and_<num_1, ..., num_n>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If all \values in `[val1, ..., valn]` are \numbers,
-    ///     then equivalent to
+    /// \returns: \boolean
+    /// \semantics:
     ///     \code
-    ///         template<>
-    ///         struct and_<val1, ..., valn> :
-    ///             bool_<val1::value && ... && valn::value>
-    ///         {};
+    ///         using result = metal::bool_<num_1{} && ... && num_n{}>;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet number/logical.cpp and_
+    /// \snippet number.cpp and_
     ///
     /// See Also
     /// --------
-    /// \see boolean, not_, or_
+    /// \see not_, or_
     template<typename... nums>
     using and_ = same<list<false_, typename detail::_not_<nums>::type...>>;
 }

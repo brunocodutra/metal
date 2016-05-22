@@ -17,24 +17,21 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \value `val`
+    /// For any \pair `pair`
     /// \code
-    ///     metal::second<val>;
+    ///     using result = metal::second<pair>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If `val` is a \pair, then equivalent to
+    /// \returns: \value
+    /// \semantics:
+    ///     If `pair` contains \values `x` and `y` in that order, then
     ///     \code
-    ///         template<>
-    ///         struct second<val> :
-    ///             at<val, size_t<1>>
-    ///         {};
+    ///         using result = y;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet pair/second.cpp second
+    /// \snippet pair.cpp second
     ///
     /// See Also
     /// --------

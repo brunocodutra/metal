@@ -58,8 +58,7 @@ static_assert(std::is_same<
 >::value, "");
 ///[raw_examples_2]
 
-HIDDEN(namespace)
-{
+HIDE(
 ///[remove]
 using tokens = metal::list<
     metal::char_<'3'>,
@@ -78,7 +77,7 @@ static_assert(std::is_same<
     >
 >::value, "");
 ///[remove]
-}
+)
 
 ///[to_number]
 template<typename c>
@@ -108,8 +107,7 @@ using to_number = metal::if_<
 >;
 ///[to_number]
 
-HIDDEN(namespace)
-{
+HIDE(
 ///[transform_1]
 using digits = metal::list<
     metal::char_<'3'>,
@@ -126,10 +124,9 @@ static_assert(std::is_same<
     >
 >::value, "");
 ///[transform_1]
-}
+)
 
-HIDDEN(namespace)
-{
+HIDE(
 ///[reverse]
 using digits = metal::list<
     metal::number<long long, 3>,
@@ -146,10 +143,9 @@ static_assert(std::is_same<
     >
 >::value, "");
 ///[reverse]
-}
+)
 
-HIDDEN(namespace)
-{
+HIDE(
 ///[enumerate]
 using digits = metal::list<
     metal::number<long long, 1>,
@@ -166,10 +162,9 @@ static_assert(std::is_same<
     >
 >::value, "");
 ///[enumerate]
-}
+)
 
-HIDDEN(namespace)
-{
+HIDE(
 ///[transform_2]
 using radix = metal::number<long long, 10>;
 using digits = metal::list<
@@ -203,10 +198,9 @@ static_assert(std::is_same<
     >
 >::value, "");
 ///[transform_2]
-}
+)
 
-HIDDEN(namespace)
-{
+HIDE(
 ///[sum]
 using terms = metal::list<
     metal::number<long long, 1>,
@@ -219,7 +213,7 @@ static_assert(std::is_same<
     metal::number<long long, 371>
 >::value, "");
 ///[sum]
-}
+)
 
 ///[compute]
 template<typename radix, typename digits>
@@ -254,37 +248,41 @@ using parse_digits = metal::transform<
 
 ///[make_number]
 template<typename... tokens>
-struct make_number_ :
-    compute<metal::number<long long, 10>, parse_digits<tokens...>>
+struct make_number_impl
+{
+    using type = compute<metal::number<long long, 10>, parse_digits<tokens...>>;
+};
+
+template<typename... tokens>
+struct make_number_impl<metal::char_<'0'>, tokens...>
+{
+    using type = compute<metal::number<long long, 8>, parse_digits<tokens...>>;
+};
+
+template<typename... tokens>
+struct make_number_impl<metal::char_<'0'>, metal::char_<'x'>, tokens...>
+{
+    using type = compute<metal::number<long long, 16>, parse_digits<tokens...>>;
+};
+
+template<typename... tokens>
+struct make_number_impl<metal::char_<'0'>, metal::char_<'X'>, tokens...> :
+    make_number_impl<metal::char_<'0'>, metal::char_<'x'>, tokens...>
 {};
 
 template<typename... tokens>
-struct make_number_<metal::char_<'0'>, tokens...> :
-    compute<metal::number<long long, 8>, parse_digits<tokens...>>
+struct make_number_impl<metal::char_<'0'>, metal::char_<'b'>, tokens...>
+{
+    using type = compute<metal::number<long long, 2>, parse_digits<tokens...>>;
+};
+
+template<typename... tokens>
+struct make_number_impl<metal::char_<'0'>, metal::char_<'B'>, tokens...> :
+    make_number_impl<metal::char_<'0'>, metal::char_<'b'>, tokens...>
 {};
 
 template<typename... tokens>
-struct make_number_<metal::char_<'0'>, metal::char_<'x'>, tokens...> :
-    compute<metal::number<long long, 16>, parse_digits<tokens...>>
-{};
-
-template<typename... tokens>
-struct make_number_<metal::char_<'0'>, metal::char_<'X'>, tokens...> :
-    compute<metal::number<long long, 16>, parse_digits<tokens...>>
-{};
-
-template<typename... tokens>
-struct make_number_<metal::char_<'0'>, metal::char_<'b'>, tokens...> :
-    compute<metal::number<long long, 2>, parse_digits<tokens...>>
-{};
-
-template<typename... tokens>
-struct make_number_<metal::char_<'0'>, metal::char_<'B'>, tokens...> :
-    compute<metal::number<long long, 2>, parse_digits<tokens...>>
-{};
-
-template<typename... tokens>
-using make_number = typename make_number_<tokens...>::type;
+using make_number = typename make_number_impl<tokens...>::type;
 ///[make_number]
 
 ///[_c]
@@ -340,7 +338,7 @@ static_assert(std::is_same<
 #if __cpp_constexpr >= 201304
 ///[super_tuple]
 template<typename... T>
-struct SuperTuple :
+struct AugmentedTuple :
     std::tuple<T...>
 {
     using std::tuple<T...>::tuple;
@@ -354,17 +352,17 @@ struct SuperTuple :
 ///[super_tuple]
 #else
 template<typename... T>
-struct SuperTuple :
+struct AugmentedTuple :
     std::tuple<T...>
 {
     template<typename... U>
-    constexpr SuperTuple(U&&... args) :
+    constexpr AugmentedTuple(U&&... args) :
         std::tuple<T...>(std::forward<U>(args)...)
     {}
 
     template<typename I, I i>
     constexpr auto operator [](metal::number<I, i>) const
-        -> metal::at<SuperTuple, metal::number<I, i>> {
+        -> metal::at<AugmentedTuple, metal::number<I, i>> {
         return std::get<i>(*this);
     }
 };
@@ -376,10 +374,10 @@ static_assert(std::get<1>(std::tuple<int, char, double>{42, 'a', 2.5}) == 'a', "
 
 #if 0
 ///[teaser_2]
-static_assert(SuperTuple<int, char, double>{42, 'a', 2.5}[1] == 'a', "");
+static_assert(AugmentedTuple<int, char, double>{42, 'a', 2.5}[1] == 'a', "");
 ///[teaser_2]
 #endif
 
 ///[teaser_3]
-static_assert(SuperTuple<int, char, double>{42, 'a', 2.5}[1_c] == 'a', "");
+static_assert(AugmentedTuple<int, char, double>{42, 'a', 2.5}[1_c] == 'a', "");
 ///[teaser_3]

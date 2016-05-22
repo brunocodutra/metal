@@ -14,7 +14,7 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq>
-    using back = at<seq, dec<size<seq>>>;
+    using back = metal::at<seq, metal::dec<metal::size<seq>>>;
 }
 
 #endif

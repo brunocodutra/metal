@@ -14,32 +14,27 @@ namespace metal
     }
 
     /// \ingroup number
-    /// Computes the addition of \numbers.
+    /// Computes the arithmetic addition of \numbers.
     ///
     /// Usage
     /// -----
-    /// For any \values `val1, ..., valn`
+    /// For any \numbers `num_1, ..., num_n`
     /// \code
-    ///     metal::add<val1, ..., valn>;
+    ///     using result = metal::add<num_1, ..., num_n>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If all \values in `[val1, ..., valn]` are \numbers,
-    ///     then equivalent to
+    /// \returns: \number
+    /// \semantics:
     ///     \code
-    ///         template<>
-    ///         struct add<val1, ..., valn> :
-    ///             number<
-    ///                 decltype(val1::value + ... + valn::value),
-    ///                 val1::value + ... + valn::value
-    ///             >
-    ///         {};
+    ///         using result = metal::number<
+    ///             decltype(num_1{} + ... + num_n{}),
+    ///             num_1{} + ... + num_n{}
+    ///         >;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet number/arithmetic.cpp add
+    /// \snippet number.cpp add
     ///
     /// See Also
     /// --------

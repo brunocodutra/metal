@@ -18,28 +18,24 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \value `val`
+    /// For any \number `num`
     /// \code
-    ///     metal::not_<val>;
+    ///     using result = metal::not_<num>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If `val` is a \number, then equivalent to
+    /// \returns: \boolean
+    /// \semantics:
     ///     \code
-    ///         template<>
-    ///         struct not_<val> :
-    ///             bool_<!val::value>
-    ///         {};
+    ///         using result = metal::bool_<!val{}>;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet number/logical.cpp not_
+    /// \snippet number.cpp not_
     ///
     /// See Also
     /// --------
-    /// \see boolean, and_, or_
+    /// \see and_, or_
     template<typename num>
     using not_ = typename detail::_not_<num>::type;
 }

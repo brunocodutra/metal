@@ -13,33 +13,28 @@
 namespace metal
 {
     /// \ingroup number
-    /// Computes the logical or of \numbers.
+    /// Computes the logical disjunction of \numbers.
     ///
     /// Usage
     /// -----
-    /// For any \values `val1, ..., valn`
+    /// For any \numbers `num_1, ..., num_n`
     /// \code
-    ///     metal::or_<val1, ..., valn>;
+    ///     using result = metal::or_<num_1, ..., num_n>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If all \values in `[val1, ..., valn]` are \numbers,
-    ///     then equivalent to
+    /// \returns: \boolean
+    /// \semantics:
     ///     \code
-    ///         template<>
-    ///         struct or_<val1, ..., valn> :
-    ///             bool_<val1::value || ... || valn::value>
-    ///         {};
+    ///         using result = metal::bool_<num_1{} || ... || num_n{}>;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet number/logical.cpp or_
+    /// \snippet number.cpp or_
     ///
     /// See Also
     /// --------
-    /// \see boolean, not_, and_
+    /// \see not_, and_
     template<typename... nums>
     using or_ =
         not_<same<list<true_, typename detail::_not_<nums>::type...>>>;

@@ -74,7 +74,6 @@ namespace metal
     using _7  = metal::arg<7U>;
     using _8  = metal::arg<8U>;
     using _9  = metal::arg<9U>;
-    using _10 = metal::arg<10U>;
     /// \}
 }
 

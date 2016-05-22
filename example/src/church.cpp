@@ -7,8 +7,6 @@
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/quote.hpp>
 
-#include <type_traits>
-
 #include "example.hpp"
 
 using true_ = metal::_1;

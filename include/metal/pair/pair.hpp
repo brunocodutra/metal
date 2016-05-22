@@ -22,28 +22,23 @@ namespace metal
     /// -----
     /// For any \value `val`
     /// \code
-    ///     metal::is_pair<val>;
+    ///     using result = metal::is_pair<val>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If `val` is a \pair, then equivalent to
+    /// \returns: \boolean
+    /// \semantics:
+    ///     If `val` is a \pair, then
     ///     \code
-    ///         template<>
-    ///         struct is_pair<val> :
-    ///             true_
-    ///         {};
+    ///         using result = metal::true_;
     ///     \endcode
-    ///     otherwise, equivalent to
+    ///     otherwise
     ///     \code
-    ///         template<>
-    ///         struct is_pair<val> :
-    ///             false_
-    ///         {};
+    ///         using result = metal::false_;
     ///     \endcode
     ///
     /// Example
     /// -------
-    /// \snippet pair/pair.cpp is_pair
+    /// \snippet pair.cpp is_pair
     ///
     /// See Also
     /// --------

@@ -22,30 +22,27 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \values `val1` and `val2`
+    /// For any \numbers `num_1` and `num_2`
     /// \code
-    ///     metal::equal_to<val1, val2>;
+    ///     using result = metal::equal_to<num_1, num_2>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If both `val1` and `val2` are \numbers, then equivalent to
+    /// \returns: \boolean
+    /// \semantics:
     ///     \code
-    ///         template<>
-    ///         struct equal_to<val1, val2> :
-    ///             bool_<val1::value == val2::value>
-    ///         {};
+    ///         using result = metal::bool_<num_1{} == num_2{}>;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet number/comparison.cpp equal_to
+    /// \snippet number.cpp equal_to
     ///
     /// See Also
     /// --------
-    /// \see number, boolean, greater, less
+    /// \see number, greater, less
     template<typename x, typename y>
-    using equal_to = not_<or_<less<x, y>, less<y, x>>>;
+    using equal_to =
+        metal::not_<metal::or_<metal::less<x, y>, metal::less<y, x>>>;
 }
 
 #endif

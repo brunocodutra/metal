@@ -16,61 +16,49 @@ namespace metal
     }
 
     /// \ingroup number
-    /// Generates a \seq of \numbers.
+    /// Generates a sequence of \numbers.
     ///
     /// Usage
     /// -----
-    /// For any \values `st`, `sz` and `sd`
+    /// For any \numbers `st`, `sz` and `sd`
     /// \code
-    ///     metal::enumerate<st, sz, sd>;
+    ///     using result = metal::enumerate<st, sz, sd>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If `st`, `sz` and `sd` are \numbers and
-    ///     `sz` is equal to zero, then equivalent to
+    /// \returns: \list
+    /// \semantics:
+    ///     If `sz` is positive, then
     ///     \code
-    ///         template<>
-    ///         struct enumerate<st, sz, sd> :
-    ///             list<>
-    ///         {};
+    ///         using result = metal::list<
+    ///             st,
+    ///             number<st::value_type, st{} + sd{}>,
+    ///             number<st::value_type, st{} + 2*sd{}>,
+    ///             ...,
+    ///             number<st::value_type, st{} + (sz{} - 1)*sd{}>,
+    ///         >;
     ///     \endcode
-    ///     otherwise, if `st`, `sz` and `sd` are \numbers and
-    ///     `sz` is positive, then equivalent to
+    ///     otherwise, if `sz` is negative, then
     ///     \code
-    ///         template<>
-    ///         struct enumerate<st, sz, sd> :
-    ///             list<
-    ///                 st,
-    ///                 number<st::value_type, st{} + sd{}>,
-    ///                 number<st::value_type, st{} + 2*sd{}>,
-    ///                 ...,
-    ///                 number<st::value_type, st{} + (sz{} - 1)*sd{}>,
-    ///             >
-    ///         {};
+    ///         using result = metal::list<
+    ///             st,
+    ///             number<st::value_type, st{} - sd{}>,
+    ///             number<st::value_type, st{} - 2*sd{}>,
+    ///             ...,
+    ///             number<st::value_type, st{} - (1 - sz{})*sd{}>,
+    ///         >;
     ///     \endcode
-    ///     otherwise, if `st`, `sz` and `sd` are \numbers and
-    ///     `sz` is negative, then equivalent to
+    ///     otherwise
     ///     \code
-    ///         template<>
-    ///         struct enumerate<st, sz, sd> :
-    ///             list<
-    ///                 st,
-    ///                 number<st::value_type, st{} - sd{}>,
-    ///                 number<st::value_type, st{} - 2*sd{}>,
-    ///                 ...,
-    ///                 number<st::value_type, st{} - (1 - sz{})*sd{}>,
-    ///             >
-    ///         {};
+    ///         using result = metal::list<>;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet number/enumerate.cpp enumerate
+    /// \snippet number.cpp enumerate
     ///
     /// See Also
     /// --------
-    /// \see number
+    /// \see number, list
     template<typename start, typename size, typename stride = int_<1>>
     using enumerate = typename detail::_enumerate<start, size, stride>::type;
 }

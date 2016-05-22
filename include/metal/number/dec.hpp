@@ -18,24 +18,21 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \value `val`
+    /// For any \number `num`
     /// \code
-    ///     metal::dec<val>;
+    ///     using result = metal::dec<num>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If `val` is a \number, but not a boolean, then equivalent to
+    /// \returns: \number
+    /// \pre: `num` is not a \boolean
+    /// \semantics:
     ///     \code
-    ///         template<>
-    ///         struct dec<val> :
-    ///             number<val::value_type, val::value - 1>
-    ///         {};
+    ///         using result = metal::number<num::value_type, num{} - 1>;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet number/arithmetic.cpp dec
+    /// \snippet number.cpp dec
     ///
     /// See Also
     /// --------

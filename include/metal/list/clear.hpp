@@ -13,7 +13,7 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq>
-    using clear = copy<seq, list<>>;
+    using clear = metal::copy<seq, metal::list<>>;
 }
 
 

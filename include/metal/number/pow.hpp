@@ -14,40 +14,37 @@ namespace metal
     }
 
     /// \ingroup number
-    /// Computes the exponentiation of \numbers.
+    /// Computes the arithmetic exponentiation of \numbers.
     ///
     /// Usage
     /// -----
-    /// For any \values `val1, val2, ..., valn`
+    /// For any \numbers `num_1, ..., num_n`
     /// \code
-    ///     metal::pow<val1, val2, ..., valn>;
+    ///     using result = metal::pow<num_1, ..., num_n>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If all \values in `[val1, ..., valn]` are \numbers,
-    ///     and `val1::value ** ... ** val{m-1}::value` is nonzero for all
-    ///     nonpositive `valm`, then equivalent to
+    /// \returns: \number
+    /// \pre: `num_1::value ** ... ** num_{m-1}::value` is nonzero for all
+    /// negative `num_m`
+    /// \semantics:
     ///     \code
-    ///         template<>
-    ///         struct pow<val1, val2, ..., valn> :
-    ///             number<
-    ///                 decltype(val1::value ** ... ** valn::value),
-    ///                 val1::value ** ... ** valn::value
-    ///             >
-    ///         {};
+    ///         using result = metal::number<
+    ///             decltype(num_1::value ** ... ** num_n::value),
+    ///             num_1::value ** ... ** num_n::value
+    ///         >;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///     \note{
-    ///         Borrowing from Fortran, `x ** y` means
+    ///         Borrowing from Fortran, `x ** y` should be understood as
     ///         `x` raised to the power of `y`.
     ///     }
     ///     \danger{
-    ///         Due to inherent limitations of integer arithmetics,
-    ///         `x ** y` is always null for `y < 0` and `|x| > 1`.
+    ///         `x ** y` is always null for `y < 0` and `|x| > 1`
+    ///         due to inherent limitations of integer arithmetics.
     ///     }
+    ///
     /// Example
     /// -------
-    /// \snippet number/arithmetic.cpp pow
+    /// \snippet number.cpp pow
     ///
     /// See Also
     /// --------

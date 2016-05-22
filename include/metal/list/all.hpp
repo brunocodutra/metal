@@ -15,7 +15,8 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq, typename lbd>
-    using all = apply<lambda<and_>, transform<lbd, seq>>;
+    using all =
+        metal::apply<metal::lambda<metal::and_>, metal::transform<lbd, seq>>;
 }
 
 #endif

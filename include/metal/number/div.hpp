@@ -14,33 +14,28 @@ namespace metal
     }
 
     /// \ingroup number
-    /// Computes the quotient of the division of \numbers.
+    /// Computes the quotient of the arithmetic division of \numbers.
     ///
     /// Usage
     /// -----
-    /// For any \values `val1, val2, ..., valn`
+    /// For any \numbers `num_1, ..., num_n`
     /// \code
-    ///     metal::div<val1, val2, ..., valn>;
+    ///     using result = metal::div<num_1, ..., num_n>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If `val1` is a \number
-    ///     and all \values in `[val2, ..., valn]` are nonzero \numbers,
-    ///     then equivalent to
+    /// \returns: \number
+    /// \pre: all \numbers in `[num_2, ..., num_n]` are nonzero
+    /// \semantics:
     ///     \code
-    ///         template<>
-    ///         struct div<val1, val2, ..., valn> :
-    ///             number<
-    ///                 decltype(val1::value / ... / valn::value),
-    ///                 val1::value / ... / valn::value
-    ///             >
-    ///         {};
+    ///         using result = metal::number<
+    ///             decltype(num_1{} / ... / num_n{}),
+    ///             num_1{} / ... / num_n{}
+    ///         >;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet number/arithmetic.cpp div
+    /// \snippet number.cpp div
     ///
     /// See Also
     /// --------

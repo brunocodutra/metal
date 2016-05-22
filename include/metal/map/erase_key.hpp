@@ -13,7 +13,7 @@ namespace metal
     /// \ingroup map
     /// ...
     template<typename seq, typename key>
-    using erase_key = erase<seq, order<seq, key>>;
+    using erase_key = metal::erase<seq, metal::order<seq, key>>;
 }
 
 #endif

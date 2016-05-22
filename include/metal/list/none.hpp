@@ -13,7 +13,7 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq, typename lbd>
-    using none = not_<any<seq, lbd>>;
+    using none = metal::not_<metal::any<seq, lbd>>;
 }
 
 #endif

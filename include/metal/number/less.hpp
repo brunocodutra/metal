@@ -18,28 +18,24 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \values `val1` and `val2`
+    /// For any \numbers `num_1` and `num_2`
     /// \code
-    ///     metal::less<val1, val2>;
+    ///     using result = metal::less<num_1, num_2>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If both `val1` and `val2` are \numbers, then equivalent to
+    /// \returns: \boolean
+    /// \semantics:
     ///     \code
-    ///         template<>
-    ///         struct less<val1, val2> :
-    ///             bool_<(val1::value < val2::value)>
-    ///         {};
+    ///         using result = metal::bool_<(num_1{} < num_2{})>;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet number/comparison.cpp less
+    /// \snippet number.cpp less
     ///
     /// See Also
     /// --------
-    /// \see number, boolean, equal_to, greater
+    /// \see number, equal_to, greater
     template<typename x, typename y>
     using less = typename detail::_less<x, y>::type;
 }

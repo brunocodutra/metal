@@ -21,7 +21,7 @@ namespace metal
 {
     /// \ingroup list
     /// ...
-    template<typename seq, typename beg, typename end = inc<beg>>
+    template<typename seq, typename beg, typename end = metal::inc<beg>>
     using erase = copy<
         seq,
         join<

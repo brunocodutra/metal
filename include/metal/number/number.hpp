@@ -23,32 +23,27 @@ namespace metal
     /// -----
     /// For any \value `val`
     /// \code
-    ///     metal::is_number<val>;
+    ///     using result = metal::is_number<val>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If `val` is a \number, then equivalent to
+    /// \returns: \boolean
+    /// \semantics:
+    ///     If `val` is a \number, then
     ///     \code
-    ///         template<>
-    ///         struct is_number<val> :
-    ///             true_
-    ///         {};
+    ///         using result = metal::true_;
     ///     \endcode
-    ///     otherwise, equivalent to
+    ///     otherwise
     ///     \code
-    ///         template<>
-    ///         struct is_number<val> :
-    ///             false_
-    ///         {};
+    ///         using result = metal::false_;
     ///     \endcode
     ///
     /// Example
     /// -------
-    /// \snippet number/number.cpp is_number
+    /// \snippet number.cpp is_number
     ///
     /// See Also
     /// --------
-    /// \see number, boolean, integer
+    /// \see number, bool_, int_, char_, size_t, ptrdiff_t
     template<typename val>
     using is_number = typename detail::_is_number<val>::type;
 
@@ -58,36 +53,36 @@ namespace metal
     using number = std::integral_constant<type, value>;
 
     /// \ingroup number
-    /// The standard constructor for [std::size_t](\numbers).
+    /// The standard constructor for \numbers of type `std::size_t`.
     template<std::size_t value>
     using size_t = metal::number<std::size_t, value>;
 
     /// \ingroup number
-    /// The standard constructor for [std::ptrdiff_t](\numbers).
+    /// The standard constructor for \numbers of type `std::ptrdiff_t`.
     template<std::size_t value>
     using ptrdiff_t = metal::number<std::ptrdiff_t, value>;
 
     /// \ingroup number
-    /// The standard constructor for [integers](\numbers).
+    /// The standard constructor for \numbers of type `int`.
     template<int value>
     using int_ = metal::number<int, value>;
 
     /// \ingroup number
-    /// The standard constructor for [characters](\numbers).
+    /// The standard constructor for \numbers of type `char`.
     template<char value>
     using char_ = metal::number<char, value>;
 
     /// \ingroup number
-    /// The standard constructor for [booleans](\numbers).
+    /// The standard constructor for \booleans.
     template<bool value>
     using bool_ = metal::number<bool, value>;
 
-    /// \ingroup
-    /// The standard representation for the [boolean](\numbers) constant `true`.
+    /// \ingroup number
+    /// The standard representation for the \boolean constant `true`.
     using true_ = bool_<true>;
 
-    /// \ingroup
-    /// The standard representation for the [boolean](\numbers) constant `false`.
+    /// \ingroup number
+    /// The standard representation for the \boolean constant `false`.
     using false_ = bool_<false>;
 
     namespace detail

@@ -18,24 +18,21 @@ namespace metal
     ///
     /// Usage
     /// -----
-    /// For any \value `val`
+    /// For any \number `num`
     /// \code
-    ///     metal::inc<val>;
+    ///     using result = metal::inc<num>;
     /// \endcode
     ///
-    /// \par Semantics:
-    ///     If `val` is a \number, but not a boolean, then equivalent to
+    /// \returns: \number
+    /// \pre: `num` is not a \boolean
+    /// \semantics:
     ///     \code
-    ///         template<>
-    ///         struct inc<val> :
-    ///             number<val::value_type, val::value + 1>
-    ///         {};
+    ///         using result = metal::number<num::value_type, num::{} + 1>;
     ///     \endcode
-    ///     otherwise, equivalent to `metal::nothing`
     ///
     /// Example
     /// -------
-    /// \snippet number/arithmetic.cpp inc
+    /// \snippet number.cpp inc
     ///
     /// See Also
     /// --------

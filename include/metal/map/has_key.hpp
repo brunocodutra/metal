@@ -13,7 +13,7 @@ namespace metal
     /// \ingroup map
     /// ...
     template<typename seq, typename key>
-    using has_key = contains<keys<seq>, key>;
+    using has_key = metal::contains<metal::keys<seq>, key>;
 }
 
 #endif

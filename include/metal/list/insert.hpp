@@ -13,7 +13,7 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq, typename n, typename val>
-    using insert = splice<seq, n, list<val>>;
+    using insert = metal::splice<seq, n, metal::list<val>>;
 }
 
 #endif

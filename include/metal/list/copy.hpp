@@ -13,7 +13,7 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename to, typename from>
-    using copy = apply<unwrap<to>, from>;
+    using copy = metal::apply<metal::unwrap<to>, from>;
 }
 
 #endif

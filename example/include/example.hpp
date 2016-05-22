@@ -5,10 +5,12 @@
 #ifndef METAL_EXAMPLE_HPP
 #define METAL_EXAMPLE_HPP
 
-#define CAT_(X, Y) X##Y
-#define CAT(X, Y) CAT_(X, Y)
+#include <type_traits>
 
-#define HIDDEN(SCOPE) SCOPE CAT(anonymous, __LINE__)
+#define CAT_IMPL(X, Y) X##Y
+#define CAT(X, Y) CAT_IMPL(X, Y)
+
+#define HIDE(...) struct CAT(anonymous, __LINE__) {__VA_ARGS__};
 
 int main() {
     return 0;
