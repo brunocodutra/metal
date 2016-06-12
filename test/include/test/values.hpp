@@ -9,7 +9,7 @@
 
 namespace test
 {
-    struct na {};
+    struct na;
 
     using val0 = void;
     using val1 = void*;
@@ -17,14 +17,15 @@ namespace test
     using val3 = int(*)[];
     using val4 = int[42];
     using val5 = int(*)[42];
-    using val6 = decltype(nullptr);
-    union val7 {template<typename...> struct type;};
-    union val8 {struct type;};
-    class val9 final {};
-    enum val10 {type};
+    union val6 {template<typename...> struct type;};
+    union val7 {struct type;};
+    enum  val8 {type};
 }
 
+#define NA(...) test::na
+#define NAS(N) ENUM(N, NA)
+
 #define VAL(N) CAT(test::val, N)
-#define VALS(N) ENUM(N, test::val)
+#define VALS(N) ENUM(N, VAL)
 
 #endif

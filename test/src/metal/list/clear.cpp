@@ -8,14 +8,16 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_invocable<FUNC(metal::clear), VAL(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::clear), NUM(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::clear), VEC(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::clear), PAIR(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::clear), LBD(M)>), (FALSE)); \
-    ASSERT((metal::clear<VEC(M)>), (VEC(0))); \
-    ASSERT((metal::clear<LIST(0)>), (LIST(0))); \
-    ASSERT((metal::clear<MAP(0)>), (MAP(0))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::clear>, VAL(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::clear>, NUM(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::clear>, PAIR(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::clear>, VECT(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::clear>, LIST(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::clear>, MAP(M)>), (BOOL(!M))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::clear>, LBD(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::clear>, LBD(_)>), (FALSE)); \
+    ASSERT((metal::clear<VECT(M)>), (VECT(0))); \
+    ASSERT((metal::clear<LIST(M)>), (LIST(0))); \
 /**/
 
 GEN(MATRIX)

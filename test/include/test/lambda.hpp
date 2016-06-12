@@ -11,12 +11,10 @@
 namespace test
 {
     template<template<typename...> class>
-    struct func;
+    struct lambda;
 }
 
-#define FUNC(EXPR) test::func<EXPR>
-
-#define LBD(...) FUNC(EXPR(__VA_ARGS__))
-#define LBDS(N) ENUM(N, ADAPT(LBD))
+#define LBD(...) test::lambda<EXPR(__VA_ARGS__)>
+#define LBDS(N) ENUM(N, LBD)
 
 #endif

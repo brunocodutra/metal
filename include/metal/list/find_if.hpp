@@ -11,6 +11,7 @@
 #include <metal/list/indices.hpp>
 #include <metal/list/flatten.hpp>
 #include <metal/list/transform.hpp>
+#include <metal/lambda/arg.hpp>
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/quote.hpp>
 #include <metal/lambda/lambda.hpp>

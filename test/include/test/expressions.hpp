@@ -5,31 +5,29 @@
 #ifndef METAL_TEST_EXPRESSIONS_HPP
 #define METAL_TEST_EXPRESSIONS_HPP
 
-#include "test/values.hpp"
+#include "test/numbers.hpp"
 #include "test/preprocessor.hpp"
-
-#include <type_traits>
 
 namespace test
 {
-    template<EVAL(ENUM, LIMIT, typename = na BAR)>
-    union expr;
+    template<typename...>
+    union expr_;
 
     template<typename... _>
-    using expr0 = typename std::enable_if<sizeof...(_) == 0, expr<_...>>::type;
+    using expr0 =
+        typename std::enable_if<length<_...>::value == 0, NUM(0)>::type;
 
     template<typename... _>
-    using expr1 = typename std::enable_if<sizeof...(_) == 1, expr<_...>>::type;
+    using expr1 =
+        typename std::enable_if<length<_...>::value == 1, NUM(1)>::type;
 
-    template<EVAL(ENUM,  2, typename _)> using expr2  = expr<EVAL(ENUM,  2, _)>;
-    template<EVAL(ENUM,  3, typename _)> using expr3  = expr<EVAL(ENUM,  3, _)>;
-    template<EVAL(ENUM,  4, typename _)> using expr4  = expr<EVAL(ENUM,  4, _)>;
-    template<EVAL(ENUM,  5, typename _)> using expr5  = expr<EVAL(ENUM,  5, _)>;
-    template<EVAL(ENUM,  6, typename _)> using expr6  = expr<EVAL(ENUM,  6, _)>;
-    template<EVAL(ENUM,  7, typename _)> using expr7  = expr<EVAL(ENUM,  7, _)>;
-    template<EVAL(ENUM,  8, typename _)> using expr8  = expr<EVAL(ENUM,  8, _)>;
-    template<EVAL(ENUM,  9, typename _)> using expr9  = expr<EVAL(ENUM,  9, _)>;
-    template<EVAL(ENUM, 10, typename _)> using expr10 = expr<EVAL(ENUM, 10, _)>;
+    template<SCAN(ENUM( 2, typename NIL))> using expr2  = NUM( 2);
+    template<SCAN(ENUM( 3, typename NIL))> using expr3  = NUM( 3);
+    template<SCAN(ENUM( 4, typename NIL))> using expr4  = NUM( 4);
+    template<SCAN(ENUM( 5, typename NIL))> using expr5  = NUM( 5);
+    template<SCAN(ENUM( 6, typename NIL))> using expr6  = NUM( 6);
+    template<SCAN(ENUM( 7, typename NIL))> using expr7  = NUM( 7);
+    template<SCAN(ENUM( 8, typename NIL))> using expr8  = NUM( 8);
 }
 
 #define EXPR(...) CAT(test::expr, __VA_ARGS__)

@@ -4,25 +4,23 @@
 
 #include <metal/list/flatten.hpp>
 #include <metal/list/join.hpp>
+#include <metal/lambda/invoke.hpp>
 
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    using CAT(CAT(trunk, N), 0) = SEQ()<VAL(N)>; \
-    using CAT(CAT(trunk, N), INC(M)) = metal::join<CAT(CAT(trunk, N), M), CAT(CAT(trunk, N), M)>; \
-    using CAT(CAT(tree, N), M) = SEQ()<VAL(N) COMMA(M) ENUM(M, CAT(tree, N))>; \
-    ASSERT((metal::is_invocable<FUNC(metal::flatten), VAL(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::flatten), NUM(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::flatten), PAIR(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::flatten), LIST(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::flatten), MAP(M)>), (BOOL(!M))); \
-    ASSERT((metal::is_invocable<FUNC(metal::flatten), LBD(M)>), (FALSE)); \
-    ASSERT((metal::flatten<VEC(M)>), (VEC(M))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::flatten>, VAL(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::flatten>, NUM(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::flatten>, PAIR(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::flatten>, VECT(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::flatten>, LIST(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::flatten>, MAP(M)>), (BOOL(!M))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::flatten>, LBD(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::flatten>, LBD(_)>), (FALSE)); \
     ASSERT((metal::flatten<PAIR(M)>), (PAIR(M))); \
+    ASSERT((metal::flatten<VECT(M)>), (VECT(M))); \
     ASSERT((metal::flatten<LIST(M)>), (LIST(M))); \
-    ASSERT((metal::flatten<SEQ()<LBD(M)>>), (SEQ()<LBD(M)>)); \
-    ASSERT((metal::flatten<SEQ()<MAP(M)>>), (SEQ()<ENUM(M, ADAPT(NUM), ADAPT(VAL))>)); \
-    ASSERT((metal::flatten<CAT(CAT(tree, N), M)>), (CAT(CAT(trunk, N), M))); \
+    ASSERT((metal::flatten<test::list<MAP(M)>>), (test::list<ENUM(M, FWD, NUM, VAL)>)); \
 /**/
 
 GEN(MATRIX)

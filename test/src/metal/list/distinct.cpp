@@ -8,19 +8,20 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_invocable<FUNC(metal::distinct), VAL(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::distinct), NUM(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::distinct), PAIR(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::distinct), LIST(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::distinct), VEC(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::distinct), MAP(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<FUNC(metal::distinct), LBD(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, VAL(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, NUM(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, PAIR(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, VECT(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, LIST(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, MAP(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, LBD(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, LBD(_)>), (FALSE)); \
     ASSERT((metal::distinct<PAIR(M)>), (TRUE)); \
+    ASSERT((metal::distinct<VECT(M)>), (BOOL(M + 1 == INF))); \
     ASSERT((metal::distinct<LIST(M)>), (TRUE)); \
-    ASSERT((metal::distinct<VEC(M)>), (TRUE)); \
     ASSERT((metal::distinct<MAP(M)>), (TRUE)); \
-    ASSERT((metal::distinct<SEQ()<VAL(M), VALS(INC(M))>>), (FALSE)); \
-    ASSERT((metal::distinct<SEQ(M)<ENUM(M, VAL(N) BAR)>>), (BOOL(M < 2))); \
+    ASSERT((metal::distinct<test::list<VALS(M) COMMA(AND(M, N)) VALS(N)>>), (BOOL(!M || !N))); \
+    ASSERT((metal::distinct<test::list<ENUM(M, VAL FIX(N))>>), (BOOL(M < 2))); \
 /**/
 
 GEN(MATRIX)

@@ -9,40 +9,39 @@
 #include "test/numbers.hpp"
 #include "test/preprocessor.hpp"
 
-#include <type_traits>
-
 namespace test
 {
-    template<typename...> class seq;
+    template<typename...> union list;
+    template<typename, typename> union pair;
+    template<SCAN(ENUM(INF, typename = NA)), typename...> union vect;
+
+    template<typename...> class _map0;
 
     template<typename... _>
-    using seq0 = typename std::enable_if<sizeof...(_) == 0, seq<_...>>::type;
+    using map0 =
+        typename std::enable_if<length<_...>::value == 0, _map0<_...>>::type;
 
-    template<EVAL(ENUM,  1, typename BAR)> union  seq1;
-    template<EVAL(ENUM,  2, typename BAR)> union  seq2;
-    template<EVAL(ENUM,  3, typename BAR)> union  seq3;
-    template<EVAL(ENUM,  4, typename BAR)> union  seq4;
-    template<EVAL(ENUM,  5, typename BAR)> union  seq5;
-    template<EVAL(ENUM,  6, typename BAR)> struct seq6;
-    template<EVAL(ENUM,  7, typename BAR)> struct seq7;
-    template<EVAL(ENUM,  8, typename BAR)> struct seq8;
-    template<EVAL(ENUM,  9, typename BAR)> struct seq9;
-    template<EVAL(ENUM, 10, typename BAR)> struct seq10;
+    template<SCAN(ENUM( 1, typename NIL))> class map1;
+    template<SCAN(ENUM( 2, typename NIL))> class map2;
+    template<SCAN(ENUM( 3, typename NIL))> class map3;
+    template<SCAN(ENUM( 4, typename NIL))> class map4;
+    template<SCAN(ENUM( 5, typename NIL))> class map5;
+    template<SCAN(ENUM( 6, typename NIL))> class map6;
+    template<SCAN(ENUM( 7, typename NIL))> class map7;
+    template<SCAN(ENUM( 8, typename NIL))> class map8;
 }
 
-#define SEQ(...) CAT(test::seq, __VA_ARGS__)
+#define PAIR(N) test::pair<NUM(N), VAL(N)>
+#define PAIRS(N) ENUM(N, PAIR)
 
-#define VEC(N) SEQ()<VALS(N)>
-#define VECS(N) ENUM(N, ADAPT(VEC))
+#define VECT(N) test::vect<VALS(N)>
+#define VECTS(N) ENUM(N, VECT)
 
-#define PAIR(N) SEQ(2)<NUM(N), VAL(N)>
-#define PAIRS(N) ENUM(N, ADAPT(PAIR))
+#define LIST(N) test::list<VALS(N)>
+#define LISTS(N) ENUM(N, LIST)
 
-#define LIST(N) SEQ(N)<VALS(N)>
-#define LISTS(N) ENUM(N, ADAPT(LIST))
-
-#define MAP(N) SEQ(N)<PAIRS(N)>
-#define MAPS(N) ENUM(N, ADAPT(MAP))
+#define MAP(N) CAT(test::map, N)<PAIRS(N)>
+#define MAPS(N) ENUM(N, MAP)
 
 #endif
 

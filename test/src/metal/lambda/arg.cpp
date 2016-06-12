@@ -4,11 +4,13 @@
 
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
+#include <metal/lambda/lambda.hpp>
 
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((CAT(metal::_, INC(M))), (metal::arg<INC(M)>)); \
+    ASSERT((metal::arg<INC(M)>), (CAT(metal::_, INC(M)))); \
+    ASSERT((metal::is_lambda<metal::arg<INC(M)>>), (TRUE)); \
     ASSERT((metal::is_invocable<metal::arg<INC(M)> COMMA(N) VALS(N)>), (BOOL(M < N))); \
     ASSERT((metal::invoke<metal::arg<INC(M)>, VALS(INC(M))>), (VAL(M))); \
 /**/

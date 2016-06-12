@@ -5,15 +5,22 @@
 #ifndef METAL_TEST_HPP
 #define METAL_TEST_HPP
 
-#include "test/assert.hpp"
+#include <type_traits>
+
+namespace test
+{
+    template<typename... _>
+    struct length :
+        std::integral_constant<std::size_t, sizeof...(_)>
+    {};
+}
+
 #include "test/expressions.hpp"
 #include "test/lambda.hpp"
 #include "test/numbers.hpp"
 #include "test/preprocessor.hpp"
 #include "test/sequences.hpp"
 #include "test/values.hpp"
-
-#include <type_traits>
 
 int main() {
     return 0;

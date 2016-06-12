@@ -4,18 +4,26 @@
 
 #include <metal/lambda/quote.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/arg.hpp>
 
 #include "test.hpp"
 
 #define MATRIX(M, N) \
+    ASSERT((metal::is_invocable<test::lambda<metal::quote>, VAL(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::quote>, NUM(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::quote>, PAIR(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::quote>, VECT(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::quote>, LIST(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::quote>, MAP(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::quote>, LBD(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::quote>, LBD(_)>), (TRUE)); \
     ASSERT((metal::invoke<metal::quote<VAL(M)> COMMA(N) VALS(N)>), (VAL(M))); \
     ASSERT((metal::invoke<metal::quote<NUM(M)> COMMA(N) VALS(N)>), (NUM(M))); \
     ASSERT((metal::invoke<metal::quote<PAIR(M)> COMMA(N) VALS(N)>), (PAIR(M))); \
+    ASSERT((metal::invoke<metal::quote<VECT(M)> COMMA(N) VALS(N)>), (VECT(M))); \
     ASSERT((metal::invoke<metal::quote<LIST(M)> COMMA(N) VALS(N)>), (LIST(M))); \
     ASSERT((metal::invoke<metal::quote<MAP(M)> COMMA(N) VALS(N)>), (MAP(M))); \
-    ASSERT((metal::invoke<metal::quote<metal::arg<INC(M)>> COMMA(N) VALS(N)>), (metal::arg<INC(M)>)); \
     ASSERT((metal::invoke<metal::quote<LBD(M)> COMMA(N) VALS(N)>), (LBD(M))); \
+    ASSERT((metal::invoke<metal::quote<LBD(_)> COMMA(N) VALS(N)>), (LBD(_))); \
 /**/
 
 GEN(MATRIX)
