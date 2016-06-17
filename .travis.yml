@@ -86,6 +86,15 @@ matrix:
                   - g++-5
                 sources: *base_sources
 
+      - compiler: g++
+        env: CXX_VERSION=6
+        addons:
+            apt:
+                packages:
+                  - *base_packages
+                  - g++-6
+                sources: *base_sources
+
 before_install:
   - git config --global user.name "Travis Bot"
   - git config --global user.email "\<\>"
