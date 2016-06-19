@@ -6,16 +6,15 @@
 #define METAL_LIST_REVERSE_HPP
 
 #include <metal/list/size.hpp>
-#include <metal/list/slice.hpp>
+#include <metal/list/range.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/dec.hpp>
 
 namespace metal
 {
     /// \ingroup list
     /// ...
     template<typename seq>
-    using reverse = slice<seq, dec<size<seq>>, size<seq>, int_<-1>>;
+    using reverse = metal::range<seq, metal::size<seq>, metal::size_t<0>>;
 }
 
 #endif

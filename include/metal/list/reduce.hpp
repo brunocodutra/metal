@@ -31,14 +31,8 @@ namespace metal
     >
     using reduce = typename detail::_reduce<
         seq, lbd,
-        if_<
-            not_<less<size<seq>, cast<beg, std::size_t>>>,
-            cast<beg, std::size_t>
-        >,
-        if_<
-            not_<less<size<seq>, cast<end, std::size_t>>>,
-            cast<end, std::size_t>
-        >
+        if_<not_<less<size<seq>, beg>>, cast<beg, std::size_t>>,
+        if_<not_<less<size<seq>, end>>, cast<end, std::size_t>>
     >::type;
 }
 

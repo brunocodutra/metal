@@ -33,6 +33,7 @@
 #include <metal/list/pop_front.hpp>
 #include <metal/list/push_back.hpp>
 #include <metal/list/push_front.hpp>
+#include <metal/list/range.hpp>
 #include <metal/list/reduce.hpp>
 #include <metal/list/remove.hpp>
 #include <metal/list/remove_if.hpp>

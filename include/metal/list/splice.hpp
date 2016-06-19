@@ -6,18 +6,17 @@
 #define METAL_LIST_SPLICE_HPP
 
 #include <metal/list/join.hpp>
-#include <metal/list/pop_back.hpp>
-#include <metal/list/pop_front.hpp>
-#include <metal/number/sub.hpp>
+#include <metal/list/size.hpp>
+#include <metal/list/range.hpp>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
     /// \ingroup list
     /// ...
     template<typename seq, typename n, typename other>
-    using splice = join<
-        pop_back<seq, sub<size<seq>, n>>, other, pop_front<seq, n>
-    >;
+    using splice =
+        join<range<seq, size_t<0>, n>, other, range<seq, n, size<seq>>>;
 }
 
 #endif

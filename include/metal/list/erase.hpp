@@ -7,11 +7,10 @@
 
 #include <metal/list/join.hpp>
 #include <metal/list/size.hpp>
-#include <metal/list/pop_back.hpp>
-#include <metal/list/pop_front.hpp>
+#include <metal/list/range.hpp>
+#include <metal/number/number.hpp>
 #include <metal/number/min.hpp>
 #include <metal/number/max.hpp>
-#include <metal/number/sub.hpp>
 #include <metal/number/inc.hpp>
 
 namespace metal
@@ -20,8 +19,8 @@ namespace metal
     /// ...
     template<typename seq, typename beg, typename end = metal::inc<beg>>
     using erase = join<
-        pop_back<seq, sub<size<seq>, min<beg, end>>>,
-        pop_front<seq, max<beg, end>>
+        range<seq, size_t<0>, min<beg, end>>,
+        range<seq, max<beg, end>, size<seq>>
     >;
 }
 
