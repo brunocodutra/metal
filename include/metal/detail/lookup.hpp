@@ -5,9 +5,17 @@
 #ifndef METAL_DETAIL_LOOKUP_HPP
 #define METAL_DETAIL_LOOKUP_HPP
 
+#include <metal/list/indices.hpp>
+#include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
 
 #include <metal/detail/declptr.hpp>
+
+#if defined(__has_builtin)
+#   if __has_builtin(__type_pack_element)
+#       define METAL_USE_BUILTIN_TYPE_PACK_ELEMENT
+#   endif
+#endif
 
 namespace metal
 {
@@ -16,30 +24,57 @@ namespace metal
         template<typename, typename>
         struct entry {};
 
+        template<typename, typename>
+        struct entries;
+
+        template<
+            template<typename...> class seq,
+            typename... keys, typename... vals
+        >
+        struct entries<seq<keys...>, seq<vals...>> :
+            entry<keys, vals>...
+        {};
+
         template<typename key, typename val>
         value<val> _lookup_impl(entry<key, val>*);
 
         template<typename>
         value<> _lookup_impl(...);
 
-        template<typename, typename>
-        struct hash;
-
-        template<
-            template<typename...> class seq,
-            typename... keys, typename... vals
-        >
-        struct hash<seq<keys...>, seq<vals...>> :
-            entry<keys, vals>...
-        {};
-
-        template<typename keys, typename vals, typename key>
+        template<typename vals, typename keys, typename key>
         struct _lookup :
-            decltype(_lookup_impl<key>(declptr<hash<keys, vals>>()))
+            decltype(_lookup_impl<key>(declptr<entries<keys, vals>>()))
         {};
 
-        template<typename keys, typename vals, typename key>
-        using lookup = typename _lookup<keys, vals, key>::type;
+#if defined(METAL_USE_BUILTIN_TYPE_PACK_ELEMENT)
+        template<typename>
+        struct hash
+        {};
+
+        template<template<typename...> class seq, typename... vals>
+        struct hash<seq<vals...>>
+        {
+            template<typename, typename = true_>
+            struct at
+            {};
+
+            template<std::size_t n>
+            struct at<size_t<n>,
+                bool_<n < sizeof...(vals)>
+            >
+            {
+                using type = __type_pack_element<n, vals...>;
+            };
+        };
+
+        template<typename vals, typename key>
+        struct _lookup<vals, indices<vals>, key> :
+            hash<vals>::template at<key>
+        {};
+#endif
+
+        template<typename vals, typename keys, typename key>
+        using lookup = typename _lookup<vals, keys, key>::type;
     }
 }
 

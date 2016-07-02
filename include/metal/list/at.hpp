@@ -5,9 +5,7 @@
 #ifndef METAL_LIST_AT_HPP
 #define METAL_LIST_AT_HPP
 
-#include <metal/list/list.hpp>
 #include <metal/list/indices.hpp>
-#include <metal/number/number.hpp>
 #include <metal/number/cast.hpp>
 
 #include <metal/detail/lookup.hpp>
@@ -16,8 +14,8 @@ namespace metal
 {
     /// \ingroup list
     /// ...
-    template<typename seq, typename n>
-    using at = detail::lookup<indices<seq>, seq, cast<n, std::size_t>>;
+    template<typename seq, typename num>
+    using at = detail::lookup<seq, indices<seq>, cast<num, std::size_t>>;
 }
 
 #endif

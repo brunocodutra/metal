@@ -74,7 +74,7 @@ namespace metal
 
 #if defined(__has_builtin)
 #   if __has_builtin(__make_integer_seq)
-#       define METAL_HAS_MAKE_INTEGER_SEQ
+#       define METAL_USE_BUILTIN_MAKE_INTEGER_SEQ
 #   endif
 #endif
 
@@ -85,7 +85,7 @@ namespace metal
         template<typename t, t... v>
         using numbers = std::integer_sequence<t, v...>;
 
-#if defined(METAL_HAS_MAKE_INTEGER_SEQ)
+#if defined(METAL_USE_BUILTIN_MAKE_INTEGER_SEQ)
         template<typename t, t n>
         using make_numbers = __make_integer_seq<numbers, t, n>;
 #else
