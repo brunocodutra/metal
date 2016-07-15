@@ -10,6 +10,7 @@
 #include <metal/map.hpp>
 #include <metal/number.hpp>
 #include <metal/pair.hpp>
+#include <metal/value.hpp>
 
 /// \defgroup metal Metal
 

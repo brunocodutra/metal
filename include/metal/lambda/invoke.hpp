@@ -6,8 +6,7 @@
 #define METAL_LAMBDA_INVOKE_HPP
 
 #include <metal/number/not.hpp>
-
-#include <metal/detail/nil.hpp>
+#include <metal/value/value.hpp>
 
 #include <type_traits>
 
@@ -29,23 +28,23 @@ namespace metal
     template<typename lbd, typename... args>
     using is_invocable = not_<
         typename std::is_base_of<
-            detail::nil,
+            value<>,
             detail::_invoke<lbd, args...>
         >::type
     >;
 }
 
 #include <metal/list/list.hpp>
-
-#include <metal/detail/void.hpp>
+#include <metal/number/number.hpp>
+#include <metal/value/value.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename lbd, typename seq, typename = void>
+        template<typename lbd, typename seq, typename = true_>
         struct _invoke_impl :
-            detail::nil
+            value<>
         {};
 
         template<
@@ -54,22 +53,20 @@ namespace metal
             typename head, typename... tail
         >
         struct _invoke_impl<lbd<expr>, list<head, tail...>,
-            void_<expr<head, tail...>>
-        >
-        {
-            using type = expr<head, tail...>;
-        };
+            is_value<expr<head, tail...>>
+        > :
+            value<expr<head, tail...>>
+        {};
 
         template<
             template<template<typename...> class> class lbd,
             template<typename...> class expr
         >
         struct _invoke_impl<lbd<expr>, list<>,
-            void_<expr<>>
-        >
-        {
-            using type = expr<>;
-        };
+            is_value<expr<>>
+        > :
+            value<expr<>>
+        {};
 
         template<typename lbd, typename... args>
         struct _invoke :

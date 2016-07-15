@@ -2,18 +2,24 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
+#include <metal/value.hpp>
+
 #include "example.hpp"
 
 HIDE(
 /// [val1]
 using val = int;
 /// [val1]
+
+static_assert(metal::is_value<val>::value, "");
 )
 
 HIDE(
 /// [val2]
 using val = decltype(3.14);
 /// [val2]
+
+static_assert(metal::is_value<val>::value, "");
 )
 
 HIDE(
@@ -23,6 +29,8 @@ struct val
     //...
 };
 /// [val3]
+
+static_assert(metal::is_value<val>::value, "");
 )
 
 HIDE(

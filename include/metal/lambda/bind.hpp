@@ -20,8 +20,8 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-
-#include <metal/detail/void.hpp>
+#include <metal/number/number.hpp>
+#include <metal/value/value.hpp>
 
 namespace metal
 {
@@ -30,7 +30,7 @@ namespace metal
         template<template<typename...> class, template<typename...> class...>
         struct bound;
 
-        template<typename, typename, typename = void>
+        template<typename, typename, typename = true_>
         struct _bind_impl
         {};
 
@@ -40,11 +40,10 @@ namespace metal
             typename... vals
         >
         struct _bind_impl<bound<expr, params...>, list<vals...>,
-            void_<expr<params<vals...>...>>
-        >
-        {
-            using type = expr<params<vals...>...>;
-        };
+            is_value<expr<params<vals...>...>>
+        > :
+            value<expr<params<vals...>...>>
+        {};
 
         template<typename lbd, typename... vals>
         struct _bind

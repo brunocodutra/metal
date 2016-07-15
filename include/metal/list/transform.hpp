@@ -25,15 +25,15 @@ namespace metal
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
+#include <metal/number/number.hpp>
 #include <metal/number/if.hpp>
-
-#include <metal/detail/void.hpp>
+#include <metal/value/value.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename lbd, typename seq, typename = void>
+        template<typename, typename, typename = true_>
         struct _transform_impl
         {};
 
@@ -44,11 +44,10 @@ namespace metal
             typename... vals
         >
         struct _transform_impl<lbd<expr>, seq<vals...>,
-            void_<seq<expr<vals>...>>
-        >
-        {
-            using type = seq<expr<vals>...>;
-        };
+            is_value<seq<expr<vals>...>>
+        > :
+            value<seq<expr<vals>...>>
+        {};
 
         template<typename lbd, typename head, typename... tail>
         using transform_impl = transform<

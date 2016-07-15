@@ -22,6 +22,7 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/number/number.hpp>
+#include <metal/value/value.hpp>
 
 #include <metal/detail/declptr.hpp>
 
@@ -48,9 +49,6 @@ namespace metal
             inherit_impl<indices<list<bases...>>, bases...>
         {};
 
-        template<typename>
-        struct wrapper {};
-
         template<typename... bases>
         true_ disambiguate(bases*...);
 
@@ -72,8 +70,8 @@ namespace metal
         struct _distinct<seq<vals...>> :
             decltype(
                 is_unambiguously_derived_from<
-                    inherit<wrapper<vals>...>,
-                    wrapper<vals>...
+                    inherit<value<vals>...>,
+                    value<vals>...
                 >(0)
             )
         {};

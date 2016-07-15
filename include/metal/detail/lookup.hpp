@@ -5,24 +5,22 @@
 #ifndef METAL_DETAIL_LOOKUP_HPP
 #define METAL_DETAIL_LOOKUP_HPP
 
-#include <metal/detail/nil.hpp>
+#include <metal/value/value.hpp>
+
 #include <metal/detail/declptr.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename, typename val>
-        struct entry
-        {
-            using type = val;
-        };
+        template<typename, typename>
+        struct entry {};
 
         template<typename key, typename val>
-        entry<key, val> _lookup_impl(entry<key, val>*);
+        value<val> _lookup_impl(entry<key, val>*);
 
         template<typename>
-        nil _lookup_impl(...);
+        value<> _lookup_impl(...);
 
         template<typename, typename>
         struct hash;
