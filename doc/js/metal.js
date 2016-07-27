@@ -1,6 +1,6 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 $( document ).ready(function(){
     $("li > a[href='index.html'] > span")
@@ -78,7 +78,7 @@ $( document ).ready(function(){
                     if(this.nodeType == 3){
                         this.data = this.data
                             .replace(
-                                /= typedef( typename)? detail::.*/g,
+                                /= typedef( typename)? (?!metal::).+/g,
                                 "= /*unspecified*/"
                             )
                             .replace(/= typedef/g, "=")

@@ -1,6 +1,6 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LAMBDA_QUOTE_HPP
 #define METAL_LAMBDA_QUOTE_HPP
@@ -10,31 +10,28 @@ namespace metal
     namespace detail
     {
         template<typename val>
-        struct quote;
+        struct _quote;
     }
 
     /// \ingroup lambda
     /// ...
     template<typename val>
-    using quote = detail::quote<val>;
+    using quote = typename detail::_quote<val>::type;
+}
 
-    /// \ingroup lambda
-    /// Eager adaptor for metal::quote.
-    template<typename val>
-    using quote_t = typename metal::quote<val>::type;
+#include <metal/lambda/lambda.hpp>
 
+namespace metal
+{
     namespace detail
     {
         template<typename val>
-        struct quote
+        struct _quote
         {
             template<typename...>
-            struct _
-            {
-                using type = val;
-            };
+            using impl = val;
 
-            using type = _<>;
+            using type = lambda<impl>;
         };
     }
 }

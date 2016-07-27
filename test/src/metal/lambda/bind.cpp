@@ -1,38 +1,72 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/lambda/bind.hpp>
-#include <metal/lambda/arg.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/optional/optional.hpp>
 
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_just_t<metal::bind<VAL(M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<NUM(M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<PAIR(M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<LIST(M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<MAP(M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<ARG(M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<LBD(M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<FUN() COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::bind<FUN(M) COMMA(N) VALS(N)>>), (TRUE)); \
-    ASSERT((metal::invoke_t<metal::bind_t<VAL(M) COMMA(M) VALS(M)> COMMA(N) NUMS(N)>), (VAL(M))); \
-    ASSERT((metal::invoke_t<metal::bind_t<NUM(M) COMMA(M) VALS(M)> COMMA(N) NUMS(N)>), (NUM(M))); \
-    ASSERT((metal::invoke_t<metal::bind_t<LBD(M) COMMA(M) VALS(M)> COMMA(N) NUMS(N)>), (EXPR(M)<VALS(M)>::type)); \
-    ASSERT((metal::invoke_t<metal::bind_t<FUN(M) COMMA(M) VALS(M)> COMMA(N) NUMS(N)>), (EXPR(M)<VALS(M)>::type)); \
-    ASSERT((metal::invoke_t<metal::bind_t<VAL(M) COMMA(M) ARGS(M)> COMMA(M) NUMS(M)>), (VAL(M))); \
-    ASSERT((metal::invoke_t<metal::bind_t<NUM(M) COMMA(M) ARGS(M)> COMMA(M) NUMS(M)>), (NUM(M))); \
-    ASSERT((metal::invoke_t<metal::bind_t<LBD(M) COMMA(M) ARGS(M)> COMMA(M) NUMS(M)>), (EXPR(M)<NUMS(M)>::type)); \
-    ASSERT((metal::invoke_t<metal::bind_t<FUN(M) COMMA(M) ARGS(M)> COMMA(M) NUMS(M)>), (EXPR(M)<NUMS(M)>::type)); \
-    ASSERT((metal::invoke_t<metal::bind_t<VAL(M) COMMA(M) ENUM(M, ARG(N) BAR)>, NUMS(INC(N))>), (VAL(M))); \
-    ASSERT((metal::invoke_t<metal::bind_t<NUM(M) COMMA(M) ENUM(M, ARG(N) BAR)>, NUMS(INC(N))>), (NUM(M))); \
-    ASSERT((metal::invoke_t<metal::bind_t<LBD(M) COMMA(M) ENUM(M, ARG(N) BAR)>, NUMS(INC(N))>), (EXPR(M)<ENUM(M, NUM(N) BAR)>::type)); \
-    ASSERT((metal::invoke_t<metal::bind_t<FUN(M) COMMA(M) ENUM(M, ARG(N) BAR)>, NUMS(INC(N))>), (EXPR(M)<ENUM(M, NUM(N) BAR)>::type)); \
-    ASSERT((metal::invoke_t<metal::bind_t<FUN(), LBD(N)> COMMA(N) NUMS(N)>), (EXPR()<EXPR(N)<NUMS(N)>::type>::type)); \
-    ASSERT((metal::invoke_t<metal::bind_t<FUN(), FUN(N)> COMMA(N) NUMS(N)>), (EXPR()<EXPR(N)<NUMS(N)>::type>::type)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VAL(M) COMMA(N) VALS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VAL(M) COMMA(N) NUMS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VAL(M) COMMA(N) PAIRS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VAL(M) COMMA(N) VECTS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VAL(M) COMMA(N) LISTS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VAL(M) COMMA(N) MAPS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VAL(M) COMMA(N) LBDS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, NUM(M) COMMA(N) VALS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, NUM(M) COMMA(N) NUMS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, NUM(M) COMMA(N) PAIRS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, NUM(M) COMMA(N) VECTS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, NUM(M) COMMA(N) LISTS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, NUM(M) COMMA(N) MAPS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, NUM(M) COMMA(N) LBDS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, PAIR(M) COMMA(N) VALS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, PAIR(M) COMMA(N) NUMS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, PAIR(M) COMMA(N) PAIRS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, PAIR(M) COMMA(N) VECTS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, PAIR(M) COMMA(N) LISTS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, PAIR(M) COMMA(N) MAPS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, PAIR(M) COMMA(N) LBDS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VECT(M) COMMA(N) VALS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VECT(M) COMMA(N) NUMS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VECT(M) COMMA(N) PAIRS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VECT(M) COMMA(N) VECTS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VECT(M) COMMA(N) LISTS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VECT(M) COMMA(N) MAPS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, VECT(M) COMMA(N) LBDS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LIST(M) COMMA(N) VALS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LIST(M) COMMA(N) NUMS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LIST(M) COMMA(N) PAIRS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LIST(M) COMMA(N) VECTS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LIST(M) COMMA(N) LISTS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LIST(M) COMMA(N) MAPS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LIST(M) COMMA(N) LBDS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, MAP(M) COMMA(N) VALS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, MAP(M) COMMA(N) NUMS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, MAP(M) COMMA(N) PAIRS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, MAP(M) COMMA(N) VECTS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, MAP(M) COMMA(N) LISTS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, MAP(M) COMMA(N) MAPS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, MAP(M) COMMA(N) LBDS(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(M) COMMA(N) VALS(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(M) COMMA(N) NUMS(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(M) COMMA(N) PAIRS(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(M) COMMA(N) VECTS(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(M) COMMA(N) LISTS(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(M) COMMA(N) MAPS(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(M) COMMA(N) LBDS(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(_) COMMA(N) VALS(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(_) COMMA(N) NUMS(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(_) COMMA(N) PAIRS(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(_) COMMA(N) VECTS(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(_) COMMA(N) LISTS(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(_) COMMA(N) MAPS(N)>), (BOOL(!N))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::bind>, LBD(_) COMMA(N) LBDS(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<metal::bind<LBD(M) COMMA(N) ENUM(N, LBD FIX(M))> COMMA(N) VALS(N)>), (BOOL(M == N))); \
+    ASSERT((metal::invoke<metal::bind<LBD(M) COMMA(M) ENUM(M, LBD FIX(N))> COMMA(N) VALS(N)>), (EXPR(M)<ENUM(M, NUM FIX(N))>)); \
+    ASSERT((metal::invoke<metal::bind<LBD(_) COMMA(M) ENUM(M, LBD FIX(N))> COMMA(N) VALS(N)>), (EXPR(_)<ENUM(M, NUM FIX(N))>)); \
 /**/
 
 GEN(MATRIX)

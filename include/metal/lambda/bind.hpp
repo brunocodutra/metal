@@ -1,6 +1,6 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LAMBDA_BIND_HPP
 #define METAL_LAMBDA_BIND_HPP
@@ -10,31 +10,76 @@ namespace metal
     namespace detail
     {
         template<typename lbd, typename... vals>
-        struct bind;
+        struct _bind;
     }
 
     /// \ingroup lambda
     /// ...
     template<typename lbd, typename... vals>
-    using bind = detail::bind<lbd, vals...>;
-
-    /// \ingroup lambda
-    /// Eager adaptor for metal::bind.
-    template<typename lbd, typename... vals>
-    using bind_t = typename metal::bind<lbd, vals...>::type;
+    using bind = typename detail::_bind<lbd, vals...>::type;
 }
 
-#include <metal/lambda/invoke.hpp>
-#include <metal/lambda/quote.hpp>
+#include <metal/list/list.hpp>
+
+#include <metal/detail/void.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename lbd, typename... args>
-        struct bind
+        template<template<typename...> class, template<typename...> class...>
+        struct bound;
+
+        template<typename, typename, typename = void>
+        struct _bind_impl
+        {};
+
+        template<
+            template<typename...> class expr,
+            template<typename...> class... params,
+            typename... vals
+        >
+        struct _bind_impl<bound<expr, params...>, list<vals...>,
+            void_<expr<params<vals...>...>>
+        >
         {
-            using type = invoke<quote_t<lbd>, args...>;
+            using type = expr<params<vals...>...>;
+        };
+
+        template<typename lbd, typename... vals>
+        struct _bind
+        {};
+
+        template<
+            template<template<typename...> class> class head,
+            template<typename...> class expr,
+            template<template<typename...> class> class... tail,
+            template<typename...> class... params
+        >
+        struct _bind<head<expr>, tail<params>...>
+        {
+            template<typename... vals>
+            using impl = typename _bind_impl<
+                bound<expr, params...>,
+                list<vals...>
+            >::type;
+
+            using type = head<impl>;
+        };
+
+        template<
+            template<template<typename...> class> class head,
+            template<typename...> class expr
+        >
+        struct _bind<head<expr>>
+        {
+            template<typename... vals>
+            using impl = typename _bind_impl<
+                bound<expr>,
+                list<vals...>
+            >::type;
+
+            using type = head<impl>;
         };
     }
 }

@@ -1,39 +1,84 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/pair/pair.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/lambda/invoke.hpp>
 
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_just_t<metal::pair<VAL(M), VAL(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::pair<NUM(M), NUM(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::pair<PAIR(M), PAIR(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::pair<LIST(M), LIST(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::pair<MAP(M), MAP(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::pair<ARG(M), ARG(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::pair<LBD(M), LBD(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::pair<FUN(M), FUN(N)>>), (TRUE)); \
-    ASSERT((metal::pair<VAL(M), VAL(N)>::type), (metal::pair<VAL(M), VAL(N)>)); \
-    ASSERT((metal::pair<NUM(M), NUM(N)>::type), (metal::pair<NUM(M), NUM(N)>)); \
-    ASSERT((metal::pair<PAIR(M), PAIR(N)>::type), (metal::pair<PAIR(M), PAIR(N)>)); \
-    ASSERT((metal::pair<LIST(M), LIST(N)>::type), (metal::pair<LIST(M), LIST(N)>)); \
-    ASSERT((metal::pair<MAP(M), MAP(N)>::type), (metal::pair<MAP(M), MAP(N)>)); \
-    ASSERT((metal::pair<ARG(M), ARG(N)>::type), (metal::pair<ARG(M), ARG(N)>)); \
-    ASSERT((metal::pair<LBD(M), LBD(N)>::type), (metal::pair<LBD(M), LBD(N)>)); \
-    ASSERT((metal::pair<FUN(M), FUN(N)>::type), (metal::pair<FUN(M), FUN(N)>)); \
-    ASSERT((metal::is_pair_t<VAL(N)>), (FALSE)); \
-    ASSERT((metal::is_pair_t<NUM(N)>), (FALSE)); \
-    ASSERT((metal::is_pair_t<PAIR(N)>), (TRUE)); \
-    ASSERT((metal::is_pair_t<LIST(N)>), (BOOL(N == 2))); \
-    ASSERT((metal::is_pair_t<MAP(N)>), (BOOL(N == 2))); \
-    ASSERT((metal::is_pair_t<ARG(N)>), (FALSE)); \
-    ASSERT((metal::is_pair_t<LBD(N)>), (FALSE)); \
-    ASSERT((metal::is_pair_t<FUN(N)>), (FALSE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VAL(M), VAL(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VAL(M), NUM(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VAL(M), PAIR(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VAL(M), VECT(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VAL(M), LIST(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VAL(M), MAP(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VAL(M), LBD(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VAL(M), LBD(_)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, NUM(M), VAL(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, NUM(M), NUM(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, NUM(M), PAIR(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, NUM(M), VECT(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, NUM(M), LIST(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, NUM(M), MAP(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, NUM(M), LBD(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, NUM(M), LBD(_)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, PAIR(M), VAL(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, PAIR(M), NUM(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, PAIR(M), PAIR(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, PAIR(M), VECT(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, PAIR(M), LIST(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, PAIR(M), MAP(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, PAIR(M), LBD(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, PAIR(M), LBD(_)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VECT(M), VAL(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VECT(M), NUM(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VECT(M), PAIR(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VECT(M), VECT(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VECT(M), LIST(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VECT(M), MAP(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VECT(M), LBD(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, VECT(M), LBD(_)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LIST(M), VAL(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LIST(M), NUM(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LIST(M), PAIR(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LIST(M), VECT(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LIST(M), LIST(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LIST(M), MAP(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LIST(M), LBD(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LIST(M), LBD(_)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, MAP(M), VAL(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, MAP(M), NUM(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, MAP(M), PAIR(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, MAP(M), VECT(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, MAP(M), LIST(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, MAP(M), MAP(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, MAP(M), LBD(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, MAP(M), LBD(_)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(M), VAL(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(M), NUM(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(M), PAIR(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(M), VECT(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(M), LIST(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(M), MAP(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(M), LBD(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(M), LBD(_)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(_), NUM(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(_), PAIR(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(_), VECT(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(_), LIST(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(_), MAP(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(_), LBD(N)>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pair>, LBD(_), LBD(_)>), (TRUE)); \
+    ASSERT((metal::is_pair<VAL(N)>), (FALSE)); \
+    ASSERT((metal::is_pair<NUM(N)>), (FALSE)); \
+    ASSERT((metal::is_pair<PAIR(N)>), (TRUE)); \
+    ASSERT((metal::is_pair<VECT(N)>), (FALSE)); \
+    ASSERT((metal::is_pair<LIST(N)>), (BOOL(N == 2))); \
+    ASSERT((metal::is_pair<MAP(N)>), (BOOL(N == 2))); \
+    ASSERT((metal::is_pair<LBD(N)>), (FALSE)); \
+    ASSERT((metal::is_pair<LBD(_)>), (FALSE)); \
 /**/
 
 GEN(MATRIX)

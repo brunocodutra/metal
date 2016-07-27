@@ -1,49 +1,23 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_EQUAL_HPP
 #define METAL_LIST_EQUAL_HPP
 
+#include <metal/list/list.hpp>
+#include <metal/lambda/apply.hpp>
+#include <metal/lambda/lambda.hpp>
+
+#include <metal/detail/is_same.hpp>
+
 namespace metal
 {
-    namespace detail
-    {
-        template<typename x, typename y>
-        struct equal;
-    }
-
     /// \ingroup list
     /// ...
     template<typename x, typename y>
-    using equal = detail::equal<x, y>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::equal.
-    template<typename x, typename y>
-    using equal_t = typename metal::equal<x, y>::type;
-}
-
-#include <metal/list/list.hpp>
-
-#include <type_traits>
-
-namespace metal
-{
-    namespace detail
-    {
-        template<typename x, typename y>
-        struct equal
-        {};
-
-        template<
-            template<typename...> class x, typename... xs,
-            template<typename...> class y, typename... ys
-        >
-        struct equal<x<xs...>, y<ys...>> :
-            std::is_same<list<xs...>, list<ys...>>
-        {};
-    }
+    using equal =
+        detail::is_same<apply<lambda<list>, x>, apply<lambda<list>, y>>;
 }
 
 #endif
