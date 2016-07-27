@@ -68,13 +68,14 @@ endif()
 if(METAL_STRICT)
     metal_try_add_flag(-pedantic-errors)
     metal_try_add_flag(-Werror)
+    metal_try_add_flag(/Za)
     metal_try_add_flag(/WX)
 endif()
 
 foreach(dialect
     -std=c++17 -std=c++1z
     -std=c++14 -std=c++1y
-    /Za
+    /std:c++latest
 )
     metal_try_add_flag(${dialect} result)
     if(${result})
