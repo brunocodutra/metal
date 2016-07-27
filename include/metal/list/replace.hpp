@@ -8,15 +8,16 @@
 #include <metal/list/replace_if.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
-
-#include <metal/detail/is_same.hpp>
+#include <metal/value/equal.hpp>
 
 namespace metal
 {
     /// \ingroup list
     /// ...
     template<typename seq, typename from, typename to>
-    using replace = replace_if<seq, partial<lambda<detail::is_same>, from>, to>;
+    using replace = metal::replace_if<
+        seq, metal::partial<metal::lambda<metal::equal>, from>, to
+    >;
 }
 
 #endif

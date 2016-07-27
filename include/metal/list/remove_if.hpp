@@ -15,7 +15,8 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq, typename lbd>
-    using remove_if = copy_if<seq, bind<lambda<not_>, lbd>>;
+    using remove_if =
+        metal::copy_if<seq, metal::bind<metal::lambda<metal::not_>, lbd>>;
 }
 
 #endif

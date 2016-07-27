@@ -31,7 +31,7 @@ namespace metal
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
 #include <metal/number/greater.hpp>
-#include <metal/number/equal_to.hpp>
+#include <metal/value/equal.hpp>
 
 namespace metal
 {
@@ -66,8 +66,8 @@ namespace metal
             typename... xs, typename... ys
         >
         struct _transpose<outer<inner<xs...>, inner<ys...>>,
-            equal_to<size<outer<inner<xs...>, inner<ys...>>>, size_t<2>>,
-            equal_to<size<inner<xs...>>, size<inner<ys...>>>
+            equal<size<outer<inner<xs...>, inner<ys...>>>, size_t<2>>,
+            equal<size<inner<xs...>>, size<inner<ys...>>>
         >
         {
             using type = inner<outer<xs, ys>...>;
@@ -79,7 +79,7 @@ namespace metal
             typename... xs
         >
         struct _transpose<outer<inner<xs...>>,
-            equal_to<size<outer<inner<xs...>>>, size_t<1>>
+            equal<size<outer<inner<xs...>>>, size_t<1>>
         >
         {
             using type = inner<outer<xs>...>;

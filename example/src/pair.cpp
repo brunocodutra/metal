@@ -2,7 +2,7 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-#include <metal/pair.hpp>
+#include <metal.hpp>
 
 #include "example.hpp"
 
@@ -30,22 +30,22 @@ static_assert(!metal::is_pair<not_a_pair>::value, "");
 
 HIDE(
 /// [is_pair]
-static_assert(metal::is_pair<metal::pair<void, void*>>::value, "");
-static_assert(metal::is_pair<metal::list<int, unsigned>>::value, "");
-static_assert(!metal::is_pair<metal::list<int>>::value, "");
+static_assert(metal::equal<metal::is_pair<metal::pair<void, void*>>, metal::true_>::value, "");
+static_assert(metal::equal<metal::is_pair<metal::list<int, unsigned>>, metal::true_>::value, "");
+static_assert(metal::equal<metal::is_pair<metal::list<int>>, metal::false_>::value, "");
 /// [is_pair]
 )
 
 HIDE(
 /// [first]
-static_assert(std::is_same<metal::first<metal::pair<void, void*>>, void>::value, "");
-static_assert(std::is_same<metal::first<metal::list<int, unsigned>>, int>::value, "");
+static_assert(metal::equal<metal::first<metal::pair<void, void*>>, void>::value, "");
+static_assert(metal::equal<metal::first<metal::list<int, unsigned>>, int>::value, "");
 /// [first]
 )
 
 HIDE(
 /// [second]
-static_assert(std::is_same<metal::second<metal::pair<void, void*>>, void*>::value, "");
-static_assert(std::is_same<metal::second<metal::list<int, unsigned>>, unsigned>::value, "");
+static_assert(metal::equal<metal::second<metal::pair<void, void*>>, void*>::value, "");
+static_assert(metal::equal<metal::second<metal::list<int, unsigned>>, unsigned>::value, "");
 /// [second]
 )

@@ -12,9 +12,22 @@ namespace test
 {
     template<template<typename...> class>
     struct lambda;
+
+    template<template<typename...> class expr>
+    using lambda_ = lambda<expr>;
+
+    template<template<typename...> class> union lambda0;
+    template<template<typename...> class> union lambda1;
+    template<template<typename...> class> union lambda2;
+    template<template<typename...> class> union lambda3;
+    template<template<typename...> class> union lambda4;
+    template<template<typename...> class> union lambda5;
+    template<template<typename...> class> union lambda6;
+    template<template<typename...> class> union lambda7;
+    template<template<typename...> class> union lambda8;
 }
 
-#define LBD(...) test::lambda<EXPR(__VA_ARGS__)>
+#define LBD(...) CAT(test::lambda, __VA_ARGS__)<EXPR(__VA_ARGS__)>
 #define LBDS(N) ENUM(N, LBD)
 
 #endif

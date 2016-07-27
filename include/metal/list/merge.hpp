@@ -6,14 +6,15 @@
 #define METAL_LIST_MERGE_HPP
 
 #include <metal/list/list.hpp>
-#include <metal/list/same.hpp>
 #include <metal/list/unwrap.hpp>
 #include <metal/list/reduce.hpp>
 #include <metal/lambda/apply.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
 #include <metal/number/number.hpp>
+#include <metal/number/and.hpp>
 #include <metal/number/if.hpp>
+#include <metal/value/equal.hpp>
 
 namespace metal
 {
@@ -30,7 +31,7 @@ namespace metal
     /// ...
     template<typename lbd, typename head, typename... tail>
     using merge = apply<
-        if_<same<list<unwrap<head>, unwrap<tail>...>>, unwrap<head>>,
+        if_<and_<equal<unwrap<head>, unwrap<tail>>...>, unwrap<head>>,
         reduce<
             list<apply<lambda<list>, head>, apply<lambda<list>, tail>...>,
             partial<lambda<detail::merge_impl>, if_<is_lambda<lbd>, lbd>>

@@ -8,15 +8,15 @@
 #include <metal/list/find_if.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
-
-#include <metal/detail/is_same.hpp>
+#include <metal/value/equal.hpp>
 
 namespace metal
 {
     /// \ingroup list
     /// ...
     template<typename seq, typename val>
-    using find = find_if<seq, partial<lambda<detail::is_same>, val>>;
+    using find =
+        metal::find_if<seq, metal::partial<metal::lambda<metal::equal>, val>>;
 }
 
 #endif

@@ -14,7 +14,8 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq>
-    using indices = copy<seq, enumerate<size_t<0>, size<seq>>>;
+    using indices =
+        metal::copy<seq, metal::enumerate<metal::size_t<0>, metal::size<seq>>>;
 }
 
 #endif

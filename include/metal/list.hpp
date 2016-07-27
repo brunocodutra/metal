@@ -17,7 +17,6 @@
 #include <metal/list/count_if.hpp>
 #include <metal/list/distinct.hpp>
 #include <metal/list/empty.hpp>
-#include <metal/list/equal.hpp>
 #include <metal/list/erase.hpp>
 #include <metal/list/find.hpp>
 #include <metal/list/find_if.hpp>

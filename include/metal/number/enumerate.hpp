@@ -5,7 +5,10 @@
 #ifndef METAL_NUMBER_ENUMERATE_HPP
 #define METAL_NUMBER_ENUMERATE_HPP
 
+#include <metal/number/cast.hpp>
 #include <metal/number/number.hpp>
+
+#include <cstdint>
 
 namespace metal
 {
@@ -60,7 +63,9 @@ namespace metal
     /// --------
     /// \see number, list
     template<typename start, typename size, typename stride = int_<1>>
-    using enumerate = typename detail::_enumerate<start, size, stride>::type;
+    using enumerate = typename detail::_enumerate<
+        start, cast<size, std::intmax_t>, cast<stride, std::intmax_t>
+    >::type;
 }
 
 #include <metal/list/list.hpp>
@@ -110,18 +115,8 @@ namespace metal
         template<typename t, t st, typename u, u sz, typename v, v sd>
         struct _enumerate<number<t, st>, number<u, sz>, number<v, sd>> :
             _stretch<
-                make_numbers<
-                    long long,
-                    (sz > 0) ?
-                        static_cast<long long>(sz) :
-                            0 - static_cast<long long>(sz)
-                >,
-                number<
-                    long long,
-                    (sz > 0) ?
-                        static_cast<long long>(sd) :
-                            0 - static_cast<long long>(sd)
-                >,
+                make_numbers<u, (sz < 0) ? (0 - sz) : sz>,
+                number<v, (sz < 0) ? (0 - sd) : sd>,
                 number<t, st>
             >
         {};

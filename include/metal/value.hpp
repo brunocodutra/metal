@@ -5,6 +5,7 @@
 #ifndef METAL_VALUE_HPP
 #define METAL_VALUE_HPP
 
+#include <metal/value/equal.hpp>
 #include <metal/value/value.hpp>
 
 /// \defgroup value Value

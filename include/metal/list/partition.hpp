@@ -17,7 +17,8 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq, typename lbd>
-    using partition = pair<copy_if<seq, lbd>, remove_if<seq, lbd>>;
+    using partition =
+        metal::pair<metal::copy_if<seq, lbd>, metal::remove_if<seq, lbd>>;
 }
 
 #endif

@@ -9,15 +9,15 @@
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
-
-#include <metal/detail/is_same.hpp>
+#include <metal/value/equal.hpp>
 
 namespace metal
 {
     /// \ingroup list
     /// ...
     template<typename seq, typename val>
-    using count = count_if<seq, partial<lambda<detail::is_same>, val>>;
+    using count =
+        metal::count_if<seq, metal::partial<metal::lambda<metal::equal>, val>>;
 }
 
 #endif
