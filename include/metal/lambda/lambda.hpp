@@ -38,11 +38,8 @@ namespace metal
             false_
         {};
 
-        template<
-            template<template<typename...> class> class lbd,
-            template<typename...> class expr
-        >
-        struct _is_lambda<lbd<expr>> :
+        template<template<typename...> class expr>
+        struct _is_lambda<lambda<expr>> :
             true_
         {};
     }

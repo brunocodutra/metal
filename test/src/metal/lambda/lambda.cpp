@@ -16,7 +16,7 @@
     ASSERT((metal::is_lambda<MAP(N)>), (FALSE)); \
     ASSERT((metal::is_lambda<LBD(N)>), (TRUE)); \
     ASSERT((metal::is_lambda<LBD(_)>), (TRUE)); \
-    ASSERT((metal::is_lambda<test::lambda<metal::is_lambda>>), (TRUE)); \
+    ASSERT((metal::is_lambda<metal::lambda<metal::is_lambda>>), (TRUE)); \
     ASSERT((metal::is_lambda<metal::lambda<metal::is_lambda>>), (TRUE)); \
 /**/
 

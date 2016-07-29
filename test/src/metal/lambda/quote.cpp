@@ -3,6 +3,7 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/lambda/quote.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
@@ -10,13 +11,13 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_invocable<test::lambda<metal::quote>, VAL(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::quote>, NUM(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::quote>, PAIR(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::quote>, LIST(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::quote>, MAP(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::quote>, LBD(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::quote>, LBD(_)>), (TRUE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::quote>, VAL(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::quote>, NUM(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::quote>, PAIR(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::quote>, LIST(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::quote>, MAP(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::quote>, LBD(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::quote>, LBD(_)>), (TRUE)); \
     ASSERT((metal::invoke<metal::quote<VAL(M)> COMMA(N) VALS(N)>), (VAL(M))); \
     ASSERT((metal::invoke<metal::quote<NUM(M)> COMMA(N) VALS(N)>), (NUM(M))); \
     ASSERT((metal::invoke<metal::quote<PAIR(M)> COMMA(N) VALS(N)>), (PAIR(M))); \

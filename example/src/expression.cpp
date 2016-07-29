@@ -15,43 +15,21 @@ using expr = metal::size_t<sizeof...(vals)>;
 
 HIDE(
 /// [expr2]
-template<typename array>
-using expr = std::enable_if_t<
-    std::is_array<array>::value,
-    std::remove_all_extents_t<array>
->;
+template<typename x, typename y>
+struct expr;
 /// [expr2]
 )
 
 HIDE(
-/// [expr3]
-template<typename, typename>
-struct expr;
-/// [expr3]
-)
-
-HIDE(
 /// [not_an_expr1]
-struct not_an_expression // not a template
-{
-    struct type;
-};
-/// [not_an_expr1]
-)
-
-HIDE(
-/// [not_an_expr2]
 template<template<typename...> class...> // non-type parameter
-struct not_an_expression
-{
-    struct type;
-};
-/// [not_an_expr2]
+struct not_an_expr;
+/// [not_an_expr1]
 )
 
 HIDE(
-/// [not_an_expr3]
+/// [not_an_expr2]
 template<typename t, t v> // non-type parameter
-using not_an_expression = metal::number<t, v>;
-/// [not_an_expr3]
+using not_an_expr = metal::number<t, v>;
+/// [not_an_expr2]
 )

@@ -4,6 +4,7 @@
 
 #include <metal/number/number.hpp>
 #include <metal/list/list.hpp>
+#include <metal/lambda/lambda.hpp>
 
 #include "test.hpp"
 

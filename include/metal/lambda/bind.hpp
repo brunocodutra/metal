@@ -19,6 +19,7 @@ namespace metal
     using bind = typename detail::_bind<lbd, vals...>::type;
 }
 
+#include <metal/lambda/lambda.hpp>
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
@@ -50,12 +51,10 @@ namespace metal
         {};
 
         template<
-            template<template<typename...> class> class head,
             template<typename...> class expr,
-            template<template<typename...> class> class... tail,
             template<typename...> class... params
         >
-        struct _bind<head<expr>, tail<params>...>
+        struct _bind<lambda<expr>, lambda<params>...>
         {
             template<typename... vals>
             using impl = typename _bind_impl<
@@ -63,14 +62,11 @@ namespace metal
                 list<vals...>
             >::type;
 
-            using type = head<impl>;
+            using type = lambda<impl>;
         };
 
-        template<
-            template<template<typename...> class> class head,
-            template<typename...> class expr
-        >
-        struct _bind<head<expr>>
+        template<template<typename...> class expr>
+        struct _bind<lambda<expr>>
         {
             template<typename... vals>
             using impl = typename _bind_impl<
@@ -78,7 +74,7 @@ namespace metal
                 list<vals...>
             >::type;
 
-            using type = head<impl>;
+            using type = lambda<impl>;
         };
     }
 }

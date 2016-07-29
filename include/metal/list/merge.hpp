@@ -35,6 +35,7 @@ namespace metal
 #include <metal/list/join.hpp>
 #include <metal/list/copy_if.hpp>
 #include <metal/list/remove_if.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/number/not.hpp>
 
@@ -59,32 +60,30 @@ namespace metal
         {};
 
         template<
-            template<template<typename...> class> class lbd,
             template<typename...> class expr,
             typename xh, typename... xt,
             typename yh, typename... yt
         >
-        struct _merge_impl<lbd<expr>, list<xh, xt...>, list<yh, yt...>,
+        struct _merge_impl<lambda<expr>, list<xh, xt...>, list<yh, yt...>,
             not_<expr<yh, xh>>
         > :
             _invoke<
-                lbd<merge_impl_recurse>,
-                lbd<expr>, xh, list<xt...>, yh, list<yt...>
+                lambda<merge_impl_recurse>,
+                lambda<expr>, xh, list<xt...>, yh, list<yt...>
             >
         {};
 
         template<
-            template<template<typename...> class> class lbd,
             template<typename...> class expr,
             typename xh, typename... xt,
             typename yh, typename... yt
         >
-        struct _merge_impl<lbd<expr>, list<xh, xt...>, list<yh, yt...>,
+        struct _merge_impl<lambda<expr>, list<xh, xt...>, list<yh, yt...>,
             not_<not_<expr<yh, xh>>>
         > :
             _invoke<
-                lbd<merge_impl_recurse>,
-                lbd<expr>, yh, list<yt...>, xh, list<xt...>
+                lambda<merge_impl_recurse>,
+                lambda<expr>, yh, list<yt...>, xh, list<xt...>
             >
         {};
 

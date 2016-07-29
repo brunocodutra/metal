@@ -19,6 +19,7 @@ namespace metal
     using partial = typename detail::_partial<lbd, vals...>::type;
 }
 
+#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 
 namespace metal
@@ -29,26 +30,19 @@ namespace metal
         struct _partial
         {};
 
-        template<
-            template<template<typename...> class> class lbd,
-            template<typename...> class expr,
-            typename... leading
-        >
-        struct _partial<lbd<expr>, leading...>
+        template<template<typename...> class expr, typename... leading>
+        struct _partial<lambda<expr>, leading...>
         {
             template<typename... trailing>
-            using impl = invoke<lbd<expr>, leading..., trailing...>;
+            using impl = invoke<lambda<expr>, leading..., trailing...>;
 
-            using type = lbd<impl>;
+            using type = lambda<impl>;
         };
 
-        template<
-            template<template<typename...> class> class lbd,
-            template<typename...> class expr
-        >
-        struct _partial<lbd<expr>>
+        template<template<typename...> class expr>
+        struct _partial<lambda<expr>>
         {
-            using type = lbd<expr>;
+            using type = lambda<expr>;
         };
     }
 }

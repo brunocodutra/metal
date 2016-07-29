@@ -296,36 +296,28 @@ class, union or alias template that only expects [Values] as arguments.
 
 \snippet expression.cpp  expr1
 \snippet expression.cpp  expr2
-\snippet expression.cpp  expr3
 
 ### Counterexamples
 
 \snippet expression.cpp not_an_expr1
 \snippet expression.cpp not_an_expr2
-\snippet expression.cpp not_an_expr3
 
 Lambda {#lambda}
 --------------------------------------------------------------------------------
 
-[Lambdas], short for *Lambda Expressions*,
-are [first-class expressions][first-class].
-As [Values] themselves, [Lambdas] can serve both as argument as well as return
-value to other [Lambdas], thus enabling [higher-order] metaprogramming.
-
-[Lambdas] are named after formal system for computability, the [Lambda Calculus].
+[Lambdas], short for *Lambda Expressions*, are [first-class][first-class]
+[Expressions]. As [Values] themselves, [Lambdas] can serve both as argument as
+well as return value to other [Expressions] and [Lambdas],
+thus enabling [higher-order] composition.
 
 ### Requirements
 
-`lbd` is a model of [Lambda] if and only if `lbd` is an specialization of any
-class or union template that expects one [Expression] as argument.
+`lbd` is a model of [Lambda] if and only if `lbd` is a specialization of
+`metal::lambda`.
 
 ### Examples
 
 \snippet lambda.cpp lbd1
-
-### Counterexamples
-
-\snippet lambda.cpp not_a_lbd1
 
 ### See Also
 
@@ -600,8 +592,6 @@ TODO
 [JavaScript]:       http://en.wikipedia.org/wiki/JavaScript
 [higher-order]:     http://en.wikipedia.org/wiki/Higher-order_function
 [first-class]:      http://en.wikipedia.org/wiki/First-class_citizen
-[Lambda Calculus]:  http://en.wikipedia.org/wiki/Lambda_calculus
-[s-expressions]:    http://en.wikipedia.org/wiki/S-expression
 [ci]:               http://en.wikipedia.org/wiki/Continuous_integration
 
 [tmp]:              http://en.wikipedia.org/wiki/Template_metaprogramming

@@ -4,19 +4,20 @@
 
 #include <metal/list/distinct.hpp>
 #include <metal/list/list.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/number/number.hpp>
 
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, VAL(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, NUM(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, PAIR(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, LIST(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, MAP(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, LBD(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::distinct>, LBD(_)>), (FALSE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::distinct>, VAL(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::distinct>, NUM(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::distinct>, PAIR(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::distinct>, LIST(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::distinct>, MAP(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::distinct>, LBD(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::distinct>, LBD(_)>), (FALSE)); \
     ASSERT((metal::distinct<PAIR(M)>), (TRUE)); \
     ASSERT((metal::distinct<LIST(M)>), (TRUE)); \
     ASSERT((metal::distinct<MAP(M)>), (TRUE)); \

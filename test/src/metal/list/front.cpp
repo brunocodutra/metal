@@ -4,19 +4,20 @@
 
 #include <metal/list/front.hpp>
 #include <metal/list/list.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/number/number.hpp>
 
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_invocable<test::lambda<metal::front>, VAL(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::front>, NUM(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::front>, PAIR(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::front>, LIST(M)>), (BOOL(M > 0))); \
-    ASSERT((metal::is_invocable<test::lambda<metal::front>, MAP(M)>), (BOOL(M > 0))); \
-    ASSERT((metal::is_invocable<test::lambda<metal::front>, LBD(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::front>, LBD(_)>), (FALSE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::front>, VAL(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::front>, NUM(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::front>, PAIR(M)>), (TRUE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::front>, LIST(M)>), (BOOL(M > 0))); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::front>, MAP(M)>), (BOOL(M > 0))); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::front>, LBD(M)>), (FALSE)); \
+    ASSERT((metal::is_invocable<metal::lambda<metal::front>, LBD(_)>), (FALSE)); \
     ASSERT((metal::front<PAIR(M)>), (NUM(M))); \
     ASSERT((metal::front<LIST(INC(M))>), (VAL(0))); \
     ASSERT((metal::front<MAP(INC(M))>), (PAIR(0))); \

@@ -37,12 +37,8 @@ namespace metal
         struct _transform_impl
         {};
 
-        template<
-            template<template<typename...> class> class lbd,
-            template<typename...> class expr,
-            typename... vals
-        >
-        struct _transform_impl<lbd<expr>, list<vals...>,
+        template<template<typename...> class expr, typename... vals>
+        struct _transform_impl<lambda<expr>, list<vals...>,
             is_value<list<expr<vals>...>>
         > :
             value<list<expr<vals>...>>

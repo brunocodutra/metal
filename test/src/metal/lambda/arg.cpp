@@ -3,8 +3,8 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/lambda/arg.hpp>
-#include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
+#include <metal/lambda/invoke.hpp>
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 
