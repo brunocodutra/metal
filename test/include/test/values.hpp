@@ -9,8 +9,6 @@
 
 namespace test
 {
-    struct na;
-
     using val0 = void;
     using val1 = void*;
     using val2 = int[];
@@ -18,12 +16,9 @@ namespace test
     using val4 = int[42];
     using val5 = int(*)[42];
     union val6 {template<typename...> struct type;};
-    union val7 {struct type;};
+    using val7 = val6::template type<>;
     enum  val8 {type};
 }
-
-#define NA(...) test::na
-#define NAS(N) ENUM(N, NA)
 
 #define VAL(N) CAT(test::val, N)
 #define VALS(N) ENUM(N, VAL)

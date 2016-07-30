@@ -3,6 +3,7 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/list/find_if.hpp>
+#include <metal/list/list.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/pair/pair.hpp>
 #include <metal/number/number.hpp>
@@ -13,7 +14,6 @@
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VAL(M), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VAL(M), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VAL(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VAL(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VAL(M), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VAL(M), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VAL(M), LBD(N)>), (FALSE)); \
@@ -21,7 +21,6 @@
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, NUM(M), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, NUM(M), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, NUM(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, NUM(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, NUM(M), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, NUM(M), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, NUM(M), LBD(N)>), (FALSE)); \
@@ -29,23 +28,13 @@
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, PAIR(M), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, PAIR(M), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, PAIR(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, PAIR(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, PAIR(M), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, PAIR(M), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, PAIR(M), LBD(N)>), (BOOL(N == 1))); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, PAIR(M), LBD(_)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VECT(M), VAL(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VECT(M), NUM(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VECT(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VECT(M), VECT(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VECT(M), LIST(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VECT(M), MAP(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VECT(M), LBD(N)>), (BOOL(N == 1))); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, VECT(M), LBD(_)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LIST(M), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LIST(M), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LIST(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LIST(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LIST(M), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LIST(M), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LIST(M), LBD(N)>), (BOOL(!M || N == 1))); \
@@ -53,7 +42,6 @@
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, MAP(M), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, MAP(M), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, MAP(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, MAP(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, MAP(M), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, MAP(M), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, MAP(M), LBD(N)>), (BOOL(!M || N == 1))); \
@@ -61,7 +49,6 @@
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(M), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(M), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(M), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(M), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(M), LBD(N)>), (FALSE)); \
@@ -69,26 +56,22 @@
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(_), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(_), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(_), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(_), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(_), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(_), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(_), LBD(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::find_if>, LBD(_), LBD(_)>), (FALSE)); \
     ASSERT((metal::find_if<PAIR(M), test::lambda<metal::is_number>>), (SIZE_T(0))); \
-    ASSERT((metal::find_if<VECT(M), test::lambda<metal::is_number>>), (SIZE_T(INF))); \
     ASSERT((metal::find_if<LIST(M), test::lambda<metal::is_number>>), (SIZE_T(M))); \
     ASSERT((metal::find_if<MAP(M), test::lambda<metal::is_number>>), (SIZE_T(M))); \
     ASSERT((metal::find_if<PAIR(M), test::lambda<metal::is_pair>>), (SIZE_T(2))); \
-    ASSERT((metal::find_if<VECT(M), test::lambda<metal::is_pair>>), (SIZE_T(INF))); \
     ASSERT((metal::find_if<LIST(M), test::lambda<metal::is_pair>>), (SIZE_T(M))); \
     ASSERT((metal::find_if<MAP(M), test::lambda<metal::is_pair>>), (SIZE_T(0))); \
     ASSERT((metal::find_if<PAIR(M), test::lambda<metal::is_lambda>>), (SIZE_T(2))); \
-    ASSERT((metal::find_if<VECT(M), test::lambda<metal::is_lambda>>), (SIZE_T(INF))); \
     ASSERT((metal::find_if<LIST(M), test::lambda<metal::is_lambda>>), (SIZE_T(M))); \
     ASSERT((metal::find_if<MAP(M), test::lambda<metal::is_lambda>>), (SIZE_T(M))); \
-    ASSERT((metal::find_if<test::list<ENUM(M, FWD, NUM, PAIR, LBD)>, test::lambda<metal::is_number>>), (SIZE_T(0))); \
-    ASSERT((metal::find_if<test::list<ENUM(M, FWD, NUM, PAIR, LBD)>, test::lambda<metal::is_pair>>), (SIZE_T(M ? 1 : 0))); \
-    ASSERT((metal::find_if<test::list<ENUM(M, FWD, NUM, PAIR, LBD)>, test::lambda<metal::is_lambda>>), (SIZE_T(M ? 2 : 0))); \
+    ASSERT((metal::find_if<metal::list<ENUM(M, FWD, NUM, PAIR, LBD)>, test::lambda<metal::is_number>>), (SIZE_T(0))); \
+    ASSERT((metal::find_if<metal::list<ENUM(M, FWD, NUM, PAIR, LBD)>, test::lambda<metal::is_pair>>), (SIZE_T(M ? 1 : 0))); \
+    ASSERT((metal::find_if<metal::list<ENUM(M, FWD, NUM, PAIR, LBD)>, test::lambda<metal::is_lambda>>), (SIZE_T(M ? 2 : 0))); \
 /**/
 
 GEN(MATRIX)

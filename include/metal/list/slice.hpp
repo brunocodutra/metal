@@ -6,10 +6,11 @@
 #define METAL_LIST_SLICE_HPP
 
 #include <metal/list/at.hpp>
-#include <metal/list/copy.hpp>
+#include <metal/list/list.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
+#include <metal/number/if.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/enumerate.hpp>
 
@@ -21,9 +22,9 @@ namespace metal
         typename seq,
         typename start, typename size, typename stride = metal::int_<1>
     >
-    using slice = copy<
-        seq,
-        transform<partial<lambda<at>, seq>, enumerate<start, size, stride>>
+    using slice = transform<
+        partial<lambda<at>, if_<is_list<seq>, seq>>,
+        enumerate<start, size, stride>
     >;
 }
 

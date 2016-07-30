@@ -4,6 +4,7 @@
 
 #include <metal/number/cast.hpp>
 #include <metal/number/number.hpp>
+#include <metal/list/list.hpp>
 #include <metal/lambda/invoke.hpp>
 
 #include "test.hpp"
@@ -12,7 +13,6 @@
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, VAL(M), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, VAL(M), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, VAL(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, VAL(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, VAL(M), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, VAL(M), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, VAL(M), LBD(N)>), (FALSE)); \
@@ -20,7 +20,6 @@
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, NUM(M), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, NUM(M), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, NUM(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, NUM(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, NUM(M), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, NUM(M), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, NUM(M), LBD(N)>), (FALSE)); \
@@ -28,23 +27,13 @@
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, PAIR(M), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, PAIR(M), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, PAIR(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, PAIR(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, PAIR(M), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, PAIR(M), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, PAIR(M), LBD(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, PAIR(M), LBD(_)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, VECT(M), VAL(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, VECT(M), NUM(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, VECT(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, VECT(M), VECT(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, VECT(M), LIST(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, VECT(M), MAP(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, VECT(M), LBD(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, VECT(M), LBD(_)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LIST(M), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LIST(M), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LIST(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, LIST(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LIST(M), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LIST(M), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LIST(M), LBD(N)>), (FALSE)); \
@@ -52,7 +41,6 @@
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, MAP(M), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, MAP(M), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, MAP(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, MAP(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, MAP(M), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, MAP(M), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, MAP(M), LBD(N)>), (FALSE)); \
@@ -60,7 +48,6 @@
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(M), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(M), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(M), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(M), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(M), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(M), LBD(N)>), (FALSE)); \
@@ -68,7 +55,6 @@
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(_), VAL(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(_), NUM(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(_), PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(_), VECT(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(_), LIST(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(_), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(_), LBD(N)>), (FALSE)); \

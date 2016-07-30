@@ -6,7 +6,6 @@
 #define METAL_LIST_COPY_IF_HPP
 
 #include <metal/list/list.hpp>
-#include <metal/list/copy.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/apply.hpp>
@@ -20,12 +19,9 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq, typename lbd>
-    using copy_if = copy<
-        seq,
-        apply<
-            partial<lambda<join>, list<>>,
-            transform<bind<lambda<if_>, lbd, lambda<list>, quote<list<>>>, seq>
-        >
+    using copy_if = apply<
+        partial<lambda<join>, list<>>,
+        transform<bind<lambda<if_>, lbd, lambda<list>, quote<list<>>>, seq>
     >;
 }
 

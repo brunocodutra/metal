@@ -12,7 +12,6 @@
     ASSERT((metal::is_invocable<test::lambda<metal::value>, VAL(M)>), (TRUE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::value>, NUM(M)>), (TRUE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::value>, PAIR(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::value>, VECT(M)>), (TRUE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::value>, LIST(M)>), (TRUE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::value>, MAP(M)>), (TRUE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::value>, LBD(M)>), (TRUE)); \
@@ -20,7 +19,6 @@
     ASSERT((metal::is_value<VAL(N)>), (TRUE)); \
     ASSERT((metal::is_value<NUM(N)>), (TRUE)); \
     ASSERT((metal::is_value<PAIR(N)>), (TRUE)); \
-    ASSERT((metal::is_value<VECT(N)>), (TRUE)); \
     ASSERT((metal::is_value<LIST(N)>), (TRUE)); \
     ASSERT((metal::is_value<MAP(N)>), (TRUE)); \
     ASSERT((metal::is_value<LBD(N)>), (TRUE)); \

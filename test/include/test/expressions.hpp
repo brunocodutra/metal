@@ -10,6 +10,11 @@
 
 namespace test
 {
+    template<typename... _>
+    struct length :
+        std::integral_constant<std::size_t, sizeof...(_)>
+    {};
+
     template<typename...>
     union expr_;
 

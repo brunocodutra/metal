@@ -51,8 +51,8 @@ namespace metal
             >;
         };
 
-        template<template<typename...> class seq, typename... vals>
-        struct _canonic<seq<vals...>>
+        template<typename... vals>
+        struct _canonic<list<vals...>>
         {
             using type = list<typename _canonic<vals>::type...>;
         };

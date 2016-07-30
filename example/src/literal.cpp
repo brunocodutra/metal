@@ -336,7 +336,7 @@ static_assert(metal::equal<
 ///[test_3]
 
 #if __cpp_constexpr >= 201304
-///[super_tuple]
+///[augmented_tuple]
 template<typename... T>
 struct AugmentedTuple :
     std::tuple<T...>
@@ -345,11 +345,11 @@ struct AugmentedTuple :
 
     template<typename I, I i>
     constexpr auto operator [](metal::number<I, i>)
-        -> typename std::tuple_element<i, std::tuple<T...>>::type& {
+        -> std::tuple_element_t<i, std::tuple<T...>>& {
         return std::get<i>(*this);
     }
 };
-///[super_tuple]
+///[augmented_tuple]
 #else
 template<typename... T>
 struct AugmentedTuple :
@@ -362,7 +362,7 @@ struct AugmentedTuple :
 
     template<typename I, I i>
     constexpr auto operator [](metal::number<I, i>) const
-        -> metal::at<AugmentedTuple, metal::number<I, i>> {
+        -> std::tuple_element_t<i, std::tuple<T...>> {
         return std::get<i>(*this);
     }
 };

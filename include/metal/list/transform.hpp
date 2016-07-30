@@ -40,13 +40,12 @@ namespace metal
         template<
             template<template<typename...> class> class lbd,
             template<typename...> class expr,
-            template<typename...> class seq,
             typename... vals
         >
-        struct _transform_impl<lbd<expr>, seq<vals...>,
-            is_value<seq<expr<vals>...>>
+        struct _transform_impl<lbd<expr>, list<vals...>,
+            is_value<list<expr<vals>...>>
         > :
-            value<seq<expr<vals>...>>
+            value<list<expr<vals>...>>
         {};
 
         template<typename lbd, typename head, typename... tail>
@@ -60,22 +59,14 @@ namespace metal
             _invoke<lambda<transform_impl>, lbd, head, tail...>
         {};
 
-        template<
-            typename lbd,
-            template<typename...> class seq,
-            typename head, typename... tail
-        >
-        struct _transform<lbd, seq<head, tail...>> :
-            _transform_impl<lbd, seq<head, tail...>>
+        template<typename lbd, typename head, typename... tail>
+        struct _transform<lbd, list<head, tail...>> :
+            _transform_impl<lbd, list<head, tail...>>
         {};
 
-        template<
-            typename lbd,
-            template<typename...> class seq,
-            typename... vals
-        >
-        struct _transform<lbd, seq<vals...>> :
-            _if_<is_lambda<lbd>, seq<vals...>>
+        template<typename lbd>
+        struct _transform<lbd, list<>> :
+            _if_<is_lambda<lbd>, list<>>
         {};
     }
 }

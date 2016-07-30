@@ -6,6 +6,7 @@
 #define METAL_LAMBDA_INVOKE_HPP
 
 #include <metal/number/not.hpp>
+#include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
 
 #include <type_traits>
@@ -14,6 +15,9 @@ namespace metal
 {
     namespace detail
     {
+        template<typename lbd, typename seq, typename = true_>
+        struct _invoke_impl;
+
         template<typename lbd, typename... args>
         struct _invoke;
     }
@@ -35,14 +39,12 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/number/number.hpp>
-#include <metal/value/value.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename lbd, typename seq, typename = true_>
+        template<typename lbd, typename seq, typename>
         struct _invoke_impl :
             value<>
         {};

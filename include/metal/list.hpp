@@ -9,7 +9,6 @@
 #include <metal/list/any.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/back.hpp>
-#include <metal/list/clear.hpp>
 #include <metal/list/contains.hpp>
 #include <metal/list/copy.hpp>
 #include <metal/list/copy_if.hpp>
@@ -47,7 +46,6 @@
 #include <metal/list/splice.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/list/transpose.hpp>
-#include <metal/list/unwrap.hpp>
 
 /// \defgroup list List
 /// \ingroup metal

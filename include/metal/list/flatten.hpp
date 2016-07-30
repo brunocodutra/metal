@@ -21,8 +21,6 @@ namespace metal
 
 #include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
-#include <metal/lambda/apply.hpp>
-#include <metal/lambda/lambda.hpp>
 
 namespace metal
 {
@@ -32,18 +30,13 @@ namespace metal
         struct _flatten
         {};
 
-        template<template<typename...> class seq, typename... vals>
-        struct _flatten<seq<vals...>> :
-            _apply<lambda<seq>, flatten<list<vals...>>>
-        {};
-
         template<typename... vals>
         struct _flatten<list<vals...>> :
             _join<flatten<list<vals>>...>
         {};
 
-        template<template<typename...> class inner, typename... vals>
-        struct _flatten<list<inner<vals...>>> :
+        template<typename... vals>
+        struct _flatten<list<list<vals...>>> :
             _flatten<list<vals...>>
         {};
 

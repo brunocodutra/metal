@@ -63,11 +63,8 @@ namespace metal
         struct _distinct
         {};
 
-        template<
-            template<typename...> class seq,
-            typename... vals
-        >
-        struct _distinct<seq<vals...>> :
+        template<typename... vals>
+        struct _distinct<list<vals...>> :
             decltype(
                 is_unambiguously_derived_from<
                     inherit<value<vals>...>,

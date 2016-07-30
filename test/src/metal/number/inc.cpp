@@ -4,6 +4,7 @@
 
 #include <metal/number/inc.hpp>
 #include <metal/number/number.hpp>
+#include <metal/list/list.hpp>
 #include <metal/lambda/invoke.hpp>
 
 #include "test.hpp"
@@ -12,7 +13,6 @@
     ASSERT((metal::is_invocable<test::lambda<metal::inc>, VAL(M)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::inc>, NUM(M)>), (TRUE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::inc>, PAIR(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::inc>, VECT(M)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::inc>, LIST(M)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::inc>, MAP(M)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::inc>, LBD(M)>), (FALSE)); \
