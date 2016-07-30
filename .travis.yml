@@ -24,6 +24,11 @@ addons:
         sources: &base_sources
           - george-edison55-precise-backports
           - ubuntu-toolchain-r-test
+          - llvm-toolchain-precise
+          - llvm-toolchain-precise-3.5
+          - llvm-toolchain-precise-3.6
+          - llvm-toolchain-precise-3.7
+          - llvm-toolchain-precise-3.8
 
 matrix:
     exclude:
@@ -38,7 +43,8 @@ matrix:
             apt:
                 packages:
                   - *base_packages
-                  - libstdc++-4.8-dev
+                  - clang-3.5
+                  - libstdc++-4.9-dev
                 sources: *base_sources
 
       - compiler: clang++
@@ -47,7 +53,7 @@ matrix:
             apt:
                 packages:
                   - *base_packages
-                  - libstdc++-4.8-dev
+                  - clang-3.6
                 sources: *base_sources
 
       - compiler: clang++
@@ -56,7 +62,7 @@ matrix:
             apt:
                 packages:
                   - *base_packages
-                  - libstdc++-4.8-dev
+                  - clang-3.7
                 sources: *base_sources
 
       - compiler: clang++
@@ -65,7 +71,16 @@ matrix:
             apt:
                 packages:
                   - *base_packages
-                  - libstdc++-4.8-dev
+                  - clang-3.8
+                sources: *base_sources
+
+      - compiler: clang++
+        env: CXX_VERSION=3.9
+        addons:
+            apt:
+                packages:
+                  - *base_packages
+                  - clang-3.9
                 sources: *base_sources
 
       - compiler: g++
@@ -132,42 +147,6 @@ install:
         mkdir -p "${DEPS_PATH}/doxygen" &&
         travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen"
         export PATH="${DEPS_PATH}/doxygen/bin:${PATH}"
-    fi
-
-  - |
-    if [[ "${CXX}" == "clang++" ]]
-    then
-        # manually download clang and libc++
-        CLANG_URL="http://llvm.org/releases/${CXX_VERSION}.0/clang+llvm-${CXX_VERSION}.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz"
-        echo "${CLANG_URL}"
-        mkdir -p "${DEPS_PATH}/clang" &&
-        travis_retry curl -L "${CLANG_URL}" | tar --strip-components=1 -xJ -C "${DEPS_PATH}/clang" &&
-        ln -s "${DEPS_PATH}/clang/bin/clang++" "${DEPS_PATH}/clang/bin/clang++-${CXX_VERSION}"
-        export PATH="${DEPS_PATH}/clang/bin:${PATH}"
-
-        LLVM_URL="http://llvm.org/releases/${CXX_VERSION}.0/llvm-${CXX_VERSION}.0.src.tar.xz"
-        echo "${LLVM_URL}"
-        mkdir -p "${DEPS_PATH}/llvm" &&
-        travis_retry curl -L "${LLVM_URL}" | tar --strip-components=1 -xJ -C "${DEPS_PATH}/llvm"
-
-        LIBCXX_URL="http://llvm.org/releases/${CXX_VERSION}.0/libcxx-${CXX_VERSION}.0.src.tar.xz"
-        echo "${LIBCXX_URL}"
-        mkdir -p "${DEPS_PATH}/llvm/projects/libcxx" &&
-        travis_retry curl -L "${LIBCXX_URL}" | tar --strip-components=1 -xJ -C "${DEPS_PATH}/llvm/projects/libcxx"
-
-        LIBCXXABI_URL="http://llvm.org/releases/${CXX_VERSION}.0/libcxxabi-${CXX_VERSION}.0.src.tar.xz"
-        echo "${LIBCXXABI_URL}"
-        mkdir -p "${DEPS_PATH}/llvm/projects/libcxxabi" &&
-        travis_retry curl -L "${LIBCXXABI_URL}" | tar --strip-components=1 -xJ -C "${DEPS_PATH}/llvm/projects/libcxxabi"
-
-        mkdir -p "${DEPS_PATH}/llvm/build" &&
-        (cd "${DEPS_PATH}/llvm/build" && cmake .. -DCMAKE_INSTALL_PREFIX="${DEPS_PATH}/llvm/install") &&
-        (cd "${DEPS_PATH}/llvm/build/projects/libcxx" && make install -j2) &&
-        (cd "${DEPS_PATH}/llvm/build/projects/libcxxabi" && make install -j2)
-
-        export CXXFLAGS="-stdlib=libc++ -nostdinc++ -isystem ${DEPS_PATH}/llvm/install/include/c++/v1"
-        export LDFLAGS="-L ${DEPS_PATH}/llvm/install/lib -l c++ -l c++abi"
-        export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${DEPS_PATH}/llvm/install/lib"
     fi
 
 before_script:
