@@ -6,6 +6,7 @@
 #define METAL_LAMBDA_INVOKE_HPP
 
 #include <metal/number/not.hpp>
+#include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
 
 #include <type_traits>
@@ -14,6 +15,9 @@ namespace metal
 {
     namespace detail
     {
+        template<typename lbd, typename seq, typename = true_>
+        struct _invoke_impl;
+
         template<typename lbd, typename... args>
         struct _invoke;
     }
@@ -34,35 +38,30 @@ namespace metal
     >;
 }
 
+#include <metal/lambda/lambda.hpp>
 #include <metal/list/list.hpp>
-#include <metal/number/number.hpp>
-#include <metal/value/value.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename lbd, typename seq, typename = true_>
+        template<typename lbd, typename seq, typename>
         struct _invoke_impl :
             value<>
         {};
 
         template<
-            template<template<typename...> class> class lbd,
             template<typename...> class expr,
             typename head, typename... tail
         >
-        struct _invoke_impl<lbd<expr>, list<head, tail...>,
+        struct _invoke_impl<lambda<expr>, list<head, tail...>,
             is_value<expr<head, tail...>>
         > :
             value<expr<head, tail...>>
         {};
 
-        template<
-            template<template<typename...> class> class lbd,
-            template<typename...> class expr
-        >
-        struct _invoke_impl<lbd<expr>, list<>,
+        template<template<typename...> class expr>
+        struct _invoke_impl<lambda<expr>, list<>,
             is_value<expr<>>
         > :
             value<expr<>>

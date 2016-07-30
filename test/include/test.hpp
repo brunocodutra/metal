@@ -7,14 +7,6 @@
 
 #include <type_traits>
 
-namespace test
-{
-    template<typename... _>
-    struct length :
-        std::integral_constant<std::size_t, sizeof...(_)>
-    {};
-}
-
 #include "test/expressions.hpp"
 #include "test/lambda.hpp"
 #include "test/numbers.hpp"

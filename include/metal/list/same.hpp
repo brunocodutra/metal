@@ -19,7 +19,9 @@ namespace metal
     using same = typename detail::_same<seq>::type;
 }
 
+#include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
+#include <metal/value/value.hpp>
 
 namespace metal
 {
@@ -39,16 +41,13 @@ namespace metal
         struct _same
         {};
 
-        template<
-            template<typename...> class seq,
-            typename head, typename... tail
-        >
-        struct _same<seq<head, tail...>> :
-            _same_impl<_same<head>, _same<tail>...>
+        template<typename... vals>
+        struct _same<list<vals...>> :
+            _same_impl<value<vals>...>
         {};
 
-        template<template<typename...> class seq, typename... vals>
-        struct _same<seq<vals...>> :
+        template<>
+        struct _same<list<>> :
             true_
         {};
     }

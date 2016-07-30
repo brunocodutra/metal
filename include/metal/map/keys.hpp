@@ -6,6 +6,7 @@
 #define METAL_MAP_KEYS_HPP
 
 #include <metal/map/map.hpp>
+#include <metal/list/list.hpp>
 #include <metal/number/if.hpp>
 
 namespace metal
@@ -29,15 +30,10 @@ namespace metal
             using type = seq;
         };
 
-        template<
-            template<typename...> class seq,
-            template<typename...> class... pairs,
-            typename... ks,
-            typename... vs
-        >
-        struct _keys<seq<pairs<ks, vs>...>>
+        template<typename... ks, typename... vs>
+        struct _keys<list<list<ks, vs>...>>
         {
-            using type = seq<ks...>;
+            using type = list<ks...>;
         };
     }
 }

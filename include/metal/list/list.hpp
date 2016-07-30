@@ -38,8 +38,8 @@ namespace metal
             false_
         {};
 
-        template<template<typename...> class seq, typename... vals>
-        struct _is_list<seq<vals...>> :
+        template<typename... vals>
+        struct _is_list<list<vals...>> :
             true_
         {};
     }

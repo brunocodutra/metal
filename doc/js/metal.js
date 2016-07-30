@@ -78,7 +78,7 @@ $( document ).ready(function(){
                     if(this.nodeType == 3){
                         this.data = this.data
                             .replace(
-                                /= typedef( typename)? (?!metal::).+/g,
+                                /= typedef( typename)? (?!(metal|std)::).+/g,
                                 "= /*unspecified*/"
                             )
                             .replace(/= typedef/g, "=")

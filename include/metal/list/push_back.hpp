@@ -6,17 +6,14 @@
 #define METAL_LIST_PUSH_BACK_HPP
 
 #include <metal/list/list.hpp>
-#include <metal/list/copy.hpp>
 #include <metal/list/join.hpp>
-#include <metal/lambda/apply.hpp>
-#include <metal/lambda/lambda.hpp>
 
 namespace metal
 {
     /// \ingroup list
     /// ...
     template<typename seq, typename val>
-    using push_back = copy<seq, join<apply<lambda<list>, seq>, list<val>>>;
+    using push_back = metal::join<seq, metal::list<val>>;
 }
 
 #endif

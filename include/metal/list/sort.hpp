@@ -6,7 +6,6 @@
 #define METAL_LIST_SORT_HPP
 
 #include <metal/list/list.hpp>
-#include <metal/list/copy.hpp>
 #include <metal/list/merge.hpp>
 #include <metal/list/transpose.hpp>
 #include <metal/lambda/apply.hpp>
@@ -18,12 +17,9 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq, typename lbd>
-    using sort = copy<
-        seq,
-        apply<
-            partial<lambda<merge>, lbd, list<>>,
-            transpose<list<seq>>
-        >
+    using sort = apply<
+        partial<lambda<merge>, lbd, list<>>,
+        transpose<list<seq>>
     >;
 }
 

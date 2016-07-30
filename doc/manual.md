@@ -260,10 +260,13 @@ A [Number] is a compile-time representation of a numerical value.
 
 ### Requirements
 
-`num` is a model of [Number] if and only if `num` is an alias to a
-specialization of [std::integral_constant][integral].
+`num` is a model of [Number] if and only if `num` is a specialization of
+`metal::number`.
 
-A [Number] whose underlying value type is `bool` is said to be a [Boolean].
+\note{
+    `metal::number` is guaranteed to be an alias template to
+    [`std::integral_constant`][integral].
+}
 
 ### Examples
 
@@ -287,42 +290,34 @@ Expression {#expression}
 ### Requirements
 
 `expr` is a model of [Expression] if and only if `expr` is a
-template class, union or alias that only expects [Values] as arguments.
+class, union or alias template that only expects [Values] as arguments.
 
 ### Examples
 
 \snippet expression.cpp  expr1
 \snippet expression.cpp  expr2
-\snippet expression.cpp  expr3
 
 ### Counterexamples
 
 \snippet expression.cpp not_an_expr1
 \snippet expression.cpp not_an_expr2
-\snippet expression.cpp not_an_expr3
 
 Lambda {#lambda}
 --------------------------------------------------------------------------------
 
-[Lambdas], short for *Lambda Expressions*,
-are [first-class expressions][first-class].
-As [Values] themselves, [Lambdas] can serve both as argument as well as return
-value to other [Lambdas], thus enabling [higher-order] metaprogramming.
-
-[Lambdas] are named after formal system for computability, the [Lambda Calculus].
+[Lambdas], short for *Lambda Expressions*, are [first-class][first-class]
+[Expressions]. As [Values] themselves, [Lambdas] can serve both as argument as
+well as return value to other [Expressions] and [Lambdas],
+thus enabling [higher-order] composition.
 
 ### Requirements
 
-`lbd` is a model of [Lambda] if and only if `lbd` is an specialization of any
-template class or union that expects one [Expression] as argument.
+`lbd` is a model of [Lambda] if and only if `lbd` is a specialization of
+`metal::lambda`.
 
 ### Examples
 
 \snippet lambda.cpp lbd1
-
-### Counterexamples
-
-\snippet lambda.cpp not_a_lbd1
 
 ### See Also
 
@@ -335,19 +330,13 @@ A [List] is a sequence of [Values].
 
 ### Requirements
 
-A [List] is any specialization of any template class or union
-that only expects [Values] as arguments.
+`list` is a model of [List] if and only if `list` is a specialization of
+`metal::list`.
 
 ### Examples
 
 \snippet list.cpp  list1
 \snippet list.cpp  list2
-\snippet list.cpp  list3
-
-### Counterexamples
-
-\snippet list.cpp not_a_list1
-\snippet list.cpp not_a_list2
 
 ### See Also
 
@@ -365,10 +354,6 @@ A [Pair] is any [List] whose size is 2.
 ### Examples
 
 \snippet pair.cpp  pair1
-
-### Counterexamples
-
-\snippet pair.cpp not_a_pair1
 
 ### See Also
 
@@ -390,7 +375,6 @@ A [Map] is a [List] of [Pairs], whose first elements are all distinct, that is
 
 \snippet map.cpp  map1
 \snippet map.cpp  map2
-\snippet map.cpp  map3
 
 ### Counterexamples
 
@@ -424,10 +408,10 @@ chances are you realized the hard way that there is simply no way of
 overloading such an operator.
 
 All is not lost however if you can live with the subscript operator taking an
-object of type `std::integral_constant`, or in Metal's parlance [Number],
+object of type `std::integral_constant`, or in Metal's parlance a [Number],
 instead of an usual integral value.
 
-\snippet literal.cpp super_tuple
+\snippet literal.cpp augmented_tuple
 
 \snippet literal.cpp teaser_3
 
@@ -608,8 +592,6 @@ TODO
 [JavaScript]:       http://en.wikipedia.org/wiki/JavaScript
 [higher-order]:     http://en.wikipedia.org/wiki/Higher-order_function
 [first-class]:      http://en.wikipedia.org/wiki/First-class_citizen
-[Lambda Calculus]:  http://en.wikipedia.org/wiki/Lambda_calculus
-[s-expressions]:    http://en.wikipedia.org/wiki/S-expression
 [ci]:               http://en.wikipedia.org/wiki/Continuous_integration
 
 [tmp]:              http://en.wikipedia.org/wiki/Template_metaprogramming

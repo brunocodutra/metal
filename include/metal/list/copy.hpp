@@ -5,15 +5,18 @@
 #ifndef METAL_LIST_COPY_HPP
 #define METAL_LIST_COPY_HPP
 
-#include <metal/list/unwrap.hpp>
-#include <metal/lambda/apply.hpp>
+#include <metal/list/copy_if.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/partial.hpp>
+#include <metal/value/equal.hpp>
 
 namespace metal
 {
     /// \ingroup list
     /// ...
-    template<typename to, typename from>
-    using copy = metal::apply<metal::unwrap<to>, from>;
+    template<typename seq, typename val>
+    using copy =
+        metal::copy_if<seq, metal::partial<metal::lambda<metal::equal>, val>>;
 }
 
 #endif

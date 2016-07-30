@@ -5,11 +5,14 @@
 #ifndef METAL_DETAIL_LOOKUP_HPP
 #define METAL_DETAIL_LOOKUP_HPP
 
+#include <metal/list/list.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
 
 #include <metal/detail/declptr.hpp>
+
+#include <cstddef>
 
 #if defined(__has_builtin)
 #   if __has_builtin(__type_pack_element)
@@ -27,11 +30,8 @@ namespace metal
         template<typename, typename>
         struct entries;
 
-        template<
-            template<typename...> class seq,
-            typename... keys, typename... vals
-        >
-        struct entries<seq<keys...>, seq<vals...>> :
+        template<typename... keys, typename... vals>
+        struct entries<list<keys...>, list<vals...>> :
             entry<keys, vals>...
         {};
 
@@ -51,8 +51,8 @@ namespace metal
         struct hash
         {};
 
-        template<template<typename...> class seq, typename... vals>
-        struct hash<seq<vals...>>
+        template<typename... vals>
+        struct hash<list<vals...>>
         {
             template<typename, typename = true_>
             struct at

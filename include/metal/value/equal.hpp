@@ -13,22 +13,19 @@ namespace metal
     {
         template<typename val>
         struct _canonic;
-
-        template<typename val>
-        using canonic = typename _canonic<val>::type;
     }
 
     /// \ingroup list
     /// ...
     template<typename x, typename y>
-    using equal =
-        typename std::is_same<detail::canonic<x>, detail::canonic<y>>::type;
+    using equal = typename std::is_same<
+        typename detail::_canonic<x>::type,
+        typename detail::_canonic<y>::type
+    >::type;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/number.hpp>
 #include <metal/pair/pair.hpp>
+#include <metal/number/number.hpp>
 
 #include <cstdint>
 
@@ -51,19 +48,10 @@ namespace metal
             >;
         };
 
-        template<template<typename...> class seq, typename... vals>
-        struct _canonic<seq<vals...>>
+        template<typename... vals>
+        struct _canonic<list<vals...>>
         {
             using type = list<typename _canonic<vals>::type...>;
-        };
-
-        template<
-            template<template<typename...> class> class lbd,
-            template<typename...> class expr
-        >
-        struct _canonic<lbd<expr>>
-        {
-            using type = lambda<expr>;
         };
     }
 }

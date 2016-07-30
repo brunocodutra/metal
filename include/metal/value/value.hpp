@@ -13,14 +13,8 @@ namespace metal
     {
         struct na;
 
-        template<typename val = na, decltype(nullptr) = nullptr>
-        struct value
-        {
-            using type = val;
-        };
-
-        template<>
-        struct value<na> {};
+        template<typename val = na>
+        struct value;
     }
 
     /// \ingroup value
@@ -32,6 +26,18 @@ namespace metal
     /// ...
     template<typename val>
     using is_value = true_;
+
+    namespace detail
+    {
+        template<typename val>
+        struct value
+        {
+            using type = val;
+        };
+
+        template<>
+        struct value<na> {};
+    }
 }
 
 #endif

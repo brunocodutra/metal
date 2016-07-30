@@ -6,7 +6,6 @@
 #define METAL_LIST_COUNT_HPP
 
 #include <metal/list/count_if.hpp>
-#include <metal/lambda/arg.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
 #include <metal/value/equal.hpp>

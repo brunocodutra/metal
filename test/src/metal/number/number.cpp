@@ -3,6 +3,8 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/number/number.hpp>
+#include <metal/list/list.hpp>
+#include <metal/lambda/lambda.hpp>
 
 #include "test.hpp"
 
@@ -10,7 +12,6 @@
     ASSERT((metal::is_number<VAL(M)>), (FALSE)); \
     ASSERT((metal::is_number<NUM(M)>), (TRUE)); \
     ASSERT((metal::is_number<PAIR(M)>), (FALSE)); \
-    ASSERT((metal::is_number<VECT(M)>), (FALSE)); \
     ASSERT((metal::is_number<LIST(M)>), (FALSE)); \
     ASSERT((metal::is_number<MAP(M)>), (FALSE)); \
     ASSERT((metal::is_number<LBD(M)>), (FALSE)); \

@@ -12,6 +12,8 @@
 #include <metal/number/cast.hpp>
 #include <metal/number/number.hpp>
 
+#include <cstddef>
+
 namespace metal
 {
     namespace detail

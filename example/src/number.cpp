@@ -8,7 +8,7 @@
 
 HIDE(
 /// [num1]
-using num = std::false_type;
+using num = metal::false_;
 /// [num1]
 
 static_assert(metal::is_number<num>::value, "");
@@ -16,7 +16,7 @@ static_assert(metal::is_number<num>::value, "");
 
 HIDE(
 /// [num2]
-using num = std::integral_constant<int, -1>;
+using num = metal::int_<-1>;
 /// [num2]
 
 static_assert(metal::is_number<num>::value, "");
@@ -25,7 +25,7 @@ static_assert(metal::is_number<num>::value, "");
 HIDE(
 /// [not_a_num1]
 struct not_a_num :
-    std::true_type
+    metal::true_
 {};
 /// [not_a_num1]
 

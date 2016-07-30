@@ -5,38 +5,14 @@
 #ifndef METAL_LAMBDA_APPLY_HPP
 #define METAL_LAMBDA_APPLY_HPP
 
-namespace metal
-{
-    namespace detail
-    {
-        template<typename lbd, typename seq>
-        struct _apply;
-    }
-
-    /// \ingroup lambda
-    /// ...
-    template<typename lbd, typename seq>
-    using apply = typename detail::_apply<lbd, seq>::type;
-}
-
 #include <metal/lambda/invoke.hpp>
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename lbd, typename seq>
-        struct _apply
-        {};
-
-        template<
-            typename lbd,
-            template<typename...> class seq, typename... vals
-        >
-        struct _apply<lbd, seq<vals...>> :
-            _invoke<lbd, vals...>
-        {};
-    }
+    /// \ingroup lambda
+    /// ...
+    template<typename lbd, typename seq>
+    using apply = typename detail::_invoke_impl<lbd, seq>::type;
 }
 
 #endif

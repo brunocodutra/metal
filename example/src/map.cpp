@@ -8,10 +8,7 @@
 
 HIDE(
 /// [map1]
-template<typename...>
-struct many;
-
-using map = many<>; // an empty map
+using map = metal::list<>; // an empty map
 /// [map1]
 
 static_assert(metal::is_map<map>::value, "");
@@ -19,35 +16,21 @@ static_assert(metal::is_map<map>::value, "");
 
 HIDE(
 /// [map2]
-template<typename>
-struct single;
-
-template<typename, typename>
-struct couple;
-
-using map = single<couple<int, int*>>;
+using map = metal::list<
+    metal::list<int, long>,
+    metal::list<float, double>
+>;
 /// [map2]
 
 static_assert(metal::is_map<map>::value, "");
 )
 
 HIDE(
-/// [map3]
-template<typename, typename>
-struct couple;
-
-using map = couple<couple<int, long>, couple<float, double>>;
-/// [map3]
-
-static_assert(metal::is_map<map>::value, "");
-)
-
-HIDE(
 /// [not_a_map1]
-template<typename, typename>
-struct couple;
-
-using not_a_map = couple<couple<int, int*>, couple<int, int&>>; // repeated keys
+using not_a_map = metal::list< // repeated keys
+    metal::list<int, int*>,
+    metal::list<int, int&>
+>;
 /// [not_a_map1]
 
 static_assert(!metal::is_map<not_a_map>::value, "");
@@ -55,10 +38,10 @@ static_assert(!metal::is_map<not_a_map>::value, "");
 
 HIDE(
 /// [not_a_map2]
-template<typename...>
-struct many;
-
-using not_a_map = many<many<void>, many<int, int>>; // not a list of pairs
+using not_a_map = metal::list< // not a list of pairs
+    metal::list<int>,
+    metal::list<int, int&>
+>;
 /// [not_a_map2]
 
 static_assert(!metal::is_map<not_a_map>::value, "");

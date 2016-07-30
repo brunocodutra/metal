@@ -6,7 +6,7 @@
 #define METAL_LIST_INDICES_HPP
 
 #include <metal/list/size.hpp>
-#include <metal/list/copy.hpp>
+#include <metal/number/number.hpp>
 #include <metal/number/enumerate.hpp>
 
 namespace metal
@@ -14,8 +14,7 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq>
-    using indices =
-        metal::copy<seq, metal::enumerate<metal::size_t<0>, metal::size<seq>>>;
+    using indices = metal::enumerate<metal::size_t<0>, metal::size<seq>>;
 }
 
 #endif

@@ -27,10 +27,8 @@ namespace metal
     using map = if_<is_map<list<pairs...>>, list<pairs...>>;
 }
 
-#include <metal/pair/pair.hpp>
-#include <metal/list/empty.hpp>
+#include <metal/list/list.hpp>
 #include <metal/list/distinct.hpp>
-#include <metal/number/and.hpp>
 
 namespace metal
 {
@@ -41,19 +39,14 @@ namespace metal
             false_
         {};
 
-        template<template<typename...> class seq>
-        struct _is_map<seq<>> :
-            empty<seq<>>
+        template<>
+        struct _is_map<list<>> :
+            true_
         {};
 
-        template<
-            template<typename...> class seq,
-            template<typename...> class... pairs,
-            typename... keys,
-            typename... vals
-        >
-        struct _is_map<seq<pairs<keys, vals>...>> :
-            and_<is_pair<pairs<keys, vals>>..., distinct<seq<keys...>>>
+        template<typename... keys, typename... vals>
+        struct _is_map<list<list<keys, vals>...>> :
+            distinct<list<keys...>>
         {};
     }
 }

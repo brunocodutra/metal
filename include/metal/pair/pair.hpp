@@ -63,9 +63,9 @@ namespace metal
             false_
         {};
 
-        template<template<typename...> class seq, typename... vals>
-        struct _is_pair<seq<vals...>> :
-            bool_<sizeof...(vals) == 2>
+        template<typename x, typename y>
+        struct _is_pair<list<x, y>> :
+            true_
         {};
     }
 }

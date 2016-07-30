@@ -19,6 +19,7 @@ namespace metal
     using size = typename detail::_size<seq>::type;
 }
 
+#include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 
 namespace metal
@@ -29,8 +30,8 @@ namespace metal
         struct _size
         {};
 
-        template<template<typename...> class seq, typename... vals>
-        struct _size<seq<vals...>> :
+        template<typename... vals>
+        struct _size<list<vals...>> :
             size_t<sizeof...(vals)>
         {};
     }
