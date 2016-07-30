@@ -12,7 +12,7 @@
 #if 0
 ///[naive]
 constexpr auto operator ""_c(long long i)
-    -> std::integral_constant<long long, i> {
+    -> metal::number<long long, i> {
     return {};
 }
 ///[naive]

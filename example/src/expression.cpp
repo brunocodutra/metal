@@ -9,7 +9,7 @@
 HIDE(
 /// [expr1]
 template<typename... vals>
-using expr = std::integral_constant<std::size_t, sizeof...(vals)>;
+using expr = metal::size_t<sizeof...(vals)>;
 /// [expr1]
 )
 
@@ -52,6 +52,6 @@ struct not_an_expression
 HIDE(
 /// [not_an_expr3]
 template<typename t, t v> // non-type parameter
-using not_an_expression = std::integral_constant<t, v>;
+using not_an_expression = metal::number<t, v>;
 /// [not_an_expr3]
 )

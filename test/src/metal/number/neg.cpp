@@ -3,6 +3,7 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/number/neg.hpp>
+#include <metal/number/number.hpp>
 #include <metal/lambda/invoke.hpp>
 
 #include "test.hpp"
@@ -16,7 +17,7 @@
     ASSERT((metal::is_invocable<test::lambda<metal::neg>, MAP(M)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::neg>, LBD(M)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::neg>, LBD(_)>), (FALSE)); \
-    ASSERT((metal::neg<NUM(M)>), (NUMBER(-NUM(M)::value, test::value_type<NUM(M)>))); \
+    ASSERT((metal::neg<NUM(M)>), (test::num<test::value_type<NUM(M)>, -M>)); \
 /**/
 
 GEN(MATRIX)

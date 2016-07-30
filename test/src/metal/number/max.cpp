@@ -3,6 +3,7 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/number/max.hpp>
+#include <metal/number/number.hpp>
 #include <metal/lambda/invoke.hpp>
 
 #include "test.hpp"
@@ -64,7 +65,7 @@
     ASSERT((metal::is_invocable<test::lambda<metal::max>, LBD(_) COMMA(N) LISTS(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::max>, LBD(_) COMMA(N) MAPS(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::max>, LBD(_) COMMA(N) LBDS(N)>), (FALSE)); \
-    ASSERT((metal::max<NUM(M) COMMA(N) NUMS(N)>), (NUMBER((M >= N) ? M : N - 1, test::value_type<NUM(M) COMMA(N) ENUM(N, NUM)>))); \
+    ASSERT((metal::max<NUM(M) COMMA(N) NUMS(N)>), (test::num<test::value_type<NUM(M) COMMA(N) ENUM(N, NUM)>, (M >= N) ? M : N - 1>)); \
 /**/
 
 GEN(MATRIX)

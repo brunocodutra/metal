@@ -3,12 +3,13 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/number/enumerate.hpp>
+#include <metal/number/number.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/list/list.hpp>
 
 #include "test.hpp"
 
-#define ENTRY(N, TYPE, A, B) NUMBER(A*N + B, TYPE)
+#define ENTRY(N, TYPE, A, B) test::num<TYPE, A*N + B>
 
 #define MATRIX(M, N) \
     ASSERT((metal::is_invocable<test::lambda<metal::enumerate>, VAL(M), VAL(N), VAL(N)>), (FALSE)); \
@@ -77,13 +78,13 @@
     ASSERT((metal::is_invocable<test::lambda<metal::enumerate>, LBD(_), LBD(_), LBD(N)>), (FALSE)); \
     ASSERT((metal::enumerate<NUM(M), NUM(N)>), (metal::list<ENUM(N, ENTRY, test::value_type<NUM(M)>, 1, M)>)); \
     ASSERT((metal::enumerate<NUM(M), NUM(N), NUM(M)>), (metal::list<ENUM(N, ENTRY, test::value_type<NUM(M)>, M, M)>)); \
-    ASSERT((metal::enumerate<NUM(M), NUMBER(-N, int), NUMBER(-M, int)>), (metal::list<ENUM(N, ENTRY, test::value_type<NUM(M)>, M, M)>)); \
-    ASSERT((metal::enumerate<NUMBER(-M, int), NUM(N)>), (metal::list<ENUM(N, ENTRY, int, 1, -M)>)); \
-    ASSERT((metal::enumerate<NUMBER(-M, int), NUM(N), NUM(M)>), (metal::list<ENUM(N, ENTRY, int, M, -M)>)); \
-    ASSERT((metal::enumerate<NUMBER(-M, int), NUMBER(-N, int)>), (metal::list<ENUM(N, ENTRY, int, -1, -M)>)); \
-    ASSERT((metal::enumerate<NUMBER(-M, int), NUMBER(-N, int), NUM(M)>), (metal::list<ENUM(N, ENTRY, int, -M, -M)>)); \
-    ASSERT((metal::enumerate<NUMBER(-M, int), NUM(N), NUMBER(-M, int)>), (metal::list<ENUM(N, ENTRY, int, -M, -M)>)); \
-    ASSERT((metal::enumerate<NUMBER(-M, int), NUMBER(-N, int), NUMBER(-M, int)>), (metal::list<ENUM(N, ENTRY, int, M, -M)>)); \
+    ASSERT((metal::enumerate<NUM(M), INT(-N), INT(-M)>), (metal::list<ENUM(N, ENTRY, test::value_type<NUM(M)>, M, M)>)); \
+    ASSERT((metal::enumerate<INT(-M), NUM(N)>), (metal::list<ENUM(N, ENTRY, int, 1, -M)>)); \
+    ASSERT((metal::enumerate<INT(-M), NUM(N), NUM(M)>), (metal::list<ENUM(N, ENTRY, int, M, -M)>)); \
+    ASSERT((metal::enumerate<INT(-M), INT(-N)>), (metal::list<ENUM(N, ENTRY, int, -1, -M)>)); \
+    ASSERT((metal::enumerate<INT(-M), INT(-N), NUM(M)>), (metal::list<ENUM(N, ENTRY, int, -M, -M)>)); \
+    ASSERT((metal::enumerate<INT(-M), NUM(N), INT(-M)>), (metal::list<ENUM(N, ENTRY, int, -M, -M)>)); \
+    ASSERT((metal::enumerate<INT(-M), INT(-N), INT(-M)>), (metal::list<ENUM(N, ENTRY, int, M, -M)>)); \
 /**/
 
 GEN(MATRIX)

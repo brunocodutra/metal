@@ -3,6 +3,7 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/value/equal.hpp>
+#include <metal/number/number.hpp>
 #include <metal/lambda/invoke.hpp>
 
 #include "test.hpp"
@@ -74,7 +75,7 @@
     ASSERT((metal::is_invocable<test::lambda<metal::equal>, LBD(_), LBD(_)>), (TRUE)); \
     ASSERT((metal::equal<VAL(M), VAL(N)>), (BOOL(M == N))); \
     ASSERT((metal::equal<NUM(M), NUM(N)>), (BOOL(M == N))); \
-    ASSERT((metal::equal<NUM(M), NUMBER(-N, int)>), (BOOL(!M && !N))); \
+    ASSERT((metal::equal<NUM(M), INT(-N)>), (BOOL(!M && !N))); \
     ASSERT((metal::equal<PAIR(M), PAIR(N)>), (BOOL(M == N))); \
     ASSERT((metal::equal<PAIR(M), VECT(N)>), (FALSE)); \
     ASSERT((metal::equal<PAIR(M), LIST(N)>), (FALSE)); \

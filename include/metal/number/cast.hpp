@@ -30,9 +30,17 @@ namespace metal
 
         template<typename t, t v, typename to>
         struct _cast<number<t, v>, to,
-            std::enable_if_t<std::is_integral<to>::value, decltype(to{v})>
+            std::enable_if_t<
+                std::is_integral<to>::value && !std::is_same<to, bool>::value,
+                decltype(to{v})
+            >
         > :
             number<to, v>
+        {};
+
+        template<typename t, t v>
+        struct _cast<number<t, v>, bool> :
+            bool_<v ? true : false>
         {};
     }
 }

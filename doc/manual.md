@@ -260,10 +260,13 @@ A [Number] is a compile-time representation of a numerical value.
 
 ### Requirements
 
-`num` is a model of [Number] if and only if `num` is an alias to a
-specialization of [std::integral_constant][integral].
+`num` is a model of [Number] if and only if `num` is a specialization of
+`metal::number`.
 
-A [Number] whose underlying value type is `bool` is said to be a [Boolean].
+\note{
+    `metal::number` is guaranteed to be an alias template to
+    [`std::integral_constant`][integral].
+}
 
 ### Examples
 
@@ -424,7 +427,7 @@ chances are you realized the hard way that there is simply no way of
 overloading such an operator.
 
 All is not lost however if you can live with the subscript operator taking an
-object of type `std::integral_constant`, or in Metal's parlance [Number],
+object of type `std::integral_constant`, or in Metal's parlance a [Number],
 instead of an usual integral value.
 
 \snippet literal.cpp super_tuple

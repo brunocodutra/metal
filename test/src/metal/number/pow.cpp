@@ -3,6 +3,7 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/number/pow.hpp>
+#include <metal/number/number.hpp>
 #include <metal/lambda/invoke.hpp>
 
 #include "test.hpp"
@@ -64,8 +65,8 @@
     ASSERT((metal::is_invocable<test::lambda<metal::pow>, LBD(_) COMMA(N) LISTS(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::pow>, LBD(_) COMMA(N) MAPS(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::pow>, LBD(_) COMMA(N) LBDS(N)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::pow>, NUM(M), NUMBER(-N, int)>), (BOOL(M || !N))); \
-    ASSERT((metal::pow<NUM(M) COMMA(N) NUMS(N)>), (NUMBER(IF(N)(1, M), test::value_type<NUM(M) COMMA(N) NUMS(N) COMMA(N) IF(NOT(N))( , NUMBER(0, int))>))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::pow>, NUM(M), INT(-N)>), (BOOL(M || !N))); \
+    ASSERT((metal::pow<NUM(M) COMMA(N) NUMS(N)>), (test::num<test::value_type<NUM(M) COMMA(N) NUMS(N) COMMA(N) IF(NOT(N))( , INT(0))>, IF(N)(1, M)>)); \
 /**/
 
 GEN(MATRIX)

@@ -3,6 +3,7 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/number/div.hpp>
+#include <metal/number/number.hpp>
 #include <metal/lambda/invoke.hpp>
 
 #include "test.hpp"
@@ -64,7 +65,7 @@
     ASSERT((metal::is_invocable<test::lambda<metal::div>, LBD(_) COMMA(N) LISTS(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::div>, LBD(_) COMMA(N) MAPS(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::div>, LBD(_) COMMA(N) LBDS(N)>), (FALSE)); \
-    ASSERT((metal::div<FACT(M, test::value_type<NUM(M)>) COMMA(N) ENUM(N, NUM LIFT(INC))>), (NUMBER((metal::div<FACT(M, int), FACT(N, int)>::value), test::value_type<NUM(M) COMMA(N) ENUM(N, NUM LIFT(INC)) COMMA(N) IF(NOT(N))( , NUMBER(0, int))>))); \
+    ASSERT((metal::div<test::num<test::value_type<NUM(M)>, FACT(M)> COMMA(N) ENUM(N, NUM LIFT(INC))>), (test::num<test::value_type<NUM(M) COMMA(N) ENUM(N, NUM LIFT(INC)) COMMA(N) IF(NOT(N))( , INT(0))>, FACT(M)/FACT(N)>)); \
 /**/
 
 GEN(MATRIX)

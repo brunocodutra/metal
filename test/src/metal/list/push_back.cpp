@@ -4,6 +4,7 @@
 
 #include <metal/list/push_back.hpp>
 #include <metal/lambda/invoke.hpp>
+#include <metal/number/number.hpp>
 
 #include "test.hpp"
 

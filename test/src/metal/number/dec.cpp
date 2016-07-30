@@ -3,6 +3,7 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/number/dec.hpp>
+#include <metal/number/number.hpp>
 #include <metal/lambda/invoke.hpp>
 
 #include "test.hpp"
@@ -16,7 +17,7 @@
     ASSERT((metal::is_invocable<test::lambda<metal::dec>, MAP(M)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::dec>, LBD(M)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::dec>, LBD(_)>), (FALSE)); \
-    ASSERT((metal::dec<NUM(M)>), (NUMBER(NUM(M)::value - 1, test::value_type<NUM(M)>))); \
+    ASSERT((metal::dec<NUM(M)>), (test::num<test::value_type<NUM(M)>, M - 1>)); \
 /**/
 
 GEN(MATRIX)

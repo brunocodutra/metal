@@ -3,9 +3,8 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/number/cast.hpp>
+#include <metal/number/number.hpp>
 #include <metal/lambda/invoke.hpp>
-
-#include <cstdint>
 
 #include "test.hpp"
 
@@ -74,9 +73,11 @@
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(_), MAP(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(_), LBD(N)>), (FALSE)); \
     ASSERT((metal::is_invocable<test::lambda<metal::cast>, LBD(_), LBD(_)>), (FALSE)); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, NUMBER(-M, int16_t), uint16_t>), (BOOL(!M))); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, NUMBER(-M, uint16_t), int16_t>), (BOOL(!M))); \
-    ASSERT((metal::is_invocable<test::lambda<metal::cast>, NUMBER(-M, uint16_t), int64_t>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::cast>, NUM(M), bool>), (TRUE)); \
+    ASSERT((metal::is_invocable<test::lambda<metal::cast>, test::num<std::int16_t, -M>, std::uint16_t>), (BOOL(!M))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::cast>, test::num<std::uint16_t, -M>, std::int16_t>), (BOOL(!M))); \
+    ASSERT((metal::is_invocable<test::lambda<metal::cast>, test::num<std::uint16_t, -M>, std::int64_t>), (TRUE)); \
+    ASSERT((metal::cast<NUM(M), bool>), (metal::bool_<IF(M)(true, false)>)); \
     ASSERT((metal::cast<NUM(M), int>), (metal::int_<M>)); \
 /**/
 

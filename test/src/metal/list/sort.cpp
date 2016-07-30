@@ -6,6 +6,7 @@
 #include <metal/lambda/invoke.hpp>
 #include <metal/number/less.hpp>
 #include <metal/number/greater.hpp>
+#include <metal/number/number.hpp>
 
 #include "test.hpp"
 

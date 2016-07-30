@@ -4,6 +4,7 @@
 
 #include <metal/list/splice.hpp>
 #include <metal/lambda/invoke.hpp>
+#include <metal/number/number.hpp>
 
 #include "test.hpp"
 

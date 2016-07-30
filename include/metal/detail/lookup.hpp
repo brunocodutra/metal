@@ -11,6 +11,8 @@
 
 #include <metal/detail/declptr.hpp>
 
+#include <cstddef>
+
 #if defined(__has_builtin)
 #   if __has_builtin(__type_pack_element)
 #       define METAL_USE_BUILTIN_TYPE_PACK_ELEMENT

@@ -10,6 +10,8 @@
 
 #include <metal/detail/lookup.hpp>
 
+#include <cstddef>
+
 namespace metal
 {
     /// \ingroup list

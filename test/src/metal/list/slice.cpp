@@ -4,6 +4,7 @@
 
 #include <metal/list/slice.hpp>
 #include <metal/lambda/invoke.hpp>
+#include <metal/number/number.hpp>
 
 #include "test.hpp"
 
@@ -77,7 +78,7 @@
     ASSERT((metal::slice<LIST(INF), NUM(M), NUM(CMPL(M))>), (metal::slice<LIST(INF), NUM(M), NUM(CMPL(M)), NUM(1)>)); \
     ASSERT((metal::slice<LIST(INF), NUM(0), NUM(M)>), (LIST(M))); \
     ASSERT((metal::slice<LIST(INF), NUM(M), NUM(N), NUM(0)>), (test::list<ENUM(N, VAL FIX(M))>)); \
-    ASSERT((metal::slice<LIST(INF), NUM(M), NUM(M), NUMBER(-1, int)>), (test::list<RENUM(M, VAL LIFT(INC))>)); \
+    ASSERT((metal::slice<LIST(INF), NUM(M), NUM(M), INT(-1)>), (test::list<RENUM(M, VAL LIFT(INC))>)); \
     ASSERT((metal::slice<MAP(M), NUM(0), NUM(M)>), (MAP(M))); \
 /**/
 

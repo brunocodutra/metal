@@ -5,6 +5,7 @@
 #include <metal/map/erase_key.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/list/erase.hpp>
+#include <metal/number/number.hpp>
 
 #include "test.hpp"
 
