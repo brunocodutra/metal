@@ -4,14 +4,26 @@
 [![travis.badge]][travis.metal]
 [![appveyor.badge]][appveyor.metal]
 
-Metal is a general-purpose C++14 template metaprogramming library
-designed to make metaprogramming enjoyable.
+Metal is a portable header-only C++14 library designed to make template
+metaprogramming enjoyable.
+
+## TL;DR
+
+For a quick get going, be sure to check out
+[Metal in Action](http://brunocodutra.github.io/metal/#metal_in_action).
+
+## Benchmarks
+
+See Metal in comparison with other modern metaprogramming libraries at
+[Metabench].
 
 ## Documentation
 
-Documentation is available online at http://brunocodutra.github.io/metal.
-Alternatively, an offline copy may be obtained by either
-cloning the branch `gh-pages`
+The complete up to date documentation is available
+[online](http://brunocodutra.github.io/metal).
+
+Alternatively, an offline copy may be obtained by either cloning the branch
+`gh-pages`
 
     git clone https://github.com/brunocodutra/metal.git --branch=gh-pages doc/html
 
@@ -22,15 +34,6 @@ or locally building the target `doc` ([CMake] and [Doxygen] required)
 
 In both cases, the same documentation website that is available online will be
 placed into `doc/html/`.
-
-## Portability
-
-Metal has no dependencies other than the standard C++ library,
-so any compiler that supports C++14 should be able to handle it just fine.
-Nevertheless, Metal is continuously and automatically tested upon every commit
-against some of the most popular freely available compilers.
-Please visit http://brunocodutra.github.io/metal/index.html#portability for
-more information.
 
 ## License
 
@@ -50,3 +53,4 @@ Metal is distributed under the
 
 [CMake]:            http://cmake.org/
 [Doxygen]:          http://doxygen.org/
+[Metabench]:        http://brunocodutra.github.io/metabench
