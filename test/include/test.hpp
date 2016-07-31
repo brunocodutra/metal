@@ -14,6 +14,12 @@
 #include "test/sequences.hpp"
 #include "test/values.hpp"
 
+#define CHECK_IMPL(X, Y) \
+    static_assert(std::is_same<ID X, ID Y>::value, #X " == " #Y) \
+/**/
+
+#define CHECK(X, Y) EXPAND(CHECK_IMPL SCAN((X, Y)))
+
 int main() {
     return 0;
 }

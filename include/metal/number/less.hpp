@@ -23,7 +23,7 @@ namespace metal
     ///     using result = metal::less<num_1, num_2>;
     /// \endcode
     ///
-    /// \returns: \boolean
+    /// \returns: \number of type `bool`
     /// \semantics:
     ///     \code
     ///         using result = metal::bool_<(num_1{} < num_2{})>;
@@ -35,7 +35,7 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see number, equal_to, greater
+    /// \see number, greater
     template<typename x, typename y>
     using less = typename detail::_less<x, y>::type;
 }

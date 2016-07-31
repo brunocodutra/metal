@@ -69,6 +69,10 @@ html, body {
     padding-left: 1em;
 }
 
+.memitem.panel .panel-title {
+    font-size: 14px;
+}
+
 h1:hover > a.anchor:after,
 h2:hover > a.anchor:after {
     content: "§";

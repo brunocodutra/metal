@@ -17,10 +17,10 @@ namespace metal
 {
     /// \ingroup list
     /// ...
-    template<typename seq, typename beg, typename end = metal::inc<beg>>
-    using erase = join<
-        range<seq, size_t<0>, min<beg, end>>,
-        range<seq, max<beg, end>, size<seq>>
+    template<typename seq, typename beg, typename end = inc<beg>>
+    using erase = metal::join<
+        metal::range<seq, metal::size_t<0>, metal::min<beg, end>>,
+        metal::range<seq, metal::max<beg, end>, metal::size<seq>>
     >;
 }
 

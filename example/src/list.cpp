@@ -11,7 +11,7 @@ HIDE(
 using list = metal::list<>; // an empty list
 /// [list1]
 
-static_assert(metal::is_list<list>::value, "");
+ASSERT(metal::is_list<list>);
 )
 
 HIDE(
@@ -19,5 +19,5 @@ HIDE(
 using list = metal::list<int, int*, int&>;
 /// [list2]
 
-static_assert(metal::is_list<list>::value, "");
+ASSERT(metal::is_list<list>);
 )

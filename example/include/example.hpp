@@ -12,6 +12,8 @@
 
 #define HIDE(...) struct CAT(anonymous, __LINE__) {__VA_ARGS__};
 
+#define ASSERT(...) static_assert(__VA_ARGS__::value, "")
+
 int main() {
     return 0;
 }

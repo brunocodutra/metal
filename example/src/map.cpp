@@ -11,7 +11,7 @@ HIDE(
 using map = metal::list<>; // an empty map
 /// [map1]
 
-static_assert(metal::is_map<map>::value, "");
+ASSERT(metal::is_map<map>);
 )
 
 HIDE(
@@ -22,7 +22,7 @@ using map = metal::list<
 >;
 /// [map2]
 
-static_assert(metal::is_map<map>::value, "");
+ASSERT(metal::is_map<map>);
 )
 
 HIDE(
@@ -33,7 +33,7 @@ using not_a_map = metal::list< // repeated keys
 >;
 /// [not_a_map1]
 
-static_assert(!metal::is_map<not_a_map>::value, "");
+ASSERT(!metal::is_map<not_a_map>);
 )
 
 HIDE(
@@ -44,5 +44,5 @@ using not_a_map = metal::list< // not a list of pairs
 >;
 /// [not_a_map2]
 
-static_assert(!metal::is_map<not_a_map>::value, "");
+ASSERT(!metal::is_map<not_a_map>);
 )

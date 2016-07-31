@@ -26,8 +26,8 @@ namespace metal
     /// ...
     template<
         typename seq, typename state, typename lbd,
-        typename beg = metal::size_t<0>,
-        typename end = metal::size<seq>
+        typename beg = size_t<0>,
+        typename end = size<seq>
     >
     using fold = typename detail::_fold<
         seq, state, lbd,

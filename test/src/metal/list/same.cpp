@@ -11,18 +11,18 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_invocable<metal::lambda<metal::same>, VAL(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::same>, NUM(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::same>, PAIR(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::same>, LIST(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::same>, MAP(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::same>, LBD(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::same>, LBD(_)>), (FALSE)); \
-    ASSERT((metal::same<PAIR(M)>), (FALSE)); \
-    ASSERT((metal::same<LIST(M)>), (BOOL(M < 2))); \
-    ASSERT((metal::same<MAP(M)>), (BOOL(M < 2))); \
-    ASSERT((metal::same<metal::list<VALS(M) COMMA(AND(M, N)) VALS(N)>>), (BOOL(M < 2 && N < 2))); \
-    ASSERT((metal::same<metal::list<ENUM(M, VAL FIX(N))>>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::same>, VAL(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::same>, NUM(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::same>, PAIR(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::same>, LIST(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::same>, MAP(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::same>, LBD(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::same>, LBD(_)>), (FALSE)); \
+    CHECK((metal::same<PAIR(M)>), (FALSE)); \
+    CHECK((metal::same<LIST(M)>), (BOOL(M < 2))); \
+    CHECK((metal::same<MAP(M)>), (BOOL(M < 2))); \
+    CHECK((metal::same<metal::list<VALS(M) COMMA(AND(M, N)) VALS(N)>>), (BOOL(M < 2 && N < 2))); \
+    CHECK((metal::same<metal::list<ENUM(M, VAL FIX(N))>>), (TRUE)); \
 /**/
 
 GEN(MATRIX)

@@ -23,8 +23,8 @@ namespace metal
     ///     using result = metal::neg<num>;
     /// \endcode
     ///
+    /// \pre: `num` is not a \number of type `bool`
     /// \returns: \number
-    /// \pre: `num` is not a \boolean
     /// \semantics:
     ///     \code
     ///         using result = metal::number<num::value_type, -num{}>;

@@ -27,26 +27,26 @@ constexpr auto operator ""/**/_raw()
 ///[raw]
 
 ///[raw_examples_1]
-static_assert(metal::equal<
+ASSERT(std::is_same<
     decltype(371_raw),
     metal::list<
         metal::char_<'3'>,
         metal::char_<'7'>,
         metal::char_<'1'>
     >
->::value, "");
+>);
 
-static_assert(metal::equal<
+ASSERT(std::is_same<
     decltype(0x371_raw),
     metal::list<
         metal::char_<'0'>, metal::char_<'x'>,
         metal::char_<'3'>, metal::char_<'7'>, metal::char_<'1'>
     >
->::value, "");
+>);
 ///[raw_examples_1]
 
 ///[raw_examples_2]
-static_assert(metal::equal<
+ASSERT(std::is_same<
     decltype(3'7'1_raw),
     metal::list<
         metal::char_<'3'>,
@@ -55,7 +55,7 @@ static_assert(metal::equal<
         metal::char_<'\''>,
         metal::char_<'1'>
     >
->::value, "");
+>);
 ///[raw_examples_2]
 
 HIDE(
@@ -68,14 +68,14 @@ using tokens = metal::list<
     metal::char_<'1'>
 >;
 
-static_assert(metal::equal<
+ASSERT(std::is_same<
     metal::remove<tokens, metal::char_<'\''>>,
     metal::list<
         metal::char_<'3'>,
         metal::char_<'7'>,
         metal::char_<'1'>
     >
->::value, "");
+>);
 ///[remove]
 )
 
@@ -115,14 +115,14 @@ using digits = metal::list<
     metal::char_<'1'>
 >;
 
-static_assert(metal::equal<
+ASSERT(std::is_same<
     metal::transform<metal::lambda<to_number>, digits>,
     metal::list<
         metal::number<long long, 3>,
         metal::number<long long, 7>,
         metal::number<long long, 1>
     >
->::value, "");
+>);
 ///[transform_1]
 )
 
@@ -134,14 +134,14 @@ using digits = metal::list<
     metal::number<long long, 1>
 >;
 
-static_assert(metal::equal<
+ASSERT(std::is_same<
     metal::reverse<digits>,
     metal::list<
         metal::number<long long, 1>,
         metal::number<long long, 7>,
         metal::number<long long, 3>
     >
->::value, "");
+>);
 ///[reverse]
 )
 
@@ -153,14 +153,14 @@ using digits = metal::list<
     metal::number<long long, 3>
 >;
 
-static_assert(metal::equal<
+ASSERT(std::is_same<
     metal::enumerate<metal::number<long long, 0>, metal::size<digits>>,
     metal::list<
         metal::number<long long, 0>,
         metal::number<long long, 1>,
         metal::number<long long, 2>
     >
->::value, "");
+>);
 ///[enumerate]
 )
 
@@ -178,7 +178,7 @@ using exponents = metal::list<
     metal::number<long long, 2>
 >;
 
-static_assert(metal::equal<
+ASSERT(std::is_same<
     metal::transform<
         metal::bind<
             metal::lambda<metal::mul>,
@@ -196,7 +196,7 @@ static_assert(metal::equal<
         metal::number<long long, 70>,
         metal::number<long long, 300>
     >
->::value, "");
+>);
 ///[transform_2]
 )
 
@@ -208,10 +208,10 @@ using terms = metal::list<
     metal::number<long long, 300>
 >;
 
-static_assert(metal::equal<
+ASSERT(std::is_same<
     metal::apply<metal::lambda<metal::add>, terms>,
     metal::number<long long, 371>
->::value, "");
+>);
 ///[sum]
 )
 
@@ -294,45 +294,45 @@ constexpr auto operator ""/**/_c()
 ///[_c]
 
 ///[test_1]
-static_assert(metal::equal<
+ASSERT(std::is_same<
     decltype(01234567_c), //octal
     metal::number<long long, 342391>
->::value, "");
+>);
 
-static_assert(metal::equal<
+ASSERT(std::is_same<
     decltype(123456789_c), //decimal
     metal::number<long long, 123456789>
->::value, "");
+>);
 
-static_assert(metal::equal<
+ASSERT(std::is_same<
     decltype(0xABCDEF_c), //hexadecimal
     metal::number<long long, 11259375>
->::value, "");
+>);
 ///[test_1]
 
-static_assert(metal::equal<
+ASSERT(std::is_same<
     decltype(0Xabcdef_c),
     metal::number<long long, 11259375>
->::value, "");
+>);
 
 
 ///[test_2]
-static_assert(metal::equal<
+ASSERT(std::is_same<
     decltype(0b111101101011011101011010101100101011110001000111000111000111000_c),
     metal::number<long long, 8888888888888888888>
->::value, "");
+>);
 ///[test_2]
 
-static_assert(metal::equal<
+ASSERT(std::is_same<
     decltype(0B111101101011011101011010101100101011110001000111000111000111000_c),
     metal::number<long long, 8888888888888888888>
->::value, "");
+>);
 
 ///[test_3]
-static_assert(metal::equal<
+ASSERT(std::is_same<
     decltype(1'2'3'4'5'6'7'8'9_c),
     metal::number<long long, 123456789>
->::value, "");
+>);
 ///[test_3]
 
 #if __cpp_constexpr >= 201304

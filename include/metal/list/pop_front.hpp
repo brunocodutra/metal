@@ -15,7 +15,7 @@ namespace metal
 {
     /// \ingroup list
     /// ...
-    template<typename seq, typename n = metal::size_t<1>>
+    template<typename seq, typename n = size_t<1>>
     using pop_front = metal::range<seq, n, metal::size<seq>>;
 }
 

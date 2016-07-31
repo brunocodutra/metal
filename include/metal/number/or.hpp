@@ -22,7 +22,7 @@ namespace metal
     ///     using result = metal::or_<num_1, ..., num_n>;
     /// \endcode
     ///
-    /// \returns: \boolean
+    /// \returns: \number of type `bool`
     /// \semantics:
     ///     \code
     ///         using result = metal::bool_<num_1{} || ... || num_n{}>;
@@ -34,7 +34,7 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see not_, and_
+    /// \see number, not_, and_
     template<typename... nums>
     using or_ =
         not_<same<list<true_, typename detail::_not_<nums>::type...>>>;

@@ -11,16 +11,16 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_invocable<metal::lambda<metal::indices>, VAL(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::indices>, NUM(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::indices>, PAIR(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::indices>, LIST(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::indices>, MAP(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::indices>, LBD(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::indices>, LBD(_)>), (FALSE)); \
-    ASSERT((metal::indices<PAIR(M)>), (metal::list<ENUM(2, SIZE_T)>)); \
-    ASSERT((metal::indices<LIST(M)>), (metal::list<ENUM(M, SIZE_T)>)); \
-    ASSERT((metal::indices<MAP(M)>), (metal::list<ENUM(M, SIZE_T)>)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::indices>, VAL(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::indices>, NUM(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::indices>, PAIR(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::indices>, LIST(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::indices>, MAP(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::indices>, LBD(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::indices>, LBD(_)>), (FALSE)); \
+    CHECK((metal::indices<PAIR(M)>), (metal::list<ENUM(2, SIZE_T)>)); \
+    CHECK((metal::indices<LIST(M)>), (metal::list<ENUM(M, SIZE_T)>)); \
+    CHECK((metal::indices<MAP(M)>), (metal::list<ENUM(M, SIZE_T)>)); \
 /**/
 
 GEN(MATRIX)

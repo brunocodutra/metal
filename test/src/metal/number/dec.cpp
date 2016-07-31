@@ -11,14 +11,14 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_invocable<metal::lambda<metal::dec>, VAL(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::dec>, NUM(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::dec>, PAIR(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::dec>, LIST(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::dec>, MAP(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::dec>, LBD(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::dec>, LBD(_)>), (FALSE)); \
-    ASSERT((metal::dec<NUM(M)>), (test::num<test::value_type<NUM(M)>, M - 1>)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::dec>, VAL(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::dec>, NUM(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::dec>, PAIR(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::dec>, LIST(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::dec>, MAP(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::dec>, LBD(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::dec>, LBD(_)>), (FALSE)); \
+    CHECK((metal::dec<NUM(M)>), (test::num<test::value_type<NUM(M)>, M - 1>)); \
 /**/
 
 GEN(MATRIX)

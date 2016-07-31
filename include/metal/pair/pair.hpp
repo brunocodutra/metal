@@ -25,7 +25,7 @@ namespace metal
     ///     using result = metal::is_pair<val>;
     /// \endcode
     ///
-    /// \returns: \boolean
+    /// \returns: \number of type `bool`
     /// \semantics:
     ///     If `val` is a \pair, then
     ///     \code

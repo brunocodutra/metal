@@ -11,5 +11,5 @@ HIDE(
 using lbd = metal::lambda<std::add_pointer_t>;
 /// [lbd1]
 
-static_assert(metal::is_lambda<lbd>::value, "");
+ASSERT(metal::is_lambda<lbd>);
 )

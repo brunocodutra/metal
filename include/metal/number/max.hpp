@@ -14,7 +14,30 @@ namespace metal
     }
 
     /// \ingroup number
-    /// ...
+    /// Computes the maximum of \numbers.
+    ///
+    /// Usage
+    /// -----
+    /// For any \numbers `num_1, ..., num_n`
+    /// \code
+    ///     using result = metal::max<num_1, ..., num_n>;
+    /// \endcode
+    ///
+    /// \returns: \number
+    /// \semantics:
+    ///     If `t` is the common integral type and `v` the maximum value between
+    ///     all \numbers in `num_1, ..., num_n`, then
+    ///     \code
+    ///         using result = metal::number<t, v>;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number.cpp max
+    ///
+    /// See Also
+    /// --------
+    /// \see number, min
     template<typename head, typename... tail>
     using max = typename detail::_max<head, tail...>::type;
 }

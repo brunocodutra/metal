@@ -41,7 +41,7 @@ namespace metal
 
         template<typename... _, typename... bases>
         struct inherit_impl<list<_...>, bases...> :
-            inherit_second<list<_>, bases>...
+            inherit_second<_, bases>...
         {};
 
         template<typename... bases>

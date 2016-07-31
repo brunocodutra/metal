@@ -11,7 +11,7 @@ HIDE(
 using val = int;
 /// [val1]
 
-static_assert(metal::is_value<val>::value, "");
+ASSERT(metal::is_value<val>);
 )
 
 HIDE(
@@ -19,7 +19,7 @@ HIDE(
 using val = decltype(3.14);
 /// [val2]
 
-static_assert(metal::is_value<val>::value, "");
+ASSERT(metal::is_value<val>);
 )
 
 HIDE(
@@ -30,7 +30,7 @@ struct val
 };
 /// [val3]
 
-static_assert(metal::is_value<val>::value, "");
+ASSERT(metal::is_value<val>);
 )
 
 HIDE(

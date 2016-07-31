@@ -11,16 +11,16 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_invocable<metal::lambda<metal::flatten>, VAL(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::flatten>, NUM(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::flatten>, PAIR(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::flatten>, LIST(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::flatten>, MAP(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::flatten>, LBD(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::flatten>, LBD(_)>), (FALSE)); \
-    ASSERT((metal::flatten<PAIR(M)>), (PAIR(M))); \
-    ASSERT((metal::flatten<LIST(M)>), (LIST(M))); \
-    ASSERT((metal::flatten<MAP(M)>), (metal::list<ENUM(M, FWD, NUM, VAL)>)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, VAL(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, NUM(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, PAIR(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, LIST(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, MAP(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, LBD(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, LBD(_)>), (FALSE)); \
+    CHECK((metal::flatten<PAIR(M)>), (PAIR(M))); \
+    CHECK((metal::flatten<LIST(M)>), (LIST(M))); \
+    CHECK((metal::flatten<MAP(M)>), (metal::list<ENUM(M, FWD, NUM, VAL)>)); \
 /**/
 
 GEN(MATRIX)

@@ -14,7 +14,30 @@ namespace metal
     }
 
     /// \ingroup number
-    /// ...
+    /// Computes the minimum of \numbers.
+    ///
+    /// Usage
+    /// -----
+    /// For any \numbers `num_1, ..., num_n`
+    /// \code
+    ///     using result = metal::min<num_1, ..., num_n>;
+    /// \endcode
+    ///
+    /// \returns: \number
+    /// \semantics:
+    ///     If `t` is the common integral type and `v` the minimum value between
+    ///     all \numbers in `num_1, ..., num_n`, then
+    ///     \code
+    ///         using result = metal::number<t, v>;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number.cpp min
+    ///
+    /// See Also
+    /// --------
+    /// \see number, max
     template<typename head, typename... tail>
     using min = typename detail::_min<head, tail...>::type;
 }

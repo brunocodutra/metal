@@ -24,7 +24,10 @@ namespace metal
     /// \ingroup map
     /// ...
     template<typename... pairs>
-    using map = if_<is_map<list<pairs...>>, list<pairs...>>;
+    using map = metal::if_<
+        metal::is_map<metal::list<pairs...>>,
+        metal::list<pairs...>
+    >;
 }
 
 #include <metal/list/list.hpp>

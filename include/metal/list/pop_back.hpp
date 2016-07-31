@@ -17,9 +17,12 @@ namespace metal
 {
     /// \ingroup list
     /// ...
-    template<typename seq, typename n = metal::size_t<1>>
-    using pop_back =
-        range<seq, size_t<0>, sub<size<seq>, cast<n, std::size_t>>>;
+    template<typename seq, typename n = size_t<1>>
+    using pop_back = metal::range<
+        seq,
+        metal::size_t<0>,
+        metal::sub<metal::size<seq>, metal::cast<n, std::size_t>>
+    >;
 }
 
 #endif

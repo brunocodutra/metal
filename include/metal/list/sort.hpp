@@ -17,9 +17,9 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq, typename lbd>
-    using sort = apply<
-        partial<lambda<merge>, lbd, list<>>,
-        transpose<list<seq>>
+    using sort = metal::apply<
+        metal::partial<metal::lambda<metal::merge>, lbd, metal::list<>>,
+        metal::transpose<metal::list<seq>>
     >;
 }
 

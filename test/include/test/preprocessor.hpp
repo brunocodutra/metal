@@ -162,10 +162,4 @@
 
 #define SCAN(...) X(X(X(X(X(X(X(X(X(X(__VA_ARGS__))))))))))
 
-#define ASSERT_IMPL(X, Y) \
-    static_assert(std::is_same<ID X, ID Y>::value, #X " == " #Y) \
-/**/
-
-#define ASSERT(X, Y) EXPAND(ASSERT_IMPL SCAN((X, Y)))
-
 #endif

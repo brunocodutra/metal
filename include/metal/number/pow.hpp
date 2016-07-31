@@ -23,14 +23,14 @@ namespace metal
     ///     using result = metal::pow<num_1, ..., num_n>;
     /// \endcode
     ///
-    /// \returns: \number
-    /// \pre: `num_1::value ** ... ** num_{m-1}::value` is nonzero for all
+    /// \pre: `num_1{} ** ... ** num_m-1{}` is nonzero for all
     /// negative `num_m`
+    /// \returns: \number
     /// \semantics:
     ///     \code
     ///         using result = metal::number<
-    ///             decltype(num_1::value ** ... ** num_n::value),
-    ///             num_1::value ** ... ** num_n::value
+    ///             decltype(num_1{} ** ... ** num_n{}),
+    ///             num_1{} ** ... ** num_n{}
     ///         >;
     ///     \endcode
     ///     \note{

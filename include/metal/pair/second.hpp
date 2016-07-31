@@ -37,7 +37,8 @@ namespace metal
     /// --------
     /// \see pair, first, at
     template<typename seq>
-    using second = if_<is_pair<seq>, apply<_2, seq>>;
+    using second =
+        metal::if_<metal::is_pair<seq>, metal::apply<metal::_2, seq>>;
 }
 
 #endif

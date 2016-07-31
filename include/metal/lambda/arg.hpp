@@ -59,10 +59,7 @@ namespace metal
     template<std::size_t n>
     using arg = typename detail::arg_impl<n>::type;
 
-    /// \defgroup placeholders Placeholders
     /// \ingroup lambda
-
-    /// \ingroup placeholders
     /// Default placeholder.
     /// \{
     using _1  = metal::arg<1U>;

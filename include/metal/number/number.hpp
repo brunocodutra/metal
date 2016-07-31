@@ -26,7 +26,7 @@ namespace metal
     ///     using result = metal::is_number<val>;
     /// \endcode
     ///
-    /// \returns: \boolean
+    /// \returns: \number of type `bool`
     /// \semantics:
     ///     If `val` is a \number, then
     ///     \code
@@ -73,17 +73,17 @@ namespace metal
     using char_ = metal::number<char, value>;
 
     /// \ingroup number
-    /// The standard constructor for \booleans.
+    /// The standard constructor for \numbers of type `bool`.
     template<bool value>
     using bool_ = metal::number<bool, value>;
 
     /// \ingroup number
-    /// The standard representation for the \boolean constant `true`.
-    using true_ = bool_<true>;
+    /// The standard representation for the boolean constant `true`.
+    using true_ = metal::bool_<true>;
 
     /// \ingroup number
-    /// The standard representation for the \boolean constant `false`.
-    using false_ = bool_<false>;
+    /// The standard representation for the boolean constant `false`.
+    using false_ = metal::bool_<false>;
 
     namespace detail
     {

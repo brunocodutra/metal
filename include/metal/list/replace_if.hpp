@@ -17,7 +17,15 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq, typename lbd, typename val>
-    using replace_if = transform<bind<lambda<if_>, lbd, quote<val>, _1>, seq>;
+    using replace_if = metal::transform<
+        metal::bind<
+            metal::lambda<metal::if_>,
+            lbd,
+            metal::quote<val>,
+            metal::_1
+        >,
+        seq
+    >;
 }
 
 #endif

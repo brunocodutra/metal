@@ -11,16 +11,16 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_invocable<metal::lambda<metal::reverse>, VAL(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::reverse>, NUM(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::reverse>, PAIR(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::reverse>, LIST(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::reverse>, MAP(M)>), (TRUE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::reverse>, LBD(M)>), (FALSE)); \
-    ASSERT((metal::is_invocable<metal::lambda<metal::reverse>, LBD(_)>), (FALSE)); \
-    ASSERT((metal::reverse<PAIR(M)>), (metal::list<VAL(M), NUM(M)>)); \
-    ASSERT((metal::reverse<LIST(M)>), (metal::list<RENUM(M, VAL)>)); \
-    ASSERT((metal::reverse<MAP(M)>), (metal::list<RENUM(M, PAIR)>)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::reverse>, VAL(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::reverse>, NUM(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::reverse>, PAIR(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::reverse>, LIST(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::reverse>, MAP(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::reverse>, LBD(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::reverse>, LBD(_)>), (FALSE)); \
+    CHECK((metal::reverse<PAIR(M)>), (metal::list<VAL(M), NUM(M)>)); \
+    CHECK((metal::reverse<LIST(M)>), (metal::list<RENUM(M, VAL)>)); \
+    CHECK((metal::reverse<MAP(M)>), (metal::list<RENUM(M, PAIR)>)); \
 /**/
 
 GEN(MATRIX)

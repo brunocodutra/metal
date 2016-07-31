@@ -26,8 +26,8 @@ namespace metal
     /// ...
     template<
         typename seq, typename lbd,
-        typename beg = metal::size_t<0>,
-        typename end = metal::size<seq>
+        typename beg = size_t<0>,
+        typename end = size<seq>
     >
     using reduce = typename detail::_reduce<
         seq, lbd,

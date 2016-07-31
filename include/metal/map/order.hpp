@@ -16,7 +16,10 @@ namespace metal
     /// \ingroup map
     /// ...
     template<typename seq, typename key>
-    using order = at_key<transpose<pair<keys<seq>, indices<seq>>>, key>;
+    using order = metal::at_key<
+        metal::transpose<metal::pair<metal::keys<seq>, metal::indices<seq>>>,
+        key
+    >;
 }
 
 #endif

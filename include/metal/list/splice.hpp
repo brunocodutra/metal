@@ -15,8 +15,11 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq, typename n, typename other>
-    using splice =
-        join<range<seq, size_t<0>, n>, other, range<seq, n, size<seq>>>;
+    using splice = metal::join<
+        metal::range<seq, metal::size_t<0>, n>,
+        other,
+        metal::range<seq, n, metal::size<seq>>
+    >;
 }
 
 #endif

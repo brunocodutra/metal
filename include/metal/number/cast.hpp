@@ -18,7 +18,31 @@ namespace metal
     }
 
     /// \ingroup number
-    /// ...
+    /// Performs non-narrowing integral conversion of \numbers.
+    ///
+    /// \note{Any \number may be cast to `bool`.}
+    ///
+    /// Usage
+    /// -----
+    /// For any \number `num` and \value `val`
+    /// \code
+    ///     using result = metal::cast<num, val>;
+    /// \endcode
+    ///
+    /// \pre: `val` is an integral type
+    /// \returns: \number of type `val`
+    /// \semantics:
+    ///     \code
+    ///         using result = metal::number<val, val{num::value}>;
+    ///     \endcode
+    ///
+    /// Example
+    /// -------
+    /// \snippet number.cpp cast
+    ///
+    /// See Also
+    /// --------
+    /// \see number
     template<typename from, typename to>
     using cast = typename detail::_cast<from, to>::type;
 

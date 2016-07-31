@@ -25,7 +25,7 @@ namespace metal
     /// \ingroup value
     /// ...
     template<typename val>
-    using is_value = true_;
+    using is_value = metal::true_;
 
     namespace detail
     {

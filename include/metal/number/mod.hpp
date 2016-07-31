@@ -23,8 +23,8 @@ namespace metal
     ///     using result = metal::mod<num_1, ..., num_n>;
     /// \endcode
     ///
-    /// \returns: \number
     /// \pre: all \numbers in `[num_2, ..., num_n]` are nonzero
+    /// \returns: \number
     /// \semantics:
     ///     \code
     ///         using result = metal::number<
