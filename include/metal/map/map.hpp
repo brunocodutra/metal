@@ -1,64 +1,55 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_MAP_MAP_HPP
 #define METAL_MAP_MAP_HPP
 
 #include <metal/list/list.hpp>
+#include <metal/number/if.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename map>
-        struct is_map;
+        template<typename val>
+        struct _is_map;
     }
 
     /// \ingroup map
     /// ...
-    template<typename... pairs>
-    using map = metal::list<pairs...>;
+    template<typename val>
+    using is_map = typename detail::_is_map<val>::type;
 
     /// \ingroup map
     /// ...
-    template<typename map>
-    using is_map = detail::is_map<map>;
-
-    /// \ingroup map
-    /// Eager adaptor for metal::is_map.
-    template<typename map>
-    using is_map_t = typename metal::is_map<map>::type;
+    template<typename... pairs>
+    using map = metal::if_<
+        metal::is_map<metal::list<pairs...>>,
+        metal::list<pairs...>
+    >;
 }
 
-
-#include <metal/pair/pair.hpp>
-#include <metal/list/empty.hpp>
+#include <metal/list/list.hpp>
 #include <metal/list/distinct.hpp>
-#include <metal/number/logical/and.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename>
-        struct is_map :
-            boolean<false>
+        template<typename val>
+        struct _is_map :
+            false_
         {};
 
-        template<template<typename...> class map>
-        struct is_map<map<>> :
-            empty<map<>>
+        template<>
+        struct _is_map<list<>> :
+            true_
         {};
 
-        template<
-            template<typename...> class map,
-            template<typename...> class... pairs,
-            typename... keys,
-            typename... vals
-        >
-        struct is_map<map<pairs<keys, vals>...>> :
-            and_<is_pair_t<pairs<keys, vals>>..., distinct_t<map<keys...>>>
+        template<typename... keys, typename... vals>
+        struct _is_map<list<list<keys, vals>...>> :
+            distinct<list<keys...>>
         {};
     }
 }

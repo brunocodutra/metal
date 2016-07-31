@@ -1,49 +1,28 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_POP_BACK_HPP
 #define METAL_LIST_POP_BACK_HPP
 
+#include <metal/list/size.hpp>
+#include <metal/list/range.hpp>
+#include <metal/number/sub.hpp>
+#include <metal/number/cast.hpp>
+#include <metal/number/number.hpp>
+
+#include <cstddef>
+
 namespace metal
 {
-    namespace detail
-    {
-        template<typename list>
-        struct pop_back;
-    }
-
     /// \ingroup list
     /// ...
-    template<typename list>
-    using pop_back = detail::pop_back<list>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::pop_back.
-    template<typename list>
-    using pop_back_t = typename metal::pop_back<list>::type;
-}
-
-#include <metal/list/list.hpp>
-#include <metal/list/erase.hpp>
-#include <metal/list/size.hpp>
-
-namespace metal
-{
-    namespace detail
-    {
-        template<typename list>
-        struct pop_back
-        {};
-
-        template<
-            template<typename...> class expr,
-            typename head, typename... tail
-        >
-        struct pop_back<expr<head, tail...>> :
-            erase<expr<head, tail...>, size_t<list<tail...>>>
-        {};
-    }
+    template<typename seq, typename n = size_t<1>>
+    using pop_back = metal::range<
+        seq,
+        metal::size_t<0>,
+        metal::sub<metal::size<seq>, metal::cast<n, std::size_t>>
+    >;
 }
 
 #endif

@@ -1,27 +1,24 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_TRANSPOSE_HPP
 #define METAL_LIST_TRANSPOSE_HPP
+
+#include <metal/number/number.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename list>
-        struct transpose;
+        template<typename, typename = true_, typename = true_>
+        struct _transpose;
     }
 
     /// \ingroup list
     /// ...
-    template<typename list>
-    using transpose = detail::transpose<list>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::transpose.
-    template<typename list>
-    using transpose_t = typename metal::transpose<list>::type;
+    template<typename seq>
+    using transpose = typename detail::_transpose<seq>::type;
 }
 
 #include <metal/list/at.hpp>
@@ -29,79 +26,45 @@ namespace metal
 #include <metal/list/same.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/list/transform.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/defer.hpp>
+#include <metal/lambda/bind.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/lambda/quote.hpp>
-#include <metal/number/number.hpp>
+#include <metal/lambda/partial.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename>
-        struct unbind
+        template<typename, typename, typename>
+        struct _transpose
         {};
 
-        template<typename list>
-        using unbind_t = typename unbind<list>::type;
-
-        template<template<typename...> class expr, typename... vals>
-        struct unbind<expr<vals...>> :
-            lambda<expr>
-        {};
-
-        template<
-            typename,
-            typename = boolean<true>,
-            typename = boolean<true>,
-            typename = boolean<true>
-        >
-        struct transpose_impl
-        {};
-
-        template<
-            template<typename...> class outer,
-            typename head, typename... tail
-        >
-        struct transpose_impl<
-            outer<head, tail...>,
-            same_t<outer<size_t<head>, size_t<tail>...>>,
-            same_t<outer<unbind_t<head>, unbind_t<tail>...>>,
-            boolean<(sizeof...(tail) > 1)>
+        template<typename head, typename... tail>
+        struct _transpose<list<head, tail...>,
+            bool_<(sizeof...(tail) > 1)>,
+            same<list<size<head>, size<tail>...>>
         > :
-            transform<
-                defer_t<outer<at<quote_t<head>, _1>, at<quote_t<tail>, _1>...>>,
-                indices_t<head>
+            _transform<
+                bind<
+                    lambda<list>,
+                    partial<lambda<at>, head>,
+                    partial<lambda<at>, tail>...
+                >,
+                indices<head>
             >
         {};
 
-        template<
-            template<typename...> class outer,
-            template<typename...> class inner,
-            typename... xs, typename... ys
-        >
-        struct transpose_impl<
-            outer<inner<xs...>, inner<ys...>>,
-            boolean<sizeof...(xs) == sizeof...(ys)>
+        template<typename... xs, typename... ys>
+        struct _transpose<list<list<xs...>, list<ys...>>,
+            bool_<sizeof...(xs) == sizeof...(ys)>
         >
         {
-            using type = inner<outer<xs, ys>...>;
+            using type = list<list<xs, ys>...>;
         };
 
-        template<typename list>
-        struct transpose :
-            transpose_impl<list>
-        {};
-
-        template<
-            template<typename...> class outer,
-            template<typename...> class inner,
-            typename... xs
-        >
-        struct transpose<outer<inner<xs...>>>
+        template<typename... xs>
+        struct _transpose<list<list<xs...>>>
         {
-            using type = inner<outer<xs>...>;
+            using type = list<list<xs>...>;
         };
     }
 }

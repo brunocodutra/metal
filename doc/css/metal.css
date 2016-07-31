@@ -1,6 +1,6 @@
 /* Copyright Bruno Dutra 2015-2016
  * Distributed under the Boost Software License, Version 1.0.
- * (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+ * See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
  */
 
 html, body {
@@ -67,6 +67,10 @@ html, body {
 
 .toc > ul > li > ul {
     padding-left: 1em;
+}
+
+.memitem.panel .panel-title {
+    font-size: 14px;
 }
 
 h1:hover > a.anchor:after,
@@ -153,7 +157,15 @@ span.charliteral, span.stringliteral {
     color: #E08000;
 }
 
-.section.user dd {
+dl.section {
+    margin: 0;
+}
+
+dl.section:not(.user) dt, dl.section:not(.user) dd {
+    display: inline;
+}
+
+dl.section.user dd {
     margin-left: 20px;
 }
 

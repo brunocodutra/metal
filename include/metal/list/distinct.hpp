@@ -1,6 +1,6 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_DISTINCT_HPP
 #define METAL_LIST_DISTINCT_HPP
@@ -9,64 +9,68 @@ namespace metal
 {
     namespace detail
     {
-        template<typename list>
-        struct distinct;
+        template<typename seq>
+        struct _distinct;
     }
 
     /// \ingroup list
     /// ...
-    template<typename list>
-    using distinct = detail::distinct<list>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::distinct.
-    template<typename list>
-    using distinct_t = typename metal::distinct<list>::type;
+    template<typename seq>
+    using distinct = typename detail::_distinct<seq>::type;
 }
 
+#include <metal/list/list.hpp>
+#include <metal/list/indices.hpp>
 #include <metal/number/number.hpp>
+#include <metal/value/value.hpp>
 
-#include <metal/detail/inherit.hpp>
 #include <metal/detail/declptr.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename>
-        struct wrapper
+        template<typename, typename base>
+        struct inherit_second :
+            base
+        {};
+
+        template<typename, typename...>
+        struct inherit_impl
+        {};
+
+        template<typename... _, typename... bases>
+        struct inherit_impl<list<_...>, bases...> :
+            inherit_second<_, bases>...
         {};
 
         template<typename... bases>
-        boolean<true> disambiguate(bases*...);
+        struct inherit :
+            inherit_impl<indices<list<bases...>>, bases...>
+        {};
+
+        template<typename... bases>
+        true_ disambiguate(bases*...);
 
         template<typename derived, typename... bases>
         auto is_unambiguously_derived_from(derived* _) ->
             decltype(disambiguate<bases...>((declptr<bases>(), _)...));
 
         template<typename...>
-        boolean<false> is_unambiguously_derived_from(...);
+        false_ is_unambiguously_derived_from(...);
 
-        template<typename list>
-        struct distinct
+        template<typename seq>
+        struct _distinct
         {};
 
-        template<
-            template<typename...> class expr,
-            typename head, typename... tail
-        >
-        struct distinct<expr<head, tail...>> :
+        template<typename... vals>
+        struct _distinct<list<vals...>> :
             decltype(
                 is_unambiguously_derived_from<
-                    inherit<wrapper<head>, wrapper<tail>...>,
-                    wrapper<head>, wrapper<tail>...
+                    inherit<value<vals>...>,
+                    value<vals>...
                 >(0)
             )
-        {};
-
-        template<template<typename...> class expr, typename... vals>
-        struct distinct<expr<vals...>> :
-            boolean<true>
         {};
     }
 }

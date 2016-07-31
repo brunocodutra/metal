@@ -1,6 +1,6 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_SAME_HPP
 #define METAL_LIST_SAME_HPP
@@ -9,52 +9,46 @@ namespace metal
 {
     namespace detail
     {
-        template<typename list>
-        struct same;
+        template<typename seq>
+        struct _same;
     }
 
     /// \ingroup list
     /// ...
-    template<typename list>
-    using same = detail::same<list>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::same.
-    template<typename list>
-    using same_t = typename metal::same<list>::type;
+    template<typename seq>
+    using same = typename detail::_same<seq>::type;
 }
 
+#include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
+#include <metal/value/value.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<typename...>
-        struct same_impl :
-            boolean<false>
+        struct _same_impl :
+            false_
         {};
 
         template<template<typename> class... _, typename val>
-        struct same_impl<_<val>...> :
-            boolean<true>
+        struct _same_impl<_<val>...> :
+            true_
         {};
 
-        template<typename list>
-        struct same
+        template<typename seq>
+        struct _same
         {};
 
-        template<
-            template<typename...> class expr,
-            typename head, typename... tail
-        >
-        struct same<expr<head, tail...>> :
-            same_impl<same<head>, same<tail>...>
+        template<typename... vals>
+        struct _same<list<vals...>> :
+            _same_impl<value<vals>...>
         {};
 
-        template<template<typename...> class expr, typename... vals>
-        struct same<expr<vals...>> :
-            boolean<true>
+        template<>
+        struct _same<list<>> :
+            true_
         {};
     }
 }

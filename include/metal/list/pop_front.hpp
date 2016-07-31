@@ -1,48 +1,22 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_POP_FRONT_HPP
 #define METAL_LIST_POP_FRONT_HPP
 
+#include <metal/list/size.hpp>
+#include <metal/list/range.hpp>
+#include <metal/number/number.hpp>
+
+#include <cstddef>
+
 namespace metal
 {
-    namespace detail
-    {
-        template<typename list>
-        struct pop_front;
-    }
-
     /// \ingroup list
     /// ...
-    template<typename list>
-    using pop_front = detail::pop_front<list>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::pop_front.
-    template<typename list>
-    using pop_front_t = typename metal::pop_front<list>::type;
-}
-
-#include <metal/list/copy.hpp>
-#include <metal/list/list.hpp>
-
-namespace metal
-{
-    namespace detail
-    {
-        template<typename list>
-        struct pop_front
-        {};
-
-        template<
-            template<typename...> class expr,
-            typename head, typename... tail
-        >
-        struct pop_front<expr<head, tail...>> :
-            copy<expr<head, tail...>, list<tail...>>
-        {};
-    }
+    template<typename seq, typename n = size_t<1>>
+    using pop_front = metal::range<seq, n, metal::size<seq>>;
 }
 
 #endif

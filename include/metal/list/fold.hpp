@@ -1,138 +1,86 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_FOLD_HPP
 #define METAL_LIST_FOLD_HPP
 
-#include <metal/detail/nil.hpp>
+#include <metal/list/size.hpp>
+#include <metal/number/if.hpp>
+#include <metal/number/not.hpp>
+#include <metal/number/less.hpp>
+#include <metal/number/cast.hpp>
+#include <metal/number/number.hpp>
+
+#include <cstddef>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename, typename, typename, typename = nil, typename = nil>
-        struct fold;
+        template<typename, typename, typename, typename, typename>
+        struct _fold;
     }
 
     /// \ingroup list
     /// ...
     template<
-        typename list,
-        typename state,
-        typename lbd,
-        typename beg = detail::nil,
-        typename end = detail::nil
+        typename seq, typename state, typename lbd,
+        typename beg = size_t<0>,
+        typename end = size<seq>
     >
-    using fold = detail::fold<list, state, lbd, beg, end>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::fold.
-    template<
-        typename list,
-        typename state,
-        typename lbd,
-        typename beg = detail::nil,
-        typename end = detail::nil
-    >
-    using fold_t = typename metal::fold<list, state, lbd, beg, end>::type;
+    using fold = typename detail::_fold<
+        seq, state, lbd,
+        if_<not_<less<size<seq>, beg>>, cast<beg, std::size_t>>,
+        if_<not_<less<size<seq>, end>>, cast<end, std::size_t>>
+    >::type;
 }
 
 #include <metal/list/at.hpp>
-#include <metal/list/size.hpp>
-#include <metal/lambda/arg.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lift.hpp>
-#include <metal/number/number.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l, t r
+            typename seq, typename state, typename lbd,
+            typename beg, typename mid, typename end
         >
-        struct fold<list, state, lbd, number<t, l>, number<t, r>> :
-            invoke<
-                fold<
-                    _1,
-                    fold<_1, _2, _3, number<t, l>, number<t, (l + r)/2>>,
-                    _3,
-                    number<t, (l + r)/2>,
-                    number<t, r>
-                >,
-                list, state, lbd
+        using fold_recurse = typename _fold<
+            seq, typename _fold<seq, state, lbd, beg, mid>::type, lbd,
+            mid, end
+        >::type;
+
+        template<typename, typename, typename, typename, typename>
+        struct _fold
+        {};
+
+        template<
+            typename seq, typename state, typename lbd,
+            std::size_t b, std::size_t e
+        >
+        struct _fold<seq, state, lbd, size_t<b>, size_t<e>> :
+            _invoke<
+                lambda<fold_recurse>,
+                seq, state, lbd, size_t<b>, size_t<(b + e)/2>, size_t<e>
             >
         {};
 
-        template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l
-        >
-        struct fold<
-            list, state, lbd,
-            number<t, l>, number<t, static_cast<t>(l + 1)>
-        > :
-            invoke<lift_t<lbd>, just<state>, at<list, number<t, l>>>
+        template<typename seq, typename state, typename lbd, std::size_t b>
+        struct _fold<seq, state, lbd, size_t<b>, size_t<b + 1>> :
+            _invoke<lbd, state, at<seq, size_t<b>>>
         {};
 
-        template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l
-        >
-        struct fold<
-            list, state, lbd,
-            number<t, l>, number<t, static_cast<t>(l - 1)>
-        > :
-            invoke<lift_t<lbd>, just<state>, at<list, number<t, l - 1>>>
+        template<typename seq, typename state, typename lbd, std::size_t b>
+        struct _fold<seq, state, lbd, size_t<b>, size_t<b - 1>> :
+            _invoke<lbd, state, at<seq, size_t<b - 1>>>
         {};
 
-        template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l
-        >
-        struct fold<list, state, lbd, number<t, l>, number<t, l>>
-        {
-            using type = state;
-        };
-
-        template<
-            typename list,
-            typename state,
-            typename lbd,
-            typename t, t l,
-            typename u, u r
-        >
-        struct fold<list, state, lbd, number<t, l>, number<u, r>> :
-            fold<
-                list,
-                state,
-                lbd,
-                number<decltype(l + r), l>,
-                number<decltype(l + r), r>
-            >
-        {};
-
-        template<typename list, typename state, typename lbd, typename t, t l>
-        struct fold<list, state, lbd, number<t, l>> :
-            invoke<
-                fold<_1, _2, _3, number<t, l>, size<_1>>,
-                list, state, lbd
-            >
-        {};
-
-        template<typename list, typename state, typename lbd>
-        struct fold<list, state, lbd> :
-            fold<list, state, lbd, integer<0>>
+        template<typename seq, typename state, typename lbd, std::size_t n>
+        struct _fold<seq, state, lbd, size_t<n>, size_t<n>> :
+            _if_<is_lambda<lbd>, state>
         {};
     }
 }

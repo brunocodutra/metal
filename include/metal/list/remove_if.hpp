@@ -1,41 +1,22 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_REMOVE_IF_HPP
 #define METAL_LIST_REMOVE_IF_HPP
 
+#include <metal/list/copy_if.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/number/not.hpp>
+
 namespace metal
 {
-    namespace detail
-    {
-        template<typename list, typename lbd>
-        struct remove_if;
-    }
-
     /// \ingroup list
     /// ...
-    template<typename list, typename lbd>
-    using remove_if = detail::remove_if<list, lbd>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::remove_if.
-    template<typename list, typename lbd>
-    using remove_if_t = typename metal::remove_if<list, lbd>::type;
-}
-
-#include <metal/list/copy_if.hpp>
-#include <metal/number/logical/not.hpp>
-
-namespace metal
-{
-    namespace detail
-    {
-        template<typename list, typename lbd>
-        struct remove_if :
-            copy_if<list, list, not_<lbd>>
-        {};
-    }
+    template<typename seq, typename lbd>
+    using remove_if =
+        metal::copy_if<seq, metal::bind<metal::lambda<metal::not_>, lbd>>;
 }
 
 #endif

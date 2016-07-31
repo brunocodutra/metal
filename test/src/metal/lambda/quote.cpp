@@ -1,29 +1,30 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/lambda/quote.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
+#include <metal/list/list.hpp>
+#include <metal/number/number.hpp>
 
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::quote_t<VAL(N)>::type), (VAL(N))); \
-    ASSERT((metal::quote_t<NUM(N)>::type), (NUM(N))); \
-    ASSERT((metal::quote_t<PAIR(N)>::type), (PAIR(N))); \
-    ASSERT((metal::quote_t<LIST(N)>::type), (LIST(N))); \
-    ASSERT((metal::quote_t<MAP(N)>::type), (MAP(N))); \
-    ASSERT((metal::quote_t<ARG(N)>::type), (ARG(N))); \
-    ASSERT((metal::quote_t<LBD(N)>::type), (LBD(N))); \
-    ASSERT((metal::quote_t<FUN(N)>::type), (FUN(N))); \
-    ASSERT((metal::invoke_t<metal::quote_t<VAL(M)> COMMA(N) VALS(N)>), (VAL(M))); \
-    ASSERT((metal::invoke_t<metal::quote_t<NUM(M)> COMMA(N) VALS(N)>), (NUM(M))); \
-    ASSERT((metal::invoke_t<metal::quote_t<PAIR(M)> COMMA(N) VALS(N)>), (PAIR(M))); \
-    ASSERT((metal::invoke_t<metal::quote_t<LIST(M)> COMMA(N) VALS(N)>), (LIST(M))); \
-    ASSERT((metal::invoke_t<metal::quote_t<MAP(M)> COMMA(N) VALS(N)>), (MAP(M))); \
-    ASSERT((metal::invoke_t<metal::quote_t<ARG(M)> COMMA(N) VALS(N)>), (ARG(M))); \
-    ASSERT((metal::invoke_t<metal::quote_t<LBD(M)> COMMA(N) VALS(N)>), (LBD(M))); \
-    ASSERT((metal::invoke_t<metal::quote_t<FUN(M)> COMMA(N) VALS(N)>), (FUN(M))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::quote>, VAL(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::quote>, NUM(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::quote>, PAIR(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::quote>, LIST(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::quote>, MAP(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::quote>, LBD(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::quote>, LBD(_)>), (TRUE)); \
+    CHECK((metal::invoke<metal::quote<VAL(M)> COMMA(N) VALS(N)>), (VAL(M))); \
+    CHECK((metal::invoke<metal::quote<NUM(M)> COMMA(N) VALS(N)>), (NUM(M))); \
+    CHECK((metal::invoke<metal::quote<PAIR(M)> COMMA(N) VALS(N)>), (PAIR(M))); \
+    CHECK((metal::invoke<metal::quote<LIST(M)> COMMA(N) VALS(N)>), (LIST(M))); \
+    CHECK((metal::invoke<metal::quote<MAP(M)> COMMA(N) VALS(N)>), (MAP(M))); \
+    CHECK((metal::invoke<metal::quote<LBD(M)> COMMA(N) VALS(N)>), (LBD(M))); \
+    CHECK((metal::invoke<metal::quote<LBD(_)> COMMA(N) VALS(N)>), (LBD(_))); \
 /**/
 
 GEN(MATRIX)

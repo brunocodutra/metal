@@ -1,49 +1,31 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #include <metal/map/map.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/optional/optional.hpp>
+#include <metal/list/list.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/invoke.hpp>
+#include <metal/number/number.hpp>
 
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    ASSERT((metal::is_just_t<metal::map<VALS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::map<NUMS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::map<PAIRS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::map<PAIR(M) COMMA(N) PAIRS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::map<LISTS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::map<MAPS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::map<ARGS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::map<LBDS(N)>>), (TRUE)); \
-    ASSERT((metal::is_just_t<metal::map<FUNS(N)>>), (TRUE)); \
-    ASSERT((metal::map<VALS(N)>::type), (metal::map<VALS(N)>)); \
-    ASSERT((metal::map<NUMS(N)>::type), (metal::map<NUMS(N)>)); \
-    ASSERT((metal::map<PAIRS(N)>::type), (metal::map<PAIRS(N)>)); \
-    ASSERT((metal::map<PAIR(M) COMMA(N) PAIRS(N)>::type), (metal::map<PAIR(M) COMMA(N) PAIRS(N)>)); \
-    ASSERT((metal::map<LISTS(N)>::type), (metal::map<LISTS(N)>)); \
-    ASSERT((metal::map<MAPS(N)>::type), (metal::map<MAPS(N)>)); \
-    ASSERT((metal::map<ARGS(N)>::type), (metal::map<ARGS(N)>)); \
-    ASSERT((metal::map<LBDS(N)>::type), (metal::map<LBDS(N)>)); \
-    ASSERT((metal::map<FUNS(N)>::type), (metal::map<FUNS(N)>)); \
-    ASSERT((metal::is_map_t<VAL(N)>), (FALSE)); \
-    ASSERT((metal::is_map_t<NUM(N)>), (FALSE)); \
-    ASSERT((metal::is_map_t<PAIR(N)>), (FALSE)); \
-    ASSERT((metal::is_map_t<LIST(N)>), (BOOL(!N))); \
-    ASSERT((metal::is_map_t<MAP(N)>), (TRUE)); \
-    ASSERT((metal::is_map_t<ARG(N)>), (FALSE)); \
-    ASSERT((metal::is_map_t<LBD(N)>), (FALSE)); \
-    ASSERT((metal::is_map_t<FUN(N)>), (FALSE)); \
-    ASSERT((metal::is_map_t<metal::map<VALS(N)>>), (BOOL(!N))); \
-    ASSERT((metal::is_map_t<metal::map<NUMS(N)>>), (BOOL(!N))); \
-    ASSERT((metal::is_map_t<metal::map<PAIRS(N)>>), (TRUE)); \
-    ASSERT((metal::is_map_t<metal::map<PAIR(M) COMMA(N) PAIRS(N)>>), (BOOL(M >= N))); \
-    ASSERT((metal::is_map_t<metal::map<LISTS(N)>>), (BOOL(!N))); \
-    ASSERT((metal::is_map_t<metal::map<MAPS(N)>>), (BOOL(!N))); \
-    ASSERT((metal::is_map_t<metal::map<ARGS(N)>>), (BOOL(!N))); \
-    ASSERT((metal::is_map_t<metal::map<LBDS(N)>>), (BOOL(!N))); \
-    ASSERT((metal::is_map_t<metal::map<FUNS(N)>>), (BOOL(!N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::map> COMMA(N) VALS(N)>), (BOOL(!N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::map> COMMA(N) NUMS(N)>), (BOOL(!N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::map> COMMA(N) PAIRS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::map> COMMA(N) LISTS(N)>), (BOOL(!N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::map> COMMA(N) MAPS(N)>), (BOOL(!N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::map> COMMA(N) LBDS(N)>), (BOOL(!N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::map>, PAIR(M) COMMA(N) PAIRS(N)>), (BOOL(M >= N))); \
+    CHECK((metal::is_map<VAL(N)>), (FALSE)); \
+    CHECK((metal::is_map<NUM(N)>), (FALSE)); \
+    CHECK((metal::is_map<PAIR(N)>), (FALSE)); \
+    CHECK((metal::is_map<LIST(N)>), (BOOL(!N))); \
+    CHECK((metal::is_map<MAP(N)>), (TRUE)); \
+    CHECK((metal::is_map<LBD(N)>), (FALSE)); \
+    CHECK((metal::is_map<LBD(_)>), (FALSE)); \
+    CHECK((metal::is_map<metal::list<PAIR(N) COMMA(M) PAIRS(M)>>), (BOOL(N >= M))); \
 /**/
 
 GEN(MATRIX)

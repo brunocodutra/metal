@@ -1,6 +1,6 @@
 # Copyright Bruno Dutra 2015-2016
 # Distributed under the Boost Software License, Version 1.0.
-# (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+# See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 cmake_minimum_required(VERSION 2.8.12)
 
@@ -57,19 +57,25 @@ endif()
 
 if(METAL_ENABLE_EXTRA_WARNINGS)
     metal_try_add_flag(-Wextra)
+    metal_try_add_flag(-Weverything)
+    metal_try_add_flag(-Wno-c++98-compat)
+    metal_try_add_flag(-Wno-c++98-compat-pedantic)
+    metal_try_add_flag(-Wno-documentation)
+    metal_try_add_flag(-Wno-documentation-unknown-command)
     metal_try_add_flag(/W4)
 endif()
 
 if(METAL_STRICT)
     metal_try_add_flag(-pedantic-errors)
     metal_try_add_flag(-Werror)
+    metal_try_add_flag(/Za)
     metal_try_add_flag(/WX)
 endif()
 
 foreach(dialect
     -std=c++17 -std=c++1z
     -std=c++14 -std=c++1y
-    /Za
+    /std:c++latest
 )
     metal_try_add_flag(${dialect} result)
     if(${result})
@@ -78,7 +84,6 @@ foreach(dialect
 endforeach()
 
 set(METAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/)
-file(GLOB_RECURSE METAL_HEADERS "${METAL_INCLUDE_DIR}/*.hpp")
 
 include_directories("${METAL_INCLUDE_DIR}")
 

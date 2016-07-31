@@ -1,17 +1,14 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_HPP
 #define METAL_LIST_HPP
 
-#include <metal/list/accumulate.hpp>
 #include <metal/list/all.hpp>
 #include <metal/list/any.hpp>
-#include <metal/list/apply.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/back.hpp>
-#include <metal/list/clear.hpp>
 #include <metal/list/contains.hpp>
 #include <metal/list/copy.hpp>
 #include <metal/list/copy_if.hpp>
@@ -19,7 +16,6 @@
 #include <metal/list/count_if.hpp>
 #include <metal/list/distinct.hpp>
 #include <metal/list/empty.hpp>
-#include <metal/list/equal.hpp>
 #include <metal/list/erase.hpp>
 #include <metal/list/find.hpp>
 #include <metal/list/find_if.hpp>
@@ -37,6 +33,7 @@
 #include <metal/list/pop_front.hpp>
 #include <metal/list/push_back.hpp>
 #include <metal/list/push_front.hpp>
+#include <metal/list/range.hpp>
 #include <metal/list/reduce.hpp>
 #include <metal/list/remove.hpp>
 #include <metal/list/remove_if.hpp>

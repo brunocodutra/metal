@@ -1,10 +1,10 @@
 # Copyright Bruno Dutra 2015-2016
 # Distributed under the Boost Software License, Version 1.0.
-# (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+# See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-language: cpp
 os: linux
 sudo: false
+language: cpp
 
 git:
   depth: 1
@@ -18,10 +18,10 @@ env:
 
 addons:
     apt:
-        packages: &cmake
+        packages: &base_packages
           - cmake
           - cmake-data
-        sources: &sources
+        sources: &base_sources
           - george-edison55-precise-backports
           - ubuntu-toolchain-r-test
           - llvm-toolchain-precise
@@ -35,66 +35,71 @@ matrix:
       - env: BOGUS_JOB=true
 
     include:
-      - compiler: clang++
-        env: BUILD_DOC=true
+      - env: BUILD_DOC=true
 
       - compiler: clang++
         env: CXX_VERSION=3.5
         addons:
             apt:
                 packages:
-                  - *cmake
+                  - *base_packages
                   - clang-3.5
-                  - libstdc++-5-dev
-                sources: *sources
+                  - libstdc++-4.9-dev
+                sources: *base_sources
 
       - compiler: clang++
         env: CXX_VERSION=3.6
         addons:
             apt:
                 packages:
-                  - *cmake
+                  - *base_packages
                   - clang-3.6
-                  - libstdc++-5-dev
-                sources: *sources
+                sources: *base_sources
 
       - compiler: clang++
         env: CXX_VERSION=3.7
         addons:
             apt:
                 packages:
-                  - *cmake
+                  - *base_packages
                   - clang-3.7
-                  - libstdc++-5-dev
-                sources: *sources
+                sources: *base_sources
 
       - compiler: clang++
         env: CXX_VERSION=3.8
         addons:
             apt:
                 packages:
-                  - *cmake
+                  - *base_packages
                   - clang-3.8
-                  - libstdc++-5-dev
-                sources: *sources
+                sources: *base_sources
 
-      - compiler: g++
-        env: CXX_VERSION=4.9
+      - compiler: clang++
+        env: CXX_VERSION=3.9
         addons:
             apt:
                 packages:
-                  - *cmake
-                  - g++-4.9
-                sources: *sources
+                  - *base_packages
+                  - clang-3.9
+                sources: *base_sources
 
       - compiler: g++
         env: CXX_VERSION=5
         addons:
             apt:
                 packages:
-                  - *cmake
+                  - *base_packages
                   - g++-5
-                sources: *sources
+                sources: *base_sources
+
+      - compiler: g++
+        env: CXX_VERSION=6
+        addons:
+            apt:
+                packages:
+                  - *base_packages
+                  - g++-6
+                sources: *base_sources
 
 before_install:
   - git config --global user.name "Travis Bot"
@@ -138,11 +143,10 @@ install:
         DOXYGEN_FTP="ftp://ftp.stack.nl/pub/users/dimitri/"
         DOXYGEN_PKG=$(travis_retry curl -Ls "${DOXYGEN_FTP}" | grep -Eo "doxygen-[0-9.]+linux[.]bin[.]tar[.]gz" | sort -V | tail -1)
         DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_PKG}"
-        echo "DOXYGEN_URL=${DOXYGEN_URL}" &&
+        echo "${DOXYGEN_URL}"
         mkdir -p "${DEPS_PATH}/doxygen" &&
-        travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" &&
-        export PATH=${DEPS_PATH}/doxygen/bin:${PATH} &&
-        doxygen --version
+        travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen"
+        export PATH="${DEPS_PATH}/doxygen/bin:${PATH}"
     fi
 
 before_script:
@@ -162,7 +166,11 @@ before_script:
         CMAKE_ARGS+=("-DMETAL_VERSION=${METAL_VERSION}")
     fi
 
-  - (cd "${EXTERNAL_BUILD_PATH}" && cmake "${EXTERNAL_SOURCE_PATH}" ${CMAKE_ARGS[@]})
+  - |
+    if [[ "${BUILD_DOC}" != "true" ]]
+    then
+      (cd "${EXTERNAL_BUILD_PATH}" && cmake "${EXTERNAL_SOURCE_PATH}" ${CMAKE_ARGS[@]})
+    fi
 
 script:
   - |

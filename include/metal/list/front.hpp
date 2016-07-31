@@ -1,40 +1,19 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_LIST_FRONT_HPP
 #define METAL_LIST_FRONT_HPP
 
+#include <metal/list/at.hpp>
+#include <metal/number/number.hpp>
+
 namespace metal
 {
-    namespace detail
-    {
-        template<typename list>
-        struct front;
-    }
-
     /// \ingroup list
     /// ...
-    template<typename list>
-    using front = detail::front<list>;
-
-    /// \ingroup list
-    /// Eager adaptor for metal::front.
-    template<typename list>
-    using front_t = typename metal::front<list>::type;
-
-    namespace detail
-    {
-        template<typename list>
-        struct front
-        {};
-
-        template<template<typename...> class expr, typename head, typename... tail>
-        struct front<expr<head, tail...>>
-        {
-            using type = head;
-        };
-    }
+    template<typename seq>
+    using front = metal::at<seq, metal::size_t<0>>;
 }
 
 #endif

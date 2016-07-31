@@ -1,57 +1,40 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 #ifndef METAL_MAP_KEYS_HPP
 #define METAL_MAP_KEYS_HPP
 
+#include <metal/map/map.hpp>
+#include <metal/list/list.hpp>
+#include <metal/number/if.hpp>
+
 namespace metal
 {
     namespace detail
     {
-        template<typename map>
-        struct keys;
+        template<typename seq>
+        struct _keys;
     }
 
     /// \ingroup map
     /// ...
-    template<typename map>
-    using keys = detail::keys<map>;
+    template<typename seq>
+    using keys = typename if_<is_map<seq>, detail::_keys<seq>>::type;
 
-    /// \ingroup map
-    /// Eager adaptor for metal::keys.
-    template<typename map>
-    using keys_t = typename metal::keys<map>::type;
-}
-
-#include <metal/map/map.hpp>
-#include <metal/optional/cond.hpp>
-
-namespace metal
-{
     namespace detail
     {
-        template<typename map>
-        struct keys_impl
+        template<typename seq>
+        struct _keys
         {
-            using type = map;
+            using type = seq;
         };
 
-        template<
-            template<typename...> class map,
-            template<typename...> class... pairs,
-            typename... ks,
-            typename... vs
-        >
-        struct keys_impl<map<pairs<ks, vs>...>>
+        template<typename... ks, typename... vs>
+        struct _keys<list<list<ks, vs>...>>
         {
-            using type = map<ks...>;
+            using type = list<ks...>;
         };
-
-        template<typename map>
-        struct keys :
-            cond<is_map<map>, keys_impl<map>>
-        {};
     }
 }
 

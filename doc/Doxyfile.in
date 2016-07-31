@@ -1,6 +1,6 @@
 # Copyright Bruno Dutra 2015-2016
 # Distributed under the Boost Software License, Version 1.0.
-# (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+# See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 # Doxyfile 1.8.9.1
 
@@ -236,8 +236,6 @@ ALIASES += strike{1}="<div class=\"strike\">\1</div>"
 
 ALIASES +=value="\ref value"
 ALIASES +=values="\ref value \"Values\""
-ALIASES +=optional="\ref optional"
-ALIASES +=optionals="\ref optional \"Optionals\""
 ALIASES +=number="\ref number"
 ALIASES +=numbers="\ref number \"Numbers\""
 ALIASES +=expression="\ref expression"
@@ -251,9 +249,11 @@ ALIASES +=pairs="\ref pair \"Pairs\""
 ALIASES +=map="\ref map"
 ALIASES +=maps="\ref map \"Maps\""
 
-ALIASES +=tip{1}="<div class=\"panel panel-info\"><div class="panel-heading"><span class=\"octicon octicon-light-bulb\"></span>Tip</div><div class="panel-body">\1</div></div>"
-ALIASES +=note{1}="<div class=\"panel panel-warning\"><div class="panel-heading"><span class=\"octicon octicon-info\"></span>Note</div><div class="panel-body">\1</div></div>"
-ALIASES +=danger{1}="<div class=\"panel panel-danger\"><div class="panel-heading">Beware <span class=\"octicon octicon-stop\"></span></div><div class="panel-body">\1</div></div>"
+ALIASES +=semantics="\par Semantics"
+
+ALIASES +=tip{1}="<div class=\"panel panel-info\"><div class="panel-heading"><span class=\"octicon octicon-light-bulb\"></span></div><div class="panel-body">\1</div></div>"
+ALIASES +=note{1}="<div class=\"panel panel-warning\"><div class="panel-heading"><span class=\"octicon octicon-info\"></span></div><div class="panel-body">\1</div></div>"
+ALIASES +=danger{1}="<div class=\"panel panel-danger\"><div class="panel-heading"><span class=\"octicon octicon-stop\"></span></div><div class="panel-body">\1</div></div>"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
