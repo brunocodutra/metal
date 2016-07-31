@@ -64,14 +64,14 @@
 </div><!--header-->
 <div class="contents">
 <h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="ga5df51526bf8362fb2e4b7ccdc745db08"></a>
+<a class="anchor" id="ga14ce89442e054e786f7f0a7175d52aab"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename pair &gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__pair.html#ga5df51526bf8362fb2e4b7ccdc745db08">metal::first</a> = typedef detail::first&lt;pair&gt;</td>
+          <td class="memname">using <a class="el" href="group__pair.html#ga14ce89442e054e786f7f0a7175d52aab">metal::first</a> = typedef <a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">metal::if_</a>&lt;<a class="el" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>&lt;seq&gt;, <a class="el" href="group__lambda.html#ga2c9e65a1497c421ba4e180fd7300224e">metal::apply</a>&lt;<a class="el" href="group__lambda.html#ga2158e3dd5180b12b04dc1dc487fef023">metal::_1</a>, seq&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -79,38 +79,22 @@ template&lt;typename pair &gt; </div>
 <p><code>#include &lt;metal/pair/first.hpp&gt;</code></p>
 <p>Returns the first element of a <a class="el" href="index.html#pair">Pair </a>.</p>
 <h2>Usage </h2>
-<p>For any <a class="el" href="index.html#value">Value </a> <code>val</code> </p><div class="fragment"><div class="line"><a class="code" href="group__pair.html#ga5df51526bf8362fb2e4b7ccdc745db08">metal::first&lt;val&gt;</a>;</div></div><!-- fragment --><dl class="section user"><dt>Semantics:</dt><dd>If <code>val</code> is a <a class="el" href="index.html#pair">Pair </a>, then equivalent to <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;&gt;</div><div class="line"><span class="keyword">struct </span><a class="code" href="group__pair.html#ga5df51526bf8362fb2e4b7ccdc745db08">first</a>&lt;val&gt; :</div><div class="line">    <a class="code" href="group__list.html#ga443f092d391fa24e0b5fb3d8c5d3e8cf">at</a>&lt;val, integer&lt;0&gt;&gt;</div><div class="line">{};</div></div><!-- fragment --> otherwise, equivalent to <code><a class="el" href="group__optional.html#gaf1df53777ce2fa6ecd7505f13652aaf7">metal::nothing</a></code></dd></dl>
+<p>For any <a class="el" href="index.html#pair">Pair </a> <code>pair</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__pair.html#ga14ce89442e054e786f7f0a7175d52aab">metal::first&lt;pair&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
+<dl class="section user"><dt>Semantics:</dt><dd>If <code>pair</code> contains <a class="el" href="index.html#value">Values</a> <code>x</code> and <code>y</code> in that order, then <div class="fragment"><div class="line"><span class="keyword">using</span> result = x;</div></div><!-- fragment --></dd></dl>
 <h2>Example </h2>
-<div class="fragment"><div class="line">static_assert(std::is_same&lt;<a class="code" href="group__pair.html#gabd95a38bbb8dc5300504f10482996cb2">metal::first_t</a>&lt;<a class="code" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair&lt;int, int*&gt;</a>&gt;, <span class="keywordtype">int</span>&gt;::value, <span class="stringliteral">&quot;&quot;</span>);</div><div class="line">static_assert(std::is_same&lt;<a class="code" href="group__pair.html#gabd95a38bbb8dc5300504f10482996cb2">metal::first_t</a>&lt;<a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, unsigned&gt;</a>&gt;, <span class="keywordtype">int</span>&gt;::value, <span class="stringliteral">&quot;&quot;</span>);</div></div><!-- fragment --> <h2>See Also </h2>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">pair</a>, <a class="el" href="group__pair.html#ga271b2edbc78a913d59bb4e5f7a8cc92a">second</a>, <a class="el" href="group__list.html#ga443f092d391fa24e0b5fb3d8c5d3e8cf">at</a> </dd></dl>
+<div class="fragment"><div class="line">ASSERT(std::is_same&lt;<a class="code" href="group__pair.html#ga14ce89442e054e786f7f0a7175d52aab">metal::first</a>&lt;<a class="code" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair&lt;void, void*&gt;</a>&gt;, <span class="keywordtype">void</span>&gt;);</div></div><!-- fragment --> <h2>See Also </h2>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">pair</a>, <a class="el" href="group__pair.html#ga44231a9528746b440a5c09056688656d">second</a>, <a class="el" href="group__list.html#ga9de5aeb7e546bd80a22cc9fb7aaf5947">at</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="gabd95a38bbb8dc5300504f10482996cb2"></a>
+<a class="anchor" id="gac3091dc09ba574a6386bd58842e91eb8"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename pair &gt; </div>
+template&lt;typename val &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__pair.html#gabd95a38bbb8dc5300504f10482996cb2">metal::first_t</a> = typedef typename <a class="el" href="group__pair.html#ga5df51526bf8362fb2e4b7ccdc745db08">metal::first</a>&lt;pair&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/pair/first.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__pair.html#ga5df51526bf8362fb2e4b7ccdc745db08">metal::first</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga239933bfe243fa00bfb8a204b7098d89"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename pair &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__pair.html#ga239933bfe243fa00bfb8a204b7098d89">metal::is_pair</a> = typedef detail::is_pair&lt;pair&gt;</td>
+          <td class="memname">using <a class="el" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a> = typedef typename detail::_is_pair&lt;val&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -118,27 +102,11 @@ template&lt;typename pair &gt; </div>
 <p><code>#include &lt;metal/pair/pair.hpp&gt;</code></p>
 <p>Checks whether some <a class="el" href="index.html#value">Value </a> is a <a class="el" href="index.html#pair">Pair </a>.</p>
 <h2>Usage </h2>
-<p>For any <a class="el" href="index.html#value">Value </a> <code>val</code> </p><div class="fragment"><div class="line"><a class="code" href="group__pair.html#ga239933bfe243fa00bfb8a204b7098d89">metal::is_pair&lt;val&gt;</a>;</div></div><!-- fragment --><dl class="section user"><dt>Semantics:</dt><dd>If <code>val</code> is a <a class="el" href="index.html#pair">Pair </a>, then equivalent to <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;&gt;</div><div class="line"><span class="keyword">struct </span><a class="code" href="group__pair.html#ga239933bfe243fa00bfb8a204b7098d89">is_pair</a>&lt;val&gt; :</div><div class="line">    <a class="code" href="group__number.html#ga7b9dc87eada8b3d86cbfa6cae1383d90">boolean</a>&lt;true&gt;</div><div class="line">{};</div></div><!-- fragment --> otherwise, equivalent to <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;&gt;</div><div class="line"><span class="keyword">struct </span><a class="code" href="group__pair.html#ga239933bfe243fa00bfb8a204b7098d89">is_pair</a>&lt;val&gt; :</div><div class="line">    <a class="code" href="group__number.html#ga7b9dc87eada8b3d86cbfa6cae1383d90">boolean</a>&lt;false&gt;</div><div class="line">{};</div></div><!-- fragment --></dd></dl>
+<p>For any <a class="el" href="index.html#value">Value </a> <code>val</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair&lt;val&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#number">Number </a> of type <code>bool</code> </dd></dl>
+<dl class="section user"><dt>Semantics:</dt><dd>If <code>val</code> is a <a class="el" href="index.html#pair">Pair </a>, then <div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#gaa38d54e0d8d70b22c31f93b5f8d006d4">metal::true_</a>;</div></div><!-- fragment --> otherwise <div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#ga84f700f58482d07980836ad87fcabbd8">metal::false_</a>;</div></div><!-- fragment --></dd></dl>
 <h2>Example </h2>
-<div class="fragment"><div class="line">static_assert(<a class="code" href="group__pair.html#gaaef294968606efbf7c112000a66e1918">metal::is_pair_t</a>&lt;<a class="code" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair&lt;int, int*&gt;</a>&gt;::value, <span class="stringliteral">&quot;&quot;</span>);</div><div class="line">static_assert(<a class="code" href="group__pair.html#gaaef294968606efbf7c112000a66e1918">metal::is_pair_t</a>&lt;<a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, unsigned&gt;</a>&gt;::value, <span class="stringliteral">&quot;&quot;</span>);</div><div class="line">static_assert(!<a class="code" href="group__pair.html#gaaef294968606efbf7c112000a66e1918">metal::is_pair_t</a>&lt;<a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int&gt;</a>&gt;::value, <span class="stringliteral">&quot;&quot;</span>);</div></div><!-- fragment --> <h2>See Also </h2>
+<div class="fragment"><div class="line">ASSERT(<a class="code" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>&lt;<a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, unsigned&gt;</a>&gt;);</div><div class="line">ASSERT(!<a class="code" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>&lt;<a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int&gt;</a>&gt;);</div></div><!-- fragment --> <h2>See Also </h2>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">pair</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="gaaef294968606efbf7c112000a66e1918"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename pair &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__pair.html#gaaef294968606efbf7c112000a66e1918">metal::is_pair_t</a> = typedef typename <a class="el" href="group__pair.html#ga239933bfe243fa00bfb8a204b7098d89">metal::is_pair</a>&lt;pair&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/pair/pair.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__pair.html#ga239933bfe243fa00bfb8a204b7098d89">metal::is_pair</a>. </p>
 
 </div>
 </div>
@@ -159,14 +127,14 @@ template&lt;typename x , typename y &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga271b2edbc78a913d59bb4e5f7a8cc92a"></a>
+<a class="anchor" id="ga44231a9528746b440a5c09056688656d"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename pair &gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__pair.html#ga271b2edbc78a913d59bb4e5f7a8cc92a">metal::second</a> = typedef detail::second&lt;pair&gt;</td>
+          <td class="memname">using <a class="el" href="group__pair.html#ga44231a9528746b440a5c09056688656d">metal::second</a> = typedef <a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">metal::if_</a>&lt;<a class="el" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>&lt;seq&gt;, <a class="el" href="group__lambda.html#ga2c9e65a1497c421ba4e180fd7300224e">metal::apply</a>&lt;<a class="el" href="group__lambda.html#ga91c75729b0f78f2b5c069aec6cb07ef4">metal::_2</a>, seq&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -174,27 +142,11 @@ template&lt;typename pair &gt; </div>
 <p><code>#include &lt;metal/pair/second.hpp&gt;</code></p>
 <p>Returns the second element of a <a class="el" href="index.html#pair">Pair </a>.</p>
 <h2>Usage </h2>
-<p>For any <a class="el" href="index.html#value">Value </a> <code>val</code> </p><div class="fragment"><div class="line"><a class="code" href="group__pair.html#ga271b2edbc78a913d59bb4e5f7a8cc92a">metal::second&lt;val&gt;</a>;</div></div><!-- fragment --><dl class="section user"><dt>Semantics:</dt><dd>If <code>val</code> is a <a class="el" href="index.html#pair">Pair </a>, then equivalent to <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;&gt;</div><div class="line"><span class="keyword">struct </span><a class="code" href="group__pair.html#ga271b2edbc78a913d59bb4e5f7a8cc92a">second</a>&lt;val&gt; :</div><div class="line">    <a class="code" href="group__list.html#ga443f092d391fa24e0b5fb3d8c5d3e8cf">at</a>&lt;val, integer&lt;1&gt;&gt;</div><div class="line">{};</div></div><!-- fragment --> otherwise, equivalent to <code><a class="el" href="group__optional.html#gaf1df53777ce2fa6ecd7505f13652aaf7">metal::nothing</a></code></dd></dl>
+<p>For any <a class="el" href="index.html#pair">Pair </a> <code>pair</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__pair.html#ga44231a9528746b440a5c09056688656d">metal::second&lt;pair&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
+<dl class="section user"><dt>Semantics:</dt><dd>If <code>pair</code> contains <a class="el" href="index.html#value">Values</a> <code>x</code> and <code>y</code> in that order, then <div class="fragment"><div class="line"><span class="keyword">using</span> result = y;</div></div><!-- fragment --></dd></dl>
 <h2>Example </h2>
-<div class="fragment"><div class="line">static_assert(std::is_same&lt;<a class="code" href="group__pair.html#ga1a4233dc8770cc2d8b915ccbd1e86fc4">metal::second_t</a>&lt;<a class="code" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair&lt;int, int*&gt;</a>&gt;, <span class="keywordtype">int</span>*&gt;::value, <span class="stringliteral">&quot;&quot;</span>);</div><div class="line">static_assert(std::is_same&lt;<a class="code" href="group__pair.html#ga1a4233dc8770cc2d8b915ccbd1e86fc4">metal::second_t</a>&lt;<a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, unsigned&gt;</a>&gt;, <span class="keywordtype">unsigned</span>&gt;::value, <span class="stringliteral">&quot;&quot;</span>);</div></div><!-- fragment --> <h2>See Also </h2>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">pair</a>, <a class="el" href="group__pair.html#ga5df51526bf8362fb2e4b7ccdc745db08">first</a>, <a class="el" href="group__list.html#ga443f092d391fa24e0b5fb3d8c5d3e8cf">at</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ga1a4233dc8770cc2d8b915ccbd1e86fc4"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename pair &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__pair.html#ga1a4233dc8770cc2d8b915ccbd1e86fc4">metal::second_t</a> = typedef typename <a class="el" href="group__pair.html#ga271b2edbc78a913d59bb4e5f7a8cc92a">metal::second</a>&lt;pair&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/pair/second.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__pair.html#ga271b2edbc78a913d59bb4e5f7a8cc92a">metal::second</a>. </p>
+<div class="fragment"><div class="line">ASSERT(std::is_same&lt;<a class="code" href="group__pair.html#ga44231a9528746b440a5c09056688656d">metal::second</a>&lt;<a class="code" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair&lt;void, void*&gt;</a>&gt;, <span class="keywordtype">void</span>*&gt;);</div></div><!-- fragment --> <h2>See Also </h2>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">pair</a>, <a class="el" href="group__pair.html#ga14ce89442e054e786f7f0a7175d52aab">first</a>, <a class="el" href="group__list.html#ga9de5aeb7e546bd80a22cc9fb7aaf5947">at</a> </dd></dl>
 
 </div>
 </div>

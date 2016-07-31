@@ -1,8 +1,10 @@
 // Copyright Bruno Dutra 2015-2016
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-$( document ).ready(function(){
+$(function(){
+    var page = window.location.pathname.split("/").pop().split("#")[0];
+
     $("li > a[href='index.html'] > span")
         .before("<i class='octicon octicon-book'></i> ");
     $("li > a[href='files.html'] > span")
@@ -60,16 +62,18 @@ $( document ).ready(function(){
 
     $("div.qindex + table td > a[href^='namespace']")
         .each(function(){
-            var p = $(this).parent();
+            var $parent = $(this).parent();
             $(this).remove();
-            p.html(p.html().split("()").join(''));
+            $parent.html($parent.html().split("()").join(''));
         });
 
     $("div.memitem > div.memproto")
         .removeClass("memproto")
         .addClass("panel-heading")
+        .attr("data-toggle", "collapse-next")
+        .attr("role", "button")
         .each(function(){
-            var x = $("<div class='panel-title'>")
+            $("<div class='panel-title'>")
                 .append($(".memtemplate", this).append("<br>").contents())
                 .append($(".memname td", this).contents())
                 .prependTo(this)
@@ -78,14 +82,11 @@ $( document ).ready(function(){
                     if(this.nodeType == 3){
                         this.data = this.data
                             .replace(
-                                /= typedef( typename)? detail::.*/g,
-                                "= /*unspecified*/"
+                                /= typedef( typename)? (?!std::).+/g,
+                                "= unspecified"
                             )
                             .replace(/= typedef/g, "=")
-                            .replace(
-                                /detail::[_a-zA-Z_]+/g,
-                                "/*unspecified*/"
-                            );
+                            .replace(/detail::[_a-zA-Z_]+/g, "unspecified");
                     }
                 });
 
@@ -93,7 +94,10 @@ $( document ).ready(function(){
             $(".memname", this).remove();
         });
 
-    $("div.memitem > div.memdoc").addClass("panel-body");
+    $("div.memitem > div.memdoc")
+        .addClass("panel-body")
+        .wrap("<div class='panel-collapse collapse'>");
+
     $("div.memitem").addClass("panel panel-default");
 
     $("table.memberdecls td.memItemLeft, table.memberdecls td.memTemplItemLeft")
@@ -184,21 +188,28 @@ $( document ).ready(function(){
 
     $("span.comment").addClass("text-muted");
     $("code a").removeClass("el");
+    $("a.el")
+        .contents()
+        .each(function(){
+            if(this.nodeType == 3)
+                this.data = this.data.replace(/metal::/g, "");
+        });
     $("a.el").wrapInner("<strong>");
     $("a.download").attr("href", $("a#download").attr("href"));
     $("a.anchor").each(function(){
         $(this).attr("href", "#" + $(this).attr("id"));
     });
-    $("a[href^=#]").click(function(){
-        var href = $.attr(this, "href");
-        $("html, body").animate({
-            scrollTop: $(href).offset().top
-        }, 300, function(){
-            window.location.hash = href;
-        });
+    $("a[href^='" + page + "#'], a[href^=#]")
+        .click(function(){
+            var href = "#" + $.attr(this, "href").split("#").pop();
+            $("html, body").animate({
+                scrollTop: $(href).offset().top
+            }, 300, function(){
+                window.location.hash = href;
+            });
 
-        return false;
-    });
+            return false;
+        });
 
     $(".levels").remove();
     $(".summary").remove();
@@ -231,12 +242,16 @@ $( document ).ready(function(){
     $(".tablist").removeClass("tablist");
     $(".memberdecls").removeClass("memberdecls");
     $(".memdoc").removeClass("memdoc");
-    $(".memitem").removeClass("memitem");
     $(".memItemLeft").removeClass("memItemLeft");
     $(".memTemplItemLeft").removeClass("memTemplItemLeft")
     $(".memname").removeClass("memname");
     $(".memtemplate").removeClass("memtemplate");
     $(".ah").removeClass("ah").addClass("btn btn-default");
 
-    $("body").fadeIn(150);
+    $("body")
+        .on('click.collapse-next.data-api', '[data-toggle=collapse-next]', function(){
+            var $target = $(this).next();
+            $target.data('bs.collapse') ? $target.collapse('toggle') : $target.collapse();
+        })
+        .fadeIn(150);
 });

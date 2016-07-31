@@ -64,14 +64,14 @@
 </div><!--header-->
 <div class="contents">
 <h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="gaf27de29de77c27b7882a4138da8f981a"></a>
+<a class="anchor" id="gae2c4a51a9ea04d77921f8f21465c2857"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename map , typename key &gt; </div>
+template&lt;typename seq , typename key &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#gaf27de29de77c27b7882a4138da8f981a">metal::at_key</a> = typedef detail::at_key&lt;map, key&gt;</td>
+          <td class="memname">using <a class="el" href="group__map.html#gae2c4a51a9ea04d77921f8f21465c2857">metal::at_key</a> = typedef detail::lookup&lt;values&lt;seq&gt;, keys&lt;seq&gt;, key&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -81,31 +81,14 @@ template&lt;typename map , typename key &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gaaed09c31e9e37448d1052227351b3116"></a>
+<a class="anchor" id="ga15d6bc4dabb3bf2bd52b1c50e5301c3b"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename map , typename key &gt; </div>
+template&lt;typename seq , typename key &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#gaaed09c31e9e37448d1052227351b3116">metal::at_key_t</a> = typedef typename <a class="el" href="group__map.html#gaf27de29de77c27b7882a4138da8f981a">metal::at_key</a>&lt;map, key&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/map/at_key.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__map.html#gaf27de29de77c27b7882a4138da8f981a">metal::at_key</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga42456687b90a3e23351c2566c8f8f4d4"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename map , typename key &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__map.html#ga42456687b90a3e23351c2566c8f8f4d4">metal::erase_key</a> = typedef detail::erase_key&lt;map, key&gt;</td>
+          <td class="memname">using <a class="el" href="group__map.html#ga15d6bc4dabb3bf2bd52b1c50e5301c3b">metal::erase_key</a> = typedef <a class="el" href="group__list.html#ga4401e7b973513827ee4a7d4003e698f7">metal::erase</a>&lt;seq, <a class="el" href="group__map.html#ga9e0cdef282d8346d4374e9f658541fe0">metal::order</a>&lt;seq, key&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -115,31 +98,14 @@ template&lt;typename map , typename key &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gad908f03400ea48902c3e9e29472c6830"></a>
+<a class="anchor" id="ga35154f2ca13c52c45a1a0d88b4eab09b"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename map , typename key &gt; </div>
+template&lt;typename seq , typename key &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#gad908f03400ea48902c3e9e29472c6830">metal::erase_key_t</a> = typedef typename <a class="el" href="group__map.html#ga42456687b90a3e23351c2566c8f8f4d4">metal::erase_key</a>&lt;map, key&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/map/erase_key.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__map.html#ga42456687b90a3e23351c2566c8f8f4d4">metal::erase_key</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga2a6e2fac00e796c4f0ff3b59ec975b7f"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename map , typename key &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__map.html#ga2a6e2fac00e796c4f0ff3b59ec975b7f">metal::has_key</a> = typedef detail::has_key&lt;map, key&gt;</td>
+          <td class="memname">using <a class="el" href="group__map.html#ga35154f2ca13c52c45a1a0d88b4eab09b">metal::has_key</a> = typedef <a class="el" href="group__list.html#ga07bb3fe20cdc3fc7a25b370bf2929865">metal::contains</a>&lt;<a class="el" href="group__map.html#ga7371ab297b7f60074eb1ab0566f71b76">metal::keys</a>&lt;seq&gt;, key&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -149,31 +115,14 @@ template&lt;typename map , typename key &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gafc2e09dd1ba05bc560014df1f9951bec"></a>
+<a class="anchor" id="ga74aaca3fae66a7618dff3f439927d9ed"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename map , typename key &gt; </div>
+template&lt;typename val &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#gafc2e09dd1ba05bc560014df1f9951bec">metal::has_key_t</a> = typedef typename <a class="el" href="group__map.html#ga2a6e2fac00e796c4f0ff3b59ec975b7f">metal::has_key</a>&lt;map, key&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/map/has_key.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__map.html#ga2a6e2fac00e796c4f0ff3b59ec975b7f">metal::has_key</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga50985f3fbea722280dabf10d1f0827c9"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename map &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__map.html#ga50985f3fbea722280dabf10d1f0827c9">metal::is_map</a> = typedef detail::is_map&lt;map&gt;</td>
+          <td class="memname">using <a class="el" href="group__map.html#ga74aaca3fae66a7618dff3f439927d9ed">metal::is_map</a> = typedef typename detail::_is_map&lt;val&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -183,31 +132,14 @@ template&lt;typename map &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gac12b692d7dffe6ce30dc96093566442a"></a>
+<a class="anchor" id="ga7371ab297b7f60074eb1ab0566f71b76"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename map &gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#gac12b692d7dffe6ce30dc96093566442a">metal::is_map_t</a> = typedef typename <a class="el" href="group__map.html#ga50985f3fbea722280dabf10d1f0827c9">metal::is_map</a>&lt;map&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/map/map.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__map.html#ga50985f3fbea722280dabf10d1f0827c9">metal::is_map</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga93e0861037f4a2d14392eb88f3f41987"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename map &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__map.html#ga93e0861037f4a2d14392eb88f3f41987">metal::keys</a> = typedef detail::keys&lt;map&gt;</td>
+          <td class="memname">using <a class="el" href="group__map.html#ga7371ab297b7f60074eb1ab0566f71b76">metal::keys</a> = typedef typename if_&lt;is_map&lt;seq&gt;, detail::_keys&lt;seq&gt;&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -217,31 +149,14 @@ template&lt;typename map &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga6cf0cb20a8bde44e305ab35e1e61b517"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename map &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__map.html#ga6cf0cb20a8bde44e305ab35e1e61b517">metal::keys_t</a> = typedef typename <a class="el" href="group__map.html#ga93e0861037f4a2d14392eb88f3f41987">metal::keys</a>&lt;map&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/map/keys.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__map.html#ga93e0861037f4a2d14392eb88f3f41987">metal::keys</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gae0cd7c57566eae1abed8c1b32e76f997"></a>
+<a class="anchor" id="ga794f9d7170b6ad2a82124ede0fbfe742"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename... pairs&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#gae0cd7c57566eae1abed8c1b32e76f997">metal::map</a> = typedef <a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>&lt;pairs...&gt;</td>
+          <td class="memname">using <a class="el" href="group__map.html#ga794f9d7170b6ad2a82124ede0fbfe742">metal::map</a> = typedef <a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">metal::if_</a>&lt; <a class="el" href="group__map.html#ga74aaca3fae66a7618dff3f439927d9ed">metal::is_map</a>&lt;<a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>&lt;pairs...&gt;&gt;, <a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>&lt;pairs...&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -251,14 +166,14 @@ template&lt;typename... pairs&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga5879a3992ae95af98f7c936cfb534103"></a>
+<a class="anchor" id="ga9e0cdef282d8346d4374e9f658541fe0"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename map , typename key &gt; </div>
+template&lt;typename seq , typename key &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#ga5879a3992ae95af98f7c936cfb534103">metal::order</a> = typedef detail::order&lt;map, key&gt;</td>
+          <td class="memname">using <a class="el" href="group__map.html#ga9e0cdef282d8346d4374e9f658541fe0">metal::order</a> = typedef <a class="el" href="group__map.html#gae2c4a51a9ea04d77921f8f21465c2857">metal::at_key</a>&lt; <a class="el" href="group__list.html#gaaeb71163d48fe84e4371ca68c99460e8">metal::transpose</a>&lt;<a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair</a>&lt;<a class="el" href="group__map.html#ga7371ab297b7f60074eb1ab0566f71b76">metal::keys</a>&lt;seq&gt;, <a class="el" href="group__list.html#ga0cf876d12ac3ca3b407cd9070feb9030">metal::indices</a>&lt;seq&gt;&gt;&gt;, key &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -268,54 +183,20 @@ template&lt;typename map , typename key &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gaf3accc2429e06b16de0e52e2d5e9e2e8"></a>
+<a class="anchor" id="gae417d9b9ca8d27f33c56d62e91d52654"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename map , typename key &gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#gaf3accc2429e06b16de0e52e2d5e9e2e8">metal::order_t</a> = typedef typename <a class="el" href="group__map.html#ga5879a3992ae95af98f7c936cfb534103">metal::order</a>&lt;map, key&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/map/order.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__map.html#ga5879a3992ae95af98f7c936cfb534103">metal::order</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gaa577d7b50596764830c0404aabd681b9"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename map &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__map.html#gaa577d7b50596764830c0404aabd681b9">metal::values</a> = typedef detail::values&lt;map&gt;</td>
+          <td class="memname">using <a class="el" href="group__map.html#gae417d9b9ca8d27f33c56d62e91d52654">metal::values</a> = typedef typename if_&lt;is_map&lt;seq&gt;, detail::_values&lt;seq&gt;&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p><code>#include &lt;metal/map/values.hpp&gt;</code></p>
 <p>... </p>
-
-</div>
-</div>
-<a class="anchor" id="gaabd69f04ff6065235246f63e6e1c1389"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename map &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__map.html#gaabd69f04ff6065235246f63e6e1c1389">metal::values_t</a> = typedef typename <a class="el" href="group__map.html#gaa577d7b50596764830c0404aabd681b9">metal::values</a>&lt;map&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/map/values.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__map.html#gaa577d7b50596764830c0404aabd681b9">metal::values</a>. </p>
 
 </div>
 </div>

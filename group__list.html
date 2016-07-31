@@ -64,48 +64,14 @@
 </div><!--header-->
 <div class="contents">
 <h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="ga2d94b8adce0b5e537734c2811ede7c69"></a>
+<a class="anchor" id="ga5194d18993f29008a25ffcb42494a51b"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename state , typename lbd , typename begin  = detail::nil, typename end  = detail::nil&gt; </div>
+template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga2d94b8adce0b5e537734c2811ede7c69">metal::accumulate</a> = typedef detail::fold&lt;list, state, lbd, begin, end&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/accumulate.hpp&gt;</code></p>
-<p>An alias for <a class="el" href="group__list.html#ga6dafe838e2d083a330ce7a9941131acf">fold</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gac80341d27989df4ce4159be3f9c2e39d"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename state , typename lbd , typename begin  = detail::nil, typename end  = detail::nil&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gac80341d27989df4ce4159be3f9c2e39d">metal::accumulate_t</a> = typedef typename <a class="el" href="group__list.html#ga2d94b8adce0b5e537734c2811ede7c69">metal::accumulate</a>&lt;list, state, lbd, begin, end&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/accumulate.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga2d94b8adce0b5e537734c2811ede7c69">metal::accumulate</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga753f26a3d1301b70d4a70a94ff47c7e4"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga753f26a3d1301b70d4a70a94ff47c7e4">metal::all</a> = typedef detail::all&lt;list, lbd&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga5194d18993f29008a25ffcb42494a51b">metal::all</a> = typedef <a class="el" href="group__lambda.html#ga2c9e65a1497c421ba4e180fd7300224e">metal::apply</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__number.html#ga3400b9cc24f92149d6b914e243a59b10">metal::and_</a>&gt;, <a class="el" href="group__list.html#ga649ffa53018a7e5ce14c98f93e0812fa">metal::transform</a>&lt;lbd, seq&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -115,31 +81,14 @@ template&lt;typename list , typename lbd &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga614d5dc25174e2a76a987677e7ae8102"></a>
+<a class="anchor" id="ga7dfd4d368b74c9f5601c0de76996ae08"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
+template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga614d5dc25174e2a76a987677e7ae8102">metal::all_t</a> = typedef typename <a class="el" href="group__list.html#ga753f26a3d1301b70d4a70a94ff47c7e4">metal::all</a>&lt;list, lbd&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/all.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga753f26a3d1301b70d4a70a94ff47c7e4">metal::all</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gaee9368cf981feddbfc757e536fc0c5ba"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gaee9368cf981feddbfc757e536fc0c5ba">metal::any</a> = typedef detail::any&lt;list, lbd&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga7dfd4d368b74c9f5601c0de76996ae08">metal::any</a> = typedef <a class="el" href="group__lambda.html#ga2c9e65a1497c421ba4e180fd7300224e">metal::apply</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__number.html#gaf5dc1023d77f0f7771b0cc6f16eb5a6f">metal::or_</a>&gt;, <a class="el" href="group__list.html#ga649ffa53018a7e5ce14c98f93e0812fa">metal::transform</a>&lt;lbd, seq&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -149,65 +98,14 @@ template&lt;typename list , typename lbd &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga20a2cadcc463e04b3b764a544dfb7fbc"></a>
+<a class="anchor" id="ga9de5aeb7e546bd80a22cc9fb7aaf5947"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
+template&lt;typename seq , typename num &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga20a2cadcc463e04b3b764a544dfb7fbc">metal::any_t</a> = typedef typename <a class="el" href="group__list.html#gaee9368cf981feddbfc757e536fc0c5ba">metal::any</a>&lt;list, lbd&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/any.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gaee9368cf981feddbfc757e536fc0c5ba">metal::any</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga507751878f61207f883c49f265c1913d"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename lbd , typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga507751878f61207f883c49f265c1913d">metal::apply</a> = typedef detail::apply&lt;lbd, list&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/apply.hpp&gt;</code></p>
-<p>... </p>
-
-</div>
-</div>
-<a class="anchor" id="gae4fffbe5ca63206e55e829d965040130"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename lbd , typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gae4fffbe5ca63206e55e829d965040130">metal::apply_t</a> = typedef typename <a class="el" href="group__list.html#ga507751878f61207f883c49f265c1913d">metal::apply</a>&lt;lbd, list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/apply.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga507751878f61207f883c49f265c1913d">metal::apply</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga443f092d391fa24e0b5fb3d8c5d3e8cf"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename n &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga443f092d391fa24e0b5fb3d8c5d3e8cf">metal::at</a> = typedef detail::at&lt;list, n&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga9de5aeb7e546bd80a22cc9fb7aaf5947">metal::at</a> = typedef detail::lookup&lt;seq, indices&lt;seq&gt;, cast&lt;num, std::size_t&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -217,31 +115,14 @@ template&lt;typename list , typename n &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga574e80036a3c6843f0b00c49d7b99d0a"></a>
+<a class="anchor" id="ga497f8759a89e447bc0932dcccfeee582"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename n &gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga574e80036a3c6843f0b00c49d7b99d0a">metal::at_t</a> = typedef typename <a class="el" href="group__list.html#ga443f092d391fa24e0b5fb3d8c5d3e8cf">metal::at</a>&lt;list, n&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/at.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga443f092d391fa24e0b5fb3d8c5d3e8cf">metal::at</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga1efbbce5dcd9a9d118b14e669131b199"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga1efbbce5dcd9a9d118b14e669131b199">metal::back</a> = typedef detail::back&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga497f8759a89e447bc0932dcccfeee582">metal::back</a> = typedef <a class="el" href="group__list.html#ga9de5aeb7e546bd80a22cc9fb7aaf5947">metal::at</a>&lt;seq, <a class="el" href="group__number.html#gaf05186a649afbc587e52e8865908a19e">metal::dec</a>&lt;<a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;seq&gt;&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -251,65 +132,14 @@ template&lt;typename list &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga7ead5aedbb06f8270c8bbf2369b330dd"></a>
+<a class="anchor" id="ga07bb3fe20cdc3fc7a25b370bf2929865"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list &gt; </div>
+template&lt;typename seq , typename val &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga7ead5aedbb06f8270c8bbf2369b330dd">metal::back_t</a> = typedef typename <a class="el" href="group__list.html#ga1efbbce5dcd9a9d118b14e669131b199">metal::back</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/back.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga1efbbce5dcd9a9d118b14e669131b199">metal::back</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga41624c871a0d63626ae506a89ec06d44"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga41624c871a0d63626ae506a89ec06d44">metal::clear</a> = typedef detail::clear&lt;list&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/clear.hpp&gt;</code></p>
-<p>... </p>
-
-</div>
-</div>
-<a class="anchor" id="ga85fc5ce628d7d7736317ab8a1b5f83c8"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga85fc5ce628d7d7736317ab8a1b5f83c8">metal::clear_t</a> = typedef typename <a class="el" href="group__list.html#ga41624c871a0d63626ae506a89ec06d44">metal::clear</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/clear.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga41624c871a0d63626ae506a89ec06d44">metal::clear</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga2d4dd5501c1b0a25f888305e43d351b9"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename val &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga2d4dd5501c1b0a25f888305e43d351b9">metal::contains</a> = typedef detail::contains&lt;list, val&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga07bb3fe20cdc3fc7a25b370bf2929865">metal::contains</a> = typedef <a class="el" href="group__list.html#ga7dfd4d368b74c9f5601c0de76996ae08">metal::any</a>&lt;seq, <a class="el" href="group__lambda.html#gadfe33a637ed67318cebb9f1cf3a630b3">metal::partial</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__list.html#gaa8cebc9c1c5f2e7cc1772ef84811dee8">metal::equal</a>&gt;, val&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -319,31 +149,14 @@ template&lt;typename list , typename val &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga8d9f638a95a426e4aa3f8affefcac2e8"></a>
+<a class="anchor" id="ga34a1e7a496e4898debe145e919c64869"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename val &gt; </div>
+template&lt;typename seq , typename val &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga8d9f638a95a426e4aa3f8affefcac2e8">metal::contains_t</a> = typedef typename <a class="el" href="group__list.html#ga2d4dd5501c1b0a25f888305e43d351b9">metal::contains</a>&lt;list, val&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/contains.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga2d4dd5501c1b0a25f888305e43d351b9">metal::contains</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga885c5374c7f8af33a66dab560a22389e"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename to , typename from , typename beg  = detail::nil, typename end  = detail::nil&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga885c5374c7f8af33a66dab560a22389e">metal::copy</a> = typedef detail::copy&lt;to, from, beg, end&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga34a1e7a496e4898debe145e919c64869">metal::copy</a> = typedef <a class="el" href="group__list.html#gad8582c98307fa0eb224197bd283a17d7">metal::copy_if</a>&lt;seq, <a class="el" href="group__lambda.html#gadfe33a637ed67318cebb9f1cf3a630b3">metal::partial</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__list.html#gaa8cebc9c1c5f2e7cc1772ef84811dee8">metal::equal</a>&gt;, val&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -353,14 +166,14 @@ template&lt;typename to , typename from , typename beg  = detail::nil, typename 
 
 </div>
 </div>
-<a class="anchor" id="ga9850dc4798fb2657b4fc37f2fb3a582f"></a>
+<a class="anchor" id="gad8582c98307fa0eb224197bd283a17d7"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename to , typename from , typename lbd &gt; </div>
+template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga9850dc4798fb2657b4fc37f2fb3a582f">metal::copy_if</a> = typedef detail::copy_if&lt;to, from, lbd&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gad8582c98307fa0eb224197bd283a17d7">metal::copy_if</a> = typedef apply&lt; partial&lt;lambda&lt;join&gt;, list&lt;&gt;&gt;, transform&lt;bind&lt;lambda&lt;if_&gt;, lbd, lambda&lt;list&gt;, quote&lt;list&lt;&gt;&gt;&gt;, seq&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -370,48 +183,14 @@ template&lt;typename to , typename from , typename lbd &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga5bb7b1a1ad7dc278fafaf4b5d08eafeb"></a>
+<a class="anchor" id="ga232df435ca46938ada4a46c4c50fc4b3"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename to , typename from , typename lbd &gt; </div>
+template&lt;typename seq , typename val &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga5bb7b1a1ad7dc278fafaf4b5d08eafeb">metal::copy_if_t</a> = typedef typename <a class="el" href="group__list.html#ga9850dc4798fb2657b4fc37f2fb3a582f">metal::copy_if</a>&lt;to, from, lbd&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/copy_if.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga9850dc4798fb2657b4fc37f2fb3a582f">metal::copy_if</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga774af3d05b97c9006885ac1cc1dfb764"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename to , typename from , typename beg  = detail::nil, typename end  = detail::nil&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga774af3d05b97c9006885ac1cc1dfb764">metal::copy_t</a> = typedef typename <a class="el" href="group__list.html#ga885c5374c7f8af33a66dab560a22389e">metal::copy</a>&lt;to, from, beg, end&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/copy.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga885c5374c7f8af33a66dab560a22389e">metal::copy</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga4ba11ad5cd4c456697269a27e15f9fd4"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename val &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga4ba11ad5cd4c456697269a27e15f9fd4">metal::count</a> = typedef detail::count&lt;list, val&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga232df435ca46938ada4a46c4c50fc4b3">metal::count</a> = typedef <a class="el" href="group__list.html#ga7c043d57ad5b1cfc4efd170bf3025948">metal::count_if</a>&lt;seq, <a class="el" href="group__lambda.html#gadfe33a637ed67318cebb9f1cf3a630b3">metal::partial</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__list.html#gaa8cebc9c1c5f2e7cc1772ef84811dee8">metal::equal</a>&gt;, val&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -421,14 +200,14 @@ template&lt;typename list , typename val &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gadf428c8d492d3c112047bc422c77a0e8"></a>
+<a class="anchor" id="ga7c043d57ad5b1cfc4efd170bf3025948"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
+template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gadf428c8d492d3c112047bc422c77a0e8">metal::count_if</a> = typedef detail::count_if&lt;list, lbd&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga7c043d57ad5b1cfc4efd170bf3025948">metal::count_if</a> = typedef <a class="el" href="group__lambda.html#ga2c9e65a1497c421ba4e180fd7300224e">metal::apply</a>&lt; <a class="el" href="group__lambda.html#gadfe33a637ed67318cebb9f1cf3a630b3">metal::partial</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__number.html#gaa3b88123f6c1842f797fd9775383560f">metal::add</a>&gt;, <a class="el" href="group__number.html#gab5a69362093b1feeab7bdc6d9f5ca25c">metal::ptrdiff_t</a>&lt;0&gt;&gt;, <a class="el" href="group__list.html#ga649ffa53018a7e5ce14c98f93e0812fa">metal::transform</a>&lt;lbd, seq&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -438,48 +217,14 @@ template&lt;typename list , typename lbd &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gae213fd31f957b6e2c9bbb89d9cf15f46"></a>
+<a class="anchor" id="gaecfc04a0fd662b18c745a2d680c25222"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gae213fd31f957b6e2c9bbb89d9cf15f46">metal::count_if_t</a> = typedef typename <a class="el" href="group__list.html#gadf428c8d492d3c112047bc422c77a0e8">metal::count_if</a>&lt;list, lbd&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/count_if.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gadf428c8d492d3c112047bc422c77a0e8">metal::count_if</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga8f9c6aa03976b4ec42b377dbe756ecce"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename val &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga8f9c6aa03976b4ec42b377dbe756ecce">metal::count_t</a> = typedef typename <a class="el" href="group__list.html#ga4ba11ad5cd4c456697269a27e15f9fd4">metal::count</a>&lt;list, val&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/count.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga4ba11ad5cd4c456697269a27e15f9fd4">metal::count</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gaf1d3cd5610c963df4432345fe5e14e82"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gaf1d3cd5610c963df4432345fe5e14e82">metal::distinct</a> = typedef detail::distinct&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gaecfc04a0fd662b18c745a2d680c25222">metal::distinct</a> = typedef typename detail::_distinct&lt;seq&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -489,31 +234,14 @@ template&lt;typename list &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga15da55efb4ea113d1eabd9cee2f3898e"></a>
+<a class="anchor" id="gab7a3bd03f6c2ed0122ba00aee5d8b92c"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list &gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga15da55efb4ea113d1eabd9cee2f3898e">metal::distinct_t</a> = typedef typename <a class="el" href="group__list.html#gaf1d3cd5610c963df4432345fe5e14e82">metal::distinct</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/distinct.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gaf1d3cd5610c963df4432345fe5e14e82">metal::distinct</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gae04414ab46f321a5383b804076780238"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gae04414ab46f321a5383b804076780238">metal::empty</a> = typedef detail::empty&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gab7a3bd03f6c2ed0122ba00aee5d8b92c">metal::empty</a> = typedef <a class="el" href="group__number.html#ga0e6e983545fb151f7fb29a6a82a2f1cc">metal::not_</a>&lt;<a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;seq&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -523,65 +251,31 @@ template&lt;typename list &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga1ab40ae7fc3f6628a832b641e13adf00"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga1ab40ae7fc3f6628a832b641e13adf00">metal::empty_t</a> = typedef typename <a class="el" href="group__list.html#gae04414ab46f321a5383b804076780238">metal::empty</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/empty.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gae04414ab46f321a5383b804076780238">metal::empty</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga7c3895d34fd57a28b5ebea7b2d4c4c3b"></a>
+<a class="anchor" id="gaa8cebc9c1c5f2e7cc1772ef84811dee8"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename x , typename y &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga7c3895d34fd57a28b5ebea7b2d4c4c3b">metal::equal</a> = typedef detail::equal&lt;x, y&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gaa8cebc9c1c5f2e7cc1772ef84811dee8">metal::equal</a> = typedef typename std::is_same&lt; typename detail::_canonic&lt;x&gt;::type, typename detail::_canonic&lt;y&gt;::type &gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;metal/list/equal.hpp&gt;</code></p>
+<p><code>#include &lt;metal/value/equal.hpp&gt;</code></p>
 <p>... </p>
 
 </div>
 </div>
-<a class="anchor" id="gab25f9d87e5f8c4d90b9719a5c0041119"></a>
+<a class="anchor" id="ga4401e7b973513827ee4a7d4003e698f7"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename x , typename y &gt; </div>
+template&lt;typename seq , typename beg , typename end  = inc&lt;beg&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gab25f9d87e5f8c4d90b9719a5c0041119">metal::equal_t</a> = typedef typename <a class="el" href="group__list.html#ga7c3895d34fd57a28b5ebea7b2d4c4c3b">metal::equal</a>&lt;x, y&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/equal.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga7c3895d34fd57a28b5ebea7b2d4c4c3b">metal::equal</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga235fb15add99dd7aa9a3b3f8495c01aa"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename beg , typename end  = detail::nil&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga235fb15add99dd7aa9a3b3f8495c01aa">metal::erase</a> = typedef detail::erase&lt;list, beg, end&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga4401e7b973513827ee4a7d4003e698f7">metal::erase</a> = typedef <a class="el" href="group__list.html#ga4091910a9331d7106857511a153947ea">metal::join</a>&lt; <a class="el" href="group__list.html#ga2ead4045956db46fd0986d5b90118d7a">metal::range</a>&lt;seq, <a class="el" href="group__number.html#ga600c17aebc083088b49606e60f3a3ed7">metal::size_t</a>&lt;0&gt;, <a class="el" href="group__number.html#ga0e92c726284f786bf6385f42361b6426">metal::min</a>&lt;beg, end&gt;&gt;, <a class="el" href="group__list.html#ga2ead4045956db46fd0986d5b90118d7a">metal::range</a>&lt;seq, <a class="el" href="group__number.html#ga36ac435ad0533531681d12b5bb420953">metal::max</a>&lt;beg, end&gt;, <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;seq&gt;&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -591,31 +285,14 @@ template&lt;typename list , typename beg , typename end  = detail::nil&gt; </div
 
 </div>
 </div>
-<a class="anchor" id="gaa5d0c8bcfba83239edc83c1c547178b0"></a>
+<a class="anchor" id="ga57931bd7a105be939119e451538be3c2"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename beg , typename end  = detail::nil&gt; </div>
+template&lt;typename seq , typename val &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gaa5d0c8bcfba83239edc83c1c547178b0">metal::erase_t</a> = typedef typename <a class="el" href="group__list.html#ga235fb15add99dd7aa9a3b3f8495c01aa">metal::erase</a>&lt;list, beg, end&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/erase.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga235fb15add99dd7aa9a3b3f8495c01aa">metal::erase</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga739857f6a15625a1228a9d4b3283311a"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename val &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga739857f6a15625a1228a9d4b3283311a">metal::find</a> = typedef detail::find&lt;list, val&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga57931bd7a105be939119e451538be3c2">metal::find</a> = typedef <a class="el" href="group__list.html#gaa9f15ce1dabf1cb8fc85c965f604be13">metal::find_if</a>&lt;seq, <a class="el" href="group__lambda.html#gadfe33a637ed67318cebb9f1cf3a630b3">metal::partial</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__list.html#gaa8cebc9c1c5f2e7cc1772ef84811dee8">metal::equal</a>&gt;, val&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -625,14 +302,14 @@ template&lt;typename list , typename val &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga91a557a149229fb63a1ceb64fd514481"></a>
+<a class="anchor" id="gaa9f15ce1dabf1cb8fc85c965f604be13"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
+template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga91a557a149229fb63a1ceb64fd514481">metal::find_if</a> = typedef detail::find_if&lt;list, lbd&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gaa9f15ce1dabf1cb8fc85c965f604be13">metal::find_if</a> = typedef front&lt; flatten&lt; list&lt; transform&lt; bind&lt;lambda&lt;if_&gt;, _1, _2, quote&lt;list&lt;&gt;&gt;&gt;, transform&lt;lbd, seq&gt;, indices&lt;seq&gt; &gt;, size&lt;seq&gt; &gt; &gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -642,48 +319,14 @@ template&lt;typename list , typename lbd &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga3e74badc2c618f273374fef831c2d4b1"></a>
+<a class="anchor" id="gab8003f0e76d9ad249c9f8a99e6d711a0"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga3e74badc2c618f273374fef831c2d4b1">metal::find_if_t</a> = typedef typename <a class="el" href="group__list.html#ga91a557a149229fb63a1ceb64fd514481">metal::find_if</a>&lt;list, lbd&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/find_if.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga91a557a149229fb63a1ceb64fd514481">metal::find_if</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gaebf1d228e8492ebabbd9c93411c187e9"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename val &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gaebf1d228e8492ebabbd9c93411c187e9">metal::find_t</a> = typedef typename <a class="el" href="group__list.html#ga739857f6a15625a1228a9d4b3283311a">metal::find</a>&lt;list, val&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/find.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga739857f6a15625a1228a9d4b3283311a">metal::find</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gac463a590ffda909392442aa364e70210"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gac463a590ffda909392442aa364e70210">metal::flatten</a> = typedef detail::flatten&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gab8003f0e76d9ad249c9f8a99e6d711a0">metal::flatten</a> = typedef typename detail::_flatten&lt;seq&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -693,31 +336,14 @@ template&lt;typename list &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga6c0ebbdef5e5026ee68eebb9e3641514"></a>
+<a class="anchor" id="gad3c36e973dd573e13bf8e35ab92f7f6e"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list &gt; </div>
+template&lt;typename seq , typename state , typename lbd , typename beg  = size_t&lt;0&gt;, typename end  = size&lt;seq&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga6c0ebbdef5e5026ee68eebb9e3641514">metal::flatten_t</a> = typedef typename <a class="el" href="group__list.html#gac463a590ffda909392442aa364e70210">metal::flatten</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/flatten.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gac463a590ffda909392442aa364e70210">metal::flatten</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga6dafe838e2d083a330ce7a9941131acf"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename state , typename lbd , typename beg  = detail::nil, typename end  = detail::nil&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga6dafe838e2d083a330ce7a9941131acf">metal::fold</a> = typedef detail::fold&lt;list, state, lbd, beg, end&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gad3c36e973dd573e13bf8e35ab92f7f6e">metal::fold</a> = typedef typename detail::_fold&lt; seq, state, lbd, if_&lt;not_&lt;less&lt;size&lt;seq&gt;, beg&gt;&gt;, cast&lt;beg, std::size_t&gt;&gt;, if_&lt;not_&lt;less&lt;size&lt;seq&gt;, end&gt;&gt;, cast&lt;end, std::size_t&gt;&gt; &gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -727,31 +353,14 @@ template&lt;typename list , typename state , typename lbd , typename beg  = deta
 
 </div>
 </div>
-<a class="anchor" id="ga9c6df8ce8e3ebedef879a600877d0f5f"></a>
+<a class="anchor" id="ga96fa2b8f56141b59b073e87bf44cbc6d"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename state , typename lbd , typename beg  = detail::nil, typename end  = detail::nil&gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga9c6df8ce8e3ebedef879a600877d0f5f">metal::fold_t</a> = typedef typename <a class="el" href="group__list.html#ga6dafe838e2d083a330ce7a9941131acf">metal::fold</a>&lt;list, state, lbd, beg, end&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/fold.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga6dafe838e2d083a330ce7a9941131acf">metal::fold</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga709f2d33787758d377454c7561b15e16"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga709f2d33787758d377454c7561b15e16">metal::front</a> = typedef detail::front&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga96fa2b8f56141b59b073e87bf44cbc6d">metal::front</a> = typedef <a class="el" href="group__list.html#ga9de5aeb7e546bd80a22cc9fb7aaf5947">metal::at</a>&lt;seq, <a class="el" href="group__number.html#ga600c17aebc083088b49606e60f3a3ed7">metal::size_t</a>&lt;0&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -761,31 +370,14 @@ template&lt;typename list &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gac52cdaf9193e0336d59069ee3a08990c"></a>
+<a class="anchor" id="ga0cf876d12ac3ca3b407cd9070feb9030"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list &gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gac52cdaf9193e0336d59069ee3a08990c">metal::front_t</a> = typedef typename <a class="el" href="group__list.html#ga709f2d33787758d377454c7561b15e16">metal::front</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/front.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga709f2d33787758d377454c7561b15e16">metal::front</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gad757ae1c664c55a0ed422ccb8f1dcc3c"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gad757ae1c664c55a0ed422ccb8f1dcc3c">metal::indices</a> = typedef detail::indices&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga0cf876d12ac3ca3b407cd9070feb9030">metal::indices</a> = typedef <a class="el" href="group__number.html#gab4c979b9d3b222bf8aed06e65b7b2b8b">metal::enumerate</a>&lt;<a class="el" href="group__number.html#ga600c17aebc083088b49606e60f3a3ed7">metal::size_t</a>&lt;0&gt;, <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;seq&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -795,31 +387,14 @@ template&lt;typename list &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga6d4ad7de84b35fccc8927d0592859fd9"></a>
+<a class="anchor" id="gac5f70400175c3611d9c1a3cb4bde4c4b"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list &gt; </div>
+template&lt;typename seq , typename n , typename val &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga6d4ad7de84b35fccc8927d0592859fd9">metal::indices_t</a> = typedef typename <a class="el" href="group__list.html#gad757ae1c664c55a0ed422ccb8f1dcc3c">metal::indices</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/indices.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gad757ae1c664c55a0ed422ccb8f1dcc3c">metal::indices</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga9f2b3774f84119274c0dcba93737223f"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename n , typename val &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga9f2b3774f84119274c0dcba93737223f">metal::insert</a> = typedef detail::insert&lt;list, n, val&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gac5f70400175c3611d9c1a3cb4bde4c4b">metal::insert</a> = typedef <a class="el" href="group__list.html#ga576625abb2e98d2d6ccad5fad6df8c24">metal::splice</a>&lt;seq, n, <a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>&lt;val&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -829,31 +404,14 @@ template&lt;typename list , typename n , typename val &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga3b2cdd80405064432fdeddaec94be514"></a>
+<a class="anchor" id="ga0d35b093a78a38d60906901eb78a5946"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename n , typename val &gt; </div>
+template&lt;typename val &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga3b2cdd80405064432fdeddaec94be514">metal::insert_t</a> = typedef typename <a class="el" href="group__list.html#ga9f2b3774f84119274c0dcba93737223f">metal::insert</a>&lt;list, n, val&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/insert.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga9f2b3774f84119274c0dcba93737223f">metal::insert</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gaa4cdc79ab18355eaaa40caa5819a2f1c"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gaa4cdc79ab18355eaaa40caa5819a2f1c">metal::is_list</a> = typedef detail::is_list&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga0d35b093a78a38d60906901eb78a5946">metal::is_list</a> = typedef typename detail::_is_list&lt;val&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -863,54 +421,20 @@ template&lt;typename list &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga207b7a9777f84dccef7c49181f138ae0"></a>
+<a class="anchor" id="ga4091910a9331d7106857511a153947ea"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list &gt; </div>
+template&lt;typename head , typename... tail&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga207b7a9777f84dccef7c49181f138ae0">metal::is_list_t</a> = typedef typename <a class="el" href="group__list.html#gaa4cdc79ab18355eaaa40caa5819a2f1c">metal::is_list</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/list.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gaa4cdc79ab18355eaaa40caa5819a2f1c">metal::is_list</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gab9d8d24044ad7667293d39c5fc8dc8da"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... lists&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gab9d8d24044ad7667293d39c5fc8dc8da">metal::join</a> = typedef detail::join&lt;lists...&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga4091910a9331d7106857511a153947ea">metal::join</a> = typedef typename detail::_join&lt;head, tail...&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p><code>#include &lt;metal/list/join.hpp&gt;</code></p>
 <p>... </p>
-
-</div>
-</div>
-<a class="anchor" id="ga509323b204d742a2ca4d7e1bb33649c6"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... lists&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga509323b204d742a2ca4d7e1bb33649c6">metal::join_t</a> = typedef typename <a class="el" href="group__list.html#gab9d8d24044ad7667293d39c5fc8dc8da">metal::join</a>&lt;lists...&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/join.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gab9d8d24044ad7667293d39c5fc8dc8da">metal::join</a>. </p>
 
 </div>
 </div>
@@ -931,14 +455,14 @@ template&lt;typename... vals&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga37451f349ccdc250809114869e80be79"></a>
+<a class="anchor" id="gae132d4aa07712c2b55f31a2a60467b00"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename lbd , typename... lists&gt; </div>
+template&lt;typename lbd , typename head , typename... tail&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga37451f349ccdc250809114869e80be79">metal::merge</a> = typedef detail::merge&lt;lbd, lists...&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gae132d4aa07712c2b55f31a2a60467b00">metal::merge</a> = typedef reduce&lt; list&lt;if_&lt;is_list&lt;head&gt;, head&gt;, tail...&gt;, partial&lt;lambda&lt;detail::merge_impl&gt;, if_&lt;is_lambda&lt;lbd&gt;, lbd&gt;&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -948,31 +472,14 @@ template&lt;typename lbd , typename... lists&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gaa21a4652ce08fb90ea29c1b11bb6ef5a"></a>
+<a class="anchor" id="ga354bc47ad704aabf4dfbeacba6cc5739"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename lbd , typename... lists&gt; </div>
+template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gaa21a4652ce08fb90ea29c1b11bb6ef5a">metal::merge_t</a> = typedef typename <a class="el" href="group__list.html#ga37451f349ccdc250809114869e80be79">metal::merge</a>&lt;lbd, lists...&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/merge.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga37451f349ccdc250809114869e80be79">metal::merge</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga85fe7d1a42ce85761db80fc5c4839272"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga85fe7d1a42ce85761db80fc5c4839272">metal::none</a> = typedef detail::none&lt;list, lbd&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga354bc47ad704aabf4dfbeacba6cc5739">metal::none</a> = typedef <a class="el" href="group__number.html#ga0e6e983545fb151f7fb29a6a82a2f1cc">metal::not_</a>&lt;<a class="el" href="group__list.html#ga7dfd4d368b74c9f5601c0de76996ae08">metal::any</a>&lt;seq, lbd&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -982,31 +489,14 @@ template&lt;typename list , typename lbd &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga146be6f185aeb8d44708447701551293"></a>
+<a class="anchor" id="gade1947c3698c0795421c9fe7a3c6eebb"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
+template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga146be6f185aeb8d44708447701551293">metal::none_t</a> = typedef typename <a class="el" href="group__list.html#ga85fe7d1a42ce85761db80fc5c4839272">metal::none</a>&lt;list, lbd&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/none.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga85fe7d1a42ce85761db80fc5c4839272">metal::none</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gaca7173fe6b70db08b471662e967d349b"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gaca7173fe6b70db08b471662e967d349b">metal::partition</a> = typedef detail::partition&lt;list, lbd&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gade1947c3698c0795421c9fe7a3c6eebb">metal::partition</a> = typedef <a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair</a>&lt;<a class="el" href="group__list.html#gad8582c98307fa0eb224197bd283a17d7">metal::copy_if</a>&lt;seq, lbd&gt;, <a class="el" href="group__list.html#gaf9a474fd43fd66cdaf9e8811dc360ea6">metal::remove_if</a>&lt;seq, lbd&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1016,31 +506,14 @@ template&lt;typename list , typename lbd &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga5a80af0ef860035a4a1503c3dcfb85f8"></a>
+<a class="anchor" id="ga8ee34d25c17c2b82d96c86781015e60d"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
+template&lt;typename seq , typename n  = size_t&lt;1&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga5a80af0ef860035a4a1503c3dcfb85f8">metal::partition_t</a> = typedef typename <a class="el" href="group__list.html#gaca7173fe6b70db08b471662e967d349b">metal::partition</a>&lt;list, lbd&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/partition.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gaca7173fe6b70db08b471662e967d349b">metal::partition</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gaf85effe827fb05f25ac7f0adc27d5f80"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gaf85effe827fb05f25ac7f0adc27d5f80">metal::pop_back</a> = typedef detail::pop_back&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga8ee34d25c17c2b82d96c86781015e60d">metal::pop_back</a> = typedef <a class="el" href="group__list.html#ga2ead4045956db46fd0986d5b90118d7a">metal::range</a>&lt; seq, <a class="el" href="group__number.html#ga600c17aebc083088b49606e60f3a3ed7">metal::size_t</a>&lt;0&gt;, <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">metal::sub</a>&lt;<a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;seq&gt;, <a class="el" href="group__number.html#ga3a81a6c2c1b1ed83c956c2cf3ad35f6d">metal::cast</a>&lt;n, std::size_t&gt;&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1050,31 +523,14 @@ template&lt;typename list &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gac3359f62fa9af6f468a3f5f9a699cb90"></a>
+<a class="anchor" id="ga8799b018b7fe5bfaa32adeeb0fa2a7d0"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list &gt; </div>
+template&lt;typename seq , typename n  = size_t&lt;1&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gac3359f62fa9af6f468a3f5f9a699cb90">metal::pop_back_t</a> = typedef typename <a class="el" href="group__list.html#gaf85effe827fb05f25ac7f0adc27d5f80">metal::pop_back</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/pop_back.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gaf85effe827fb05f25ac7f0adc27d5f80">metal::pop_back</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga746b4e4ce29780b44082fc6e0d048893"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga746b4e4ce29780b44082fc6e0d048893">metal::pop_front</a> = typedef detail::pop_front&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga8799b018b7fe5bfaa32adeeb0fa2a7d0">metal::pop_front</a> = typedef <a class="el" href="group__list.html#ga2ead4045956db46fd0986d5b90118d7a">metal::range</a>&lt;seq, n, <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;seq&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1084,31 +540,14 @@ template&lt;typename list &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga1797b91bf244f848b0e27c784dc7639b"></a>
+<a class="anchor" id="ga6ad0ab39aff94bc78f358c205193fb7e"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list &gt; </div>
+template&lt;typename seq , typename val &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga1797b91bf244f848b0e27c784dc7639b">metal::pop_front_t</a> = typedef typename <a class="el" href="group__list.html#ga746b4e4ce29780b44082fc6e0d048893">metal::pop_front</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/pop_front.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga746b4e4ce29780b44082fc6e0d048893">metal::pop_front</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga9d1790b39af16f58ebf6392302f21669"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename val &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga9d1790b39af16f58ebf6392302f21669">metal::push_back</a> = typedef detail::push_back&lt;list, val&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga6ad0ab39aff94bc78f358c205193fb7e">metal::push_back</a> = typedef <a class="el" href="group__list.html#ga4091910a9331d7106857511a153947ea">metal::join</a>&lt;seq, <a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>&lt;val&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1118,31 +557,14 @@ template&lt;typename list , typename val &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga1e46c08b0ed297e90eaa98da32b172a8"></a>
+<a class="anchor" id="gafb491e26071dd25e3efce32c8d212a3b"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename val &gt; </div>
+template&lt;typename seq , typename val &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga1e46c08b0ed297e90eaa98da32b172a8">metal::push_back_t</a> = typedef typename <a class="el" href="group__list.html#ga9d1790b39af16f58ebf6392302f21669">metal::push_back</a>&lt;list, val&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/push_back.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga9d1790b39af16f58ebf6392302f21669">metal::push_back</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga3d175f0721a05e6e90435ff7d2c1832a"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename val &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga3d175f0721a05e6e90435ff7d2c1832a">metal::push_front</a> = typedef detail::push_front&lt;list, val&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gafb491e26071dd25e3efce32c8d212a3b">metal::push_front</a> = typedef <a class="el" href="group__list.html#ga4091910a9331d7106857511a153947ea">metal::join</a>&lt;<a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>&lt;val&gt;, seq&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1152,31 +574,31 @@ template&lt;typename list , typename val &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga10b1ea55d9137c6e1f5cf34e8e503625"></a>
+<a class="anchor" id="ga2ead4045956db46fd0986d5b90118d7a"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename val &gt; </div>
+template&lt;typename seq , typename beg , typename end &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga10b1ea55d9137c6e1f5cf34e8e503625">metal::push_front_t</a> = typedef typename <a class="el" href="group__list.html#ga3d175f0721a05e6e90435ff7d2c1832a">metal::push_front</a>&lt;list, val&gt;::type</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga2ead4045956db46fd0986d5b90118d7a">metal::range</a> = typedef typename detail::_range&lt; seq, if_&lt;not_&lt;less&lt;size&lt;seq&gt;, beg&gt;&gt;, cast&lt;beg, std::size_t&gt;&gt;, if_&lt;not_&lt;less&lt;size&lt;seq&gt;, end&gt;&gt;, cast&lt;end, std::size_t&gt;&gt; &gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;metal/list/push_front.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga3d175f0721a05e6e90435ff7d2c1832a">metal::push_front</a>. </p>
+<p><code>#include &lt;metal/list/range.hpp&gt;</code></p>
+<p>... </p>
 
 </div>
 </div>
-<a class="anchor" id="ga0ed32c53419548c6b9c3df415d130528"></a>
+<a class="anchor" id="gac31b9b6ce5931cefe47b644a2491e3c6"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd , typename beg  = detail::nil, typename end  = detail::nil&gt; </div>
+template&lt;typename seq , typename lbd , typename beg  = size_t&lt;0&gt;, typename end  = size&lt;seq&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga0ed32c53419548c6b9c3df415d130528">metal::reduce</a> = typedef detail::reduce&lt;list, lbd, beg, end&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gac31b9b6ce5931cefe47b644a2491e3c6">metal::reduce</a> = typedef typename detail::_reduce&lt; seq, lbd, if_&lt;not_&lt;less&lt;size&lt;seq&gt;, beg&gt;&gt;, cast&lt;beg, std::size_t&gt;&gt;, if_&lt;not_&lt;less&lt;size&lt;seq&gt;, end&gt;&gt;, cast&lt;end, std::size_t&gt;&gt; &gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1186,31 +608,14 @@ template&lt;typename list , typename lbd , typename beg  = detail::nil, typename
 
 </div>
 </div>
-<a class="anchor" id="ga6239a82913074a57b7f7940d49ee58c3"></a>
+<a class="anchor" id="ga9c5db2065687a5c056bed19b48b3a3e6"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd , typename beg  = detail::nil, typename end  = detail::nil&gt; </div>
+template&lt;typename seq , typename val &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga6239a82913074a57b7f7940d49ee58c3">metal::reduce_t</a> = typedef typename <a class="el" href="group__list.html#ga0ed32c53419548c6b9c3df415d130528">metal::reduce</a>&lt;list, lbd, beg, end&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/reduce.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga0ed32c53419548c6b9c3df415d130528">metal::reduce</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga93b95511c576dbe0f7da4c15e778e148"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename val &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga93b95511c576dbe0f7da4c15e778e148">metal::remove</a> = typedef detail::remove&lt;list, val&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga9c5db2065687a5c056bed19b48b3a3e6">metal::remove</a> = typedef <a class="el" href="group__list.html#gaf9a474fd43fd66cdaf9e8811dc360ea6">metal::remove_if</a>&lt;seq, <a class="el" href="group__lambda.html#gadfe33a637ed67318cebb9f1cf3a630b3">metal::partial</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__list.html#gaa8cebc9c1c5f2e7cc1772ef84811dee8">metal::equal</a>&gt;, val&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1220,14 +625,14 @@ template&lt;typename list , typename val &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gac51322b5424a236230c867201e0ec7a6"></a>
+<a class="anchor" id="gaf9a474fd43fd66cdaf9e8811dc360ea6"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
+template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gac51322b5424a236230c867201e0ec7a6">metal::remove_if</a> = typedef detail::remove_if&lt;list, lbd&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gaf9a474fd43fd66cdaf9e8811dc360ea6">metal::remove_if</a> = typedef <a class="el" href="group__list.html#gad8582c98307fa0eb224197bd283a17d7">metal::copy_if</a>&lt;seq, <a class="el" href="group__lambda.html#gadc53fa4741d4ac0f180c937b42534049">metal::bind</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__number.html#ga0e6e983545fb151f7fb29a6a82a2f1cc">metal::not_</a>&gt;, lbd&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1237,48 +642,14 @@ template&lt;typename list , typename lbd &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga6d8c476ddc760e47276c349a5b230638"></a>
+<a class="anchor" id="gac03a20c25949b9224390da3a1389ed99"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
+template&lt;typename seq , typename from , typename to &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga6d8c476ddc760e47276c349a5b230638">metal::remove_if_t</a> = typedef typename <a class="el" href="group__list.html#gac51322b5424a236230c867201e0ec7a6">metal::remove_if</a>&lt;list, lbd&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/remove_if.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gac51322b5424a236230c867201e0ec7a6">metal::remove_if</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga219c3ea0ca741a51e5a248bc42cda149"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename val &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga219c3ea0ca741a51e5a248bc42cda149">metal::remove_t</a> = typedef typename <a class="el" href="group__list.html#ga93b95511c576dbe0f7da4c15e778e148">metal::remove</a>&lt;list, val&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/remove.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga93b95511c576dbe0f7da4c15e778e148">metal::remove</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga867d062b66300b50a91b024803794dae"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename from , typename to &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga867d062b66300b50a91b024803794dae">metal::replace</a> = typedef detail::replace&lt;list, from, to&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gac03a20c25949b9224390da3a1389ed99">metal::replace</a> = typedef <a class="el" href="group__list.html#gaa6a6ca8c9332b8bd38a596c76a7b658a">metal::replace_if</a>&lt; seq, <a class="el" href="group__lambda.html#gadfe33a637ed67318cebb9f1cf3a630b3">metal::partial</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__list.html#gaa8cebc9c1c5f2e7cc1772ef84811dee8">metal::equal</a>&gt;, from&gt;, to &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1288,14 +659,14 @@ template&lt;typename list , typename from , typename to &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gad2084052563fb8442a3eb53d3d96650d"></a>
+<a class="anchor" id="gaa6a6ca8c9332b8bd38a596c76a7b658a"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd , typename val &gt; </div>
+template&lt;typename seq , typename lbd , typename val &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gad2084052563fb8442a3eb53d3d96650d">metal::replace_if</a> = typedef detail::replace_if&lt;list, lbd, val&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gaa6a6ca8c9332b8bd38a596c76a7b658a">metal::replace_if</a> = typedef <a class="el" href="group__list.html#ga649ffa53018a7e5ce14c98f93e0812fa">metal::transform</a>&lt; <a class="el" href="group__lambda.html#gadc53fa4741d4ac0f180c937b42534049">metal::bind</a>&lt; <a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">metal::if_</a>&gt;, lbd, <a class="el" href="group__lambda.html#ga5081c9fd7989680f63de992a15132628">metal::quote</a>&lt;val&gt;, <a class="el" href="group__lambda.html#ga2158e3dd5180b12b04dc1dc487fef023">metal::_1</a> &gt;, seq &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1305,48 +676,14 @@ template&lt;typename list , typename lbd , typename val &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga0af55ccea2e3325800c4eae461fa3a4c"></a>
+<a class="anchor" id="gae589eba6d32c13f66db9576160d2c997"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd , typename val &gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga0af55ccea2e3325800c4eae461fa3a4c">metal::replace_if_t</a> = typedef typename <a class="el" href="group__list.html#gad2084052563fb8442a3eb53d3d96650d">metal::replace_if</a>&lt;list, lbd, val&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/replace_if.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gad2084052563fb8442a3eb53d3d96650d">metal::replace_if</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga5f6c7ebf3be196d1225bee1c368483b0"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename from , typename to &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga5f6c7ebf3be196d1225bee1c368483b0">metal::replace_t</a> = typedef typename <a class="el" href="group__list.html#ga867d062b66300b50a91b024803794dae">metal::replace</a>&lt;list, from, to&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/replace.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga867d062b66300b50a91b024803794dae">metal::replace</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gac69bde34e621837dd89023c99d0254e5"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gac69bde34e621837dd89023c99d0254e5">metal::reverse</a> = typedef detail::reverse&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gae589eba6d32c13f66db9576160d2c997">metal::reverse</a> = typedef <a class="el" href="group__list.html#ga2ead4045956db46fd0986d5b90118d7a">metal::range</a>&lt;seq, <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;seq&gt;, <a class="el" href="group__number.html#ga600c17aebc083088b49606e60f3a3ed7">metal::size_t</a>&lt;0&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1356,31 +693,14 @@ template&lt;typename list &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga3085d94ff17d359ea102b6c1a80164f7"></a>
+<a class="anchor" id="ga0749ce812aae55cf8e7c44123e050989"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list &gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga3085d94ff17d359ea102b6c1a80164f7">metal::reverse_t</a> = typedef typename <a class="el" href="group__list.html#gac69bde34e621837dd89023c99d0254e5">metal::reverse</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/reverse.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gac69bde34e621837dd89023c99d0254e5">metal::reverse</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga945c5667e7ca01d788898940c15ea250"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga945c5667e7ca01d788898940c15ea250">metal::same</a> = typedef detail::same&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga0749ce812aae55cf8e7c44123e050989">metal::same</a> = typedef typename detail::_same&lt;seq&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1390,31 +710,14 @@ template&lt;typename list &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga0bda27997fa6a6348b1440431fe4d14c"></a>
+<a class="anchor" id="ga85e9d81c96ec58af9ac5fddeed68d516"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list &gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga0bda27997fa6a6348b1440431fe4d14c">metal::same_t</a> = typedef typename <a class="el" href="group__list.html#ga945c5667e7ca01d788898940c15ea250">metal::same</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/same.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga945c5667e7ca01d788898940c15ea250">metal::same</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gaeb972946f0acce803690e433fd167013"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gaeb972946f0acce803690e433fd167013">metal::size</a> = typedef detail::size&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a> = typedef typename detail::_size&lt;seq&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1424,31 +727,14 @@ template&lt;typename list &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga0a14517a9f48b5b338ac3834fd44bced"></a>
+<a class="anchor" id="gac1bfd9e74bdf9d78d1b83a6c28be4c39"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list &gt; </div>
+template&lt;typename seq , typename start , typename size , typename stride  = int_&lt;1&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga0a14517a9f48b5b338ac3834fd44bced">metal::size_t</a> = typedef typename <a class="el" href="group__list.html#gaeb972946f0acce803690e433fd167013">metal::size</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/size.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gaeb972946f0acce803690e433fd167013">metal::size</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga828620c9ababdaafa170b324bf1f0b70"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename start , typename size , typename stride  = integer&lt;1&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga828620c9ababdaafa170b324bf1f0b70">metal::slice</a> = typedef detail::slice&lt;list, start, size, stride&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gac1bfd9e74bdf9d78d1b83a6c28be4c39">metal::slice</a> = typedef transform&lt; partial&lt;lambda&lt;at&gt;, if_&lt;is_list&lt;seq&gt;, seq&gt;&gt;, enumerate&lt;start, size, stride&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1458,31 +744,14 @@ template&lt;typename list , typename start , typename size , typename stride  = 
 
 </div>
 </div>
-<a class="anchor" id="gac5f2349bb7f2c42230b2c4a8b9749449"></a>
+<a class="anchor" id="gab26c26b715a63085de22abbd60852132"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename start , typename size , typename stride  = integer&lt;1&gt;&gt; </div>
+template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gac5f2349bb7f2c42230b2c4a8b9749449">metal::slice_t</a> = typedef typename <a class="el" href="group__list.html#ga828620c9ababdaafa170b324bf1f0b70">metal::slice</a>&lt;list, start, size, stride&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/slice.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga828620c9ababdaafa170b324bf1f0b70">metal::slice</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga1a3f6de2ebbc64ec1feec10f8929195e"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga1a3f6de2ebbc64ec1feec10f8929195e">metal::sort</a> = typedef detail::sort&lt;list, lbd&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gab26c26b715a63085de22abbd60852132">metal::sort</a> = typedef <a class="el" href="group__lambda.html#ga2c9e65a1497c421ba4e180fd7300224e">metal::apply</a>&lt; <a class="el" href="group__lambda.html#gadfe33a637ed67318cebb9f1cf3a630b3">metal::partial</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__list.html#gae132d4aa07712c2b55f31a2a60467b00">metal::merge</a>&gt;, lbd, <a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>&lt;&gt;&gt;, <a class="el" href="group__list.html#gaaeb71163d48fe84e4371ca68c99460e8">metal::transpose</a>&lt;<a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>&lt;seq&gt;&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1492,31 +761,14 @@ template&lt;typename list , typename lbd &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga9034ac244455d79d8dafe5390cb190d5"></a>
+<a class="anchor" id="ga576625abb2e98d2d6ccad5fad6df8c24"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename lbd &gt; </div>
+template&lt;typename seq , typename n , typename other &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga9034ac244455d79d8dafe5390cb190d5">metal::sort_t</a> = typedef typename <a class="el" href="group__list.html#ga1a3f6de2ebbc64ec1feec10f8929195e">metal::sort</a>&lt;list, lbd&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/sort.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga1a3f6de2ebbc64ec1feec10f8929195e">metal::sort</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga7b0b2caabf12bdc0bf9018f1ee99182d"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list , typename n , typename other &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga7b0b2caabf12bdc0bf9018f1ee99182d">metal::splice</a> = typedef detail::splice&lt;list, n, other&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga576625abb2e98d2d6ccad5fad6df8c24">metal::splice</a> = typedef <a class="el" href="group__list.html#ga4091910a9331d7106857511a153947ea">metal::join</a>&lt; <a class="el" href="group__list.html#ga2ead4045956db46fd0986d5b90118d7a">metal::range</a>&lt;seq, <a class="el" href="group__number.html#ga600c17aebc083088b49606e60f3a3ed7">metal::size_t</a>&lt;0&gt;, n&gt;, other, <a class="el" href="group__list.html#ga2ead4045956db46fd0986d5b90118d7a">metal::range</a>&lt;seq, n, <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;seq&gt;&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1526,31 +778,14 @@ template&lt;typename list , typename n , typename other &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gaaaa657260c0fa41751827bca16091842"></a>
+<a class="anchor" id="ga649ffa53018a7e5ce14c98f93e0812fa"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename list , typename n , typename other &gt; </div>
+template&lt;typename lbd , typename head , typename... tail&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gaaaa657260c0fa41751827bca16091842">metal::splice_t</a> = typedef typename <a class="el" href="group__list.html#ga7b0b2caabf12bdc0bf9018f1ee99182d">metal::splice</a>&lt;list, n, other&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/splice.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga7b0b2caabf12bdc0bf9018f1ee99182d">metal::splice</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="gacefd3f0ae8424824c147c3971d811ad5"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename lbd , typename... lists&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gacefd3f0ae8424824c147c3971d811ad5">metal::transform</a> = typedef detail::transform&lt;lbd, lists...&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga649ffa53018a7e5ce14c98f93e0812fa">metal::transform</a> = typedef typename detail::_transform&lt;lbd, head, tail...&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1560,54 +795,20 @@ template&lt;typename lbd , typename... lists&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga61ea84621d6c85e098c5e182604b58cb"></a>
+<a class="anchor" id="gaaeb71163d48fe84e4371ca68c99460e8"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename lbd , typename... lists&gt; </div>
+template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga61ea84621d6c85e098c5e182604b58cb">metal::transform_t</a> = typedef typename <a class="el" href="group__list.html#gacefd3f0ae8424824c147c3971d811ad5">metal::transform</a>&lt;lbd, lists...&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/transform.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#gacefd3f0ae8424824c147c3971d811ad5">metal::transform</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga0d86df86d22042fce74cffa867878175"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga0d86df86d22042fce74cffa867878175">metal::transpose</a> = typedef detail::transpose&lt;list&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gaaeb71163d48fe84e4371ca68c99460e8">metal::transpose</a> = typedef typename detail::_transpose&lt;seq&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p><code>#include &lt;metal/list/transpose.hpp&gt;</code></p>
 <p>... </p>
-
-</div>
-</div>
-<a class="anchor" id="ga93890bd1aca0992d62ec2f1e58dddc0f"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename list &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga93890bd1aca0992d62ec2f1e58dddc0f">metal::transpose_t</a> = typedef typename <a class="el" href="group__list.html#ga0d86df86d22042fce74cffa867878175">metal::transpose</a>&lt;list&gt;::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;metal/list/transpose.hpp&gt;</code></p>
-<p>Eager adaptor for <a class="el" href="group__list.html#ga0d86df86d22042fce74cffa867878175">metal::transpose</a>. </p>
 
 </div>
 </div>
