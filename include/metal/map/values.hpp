@@ -6,36 +6,20 @@
 #define METAL_MAP_VALUES_HPP
 
 #include <metal/map/map.hpp>
-#include <metal/list/list.hpp>
+#include <metal/pair/second.hpp>
+#include <metal/list/transform.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/number/if.hpp>
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename seq>
-        struct _values;
-    }
-
     /// \ingroup map
     /// ...
     template<typename seq>
-    using values = typename if_<is_map<seq>, detail::_values<seq>>::type;
-
-    namespace detail
-    {
-        template<typename seq>
-        struct _values
-        {
-            using type = seq;
-        };
-
-        template<typename... ks, typename... vs>
-        struct _values<list<list<ks, vs>...>>
-        {
-            using type = list<vs...>;
-        };
-    }
+    using values = metal::if_<
+        metal::is_map<seq>,
+        metal::transform<metal::lambda<metal::second>, seq>
+    >;
 }
 
 #endif
