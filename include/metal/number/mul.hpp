@@ -45,6 +45,8 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/list/fold.hpp>
 
+#include <initializer_list>
+
 namespace metal
 {
     namespace detail
@@ -63,6 +65,21 @@ namespace metal
             number<x * y>
         {};
 
+#if __cpp_constexpr >= 201304
+        template<typename... _>
+        constexpr int_ imul(int_ head, _... tail) {
+            int_ ret = head;
+            for(int_ x : {tail...})
+                ret *= x;
+
+            return ret;
+        }
+
+        template<int_ x, int_ y, int_... tail>
+        struct _mul<number<x>, number<y>, number<tail>...> :
+            number<imul(x, y, tail...)>
+        {};
+#else
         template<int_ x, int_ y, int_... tail>
         struct _mul<number<x>, number<y>, number<tail>...> :
             _fold<
@@ -70,6 +87,7 @@ namespace metal
                 number<0>, number<sizeof...(tail) + 1>
             >
         {};
+#endif
     }
 }
 

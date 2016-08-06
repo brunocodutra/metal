@@ -46,6 +46,9 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/list/fold.hpp>
 
+#include <utility>
+#include <initializer_list>
+
 namespace metal
 {
     namespace detail
@@ -68,6 +71,32 @@ namespace metal
         struct _div<number<x>, number<0>>
         {};
 
+#if __cpp_constexpr >= 201304
+        template<typename... _>
+        constexpr int_ idiv(int_ head, _... tail) {
+            int_ ret = head;
+            for(int_ x : {tail...})
+                ret /= x;
+
+            return ret;
+        }
+
+        template<typename, typename = true_>
+        struct _div_impl
+        {};
+
+        template<int_... vs>
+        struct _div_impl<std::integer_sequence<int_, vs...>,
+            is_number<number<idiv(vs...)>>
+        >:
+            number<idiv(vs...)>
+        {};
+
+        template<int_ x, int_ y, int_... tail>
+        struct _div<number<x>, number<y>, number<tail>...> :
+            _div_impl<std::integer_sequence<int_, x, y, tail...>>
+        {};
+#else
         template<int_ x, int_ y, int_... tail>
         struct _div<number<x>, number<y>, number<tail>...> :
             _fold<
@@ -75,6 +104,7 @@ namespace metal
                 number<0>, number<sizeof...(tail) + 1>
             >
         {};
+#endif
     }
 }
 
