@@ -25,10 +25,10 @@ namespace metal
     ///
     /// \returns: \number
     /// \semantics:
-    ///     If `t` is the common integral type and `v` the minimum value between
-    ///     all \numbers in `num_1, ..., num_n`, then
+    ///     If `m` the minimum value between all \numbers in
+    ///     `num_1, ..., num_n`, then
     ///     \code
-    ///         using result = metal::number<t, v>;
+    ///         using result = metal::number<m>;
     ///     \endcode
     ///
     /// Example
@@ -55,22 +55,21 @@ namespace metal
         struct _min
         {};
 
-        template<typename tx, tx vx>
-        struct _min<number<tx, vx>> :
-            number<tx, vx>
+        template<int_ x>
+        struct _min<number<x>> :
+            number<x>
         {};
 
-        template<typename tx, tx vx, typename ty, ty vy>
-        struct _min<number<tx, vx>, number<ty, vy>> :
-            number<decltype(vx < vy ? vx : vy), (vx < vy ? vx : vy)>
+        template<int_ x, int_ y>
+        struct _min<number<x>, number<y>> :
+            number<(x < y) ? x : y>
         {};
 
-        template<typename tx, tx vx, typename ty, ty vy, typename... nums>
-        struct _min<number<tx, vx>, number<ty, vy>, nums...> :
+        template<int_ x, int_ y, int_... tail>
+        struct _min<number<x>, number<y>, number<tail>...> :
             _fold<
-                list<number<ty, vy>, nums...>,
-                number<tx, vx>, lambda<min>,
-                size_t<0>, size_t<sizeof...(nums) + 1>
+                numbers<y, tail...>, number<x>, lambda<min>,
+                number<0>, number<sizeof...(tail) + 1>
             >
         {};
     }

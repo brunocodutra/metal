@@ -11,7 +11,7 @@ HIDE(
 using val = int;
 /// [val1]
 
-ASSERT(metal::is_value<val>);
+IS_SAME(metal::is_value<val>, metal::true_);
 )
 
 HIDE(
@@ -19,7 +19,7 @@ HIDE(
 using val = decltype(3.14);
 /// [val2]
 
-ASSERT(metal::is_value<val>);
+IS_SAME(metal::is_value<val>, metal::true_);
 )
 
 HIDE(
@@ -30,7 +30,7 @@ struct val
 };
 /// [val3]
 
-ASSERT(metal::is_value<val>);
+IS_SAME(metal::is_value<val>, metal::true_);
 )
 
 HIDE(

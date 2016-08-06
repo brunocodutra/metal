@@ -14,7 +14,7 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq>
-    using indices = metal::enumerate<metal::size_t<0>, metal::size<seq>>;
+    using indices = metal::enumerate<metal::number<0>, metal::size<seq>>;
 }
 
 #endif

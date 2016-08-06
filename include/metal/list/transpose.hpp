@@ -40,7 +40,7 @@ namespace metal
 
         template<typename head, typename... tail>
         struct _transpose<list<head, tail...>,
-            bool_<(sizeof...(tail) > 1)>,
+            number<(sizeof...(tail) > 1)>,
             same<list<size<head>, size<tail>...>>
         > :
             _transform<
@@ -55,7 +55,7 @@ namespace metal
 
         template<typename... xs, typename... ys>
         struct _transpose<list<list<xs...>, list<ys...>>,
-            bool_<sizeof...(xs) == sizeof...(ys)>
+            number<sizeof...(xs) == sizeof...(ys)>
         >
         {
             using type = list<list<xs, ys>...>;

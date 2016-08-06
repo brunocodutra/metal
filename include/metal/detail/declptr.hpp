@@ -9,8 +9,10 @@ namespace metal
 {
     namespace detail
     {
-        template<typename x>
-        x* declptr();
+        template<typename T>
+        constexpr T* declptr() {
+            return nullptr;
+        }
     }
 }
 

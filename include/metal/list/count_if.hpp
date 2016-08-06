@@ -18,7 +18,7 @@ namespace metal
     /// ...
     template<typename seq, typename lbd>
     using count_if = metal::apply<
-        metal::partial<metal::lambda<metal::add>, metal::ptrdiff_t<0>>,
+        metal::partial<metal::lambda<metal::add>, metal::number<0>>,
         metal::transform<lbd, seq>
     >;
 }

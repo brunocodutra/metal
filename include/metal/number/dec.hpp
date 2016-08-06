@@ -5,14 +5,11 @@
 #ifndef METAL_NUMBER_DEC_HPP
 #define METAL_NUMBER_DEC_HPP
 
+#include <metal/number/number.hpp>
+#include <metal/number/sub.hpp>
+
 namespace metal
 {
-    namespace detail
-    {
-        template<typename num>
-        struct _dec;
-    }
-
     /// \ingroup number
     /// Decrements a \number.
     ///
@@ -23,11 +20,10 @@ namespace metal
     ///     using result = metal::dec<num>;
     /// \endcode
     ///
-    /// \pre: `num` is not a \number of type `bool`
     /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::number<num::value_type, num{} - 1>;
+    ///         using result = metal::number<num{} - 1>;
     ///     \endcode
     ///
     /// Example
@@ -38,28 +34,7 @@ namespace metal
     /// --------
     /// \see number, inc, neg, add, sub, mul, div, mod, pow
     template<typename num>
-    using dec = typename detail::_dec<num>::type;
-}
-
-#include <metal/number/number.hpp>
-
-namespace metal
-{
-    namespace detail
-    {
-        template<typename num>
-        struct _dec
-        {};
-
-        template<bool v>
-        struct _dec<bool_<v>>
-        {};
-
-        template<typename t, t v>
-        struct _dec<number<t, v>> :
-            number<t, v - 1>
-        {};
-    }
+    using dec = metal::sub<num, metal::number<1>>;
 }
 
 #endif

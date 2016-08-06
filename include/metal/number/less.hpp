@@ -23,10 +23,10 @@ namespace metal
     ///     using result = metal::less<num_1, num_2>;
     /// \endcode
     ///
-    /// \returns: \number of type `bool`
+    /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::bool_<(num_1{} < num_2{})>;
+    ///         using result = metal::number<(num_1{} < num_2{})>;
     ///     \endcode
     ///
     /// Example
@@ -50,9 +50,9 @@ namespace metal
         struct _less
         {};
 
-        template<typename tx, tx vx, typename ty, ty vy>
-        struct _less<number<tx, vx>, number<ty, vy>> :
-            bool_<(vx < vy)>
+        template<int_ x, int_ y>
+        struct _less<number<x>, number<y>> :
+            number<(x < y)>
         {};
     }
 }

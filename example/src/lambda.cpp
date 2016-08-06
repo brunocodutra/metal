@@ -11,5 +11,5 @@ HIDE(
 using lbd = metal::lambda<std::add_pointer_t>;
 /// [lbd1]
 
-ASSERT(metal::is_lambda<lbd>);
+IS_SAME(metal::is_lambda<lbd>, metal::true_);
 )

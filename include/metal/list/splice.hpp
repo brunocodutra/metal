@@ -16,7 +16,7 @@ namespace metal
     /// ...
     template<typename seq, typename n, typename other>
     using splice = metal::join<
-        metal::range<seq, metal::size_t<0>, n>,
+        metal::range<seq, metal::number<0>, n>,
         other,
         metal::range<seq, n, metal::size<seq>>
     >;

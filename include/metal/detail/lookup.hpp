@@ -12,8 +12,6 @@
 
 #include <metal/detail/declptr.hpp>
 
-#include <cstddef>
-
 #if defined(__has_builtin)
 #   if __has_builtin(__type_pack_element)
 #       define METAL_USE_BUILTIN_TYPE_PACK_ELEMENT
@@ -58,9 +56,9 @@ namespace metal
             struct at
             {};
 
-            template<std::size_t n>
-            struct at<size_t<n>,
-                bool_<n < sizeof...(vals)>
+            template<int_ n>
+            struct at<number<n>,
+                number<(n >= 0 && n < sizeof...(vals))>
             >
             {
                 using type = __type_pack_element<n, vals...>;

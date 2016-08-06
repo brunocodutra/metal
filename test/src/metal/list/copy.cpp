@@ -60,7 +60,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::copy>, LBD(_), LBD(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::copy>, LBD(_), LBD(_)>), (FALSE)); \
     CHECK((metal::copy<PAIR(M), VAL(N)>), (std::conditional_t<M == N, metal::list<VAL(M)>, metal::list<>>)); \
-    CHECK((metal::copy<PAIR(M), INT(N)>), (std::conditional_t<M == N, metal::list<NUM(M)>, metal::list<>>)); \
+    CHECK((metal::copy<PAIR(M), NUM(N)>), (std::conditional_t<M == N, metal::list<NUM(M)>, metal::list<>>)); \
     CHECK((metal::copy<metal::list<VALS(M) COMMA(AND(M, N)) ENUM(N, VAL FIX(M))>, VAL(M)>), (metal::list<ENUM(N, VAL FIX(M))>)); \
 /**/
 

@@ -10,7 +10,7 @@
 
 #include "test.hpp"
 
-#define ENTRY(N, TYPE, A, B) test::num<TYPE, A*N + B>
+#define ENTRY(N, A, B) metal::number<A*N + B>
 
 #define MATRIX(M, N) \
     CHECK((metal::is_invocable<metal::lambda<metal::enumerate>, VAL(M), VAL(N), VAL(N)>), (FALSE)); \
@@ -62,15 +62,15 @@
     CHECK((metal::is_invocable<metal::lambda<metal::enumerate>, LBD(_), MAP(N), LBD(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::enumerate>, LBD(_), LBD(N), LBD(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::enumerate>, LBD(_), LBD(_), LBD(N)>), (FALSE)); \
-    CHECK((metal::enumerate<NUM(M), NUM(N)>), (metal::list<ENUM(N, ENTRY, test::value_type<NUM(M)>, 1, M)>)); \
-    CHECK((metal::enumerate<NUM(M), NUM(N), NUM(M)>), (metal::list<ENUM(N, ENTRY, test::value_type<NUM(M)>, M, M)>)); \
-    CHECK((metal::enumerate<NUM(M), INT(-N), INT(-M)>), (metal::list<ENUM(N, ENTRY, test::value_type<NUM(M)>, M, M)>)); \
-    CHECK((metal::enumerate<INT(-M), NUM(N)>), (metal::list<ENUM(N, ENTRY, int, 1, -M)>)); \
-    CHECK((metal::enumerate<INT(-M), NUM(N), NUM(M)>), (metal::list<ENUM(N, ENTRY, int, M, -M)>)); \
-    CHECK((metal::enumerate<INT(-M), INT(-N)>), (metal::list<ENUM(N, ENTRY, int, -1, -M)>)); \
-    CHECK((metal::enumerate<INT(-M), INT(-N), NUM(M)>), (metal::list<ENUM(N, ENTRY, int, -M, -M)>)); \
-    CHECK((metal::enumerate<INT(-M), NUM(N), INT(-M)>), (metal::list<ENUM(N, ENTRY, int, -M, -M)>)); \
-    CHECK((metal::enumerate<INT(-M), INT(-N), INT(-M)>), (metal::list<ENUM(N, ENTRY, int, M, -M)>)); \
+    CHECK((metal::enumerate<NUM(M), NUM(N)>), (metal::list<ENUM(N, ENTRY, 1, M)>)); \
+    CHECK((metal::enumerate<NUM(M), NUM(N), NUM(M)>), (metal::list<ENUM(N, ENTRY, M, M)>)); \
+    CHECK((metal::enumerate<NUM(M), metal::number<-N>, metal::number<-M>>), (metal::list<ENUM(N, ENTRY, M, M)>)); \
+    CHECK((metal::enumerate<metal::number<-M>, NUM(N)>), (metal::list<ENUM(N, ENTRY, 1, -M)>)); \
+    CHECK((metal::enumerate<metal::number<-M>, NUM(N), NUM(M)>), (metal::list<ENUM(N, ENTRY, M, -M)>)); \
+    CHECK((metal::enumerate<metal::number<-M>, metal::number<-N>>), (metal::list<ENUM(N, ENTRY, -1, -M)>)); \
+    CHECK((metal::enumerate<metal::number<-M>, metal::number<-N>, NUM(M)>), (metal::list<ENUM(N, ENTRY, -M, -M)>)); \
+    CHECK((metal::enumerate<metal::number<-M>, NUM(N), metal::number<-M>>), (metal::list<ENUM(N, ENTRY, -M, -M)>)); \
+    CHECK((metal::enumerate<metal::number<-M>, metal::number<-N>, metal::number<-M>>), (metal::list<ENUM(N, ENTRY, M, -M)>)); \
 /**/
 
 GEN(MATRIX)

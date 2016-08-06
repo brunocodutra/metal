@@ -14,7 +14,7 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq>
-    using reverse = metal::range<seq, metal::size<seq>, metal::size_t<0>>;
+    using reverse = metal::range<seq, metal::size<seq>, metal::number<0>>;
 }
 
 #endif

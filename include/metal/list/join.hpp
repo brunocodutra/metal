@@ -38,9 +38,8 @@ namespace metal
         >
         struct _join<list<ws...>, list<xs...>, list<ys...>, list<zs...>, _...> :
             _reduce<
-                list<list<ws..., xs..., ys..., zs...>, _...>,
-                lambda<join>,
-                size_t<0>, size_t<sizeof...(_) + 1>
+                list<list<ws..., xs..., ys..., zs...>, _...>, lambda<join>,
+                number<0>, number<sizeof...(_) + 1>
             >
         {};
 

@@ -10,17 +10,17 @@
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
 
-#include <cstddef>
+#include <cstdint>
 
 namespace metal
 {
     namespace detail
     {
-        template<std::size_t n>
+        template<std::uintmax_t n>
         struct arg_impl
         {
             template<typename... vals>
-            using impl = at<list<vals...>, size_t<n - 1>>;
+            using impl = at<list<vals...>, number<n - 1>>;
 
             using type = lambda<impl>;
         };

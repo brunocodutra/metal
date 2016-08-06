@@ -7,10 +7,10 @@
 
 #include <metal/list/size.hpp>
 #include <metal/number/if.hpp>
+#include <metal/number/or.hpp>
 #include <metal/number/not.hpp>
-#include <metal/number/less.hpp>
-#include <metal/number/cast.hpp>
 #include <metal/number/number.hpp>
+#include <metal/number/greater.hpp>
 
 namespace metal
 {
@@ -25,8 +25,8 @@ namespace metal
     template<typename seq, typename beg, typename end>
     using range = typename detail::_range<
         seq,
-        if_<not_<less<size<seq>, beg>>, cast<beg, std::size_t>>,
-        if_<not_<less<size<seq>, end>>, cast<end, std::size_t>>
+        if_<not_<or_<greater<number<0>, beg>, greater<beg, size<seq>>>>, beg>,
+        if_<not_<or_<greater<number<0>, end>, greater<end, size<seq>>>>, end>
     >::type;
 }
 
@@ -34,12 +34,11 @@ namespace metal
 #include <metal/list/slice.hpp>
 #include <metal/number/dec.hpp>
 #include <metal/number/sub.hpp>
+#include <metal/number/less.hpp>
 #include <metal/number/enumerate.hpp>
 #include <metal/value/value.hpp>
 
 #include <metal/detail/declptr.hpp>
-
-#include <cstddef>
 
 namespace metal
 {
@@ -54,8 +53,8 @@ namespace metal
         template<typename... _, typename... vals>
         struct _drop<list<_...>, list<vals...>>
         {
-            template<typename... vs>
-            static list<vs...> impl(void_<_>*..., value<vs>*...);
+            template<typename... vals_>
+            static list<vals_...> impl(void_<_>*..., value<vals_>*...);
 
             using type = decltype(impl(declptr<value<vals>>()...));
         };
@@ -71,18 +70,16 @@ namespace metal
             less<end, beg>
         >
         {
-            using type = slice<seq, dec<beg>, sub<beg, end>, int_<-1>>;
+            using type = slice<seq, dec<beg>, sub<beg, end>, number<-1>>;
         };
 
-        template<typename seq, std::size_t beg>
-        struct _range<seq, size_t<beg>, size<seq>>
-        {
-            using type =
-                typename _drop<enumerate<size_t<0>, size_t<beg>>, seq>::type;
-        };
+        template<typename seq, int_ beg>
+        struct _range<seq, number<beg>, size<seq>> :
+            _drop<enumerate<number<0>, number<beg>>, seq>
+        {};
 
         template<typename seq>
-        struct _range<seq, size_t<0>, size<seq>>
+        struct _range<seq, number<0>, size<seq>>
         {
             using type = seq;
         };

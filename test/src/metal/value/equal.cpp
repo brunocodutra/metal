@@ -61,8 +61,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::equal>, LBD(_), LBD(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::equal>, LBD(_), LBD(_)>), (TRUE)); \
     CHECK((metal::equal<VAL(M), VAL(N)>), (BOOL(M == N))); \
-    CHECK((metal::equal<NUM(M), INT(N)>), (BOOL(M == N))); \
-    CHECK((metal::equal<PAIR(M), metal::list<INT(N), VAL(N)>>), (BOOL(M == N))); \
+    CHECK((metal::equal<NUM(M), NUM(N)>), (BOOL(M == N))); \
     CHECK((metal::equal<PAIR(M), LIST(N)>), (FALSE)); \
     CHECK((metal::equal<PAIR(M), MAP(N)>), (FALSE)); \
     CHECK((metal::equal<LIST(M), PAIR(N)>), (FALSE)); \
@@ -72,7 +71,7 @@
     CHECK((metal::equal<MAP(M), LIST(N)>), (BOOL(!M && !N))); \
     CHECK((metal::equal<MAP(M), MAP(N)>), (BOOL(M == N))); \
     CHECK((metal::equal<LBD(M), LBD(N)>), (BOOL(M == N))); \
-    CHECK((metal::equal<LBD(M), metal::lambda<EXPR(N)>>), (BOOL(M == N))); \
+    CHECK((metal::equal<LBD(M), LBD(_)>), (FALSE)); \
 /**/
 
 GEN(MATRIX)

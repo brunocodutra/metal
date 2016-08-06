@@ -18,11 +18,11 @@
     CHECK((metal::is_invocable<metal::lambda<metal::size>, MAP(M)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::size>, LBD(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::size>, LBD(_)>), (FALSE)); \
-    CHECK((metal::size<PAIR(M)>), (SIZE_T(2))); \
-    CHECK((metal::size<LIST(M)>), (SIZE_T(M))); \
-    CHECK((metal::size<MAP(M)>), (SIZE_T(M))); \
-    CHECK((metal::size<metal::list<VALS(M) COMMA(AND(M, N)) VALS(N)>>), (SIZE_T(M + N))); \
-    CHECK((metal::size<metal::list<ENUM(M, VAL FIX(N))>>), (SIZE_T(M))); \
+    CHECK((metal::size<PAIR(M)>), (metal::number<2>)); \
+    CHECK((metal::size<LIST(M)>), (metal::number<M>)); \
+    CHECK((metal::size<MAP(M)>), (metal::number<M>)); \
+    CHECK((metal::size<metal::list<VALS(M) COMMA(AND(M, N)) VALS(N)>>), (metal::number<M + N>)); \
+    CHECK((metal::size<metal::list<ENUM(M, VAL FIX(N))>>), (metal::number<M>)); \
 /**/
 
 GEN(MATRIX)

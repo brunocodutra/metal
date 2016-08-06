@@ -7,7 +7,7 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    CHECK((metal::not_<metal::not_<NUM(N)>>), (BOOL(N))); \
+    CHECK((metal::not_<metal::not_<NUM(N)>>), (BOOL(!!N))); \
     CHECK((metal::not_<metal::and_<NUM(M), NUM(N)>>), (metal::or_<metal::not_<NUM(M)>, metal::not_<NUM(N)>>)); \
     CHECK((metal::not_<metal::or_<NUM(M), NUM(N)>>), (metal::and_<metal::not_<NUM(M)>, metal::not_<NUM(N)>>)); \
     CHECK((metal::neg<metal::neg<NUM(N)>>), (NUM(N))); \
@@ -20,8 +20,8 @@
     CHECK((metal::equal<metal::mod<metal::pow<NUM(INC(M)), NUM(INC(N))>, NUM(INC(M))>, NUM(0)>), (TRUE)); \
     CHECK((metal::equal<NUM(M), NUM(N)>), (metal::not_<metal::or_<metal::less<NUM(M), NUM(N)>, metal::greater<NUM(M), NUM(N)>>>)); \
     CHECK((metal::less<NUM(M), NUM(N)>), (metal::greater<NUM(N), NUM(M)>)); \
-    CHECK((metal::if_<NUM(M), BOOL(N), FALSE>), (metal::and_<NUM(M), NUM(N)>)); \
-    CHECK((metal::if_<NUM(M), TRUE, BOOL(N)>), (metal::or_<NUM(M), NUM(N)>)); \
+    CHECK((metal::if_<NUM(M), BOOL(!!N), FALSE>), (metal::and_<NUM(M), NUM(N)>)); \
+    CHECK((metal::if_<NUM(M), TRUE, BOOL(!!N)>), (metal::or_<NUM(M), NUM(N)>)); \
     CHECK((metal::flatten<metal::transpose<metal::list<LIST(M)>>>), (LIST(M))); \
     CHECK((metal::flatten<metal::fold<LIST(M), metal::list<>, metal::lambda<metal::list>>>), (metal::list<VALS(M)>)); \
     CHECK((metal::at<LIST(INF), metal::find<LIST(INF), VAL(M)>>), (VAL(M))); \

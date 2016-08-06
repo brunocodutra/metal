@@ -5,54 +5,35 @@
 #ifndef METAL_VALUE_EQUAL_HPP
 #define METAL_VALUE_EQUAL_HPP
 
-#include <type_traits>
-
 namespace metal
 {
     namespace detail
     {
-        template<typename val>
-        struct _canonic;
+        template<typename x, typename y>
+        struct _equal;
     }
 
     /// \ingroup list
     /// ...
     template<typename x, typename y>
-    using equal = typename std::is_same<
-        typename detail::_canonic<x>::type,
-        typename detail::_canonic<y>::type
-    >::type;
+    using equal = typename detail::_equal<x, y>::type;
 }
 
-#include <metal/pair/pair.hpp>
 #include <metal/number/number.hpp>
-
-#include <cstdint>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename val>
-        struct _canonic
-        {
-            using type = val;
-        };
+        template<typename x, typename y>
+        struct _equal :
+            false_
+        {};
 
-        template<typename t, t v>
-        struct _canonic<number<t, v>>
-        {
-            using type = pair<
-                bool_<(v < 0)>,
-                number<std::uintmax_t, (v < 0) ? 0 - v : v>
-            >;
-        };
-
-        template<typename... vals>
-        struct _canonic<list<vals...>>
-        {
-            using type = list<typename _canonic<vals>::type...>;
-        };
+        template<typename x>
+        struct _equal<x, x> :
+            true_
+        {};
     }
 }
 

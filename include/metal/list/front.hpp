@@ -13,7 +13,7 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename seq>
-    using front = metal::at<seq, metal::size_t<0>>;
+    using front = metal::at<seq, metal::number<0>>;
 }
 
 #endif

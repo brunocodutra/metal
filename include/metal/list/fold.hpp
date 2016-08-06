@@ -7,12 +7,10 @@
 
 #include <metal/list/size.hpp>
 #include <metal/number/if.hpp>
+#include <metal/number/or.hpp>
 #include <metal/number/not.hpp>
-#include <metal/number/less.hpp>
-#include <metal/number/cast.hpp>
 #include <metal/number/number.hpp>
-
-#include <cstddef>
+#include <metal/number/greater.hpp>
 
 namespace metal
 {
@@ -26,13 +24,13 @@ namespace metal
     /// ...
     template<
         typename seq, typename state, typename lbd,
-        typename beg = size_t<0>,
+        typename beg = number<0>,
         typename end = size<seq>
     >
     using fold = typename detail::_fold<
         seq, state, lbd,
-        if_<not_<less<size<seq>, beg>>, cast<beg, std::size_t>>,
-        if_<not_<less<size<seq>, end>>, cast<end, std::size_t>>
+        if_<not_<or_<greater<number<0>, beg>, greater<beg, size<seq>>>>, beg>,
+        if_<not_<or_<greater<number<0>, end>, greater<end, size<seq>>>>, end>
     >::type;
 }
 
@@ -57,29 +55,26 @@ namespace metal
         struct _fold
         {};
 
-        template<
-            typename seq, typename state, typename lbd,
-            std::size_t b, std::size_t e
-        >
-        struct _fold<seq, state, lbd, size_t<b>, size_t<e>> :
+        template<typename seq, typename state, typename lbd, int_ b, int_ e>
+        struct _fold<seq, state, lbd, number<b>, number<e>> :
             _invoke<
                 lambda<fold_recurse>,
-                seq, state, lbd, size_t<b>, size_t<(b + e)/2>, size_t<e>
+                seq, state, lbd, number<b>, number<(b + e)/2>, number<e>
             >
         {};
 
-        template<typename seq, typename state, typename lbd, std::size_t b>
-        struct _fold<seq, state, lbd, size_t<b>, size_t<b + 1>> :
-            _invoke<lbd, state, at<seq, size_t<b>>>
+        template<typename seq, typename state, typename lbd, int_ b>
+        struct _fold<seq, state, lbd, number<b>, number<b + 1>> :
+            _invoke<lbd, state, at<seq, number<b>>>
         {};
 
-        template<typename seq, typename state, typename lbd, std::size_t b>
-        struct _fold<seq, state, lbd, size_t<b>, size_t<b - 1>> :
-            _invoke<lbd, state, at<seq, size_t<b - 1>>>
+        template<typename seq, typename state, typename lbd, int_ b>
+        struct _fold<seq, state, lbd, number<b>, number<b - 1>> :
+            _invoke<lbd, state, at<seq, number<b - 1>>>
         {};
 
-        template<typename seq, typename state, typename lbd, std::size_t n>
-        struct _fold<seq, state, lbd, size_t<n>, size_t<n>> :
+        template<typename seq, typename state, typename lbd, int_ n>
+        struct _fold<seq, state, lbd, number<n>, number<n>> :
             _if_<is_lambda<lbd>, state>
         {};
     }

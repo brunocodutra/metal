@@ -60,12 +60,12 @@
     CHECK((metal::is_invocable<metal::lambda<metal::count>, LBD(_), MAP(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::count>, LBD(_), LBD(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::count>, LBD(_), LBD(_)>), (FALSE)); \
-    CHECK((metal::count<PAIR(M), VAL(N)>), (PTRDIFF_T(M == N))); \
-    CHECK((metal::count<PAIR(M), INT(N)>), (PTRDIFF_T(M == N))); \
-    CHECK((metal::count<LIST(M), VAL(N)>), (PTRDIFF_T((M > N)))); \
-    CHECK((metal::count<MAP(M), PAIR(N)>), (PTRDIFF_T((M > N)))); \
-    CHECK((metal::count<metal::list<VALS(M) COMMA(M) VAL(N)>, VAL(N)>), (PTRDIFF_T(1 + (M > N)))); \
-    CHECK((metal::count<metal::list<ENUM(M, VAL FIX(N))>, VAL(N)>), (PTRDIFF_T(M))); \
+    CHECK((metal::count<PAIR(M), VAL(N)>), (metal::number<M == N>)); \
+    CHECK((metal::count<PAIR(M), NUM(N)>), (metal::number<M == N>)); \
+    CHECK((metal::count<LIST(M), VAL(N)>), (metal::number<(M > N)>)); \
+    CHECK((metal::count<MAP(M), PAIR(N)>), (metal::number<(M > N)>)); \
+    CHECK((metal::count<metal::list<VALS(M) COMMA(M) VAL(N)>, VAL(N)>), (metal::number<1 + (M > N)>)); \
+    CHECK((metal::count<metal::list<ENUM(M, VAL FIX(N))>, VAL(N)>), (metal::number<M>)); \
 /**/
 
 GEN(MATRIX)

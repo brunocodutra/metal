@@ -27,10 +27,7 @@ namespace metal
     /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::number<
-    ///             decltype(num_1{} / ... / num_n{}),
-    ///             num_1{} / ... / num_n{}
-    ///         >;
+    ///         using result = metal::number<num_1{} / ... / num_n{}>;
     ///     \endcode
     ///
     /// Example
@@ -57,26 +54,25 @@ namespace metal
         struct _div
         {};
 
-        template<typename tx, tx vx>
-        struct _div<number<tx, vx>> :
-            number<tx, vx>
+        template<int_ x>
+        struct _div<number<x>> :
+            number<x>
         {};
 
-        template<typename tx, tx vx, typename ty, ty vy>
-        struct _div<number<tx, vx>, number<ty, vy>> :
-            number<decltype(vx / vy), vx / vy>
+        template<int_ x, int_ y>
+        struct _div<number<x>, number<y>> :
+            number<x / y>
         {};
 
-        template<typename tx, tx vx, typename ty>
-        struct _div<number<tx, vx>, number<ty, static_cast<ty>(0)>>
+        template<int_ x>
+        struct _div<number<x>, number<0>>
         {};
 
-        template<typename tx, tx vx, typename ty, ty vy, typename... nums>
-        struct _div<number<tx, vx>, number<ty, vy>, nums...> :
+        template<int_ x, int_ y, int_... tail>
+        struct _div<number<x>, number<y>, number<tail>...> :
             _fold<
-                list<number<ty, vy>, nums...>,
-                number<tx, vx>, lambda<div>,
-                size_t<0>, size_t<sizeof...(nums) + 1>
+                numbers<y, tail...>, number<x>, lambda<div>,
+                number<0>, number<sizeof...(tail) + 1>
             >
         {};
     }

@@ -5,10 +5,7 @@
 #ifndef METAL_NUMBER_ENUMERATE_HPP
 #define METAL_NUMBER_ENUMERATE_HPP
 
-#include <metal/number/cast.hpp>
 #include <metal/number/number.hpp>
-
-#include <cstdint>
 
 namespace metal
 {
@@ -34,20 +31,20 @@ namespace metal
     ///     \code
     ///         using result = metal::list<
     ///             st,
-    ///             number<st::value_type, st{} + sd{}>,
-    ///             number<st::value_type, st{} + 2*sd{}>,
+    ///             number<st{} + sd{}>,
+    ///             number<st{} + 2*sd{}>,
     ///             ...,
-    ///             number<st::value_type, st{} + (sz{} - 1)*sd{}>,
+    ///             number<st{} + (sz{} - 1)*sd{}>,
     ///         >;
     ///     \endcode
     ///     otherwise, if `sz` is negative, then
     ///     \code
     ///         using result = metal::list<
     ///             st,
-    ///             number<st::value_type, st{} - sd{}>,
-    ///             number<st::value_type, st{} - 2*sd{}>,
+    ///             number<st{} - sd{}>,
+    ///             number<st{} - 2*sd{}>,
     ///             ...,
-    ///             number<st::value_type, st{} - (1 - sz{})*sd{}>,
+    ///             number<st{} - (1 - sz{})*sd{}>,
     ///         >;
     ///     \endcode
     ///     otherwise
@@ -62,10 +59,8 @@ namespace metal
     /// See Also
     /// --------
     /// \see number, list
-    template<typename start, typename size, typename stride = int_<1>>
-    using enumerate = typename detail::_enumerate<
-        start, cast<size, std::intmax_t>, cast<stride, std::intmax_t>
-    >::type;
+    template<typename start, typename size, typename stride = number<1>>
+    using enumerate = typename detail::_enumerate<start, size, stride>::type;
 }
 
 #include <metal/list/list.hpp>
@@ -82,42 +77,37 @@ namespace metal
 {
     namespace detail
     {
-        template<typename t, t... v>
-        using numbers = std::integer_sequence<t, v...>;
+        template<int_... vs>
+        using integer_sequence = std::integer_sequence<int_, vs...>;
 
 #if defined(METAL_USE_BUILTIN_MAKE_INTEGER_SEQ)
-        template<typename t, t n>
-        using make_numbers = __make_integer_seq<numbers, t, n>;
+        template<int_ n>
+        using make_integer_sequence =
+            __make_integer_seq<std::integer_sequence, int_, n>;
 #else
-        template<typename t, t n>
-        using make_numbers = std::make_integer_sequence<t, n>;
+        template<int_ n>
+        using make_integer_sequence = std::make_integer_sequence<int_, n>;
 #endif
 
-        template<typename t, t... vs>
-        struct _as_list
-        {
-            using type = list<number<t, vs>...>;
-        };
-
-        template<typename, typename, typename>
+        template<typename, int_ a, int_ b>
         struct _stretch
         {};
 
-        template<typename t, t... ns, typename u, u a, typename v, v b>
-        struct _stretch<numbers<t, ns...>, number<u, a>, number<v, b>> :
-            _as_list<v, (b + a*ns)...>
+        template<int_... vs, int_ a, int_ b>
+        struct _stretch<integer_sequence<vs...>, a, b> :
+            _numbers<(b + a*vs)...>
         {};
 
         template<typename, typename, typename>
         struct _enumerate
         {};
 
-        template<typename t, t st, typename u, u sz, typename v, v sd>
-        struct _enumerate<number<t, st>, number<u, sz>, number<v, sd>> :
+        template<int_ st, int_ sz, int_ sd>
+        struct _enumerate<number<st>, number<sz>, number<sd>> :
             _stretch<
-                make_numbers<u, (sz < 0) ? (0 - sz) : sz>,
-                number<v, (sz < 0) ? (0 - sd) : sd>,
-                number<t, st>
+                make_integer_sequence<(sz < 0) ? (0 - sz) : sz>,
+                (sz < 0) ? (0 - sd) : sd,
+                st
             >
         {};
     }

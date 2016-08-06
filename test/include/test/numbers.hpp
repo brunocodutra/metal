@@ -5,27 +5,19 @@
 #ifndef METAL_TEST_NUMBERS_HPP
 #define METAL_TEST_NUMBERS_HPP
 
-#include <cstdint>
+#include "test/preprocessor.hpp"
 
 namespace test
 {
-    template<typename head, typename... tail>
-    using value_type = std::common_type_t<
-        typename head::value_type, typename tail::value_type...
-    >;
-
-    template<typename t, std::intmax_t v>
-    using num = metal::number<t, static_cast<t>(v)>;
-
-    using num0 = num<char,                  0>;
-    using num1 = num<signed short,          1>;
-    using num2 = num<signed int,            2>;
-    using num3 = num<signed long,           3>;
-    using num4 = num<signed long long,      4>;
-    using num5 = num<unsigned short,        5>;
-    using num6 = num<unsigned int,          6>;
-    using num7 = num<unsigned long,         7>;
-    using num8 = num<unsigned long long,    8>;
+    using num0 = metal::number<0>;
+    using num1 = metal::number<1>;
+    using num2 = metal::number<2>;
+    using num3 = metal::number<3>;
+    using num4 = metal::number<4>;
+    using num5 = metal::number<5>;
+    using num6 = metal::number<6>;
+    using num7 = metal::number<7>;
+    using num8 = metal::number<8>;
 }
 
 #define FACT_0 1
@@ -42,10 +34,7 @@ namespace test
 #define NUM(N) CAT(test::num, N)
 #define NUMS(N) ENUM(N, NUM)
 
-#define INT(N) test::num<int, (N)>
-#define SIZE_T(N) test::num<std::size_t, (N)>
-#define PTRDIFF_T(N) test::num<std::ptrdiff_t, (N)>
-#define BOOL(B) test::num<bool, (B)>
+#define BOOL(B) metal::number<(B)>
 #define TRUE BOOL(true)
 #define FALSE BOOL(false)
 

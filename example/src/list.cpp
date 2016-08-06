@@ -11,7 +11,7 @@ HIDE(
 using list = metal::list<>; // an empty list
 /// [list1]
 
-ASSERT(metal::is_list<list>);
+IS_SAME(metal::is_list<list>, metal::true_);
 )
 
 HIDE(
@@ -19,5 +19,5 @@ HIDE(
 using list = metal::list<int, int*, int&>;
 /// [list2]
 
-ASSERT(metal::is_list<list>);
+IS_SAME(metal::is_list<list>, metal::true_);
 )

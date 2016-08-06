@@ -11,24 +11,24 @@ HIDE(
 using pair = metal::list<int, unsigned>;
 /// [pair1]
 
-ASSERT(metal::is_pair<pair>);
+IS_SAME(metal::is_pair<pair>, metal::true_);
 )
 
 HIDE(
 /// [is_pair]
-ASSERT(metal::is_pair<metal::list<int, unsigned>>);
-ASSERT(!metal::is_pair<metal::list<int>>);
+IS_SAME(metal::is_pair<metal::list<int, unsigned>>, metal::true_);
+IS_SAME(metal::is_pair<metal::list<int>>, metal::false_);
 /// [is_pair]
 )
 
 HIDE(
 /// [first]
-ASSERT(std::is_same<metal::first<metal::pair<void, void*>>, void>);
+IS_SAME(metal::first<metal::pair<void, void*>>, void);
 /// [first]
 )
 
 HIDE(
 /// [second]
-ASSERT(std::is_same<metal::second<metal::pair<void, void*>>, void*>);
+IS_SAME(metal::second<metal::pair<void, void*>>, void*);
 /// [second]
 )
