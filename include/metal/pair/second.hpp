@@ -6,8 +6,7 @@
 #define METAL_PAIR_SECOND_HPP
 
 #include <metal/pair/pair.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/apply.hpp>
+#include <metal/list/back.hpp>
 #include <metal/number/if.hpp>
 
 namespace metal
@@ -37,8 +36,7 @@ namespace metal
     /// --------
     /// \see pair, first, at
     template<typename seq>
-    using second =
-        metal::if_<metal::is_pair<seq>, metal::apply<metal::_2, seq>>;
+    using second = metal::if_<metal::is_pair<seq>, metal::back<seq>>;
 }
 
 #endif

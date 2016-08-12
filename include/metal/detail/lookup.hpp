@@ -71,6 +71,36 @@ namespace metal
         {};
 #endif
 
+        template<typename>
+        struct _lookup_first
+        {};
+
+        template<typename x, typename... tail>
+        struct _lookup_first<list<x, tail...>>
+        {
+            using type = x;
+        };
+
+        template<typename vals>
+        struct _lookup<vals, indices<vals>, number<0>> :
+            _lookup_first<vals>
+        {};
+
+        template<typename>
+        struct _lookup_second
+        {};
+
+        template<typename x, typename y, typename... tail>
+        struct _lookup_second<list<x, y, tail...>>
+        {
+            using type = y;
+        };
+
+        template<typename vals>
+        struct _lookup<vals, indices<vals>, number<1>> :
+            _lookup_second<vals>
+        {};
+
         template<typename vals, typename keys, typename key>
         using lookup = typename _lookup<vals, keys, key>::type;
     }

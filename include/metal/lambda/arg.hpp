@@ -26,30 +26,6 @@ namespace metal
         };
 
         template<>
-        struct arg_impl<2U>
-        {
-            template<typename, typename val, typename...>
-            using impl = val;
-
-            using type = lambda<impl>;
-        };
-
-        template<>
-        struct arg_impl<1U>
-        {
-            template<typename val, typename...>
-            struct _impl
-            {
-                using type = val;
-            };
-
-            template<typename... vals>
-            using impl = typename _impl<vals...>::type;
-
-            using type = lambda<impl>;
-        };
-
-        template<>
         struct arg_impl<0U>
         {};
     }
