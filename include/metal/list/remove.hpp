@@ -8,7 +8,7 @@
 #include <metal/list/remove_if.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
-#include <metal/value/equal.hpp>
+#include <metal/value/same.hpp>
 
 namespace metal
 {
@@ -16,7 +16,7 @@ namespace metal
     /// ...
     template<typename seq, typename val>
     using remove =
-        metal::remove_if<seq, metal::partial<metal::lambda<metal::equal>, val>>;
+        metal::remove_if<seq, metal::partial<metal::lambda<metal::same>, val>>;
 }
 
 #endif

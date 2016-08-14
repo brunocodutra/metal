@@ -5,11 +5,10 @@
 #ifndef METAL_LIST_TRANSFORM_HPP
 #define METAL_LIST_TRANSFORM_HPP
 
-#include <metal/list/same.hpp>
 #include <metal/list/size.hpp>
-#include <metal/list/list.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/if.hpp>
+#include <metal/value/same.hpp>
 
 namespace metal
 {
@@ -23,12 +22,13 @@ namespace metal
     /// ...
     template<typename lbd, typename head, typename... tail>
     using transform = typename if_<
-        same<list<size<head>, size<tail>...>>,
+        same<size<head>, size<tail>...>,
         detail::_transform<if_<is_lambda<lbd>, lbd>, head, tail...>
     >::type;
 }
 
 #include <metal/list/at.hpp>
+#include <metal/list/list.hpp>
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/apply.hpp>
 #include <metal/lambda/invoke.hpp>

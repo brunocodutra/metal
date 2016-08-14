@@ -56,28 +56,28 @@ IS_SAME(
 ///[parse_digit]
 template<typename c>
 using parse_digit = metal::if_<
-    metal::equal<c, metal::number<'0'>>, metal::number<0>,
-    metal::equal<c, metal::number<'1'>>, metal::number<1>,
-    metal::equal<c, metal::number<'2'>>, metal::number<2>,
-    metal::equal<c, metal::number<'3'>>, metal::number<3>,
-    metal::equal<c, metal::number<'4'>>, metal::number<4>,
-    metal::equal<c, metal::number<'5'>>, metal::number<5>,
-    metal::equal<c, metal::number<'6'>>, metal::number<6>,
-    metal::equal<c, metal::number<'7'>>, metal::number<7>,
-    metal::equal<c, metal::number<'8'>>, metal::number<8>,
-    metal::equal<c, metal::number<'9'>>, metal::number<9>,
-    metal::equal<c, metal::number<'a'>>, metal::number<10>,
-    metal::equal<c, metal::number<'b'>>, metal::number<11>,
-    metal::equal<c, metal::number<'c'>>, metal::number<12>,
-    metal::equal<c, metal::number<'d'>>, metal::number<13>,
-    metal::equal<c, metal::number<'e'>>, metal::number<14>,
-    metal::equal<c, metal::number<'f'>>, metal::number<15>,
-    metal::equal<c, metal::number<'A'>>, metal::number<10>,
-    metal::equal<c, metal::number<'B'>>, metal::number<11>,
-    metal::equal<c, metal::number<'C'>>, metal::number<12>,
-    metal::equal<c, metal::number<'D'>>, metal::number<13>,
-    metal::equal<c, metal::number<'E'>>, metal::number<14>,
-    metal::equal<c, metal::number<'F'>>, metal::number<15>
+    metal::same<c, metal::number<'0'>>, metal::number<0>,
+    metal::same<c, metal::number<'1'>>, metal::number<1>,
+    metal::same<c, metal::number<'2'>>, metal::number<2>,
+    metal::same<c, metal::number<'3'>>, metal::number<3>,
+    metal::same<c, metal::number<'4'>>, metal::number<4>,
+    metal::same<c, metal::number<'5'>>, metal::number<5>,
+    metal::same<c, metal::number<'6'>>, metal::number<6>,
+    metal::same<c, metal::number<'7'>>, metal::number<7>,
+    metal::same<c, metal::number<'8'>>, metal::number<8>,
+    metal::same<c, metal::number<'9'>>, metal::number<9>,
+    metal::same<c, metal::number<'a'>>, metal::number<10>,
+    metal::same<c, metal::number<'b'>>, metal::number<11>,
+    metal::same<c, metal::number<'c'>>, metal::number<12>,
+    metal::same<c, metal::number<'d'>>, metal::number<13>,
+    metal::same<c, metal::number<'e'>>, metal::number<14>,
+    metal::same<c, metal::number<'f'>>, metal::number<15>,
+    metal::same<c, metal::number<'A'>>, metal::number<10>,
+    metal::same<c, metal::number<'B'>>, metal::number<11>,
+    metal::same<c, metal::number<'C'>>, metal::number<12>,
+    metal::same<c, metal::number<'D'>>, metal::number<13>,
+    metal::same<c, metal::number<'E'>>, metal::number<14>,
+    metal::same<c, metal::number<'F'>>, metal::number<15>
 >;
 ///[parse_digit]
 
@@ -271,7 +271,6 @@ IS_SAME(
     decltype(0Xabcdef_c),
     metal::number<11259375>
 );
-
 
 ///[_c_ex2]
 IS_SAME(

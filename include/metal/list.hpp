@@ -14,7 +14,6 @@
 #include <metal/list/copy_if.hpp>
 #include <metal/list/count.hpp>
 #include <metal/list/count_if.hpp>
-#include <metal/list/distinct.hpp>
 #include <metal/list/empty.hpp>
 #include <metal/list/erase.hpp>
 #include <metal/list/find.hpp>
@@ -39,7 +38,6 @@
 #include <metal/list/replace.hpp>
 #include <metal/list/replace_if.hpp>
 #include <metal/list/reverse.hpp>
-#include <metal/list/same.hpp>
 #include <metal/list/size.hpp>
 #include <metal/list/slice.hpp>
 #include <metal/list/sort.hpp>

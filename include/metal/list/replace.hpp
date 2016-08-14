@@ -8,7 +8,7 @@
 #include <metal/list/replace_if.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
-#include <metal/value/equal.hpp>
+#include <metal/value/same.hpp>
 
 namespace metal
 {
@@ -16,7 +16,7 @@ namespace metal
     /// ...
     template<typename seq, typename from, typename to>
     using replace = metal::replace_if<
-        seq, metal::partial<metal::lambda<metal::equal>, from>, to
+        seq, metal::partial<metal::lambda<metal::same>, from>, to
     >;
 }
 

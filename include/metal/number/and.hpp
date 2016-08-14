@@ -7,8 +7,7 @@
 
 #include <metal/number/number.hpp>
 #include <metal/number/not.hpp>
-#include <metal/list/list.hpp>
-#include <metal/list/same.hpp>
+#include <metal/value/same.hpp>
 
 namespace metal
 {
@@ -36,7 +35,7 @@ namespace metal
     /// --------
     /// \see number, not_, or_
     template<typename... nums>
-    using and_ = metal::same<metal::list<metal::false_, metal::not_<nums>...>>;
+    using and_ = metal::same<metal::false_, metal::not_<nums>...>;
 }
 
 #endif

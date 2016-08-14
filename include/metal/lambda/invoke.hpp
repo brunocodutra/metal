@@ -8,7 +8,7 @@
 #include <metal/number/not.hpp>
 #include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
-#include <metal/value/equal.hpp>
+#include <metal/value/same.hpp>
 
 #include <type_traits>
 
@@ -31,7 +31,7 @@ namespace metal
     /// \ingroup lambda
     /// ...
     template<typename lbd, typename... args>
-    using is_invocable = equal<
+    using is_invocable = same<
         typename std::is_base_of<
             value<>,
             detail::_invoke<lbd, args...>

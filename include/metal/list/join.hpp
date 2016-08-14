@@ -20,8 +20,8 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/same.hpp>
 #include <metal/number/if.hpp>
+#include <metal/value/same.hpp>
 
 namespace metal
 {
@@ -92,7 +92,7 @@ namespace metal
 
         template<typename... vals, template<typename...> class... seq>
         struct _join<list<vals...>, list<>, seq<>...> :
-            _if_<same<list<list<>, seq<>...>>, list<vals...>>
+            _if_<same<list<>, seq<>...>, list<vals...>>
         {};
     }
 }
