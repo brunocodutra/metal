@@ -6,6 +6,7 @@
 #define METAL_LIST_REDUCE_HPP
 
 #include <metal/list/size.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/number/if.hpp>
 #include <metal/number/or.hpp>
 #include <metal/number/not.hpp>
@@ -28,14 +29,14 @@ namespace metal
         typename end = size<seq>
     >
     using reduce = typename detail::_reduce<
-        seq, lbd,
+        seq,
+        if_<is_lambda<lbd>, lbd>,
         if_<not_<or_<greater<number<0>, beg>, greater<beg, size<seq>>>>, beg>,
         if_<not_<or_<greater<number<0>, end>, greater<end, size<seq>>>>, end>
     >::type;
 }
 
 #include <metal/list/at.hpp>
-#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 
 namespace metal
@@ -64,14 +65,16 @@ namespace metal
         {};
 
         template<typename seq, typename lbd, int_ b>
-        struct _reduce<seq, lbd, number<b>, number<b + 1>> :
-            _if_<is_lambda<lbd>, at<seq, number<b>>>
-        {};
+        struct _reduce<seq, lbd, number<b>, number<b + 1>>
+        {
+            using type = at<seq, number<b>>;
+        };
 
         template<typename seq, typename lbd, int_ b>
-        struct _reduce<seq, lbd, number<b>, number<b - 1>> :
-            _if_<is_lambda<lbd>, at<seq, number<b - 1>>>
-        {};
+        struct _reduce<seq, lbd, number<b>, number<b - 1>>
+        {
+            using type = at<seq, number<b - 1>>;
+        };
 
         template<typename seq, typename lbd, int_ n>
         struct _reduce<seq, lbd, number<n>, number<n>>

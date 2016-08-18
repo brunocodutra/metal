@@ -24,7 +24,8 @@
 #define SECOND_IMPL(_, X, ...) X
 #define SECOND(...) EXPAND(SECOND_IMPL(__VA_ARGS__))
 
-#define REST(_, ...) __VA_ARGS__
+#define HEAD(_, ...) _
+#define TAIL(_, ...) __VA_ARGS__
 
 #define LENGTH_IMPL(_0, _1, _2, _3, _4, _5, _6, _7, N, ...) N
 #define LENGTH(...) EXPAND(LENGTH_IMPL(__VA_ARGS__, 8, 7, 6, 5, 4, 3, 2, 1, 0))
@@ -119,6 +120,35 @@
 /**/
 
 #define RENUM(N, ...) RENUM_IMPL(N, __VA_ARGS__)
+
+#define FOLD_KWD() FOLD_IMPL
+#define FOLD_IMPL(M, N, MACRO, ...) \
+    IF(N)(HEAD, TAIL)( \
+        DEFER(FOLD_KWD)()( \
+            INC(M), \
+            DEC(N), \
+            MACRO, \
+            DEFER(MACRO)(M, __VA_ARGS__) \
+        ), \
+        __VA_ARGS__ \
+    ) \
+/**/
+
+#define FOLD(N, MACRO, ...) FOLD_IMPL(0, N, MACRO, __VA_ARGS__)
+
+#define REFOLD_KWD() REFOLD_IMPL
+#define REFOLD_IMPL(N, MACRO, ...) \
+    IF(N)(HEAD, TAIL)( \
+        DEFER(REFOLD_KWD)()( \
+            DEC(N), \
+            MACRO, \
+            DEFER(MACRO)(DEC(N), __VA_ARGS__) \
+        ), \
+        __VA_ARGS__ \
+    ) \
+/**/
+
+#define REFOLD(N, MACRO, ...) REFOLD_IMPL(N, MACRO, __VA_ARGS__)
 
 #define FWD_ID(...) __VA_ARGS__
 #define FWD_KWD() FWD_IMPL

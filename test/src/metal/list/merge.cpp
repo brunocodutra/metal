@@ -57,7 +57,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::merge>, LBD(_) COMMA(N) LISTS(N)>), (BOOL(N > 0 && N <= 2))); \
     CHECK((metal::is_invocable<metal::lambda<metal::merge>, LBD(_) COMMA(N) MAPS(N)>), (BOOL(N > 0 && N <= 2))); \
     CHECK((metal::is_invocable<metal::lambda<metal::merge>, LBD(_) COMMA(N) LBDS(N)>), (FALSE)); \
-    CHECK((metal::merge<metal::lambda<metal::less>, RENUM(INC(M), REST, metal::list<NUMS(INF)>)>), (metal::list<ENUM(INF, FWD, RENUM(INC(M), NUM NIL))>)); \
+    CHECK((metal::merge<metal::lambda<metal::less>, RENUM(INC(M), TAIL, metal::list<NUMS(INF)>)>), (metal::list<ENUM(INF, FWD, RENUM(INC(M), NUM NIL))>)); \
 /**/
 
 GEN(MATRIX)

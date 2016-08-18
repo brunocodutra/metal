@@ -43,7 +43,7 @@ namespace metal
 #include <metal/number/number.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/list/list.hpp>
-#include <metal/list/fold.hpp>
+#include <metal/list/fold_left.hpp>
 
 #include <initializer_list>
 
@@ -82,10 +82,7 @@ namespace metal
 #else
         template<int_ x, int_ y, int_... tail>
         struct _sub<number<x>, number<y>, number<tail>...> :
-            _fold<
-                numbers<y, tail...>, number<x>, lambda<sub>,
-                number<0>, number<sizeof...(tail) + 1>
-            >
+            _fold_left<numbers<y, tail...>, number<x>, lambda<sub>>
         {};
 #endif
     }
