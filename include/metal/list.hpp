@@ -27,7 +27,6 @@
 #include <metal/list/insert.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
-#include <metal/list/merge.hpp>
 #include <metal/list/none.hpp>
 #include <metal/list/partition.hpp>
 #include <metal/list/pop_back.hpp>
@@ -35,7 +34,6 @@
 #include <metal/list/push_back.hpp>
 #include <metal/list/push_front.hpp>
 #include <metal/list/range.hpp>
-#include <metal/list/reduce.hpp>
 #include <metal/list/remove.hpp>
 #include <metal/list/remove_if.hpp>
 #include <metal/list/replace.hpp>
