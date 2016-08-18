@@ -5,16 +5,85 @@
 #ifndef METAL_LIST_REVERSE_HPP
 #define METAL_LIST_REVERSE_HPP
 
-#include <metal/list/size.hpp>
-#include <metal/list/range.hpp>
-#include <metal/number/number.hpp>
-
 namespace metal
 {
+    namespace detail
+    {
+        template<typename seq>
+        struct _reverse;
+    }
+
     /// \ingroup list
     /// ...
     template<typename seq>
-    using reverse = metal::range<seq, metal::size<seq>, metal::size_t<0>>;
+    using reverse = typename detail::_reverse<seq>::type;
+}
+
+#include <metal/list/list.hpp>
+#include <metal/list/join.hpp>
+
+namespace metal
+{
+    namespace detail
+    {
+        template<typename...>
+        struct _reverse_impl
+        {};
+
+        template<
+            typename a, typename b, typename c, typename d,
+            typename e, typename f, typename g, typename h,
+            typename i, typename j, typename k, typename l,
+            typename m, typename n, typename o, typename p,
+            typename... tail
+        >
+        struct _reverse_impl<
+            a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, tail...
+        > :
+            _join_impl<
+                typename _reverse_impl<tail...>::type,
+                list<p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a>
+            >
+        {};
+
+        template<typename a, typename b, typename c, typename... tail>
+        struct _reverse_impl<a, b, c, tail...> :
+            _join_impl<typename _reverse_impl<tail...>::type, list<c, b, a>>
+        {};
+
+        template<typename a, typename b, typename c>
+        struct _reverse_impl<a, b, c>
+        {
+            using type = list<c, b, a>;
+        };
+
+        template<typename a, typename b>
+        struct _reverse_impl<a, b>
+        {
+            using type = list<b, a>;
+        };
+
+        template<typename a>
+        struct _reverse_impl<a>
+        {
+            using type = list<a>;
+        };
+
+        template<>
+        struct _reverse_impl<>
+        {
+            using type = list<>;
+        };
+
+        template<typename seq>
+        struct _reverse
+        {};
+
+        template<typename... vals>
+        struct _reverse<list<vals...>>:
+            _reverse_impl<vals...>
+        {};
+    }
 }
 
 #endif

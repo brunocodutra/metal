@@ -5,68 +5,24 @@
 #ifndef METAL_LIST_TRANSPOSE_HPP
 #define METAL_LIST_TRANSPOSE_HPP
 
-#include <metal/number/number.hpp>
+#include <metal/list/list.hpp>
+#include <metal/list/transform.hpp>
+#include <metal/lambda/partial.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/apply.hpp>
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename, typename = true_, typename = true_>
-        struct _transpose;
-    }
-
     /// \ingroup list
     /// ...
     template<typename seq>
-    using transpose = typename detail::_transpose<seq>::type;
-}
-
-#include <metal/list/at.hpp>
-#include <metal/list/size.hpp>
-#include <metal/list/same.hpp>
-#include <metal/list/indices.hpp>
-#include <metal/list/transform.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/partial.hpp>
-
-namespace metal
-{
-    namespace detail
-    {
-        template<typename, typename, typename>
-        struct _transpose
-        {};
-
-        template<typename head, typename... tail>
-        struct _transpose<list<head, tail...>,
-            bool_<(sizeof...(tail) > 1)>,
-            same<list<size<head>, size<tail>...>>
-        > :
-            _transform<
-                bind<
-                    lambda<list>,
-                    partial<lambda<at>, head>,
-                    partial<lambda<at>, tail>...
-                >,
-                indices<head>
-            >
-        {};
-
-        template<typename... xs, typename... ys>
-        struct _transpose<list<list<xs...>, list<ys...>>,
-            bool_<sizeof...(xs) == sizeof...(ys)>
-        >
-        {
-            using type = list<list<xs, ys>...>;
-        };
-
-        template<typename... xs>
-        struct _transpose<list<list<xs...>>>
-        {
-            using type = list<list<xs>...>;
-        };
-    }
+    using transpose = metal::apply<
+        metal::partial<
+            metal::lambda<metal::transform>,
+            metal::lambda<metal::list>
+        >,
+        seq
+    >;
 }
 
 #endif

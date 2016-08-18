@@ -12,7 +12,8 @@
 
 #define HIDE(...) struct CAT(anonymous, __LINE__) {__VA_ARGS__};
 
-#define ASSERT(...) static_assert(__VA_ARGS__::value, "")
+#define IS_SAME_IMPL(...) static_assert(__VA_ARGS__, #__VA_ARGS__)
+#define IS_SAME(...) IS_SAME_IMPL(std::is_same<__VA_ARGS__>::value)
 
 int main() {
     return 0;

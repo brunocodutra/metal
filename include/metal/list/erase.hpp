@@ -19,7 +19,7 @@ namespace metal
     /// ...
     template<typename seq, typename beg, typename end = inc<beg>>
     using erase = metal::join<
-        metal::range<seq, metal::size_t<0>, metal::min<beg, end>>,
+        metal::range<seq, metal::number<0>, metal::min<beg, end>>,
         metal::range<seq, metal::max<beg, end>, metal::size<seq>>
     >;
 }

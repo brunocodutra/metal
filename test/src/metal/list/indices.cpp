@@ -18,9 +18,9 @@
     CHECK((metal::is_invocable<metal::lambda<metal::indices>, MAP(M)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::indices>, LBD(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::indices>, LBD(_)>), (FALSE)); \
-    CHECK((metal::indices<PAIR(M)>), (metal::list<ENUM(2, SIZE_T)>)); \
-    CHECK((metal::indices<LIST(M)>), (metal::list<ENUM(M, SIZE_T)>)); \
-    CHECK((metal::indices<MAP(M)>), (metal::list<ENUM(M, SIZE_T)>)); \
+    CHECK((metal::indices<PAIR(M)>), (metal::list<NUMS(2)>)); \
+    CHECK((metal::indices<LIST(M)>), (metal::list<NUMS(M)>)); \
+    CHECK((metal::indices<MAP(M)>), (metal::list<NUMS(M)>)); \
 /**/
 
 GEN(MATRIX)

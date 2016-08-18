@@ -251,9 +251,9 @@ ALIASES +=maps="\ref map \"Maps\""
 
 ALIASES +=semantics="\par Semantics"
 
-ALIASES +=tip{1}="<div class=\"panel panel-info\"><div class="panel-heading"><span class=\"octicon octicon-light-bulb\"></span></div><div class="panel-body">\1</div></div>"
-ALIASES +=note{1}="<div class=\"panel panel-warning\"><div class="panel-heading"><span class=\"octicon octicon-info\"></span></div><div class="panel-body">\1</div></div>"
-ALIASES +=danger{1}="<div class=\"panel panel-danger\"><div class="panel-heading"><span class=\"octicon octicon-stop\"></span></div><div class="panel-body">\1</div></div>"
+ALIASES +=tip{1}="<div class=\"panel panel-info\"><div class="panel-heading"><span class=\"octicon octicon-light-bulb\"> Tip</span></div><div class="panel-body">\1</div></div>"
+ALIASES +=note{1}="<div class=\"panel panel-warning\"><div class="panel-heading"><span class=\"octicon octicon-info\"> Note</span></div><div class="panel-body">\1</div></div>"
+ALIASES +=danger{1}="<div class=\"panel panel-danger\"><div class="panel-heading"><span class=\"octicon octicon-stop\"> Warning</span></div><div class="panel-body">\1</div></div>"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"

@@ -19,10 +19,10 @@ namespace metal
     ///     using result = metal::greater<num_1, num_2>;
     /// \endcode
     ///
-    /// \returns: \number of type `bool`
+    /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::bool_<(num_1{} > num_2{})>;
+    ///         using result = metal::number<(num_1{} > num_2{})>;
     ///     \endcode
     ///
     /// Example

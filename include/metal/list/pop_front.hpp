@@ -9,13 +9,11 @@
 #include <metal/list/range.hpp>
 #include <metal/number/number.hpp>
 
-#include <cstddef>
-
 namespace metal
 {
     /// \ingroup list
     /// ...
-    template<typename seq, typename n = size_t<1>>
+    template<typename seq, typename n = number<1>>
     using pop_front = metal::range<seq, n, metal::size<seq>>;
 }
 

@@ -6,36 +6,20 @@
 #define METAL_MAP_KEYS_HPP
 
 #include <metal/map/map.hpp>
-#include <metal/list/list.hpp>
+#include <metal/pair/first.hpp>
+#include <metal/list/transform.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/number/if.hpp>
 
 namespace metal
 {
-    namespace detail
-    {
-        template<typename seq>
-        struct _keys;
-    }
-
     /// \ingroup map
     /// ...
     template<typename seq>
-    using keys = typename if_<is_map<seq>, detail::_keys<seq>>::type;
-
-    namespace detail
-    {
-        template<typename seq>
-        struct _keys
-        {
-            using type = seq;
-        };
-
-        template<typename... ks, typename... vs>
-        struct _keys<list<list<ks, vs>...>>
-        {
-            using type = list<ks...>;
-        };
-    }
+    using keys = metal::if_<
+        metal::is_map<seq>,
+        metal::transform<metal::lambda<metal::first>, seq>
+    >;
 }
 
 #endif

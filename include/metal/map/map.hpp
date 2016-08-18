@@ -31,7 +31,7 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/distinct.hpp>
+#include <metal/value/distinct.hpp>
 
 namespace metal
 {
@@ -49,7 +49,7 @@ namespace metal
 
         template<typename... keys, typename... vals>
         struct _is_map<list<list<keys, vals>...>> :
-            distinct<list<keys...>>
+            distinct<keys...>
         {};
     }
 }

@@ -20,7 +20,7 @@ namespace metal
     /// ...
     template<
         typename seq,
-        typename start, typename size, typename stride = int_<1>
+        typename start, typename size, typename stride = number<1>
     >
     using slice = transform<
         partial<lambda<at>, if_<is_list<seq>, seq>>,

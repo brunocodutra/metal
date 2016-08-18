@@ -61,7 +61,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::remove>, LBD(_), LBD(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::remove>, LBD(_), LBD(_)>), (FALSE)); \
     CHECK((metal::remove<PAIR(M), VAL(N)>), (std::conditional_t<M == N, metal::list<NUM(M)>, PAIR(M)>)); \
-    CHECK((metal::remove<PAIR(M), INT(N)>), (std::conditional_t<M == N, metal::list<VAL(M)>, PAIR(M)>)); \
+    CHECK((metal::remove<PAIR(M), NUM(N)>), (std::conditional_t<M == N, metal::list<VAL(M)>, PAIR(M)>)); \
     CHECK((metal::remove<metal::list<VALS(M) COMMA(AND(M, N)) ENUM(N, VAL FIX(M))>, VAL(M)>), (LIST(M))); \
 /**/
 

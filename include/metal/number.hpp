@@ -7,7 +7,6 @@
 
 #include <metal/number/add.hpp>
 #include <metal/number/and.hpp>
-#include <metal/number/cast.hpp>
 #include <metal/number/dec.hpp>
 #include <metal/number/div.hpp>
 #include <metal/number/enumerate.hpp>

@@ -6,26 +6,46 @@
 #define METAL_LIST_REPLACE_IF_HPP
 
 #include <metal/list/transform.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/quote.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/if.hpp>
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename, typename, typename>
+        struct _replace_if_impl;
+    }
+
     /// \ingroup list
     /// ...
     template<typename seq, typename lbd, typename val>
-    using replace_if = metal::transform<
-        metal::bind<
-            metal::lambda<metal::if_>,
-            lbd,
-            metal::quote<val>,
-            metal::_1
-        >,
-        seq
-    >;
+    using replace_if =
+        typename detail::_replace_if_impl<seq, transform<lbd, seq>, val>::type;
+}
+
+#include <metal/list/list.hpp>
+#include <metal/number/if.hpp>
+#include <metal/number/number.hpp>
+
+namespace metal
+{
+    namespace detail
+    {
+        template<typename, typename, typename>
+        struct _replace_if_impl
+        {};
+
+        template<typename val>
+        struct _replace_if_impl<list<>, list<>, val>
+        {
+            using type = list<>;
+        };
+
+        template<typename... vals, int_... vs, typename val>
+        struct _replace_if_impl<list<vals...>, list<number<vs>...>, val>
+        {
+            using type = list<if_<number<vs>, val, vals>...>;
+        };
+    }
 }
 
 #endif

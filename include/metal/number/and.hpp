@@ -7,8 +7,7 @@
 
 #include <metal/number/number.hpp>
 #include <metal/number/not.hpp>
-#include <metal/list/list.hpp>
-#include <metal/list/same.hpp>
+#include <metal/value/same.hpp>
 
 namespace metal
 {
@@ -22,10 +21,10 @@ namespace metal
     ///     using result = metal::and_<num_1, ..., num_n>;
     /// \endcode
     ///
-    /// \returns: \number of type `bool`
+    /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::bool_<num_1{} && ... && num_n{}>;
+    ///         using result = metal::number<num_1{} && ... && num_n{}>;
     ///     \endcode
     ///
     /// Example
@@ -36,7 +35,7 @@ namespace metal
     /// --------
     /// \see number, not_, or_
     template<typename... nums>
-    using and_ = same<list<false_, typename detail::_not_<nums>::type...>>;
+    using and_ = metal::same<metal::false_, metal::not_<nums>...>;
 }
 
 #endif

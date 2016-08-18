@@ -5,14 +5,11 @@
 #ifndef METAL_NUMBER_NOT_HPP
 #define METAL_NUMBER_NOT_HPP
 
+#include <metal/number/number.hpp>
+#include <metal/number/if.hpp>
+
 namespace metal
 {
-    namespace detail
-    {
-        template<typename num>
-        struct _not_;
-    }
-
     /// \ingroup number
     /// Computes the logical negation of a \number.
     ///
@@ -23,10 +20,10 @@ namespace metal
     ///     using result = metal::not_<num>;
     /// \endcode
     ///
-    /// \returns: \number of type `bool`
+    /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::bool_<!val{}>;
+    ///         using result = metal::number<!val{}>;
     ///     \endcode
     ///
     /// Example
@@ -37,24 +34,7 @@ namespace metal
     /// --------
     /// \see number, and_, or_
     template<typename num>
-    using not_ = typename detail::_not_<num>::type;
-}
-
-#include <metal/number/number.hpp>
-
-namespace metal
-{
-    namespace detail
-    {
-        template<typename num>
-        struct _not_
-        {};
-
-        template<typename t, t v>
-        struct _not_<number<t, v>> :
-            bool_<v ? false : true>
-        {};
-    }
+    using not_ = metal::if_<num, metal::false_, metal::true_>;
 }
 
 #endif

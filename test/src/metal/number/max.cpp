@@ -53,7 +53,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::max>, LBD(_) COMMA(N) LISTS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::max>, LBD(_) COMMA(N) MAPS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::max>, LBD(_) COMMA(N) LBDS(N)>), (FALSE)); \
-    CHECK((metal::max<NUM(M) COMMA(N) NUMS(N)>), (test::num<test::value_type<NUM(M) COMMA(N) ENUM(N, NUM)>, (M >= N) ? M : N - 1>)); \
+    CHECK((metal::max<NUM(M) COMMA(N) NUMS(N)>), (metal::number<(M >= N) ? M : N - 1>)); \
 /**/
 
 GEN(MATRIX)

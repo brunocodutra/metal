@@ -60,12 +60,12 @@
     CHECK((metal::is_invocable<metal::lambda<metal::find>, LBD(_), MAP(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::find>, LBD(_), LBD(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::find>, LBD(_), LBD(_)>), (FALSE)); \
-    CHECK((metal::find<PAIR(M), VAL(N)>), (SIZE_T(M == N ? 1 : 2))); \
-    CHECK((metal::find<PAIR(M), INT(N)>), (SIZE_T(M == N ? 0 : 2))); \
-    CHECK((metal::find<LIST(M), VAL(N)>), (SIZE_T((M > N) ? N : M))); \
-    CHECK((metal::find<MAP(M), PAIR(N)>), (SIZE_T((M > N) ? N : M))); \
-    CHECK((metal::find<metal::list<VALS(M) COMMA(M) VAL(N)>, VAL(N)>), (SIZE_T((M > N) ? N : M))); \
-    CHECK((metal::find<metal::list<ENUM(M, VAL FIX(N))>, VAL(N)>), (SIZE_T(0))); \
+    CHECK((metal::find<PAIR(M), VAL(N)>), (metal::number<M == N ? 1 : 2>)); \
+    CHECK((metal::find<PAIR(M), NUM(N)>), (metal::number<M == N ? 0 : 2>)); \
+    CHECK((metal::find<LIST(M), VAL(N)>), (metal::number<(M > N) ? N : M>)); \
+    CHECK((metal::find<MAP(M), PAIR(N)>), (metal::number<(M > N) ? N : M>)); \
+    CHECK((metal::find<metal::list<VALS(M) COMMA(M) VAL(N)>, VAL(N)>), (metal::number<(M > N) ? N : M>)); \
+    CHECK((metal::find<metal::list<ENUM(M, VAL FIX(N))>, VAL(N)>), (metal::number<0>)); \
 /**/
 
 GEN(MATRIX)

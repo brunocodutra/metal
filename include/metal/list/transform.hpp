@@ -5,6 +5,11 @@
 #ifndef METAL_LIST_TRANSFORM_HPP
 #define METAL_LIST_TRANSFORM_HPP
 
+#include <metal/list/size.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/number/if.hpp>
+#include <metal/value/same.hpp>
+
 namespace metal
 {
     namespace detail
@@ -16,17 +21,19 @@ namespace metal
     /// \ingroup list
     /// ...
     template<typename lbd, typename head, typename... tail>
-    using transform = typename detail::_transform<lbd, head, tail...>::type;
+    using transform = typename if_<
+        same<size<head>, size<tail>...>,
+        detail::_transform<if_<is_lambda<lbd>, lbd>, head, tail...>
+    >::type;
 }
 
+#include <metal/list/at.hpp>
 #include <metal/list/list.hpp>
-#include <metal/list/transpose.hpp>
+#include <metal/lambda/bind.hpp>
 #include <metal/lambda/apply.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/if.hpp>
 #include <metal/value/value.hpp>
 
 namespace metal
@@ -45,25 +52,46 @@ namespace metal
         {};
 
         template<typename lbd, typename head, typename... tail>
-        using transform_impl = transform<
-            partial<lambda<apply>, lbd>,
-            transpose<list<head, tail...>>
-        >;
-
-        template<typename lbd, typename head, typename... tail>
         struct _transform :
-            _invoke<lambda<transform_impl>, lbd, head, tail...>
+            _transform<
+                bind<
+                    lbd,
+                    partial<lambda<at>, head>,
+                    partial<lambda<at>, tail>...
+                >,
+                indices<head>
+            >
         {};
 
-        template<typename lbd, typename head, typename... tail>
-        struct _transform<lbd, list<head, tail...>> :
-            _transform_impl<lbd, list<head, tail...>>
+        template<
+            typename lbd,
+            typename x, typename y, typename z,
+            typename h, typename... t
+        >
+        struct _transform<lbd, list<x>, list<y>, list<z>, list<h>, list<t>...> :
+            _invoke<bind<lambda<list>, lbd>, x, y, z, h, t...>
+        {};
+
+        template<typename lbd, typename... x, typename... y, typename... z>
+        struct _transform<lbd, list<x...>, list<y...>, list<z...>> :
+            _transform_impl<partial<lambda<apply>, lbd>, list<list<x, y, z>...>>
+        {};
+
+        template<typename lbd, typename... x, typename... y>
+        struct _transform<lbd, list<x...>, list<y...>> :
+            _transform_impl<partial<lambda<apply>, lbd>, list<list<x, y>...>>
+        {};
+
+        template<typename lbd, typename... x>
+        struct _transform<lbd, list<x...>> :
+            _transform_impl<lbd, list<x...>>
         {};
 
         template<typename lbd>
-        struct _transform<lbd, list<>> :
-            _if_<is_lambda<lbd>, list<>>
-        {};
+        struct _transform<lbd, list<>>
+        {
+            using type = list<>;
+        };
     }
 }
 

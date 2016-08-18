@@ -9,7 +9,7 @@
 HIDE(
 /// [expr1]
 template<typename... vals>
-using expr = metal::size_t<sizeof...(vals)>;
+using expr = metal::number<sizeof...(vals)>;
 /// [expr1]
 )
 
@@ -29,7 +29,7 @@ struct not_an_expr;
 
 HIDE(
 /// [not_an_expr2]
-template<typename t, t v> // non-type parameter
-using not_an_expr = metal::number<t, v>;
+template<int v> // non-type parameter
+using not_an_expr = metal::number<v>;
 /// [not_an_expr2]
 )

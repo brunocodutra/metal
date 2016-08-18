@@ -27,10 +27,7 @@ namespace metal
     /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::number<
-    ///             decltype(num_1{} % ... % num_n{}),
-    ///             num_1{} % ... % num_n{}
-    ///         >;
+    ///         using result = metal::number<num_1{} % ... % num_n{}>;
     ///     \endcode
     ///
     /// Example
@@ -47,7 +44,10 @@ namespace metal
 #include <metal/number/number.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/list/list.hpp>
-#include <metal/list/fold.hpp>
+#include <metal/list/fold_left.hpp>
+
+#include <utility>
+#include <initializer_list>
 
 namespace metal
 {
@@ -57,28 +57,51 @@ namespace metal
         struct _mod
         {};
 
-        template<typename tx, tx vx>
-        struct _mod<number<tx, vx>> :
-            number<tx, vx>
+        template<int_ x>
+        struct _mod<number<x>> :
+            number<x>
         {};
 
-        template<typename tx, tx vx, typename ty, ty vy>
-        struct _mod<number<tx, vx>, number<ty, vy>> :
-            number<decltype(vx % vy), vx % vy>
+        template<int_ x, int_ y>
+        struct _mod<number<x>, number<y>> :
+            number<x % y>
         {};
 
-        template<typename tx, tx vx, typename ty>
-        struct _mod<number<tx, vx>, number<ty, static_cast<ty>(0)>>
+        template<int_ x>
+        struct _mod<number<x>, number<0>>
         {};
 
-        template<typename tx, tx vx, typename ty, ty vy, typename... nums>
-        struct _mod<number<tx, vx>, number<ty, vy>, nums...> :
-            _fold<
-                list<number<ty, vy>, nums...>,
-                number<tx, vx>, lambda<mod>,
-                size_t<0>, size_t<sizeof...(nums) + 1>
-            >
+#if __cpp_constexpr >= 201304
+        template<typename... _>
+        constexpr int_ imod(int_ head, _... tail) {
+            int_ ret = head;
+            for(int_ x : {tail...})
+                ret %= x;
+
+            return ret;
+        }
+
+        template<typename, typename = true_>
+        struct _mod_impl
         {};
+
+        template<int_... vs>
+        struct _mod_impl<std::integer_sequence<int_, vs...>,
+            is_number<number<imod(vs...)>>
+        >:
+            number<imod(vs...)>
+        {};
+
+        template<int_ x, int_ y, int_... tail>
+        struct _mod<number<x>, number<y>, number<tail>...> :
+            _mod_impl<std::integer_sequence<int_, x, y, tail...>>
+        {};
+#else
+        template<int_ x, int_ y, int_... tail>
+        struct _mod<number<x>, number<y>, number<tail>...> :
+            _fold_left<numbers<y, tail...>, number<x>, lambda<mod>>
+        {};
+#endif
     }
 }
 

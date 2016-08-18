@@ -5,14 +5,11 @@
 #ifndef METAL_NUMBER_INC_HPP
 #define METAL_NUMBER_INC_HPP
 
+#include <metal/number/number.hpp>
+#include <metal/number/add.hpp>
+
 namespace metal
 {
-    namespace detail
-    {
-        template<typename num>
-        struct _inc;
-    }
-
     /// \ingroup number
     /// Increments a \number.
     ///
@@ -23,11 +20,10 @@ namespace metal
     ///     using result = metal::inc<num>;
     /// \endcode
     ///
-    /// \pre: `num` is not a \number of type `bool`
     /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::number<num::value_type, num::{} + 1>;
+    ///         using result = metal::number<num::{} + 1>;
     ///     \endcode
     ///
     /// Example
@@ -38,28 +34,7 @@ namespace metal
     /// --------
     /// \see number, dec, neg, add, sub, mul, div, mod, pow
     template<typename num>
-    using inc = typename detail::_inc<num>::type;
-}
-
-#include <metal/number/number.hpp>
-
-namespace metal
-{
-    namespace detail
-    {
-        template<typename num>
-        struct _inc
-        {};
-
-        template<bool v>
-        struct _inc<bool_<v>>
-        {};
-
-        template<typename t, t v>
-        struct _inc<number<t, v>> :
-            number<t, v + 1>
-        {};
-    }
+    using inc = metal::add<num, metal::number<1>>;
 }
 
 #endif

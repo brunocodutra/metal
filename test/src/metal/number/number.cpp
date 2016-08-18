@@ -16,12 +16,8 @@
     CHECK((metal::is_number<MAP(M)>), (FALSE)); \
     CHECK((metal::is_number<LBD(M)>), (FALSE)); \
     CHECK((metal::is_number<LBD(_)>), (FALSE)); \
-    CHECK((metal::is_number<metal::size_t<M>>), (TRUE)); \
-    CHECK((metal::is_number<metal::int_<M>>), (TRUE)); \
-    CHECK((metal::is_number<metal::char_<M>>), (TRUE)); \
-    CHECK((metal::is_number<metal::size_t<M>>), (TRUE)); \
-    CHECK((metal::is_number<metal::ptrdiff_t<M>>), (TRUE)); \
-    CHECK((metal::is_number<metal::bool_<!M>>), (TRUE)); \
+    CHECK((metal::is_number<metal::number<M>>), (TRUE)); \
+    CHECK((metal::is_number<metal::number<-M>>), (TRUE)); \
     CHECK((metal::is_number<metal::false_>), (TRUE)); \
     CHECK((metal::is_number<metal::true_>), (TRUE)); \
 /**/

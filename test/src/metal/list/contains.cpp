@@ -60,7 +60,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(_), LBD(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(_), LBD(_)>), (FALSE)); \
     CHECK((metal::contains<PAIR(M), VAL(N)>), (BOOL(M == N))); \
-    CHECK((metal::contains<PAIR(M), INT(N)>), (BOOL(M == N))); \
+    CHECK((metal::contains<PAIR(M), NUM(N)>), (BOOL(M == N))); \
     CHECK((metal::contains<LIST(M), VAL(N)>), (BOOL(M > N))); \
     CHECK((metal::contains<MAP(M), PAIR(N)>), (BOOL(M > N))); \
     CHECK((metal::contains<metal::list<VALS(M) COMMA(M) VAL(N)>, VAL(N)>), (TRUE)); \

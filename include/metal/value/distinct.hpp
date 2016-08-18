@@ -2,27 +2,27 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-#ifndef METAL_LIST_DISTINCT_HPP
-#define METAL_LIST_DISTINCT_HPP
+#ifndef METAL_VALUE_DISTINCT_HPP
+#define METAL_VALUE_DISTINCT_HPP
 
 namespace metal
 {
     namespace detail
     {
-        template<typename seq>
+        template<typename... vals>
         struct _distinct;
     }
 
-    /// \ingroup list
+    /// \ingroup value
     /// ...
-    template<typename seq>
-    using distinct = typename detail::_distinct<seq>::type;
+    template<typename... vals>
+    using distinct = typename detail::_distinct<vals...>::type;
 }
 
+#include <metal/value/value.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/number/number.hpp>
-#include <metal/value/value.hpp>
 
 #include <metal/detail/declptr.hpp>
 
@@ -53,24 +53,15 @@ namespace metal
         true_ disambiguate(bases*...);
 
         template<typename derived, typename... bases>
-        auto is_unambiguously_derived_from(derived* _) ->
-            decltype(disambiguate<bases...>((declptr<bases>(), _)...));
+        auto _distinct_impl(derived* _) ->
+            decltype(disambiguate<bases...>((declptr<bases>(), void(), _)...));
 
         template<typename...>
-        false_ is_unambiguously_derived_from(...);
-
-        template<typename seq>
-        struct _distinct
-        {};
+        false_ _distinct_impl(...);
 
         template<typename... vals>
-        struct _distinct<list<vals...>> :
-            decltype(
-                is_unambiguously_derived_from<
-                    inherit<value<vals>...>,
-                    value<vals>...
-                >(0)
-            )
+        struct _distinct :
+            decltype(_distinct_impl<inherit<value<vals>...>, value<vals>...>(0))
         {};
     }
 }

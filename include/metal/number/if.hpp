@@ -25,7 +25,7 @@ namespace metal
     ///
     /// \returns: \value
     /// \semantics:
-    ///     If `num_i{} == true` and `num_j{} == false` for all `j < i`, then
+    ///     If `num_i{} != false` and `num_j{} == false` for all `j < i`, then
     ///     \code
     ///         using result = val_i;
     ///     \endcode
@@ -55,19 +55,19 @@ namespace metal
         struct _if_
         {};
 
-        template<typename t, typename then_, typename... else_>
-        struct _if_<number<t, static_cast<t>(0)>, then_, else_...> :
+        template<typename then_, typename... else_>
+        struct _if_<false_, then_, else_...> :
             _if_<else_...>
         {};
 
-        template<typename t, typename then_, typename else_>
-        struct _if_<number<t, static_cast<t>(0)>, then_, else_>
+        template<typename then_, typename else_>
+        struct _if_<false_, then_, else_>
         {
             using type = else_;
         };
 
-        template<typename t, t v, typename then_, typename... else_>
-        struct _if_<number<t, v>, then_, else_...>
+        template<int_ v, typename then_, typename... else_>
+        struct _if_<number<v>, then_, else_...>
         {
             using type = then_;
         };

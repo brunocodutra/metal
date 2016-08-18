@@ -12,8 +12,6 @@
 
 #include <metal/detail/declptr.hpp>
 
-#include <cstddef>
-
 #if defined(__has_builtin)
 #   if __has_builtin(__type_pack_element)
 #       define METAL_USE_BUILTIN_TYPE_PACK_ELEMENT
@@ -58,9 +56,9 @@ namespace metal
             struct at
             {};
 
-            template<std::size_t n>
-            struct at<size_t<n>,
-                bool_<n < sizeof...(vals)>
+            template<int_ n>
+            struct at<number<n>,
+                number<(n >= 0 && n < sizeof...(vals))>
             >
             {
                 using type = __type_pack_element<n, vals...>;
@@ -72,6 +70,36 @@ namespace metal
             hash<vals>::template at<key>
         {};
 #endif
+
+        template<typename>
+        struct _lookup_first
+        {};
+
+        template<typename x, typename... tail>
+        struct _lookup_first<list<x, tail...>>
+        {
+            using type = x;
+        };
+
+        template<typename vals>
+        struct _lookup<vals, indices<vals>, number<0>> :
+            _lookup_first<vals>
+        {};
+
+        template<typename>
+        struct _lookup_second
+        {};
+
+        template<typename x, typename y, typename... tail>
+        struct _lookup_second<list<x, y, tail...>>
+        {
+            using type = y;
+        };
+
+        template<typename vals>
+        struct _lookup<vals, indices<vals>, number<1>> :
+            _lookup_second<vals>
+        {};
 
         template<typename vals, typename keys, typename key>
         using lookup = typename _lookup<vals, keys, key>::type;

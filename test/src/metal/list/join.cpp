@@ -56,6 +56,7 @@
     CHECK((metal::join<PAIR(M) COMMA(N) PAIRS(N)>), (metal::list<NUM(M), VAL(M) COMMA(N) ENUM(N, FWD, NUM, VAL)>)); \
     CHECK((metal::join<PAIR(M) COMMA(N) LISTS(N)>), (metal::list<NUM(M), VAL(M) ENUM(N, VALS)>)); \
     CHECK((metal::join<PAIR(M) COMMA(N) MAPS(N)>), (metal::list<NUM(M), VAL(M) ENUM(N, PAIRS)>)); \
+    CHECK((metal::join<ENUM(M, LIST FIX(INC(N))) COMMA(M) ENUM(INC(N), LIST FIX(0))>), (metal::list<ENUM(M, VALS FIX(INC(N)))>)); \
 /**/
 
 GEN(MATRIX)

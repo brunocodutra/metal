@@ -5,15 +5,22 @@
 #ifndef METAL_NUMBER_NUMBER_HPP
 #define METAL_NUMBER_NUMBER_HPP
 
-#include <cstddef>
+#include <cstdint>
 #include <type_traits>
 
 namespace metal
 {
+    /// \ingroup number
+    /// The underlying integral representation of \numbers.
+    using int_ = intmax_t;
+
     namespace detail
     {
         template<typename val>
         struct _is_number;
+
+        template<int_... vs>
+        struct _numbers;
     }
 
     /// \ingroup number
@@ -26,7 +33,7 @@ namespace metal
     ///     using result = metal::is_number<val>;
     /// \endcode
     ///
-    /// \returns: \number of type `bool`
+    /// \returns: \number
     /// \semantics:
     ///     If `val` is a \number, then
     ///     \code
@@ -43,48 +50,39 @@ namespace metal
     ///
     /// See Also
     /// --------
-    /// \see number, bool_, int_, char_, size_t, ptrdiff_t
+    /// \see number, true_, false_
     template<typename val>
     using is_number = typename detail::_is_number<val>::type;
 
     /// \ingroup number
-    /// The standard constructor for \numbers.
-    template<typename type, type value>
-    using number = std::integral_constant<type, value>;
+    /// Constructs a \number out of an integral value.
+    template<int_ v>
+    using number = std::integral_constant<metal::int_, v>;
 
     /// \ingroup number
-    /// The standard constructor for \numbers of type `std::size_t`.
-    template<std::size_t value>
-    using size_t = metal::number<std::size_t, value>;
+    /// The boolean constant `true`.
+    using true_ = metal::number<true>;
 
     /// \ingroup number
-    /// The standard constructor for \numbers of type `std::ptrdiff_t`.
-    template<std::size_t value>
-    using ptrdiff_t = metal::number<std::ptrdiff_t, value>;
+    /// The boolean constant `false`.
+    using false_ = metal::number<false>;
 
     /// \ingroup number
-    /// The standard constructor for \numbers of type `int`.
-    template<int value>
-    using int_ = metal::number<int, value>;
+    /// Constructs a list of \numbers out of a possibly empty sequence of
+    /// integral values.
+    template<int_... vs>
+    using numbers =
+#if defined(METAL_DOXYGENATING)
+        metal::list<metal::number<vs>...>;
+#else
+        typename detail::_numbers<vs...>::type;
+#endif
+}
 
-    /// \ingroup number
-    /// The standard constructor for \numbers of type `char`.
-    template<char value>
-    using char_ = metal::number<char, value>;
+#include <metal/list/list.hpp>
 
-    /// \ingroup number
-    /// The standard constructor for \numbers of type `bool`.
-    template<bool value>
-    using bool_ = metal::number<bool, value>;
-
-    /// \ingroup number
-    /// The standard representation for the boolean constant `true`.
-    using true_ = metal::bool_<true>;
-
-    /// \ingroup number
-    /// The standard representation for the boolean constant `false`.
-    using false_ = metal::bool_<false>;
-
+namespace metal
+{
     namespace detail
     {
         template<typename val>
@@ -92,10 +90,16 @@ namespace metal
             false_
         {};
 
-        template<typename type, type value>
-        struct _is_number<number<type, value>> :
+        template<int_ value>
+        struct _is_number<number<value>> :
             true_
         {};
+
+        template<int_... vs>
+        struct _numbers
+        {
+            using type = list<number<vs>...>;
+        };
     }
 }
 

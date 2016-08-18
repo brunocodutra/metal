@@ -20,53 +20,80 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/reduce.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/number.hpp>
+#include <metal/number/if.hpp>
+#include <metal/value/same.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<typename head, typename... tail>
-        struct _join
+        struct _join_impl
         {};
 
         template<
-            typename... ws, typename... xs, typename... ys, typename... zs,
-            typename... _
+            typename... a, typename... b, typename... c, typename... d,
+            typename... e, typename... f, typename... g, typename... h,
+            typename... i, typename... j, typename... k, typename... l,
+            typename... m, typename... n, typename... o, typename... p,
+            typename... tail
         >
-        struct _join<list<ws...>, list<xs...>, list<ys...>, list<zs...>, _...> :
-            _reduce<
-                list<list<ws..., xs..., ys..., zs...>, _...>,
-                lambda<join>,
-                size_t<0>, size_t<sizeof...(_) + 1>
+        struct _join_impl<
+            list<a...>, list<b...>, list<c...>, list<d...>,
+            list<e...>, list<f...>, list<g...>, list<h...>,
+            list<i...>, list<j...>, list<k...>, list<l...>,
+            list<m...>, list<n...>, list<o...>, list<p...>,
+            tail...
+        > :
+            _join<
+                list<
+                    a..., b..., c..., d..., e..., f..., g..., h...,
+                    i..., j..., k..., l..., m..., n..., o..., p...
+                >,
+                tail...
             >
         {};
 
-        template<typename... ws, typename... xs, typename... ys, typename... zs>
-        struct _join<list<ws...>, list<xs...>, list<ys...>, list<zs...>>
+        template<typename... a, typename... b, typename... c, typename... tail>
+        struct _join_impl<list<a...>, list<b...>, list<c...>, tail...> :
+            _join<list<a..., b..., c...>, tail...>
+        {};
+
+        template<typename... a, typename... b, typename... c>
+        struct _join_impl<list<a...>, list<b...>, list<c...>>
         {
-            using type = list<ws..., xs..., ys..., zs...>;
+            using type = list<a..., b..., c...>;
         };
 
-        template<typename... ws, typename... xs, typename... ys>
-        struct _join<list<ws...>, list<xs...>, list<ys...>>
+        template<typename... a, typename... b>
+        struct _join_impl<list<a...>, list<b...>>
         {
-            using type = list<ws..., xs..., ys...>;
+            using type = list<a..., b...>;
         };
 
-        template<typename... ws, typename... xs>
-        struct _join<list<ws...>, list<xs...>>
+        template<typename... a>
+        struct _join<list<a...>>
         {
-            using type = list<ws..., xs...>;
+            using type = list<a...>;
         };
 
-        template<typename... ws>
-        struct _join<list<ws...>>
+        template<typename head, typename... tail>
+        struct _join :
+            _join_impl<head, tail...>
+        {};
+
+#if !defined(_MSC_VER)
+        template<typename... vals, typename head, typename... tail>
+        struct _join<list<vals...>, list<head>, list<tail>...>
         {
-            using type = list<ws...>;
+            using type = list<vals..., head, tail...>;
         };
+#endif
+
+        template<typename... vals, template<typename...> class... seq>
+        struct _join<list<vals...>, list<>, seq<>...> :
+            _if_<same<list<>, seq<>...>, list<vals...>>
+        {};
     }
 }
 

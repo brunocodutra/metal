@@ -5,14 +5,11 @@
 #ifndef METAL_NUMBER_NEG_HPP
 #define METAL_NUMBER_NEG_HPP
 
+#include <metal/number/number.hpp>
+#include <metal/number/sub.hpp>
+
 namespace metal
 {
-    namespace detail
-    {
-        template<typename num>
-        struct _neg;
-    }
-
     /// \ingroup number
     /// Computes the additive inverse of a \number.
     ///
@@ -23,11 +20,10 @@ namespace metal
     ///     using result = metal::neg<num>;
     /// \endcode
     ///
-    /// \pre: `num` is not a \number of type `bool`
     /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::number<num::value_type, -num{}>;
+    ///         using result = metal::number<-num{}>;
     ///     \endcode
     ///
     /// Example
@@ -38,28 +34,7 @@ namespace metal
     /// --------
     /// \see number, inc, dec, add, sub, mul, div, mod, pow
     template<typename num>
-    using neg = typename detail::_neg<num>::type;
-}
-
-#include <metal/number/number.hpp>
-
-namespace metal
-{
-    namespace detail
-    {
-        template<typename num>
-        struct _neg
-        {};
-
-        template<bool v>
-        struct _neg<bool_<v>>
-        {};
-
-        template<typename t, t v>
-        struct _neg<number<t, v>> :
-            number<t, static_cast<t>(0 - v)>
-        {};
-    }
+    using neg = metal::sub<metal::number<0>, num>;
 }
 
 #endif

@@ -11,15 +11,15 @@ HIDE(
 using num = metal::false_;
 /// [num1]
 
-ASSERT(metal::is_number<num>);
+IS_SAME(metal::is_number<num>, metal::true_);
 )
 
 HIDE(
 /// [num2]
-using num = metal::int_<-1>;
+using num = metal::number<-1>;
 /// [num2]
 
-ASSERT(metal::is_number<num>);
+IS_SAME(metal::is_number<num>, metal::true_);
 )
 
 HIDE(
@@ -29,221 +29,180 @@ struct not_a_num :
 {};
 /// [not_a_num1]
 
-ASSERT(!metal::is_number<not_a_num>);
+IS_SAME(metal::is_number<not_a_num>, metal::false_);
 )
 
 HIDE(
 /// [is_number]
-ASSERT(metal::is_number<metal::number<short, 0>>);
-ASSERT(metal::is_number<metal::int_<-10>>);
-ASSERT(metal::is_number<metal::char_<'a'>>);
-ASSERT(metal::is_number<metal::true_>);
-ASSERT(!metal::is_number<void>);
+IS_SAME(metal::is_number<metal::number<-10>>, metal::true_);
+IS_SAME(metal::is_number<metal::true_>, metal::true_);
+IS_SAME(metal::is_number<metal::false_>, metal::true_);
+IS_SAME(metal::is_number<void>, metal::false_);
 /// [is_number]
-)
-
-HIDE(
-/// [cast]
-using num = metal::int_<-10>;
-
-ASSERT(std::is_same<metal::cast<num, bool>, metal::true_>);
-ASSERT(std::is_same<metal::cast<num, short>, metal::number<short, -10>>);
-ASSERT(!metal::is_invocable<metal::lambda<metal::cast>, num, unsigned>);
-/// [cast]
 )
 
 HIDE(
 /// [if_]
-ASSERT(std::is_same<
-    metal::if_<metal::false_, int, metal::int_<0>, int*, void>,
-    void
->);
-
-ASSERT(std::is_same<
-    metal::if_<metal::false_,  int, metal::int_<1>, int*, void>,
-    int*
->);
-
-ASSERT(std::is_same<
-    metal::if_<metal::true_,  int, metal::int_<1>, int*, void>,
-    int
->);
+IS_SAME(metal::if_<metal::false_, int, metal::number<0>, int*, void>, void);
+IS_SAME(metal::if_<metal::false_,  int, metal::number<1>, int*, void>, int*);
+IS_SAME(metal::if_<metal::true_,  int, metal::number<1>, int*, void>, int);
 /// [if_]
 )
 
 HIDE(
 /// [greater]
-ASSERT(!metal::greater<metal::int_<-10>, metal::number<long, 10>>);
-ASSERT(!metal::greater<metal::int_<10>, metal::number<long, 10>>);
-ASSERT(metal::greater<metal::int_<10>, metal::number<long, -10>>);
+IS_SAME(metal::greater<metal::number<-10>, metal::number<10>>, metal::false_);
+IS_SAME(metal::greater<metal::number<10>, metal::number<10>>, metal::false_);
+IS_SAME(metal::greater<metal::number<10>, metal::number<-10>>, metal::true_);
 /// [greater]
 )
 
 HIDE(
 /// [less]
-ASSERT(metal::less<metal::int_<-10>, metal::number<long, 10>>);
-ASSERT(!metal::less<metal::int_<10>, metal::number<long, 10>>);
-ASSERT(!metal::less<metal::int_<10>, metal::number<long, -10>>);
+IS_SAME(metal::less<metal::number<-10>, metal::number<10>>, metal::true_);
+IS_SAME(metal::less<metal::number<10>, metal::number<10>>, metal::false_);
+IS_SAME(metal::less<metal::number<10>, metal::number<-10>>, metal::false_);
 /// [less]
 )
 
 HIDE(
 /// [not_]
-ASSERT(metal::not_<metal::number<short, 0>>);
-ASSERT(!metal::not_<metal::int_<-10>>);
-ASSERT(!metal::not_<metal::char_<'a'>>);
-ASSERT(!metal::not_<metal::true_>);
+IS_SAME(metal::not_<metal::number<0>>, metal::true_);
+IS_SAME(metal::not_<metal::number<-10>>, metal::false_);
+IS_SAME(metal::not_<metal::number<'a'>>, metal::false_);
+IS_SAME(metal::not_<metal::true_>, metal::false_);
 /// [not_]
 )
 
 HIDE(
 /// [and_]
-ASSERT(!metal::and_<metal::int_<-7>, metal::char_<0>, metal::number<long, 5>>);
+using num = metal::and_<metal::number<-7>, metal::number<0>, metal::number<5>>;
+
+IS_SAME(num, metal::false_);
 /// [and_]
 )
 
 HIDE(
 /// [or_]
-ASSERT(metal::or_<metal::int_<-7>, metal::char_<0>, metal::number<long, 5>>);
+using num = metal::or_<metal::number<-7>, metal::number<0>, metal::number<5>>;
+
+IS_SAME(num, metal::true_);
 /// [or_]
 )
 
 
 HIDE(
 /// [inc]
-ASSERT(std::is_same<metal::inc<metal::int_<-10>>, metal::int_<-9>>);
-ASSERT(!metal::is_invocable<metal::lambda<metal::inc>, metal::true_>);
+IS_SAME(metal::inc<metal::number<-10>>, metal::number<-9>);
+IS_SAME(metal::inc<metal::number<0>>, metal::number<1>);
 /// [inc]
 )
 
 HIDE(
 /// [dec]
-ASSERT(std::is_same<metal::dec<metal::int_<-10>>, metal::int_<-11>>);
-ASSERT(!metal::is_invocable<metal::lambda<metal::dec>, metal::true_>);
+IS_SAME(metal::dec<metal::number<-10>>, metal::number<-11>);
+IS_SAME(metal::dec<metal::number<0>>, metal::number<-1>);
 /// [dec]
 )
 
 HIDE(
 /// [neg]
-ASSERT(std::is_same<metal::neg<metal::int_<-10>>, metal::int_<10>>);
-ASSERT(!metal::is_invocable<metal::lambda<metal::neg>, metal::true_>);
+IS_SAME(metal::neg<metal::number<-10>>, metal::number<10>);
+IS_SAME(metal::neg<metal::number<0>>, metal::number<0>);
 /// [neg]
 )
 
 HIDE(
 /// [add]
-using num = metal::add<
-    metal::int_<-7>,
-    metal::number<short, 5>,
-    metal::number<long, 1>
->;
+using num = metal::add<metal::number<-7>, metal::number<5>, metal::number<1>>;
 
-ASSERT(std::is_same<num, metal::number<long, -1>>);
+IS_SAME(num, metal::number<-1>);
 /// [add]
 )
 
 HIDE(
 /// [sub]
-using num = metal::sub<
-    metal::int_<-7>,
-    metal::number<short, 5>,
-    metal::number<long, 1>
->;
+using num = metal::sub<metal::number<-7>, metal::number<5>, metal::number<1>>;
 
-ASSERT(std::is_same<num, metal::number<long, -13>>);
+IS_SAME(num, metal::number<-13>);
 /// [sub]
 )
 
 HIDE(
 /// [mul]
-using num = metal::mul<
-    metal::int_<-7>,
-    metal::number<short, 5>,
-    metal::number<long, 1>
->;
+using num = metal::mul<metal::number<-7>, metal::number<5>, metal::number<1>>;
 
-ASSERT(std::is_same<num, metal::number<long, -35>>);
+IS_SAME(num, metal::number<-35>);
 /// [mul]
 )
 
 HIDE(
 /// [div]
-using num = metal::div<
-    metal::int_<-7>,
-    metal::number<short, 5>,
-    metal::number<long, 1>
->;
+using num = metal::div<metal::number<-7>, metal::number<5>, metal::number<1>>;
 
-ASSERT(std::is_same<num, metal::number<long, -1>>);
-ASSERT(!metal::is_invocable<metal::lambda<metal::div>, num, metal::int_<0>>);
+IS_SAME(num, metal::number<-1>);
+IS_SAME(
+    metal::is_invocable<metal::lambda<metal::div>, num, metal::number<0>>,
+    metal::false_
+);
 /// [div]
 )
 
 HIDE(
 /// [mod]
-using num = metal::mod<
-    metal::int_<-7>,
-    metal::number<short, 5>,
-    metal::number<long, 1>
->;
+using num = metal::mod<metal::number<-7>, metal::number<5>, metal::number<1>>;
 
-ASSERT(std::is_same<num, metal::number<long, 0>>);
-ASSERT(!metal::is_invocable<metal::lambda<metal::mod>, num, metal::int_<0>>);
+IS_SAME(num, metal::number<0>);
+IS_SAME(
+    metal::is_invocable<metal::lambda<metal::mod>, num, metal::number<0>>,
+    metal::false_
+);
 /// [mod]
 )
 
 HIDE(
 /// [pow]
-using num = metal::pow<
-    metal::int_<-7>,
-    metal::number<short, 5>,
-    metal::number<long, 1>
->;
+using num = metal::pow<metal::number<-7>, metal::number<5>, metal::number<1>>;
 
-ASSERT(std::is_same<num, metal::number<long, -16807>>);
-ASSERT(!metal::is_invocable<metal::lambda<metal::pow>, metal::int_<0>, num>);
+IS_SAME(num, metal::number<-16807>);
+IS_SAME(
+    metal::is_invocable<metal::lambda<metal::pow>, metal::number<0>, num>,
+    metal::false_
+);
 /// [pow]
 )
 
 HIDE(
 /// [max]
-using num = metal::max<
-    metal::int_<-7>,
-    metal::number<short, 5>,
-    metal::number<long, 1>
->;
+using num = metal::max<metal::number<-7>, metal::number<5>, metal::number<1>>;
 
-ASSERT(std::is_same<num, metal::number<long, 5>>);
+IS_SAME(num, metal::number<5>);
 /// [max]
 )
 
 HIDE(
 /// [min]
-using num = metal::min<
-    metal::int_<-7>,
-    metal::number<short, 5>,
-    metal::number<long, 1>
->;
+using num = metal::min<metal::number<-7>, metal::number<5>, metal::number<1>>;
 
-ASSERT(std::is_same<num, metal::number<long, -7>>);
+IS_SAME(num, metal::number<-7>);
 /// [min]
 )
 
 HIDE(
 /// [enumerate]
-ASSERT(std::is_same<
-    metal::enumerate<metal::char_<'a'>, metal::int_<3>>,
-    metal::list<metal::char_<'a'>, metal::char_<'b'>, metal::char_<'c'>>
->);
+IS_SAME(
+    metal::enumerate<metal::number<'a'>, metal::number<3>>,
+    metal::list<metal::number<'a'>, metal::number<'b'>, metal::number<'c'>>
+);
 
-ASSERT(std::is_same<
-    metal::enumerate<metal::int_<2>, metal::size_t<3>, metal::int_<-5>>,
-    metal::list<metal::int_<2>, metal::int_<-3>, metal::int_<-8>>
->);
+IS_SAME(
+    metal::enumerate<metal::number<2>, metal::number<3>, metal::number<-5>>,
+    metal::list<metal::number<2>, metal::number<-3>, metal::number<-8>>
+);
 
-ASSERT(std::is_same<
-    metal::enumerate<metal::size_t<2>, metal::int_<-3>, metal::int_<-5>>,
-    metal::list<metal::size_t<2>, metal::size_t<7>, metal::size_t<12>>
->);
+IS_SAME(
+    metal::enumerate<metal::number<2>, metal::number<-3>, metal::number<-5>>,
+    metal::list<metal::number<2>, metal::number<7>, metal::number<12>>
+);
 /// [enumerate]
 )

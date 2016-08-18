@@ -32,7 +32,7 @@ namespace metal
 
         template<typename... vals>
         struct _size<list<vals...>> :
-            size_t<sizeof...(vals)>
+            number<sizeof...(vals)>
         {};
     }
 }
