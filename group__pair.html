@@ -64,14 +64,14 @@
 </div><!--header-->
 <div class="contents">
 <h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="ga14ce89442e054e786f7f0a7175d52aab"></a>
+<a class="anchor" id="gab74a726c430a7ffbad661ca2c7de18e9"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__pair.html#ga14ce89442e054e786f7f0a7175d52aab">metal::first</a> = typedef <a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">metal::if_</a>&lt;<a class="el" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>&lt;seq&gt;, <a class="el" href="group__lambda.html#ga2c9e65a1497c421ba4e180fd7300224e">metal::apply</a>&lt;<a class="el" href="group__lambda.html#ga2158e3dd5180b12b04dc1dc487fef023">metal::_1</a>, seq&gt;&gt;</td>
+          <td class="memname">using <a class="el" href="group__pair.html#gab74a726c430a7ffbad661ca2c7de18e9">metal::first</a> = typedef <a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">metal::if_</a>&lt;<a class="el" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>&lt;seq&gt;, <a class="el" href="group__list.html#ga43ec21375de29416470d907dd609542e">metal::front</a>&lt;seq&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -79,11 +79,11 @@ template&lt;typename seq &gt; </div>
 <p><code>#include &lt;metal/pair/first.hpp&gt;</code></p>
 <p>Returns the first element of a <a class="el" href="index.html#pair">Pair </a>.</p>
 <h2>Usage </h2>
-<p>For any <a class="el" href="index.html#pair">Pair </a> <code>pair</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__pair.html#ga14ce89442e054e786f7f0a7175d52aab">metal::first&lt;pair&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
+<p>For any <a class="el" href="index.html#pair">Pair </a> <code>pair</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__pair.html#gab74a726c430a7ffbad661ca2c7de18e9">metal::first&lt;pair&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
 <dl class="section user"><dt>Semantics:</dt><dd>If <code>pair</code> contains <a class="el" href="index.html#value">Values</a> <code>x</code> and <code>y</code> in that order, then <div class="fragment"><div class="line"><span class="keyword">using</span> result = x;</div></div><!-- fragment --></dd></dl>
 <h2>Example </h2>
-<div class="fragment"><div class="line">ASSERT(std::is_same&lt;<a class="code" href="group__pair.html#ga14ce89442e054e786f7f0a7175d52aab">metal::first</a>&lt;<a class="code" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair&lt;void, void*&gt;</a>&gt;, <span class="keywordtype">void</span>&gt;);</div></div><!-- fragment --> <h2>See Also </h2>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">pair</a>, <a class="el" href="group__pair.html#ga44231a9528746b440a5c09056688656d">second</a>, <a class="el" href="group__list.html#ga9de5aeb7e546bd80a22cc9fb7aaf5947">at</a> </dd></dl>
+<div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__pair.html#gab74a726c430a7ffbad661ca2c7de18e9">metal::first</a>&lt;<a class="code" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair&lt;void, void*&gt;</a>&gt;, <span class="keywordtype">void</span>);</div></div><!-- fragment --> <h2>See Also </h2>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">pair</a>, <a class="el" href="group__pair.html#ga577d96e206b2ea656ffa9df9ce7c3b6e">second</a>, <a class="el" href="group__list.html#ga836210f04f726c3b4652b8360b23933b">at</a> </dd></dl>
 
 </div>
 </div>
@@ -103,9 +103,9 @@ template&lt;typename val &gt; </div>
 <p>Checks whether some <a class="el" href="index.html#value">Value </a> is a <a class="el" href="index.html#pair">Pair </a>.</p>
 <h2>Usage </h2>
 <p>For any <a class="el" href="index.html#value">Value </a> <code>val</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair&lt;val&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#number">Number </a> of type <code>bool</code> </dd></dl>
-<dl class="section user"><dt>Semantics:</dt><dd>If <code>val</code> is a <a class="el" href="index.html#pair">Pair </a>, then <div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#gaa38d54e0d8d70b22c31f93b5f8d006d4">metal::true_</a>;</div></div><!-- fragment --> otherwise <div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#ga84f700f58482d07980836ad87fcabbd8">metal::false_</a>;</div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Semantics:</dt><dd>If <code>val</code> is a <a class="el" href="index.html#pair">Pair </a>, then <div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#gadff72c366480cfd6569d65e0e70a2a27">metal::true_</a>;</div></div><!-- fragment --> otherwise <div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>;</div></div><!-- fragment --></dd></dl>
 <h2>Example </h2>
-<div class="fragment"><div class="line">ASSERT(<a class="code" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>&lt;<a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, unsigned&gt;</a>&gt;);</div><div class="line">ASSERT(!<a class="code" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>&lt;<a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int&gt;</a>&gt;);</div></div><!-- fragment --> <h2>See Also </h2>
+<div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>&lt;<a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, unsigned&gt;</a>&gt;, <a class="code" href="group__number.html#gadff72c366480cfd6569d65e0e70a2a27">metal::true_</a>);</div><div class="line">IS_SAME(<a class="code" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>&lt;<a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div></div><!-- fragment --> <h2>See Also </h2>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">pair</a> </dd></dl>
 
 </div>
@@ -127,14 +127,14 @@ template&lt;typename x , typename y &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga44231a9528746b440a5c09056688656d"></a>
+<a class="anchor" id="ga577d96e206b2ea656ffa9df9ce7c3b6e"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__pair.html#ga44231a9528746b440a5c09056688656d">metal::second</a> = typedef <a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">metal::if_</a>&lt;<a class="el" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>&lt;seq&gt;, <a class="el" href="group__lambda.html#ga2c9e65a1497c421ba4e180fd7300224e">metal::apply</a>&lt;<a class="el" href="group__lambda.html#ga91c75729b0f78f2b5c069aec6cb07ef4">metal::_2</a>, seq&gt;&gt;</td>
+          <td class="memname">using <a class="el" href="group__pair.html#ga577d96e206b2ea656ffa9df9ce7c3b6e">metal::second</a> = typedef <a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">metal::if_</a>&lt;<a class="el" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>&lt;seq&gt;, <a class="el" href="group__list.html#ga497f8759a89e447bc0932dcccfeee582">metal::back</a>&lt;seq&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -142,11 +142,11 @@ template&lt;typename seq &gt; </div>
 <p><code>#include &lt;metal/pair/second.hpp&gt;</code></p>
 <p>Returns the second element of a <a class="el" href="index.html#pair">Pair </a>.</p>
 <h2>Usage </h2>
-<p>For any <a class="el" href="index.html#pair">Pair </a> <code>pair</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__pair.html#ga44231a9528746b440a5c09056688656d">metal::second&lt;pair&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
+<p>For any <a class="el" href="index.html#pair">Pair </a> <code>pair</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__pair.html#ga577d96e206b2ea656ffa9df9ce7c3b6e">metal::second&lt;pair&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
 <dl class="section user"><dt>Semantics:</dt><dd>If <code>pair</code> contains <a class="el" href="index.html#value">Values</a> <code>x</code> and <code>y</code> in that order, then <div class="fragment"><div class="line"><span class="keyword">using</span> result = y;</div></div><!-- fragment --></dd></dl>
 <h2>Example </h2>
-<div class="fragment"><div class="line">ASSERT(std::is_same&lt;<a class="code" href="group__pair.html#ga44231a9528746b440a5c09056688656d">metal::second</a>&lt;<a class="code" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair&lt;void, void*&gt;</a>&gt;, <span class="keywordtype">void</span>*&gt;);</div></div><!-- fragment --> <h2>See Also </h2>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">pair</a>, <a class="el" href="group__pair.html#ga14ce89442e054e786f7f0a7175d52aab">first</a>, <a class="el" href="group__list.html#ga9de5aeb7e546bd80a22cc9fb7aaf5947">at</a> </dd></dl>
+<div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__pair.html#ga577d96e206b2ea656ffa9df9ce7c3b6e">metal::second</a>&lt;<a class="code" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair&lt;void, void*&gt;</a>&gt;, <span class="keywordtype">void</span>*);</div></div><!-- fragment --> <h2>See Also </h2>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">pair</a>, <a class="el" href="group__pair.html#gab74a726c430a7ffbad661ca2c7de18e9">first</a>, <a class="el" href="group__list.html#ga836210f04f726c3b4652b8360b23933b">at</a> </dd></dl>
 
 </div>
 </div>

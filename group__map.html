@@ -88,7 +88,7 @@ template&lt;typename seq , typename key &gt; </div>
 template&lt;typename seq , typename key &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#ga15d6bc4dabb3bf2bd52b1c50e5301c3b">metal::erase_key</a> = typedef <a class="el" href="group__list.html#ga4401e7b973513827ee4a7d4003e698f7">metal::erase</a>&lt;seq, <a class="el" href="group__map.html#ga9e0cdef282d8346d4374e9f658541fe0">metal::order</a>&lt;seq, key&gt;&gt;</td>
+          <td class="memname">using <a class="el" href="group__map.html#ga15d6bc4dabb3bf2bd52b1c50e5301c3b">metal::erase_key</a> = typedef <a class="el" href="group__list.html#ga1a6f65b9ddafab254f500dccc3723dd6">metal::erase</a>&lt;seq, <a class="el" href="group__map.html#ga9e0cdef282d8346d4374e9f658541fe0">metal::order</a>&lt;seq, key&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -105,7 +105,7 @@ template&lt;typename seq , typename key &gt; </div>
 template&lt;typename seq , typename key &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#ga35154f2ca13c52c45a1a0d88b4eab09b">metal::has_key</a> = typedef <a class="el" href="group__list.html#ga07bb3fe20cdc3fc7a25b370bf2929865">metal::contains</a>&lt;<a class="el" href="group__map.html#ga7371ab297b7f60074eb1ab0566f71b76">metal::keys</a>&lt;seq&gt;, key&gt;</td>
+          <td class="memname">using <a class="el" href="group__map.html#ga35154f2ca13c52c45a1a0d88b4eab09b">metal::has_key</a> = typedef <a class="el" href="group__list.html#gaafb0b0502f1d9e574be0528179bad6e1">metal::contains</a>&lt;<a class="el" href="group__map.html#ga3636ee6af332209b8742e6a127f684ff">metal::keys</a>&lt;seq&gt;, key&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -132,14 +132,14 @@ template&lt;typename val &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga7371ab297b7f60074eb1ab0566f71b76"></a>
+<a class="anchor" id="ga3636ee6af332209b8742e6a127f684ff"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#ga7371ab297b7f60074eb1ab0566f71b76">metal::keys</a> = typedef typename if_&lt;is_map&lt;seq&gt;, detail::_keys&lt;seq&gt;&gt;::type</td>
+          <td class="memname">using <a class="el" href="group__map.html#ga3636ee6af332209b8742e6a127f684ff">metal::keys</a> = typedef <a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">metal::if_</a>&lt; <a class="el" href="group__map.html#ga74aaca3fae66a7618dff3f439927d9ed">metal::is_map</a>&lt;seq&gt;, <a class="el" href="group__list.html#gab512eeef770a2fbfe4776fefc07dd321">metal::transform</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__pair.html#gab74a726c430a7ffbad661ca2c7de18e9">metal::first</a>&gt;, seq&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -173,7 +173,7 @@ template&lt;typename... pairs&gt; </div>
 template&lt;typename seq , typename key &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#ga9e0cdef282d8346d4374e9f658541fe0">metal::order</a> = typedef <a class="el" href="group__map.html#gae2c4a51a9ea04d77921f8f21465c2857">metal::at_key</a>&lt; <a class="el" href="group__list.html#gaaeb71163d48fe84e4371ca68c99460e8">metal::transpose</a>&lt;<a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair</a>&lt;<a class="el" href="group__map.html#ga7371ab297b7f60074eb1ab0566f71b76">metal::keys</a>&lt;seq&gt;, <a class="el" href="group__list.html#ga0cf876d12ac3ca3b407cd9070feb9030">metal::indices</a>&lt;seq&gt;&gt;&gt;, key &gt;</td>
+          <td class="memname">using <a class="el" href="group__map.html#ga9e0cdef282d8346d4374e9f658541fe0">metal::order</a> = typedef <a class="el" href="group__map.html#gae2c4a51a9ea04d77921f8f21465c2857">metal::at_key</a>&lt; <a class="el" href="group__list.html#ga296011e411485cfebd1c1faa8d783c9f">metal::transpose</a>&lt;<a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair</a>&lt;<a class="el" href="group__map.html#ga3636ee6af332209b8742e6a127f684ff">metal::keys</a>&lt;seq&gt;, <a class="el" href="group__list.html#gac812a0d2ff6ca4b7c52f2bc2130417af">metal::indices</a>&lt;seq&gt;&gt;&gt;, key &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -183,14 +183,14 @@ template&lt;typename seq , typename key &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="gae417d9b9ca8d27f33c56d62e91d52654"></a>
+<a class="anchor" id="ga1f02a299118058aa6d36c9558cb52771"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__map.html#gae417d9b9ca8d27f33c56d62e91d52654">metal::values</a> = typedef typename if_&lt;is_map&lt;seq&gt;, detail::_values&lt;seq&gt;&gt;::type</td>
+          <td class="memname">using <a class="el" href="group__map.html#ga1f02a299118058aa6d36c9558cb52771">metal::values</a> = typedef <a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">metal::if_</a>&lt; <a class="el" href="group__map.html#ga74aaca3fae66a7618dff3f439927d9ed">metal::is_map</a>&lt;seq&gt;, <a class="el" href="group__list.html#gab512eeef770a2fbfe4776fefc07dd321">metal::transform</a>&lt;<a class="el" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda</a>&lt;<a class="el" href="group__pair.html#ga577d96e206b2ea656ffa9df9ce7c3b6e">metal::second</a>&gt;, seq&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
