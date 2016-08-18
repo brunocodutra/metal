@@ -45,7 +45,9 @@ namespace metal
 #include <metal/number/number.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/list/list.hpp>
-#include <metal/list/fold.hpp>
+#include <metal/list/fold_left.hpp>
+
+#include <initializer_list>
 
 namespace metal
 {
@@ -65,13 +67,26 @@ namespace metal
             number<(x < y) ? x : y>
         {};
 
+#if __cpp_constexpr >= 201304
+        template<typename... _>
+        constexpr int_ imin(int_ head, _... tail) {
+            int_ ret = head;
+            for(int_ x : {tail...})
+                if(x < ret) ret = x;
+
+            return ret;
+        }
+
         template<int_ x, int_ y, int_... tail>
         struct _min<number<x>, number<y>, number<tail>...> :
-            _fold<
-                numbers<y, tail...>, number<x>, lambda<min>,
-                number<0>, number<sizeof...(tail) + 1>
-            >
+            number<imin(x, y, tail...)>
         {};
+#else
+        template<int_ x, int_ y, int_... tail>
+        struct _min<number<x>, number<y>, number<tail>...> :
+            _fold_left<numbers<y, tail...>, number<x>, lambda<min>>
+        {};
+#endif
     }
 }
 

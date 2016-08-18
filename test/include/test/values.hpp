@@ -9,15 +9,16 @@
 
 namespace test
 {
-    using val0 = void;
-    using val1 = void*;
+    class val0;
+    using val1 = int;
     using val2 = int[];
-    using val3 = int(*)[];
-    using val4 = int[42];
-    using val5 = int(*)[42];
-    union val6 {template<typename...> struct type;};
-    using val7 = val6::template type<>;
-    enum  val8 {type};
+    using val3 = int[42];
+    using val4 = int*;
+    using val5 = int(*)[];
+    using val6 = int(*)[42];
+    union val7 {template<typename...> struct type;};
+    using val8 = val7::template type<>;
+    enum  val9 {type};
 }
 
 #define VAL(N) CAT(test::val, N)

@@ -26,30 +26,6 @@ namespace metal
         };
 
         template<>
-        struct arg_impl<2U>
-        {
-            template<typename, typename val, typename...>
-            using impl = val;
-
-            using type = lambda<impl>;
-        };
-
-        template<>
-        struct arg_impl<1U>
-        {
-            template<typename val, typename...>
-            struct _impl
-            {
-                using type = val;
-            };
-
-            template<typename... vals>
-            using impl = typename _impl<vals...>::type;
-
-            using type = lambda<impl>;
-        };
-
-        template<>
         struct arg_impl<0U>
         {};
     }
@@ -62,15 +38,15 @@ namespace metal
     /// \ingroup lambda
     /// Default placeholder.
     /// \{
-    using _1  = metal::arg<1U>;
-    using _2  = metal::arg<2U>;
-    using _3  = metal::arg<3U>;
-    using _4  = metal::arg<4U>;
-    using _5  = metal::arg<5U>;
-    using _6  = metal::arg<6U>;
-    using _7  = metal::arg<7U>;
-    using _8  = metal::arg<8U>;
-    using _9  = metal::arg<9U>;
+    using _1 = metal::arg<1U>;
+    using _2 = metal::arg<2U>;
+    using _3 = metal::arg<3U>;
+    using _4 = metal::arg<4U>;
+    using _5 = metal::arg<5U>;
+    using _6 = metal::arg<6U>;
+    using _7 = metal::arg<7U>;
+    using _8 = metal::arg<8U>;
+    using _9 = metal::arg<9U>;
     /// \}
 }
 

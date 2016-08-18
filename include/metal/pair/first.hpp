@@ -6,8 +6,7 @@
 #define METAL_PAIR_FIRST_HPP
 
 #include <metal/pair/pair.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/apply.hpp>
+#include <metal/list/front.hpp>
 #include <metal/number/if.hpp>
 
 namespace metal
@@ -37,7 +36,7 @@ namespace metal
     /// --------
     /// \see pair, second, at
     template<typename seq>
-    using first = metal::if_<metal::is_pair<seq>, metal::apply<metal::_1, seq>>;
+    using first = metal::if_<metal::is_pair<seq>, metal::front<seq>>;
 }
 
 #endif
