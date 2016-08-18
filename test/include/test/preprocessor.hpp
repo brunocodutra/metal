@@ -6,7 +6,7 @@
 #define METAL_TEST_PREPROCESSOR_HPP
 
 #if !defined(INF)
-#   define INF 8
+#   define INF 9
 #endif
 
 #define CAT_IMPL(X, Y) X##Y
@@ -37,6 +37,7 @@
 #define INC_5 6
 #define INC_6 7
 #define INC_7 8
+#define INC_8 9
 #define INC_IMPL(N) INC_##N
 #define INC_(N) (INC_IMPL(N))
 #define INC(N) INC_IMPL(N)
@@ -49,6 +50,7 @@
 #define DEC_6 5
 #define DEC_7 6
 #define DEC_8 7
+#define DEC_9 8
 #define DEC_IMPL(N) DEC_##N
 #define DEC_(N) (DEC_IMPL(N))
 #define DEC(N) DEC_IMPL(N)
@@ -62,6 +64,7 @@
 #define CMPL_6 DEC(CMPL_5)
 #define CMPL_7 DEC(CMPL_6)
 #define CMPL_8 DEC(CMPL_7)
+#define CMPL_9 DEC(CMPL_8)
 #define CMPL_IMPL(N) CMPL_##N
 #define CMPL(N) CMPL_IMPL(N)
 
@@ -86,6 +89,7 @@
 #define FIX_6(...) (6)
 #define FIX_7(...) (7)
 #define FIX_8(...) (8)
+#define FIX_9(...) (9)
 #define FIX_IMPL(N) FIX_##N
 #define FIX(N) FIX_IMPL(N)
 
@@ -128,24 +132,26 @@
 #define FWD(ARG, ...) FWD_ID(DEFER(FWD_IMPL)(ARG, __VA_ARGS__, _))
 
 #define GEN_I0(I, M)
-#define GEN_I1(I, M)  M(I, 0)
-#define GEN_I2(I, M)  GEN_I1(I, M) M(I, 1)
-#define GEN_I3(I, M)  GEN_I2(I, M) M(I, 2)
-#define GEN_I4(I, M)  GEN_I3(I, M) M(I, 3)
-#define GEN_I5(I, M)  GEN_I4(I, M) M(I, 4)
-#define GEN_I6(I, M)  GEN_I5(I, M) M(I, 5)
-#define GEN_I7(I, M)  GEN_I6(I, M) M(I, 6)
-#define GEN_I8(I, M)  GEN_I7(I, M) M(I, 7)
+#define GEN_I1(I, M) M(I, 0)
+#define GEN_I2(I, M) GEN_I1(I, M) M(I, 1)
+#define GEN_I3(I, M) GEN_I2(I, M) M(I, 2)
+#define GEN_I4(I, M) GEN_I3(I, M) M(I, 3)
+#define GEN_I5(I, M) GEN_I4(I, M) M(I, 4)
+#define GEN_I6(I, M) GEN_I5(I, M) M(I, 5)
+#define GEN_I7(I, M) GEN_I6(I, M) M(I, 6)
+#define GEN_I8(I, M) GEN_I7(I, M) M(I, 7)
+#define GEN_I9(I, M) GEN_I8(I, M) M(I, 8)
 
 #define GEN_0J(J, M)
-#define GEN_1J(J, M)  CAT_IMPL(GEN_I, J)(0, M)
-#define GEN_2J(J, M)  GEN_1J(J, M) CAT_IMPL(GEN_I, J)(1, M)
-#define GEN_3J(J, M)  GEN_2J(J, M) CAT_IMPL(GEN_I, J)(2, M)
-#define GEN_4J(J, M)  GEN_3J(J, M) CAT_IMPL(GEN_I, J)(3, M)
-#define GEN_5J(J, M)  GEN_4J(J, M) CAT_IMPL(GEN_I, J)(4, M)
-#define GEN_6J(J, M)  GEN_5J(J, M) CAT_IMPL(GEN_I, J)(5, M)
-#define GEN_7J(J, M)  GEN_6J(J, M) CAT_IMPL(GEN_I, J)(6, M)
-#define GEN_8J(J, M)  GEN_7J(J, M) CAT_IMPL(GEN_I, J)(7, M)
+#define GEN_1J(J, M) CAT_IMPL(GEN_I, J)(0, M)
+#define GEN_2J(J, M) GEN_1J(J, M) CAT_IMPL(GEN_I, J)(1, M)
+#define GEN_3J(J, M) GEN_2J(J, M) CAT_IMPL(GEN_I, J)(2, M)
+#define GEN_4J(J, M) GEN_3J(J, M) CAT_IMPL(GEN_I, J)(3, M)
+#define GEN_5J(J, M) GEN_4J(J, M) CAT_IMPL(GEN_I, J)(4, M)
+#define GEN_6J(J, M) GEN_5J(J, M) CAT_IMPL(GEN_I, J)(5, M)
+#define GEN_7J(J, M) GEN_6J(J, M) CAT_IMPL(GEN_I, J)(6, M)
+#define GEN_8J(J, M) GEN_7J(J, M) CAT_IMPL(GEN_I, J)(7, M)
+#define GEN_9J(J, M) GEN_8J(J, M) CAT_IMPL(GEN_I, J)(8, M)
 
 #define GEN(M) CAT(CAT(GEN_, INF), J)(INF, M)
 

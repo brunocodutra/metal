@@ -62,15 +62,15 @@ namespace metal
     /// \ingroup lambda
     /// Default placeholder.
     /// \{
-    using _1  = metal::arg<1U>;
-    using _2  = metal::arg<2U>;
-    using _3  = metal::arg<3U>;
-    using _4  = metal::arg<4U>;
-    using _5  = metal::arg<5U>;
-    using _6  = metal::arg<6U>;
-    using _7  = metal::arg<7U>;
-    using _8  = metal::arg<8U>;
-    using _9  = metal::arg<9U>;
+    using _1 = metal::arg<1U>;
+    using _2 = metal::arg<2U>;
+    using _3 = metal::arg<3U>;
+    using _4 = metal::arg<4U>;
+    using _5 = metal::arg<5U>;
+    using _6 = metal::arg<6U>;
+    using _7 = metal::arg<7U>;
+    using _8 = metal::arg<8U>;
+    using _9 = metal::arg<9U>;
     /// \}
 }
 

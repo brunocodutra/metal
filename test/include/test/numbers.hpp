@@ -9,15 +9,16 @@
 
 namespace test
 {
-    using num0 = metal::number<0>;
-    using num1 = metal::number<1>;
-    using num2 = metal::number<2>;
-    using num3 = metal::number<3>;
-    using num4 = metal::number<4>;
-    using num5 = metal::number<5>;
-    using num6 = metal::number<6>;
-    using num7 = metal::number<7>;
-    using num8 = metal::number<8>;
+    using num0  = metal::number<0>;
+    using num1  = metal::number<1>;
+    using num2  = metal::number<2>;
+    using num3  = metal::number<3>;
+    using num4  = metal::number<4>;
+    using num5  = metal::number<5>;
+    using num6  = metal::number<6>;
+    using num7  = metal::number<7>;
+    using num8  = metal::number<8>;
+    using num9  = metal::number<9>;
 }
 
 #define FACT_0 1
@@ -29,6 +30,7 @@ namespace test
 #define FACT_6 FACT_5*6
 #define FACT_7 FACT_6*7
 #define FACT_8 FACT_7*8
+#define FACT_9 FACT_7*9
 #define FACT(N) (CAT(FACT_, N))
 
 #define NUM(N) CAT(test::num, N)
