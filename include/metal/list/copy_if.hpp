@@ -5,24 +5,47 @@
 #ifndef METAL_LIST_COPY_IF_HPP
 #define METAL_LIST_COPY_IF_HPP
 
-#include <metal/list/list.hpp>
-#include <metal/list/join.hpp>
 #include <metal/list/transform.hpp>
-#include <metal/lambda/apply.hpp>
-#include <metal/lambda/quote.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/partial.hpp>
-#include <metal/number/if.hpp>
 
 namespace metal
 {
+    namespace detail
+    {
+        template<typename, typename>
+        struct _copy_if_impl;
+    }
+
     /// \ingroup list
     /// ...
     template<typename seq, typename lbd>
-    using copy_if = apply<
-        partial<lambda<join>, list<>>,
-        transform<bind<lambda<if_>, lbd, lambda<list>, quote<list<>>>, seq>
-    >;
+    using copy_if =
+        typename detail::_copy_if_impl<seq, transform<lbd, seq>>::type;
+}
+
+#include <metal/list/list.hpp>
+#include <metal/list/join.hpp>
+#include <metal/number/if.hpp>
+#include <metal/number/number.hpp>
+
+namespace metal
+{
+    namespace detail
+    {
+        template<typename, typename>
+        struct _copy_if_impl
+        {};
+
+        template<>
+        struct _copy_if_impl<list<>, list<>>
+        {
+            using type = list<>;
+        };
+
+        template<typename... vals, int_... vs>
+        struct _copy_if_impl<list<vals...>, list<number<vs>...>> :
+            _join<if_<number<vs>, list<vals>, list<>>...>
+        {};
+    }
 }
 
 #endif
