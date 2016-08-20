@@ -23,9 +23,9 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/size.hpp>
 #include <metal/list/join.hpp>
-#include <metal/list/range.hpp>
+#include <metal/list/drop.hpp>
+#include <metal/list/take.hpp>
 #include <metal/list/copy_if.hpp>
 #include <metal/list/remove_if.hpp>
 #include <metal/lambda/invoke.hpp>
@@ -91,8 +91,8 @@ namespace metal
         template<typename seq, typename lbd>
         using sort_impl = merge<
             lbd,
-            sort<range<seq, number<0>, div<size<seq>, number<2>>>, lbd>,
-            sort<range<seq, div<size<seq>, number<2>>, size<seq>>, lbd>
+            sort<take<seq, div<size<seq>, number<2>>>, lbd>,
+            sort<drop<seq, div<size<seq>, number<2>>>, lbd>
         >;
 
         template<typename seq, typename lbd>

@@ -28,8 +28,8 @@
     CHECK((metal::fold_left<LIST(M), metal::list<>, metal::lambda<metal::push_front>>), (metal::fold_right<LIST(M), metal::list<>, metal::lambda<metal::push_back>>)); \
     CHECK((metal::insert<LIST(M), NUM(M), VAL(N)>), (metal::push_back<LIST(M), VAL(N)>)); \
     CHECK((metal::insert<LIST(M), NUM(0), VAL(N)>), (metal::push_front<LIST(M), VAL(N)>)); \
-    CHECK((metal::erase<LIST(INC(M)), NUM(M)>), (metal::pop_back<LIST(INC(M))>)); \
-    CHECK((metal::erase<LIST(INC(M)), NUM(0)>), (metal::pop_front<LIST(INC(M))>)); \
+    CHECK((metal::erase<LIST(INF), NUM(M), NUM(INF)>), (metal::take<LIST(INF), NUM(M)>)); \
+    CHECK((metal::erase<LIST(INF), NUM(0), NUM(M)>), (metal::drop<LIST(INF), NUM(M)>)); \
     CHECK((metal::same<metal::enumerate<NUM(M), NUM(N), NUM(0)>>), (TRUE)); \
     CHECK((metal::slice<LIST(M), NUM(0), metal::size<LIST(M)>>), (LIST(M))); \
     CHECK((metal::range<metal::list<NUMS(M)>, NUM(M), NUM(0)>), (metal::reverse<metal::list<NUMS(M)>>)); \

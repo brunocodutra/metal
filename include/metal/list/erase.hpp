@@ -6,9 +6,8 @@
 #define METAL_LIST_ERASE_HPP
 
 #include <metal/list/join.hpp>
-#include <metal/list/size.hpp>
-#include <metal/list/range.hpp>
-#include <metal/number/number.hpp>
+#include <metal/list/drop.hpp>
+#include <metal/list/take.hpp>
 #include <metal/number/min.hpp>
 #include <metal/number/max.hpp>
 #include <metal/number/inc.hpp>
@@ -19,8 +18,8 @@ namespace metal
     /// ...
     template<typename seq, typename beg, typename end = inc<beg>>
     using erase = metal::join<
-        metal::range<seq, metal::number<0>, metal::min<beg, end>>,
-        metal::range<seq, metal::max<beg, end>, metal::size<seq>>
+        metal::take<seq, metal::min<beg, end>>,
+        metal::drop<seq, metal::max<beg, end>>
     >;
 }
 

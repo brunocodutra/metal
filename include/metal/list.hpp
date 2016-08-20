@@ -14,6 +14,7 @@
 #include <metal/list/copy_if.hpp>
 #include <metal/list/count.hpp>
 #include <metal/list/count_if.hpp>
+#include <metal/list/drop.hpp>
 #include <metal/list/empty.hpp>
 #include <metal/list/erase.hpp>
 #include <metal/list/find.hpp>
@@ -28,8 +29,6 @@
 #include <metal/list/list.hpp>
 #include <metal/list/none.hpp>
 #include <metal/list/partition.hpp>
-#include <metal/list/pop_back.hpp>
-#include <metal/list/pop_front.hpp>
 #include <metal/list/push_back.hpp>
 #include <metal/list/push_front.hpp>
 #include <metal/list/range.hpp>
@@ -42,6 +41,7 @@
 #include <metal/list/slice.hpp>
 #include <metal/list/sort.hpp>
 #include <metal/list/splice.hpp>
+#include <metal/list/take.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/list/transpose.hpp>
 
