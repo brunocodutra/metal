@@ -7,10 +7,10 @@
 
 #include <metal/list/size.hpp>
 #include <metal/number/if.hpp>
-#include <metal/number/or.hpp>
-#include <metal/number/not.hpp>
+#include <metal/number/max.hpp>
+#include <metal/number/min.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/greater.hpp>
+#include <metal/value/same.hpp>
 
 namespace metal
 {
@@ -25,8 +25,8 @@ namespace metal
     template<typename seq, typename beg, typename end>
     using range = typename detail::_range<
         seq,
-        if_<not_<or_<greater<number<0>, beg>, greater<beg, size<seq>>>>, beg>,
-        if_<not_<or_<greater<number<0>, end>, greater<end, size<seq>>>>, end>
+        if_<same<min<max<number<0>, beg>, size<seq>>, beg>, beg>,
+        if_<same<min<max<number<0>, end>, size<seq>>, end>, end>
     >::type;
 }
 
@@ -34,9 +34,11 @@ namespace metal
 #include <metal/list/join.hpp>
 #include <metal/list/reverse.hpp>
 #include <metal/number/enumerate.hpp>
+#include <metal/number/sub.hpp>
 #include <metal/value/value.hpp>
 
 #include <metal/detail/declptr.hpp>
+#include <metal/detail/pick.hpp>
 
 namespace metal
 {
@@ -45,79 +47,64 @@ namespace metal
         template<typename> using void_ = void;
 
         template<typename, typename>
-        struct _drop_impl
+        struct _range_impl
         {};
 
         template<typename... vals, typename... _>
-        struct _drop_impl<list<vals...>, list<_...>>
+        struct _range_impl<list<vals...>, list<_...>>
         {
-            template<typename... vals_>
-            static list<vals_...> impl(void_<_>*..., value<vals_>*...);
+            template<typename... tail>
+            static list<tail...> impl(void_<_>*..., value<tail>*...);
 
             using type = decltype(impl(declptr<value<vals>>()...));
         };
 
-        template<typename seq, typename n>
-        struct _drop :
-            _drop_impl<seq, enumerate<number<0>, n>>
+        template<typename seq, typename beg, typename end>
+        struct _range :
+             _range<
+                range<
+                    range<seq, min<beg, end>, size<seq>>,
+                    number<0>,
+                    sub<max<beg, end>, min<beg, end>>
+                >,
+                sub<beg, min<beg, end>>,
+                sub<end, min<beg, end>>
+            >
         {};
 
         template<typename seq, typename n>
-        using drop = typename _drop<seq, n>::type;
-
-        template<typename, typename>
-        struct _take_impl
-        {};
-
-        template<typename... vals, typename... _>
-        struct _take_impl<list<vals...>, list<_...>> :
-            _join<if_<_, list<vals>, list<>>...>
-        {};
-
-        template<typename seq, typename n>
-        struct _take
-        {};
-
-        template<typename... vals, int_ n>
-        struct _take<list<vals...>, number<n>> :
-            _take_impl<
-                list<vals...>,
+        struct _range<seq, number<0>, n> :
+            _pick<
+                seq,
                 join<
-                    enumerate<number<1>, number<n>, number<0>>,
-                    enumerate<number<0>, number<sizeof...(vals) - n>, number<0>>
+                    enumerate<number<1>, n, number<0>>,
+                    enumerate<number<0>, sub<size<seq>, n>, number<0>>
                 >
             >
         {};
 
         template<typename seq, typename n>
-        using take = typename _take<seq, n>::type;
+        struct _range<seq, n, size<seq>> :
+            _range_impl<seq, enumerate<number<0>, n>>
+        {};
 
-        template<typename seq, typename beg, typename end, typename = true_>
-        struct _range_impl
+        template<typename seq>
+        struct _range<seq, number<0>, size<seq>>
+        {
+            using type = seq;
+        };
+
+        template<typename seq>
+        struct _range<seq, size<seq>, number<0>>
+        {
+            using type = reverse<seq>;
+        };
+
+        template<>
+        struct _range<list<>, number<0>, number<0>>
         {
             using type = list<>;
         };
-
-        template<typename seq, int_ b, int_ e>
-        struct _range_impl<seq, number<b>, number<e>,
-            number<(e > b)>
-        >
-        {
-            using type = take<drop<seq, number<b>>, number<e - b>>;
-        };
-
-        template<typename seq, int_ b, int_ e>
-        struct _range_impl<seq, number<b>, number<e>,
-            number<(e < b)>
-        >
-        {
-            using type = reverse<take<drop<seq, number<e>>, number<b - e>>>;
-        };
-
-        template<typename seq, typename beg, typename end>
-        struct _range :
-            _range_impl<seq, beg, end>
-        {};
     }
 }
 

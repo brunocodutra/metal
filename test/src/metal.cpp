@@ -32,6 +32,7 @@
     CHECK((metal::erase<LIST(INC(M)), NUM(0)>), (metal::pop_front<LIST(INC(M))>)); \
     CHECK((metal::same<metal::enumerate<NUM(M), NUM(N), NUM(0)>>), (TRUE)); \
     CHECK((metal::slice<LIST(M), NUM(0), metal::size<LIST(M)>>), (LIST(M))); \
+    CHECK((metal::range<metal::list<NUMS(M)>, NUM(M), NUM(0)>), (metal::reverse<metal::list<NUMS(M)>>)); \
     CHECK((metal::sort<metal::list<NUMS(M)>, metal::lambda<metal::greater>>), (metal::reverse<metal::list<NUMS(M)>>)); \
     CHECK((metal::transform<metal::bind<metal::lambda<metal::at>, metal::quote<LIST(M)>, metal::_1>, metal::list<NUMS(M)>>), (LIST(M))); \
     CHECK((metal::transpose<metal::transpose<MAP(INC(M))>>), (MAP(INC(M)))); \
