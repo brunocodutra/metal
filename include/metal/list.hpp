@@ -7,6 +7,7 @@
 
 #include <metal/list/all.hpp>
 #include <metal/list/any.hpp>
+#include <metal/list/append.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/back.hpp>
 #include <metal/list/contains.hpp>
@@ -29,8 +30,7 @@
 #include <metal/list/list.hpp>
 #include <metal/list/none.hpp>
 #include <metal/list/partition.hpp>
-#include <metal/list/push_back.hpp>
-#include <metal/list/push_front.hpp>
+#include <metal/list/prepend.hpp>
 #include <metal/list/range.hpp>
 #include <metal/list/remove.hpp>
 #include <metal/list/remove_if.hpp>

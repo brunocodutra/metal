@@ -25,9 +25,9 @@
     CHECK((metal::flatten<metal::transpose<metal::list<LIST(M)>>>), (LIST(M))); \
     CHECK((metal::flatten<metal::fold_left<LIST(M), metal::list<>, metal::lambda<metal::list>>>), (metal::list<VALS(M)>)); \
     CHECK((metal::at<LIST(INF), metal::find<LIST(INF), VAL(M)>>), (VAL(M))); \
-    CHECK((metal::fold_left<LIST(M), metal::list<>, metal::lambda<metal::push_front>>), (metal::fold_right<LIST(M), metal::list<>, metal::lambda<metal::push_back>>)); \
-    CHECK((metal::insert<LIST(M), NUM(M), VAL(N)>), (metal::push_back<LIST(M), VAL(N)>)); \
-    CHECK((metal::insert<LIST(M), NUM(0), VAL(N)>), (metal::push_front<LIST(M), VAL(N)>)); \
+    CHECK((metal::fold_left<LIST(M), metal::list<>, metal::lambda<metal::prepend>>), (metal::fold_right<LIST(M), metal::list<>, metal::lambda<metal::append>>)); \
+    CHECK((metal::insert<LIST(M), NUM(M), VAL(N)>), (metal::append<LIST(M), VAL(N)>)); \
+    CHECK((metal::insert<LIST(M), NUM(0), VAL(N)>), (metal::prepend<LIST(M), VAL(N)>)); \
     CHECK((metal::erase<LIST(INF), NUM(M), NUM(INF)>), (metal::take<LIST(INF), NUM(M)>)); \
     CHECK((metal::erase<LIST(INF), NUM(0), NUM(M)>), (metal::drop<LIST(INF), NUM(M)>)); \
     CHECK((metal::same<metal::enumerate<NUM(M), NUM(N), NUM(0)>>), (TRUE)); \
