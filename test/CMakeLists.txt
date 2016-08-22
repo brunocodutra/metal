@@ -4,5 +4,9 @@
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
+add_definitions(-DEXPECTED_METAL_MAJOR=${METAL_MAJOR})
+add_definitions(-DEXPECTED_METAL_MINOR=${METAL_MINOR})
+add_definitions(-DEXPECTED_METAL_PATCH=${METAL_PATCH})
+
 add_custom_target(tests)
 metal_add_test_tree(tests "${CMAKE_CURRENT_SOURCE_DIR}/src/")
