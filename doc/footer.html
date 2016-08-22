@@ -5,13 +5,9 @@
       <div class="container">
         <div class="row text-muted">
           <div class="col-md-12">
-            <ul class="social-btns">
-              <li class="social-btn">
-                <iframe class="github-btn" src="https://ghbtns.com/github-btn.html?user=brunocodutra&amp;repo=metal&amp;type=watch&amp;count=true" title="Star on GitHub" height="20" width="100"></iframe>
-              </li>
-              <li class="social-btn">
-                <iframe class="github-btn" src="https://ghbtns.com/github-btn.html?user=brunocodutra&amp;repo=metal&amp;type=fork&amp;count=true" title="Fork on GitHub" height="20" width="102"></iframe>
-              </li>
+            <ul class="list-inline">
+              <li><iframe class="github-btn" src="https://ghbtns.com/github-btn.html?user=brunocodutra&amp;repo=metal&amp;type=watch&amp;count=true" title="Star on GitHub"></iframe></li>
+              <li><iframe class="github-btn" src="https://ghbtns.com/github-btn.html?user=brunocodutra&amp;repo=metal&amp;type=fork&amp;count=true" title="Fork on GitHub"></iframe></li>
             </ul>
             &copy; Copyright 2015
             <a href="https://github.com/brunocodutra">Bruno Dutra</a>,
@@ -23,9 +19,24 @@
         </div>
       </div>
     </div>
-
-    <script type="text/javascript" src="$relpath^jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="$relpath^bootstrap.min.js"></script>
-    <script type="text/javascript" src="$relpath^metal.js"></script>
+    <script>
+      /*!
+       * IE10 viewport hack for Surface/desktop Windows 8 bug
+       * Copyright 2014-2015 Twitter, Inc.
+       * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+       */
+      (function () {
+        'use strict';
+        if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+          var msViewportStyle = document.createElement('style')
+          msViewportStyle.appendChild(
+            document.createTextNode(
+              '@-ms-viewport{width:auto!important}'
+            )
+          )
+          document.querySelector('head').appendChild(msViewportStyle)
+        }
+      })();
+    </script>
   </body>
 </html>

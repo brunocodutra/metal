@@ -16,8 +16,7 @@ namespace metal
     /// \ingroup number
     /// Computes the minimum of \numbers.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1, ..., num_n`
     /// \code
     ///     using result = metal::min<num_1, ..., num_n>;
@@ -31,12 +30,10 @@ namespace metal
     ///         using result = metal::number<m>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp min
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, max
     template<typename head, typename... tail>
     using min = typename detail::_min<head, tail...>::type;

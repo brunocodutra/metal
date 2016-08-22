@@ -18,8 +18,7 @@ namespace metal
     /// \ingroup number
     /// Generates a sequence of \numbers.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `st`, `sz` and `sd`
     /// \code
     ///     using result = metal::enumerate<st, sz, sd>;
@@ -52,12 +51,10 @@ namespace metal
     ///         using result = metal::list<>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp enumerate
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, list
     template<typename start, typename size, typename stride = number<1>>
     using enumerate = typename detail::_enumerate<start, size, stride>::type;

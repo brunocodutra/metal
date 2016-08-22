@@ -16,8 +16,7 @@ namespace metal
     /// \ingroup number
     /// A multi-clause conditional expression.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1, ..., num_n` and \values `val_1, ..., val_n+1`
     /// \code
     ///     using result = metal::if<num_1, val_1, ..., num_n, val_n, val_n+1>;
@@ -34,12 +33,10 @@ namespace metal
     ///         using result = val_n+1;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp if_
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number
     template<typename cond, typename then_, typename... else_>
     using if_ = typename detail::_if_<cond, then_, else_...>::type;

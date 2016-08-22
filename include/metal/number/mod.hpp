@@ -16,8 +16,7 @@ namespace metal
     /// \ingroup number
     /// Computes the remainder of the arithmetic division of \numbers.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1, ..., num_n`
     /// \code
     ///     using result = metal::mod<num_1, ..., num_n>;
@@ -30,12 +29,10 @@ namespace metal
     ///         using result = metal::number<num_1{} % ... % num_n{}>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp mod
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, inc, dec, neg, add, sub, mul, div, pow
     template<typename head, typename... tail>
     using mod = typename detail::_mod<head, tail...>::type;

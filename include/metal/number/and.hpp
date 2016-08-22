@@ -14,8 +14,7 @@ namespace metal
     /// \ingroup number
     /// Computes the logical conjunction of \numbers.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1, ..., num_n`
     /// \code
     ///     using result = metal::and_<num_1, ..., num_n>;
@@ -27,12 +26,10 @@ namespace metal
     ///         using result = metal::number<num_1{} && ... && num_n{}>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp and_
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, not_, or_
     template<typename... nums>
     using and_ = metal::same<metal::false_, metal::not_<nums>...>;

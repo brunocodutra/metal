@@ -16,8 +16,7 @@ namespace metal
     /// \ingroup number
     /// Computes the maximum of \numbers.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1, ..., num_n`
     /// \code
     ///     using result = metal::max<num_1, ..., num_n>;
@@ -31,12 +30,10 @@ namespace metal
     ///         using result = metal::number<m>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp max
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, min
     template<typename head, typename... tail>
     using max = typename detail::_max<head, tail...>::type;

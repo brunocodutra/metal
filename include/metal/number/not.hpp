@@ -13,8 +13,7 @@ namespace metal
     /// \ingroup number
     /// Computes the logical negation of a \number.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \number `num`
     /// \code
     ///     using result = metal::not_<num>;
@@ -26,12 +25,10 @@ namespace metal
     ///         using result = metal::number<!val{}>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp not_
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, and_, or_
     template<typename num>
     using not_ = metal::if_<num, metal::false_, metal::true_>;

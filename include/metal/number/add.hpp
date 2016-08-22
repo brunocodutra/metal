@@ -16,8 +16,7 @@ namespace metal
     /// \ingroup number
     /// Computes the arithmetic addition of \numbers.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1, ..., num_n`
     /// \code
     ///     using result = metal::add<num_1, ..., num_n>;
@@ -29,12 +28,10 @@ namespace metal
     ///         using result = metal::number<num_1{} + ... + num_n{}>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp add
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, inc, dec, neg, sub, mul, div, mod, pow
     template<typename head, typename... tail>
     using add = typename detail::_add<head, tail...>::type;

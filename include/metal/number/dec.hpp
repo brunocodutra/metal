@@ -13,8 +13,7 @@ namespace metal
     /// \ingroup number
     /// Decrements a \number.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \number `num`
     /// \code
     ///     using result = metal::dec<num>;
@@ -26,12 +25,10 @@ namespace metal
     ///         using result = metal::number<num{} - 1>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp dec
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, inc, neg, add, sub, mul, div, mod, pow
     template<typename num>
     using dec = metal::sub<num, metal::number<1>>;

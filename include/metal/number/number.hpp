@@ -10,14 +10,12 @@
 
 namespace metal
 {
-    /// \ingroup number
-    /// The underlying integral representation of \numbers.
-    using int_ = intmax_t;
-
     namespace detail
     {
         template<typename val>
         struct _is_number;
+
+        using int_ = std::intmax_t;
 
         template<int_... vs>
         struct _numbers;
@@ -26,8 +24,7 @@ namespace metal
     /// \ingroup number
     /// Checks whether some \value is a \number.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \value `val`
     /// \code
     ///     using result = metal::is_number<val>;
@@ -44,15 +41,17 @@ namespace metal
     ///         using result = metal::false_;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp is_number
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, true_, false_
     template<typename val>
     using is_number = typename detail::_is_number<val>::type;
+
+    /// \ingroup number
+    /// The underlying integral representation of \numbers.
+    using int_ = detail::int_;
 
     /// \ingroup number
     /// Constructs a \number out of an integral value.

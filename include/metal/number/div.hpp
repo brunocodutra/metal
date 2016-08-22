@@ -16,8 +16,7 @@ namespace metal
     /// \ingroup number
     /// Computes the quotient of the arithmetic division of \numbers.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1, ..., num_n`
     /// \code
     ///     using result = metal::div<num_1, ..., num_n>;
@@ -30,12 +29,10 @@ namespace metal
     ///         using result = metal::number<num_1{} / ... / num_n{}>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp div
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, inc, dec, neg, add, sub, mul, mod, pow
     template<typename head, typename... tail>
     using div = typename detail::_div<head, tail...>::type;

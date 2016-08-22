@@ -13,8 +13,7 @@ namespace metal
     /// \ingroup number
     /// Increments a \number.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \number `num`
     /// \code
     ///     using result = metal::inc<num>;
@@ -26,12 +25,10 @@ namespace metal
     ///         using result = metal::number<num::{} + 1>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp inc
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, dec, neg, add, sub, mul, div, mod, pow
     template<typename num>
     using inc = metal::add<num, metal::number<1>>;

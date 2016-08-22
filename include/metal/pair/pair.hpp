@@ -18,8 +18,7 @@ namespace metal
     /// \ingroup pair
     /// Checks whether some \value is a \pair.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \value `val`
     /// \code
     ///     using result = metal::is_pair<val>;
@@ -36,12 +35,10 @@ namespace metal
     ///         using result = metal::false_;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet pair.cpp is_pair
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see pair
     template<typename val>
     using is_pair = typename detail::_is_pair<val>::type;

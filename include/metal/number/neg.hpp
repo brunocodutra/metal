@@ -13,8 +13,7 @@ namespace metal
     /// \ingroup number
     /// Computes the additive inverse of a \number.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \number `num`
     /// \code
     ///     using result = metal::neg<num>;
@@ -26,12 +25,10 @@ namespace metal
     ///         using result = metal::number<-num{}>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp neg
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, inc, dec, add, sub, mul, div, mod, pow
     template<typename num>
     using neg = metal::sub<metal::number<0>, num>;

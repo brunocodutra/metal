@@ -16,8 +16,7 @@ namespace metal
     /// \ingroup number
     /// Computes the arithmetic multiplication of \numbers.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1, ..., num_n`
     /// \code
     ///     using result = metal::mul<num_1, ..., num_n>;
@@ -29,12 +28,10 @@ namespace metal
     ///         using result = metal::number<num_1{} * ... * num_n{}>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp mul
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, inc, dec, neg, add, sub, div, mod, pow
     template<typename head, typename... tail>
     using mul = typename detail::_mul<head, tail...>::type;

@@ -14,8 +14,7 @@ namespace metal
     /// \ingroup pair
     /// Returns the first element of a \pair.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \pair `pair`
     /// \code
     ///     using result = metal::first<pair>;
@@ -28,12 +27,10 @@ namespace metal
     ///         using result = x;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet pair.cpp first
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see pair, second, at
     template<typename seq>
     using first = metal::if_<metal::is_pair<seq>, metal::front<seq>>;

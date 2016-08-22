@@ -14,8 +14,7 @@ namespace metal
     /// \ingroup number
     /// Computes the logical disjunction of \numbers.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1, ..., num_n`
     /// \code
     ///     using result = metal::or_<num_1, ..., num_n>;
@@ -27,12 +26,10 @@ namespace metal
     ///         using result = metal::number<num_1{} || ... || num_n{}>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp or_
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, not_, and_
     template<typename... nums>
     using or_ = metal::not_<metal::same<metal::true_, metal::not_<nums>...>>;

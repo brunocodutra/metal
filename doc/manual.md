@@ -1,11 +1,11 @@
-# Documentation {#mainpage}
+# Introduction {#mainpage}
 
 \tableofcontents
 
 Metal is a [portable](#portability) header-only [C++14] library
 designed to make [template metaprogramming][tmp] enjoyable.
-To that end, it provides a powerful high-level [abstraction](#concepts) for
-compile-time algorithms that mimic the [standard algorithms library][algorithm],
+It provides a powerful high-level [abstraction](#concepts) for compile-time
+algorithms that mimic the [standard algorithms library][algorithm],
 hence **Metal** - <b>Meta</b>programming <b>Al</b>gorithms.
 
 Motivation {#motivation}
@@ -22,7 +22,7 @@ Contrary to the C preprocessor, it has long been noticed that
 thus consolidating template metaprogramming as the standard idiom for
 compile time computations in C++.
 
-In March of 2003 the [Boost Metaprogramming Library][Boost.MPL],
+In March of 2003 the [Boost Metaprogramming Library (MPL)][Boost.MPL],
 by Aleksey Gurtovoy and David Abrahams,
 is officially shipped with Boost version 1.30.0.
 A masterpiece of template metaprogramming,
@@ -91,7 +91,7 @@ Installing {#installing}
 --------------------------------------------------------------------------------
 
 Metal may optionally be installed system-wide to ease integration with external
-projects, but if you'd rather use Metal locally, you may skip to the
+projects. If you'd rather use Metal locally, you may skip to the
 [next section](#using_metal).
 
 Make sure to have [CMake] v2.8.12 or newer installed on your system, then,
@@ -113,8 +113,8 @@ include tree.
 
 If you chose to [install Metal system-wide](#installing),
 make sure the installation prefix is looked up by your compiler.
-If you use [CMake] it should suffice to add the following to your project's
-configuration.
+In case you use [CMake] to automate building your projects, it should suffice to
+add the following to the `CMakeLists.txt`.
 
     find_package(Metal REQUIRED)
     include_directories(${METAL_INCLUDE_DIRS})
@@ -152,24 +152,26 @@ The documentation will be generated into `doc/html/`.
 To browse the documentation offline,
 simply load `index.html` on any web browser that supports [JavaScript].
 
-Header Organization {#header_organization}
+Project Organization {#project_organization}
 --------------------------------------------------------------------------------
 
-Each header in Metal is named after the construct it defines,
-so for instance `distinct.hpp` defines `metal::distinct`,
-while `enumerate.hpp` defines `metal::enumerate`.
+Metal is designed to be fine grained and intuitive. Header files define a single
+algorithm each, after which they are named, and are semantically organized
+within directories that represent modules. For convenience, along each directory
+one also finds a homonimous header file that includes everything therein, that
+is, every header file pertaining to that module. The complete hierarchy of
+modules and their header files is available on
+[Metal's GitHub repository][Metal.headers].
 
-Headers are semantically organized within modules named after the various
-[concepts](#concepts). Each module corresponds to a directory in the filesystem,
-which may also contain sub-directories, that is, sub-modules.
-For convenience, along each directory one finds a homonimous header file that
-includes everything therein. The complete hierarchy of modules and headers is
-available in the [Headers](files.html) tab.
+Each module is named after a [concept](#concepts) and contains algorithms that
+operate on models of that concept. The complete reference documentation for the
+modules and their algorithms is available in section [Reference](modules.html).
 
-\danger{
-    Headers within `detail/` are undocumented and should be expected to
+\warning{
+    Header files within `detail/` are undocumented and should be expected to
     undergo breaking changes without prior notice. Directly depending on these
-    headers or on `namespace metal::detail` is strongly discouraged.
+    header files or, likewise, on any name that is defined within
+    `namespace metal::detail` is strongly discouraged.
 }
 
 Portability {#portability}
@@ -222,6 +224,16 @@ if your favorite compiler is not included, please [let us know][Metal.issues].
     continuous integration tools. If they don't load correctly that
     might be due to a temporary network downtime.
 }
+
+Benchmarks {#benchmarks}
+================================================================================
+
+To make sure Metal does not slow compilation times even when manipulating
+hundreds or even thousands of types at a time, a comprehensive set of benchmarks
+has been set up at [Metabench] to help keeping track of Metal's performance
+against some of the most popular metaprogramming libraries available out there.
+Benchmark results are updated nightly for various supported compilers and should
+reflect the performance delivered by Metal at branch `master`.
 
 Concepts {#concepts}
 ================================================================================
@@ -420,24 +432,25 @@ about its arguments, which may very well be unknown at compile-time.
 
 So how can we convince the compiler that indices are always known at
 compile-time? We refactor the subscript operator to take an instance of
-`metal::number`.
+`metal::number` instead.
 
 \snippet literal.cpp augmented_tuple
 
-Since `i` in this context is already a template argument, the compiler has no
-reason to complain about passing it on as an argument to other template
-instantiations.
+Using template patern matching, we can extract the underlying value `i`, which
+in this context is already a template argument and thus guaranteed to be known
+at compile-time, so compilers have no reason to object to passing it on as
+an argument to other template instantiations.
 
 \snippet literal.cpp teaser_3
 
 That looks promising, but then again isn't `metal::number<1>{}` just as clunky
 as `std::get<1>()`? Yes. Absolutely.
 
-That's where [literal operators][literal] come into play.
+That's where [literal operators][literal] shine.
 
 \snippet literal.cpp teaser_4
 
-We're are getting there, but how is `_c` implemented again?
+We're are getting there, but how is `_c` implemented?
 
 At a first glance it might be tempting to try something like this
 
@@ -445,14 +458,14 @@ At a first glance it might be tempting to try something like this
 \snippet literal.cpp naive_2
 }
 
-but do not forget why we're here to begin with, recall we can't instantiate
-a template using a non-constexpr variable as argument!
+but do not forget why we're here to begin with, that is, recall we can't
+instantiate a template using a non-constexpr variable as argument!
 
 At this point, a watchful reader might argue that in theory there is no real
 reason for this to be rejected, since the literal value must always be known at
 compile-time and that makes a lot of sense indeed, but unfortunately that's just
 not how it works. All is not lost however, because we can still parse raw
-literals, that is, we are in for some fun!
+literals, which means we are in for some fun!
 
 ### The Raw Literal Operator Template
 
@@ -474,8 +487,8 @@ as well as digit separators
 
 We start by defining the literal operator `_c` as a function that forwards the
 raw literal characters as a [List] of [Numbers] to `parse_number` and returns a
-default constructed object of whatever type aliases to.
-In this case it is guaranteed to be a [Number].
+default constructed object of whatever type it aliases to, which in this case
+is guaranteed to be a [Number].
 
 \snippet literal.cpp _c
 
@@ -561,7 +574,7 @@ specific purpose and construct a [Lambda] from it, much like we did for
 If *bind expressions* look scary to you, don't panic, we will cover [Expression]
 composition in detail in our [next practical example](#church_booleans).
 Here it suffices to know that *bind expressions* are themselves [Lambdas] and
-that `metal::_1` and `metal::_2` are [Placeholders] that get substituted by the
+that `metal::_1` and `metal::_2` are *placeholders* that get substituted by the
 first and second arguments with which the *bind expression* is invoked prior to
 the recursive evaluation of the [Expressions] that compose the
 *bind expression*.
@@ -572,7 +585,7 @@ That's where `metal::apply` comes into play.
 
 \snippet literal.cpp sum
 
-And there you go
+And there we have it
 
 \snippet literal.cpp assemble_number
 
@@ -611,8 +624,6 @@ TODO
 [Pairs]:            #pair
 [Map]:              #map
 [Maps]:             #map
-[Placeholder]:      \ref placeholders
-[Placeholders]:     \ref placeholders
 
 [C++11]:            http://en.wikipedia.org/wiki/C%2B%2B11
 [C++14]:            http://en.wikipedia.org/wiki/C%2B%2B14
@@ -645,8 +656,8 @@ TODO
 
 [Boost.MPL]:        http://boost.org/doc/libs/1_60_0/libs/mpl/doc
 [Boost.Hana]:       http://boostorg.github.io/hana
-[meta]:             http://github.com/ericniebler/meta
-[turbo]:            http://github.com/Manu343726/Turbo
+[Meta]:             http://github.com/ericniebler/meta
+[Brigand]:          http://github.com/edouarda/brigand
 
 [mpl.lite]:         http://rrsd.com/blincubator.com/bi_suggestion/mpl-lite-or-mpl2/
 
@@ -660,3 +671,6 @@ TODO
 
 [Metal.issues]:     http://github.com/brunocodutra/metal/issues
 [Metal.latest]:     http://github.com/brunocodutra/metal/archive/master.zip
+[Metal.headers]:    http://github.com/brunocodutra/metal/tree/master/include
+
+[Metabench]:        http://brunocodutra.github.io/metabench/
