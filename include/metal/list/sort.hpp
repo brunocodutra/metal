@@ -14,22 +14,22 @@ namespace metal
     {
         template<typename seq, typename lbd>
         struct _sort;
+
+        template<typename seq, typename lbd>
+        using sort = typename _sort<seq, lbd>::type;
     }
 
     /// \ingroup list
     /// ...
     template<typename seq, typename lbd>
-    using sort = typename detail::_sort<seq, if_<is_lambda<lbd>, lbd>>::type;
+    using sort = detail::sort<seq, if_<is_lambda<lbd>, lbd>>;
 }
 
 #include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
-#include <metal/list/drop.hpp>
-#include <metal/list/take.hpp>
-#include <metal/list/copy_if.hpp>
-#include <metal/list/remove_if.hpp>
+#include <metal/list/size.hpp>
+#include <metal/list/range.hpp>
 #include <metal/lambda/invoke.hpp>
-#include <metal/lambda/partial.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/div.hpp>
 
@@ -37,73 +37,76 @@ namespace metal
 {
     namespace detail
     {
-        template<typename lbd, typename x, typename y>
-        struct _merge;
-
-        template<typename lbd, typename x, typename y>
-        using merge = typename _merge<lbd, x, y>::type;
-
-        template<typename lbd, typename x, typename xh, typename y, typename yh>
-        using merge_impl = join<
-            remove_if<x, partial<lbd, yh>>,
-            remove_if<y, partial<lbd, xh>>,
-            merge<
-                lbd,
-                copy_if<x, partial<lbd, yh>>,
-                copy_if<y, partial<lbd, xh>>
-            >
-        >;
-
-        template<typename lbd, typename x, typename y>
+        template<typename, typename, typename, typename, typename = true_>
         struct _merge
         {};
 
         template<
-            typename lbd,
+            typename ret,
             typename xh, typename... xt,
-            typename yh, typename... yt
+            typename yh, typename... yt,
+            template<typename...> class expr
         >
-        struct _merge<lbd, list<xh, xt...>, list<yh, yt...>> :
-            _invoke<
-                lambda<merge_impl>,
-                lbd, list<xh, xt...>, xh, list<yh, yt...>, yh
+        struct _merge<ret, list<xh, xt...>, list<yh, yt...>, lambda<expr>,
+            if_<expr<xh, yh>, true_, false_>
+        > :
+            _merge<
+                join<ret, list<xh>>, list<xt...>, list<yh, yt...>, lambda<expr>
             >
         {};
 
-        template<typename lbd, typename seq>
-        struct _merge<lbd, seq, list<>>
-        {
-            using type = seq;
-        };
+        template<
+            typename ret,
+            typename xh, typename... xt,
+            typename yh, typename... yt,
+            template<typename...> class expr
+        >
+        struct _merge<ret, list<xh, xt...>, list<yh, yt...>, lambda<expr>,
+            if_<expr<xh, yh>, false_, true_>
+        > :
+            _merge<
+                join<ret, list<yh>>, list<xh, xt...>, list<yt...>, lambda<expr>
+            >
+        {};
 
-        template<typename lbd, typename seq>
-        struct _merge<lbd, list<>, seq>
-        {
-            using type = seq;
-        };
+        template<typename ret, typename seq, typename lbd>
+        struct _merge<ret, seq, list<>, lbd> :
+            _join<ret, seq>
+        {};
 
-        template<typename lbd>
-        struct _merge<lbd, list<>, list<>>
+        template<typename ret, typename seq, typename lbd>
+        struct _merge<ret, list<>, seq, lbd> :
+            _join<ret, seq>
+        {};
+
+        template<typename ret, typename lbd>
+        struct _merge<ret, list<>, list<>, lbd>
         {
-            using type = list<>;
+            using type = ret;
         };
 
         template<typename seq, typename lbd>
-        using sort_impl = merge<
-            lbd,
-            sort<take<seq, div<size<seq>, number<2>>>, lbd>,
-            sort<drop<seq, div<size<seq>, number<2>>>, lbd>
-        >;
+        using sort_impl = typename _merge<
+            list<>,
+            sort<range<seq, number<0>, div<size<seq>, number<2>>>, lbd>,
+            sort<range<seq, div<size<seq>, number<2>>, size<seq>>, lbd>,
+            lbd
+        >::type;
 
         template<typename seq, typename lbd>
         struct _sort :
             _invoke<lambda<sort_impl>, seq, lbd>
         {};
 
-        template<typename val, typename lbd>
-        struct _sort<list<val>, lbd>
+        template<typename x, typename y, typename lbd>
+        struct _sort<list<x, y>, lbd> :
+            _merge<list<>, list<x>, list<y>, lbd>
+        {};
+
+        template<typename x, typename lbd>
+        struct _sort<list<x>, lbd>
         {
-            using type = list<val>;
+            using type = list<x>;
         };
 
         template<typename lbd>

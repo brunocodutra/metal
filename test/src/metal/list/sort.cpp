@@ -31,21 +31,21 @@
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, PAIR(M), PAIR(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, PAIR(M), LIST(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, PAIR(M), MAP(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::sort>, PAIR(M), LBD(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::sort>, PAIR(M), LBD(N)>), (BOOL(N == 2))); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, PAIR(M), LBD(_)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, LIST(M), VAL(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, LIST(M), NUM(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, LIST(M), PAIR(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, LIST(M), LIST(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, LIST(M), MAP(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::sort>, LIST(M), LBD(N)>), (BOOL(M < 2))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::sort>, LIST(M), LBD(N)>), (BOOL(N == 2 || M < 2))); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, LIST(M), LBD(_)>), (BOOL(M < 2))); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, MAP(M), VAL(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, MAP(M), NUM(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, MAP(M), PAIR(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, MAP(M), LIST(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, MAP(M), MAP(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::sort>, MAP(M), LBD(N)>), (BOOL(M < 2))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::sort>, MAP(M), LBD(N)>), (BOOL(N == 2 || M < 2))); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, MAP(M), LBD(_)>), (BOOL(M < 2))); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, LBD(M), VAL(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, LBD(M), NUM(N)>), (FALSE)); \
