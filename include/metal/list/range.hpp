@@ -18,16 +18,19 @@ namespace metal
     {
         template<typename seq, typename beg, typename end>
         struct _range;
+
+        template<typename seq, typename beg, typename end>
+        using range = typename detail::_range<seq, beg, end>::type;
     }
 
     /// \ingroup list
     /// ...
     template<typename seq, typename beg, typename end>
-    using range = typename detail::_range<
+    using range = detail::range<
         seq,
         if_<same<min<max<number<0>, beg>, size<seq>>, beg>, beg>,
         if_<same<min<max<number<0>, end>, size<seq>>, end>, end>
-    >::type;
+    >;
 }
 
 #include <metal/list/list.hpp>

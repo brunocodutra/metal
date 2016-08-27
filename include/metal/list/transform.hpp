@@ -16,6 +16,9 @@ namespace metal
     {
         template<typename lbd, typename head, typename... tail>
         struct _transform;
+
+        template<typename lbd, typename head, typename... tail>
+        using transform = typename _transform<lbd, head, tail...>::type;
     }
 
     /// \ingroup list

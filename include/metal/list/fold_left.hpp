@@ -9,9 +9,6 @@ namespace metal
 {
     namespace detail
     {
-        template<typename tabs, typename state, typename lbd>
-        struct _fold_cons;
-
         template<typename seq, typename state, typename lbd>
         struct _fold_left;
     }
@@ -23,88 +20,13 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/value/value.hpp>
+
+#include <metal/detail/fold_cons.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename tabs, typename state, typename lbd, typename = true_>
-        struct _fold_cons_impl
-        {};
-
-        template<
-            typename a, typename b, typename c, typename d,
-            typename e, typename f, typename g, typename h,
-            typename i, typename j, typename k, typename l,
-            typename m, typename n, typename o, typename p, typename t,
-            typename state, template<typename...> class expr
-        >
-        struct _fold_cons_impl<
-            list<a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, t>,
-            state,
-            lambda<expr>,
-            is_value<
-                expr<expr<expr<expr<expr<expr<expr<expr<
-                    expr<expr<expr<expr<expr<expr<expr<expr<
-                        state,
-                            a>, b>, c>, d>, e>, f>, g>, h>,
-                                i>, j>, k>, l>, m>, n>, o>, p>
-            >
-        > :
-            _fold_cons_impl<
-                t,
-                expr<expr<expr<expr<expr<expr<expr<expr<
-                    expr<expr<expr<expr<expr<expr<expr<expr<
-                        state,
-                            a>, b>, c>, d>, e>, f>, g>, h>,
-                                i>, j>, k>, l>, m>, n>, o>, p>,
-                lambda<expr>
-            >
-        {};
-
-        template<
-            typename a, typename b, typename c, typename t,
-            typename state, template<typename...> class expr
-        >
-        struct _fold_cons_impl<list<a, b, c, t>, state, lambda<expr>,
-            is_value<expr<expr<expr<state, a>, b>, c>>
-        > :
-            _fold_cons_impl<t, expr<expr<expr<state, a>, b>, c>, lambda<expr>>
-        {};
-
-        template<
-            typename a, typename b, typename t,
-            typename state, template<typename...> class expr
-        >
-        struct _fold_cons_impl<list<a, b, t>, state, lambda<expr>,
-            is_value<expr<expr<state, a>, b>>
-        > :
-            _fold_cons_impl<t, expr<expr<state, a>, b>, lambda<expr>>
-        {};
-
-        template<
-            typename a, typename t,
-            typename state, template<typename...> class expr
-        >
-        struct _fold_cons_impl<list<a, t>, state, lambda<expr>,
-            is_value<expr<state, a>>
-        > :
-            _fold_cons_impl<t, expr<state, a>, lambda<expr>>
-        {};
-
-        template<typename state, template<typename...> class expr>
-        struct _fold_cons_impl<list<>, state, lambda<expr>>
-        {
-            using type = state;
-        };
-
-        template<typename tabs, typename state, typename lbd>
-        struct _fold_cons :
-            _fold_cons_impl<tabs, state, lbd>
-        {};
-
         template<typename...>
         struct _cons_left
         {};
@@ -116,31 +38,22 @@ namespace metal
             typename a, typename b, typename c, typename d,
             typename e, typename f, typename g, typename h,
             typename i, typename j, typename k, typename l,
-            typename m, typename n, typename o, typename p, typename... t
+            typename m, typename n, typename o, typename p, typename... tail
         >
-        struct _cons_left<a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, t...>
+        struct _cons_left<
+            a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, tail...
+        >
         {
             using type = list<
-                a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, cons_left<t...>
+                a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p,
+                cons_left<tail...>
             >;
         };
 
-        template<typename a, typename b, typename c, typename... t>
-        struct _cons_left<a, b, c, t...>
+        template<typename head, typename... tail>
+        struct _cons_left<head, tail...>
         {
-            using type = list<a, b, c, cons_left<t...>>;
-        };
-
-        template<typename a, typename b>
-        struct _cons_left<a, b>
-        {
-            using type = list<a, b, list<>>;
-        };
-
-        template<typename a>
-        struct _cons_left<a>
-        {
-            using type = list<a, list<>>;
+            using type = list<head, cons_left<tail...>>;
         };
 
         template<>
@@ -155,7 +68,7 @@ namespace metal
 
         template<typename... vals, typename state, typename lbd>
         struct _fold_left<list<vals...>, state, lbd> :
-            _fold_cons_impl<cons_left<vals...>, state, lbd>
+            _fold_cons<cons_left<vals...>, state, lbd>
         {};
     }
 }

@@ -34,40 +34,21 @@ namespace metal
             typename a, typename b, typename c, typename d,
             typename e, typename f, typename g, typename h,
             typename i, typename j, typename k, typename l,
-            typename m, typename n, typename o, typename p,
-            typename... tail
+            typename m, typename n, typename o, typename p, typename... tail
         >
         struct _reverse_impl<
             a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, tail...
         > :
-            _join_impl<
+            _join<
                 typename _reverse_impl<tail...>::type,
                 list<p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a>
             >
         {};
 
-        template<typename a, typename b, typename c, typename... tail>
-        struct _reverse_impl<a, b, c, tail...> :
-            _join_impl<typename _reverse_impl<tail...>::type, list<c, b, a>>
+        template<typename head, typename... tail>
+        struct _reverse_impl<head, tail...> :
+            _join<typename _reverse_impl<tail...>::type, list<head>>
         {};
-
-        template<typename a, typename b, typename c>
-        struct _reverse_impl<a, b, c>
-        {
-            using type = list<c, b, a>;
-        };
-
-        template<typename a, typename b>
-        struct _reverse_impl<a, b>
-        {
-            using type = list<b, a>;
-        };
-
-        template<typename a>
-        struct _reverse_impl<a>
-        {
-            using type = list<a>;
-        };
 
         template<>
         struct _reverse_impl<>
