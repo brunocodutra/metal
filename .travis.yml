@@ -125,11 +125,13 @@ before_install:
     if [[ -n "${TRAVIS_TAG}" ]]
     then
         METAL_VERSION="${TRAVIS_TAG}"
+        METAL_VERSION_EXACT=true
     else
         METAL_VERSION=$( \
             curl -Ls https://github.com/brunocodutra/metal/tags | \
             awk '/tag-name/{print $3;exit}' FS='[<>]' \
         )
+        METAL_VERSION_EXACT=false
     fi
 
   - METAL_VERSION="${METAL_VERSION%%-*}"
@@ -161,12 +163,8 @@ before_script:
   - (cd "${METAL_BUILD_PATH}" && cmake "${METAL_SOURCE_PATH}" ${CMAKE_ARGS[@]} && make install)
 
   - CMAKE_ARGS+=("-DCMAKE_PREFIX_PATH=${METAL_INSTALL_PATH}")
-  - |
-    if [[ -n "${METAL_VERSION}" ]]
-    then
-        CMAKE_ARGS+=("-DMETAL_VERSION=${METAL_VERSION}")
-    fi
-
+  - CMAKE_ARGS+=("-DMETAL_VERSION=${METAL_VERSION}")
+  - CMAKE_ARGS+=("-DMETAL_VERSION_EXACT=${METAL_VERSION_EXACT}")
   - |
     if [[ "${BUILD_DOC}" != "true" ]]
     then

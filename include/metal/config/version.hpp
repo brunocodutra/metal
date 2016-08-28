@@ -21,7 +21,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_MINOR 2
+#define METAL_MINOR 3
 
 /// \ingroup config
 ///
