@@ -6,6 +6,8 @@
 #define METAL_CONFIG_VERSION_HPP
 
 /// \ingroup config
+///
+/// ### Description
 /// Expands to the major version of Metal.
 ///
 /// ### See Also
@@ -13,6 +15,8 @@
 #define METAL_MAJOR 0
 
 /// \ingroup config
+///
+/// ### Description
 /// Expands to the minor version of Metal.
 ///
 /// ### See Also
@@ -20,6 +24,8 @@
 #define METAL_MINOR 2
 
 /// \ingroup config
+///
+/// ### Description
 /// Expands to the patch version of Metal.
 ///
 /// ### See Also
@@ -28,6 +34,8 @@
 
 /// \ingroup config
 /// \hideinitializer
+///
+/// ### Description
 /// Given a `{major, minor, patch}` triple, expands to an implementation defined
 /// integral constant that is guaranteed to be comparable according to
 /// [Semantic Versioning](http://semver.org/) rules.

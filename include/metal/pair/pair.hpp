@@ -18,6 +18,8 @@ namespace metal
     }
 
     /// \ingroup pair
+    ///
+    /// ### Description
     /// Checks whether some \value is a \pair.
     ///
     /// ### Usage
@@ -26,7 +28,7 @@ namespace metal
     ///     using result = metal::is_pair<val>;
     /// \endcode
     ///
-    /// \returns: \number of type `bool`
+    /// \returns: \number
     /// \semantics:
     ///     If `val` is a \pair, then
     ///     \code
@@ -46,7 +48,12 @@ namespace metal
     using is_pair = typename detail::_is_pair<val>::type;
 
     /// \ingroup pair
-    /// The standard constructor for \pairs.
+    ///
+    /// ### Description
+    /// Constructs a \pair out of a pair of \values.
+    ///
+    /// ### See Also
+    /// \see is_pair
     template<typename x, typename y>
     using pair = metal::list<x, y>;
 }

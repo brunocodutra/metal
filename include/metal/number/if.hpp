@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// A multi-clause conditional expression.
     ///
     /// ### Usage

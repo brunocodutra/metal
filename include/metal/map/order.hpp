@@ -16,6 +16,8 @@
 namespace metal
 {
     /// \ingroup map
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename key>
     using order = metal::at_key<

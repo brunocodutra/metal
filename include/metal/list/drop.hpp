@@ -13,6 +13,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename n>
     using drop = metal::range<seq, n, metal::size<seq>>;

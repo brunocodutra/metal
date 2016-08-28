@@ -13,6 +13,8 @@
 namespace metal
 {
     /// \ingroup number
+    ///
+    /// ### Description
     /// Computes the additive inverse of a \number.
     ///
     /// ### Usage

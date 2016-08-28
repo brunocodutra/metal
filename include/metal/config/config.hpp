@@ -6,6 +6,8 @@
 #define METAL_CONFIG_CONFIG_HPP
 
 /// \ingroup config
+///
+/// ### Description
 /// When this preprocessor switch is defined, certain language features that
 /// are known to cause problems to some compilers are avoided.
 ///

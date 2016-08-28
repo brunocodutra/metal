@@ -13,6 +13,8 @@
 namespace metal
 {
     /// \ingroup map
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename key>
     using erase_key = metal::erase<seq, metal::order<seq, key>>;

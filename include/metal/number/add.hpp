@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// Computes the arithmetic addition of \numbers.
     ///
     /// ### Usage

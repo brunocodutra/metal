@@ -19,6 +19,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<
         typename seq,

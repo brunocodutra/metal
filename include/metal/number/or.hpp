@@ -14,6 +14,8 @@
 namespace metal
 {
     /// \ingroup number
+    ///
+    /// ### Description
     /// Computes the logical disjunction of \numbers.
     ///
     /// ### Usage

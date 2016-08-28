@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// Computes the minimum of \numbers.
     ///
     /// ### Usage
@@ -26,10 +28,9 @@ namespace metal
     ///
     /// \returns: \number
     /// \semantics:
-    ///     If `m` the minimum value between all \numbers in
-    ///     `num_1, ..., num_n`, then
+    ///     If `m` the minimum between all \numbers in `num_1, ..., num_n`, then
     ///     \code
-    ///         using result = metal::number<m>;
+    ///         using result = m;
     ///     \endcode
     ///
     /// ### Example

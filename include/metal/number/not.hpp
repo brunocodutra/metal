@@ -13,7 +13,9 @@
 namespace metal
 {
     /// \ingroup number
-    /// Computes the logical negation of a \number.
+    ///
+    /// ### Description
+    /// Computes the logical inverse of a \number.
     ///
     /// ### Usage
     /// For any \number `num`
@@ -24,7 +26,7 @@ namespace metal
     /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::number<!val{}>;
+    ///         using result = metal::number<!num{}>;
     ///     \endcode
     ///
     /// ### Example

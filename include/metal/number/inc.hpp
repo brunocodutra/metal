@@ -13,6 +13,8 @@
 namespace metal
 {
     /// \ingroup number
+    ///
+    /// ### Description
     /// Increments a \number.
     ///
     /// ### Usage

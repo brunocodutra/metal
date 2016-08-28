@@ -13,6 +13,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq>
     using front = metal::at<seq, metal::number<0>>;

@@ -13,6 +13,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename n, typename val>
     using insert = metal::splice<seq, n, metal::list<val>>;

@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<typename lbd, typename... vals>
     using bind = typename detail::_bind<lbd, vals...>::type;

@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq>
     using flatten = typename detail::_flatten<seq>::type;

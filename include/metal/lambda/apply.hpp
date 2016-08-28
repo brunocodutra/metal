@@ -12,6 +12,8 @@
 namespace metal
 {
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<typename lbd, typename seq>
     using apply = typename detail::_invoke_impl<lbd, seq>::type;

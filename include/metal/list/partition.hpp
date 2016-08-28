@@ -17,6 +17,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename lbd>
     using partition =

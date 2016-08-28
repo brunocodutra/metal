@@ -13,6 +13,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename n>
     using take = metal::range<seq, metal::number<0>, n>;

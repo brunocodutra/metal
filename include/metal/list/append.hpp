@@ -13,6 +13,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename head, typename... tail>
     using append = metal::join<seq, metal::list<head, tail...>>;

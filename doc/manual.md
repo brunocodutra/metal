@@ -284,6 +284,7 @@ A [Number] is a compile-time representation of a numerical value.
 
 \snippet number.cpp num1
 \snippet number.cpp num2
+\snippet number.cpp num3
 
 ### Counterexamples
 

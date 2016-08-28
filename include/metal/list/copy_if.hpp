@@ -14,9 +14,11 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename lbd>
-    using copy_if = typename detail::pick<seq, transform<lbd, seq>>;
+    using copy_if = detail::pick<seq, transform<lbd, seq>>;
 }
 
 #endif

@@ -18,6 +18,8 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename lbd, typename val>
     using replace_if =

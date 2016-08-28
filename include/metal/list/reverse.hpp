@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq>
     using reverse = typename detail::_reverse<seq>::type;

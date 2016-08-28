@@ -15,6 +15,8 @@
 namespace metal
 {
     /// \ingroup map
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename key>
     using at_key = detail::lookup<values<seq>, keys<seq>, key>;

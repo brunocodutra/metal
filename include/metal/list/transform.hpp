@@ -24,6 +24,8 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename lbd, typename head, typename... tail>
     using transform = typename if_<

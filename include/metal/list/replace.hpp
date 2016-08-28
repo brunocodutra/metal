@@ -15,6 +15,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename from, typename to>
     using replace = metal::replace_if<

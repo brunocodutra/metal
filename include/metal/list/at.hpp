@@ -14,6 +14,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename num>
     using at = detail::lookup<seq, indices<seq>, num>;

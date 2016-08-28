@@ -26,11 +26,15 @@ namespace metal
     }
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<typename lbd, typename... args>
     using invoke = typename detail::_invoke<lbd, args...>::type;
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<typename lbd, typename... args>
     using is_invocable = same<

@@ -33,11 +33,15 @@ namespace metal
     }
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<std::size_t n>
     using arg = typename detail::arg_impl<n>::type;
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// Default placeholder.
     /// \{
     using _1 = metal::arg<1U>;

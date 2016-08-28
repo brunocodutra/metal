@@ -18,6 +18,8 @@ namespace metal
     }
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// Generates a sequence of \numbers.
     ///
     /// ### Usage
@@ -30,34 +32,26 @@ namespace metal
     /// \semantics:
     ///     If `sz` is positive, then
     ///     \code
-    ///         using result = metal::list<
-    ///             st,
-    ///             number<st{} + sd{}>,
-    ///             number<st{} + 2*sd{}>,
-    ///             ...,
-    ///             number<st{} + (sz{} - 1)*sd{}>,
+    ///         using result = metal::numbers<
+    ///             st{}, st{} + sd{}, ..., st{} + (sz{} - 1)*sd{}
     ///         >;
     ///     \endcode
     ///     otherwise, if `sz` is negative, then
     ///     \code
-    ///         using result = metal::list<
-    ///             st,
-    ///             number<st{} - sd{}>,
-    ///             number<st{} - 2*sd{}>,
-    ///             ...,
-    ///             number<st{} - (1 - sz{})*sd{}>,
+    ///         using result = metal::numbers<
+    ///             st{}, st{} - sd{}, ..., st{} - (1 - sz{})*sd{}
     ///         >;
     ///     \endcode
     ///     otherwise
     ///     \code
-    ///         using result = metal::list<>;
+    ///         using result = metal::numbers<>;
     ///     \endcode
     ///
     /// ### Example
     /// \snippet number.cpp enumerate
     ///
     /// ### See Also
-    /// \see number, list
+    /// \see numbers
     template<typename start, typename size, typename stride = number<1>>
     using enumerate = typename detail::_enumerate<start, size, stride>::type;
 }

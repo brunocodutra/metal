@@ -12,6 +12,8 @@
 namespace metal
 {
     /// \ingroup number
+    ///
+    /// ### Description
     /// Checks whether a \number is greater than another.
     ///
     /// ### Usage

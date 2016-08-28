@@ -19,11 +19,15 @@ namespace metal
     }
 
     /// \ingroup map
+    ///
+    /// ### Description
     /// ...
     template<typename val>
     using is_map = typename detail::_is_map<val>::type;
 
     /// \ingroup map
+    ///
+    /// ### Description
     /// ...
     template<typename... pairs>
     using map = metal::if_<

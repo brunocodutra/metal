@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<typename val>
     using quote = typename detail::_quote<val>::type;

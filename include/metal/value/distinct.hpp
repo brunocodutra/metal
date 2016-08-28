@@ -16,7 +16,33 @@ namespace metal
     }
 
     /// \ingroup value
-    /// ...
+    ///
+    /// ### Description
+    /// Checks whether no \values are identical.
+    ///
+    /// ### Usage
+    /// For any \values `val_1, ..., val_n`
+    /// \code
+    ///     using result = metal::distinct<val_1, ..., val_n>;
+    /// \endcode
+    ///
+    /// \returns: \number
+    /// \semantics:
+    ///     If at least two \values in `val_1, ..., val_n` are identical to
+    ///     each other, then
+    ///     \code
+    ///         using result = metal::false_;
+    ///     \endcode
+    ///     otherwise
+    ///     \code
+    ///         using result = metal::true_;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet value.cpp distinct
+    ///
+    /// ### See Also
+    /// \see same
     template<typename... vals>
     using distinct = typename detail::_distinct<vals...>::type;
 }

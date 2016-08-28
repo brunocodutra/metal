@@ -26,6 +26,8 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename beg, typename end>
     using range = detail::range<

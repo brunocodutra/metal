@@ -18,6 +18,8 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename lbd>
     using find_if = typename detail::_find_if_impl<transform<lbd, seq>>::type;

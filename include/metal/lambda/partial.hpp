@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<typename lbd, typename... vals>
     using partial = typename detail::_partial<lbd, vals...>::type;

@@ -19,11 +19,15 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename val>
     using is_list = typename detail::_is_list<val>::type;
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename... vals>
     using list = detail::list<vals...>;

@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// Computes the quotient of the arithmetic division of \numbers.
     ///
     /// ### Usage

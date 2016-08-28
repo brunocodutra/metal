@@ -14,6 +14,8 @@
 namespace metal
 {
     /// \ingroup pair
+    ///
+    /// ### Description
     /// Returns the second element of a \pair.
     ///
     /// ### Usage
@@ -33,7 +35,7 @@ namespace metal
     /// \snippet pair.cpp second
     ///
     /// ### See Also
-    /// \see pair, first, at
+    /// \see pair, first
     template<typename seq>
     using second = metal::if_<metal::is_pair<seq>, metal::back<seq>>;
 }

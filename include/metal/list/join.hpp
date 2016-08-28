@@ -23,6 +23,8 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename head, typename... tail>
     using join = typename if_<

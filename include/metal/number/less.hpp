@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// Checks whether a \number is less than another.
     ///
     /// ### Usage

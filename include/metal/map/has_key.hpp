@@ -13,6 +13,8 @@
 namespace metal
 {
     /// \ingroup map
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename key>
     using has_key = metal::contains<metal::keys<seq>, key>;

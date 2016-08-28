@@ -22,6 +22,8 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename lbd>
     using sort = detail::sort<seq, if_<is_lambda<lbd>, lbd>>;

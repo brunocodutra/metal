@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// Computes the maximum of \numbers.
     ///
     /// ### Usage
@@ -26,10 +28,9 @@ namespace metal
     ///
     /// \returns: \number
     /// \semantics:
-    ///     If `m` the maximum value between all \numbers in
-    ///     `num_1, ..., num_n`, then
+    ///     If `M` the maximum between all \numbers in `num_1, ..., num_n`, then
     ///     \code
-    ///         using result = metal::number<m>;
+    ///         using result = M;
     ///     \endcode
     ///
     /// ### Example

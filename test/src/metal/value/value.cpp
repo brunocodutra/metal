@@ -25,6 +25,7 @@
     CHECK((metal::is_value<MAP(N)>), (TRUE)); \
     CHECK((metal::is_value<LBD(N)>), (TRUE)); \
     CHECK((metal::is_value<LBD(_)>), (TRUE)); \
+    CHECK((metal::value<>), (metal::nil)); \
 /**/
 
 GEN(MATRIX)

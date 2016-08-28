@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq>
     using size = typename detail::_size<seq>::type;

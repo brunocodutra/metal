@@ -14,6 +14,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename n, typename other>
     using splice = metal::join<metal::take<seq, n>, other, metal::drop<seq, n>>;

@@ -13,6 +13,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename head, typename... tail>
     using prepend = metal::join<metal::list<head, tail...>, seq>;

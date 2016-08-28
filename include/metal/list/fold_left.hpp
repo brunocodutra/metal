@@ -16,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename state, typename lbd>
     using fold_left = typename detail::_fold_left<seq, state, lbd>::type;

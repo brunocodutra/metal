@@ -24,6 +24,8 @@ namespace metal
     }
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// Checks whether some \value is a \number.
     ///
     /// ### Usage
@@ -52,25 +54,52 @@ namespace metal
     using is_number = typename detail::_is_number<val>::type;
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// The underlying integral representation of \numbers.
+    ///
+    /// ### See Also
+    /// \see number
     using int_ = detail::int_;
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// Constructs a \number out of an integral value.
+    ///
+    /// ### See Also
+    /// \see int_, is_number
     template<int_ v>
     using number = std::integral_constant<metal::int_, v>;
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// The boolean constant `true`.
+    ///
+    /// ### See Also
+    /// \see number
     using true_ = metal::number<true>;
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// The boolean constant `false`.
+    ///
+    /// ### See Also
+    /// \see number
     using false_ = metal::number<false>;
 
     /// \ingroup number
-    /// Constructs a list of \numbers out of a possibly empty sequence of
-    /// integral values.
+    ///
+    /// ### Description
+    /// Constructs a \list of \numbers out of a sequence of integral values.
+    ///
+    /// ### Example
+    /// \snippet number.cpp numbers
+    ///
+    /// ### See Also
+    /// \see int_, number, list
     template<int_... vs>
     using numbers =
 #if defined(METAL_DOXYGENATING)
