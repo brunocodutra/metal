@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_APPEND_HPP
 #define METAL_LIST_APPEND_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
 

@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_SORT_HPP
 #define METAL_LIST_SORT_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/if.hpp>
 

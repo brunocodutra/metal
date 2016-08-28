@@ -291,22 +291,7 @@ IS_SAME(
 );
 ///[_c_ex3]
 
-#if __cpp_constexpr >= 201304
-///[augmented_tuple]
-template<typename... T>
-struct AugmentedTuple :
-    std::tuple<T...>
-{
-    using std::tuple<T...>::tuple;
-
-    template<metal::int_ i>
-    constexpr auto operator [](metal::number<i>)
-        -> std::tuple_element_t<i, std::tuple<T...>>& {
-        return std::get<i>(*this);
-    }
-};
-///[augmented_tuple]
-#else
+#if defined(METAL_COMPAT_MODE)
 template<typename... T>
 struct AugmentedTuple :
     std::tuple<T...>
@@ -319,6 +304,21 @@ struct AugmentedTuple :
     template<metal::int_ i>
     constexpr auto operator [](metal::number<i>) const
         -> std::tuple_element_t<i, std::tuple<T...>> {
+        return std::get<i>(*this);
+    }
+};
+///[augmented_tuple]
+#else
+///[augmented_tuple]
+template<typename... T>
+struct AugmentedTuple :
+    std::tuple<T...>
+{
+    using std::tuple<T...>::tuple;
+
+    template<metal::int_ i>
+    constexpr auto operator [](metal::number<i>)
+        -> std::tuple_element_t<i, std::tuple<T...>>& {
         return std::get<i>(*this);
     }
 };

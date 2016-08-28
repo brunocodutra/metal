@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_FIND_HPP
 #define METAL_LIST_FIND_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/find_if.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>

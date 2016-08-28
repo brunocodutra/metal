@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_TRANSPOSE_HPP
 #define METAL_LIST_TRANSPOSE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/list.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/partial.hpp>

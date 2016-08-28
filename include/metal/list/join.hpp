@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_JOIN_HPP
 #define METAL_LIST_JOIN_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/list.hpp>
 #include <metal/number/if.hpp>
 #include <metal/number/and.hpp>
@@ -70,7 +72,7 @@ namespace metal
         struct _join
         {};
 
-#if !defined(_MSC_VER)
+#if !defined(METAL_COMPAT_MODE)
         template<
             typename a, typename b, typename c, typename d,
             typename e, typename f, typename g, typename h,
@@ -88,6 +90,7 @@ namespace metal
             >
         {};
 #endif
+
         template<
             typename a, typename b, typename c, typename d,
             typename e, typename f, typename g, typename h,

@@ -5,6 +5,7 @@
 #ifndef METAL_CONFIG_HPP
 #define METAL_CONFIG_HPP
 
+#include <metal/config/config.hpp>
 #include <metal/config/version.hpp>
 
 /// \defgroup config Config

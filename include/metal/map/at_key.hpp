@@ -5,6 +5,8 @@
 #ifndef METAL_MAP_AT_KEY_HPP
 #define METAL_MAP_AT_KEY_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/map/keys.hpp>
 #include <metal/map/values.hpp>
 

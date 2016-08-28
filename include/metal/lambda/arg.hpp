@@ -5,8 +5,10 @@
 #ifndef METAL_LAMBDA_ARG_HPP
 #define METAL_LAMBDA_ARG_HPP
 
-#include <metal/list/list.hpp>
+#include <metal/config.hpp>
+
 #include <metal/list/at.hpp>
+#include <metal/list/list.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
 

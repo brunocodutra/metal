@@ -5,6 +5,8 @@
 #ifndef METAL_VALUE_SAME_HPP
 #define METAL_VALUE_SAME_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail

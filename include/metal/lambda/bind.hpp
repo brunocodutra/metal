@@ -5,6 +5,8 @@
 #ifndef METAL_LAMBDA_BIND_HPP
 #define METAL_LAMBDA_BIND_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail

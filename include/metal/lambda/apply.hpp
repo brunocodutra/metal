@@ -5,6 +5,8 @@
 #ifndef METAL_LAMBDA_APPLY_HPP
 #define METAL_LAMBDA_APPLY_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/lambda/invoke.hpp>
 
 namespace metal

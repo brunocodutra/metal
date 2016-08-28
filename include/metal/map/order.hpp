@@ -5,6 +5,8 @@
 #ifndef METAL_MAP_ORDER_HPP
 #define METAL_MAP_ORDER_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/map/keys.hpp>
 #include <metal/map/at_key.hpp>
 #include <metal/list/indices.hpp>

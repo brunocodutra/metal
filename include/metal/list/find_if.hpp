@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_FIND_IF_HPP
 #define METAL_LIST_FIND_IF_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/transform.hpp>
 
 namespace metal
@@ -44,22 +46,7 @@ namespace metal
             number<0>
         {};
 
-#if __cpp_constexpr >= 201304
-        template<typename... _>
-        constexpr int_ ifind(_... vs) {
-            int_ ret = 0;
-            for(int_ x : std::initializer_list<int_>{vs...})
-                if(x) break;
-                else ++ret;
-
-            return ret;
-        }
-
-        template<int_... vs>
-        struct _find_if_impl<list<number<vs>...>> :
-            number<ifind(vs...)>
-        {};
-#else
+#if defined(METAL_COMPAT_MODE)
         template<typename seq, typename = indices<seq>>
         struct _find_index
         {};
@@ -75,6 +62,21 @@ namespace metal
         template<int_... vs>
         struct _find_if_impl<list<number<vs>...>> :
             _find_index<list<number<vs>...>>
+        {};
+#else
+        template<typename... _>
+        constexpr int_ find_index(_... vs) {
+            int_ ret = 0;
+            for(int_ x : std::initializer_list<int_>{vs...})
+                if(x) break;
+                else ++ret;
+
+            return ret;
+        }
+
+        template<int_... vs>
+        struct _find_if_impl<list<number<vs>...>> :
+            number<find_index(vs...)>
         {};
 #endif
     }

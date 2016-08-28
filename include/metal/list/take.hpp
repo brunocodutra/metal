@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_TAKE_HPP
 #define METAL_LIST_TAKE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/range.hpp>
 #include <metal/number/number.hpp>
 

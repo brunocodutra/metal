@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_REMOVE_HPP
 #define METAL_LIST_REMOVE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/remove_if.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>

@@ -5,6 +5,8 @@
 #ifndef METAL_PAIR_SECOND_HPP
 #define METAL_PAIR_SECOND_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/pair/pair.hpp>
 #include <metal/list/back.hpp>
 #include <metal/number/if.hpp>

@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_SPLICE_HPP
 #define METAL_LIST_SPLICE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/join.hpp>
 #include <metal/list/drop.hpp>
 #include <metal/list/take.hpp>

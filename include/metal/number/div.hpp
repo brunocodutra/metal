@@ -5,6 +5,8 @@
 #ifndef METAL_NUMBER_DIV_HPP
 #define METAL_NUMBER_DIV_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail
@@ -40,10 +42,9 @@ namespace metal
 
 #include <metal/number/number.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/list/list.hpp>
 #include <metal/list/fold_left.hpp>
+#include <metal/list/list.hpp>
 
-#include <utility>
 #include <initializer_list>
 
 namespace metal
@@ -68,7 +69,12 @@ namespace metal
         struct _div<number<x>, number<0>>
         {};
 
-#if __cpp_constexpr >= 201304
+#if defined(METAL_COMPAT_MODE)
+        template<int_ x, int_ y, int_... tail>
+        struct _div<number<x>, number<y>, number<tail>...> :
+            _fold_left<numbers<y, tail...>, number<x>, lambda<div>>
+        {};
+#else
         template<typename... _>
         constexpr int_ idiv(int_ head, _... tail) {
             int_ ret = head;
@@ -83,7 +89,7 @@ namespace metal
         {};
 
         template<int_... vs>
-        struct _div_impl<std::integer_sequence<int_, vs...>,
+        struct _div_impl<list<number<vs>...>,
             is_number<number<idiv(vs...)>>
         >:
             number<idiv(vs...)>
@@ -91,12 +97,7 @@ namespace metal
 
         template<int_ x, int_ y, int_... tail>
         struct _div<number<x>, number<y>, number<tail>...> :
-            _div_impl<std::integer_sequence<int_, x, y, tail...>>
-        {};
-#else
-        template<int_ x, int_ y, int_... tail>
-        struct _div<number<x>, number<y>, number<tail>...> :
-            _fold_left<numbers<y, tail...>, number<x>, lambda<div>>
+            _div_impl<numbers<x, y, tail...>>
         {};
 #endif
     }

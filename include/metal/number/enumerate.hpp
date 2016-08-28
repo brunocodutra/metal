@@ -5,6 +5,8 @@
 #ifndef METAL_NUMBER_ENUMERATE_HPP
 #define METAL_NUMBER_ENUMERATE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/number/number.hpp>
 
 namespace metal

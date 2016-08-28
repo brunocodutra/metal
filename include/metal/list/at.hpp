@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_AT_HPP
 #define METAL_LIST_AT_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/indices.hpp>
 
 #include <metal/detail/lookup.hpp>

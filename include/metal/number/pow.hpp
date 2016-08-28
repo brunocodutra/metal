@@ -5,6 +5,8 @@
 #ifndef METAL_NUMBER_POW_HPP
 #define METAL_NUMBER_POW_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail

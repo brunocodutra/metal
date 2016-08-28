@@ -20,7 +20,7 @@
 #define METAL_MINOR 2
 
 /// \ingroup config
-/// Expands to the patach version of Metal.
+/// Expands to the patch version of Metal.
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
@@ -38,12 +38,10 @@
     (((MAJOR) * 1000000) + ((MINOR) * 10000) + (PATCH))
 
 /// \ingroup config
-/// The full version of Metal as an integral constant that is guaranteed to be comparable according to
-/// [Semantic Versioning](http://semver.org/) rules.
+/// Expands to the full version of Metal.
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_VERSION \
-    METAL_SEMVER(METAL_MAJOR, METAL_MINOR, METAL_PATCH)
+#define METAL_VERSION METAL_SEMVER(METAL_MAJOR, METAL_MINOR, METAL_PATCH)
 
 #endif

@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_REPLACE_IF_HPP
 #define METAL_LIST_REPLACE_IF_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/transform.hpp>
 
 namespace metal

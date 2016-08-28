@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_RANGE_HPP
 #define METAL_LIST_RANGE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/size.hpp>
 #include <metal/number/if.hpp>
 #include <metal/number/max.hpp>

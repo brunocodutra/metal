@@ -5,6 +5,8 @@
 #ifndef METAL_PAIR_PAIR_HPP
 #define METAL_PAIR_PAIR_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/list.hpp>
 
 namespace metal

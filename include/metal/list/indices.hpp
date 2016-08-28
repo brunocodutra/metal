@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_INDICES_HPP
 #define METAL_LIST_INDICES_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/size.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/enumerate.hpp>

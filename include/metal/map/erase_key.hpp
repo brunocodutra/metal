@@ -5,6 +5,8 @@
 #ifndef METAL_MAP_ERASE_KEY_HPP
 #define METAL_MAP_ERASE_KEY_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/map/order.hpp>
 #include <metal/list/erase.hpp>
 

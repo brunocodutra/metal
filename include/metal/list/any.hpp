@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_ANY_HPP
 #define METAL_LIST_ANY_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/transform.hpp>
 #include <metal/lambda/apply.hpp>
 #include <metal/lambda/lambda.hpp>

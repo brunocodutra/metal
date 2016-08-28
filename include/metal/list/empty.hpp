@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_EMPTY_HPP
 #define METAL_LIST_EMPTY_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/size.hpp>
 #include <metal/number/not.hpp>
 

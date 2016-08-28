@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_PARTITION_HPP
 #define METAL_LIST_PARTITION_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/copy_if.hpp>
 #include <metal/list/remove_if.hpp>
 #include <metal/pair/pair.hpp>

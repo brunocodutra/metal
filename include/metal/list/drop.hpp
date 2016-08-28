@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_DROP_HPP
 #define METAL_LIST_DROP_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/range.hpp>
 #include <metal/list/size.hpp>
 

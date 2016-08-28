@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_COPY_HPP
 #define METAL_LIST_COPY_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/copy_if.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>

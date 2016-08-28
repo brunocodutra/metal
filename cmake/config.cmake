@@ -53,7 +53,7 @@ if(METAL_ENABLE_WARNINGS)
     metal_try_add_flag(-Wno-c++98-compat-pedantic)
     metal_try_add_flag(-Wno-documentation)
     metal_try_add_flag(-Wno-documentation-unknown-command)
-    metal_try_add_flag(/W4)
+    metal_try_add_flag(/W3)
 endif()
 
 if(METAL_STRICT)

@@ -5,6 +5,8 @@
 #ifndef METAL_VALUE_VALUE_HPP
 #define METAL_VALUE_VALUE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/number/number.hpp>
 
 namespace metal

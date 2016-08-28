@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_SLICE_HPP
 #define METAL_LIST_SLICE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/at.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/transform.hpp>

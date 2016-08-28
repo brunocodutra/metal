@@ -5,6 +5,8 @@
 #ifndef METAL_NUMBER_NOT_HPP
 #define METAL_NUMBER_NOT_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/number/number.hpp>
 #include <metal/number/if.hpp>
 

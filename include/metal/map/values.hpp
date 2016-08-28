@@ -5,6 +5,8 @@
 #ifndef METAL_MAP_VALUES_HPP
 #define METAL_MAP_VALUES_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/map/map.hpp>
 #include <metal/pair/second.hpp>
 #include <metal/list/transform.hpp>

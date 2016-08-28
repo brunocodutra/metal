@@ -5,6 +5,8 @@
 #ifndef METAL_LAMBDA_INVOKE_HPP
 #define METAL_LAMBDA_INVOKE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/number/not.hpp>
 #include <metal/number/number.hpp>
 #include <metal/value/value.hpp>

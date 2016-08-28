@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_INSERT_HPP
 #define METAL_LIST_INSERT_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/list.hpp>
 #include <metal/list/splice.hpp>
 

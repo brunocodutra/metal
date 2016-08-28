@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_SIZE_HPP
 #define METAL_LIST_SIZE_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail
