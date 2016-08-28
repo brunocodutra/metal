@@ -32,6 +32,10 @@ addons:
           - llvm-toolchain-precise-3.9
 
 matrix:
+    allow_failures:
+      - compiler: clang++
+        env: CXX_VERSION=3.9
+
     exclude:
       - env: BOGUS_JOB=true
 
