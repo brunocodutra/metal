@@ -55,3 +55,60 @@ struct not_a_val
 };
 /// [not_a_val3]
 )
+
+HIDE(
+/// [value]
+using num = metal::number<42>;
+IS_SAME(metal::is_number<metal::value<num>>, metal::false_);
+IS_SAME(metal::value<num>::type, num);
+
+using lbd = metal::lambda<std::add_pointer_t>;
+IS_SAME(metal::is_lambda<metal::value<lbd>>, metal::false_);
+IS_SAME(metal::value<lbd>::type, lbd);
+
+using list = metal::list<>;
+IS_SAME(metal::is_list<metal::value<list>>, metal::false_);
+IS_SAME(metal::value<list>::type, list);
+/// [value]
+)
+
+HIDE(
+/// [is_value]
+template<typename T, typename = metal::true_>
+struct has_type_impl :
+    metal::false_
+{};
+
+template<typename T>
+struct has_type_impl<T, metal::is_value<typename T::type>> :
+    metal::true_
+{};
+
+template<typename T>
+using has_type = typename has_type_impl<T>::type;
+
+
+IS_SAME(has_type<metal::value<void>>, metal::true_);
+IS_SAME(has_type<metal::value<>>, metal::false_);
+/// [is_value]
+)
+
+HIDE(
+/// [same]
+IS_SAME(metal::same<>, metal::true_);
+IS_SAME(metal::same<void>, metal::true_);
+IS_SAME(metal::same<void, void, void, void, void>, metal::true_);
+IS_SAME(metal::same<void, void*, void, void, void>, metal::false_);
+IS_SAME(metal::same<void, void*, void**, void***, void****>, metal::false_);
+/// [same]
+)
+
+HIDE(
+/// [distinct]
+IS_SAME(metal::distinct<>, metal::true_);
+IS_SAME(metal::distinct<void>, metal::true_);
+IS_SAME(metal::distinct<void, void, void, void, void>, metal::false_);
+IS_SAME(metal::distinct<void, void*, void, void, void>, metal::false_);
+IS_SAME(metal::distinct<void, void*, void**, void***, void****>, metal::true_);
+/// [distinct]
+)

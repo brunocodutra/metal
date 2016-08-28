@@ -5,6 +5,8 @@
 #ifndef METAL_LAMBDA_INVOKE_HPP
 #define METAL_LAMBDA_INVOKE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/number/not.hpp>
 #include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
@@ -24,11 +26,15 @@ namespace metal
     }
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<typename lbd, typename... args>
     using invoke = typename detail::_invoke<lbd, args...>::type;
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<typename lbd, typename... args>
     using is_invocable = same<

@@ -26,12 +26,34 @@ html, body {
 #content {
     height: auto;
     min-height: 100%;
-    padding-top: 60px;
-    padding-bottom: 100px;
-    margin-bottom: -100px;
+    padding-top: 55px;
+    padding-bottom: 140px;
+    margin-bottom: -140px;
 }
 
-#toolbar > * {
+@media (max-width: 767px) {
+    #content {
+        padding-top: 110px;
+    }
+}
+
+#footer {
+    height: 100px;
+    font-size: 0.9em;
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #EEEEEE;
+}
+
+.github-btn {
+    overflow: hidden;
+    border: 0px none;
+    height: 20px;
+    width: 102px;
+}
+
+.toolbar > * {
     border-bottom: 1px solid #EEEEEE;
 }
 
@@ -74,17 +96,18 @@ html, body {
 }
 
 h1:hover > a.anchor:after,
-h2:hover > a.anchor:after {
+h2:hover > a.anchor:after,
+h3:hover > a.anchor:after {
     content: "§";
     position: absolute;
-    visibility: visible;
     width: 1em;
-    height: 1em;
     left: -1em;
     top: 65px;
     cursor: pointer;
-    text-align: center;
-    vertical-align: middle;
+}
+
+.page-header + .sub-page-header {
+    margin-top: -15px;
 }
 
 a:not([href]) {
@@ -106,7 +129,8 @@ p {
 }
 
 .index-entry {
-    margin-left: 20px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #eee;
 }
 
 .doxtable th,
@@ -169,28 +193,10 @@ dl.section.user dd {
     margin-left: 20px;
 }
 
-span.octicon {
-    margin-right: 5px;
+i.octicon {
+    margin-right: 10px;
 }
 
 .strike {
     text-decoration: line-through;
-}
-
-#footer {
-    height: 100px;
-    font-size: 0.9em;
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid #EEEEEE;
-}
-
-.social-btns .social-btn {
-    display: inline-block;
-    margin: 0;
-}
-
-.github-btn {
-    overflow: hidden;
-    border: 0px none;
 }

@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_CONTAINS_HPP
 #define METAL_LIST_CONTAINS_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/any.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/lambda.hpp>
@@ -14,6 +16,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename val>
     using contains =

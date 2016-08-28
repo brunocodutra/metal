@@ -5,12 +5,16 @@
 #ifndef METAL_LIST_NONE_HPP
 #define METAL_LIST_NONE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/any.hpp>
 #include <metal/number/not.hpp>
 
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename lbd>
     using none = metal::not_<metal::any<seq, lbd>>;

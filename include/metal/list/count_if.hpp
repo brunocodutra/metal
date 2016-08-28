@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_COUNT_IF_HPP
 #define METAL_LIST_COUNT_IF_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/transform.hpp>
 #include <metal/lambda/apply.hpp>
 #include <metal/lambda/lambda.hpp>
@@ -15,6 +17,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename lbd>
     using count_if = metal::apply<

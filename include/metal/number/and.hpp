@@ -5,6 +5,8 @@
 #ifndef METAL_NUMBER_AND_HPP
 #define METAL_NUMBER_AND_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/number/number.hpp>
 #include <metal/number/not.hpp>
 #include <metal/value/same.hpp>
@@ -12,10 +14,11 @@
 namespace metal
 {
     /// \ingroup number
+    ///
+    /// ### Description
     /// Computes the logical conjunction of \numbers.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1, ..., num_n`
     /// \code
     ///     using result = metal::and_<num_1, ..., num_n>;
@@ -27,12 +30,10 @@ namespace metal
     ///         using result = metal::number<num_1{} && ... && num_n{}>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp and_
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, not_, or_
     template<typename... nums>
     using and_ = metal::same<metal::false_, metal::not_<nums>...>;

@@ -5,6 +5,8 @@
 #ifndef METAL_NUMBER_POW_HPP
 #define METAL_NUMBER_POW_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail
@@ -14,10 +16,11 @@ namespace metal
     }
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// Computes the arithmetic exponentiation of \numbers.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1, ..., num_n`
     /// \code
     ///     using result = metal::pow<num_1, ..., num_n>;
@@ -34,17 +37,15 @@ namespace metal
     ///         Borrowing from Fortran, `x ** y` should be understood as
     ///         `x` raised to the power of `y`.
     ///     }
-    ///     \danger{
+    ///     \warning{
     ///         `x ** y` is always null for `y < 0` and `|x| > 1`
     ///         due to inherent limitations of integer arithmetic.
     ///     }
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp pow
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, inc, dec, neg, add, sub, mul, div, mod
     template<typename head, typename... tail>
     using pow = typename detail::_pow<head, tail...>::type;

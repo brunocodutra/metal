@@ -5,6 +5,7 @@
 #ifndef METAL_HPP
 #define METAL_HPP
 
+#include <metal/config.hpp>
 #include <metal/list.hpp>
 #include <metal/lambda.hpp>
 #include <metal/map.hpp>

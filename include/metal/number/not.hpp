@@ -5,16 +5,19 @@
 #ifndef METAL_NUMBER_NOT_HPP
 #define METAL_NUMBER_NOT_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/number/number.hpp>
 #include <metal/number/if.hpp>
 
 namespace metal
 {
     /// \ingroup number
-    /// Computes the logical negation of a \number.
     ///
-    /// Usage
-    /// -----
+    /// ### Description
+    /// Computes the logical inverse of a \number.
+    ///
+    /// ### Usage
     /// For any \number `num`
     /// \code
     ///     using result = metal::not_<num>;
@@ -23,15 +26,13 @@ namespace metal
     /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::number<!val{}>;
+    ///         using result = metal::number<!num{}>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp not_
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, and_, or_
     template<typename num>
     using not_ = metal::if_<num, metal::false_, metal::true_>;

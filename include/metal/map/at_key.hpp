@@ -5,6 +5,8 @@
 #ifndef METAL_MAP_AT_KEY_HPP
 #define METAL_MAP_AT_KEY_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/map/keys.hpp>
 #include <metal/map/values.hpp>
 
@@ -13,6 +15,8 @@
 namespace metal
 {
     /// \ingroup map
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename key>
     using at_key = detail::lookup<values<seq>, keys<seq>, key>;

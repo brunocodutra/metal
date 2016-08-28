@@ -5,15 +5,18 @@
 #ifndef METAL_NUMBER_GREATER_HPP
 #define METAL_NUMBER_GREATER_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/number/less.hpp>
 
 namespace metal
 {
     /// \ingroup number
+    ///
+    /// ### Description
     /// Checks whether a \number is greater than another.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1` and `num_2`
     /// \code
     ///     using result = metal::greater<num_1, num_2>;
@@ -25,12 +28,10 @@ namespace metal
     ///         using result = metal::number<(num_1{} > num_2{})>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp greater
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, less
     template<typename x, typename y>
     using greater = metal::less<y, x>;

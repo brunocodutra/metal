@@ -5,8 +5,10 @@
 #ifndef METAL_LAMBDA_ARG_HPP
 #define METAL_LAMBDA_ARG_HPP
 
-#include <metal/list/list.hpp>
+#include <metal/config.hpp>
+
 #include <metal/list/at.hpp>
+#include <metal/list/list.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
 
@@ -31,11 +33,15 @@ namespace metal
     }
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<std::size_t n>
     using arg = typename detail::arg_impl<n>::type;
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// Default placeholder.
     /// \{
     using _1 = metal::arg<1U>;

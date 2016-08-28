@@ -5,6 +5,8 @@
 #ifndef METAL_VALUE_HPP
 #define METAL_VALUE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/value/distinct.hpp>
 #include <metal/value/same.hpp>
 #include <metal/value/value.hpp>

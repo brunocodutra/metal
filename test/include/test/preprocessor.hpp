@@ -185,7 +185,7 @@
 
 #define GEN(M) CAT(CAT(GEN_, INF), J)(INF, M)
 
-#if defined(_MSC_VER)
+#if (defined(_MSC_VER) && !defined(__clang__))
 #   define X_4(...) __VA_ARGS__
 #   define X_3(...) X_4(__VA_ARGS__)
 #   define X_2(...) X_3(__VA_ARGS__)

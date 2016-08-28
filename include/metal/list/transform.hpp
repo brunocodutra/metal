@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_TRANSFORM_HPP
 #define METAL_LIST_TRANSFORM_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/size.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/if.hpp>
@@ -16,9 +18,14 @@ namespace metal
     {
         template<typename lbd, typename head, typename... tail>
         struct _transform;
+
+        template<typename lbd, typename head, typename... tail>
+        using transform = typename _transform<lbd, head, tail...>::type;
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename lbd, typename head, typename... tail>
     using transform = typename if_<

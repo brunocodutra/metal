@@ -5,12 +5,16 @@
 #ifndef METAL_LIST_FRONT_HPP
 #define METAL_LIST_FRONT_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/at.hpp>
 #include <metal/number/number.hpp>
 
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq>
     using front = metal::at<seq, metal::number<0>>;

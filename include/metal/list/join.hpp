@@ -5,31 +5,41 @@
 #ifndef METAL_LIST_JOIN_HPP
 #define METAL_LIST_JOIN_HPP
 
+#include <metal/config.hpp>
+
+#include <metal/list/list.hpp>
+#include <metal/number/if.hpp>
+#include <metal/number/and.hpp>
+
 namespace metal
 {
     namespace detail
     {
         template<typename head, typename... tail>
         struct _join;
+
+        template<typename head, typename... tail>
+        using join = typename _join<head, tail...>::type;
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename head, typename... tail>
-    using join = typename detail::_join<head, tail...>::type;
-}
+    using join = typename if_<
+        and_<is_list<head>, is_list<tail>...>,
+        detail::_join<head, tail...>
+    >::type;
 
-#include <metal/list/list.hpp>
-#include <metal/number/if.hpp>
-#include <metal/value/same.hpp>
-
-namespace metal
-{
     namespace detail
     {
         template<typename head, typename... tail>
         struct _join_impl
         {};
+
+        template<typename head, typename... tail>
+        using join_impl = typename _join_impl<head, tail...>::type;
 
         template<
             typename... a, typename... b, typename... c, typename... d,
@@ -54,46 +64,77 @@ namespace metal
             >
         {};
 
-        template<typename... a, typename... b, typename... c, typename... tail>
-        struct _join_impl<list<a...>, list<b...>, list<c...>, tail...> :
-            _join<list<a..., b..., c...>, tail...>
-        {};
-
-        template<typename... a, typename... b, typename... c>
-        struct _join_impl<list<a...>, list<b...>, list<c...>>
-        {
-            using type = list<a..., b..., c...>;
-        };
-
         template<typename... a, typename... b>
         struct _join_impl<list<a...>, list<b...>>
         {
             using type = list<a..., b...>;
         };
 
-        template<typename... a>
-        struct _join<list<a...>>
-        {
-            using type = list<a...>;
-        };
-
         template<typename head, typename... tail>
-        struct _join :
-            _join_impl<head, tail...>
+        struct _join
         {};
 
-#if !defined(_MSC_VER)
-        template<typename... vals, typename head, typename... tail>
-        struct _join<list<vals...>, list<head>, list<tail>...>
-        {
-            using type = list<vals..., head, tail...>;
-        };
+#if !defined(METAL_COMPAT_MODE)
+        template<
+            typename a, typename b, typename c, typename d,
+            typename e, typename f, typename g, typename h,
+            typename i, typename j, typename k, typename l,
+            typename m, typename n, typename o, typename p,
+            typename head, typename... tail
+        >
+        struct _join<
+            a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p,
+            list<head>, list<tail>...
+        > :
+            _join_impl<
+                join_impl<a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p>,
+                list<head, tail...>
+            >
+        {};
 #endif
 
-        template<typename... vals, template<typename...> class... seq>
-        struct _join<list<vals...>, list<>, seq<>...> :
-            _if_<same<list<>, seq<>...>, list<vals...>>
+        template<
+            typename a, typename b, typename c, typename d,
+            typename e, typename f, typename g, typename h,
+            typename i, typename j, typename k, typename l,
+            typename m, typename n, typename o, typename p,
+            template<typename...> class... _
+        >
+        struct _join<
+            a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p,
+            list<>, _<>...
+        > :
+            _join_impl<a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p>
         {};
+
+        template<
+            typename a, typename b, typename c, typename d,
+            typename e, typename f, typename g, typename h,
+            typename i, typename j, typename k, typename l,
+            typename m, typename n, typename o, typename p, typename... tail
+        >
+        struct _join<a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, tail...> :
+            _join<
+                join_impl<a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p>,
+                tail...
+            >
+        {};
+
+        template<typename a, typename b, typename... tail>
+        struct _join<a, b, tail...> :
+            _join<join_impl<a, b>, tail...>
+        {};
+
+        template<typename a, typename b>
+        struct _join<a, b> :
+            _join_impl<a, b>
+        {};
+
+        template<typename a>
+        struct _join<a>
+        {
+            using type = a;
+        };
     }
 }
 

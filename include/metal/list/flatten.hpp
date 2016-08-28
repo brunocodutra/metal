@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_FLATTEN_HPP
 #define METAL_LIST_FLATTEN_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail
@@ -14,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq>
     using flatten = typename detail::_flatten<seq>::type;

@@ -5,6 +5,8 @@
 #ifndef METAL_PAIR_FIRST_HPP
 #define METAL_PAIR_FIRST_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/pair/pair.hpp>
 #include <metal/list/front.hpp>
 #include <metal/number/if.hpp>
@@ -12,10 +14,11 @@
 namespace metal
 {
     /// \ingroup pair
+    ///
+    /// ### Description
     /// Returns the first element of a \pair.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \pair `pair`
     /// \code
     ///     using result = metal::first<pair>;
@@ -28,13 +31,11 @@ namespace metal
     ///         using result = x;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet pair.cpp first
     ///
-    /// See Also
-    /// --------
-    /// \see pair, second, at
+    /// ### See Also
+    /// \see pair, second
     template<typename seq>
     using first = metal::if_<metal::is_pair<seq>, metal::front<seq>>;
 }

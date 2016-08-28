@@ -5,6 +5,8 @@
 #ifndef METAL_LAMBDA_QUOTE_HPP
 #define METAL_LAMBDA_QUOTE_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail
@@ -14,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<typename val>
     using quote = typename detail::_quote<val>::type;

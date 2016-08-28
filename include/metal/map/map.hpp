@@ -5,6 +5,8 @@
 #ifndef METAL_MAP_MAP_HPP
 #define METAL_MAP_MAP_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/list.hpp>
 #include <metal/number/if.hpp>
 
@@ -17,11 +19,15 @@ namespace metal
     }
 
     /// \ingroup map
+    ///
+    /// ### Description
     /// ...
     template<typename val>
     using is_map = typename detail::_is_map<val>::type;
 
     /// \ingroup map
+    ///
+    /// ### Description
     /// ...
     template<typename... pairs>
     using map = metal::if_<

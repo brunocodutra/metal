@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_BACK_HPP
 #define METAL_LIST_BACK_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/at.hpp>
 #include <metal/list/size.hpp>
 #include <metal/number/dec.hpp>
@@ -12,6 +14,8 @@
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq>
     using back = metal::at<seq, metal::dec<metal::size<seq>>>;

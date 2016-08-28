@@ -5,21 +5,20 @@
 #ifndef METAL_LIST_SPLICE_HPP
 #define METAL_LIST_SPLICE_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/join.hpp>
-#include <metal/list/size.hpp>
-#include <metal/list/range.hpp>
-#include <metal/number/number.hpp>
+#include <metal/list/drop.hpp>
+#include <metal/list/take.hpp>
 
 namespace metal
 {
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename n, typename other>
-    using splice = metal::join<
-        metal::range<seq, metal::number<0>, n>,
-        other,
-        metal::range<seq, n, metal::size<seq>>
-    >;
+    using splice = metal::join<metal::take<seq, n>, other, metal::drop<seq, n>>;
 }
 
 #endif

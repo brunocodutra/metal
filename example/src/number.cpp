@@ -23,6 +23,14 @@ IS_SAME(metal::is_number<num>, metal::true_);
 )
 
 HIDE(
+/// [num3]
+using num = metal::number<'a'>;
+/// [num3]
+
+IS_SAME(metal::is_number<num>, metal::true_);
+)
+
+HIDE(
 /// [not_a_num1]
 struct not_a_num :
     metal::true_
@@ -39,6 +47,22 @@ IS_SAME(metal::is_number<metal::true_>, metal::true_);
 IS_SAME(metal::is_number<metal::false_>, metal::true_);
 IS_SAME(metal::is_number<void>, metal::false_);
 /// [is_number]
+)
+
+HIDE(
+/// [numbers]
+IS_SAME(metal::numbers<>, metal::list<>);
+
+IS_SAME(
+    metal::numbers<'a', 'b'>,
+    metal::list<metal::number<'a'>, metal::number<'b'>>
+);
+
+IS_SAME(
+    metal::numbers<-7, 5, 1>,
+    metal::list<metal::number<-7>, metal::number<5>, metal::number<1>>
+);
+/// [numbers]
 )
 
 HIDE(
@@ -76,20 +100,21 @@ IS_SAME(metal::not_<metal::true_>, metal::false_);
 
 HIDE(
 /// [and_]
-using num = metal::and_<metal::number<-7>, metal::number<0>, metal::number<5>>;
-
-IS_SAME(num, metal::false_);
+IS_SAME(metal::and_<>, metal::true_);
+IS_SAME(metal::and_<metal::number<0>>, metal::false_);
+IS_SAME(metal::and_<metal::number<42>>, metal::true_);
+IS_SAME(metal::and_<metal::number<42>, metal::number<0>>, metal::false_);
 /// [and_]
 )
 
 HIDE(
 /// [or_]
-using num = metal::or_<metal::number<-7>, metal::number<0>, metal::number<5>>;
-
-IS_SAME(num, metal::true_);
+IS_SAME(metal::or_<>, metal::false_);
+IS_SAME(metal::or_<metal::number<0>>, metal::false_);
+IS_SAME(metal::or_<metal::number<42>>, metal::true_);
+IS_SAME(metal::or_<metal::number<42>, metal::number<0>>, metal::true_);
 /// [or_]
 )
-
 
 HIDE(
 /// [inc]
@@ -114,31 +139,31 @@ IS_SAME(metal::neg<metal::number<0>>, metal::number<0>);
 
 HIDE(
 /// [add]
-using num = metal::add<metal::number<-7>, metal::number<5>, metal::number<1>>;
+using num = metal::add<metal::number<-17>, metal::number<5>, metal::number<3>>;
 
-IS_SAME(num, metal::number<-1>);
+IS_SAME(num, metal::number<-9>);
 /// [add]
 )
 
 HIDE(
 /// [sub]
-using num = metal::sub<metal::number<-7>, metal::number<5>, metal::number<1>>;
+using num = metal::sub<metal::number<-17>, metal::number<5>, metal::number<3>>;
 
-IS_SAME(num, metal::number<-13>);
+IS_SAME(num, metal::number<-25>);
 /// [sub]
 )
 
 HIDE(
 /// [mul]
-using num = metal::mul<metal::number<-7>, metal::number<5>, metal::number<1>>;
+using num = metal::mul<metal::number<-17>, metal::number<5>, metal::number<3>>;
 
-IS_SAME(num, metal::number<-35>);
+IS_SAME(num, metal::number<-255>);
 /// [mul]
 )
 
 HIDE(
 /// [div]
-using num = metal::div<metal::number<-7>, metal::number<5>, metal::number<1>>;
+using num = metal::div<metal::number<-17>, metal::number<5>, metal::number<3>>;
 
 IS_SAME(num, metal::number<-1>);
 IS_SAME(
@@ -150,9 +175,9 @@ IS_SAME(
 
 HIDE(
 /// [mod]
-using num = metal::mod<metal::number<-7>, metal::number<5>, metal::number<1>>;
+using num = metal::mod<metal::number<-17>, metal::number<5>, metal::number<3>>;
 
-IS_SAME(num, metal::number<0>);
+IS_SAME(num, metal::number<-2>);
 IS_SAME(
     metal::is_invocable<metal::lambda<metal::mod>, num, metal::number<0>>,
     metal::false_
@@ -162,9 +187,9 @@ IS_SAME(
 
 HIDE(
 /// [pow]
-using num = metal::pow<metal::number<-7>, metal::number<5>, metal::number<1>>;
+using num = metal::pow<metal::number<-17>, metal::number<5>, metal::number<3>>;
 
-IS_SAME(num, metal::number<-16807>);
+IS_SAME(num, metal::number<-2862423051509815793>);
 IS_SAME(
     metal::is_invocable<metal::lambda<metal::pow>, metal::number<0>, num>,
     metal::false_
@@ -174,7 +199,7 @@ IS_SAME(
 
 HIDE(
 /// [max]
-using num = metal::max<metal::number<-7>, metal::number<5>, metal::number<1>>;
+using num = metal::max<metal::number<-17>, metal::number<5>, metal::number<3>>;
 
 IS_SAME(num, metal::number<5>);
 /// [max]
@@ -182,9 +207,9 @@ IS_SAME(num, metal::number<5>);
 
 HIDE(
 /// [min]
-using num = metal::min<metal::number<-7>, metal::number<5>, metal::number<1>>;
+using num = metal::min<metal::number<-17>, metal::number<5>, metal::number<3>>;
 
-IS_SAME(num, metal::number<-7>);
+IS_SAME(num, metal::number<-17>);
 /// [min]
 )
 

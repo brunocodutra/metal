@@ -5,6 +5,8 @@
 #ifndef METAL_LAMBDA_PARTIAL_HPP
 #define METAL_LAMBDA_PARTIAL_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail
@@ -14,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<typename lbd, typename... vals>
     using partial = typename detail::_partial<lbd, vals...>::type;

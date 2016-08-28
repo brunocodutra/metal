@@ -5,6 +5,8 @@
 #ifndef METAL_PAIR_SECOND_HPP
 #define METAL_PAIR_SECOND_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/pair/pair.hpp>
 #include <metal/list/back.hpp>
 #include <metal/number/if.hpp>
@@ -12,10 +14,11 @@
 namespace metal
 {
     /// \ingroup pair
+    ///
+    /// ### Description
     /// Returns the second element of a \pair.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \pair `pair`
     /// \code
     ///     using result = metal::second<pair>;
@@ -28,13 +31,11 @@ namespace metal
     ///         using result = y;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet pair.cpp second
     ///
-    /// See Also
-    /// --------
-    /// \see pair, first, at
+    /// ### See Also
+    /// \see pair, first
     template<typename seq>
     using second = metal::if_<metal::is_pair<seq>, metal::back<seq>>;
 }

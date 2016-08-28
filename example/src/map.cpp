@@ -46,3 +46,34 @@ using not_a_map = metal::list< // not a list of pairs
 
 IS_SAME(metal::is_map<not_a_map>, metal::false_);
 )
+
+HIDE(
+/// [keys]
+using map = metal::map<
+    metal::pair<int, metal::number<sizeof(int)>>,
+    metal::pair<char, metal::number<sizeof(char)>>,
+    metal::pair<float, metal::number<sizeof(float)>>
+>;
+
+IS_SAME(metal::keys<map>, metal::list<int, char, float>);
+/// [keys]
+)
+
+HIDE(
+/// [values]
+using map = metal::map<
+    metal::pair<int, metal::number<sizeof(int)>>,
+    metal::pair<char, metal::number<sizeof(char)>>,
+    metal::pair<float, metal::number<sizeof(float)>>
+>;
+
+IS_SAME(
+    metal::values<map>,
+    metal::list<
+        metal::number<sizeof(int)>,
+        metal::number<sizeof(char)>,
+        metal::number<sizeof(float)>
+    >
+);
+/// [values]
+)

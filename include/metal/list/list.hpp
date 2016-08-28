@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_LIST_HPP
 #define METAL_LIST_LIST_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail
@@ -17,11 +19,15 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename val>
     using is_list = typename detail::_is_list<val>::type;
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename... vals>
     using list = detail::list<vals...>;

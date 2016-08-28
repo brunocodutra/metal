@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_SIZE_HPP
 #define METAL_LIST_SIZE_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail
@@ -14,6 +16,8 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq>
     using size = typename detail::_size<seq>::type;

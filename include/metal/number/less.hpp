@@ -5,6 +5,8 @@
 #ifndef METAL_NUMBER_LESS_HPP
 #define METAL_NUMBER_LESS_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail
@@ -14,10 +16,11 @@ namespace metal
     }
 
     /// \ingroup number
+    ///
+    /// ### Description
     /// Checks whether a \number is less than another.
     ///
-    /// Usage
-    /// -----
+    /// ### Usage
     /// For any \numbers `num_1` and `num_2`
     /// \code
     ///     using result = metal::less<num_1, num_2>;
@@ -29,12 +32,10 @@ namespace metal
     ///         using result = metal::number<(num_1{} < num_2{})>;
     ///     \endcode
     ///
-    /// Example
-    /// -------
+    /// ### Example
     /// \snippet number.cpp less
     ///
-    /// See Also
-    /// --------
+    /// ### See Also
     /// \see number, greater
     template<typename x, typename y>
     using less = typename detail::_less<x, y>::type;

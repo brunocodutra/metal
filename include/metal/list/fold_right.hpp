@@ -5,6 +5,8 @@
 #ifndef METAL_LIST_FOLD_RIGHT_HPP
 #define METAL_LIST_FOLD_RIGHT_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail
@@ -14,14 +16,16 @@ namespace metal
     }
 
     /// \ingroup list
+    ///
+    /// ### Description
     /// ...
     template<typename seq, typename state, typename lbd>
     using fold_right = typename detail::_fold_right<seq, state, lbd>::type;
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/fold_left.hpp>
-#include <metal/value/value.hpp>
+
+#include <metal/detail/fold_cons.hpp>
 
 namespace metal
 {
@@ -39,33 +43,22 @@ namespace metal
             typename a, typename b, typename c, typename d,
             typename e, typename f, typename g, typename h,
             typename i, typename j, typename k, typename l,
-            typename m, typename n, typename o, typename p, typename... t
+            typename m, typename n, typename o, typename p, typename... tail
         >
         struct _cons_right<
-            _, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, t...
+            _, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, tail...
         >
         {
             using type = cons_right<
-                list<p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a, _>, t...
+                list<p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a, _>,
+                tail...
             >;
         };
 
-        template<typename _, typename a, typename b, typename c, typename... t>
-        struct _cons_right<_, a, b, c, t...>
+        template<typename _, typename head, typename... tail>
+        struct _cons_right<_, head, tail...>
         {
-            using type = cons_right<list<c, b, a, _>, t...>;
-        };
-
-        template<typename _, typename a, typename b>
-        struct _cons_right<_, a, b>
-        {
-            using type = list<b, a, _>;
-        };
-
-        template<typename _, typename a>
-        struct _cons_right<_, a>
-        {
-            using type = list<a, _>;
+            using type = cons_right<list<head, _>, tail...>;
         };
 
         template<typename _>

@@ -5,6 +5,8 @@
 #ifndef METAL_LAMBDA_LAMBDA_HPP
 #define METAL_LAMBDA_LAMBDA_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     namespace detail
@@ -17,11 +19,15 @@ namespace metal
     }
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<typename val>
     using is_lambda = typename detail::_is_lambda<val>::type;
 
     /// \ingroup lambda
+    ///
+    /// ### Description
     /// ...
     template<template<typename...> class expr>
     using lambda = detail::lambda<expr>;
