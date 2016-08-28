@@ -80,30 +80,136 @@
   </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#groups"> </a>  </div>
   <div class="headertitle">
-<div class="title">Metal</div>  </div>
+<div class="title">Config<div class="ingroups"><a class="el" href="group__metal.html">Metal</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
- </h2></td></tr>
-<tr class="memitem:group__config"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__config.html">Config</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__lambda"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lambda.html">Lambda</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__list"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__list.html">List</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__map"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__map.html">Map</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__number"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__number.html">Number</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__pair"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__pair.html">Pair</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__value"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__value.html">Value</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
+<h2 class="groupheader"> </h2>
+<a class="anchor" id="ga15e6f6fcf42b2b5e3aedabb9d5b827b8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define METAL_COMPAT_MODE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;metal/config/config.hpp&gt;</code></p>
+<h3>Description</h3>
+<p>When this preprocessor switch is defined, certain language features that are known to cause problems to some compilers are avoided.</p>
+<div class="panel panel-danger"><div class="panel-heading"><span class="octicon octicon-stop"> Warning</span></div><div class="panel-body"> Defining this preprocessor switch may lead to longer compilation times. </div></div><div class="panel panel-warning"><div class="panel-heading"><span class="octicon octicon-info"> Note</span></div><div class="panel-body"> This preprocessor switch is currently defined by default for all versions of Microsoft Visual Studio. </div></div> 
+</div>
+</div>
+<a class="anchor" id="ga54b9861bafd780c162fe59f4112a6489"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define METAL_MAJOR&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;metal/config/version.hpp&gt;</code></p>
+<h3>Description</h3>
+<p>Expands to the major version of Metal.</p>
+<h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a href="http://semver.org/">Semantic Versioning</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gac7a80f95a7efdbc87a28255364763b03"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define METAL_MINOR&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;metal/config/version.hpp&gt;</code></p>
+<h3>Description</h3>
+<p>Expands to the minor version of Metal.</p>
+<h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a href="http://semver.org/">Semantic Versioning</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga98d3a158ec74ae2fdbbdd5448fbff540"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define METAL_PATCH&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;metal/config/version.hpp&gt;</code></p>
+<h3>Description</h3>
+<p>Expands to the patch version of Metal.</p>
+<h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a href="http://semver.org/">Semantic Versioning</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gadbaec0eebeca6424b69b5771c35acaed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define METAL_SEMVER</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">MAJOR, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">MINOR, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">PATCH&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;metal/config/version.hpp&gt;</code></p>
+<h3>Description</h3>
+<p>Given a <code>{major, minor, patch}</code> triple, expands to an implementation defined integral constant that is guaranteed to be comparable according to <a href="http://semver.org/">Semantic Versioning</a> rules.</p>
+<h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a href="http://semver.org/">Semantic Versioning</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gacf17110889c638eddd57d3e134879c3e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define METAL_VERSION&#160;&#160;&#160;<a class="el" href="group__config.html#gadbaec0eebeca6424b69b5771c35acaed">METAL_SEMVER</a>(<a class="el" href="group__config.html#ga54b9861bafd780c162fe59f4112a6489">METAL_MAJOR</a>, <a class="el" href="group__config.html#gac7a80f95a7efdbc87a28255364763b03">METAL_MINOR</a>, <a class="el" href="group__config.html#ga98d3a158ec74ae2fdbbdd5448fbff540">METAL_PATCH</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;metal/config/version.hpp&gt;</code></p>
+<p>Expands to the full version of Metal.</p>
+<h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a href="http://semver.org/">Semantic Versioning</a> </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
         </div>
       </div>
