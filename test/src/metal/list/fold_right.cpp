@@ -7,6 +7,7 @@
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/number/number.hpp>
+#include <metal/number/enumerate.hpp>
 
 #include "test.hpp"
 
@@ -63,6 +64,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::fold_right>, LBD(_), LBD(N), LBD(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::fold_right>, LBD(_), LBD(N), LBD(_)>), (FALSE)); \
     CHECK((metal::fold_right<LIST(M), VAL(N), LBD(_)>), (REFOLD(M, TAB, VAL(N)))); \
+    CHECK((metal::fold_right<metal::enumerate<NUM(0), metal::number<100*M>, NUM(N)>, NUM(2), LBD(2)>), (NUM(2))); \
 /**/
 
 GEN(MATRIX)
