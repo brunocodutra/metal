@@ -7,6 +7,7 @@
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/number/number.hpp>
+#include <metal/number/enumerate.hpp>
 
 #include "test.hpp"
 
@@ -21,6 +22,7 @@
     CHECK((metal::flatten<PAIR(M)>), (PAIR(M))); \
     CHECK((metal::flatten<LIST(M)>), (LIST(M))); \
     CHECK((metal::flatten<MAP(M)>), (metal::list<ENUM(M, FWD, NUM, VAL)>)); \
+    CHECK((metal::flatten<metal::enumerate<NUM(0), metal::number<100*M>, NUM(N)>>), (metal::enumerate<NUM(0), metal::number<100*M>, NUM(N)>)); \
 /**/
 
 GEN(MATRIX)

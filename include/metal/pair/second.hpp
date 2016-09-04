@@ -19,14 +19,14 @@ namespace metal
     /// Returns the second element of a \pair.
     ///
     /// ### Usage
-    /// For any \pair `pair`
+    /// For any \pair `p`
     /// \code
-    ///     using result = metal::second<pair>;
+    ///     using result = metal::second<p>;
     /// \endcode
     ///
     /// \returns: \value
     /// \semantics:
-    ///     If `pair` contains \values `x` and `y` in that order, then
+    ///     If `p` contains \values `x` and `y` in that order, then
     ///     \code
     ///         using result = y;
     ///     \endcode

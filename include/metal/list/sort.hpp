@@ -52,7 +52,7 @@ namespace metal
             template<typename...> class expr
         >
         struct _merge<ret, list<xh, xt...>, list<yh, yt...>, lambda<expr>,
-            if_<expr<xh, yh>, true_, false_>
+            if_<expr<yh, xh>, false_, true_>
         > :
             _merge<
                 join<ret, list<xh>>, list<xt...>, list<yh, yt...>, lambda<expr>
@@ -66,7 +66,7 @@ namespace metal
             template<typename...> class expr
         >
         struct _merge<ret, list<xh, xt...>, list<yh, yt...>, lambda<expr>,
-            if_<expr<xh, yh>, false_, true_>
+            if_<expr<yh, xh>, true_, false_>
         > :
             _merge<
                 join<ret, list<yh>>, list<xh, xt...>, list<yt...>, lambda<expr>

@@ -38,14 +38,13 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/join.hpp>
+#include <metal/list/rotate.hpp>
 #include <metal/list/reverse.hpp>
 #include <metal/number/enumerate.hpp>
 #include <metal/number/sub.hpp>
 #include <metal/value/value.hpp>
 
 #include <metal/detail/declptr.hpp>
-#include <metal/detail/pick.hpp>
 
 namespace metal
 {
@@ -54,11 +53,14 @@ namespace metal
         template<typename> using void_ = void;
 
         template<typename, typename>
-        struct _range_impl
+        struct _skip
         {};
 
+        template<typename seq, typename _>
+        using skip = typename _skip<seq, _>::type;
+
         template<typename... vals, typename... _>
-        struct _range_impl<list<vals...>, list<_...>>
+        struct _skip<list<vals...>, list<_...>>
         {
             template<typename... tail>
             static list<tail...> impl(void_<_>*..., value<tail>*...);
@@ -67,8 +69,9 @@ namespace metal
         };
 
         template<typename seq, typename beg, typename end>
-        struct _range :
-             _range<
+        struct _range
+        {
+            using type = range<
                 range<
                     range<seq, min<beg, end>, size<seq>>,
                     number<0>,
@@ -76,24 +79,21 @@ namespace metal
                 >,
                 sub<beg, min<beg, end>>,
                 sub<end, min<beg, end>>
-            >
-        {};
+            >;
+        };
 
         template<typename seq, typename n>
-        struct _range<seq, number<0>, n> :
-            _pick<
-                seq,
-                join<
-                    enumerate<number<1>, n, number<0>>,
-                    enumerate<number<0>, sub<size<seq>, n>, number<0>>
-                >
-            >
-        {};
+        struct _range<seq, number<0>, n>
+        {
+            using type =
+                skip<rotate<seq, n>, enumerate<number<0>, sub<size<seq>, n>>>;
+        };
 
         template<typename seq, typename n>
-        struct _range<seq, n, size<seq>> :
-            _range_impl<seq, enumerate<number<0>, n>>
-        {};
+        struct _range<seq, n, size<seq>>
+        {
+            using type = skip<seq, enumerate<number<0>, n>>;
+        };
 
         template<typename seq>
         struct _range<seq, number<0>, size<seq>>

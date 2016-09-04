@@ -2,45 +2,46 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-#ifndef METAL_LIST_FOLD_LEFT_HPP
-#define METAL_LIST_FOLD_LEFT_HPP
+#ifndef METAL_LIST_ROTATE_HPP
+#define METAL_LIST_ROTATE_HPP
 
 #include <metal/config.hpp>
+
+#include <metal/list/size.hpp>
 
 namespace metal
 {
     namespace detail
     {
-        template<typename seq, typename state, typename lbd>
-        struct _fold_left;
+        template<typename seq, typename num, typename = size<seq>>
+        struct _rotate;
     }
 
     /// \ingroup list
     ///
     /// ### Description
     /// ...
-    template<typename seq, typename state, typename lbd>
-    using fold_left = typename detail::_fold_left<seq, state, lbd>::type;
+    template<typename seq, typename num>
+    using rotate = typename detail::_rotate<seq, num>::type;
 }
 
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
-
-#include <metal/detail/fold_cons.hpp>
 
 namespace metal
 {
     namespace detail
     {
         template<int_ n>
-        struct _cons_left_impl :
-            _cons_left_impl<(n >= 100) ? 100 : (n >= 10) ? 10 : (n >= 1)>
+        struct _rotate_impl :
+            _rotate_impl<(n >= 100) ? 100 : (n >= 10) ? 10 : (n >= 1)>
         {};
 
         template<>
-        struct _cons_left_impl<100>
+        struct _rotate_impl<100>
         {
             template<
+                int_ n,
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename _10, typename _11,
@@ -68,7 +69,9 @@ namespace metal
                 typename _96, typename _97, typename _98, typename _99,
                 typename... tail
             >
-            using type = list<
+            using type = typename _rotate_impl<(n - 100)>::template type<
+                (n - 100),
+                tail...,
                 _00, _01, _02, _03, _04, _05, _06, _07, _08, _09,
                 _10, _11, _12, _13, _14, _15, _16, _17, _18, _19,
                 _20, _21, _22, _23, _24, _25, _26, _27, _28, _29,
@@ -78,67 +81,58 @@ namespace metal
                 _60, _61, _62, _63, _64, _65, _66, _67, _68, _69,
                 _70, _71, _72, _73, _74, _75, _76, _77, _78, _79,
                 _80, _81, _82, _83, _84, _85, _86, _87, _88, _89,
-                _90, _91, _92, _93, _94, _95, _96, _97, _98, _99,
-                typename _cons_left_impl<
-                    sizeof...(tail)
-                >::template type<tail...>
+                _90, _91, _92, _93, _94, _95, _96, _97, _98, _99
             >;
         };
 
         template<>
-        struct _cons_left_impl<10>
+        struct _rotate_impl<10>
         {
             template<
+                int_ n,
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename... tail
             >
-            using type = list<
-                _00, _01, _02, _03, _04, _05, _06, _07, _08, _09,
-                typename _cons_left_impl<
-                    sizeof...(tail)
-                >::template type<tail...>
+            using type = typename _rotate_impl<(n - 10)>::template type<
+                (n - 10),
+                tail..., _00, _01, _02, _03, _04, _05, _06, _07, _08, _09
             >;
         };
 
         template<>
-        struct _cons_left_impl<1>
+        struct _rotate_impl<1>
         {
-            template<typename head, typename... tail>
-            using type = list<
-                head,
-                typename _cons_left_impl<
-                    sizeof...(tail)
-                >::template type<tail...>
+            template<int_ n, typename head, typename... tail>
+            using type = typename _rotate_impl<(n - 1)>::template type<
+                (n - 1), tail..., head
             >;
         };
 
         template<>
-        struct _cons_left_impl<0>
+        struct _rotate_impl<0>
         {
-            template<typename...>
+            template<int_, typename... vals>
+            using type = list<vals...>;
+        };
+
+        template<typename seq, typename num, typename>
+        struct _rotate
+        {};
+
+        template<typename... vals, int_ n, int_ s>
+        struct _rotate<list<vals...>, number<n>, number<s>>
+        {
+            static constexpr int_ m = ((n % s) + s*(n < 0));
+
+            using type = typename _rotate_impl<m>::template type<m, vals...>;
+        };
+
+        template<int_ n>
+        struct _rotate<list<>, number<n>>
+        {
             using type = list<>;
         };
-
-        template<typename... vals>
-        struct _cons_left
-        {
-            using type = typename _cons_left_impl<
-                sizeof...(vals)
-            >::template type<vals...>;
-        };
-
-        template<typename... vals>
-        using cons_left = typename _cons_left<vals...>::type;
-
-        template<typename seq, typename state, typename lbd>
-        struct _fold_left
-        {};
-
-        template<typename... vals, typename state, typename lbd>
-        struct _fold_left<list<vals...>, state, lbd> :
-            _fold_cons<cons_left<vals...>, state, lbd>
-        {};
     }
 }
 
