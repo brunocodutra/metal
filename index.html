@@ -39,7 +39,7 @@
         <div class="container">
           <div class="navbar-header">
             <a class="navbar-brand" href="#">
-              Metal <small>0.3.0</small>
+              Metal <small>0.3.1</small>
             </a>
           </div>
           <ul class="nav navbar-nav navbar-left">
@@ -51,7 +51,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/archive/v0.3.0.zip">
+              <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/archive/v0.3.1.zip">
                 <span class="hidden-xs">Download</span>
                 <span class="hidden-xs octicon octicon-cloud-download" aria-hidden="true"></span>
                 <span class="visible-xs-block mega-octicon octicon-cloud-download" aria-hidden="true"></span>
@@ -224,7 +224,7 @@ List </h2>
 <h3>Requirements</h3>
 <p><code>list</code> is a model of <a href="#list">List</a> if and only if <code>list</code> is a specialization of <code><a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a></code>.</p>
 <h3>Examples</h3>
-<div class="fragment"><div class="line"><span class="keyword">using</span> <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">list</a> = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;&gt;</a>; <span class="comment">// an empty list</span></div></div><!-- fragment --><div class="fragment"><div class="line"><span class="keyword">using</span> <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">list</a> = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, int*, int&amp;&gt;</a>;</div></div><!-- fragment --> <h3>See Also</h3>
+<div class="fragment"><div class="line"><span class="keyword">using</span> l = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;&gt;</a>; <span class="comment">// an empty list</span></div></div><!-- fragment --><div class="fragment"><div class="line"><span class="keyword">using</span> l = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, int*, int&amp;&gt;</a>;</div></div><!-- fragment --> <h3>See Also</h3>
 <p><a class="el" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>, <a class="el" href="group__list.html#ga0d35b093a78a38d60906901eb78a5946">metal::is_list</a></p>
 <h2><a class="anchor" id="pair"></a>
 Pair </h2>
@@ -232,7 +232,7 @@ Pair </h2>
 <h3>Requirements</h3>
 <p>A <a href="#pair">Pair</a> is any <a href="#list">List</a> whose size is 2.</p>
 <h3>Examples</h3>
-<div class="fragment"><div class="line"><span class="keyword">using</span> <a class="code" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">pair</a> = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, unsigned&gt;</a>;</div></div><!-- fragment --> <h3>See Also</h3>
+<div class="fragment"><div class="line"><span class="keyword">using</span> p = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, unsigned&gt;</a>;</div></div><!-- fragment --> <h3>See Also</h3>
 <p><a class="el" href="group__pair.html#gafe4f3a3f2854c485c9b455c6ea70271d">metal::pair</a>, <a class="el" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">metal::is_pair</a>, <a class="el" href="group__pair.html#gab74a726c430a7ffbad661ca2c7de18e9">metal::first</a>, <a class="el" href="group__pair.html#ga577d96e206b2ea656ffa9df9ce7c3b6e">metal::second</a></p>
 <h2><a class="anchor" id="map"></a>
 Map </h2>
@@ -240,7 +240,7 @@ Map </h2>
 <h3>Requirements</h3>
 <p>A <a href="#map">Map</a> is a <a href="#list">List</a> of <a href="#pair">Pairs</a>, whose first elements are all distinct, that is </p><pre class="fragment">[[k0, v0], ..., [kn, vn]]; ki != kj for all i, j in {0, n} and i != j
 </pre><h3>Examples</h3>
-<div class="fragment"><div class="line"><span class="keyword">using</span> <a class="code" href="group__map.html#ga794f9d7170b6ad2a82124ede0fbfe742">map</a> = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;&gt;</a>; <span class="comment">// an empty map</span></div></div><!-- fragment --><div class="fragment"><div class="line"><span class="keyword">using</span> <a class="code" href="group__map.html#ga794f9d7170b6ad2a82124ede0fbfe742">map</a> = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>&lt;</div><div class="line">    <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, long&gt;</a>,</div><div class="line">    <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;float, double&gt;</a></div><div class="line">&gt;;</div></div><!-- fragment --> <h3>Counterexamples</h3>
+<div class="fragment"><div class="line"><span class="keyword">using</span> m = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;&gt;</a>; <span class="comment">// an empty map</span></div></div><!-- fragment --><div class="fragment"><div class="line"><span class="keyword">using</span> m = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>&lt;</div><div class="line">    <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, long&gt;</a>,</div><div class="line">    <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;float, double&gt;</a></div><div class="line">&gt;;</div></div><!-- fragment --> <h3>Counterexamples</h3>
 <div class="fragment"><div class="line"><span class="keyword">using</span> not_a_map = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>&lt; <span class="comment">// repeated keys</span></div><div class="line">    <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, int*&gt;</a>,</div><div class="line">    <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int, int&amp;&gt;</a></div><div class="line">&gt;;</div></div><!-- fragment --><div class="fragment"><div class="line"><span class="keyword">using</span> not_a_map = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list</a>&lt; <span class="comment">// not a list of pairs</span></div><div class="line">    <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;int&gt;</a>,</div><div class="line">    metal::list&lt;int, int&amp;&gt;</div><div class="line">&gt;;</div></div><!-- fragment --> <h3>See Also</h3>
 <p><a class="el" href="group__map.html#ga794f9d7170b6ad2a82124ede0fbfe742">metal::map</a>, <a class="el" href="group__map.html#ga74aaca3fae66a7618dff3f439927d9ed">metal::is_map</a>, <a class="el" href="group__map.html#ga3636ee6af332209b8742e6a127f684ff">metal::keys</a>, <a class="el" href="group__map.html#ga1f02a299118058aa6d36c9558cb52771">metal::values</a></p>
 <h1><a class="anchor" id="metal_in_action"></a>

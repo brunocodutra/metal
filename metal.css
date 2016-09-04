@@ -98,12 +98,20 @@ html, body {
 h1:hover > a.anchor:after,
 h2:hover > a.anchor:after,
 h3:hover > a.anchor:after {
-    content: "§";
+    content: "";
     position: absolute;
-    width: 1em;
-    left: -1em;
     top: 65px;
+    height: 1.1em;
+    width: 100%;
     cursor: pointer;
+}
+
+@media (max-width: 767px) {
+    h1:hover > a.anchor:after,
+    h2:hover > a.anchor:after,
+    h3:hover > a.anchor:after {
+        top: 120px;
+    }
 }
 
 .page-header + .sub-page-header {
@@ -118,6 +126,12 @@ a.anchor {
     display: block;
     position: relative;
     top: -65px;
+}
+
+@media (max-width: 767px) {
+    a.anchor {
+        top: -120px;
+    }
 }
 
 a:focus {
