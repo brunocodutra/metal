@@ -105,6 +105,26 @@ IS_SAME(metal::at_key<m, float>, metal::number<sizeof(float)>);
 )
 
 HIDE(
+/// [insert_key]
+using m = metal::map<
+    metal::pair<int, metal::number<sizeof(int)>>,
+    metal::pair<char, metal::number<sizeof(char)>>,
+    metal::pair<float, metal::number<sizeof(float)>>
+>;
+
+IS_SAME(
+    metal::insert_key<m, void, metal::number<0>>,
+    metal::map<
+        metal::pair<int, metal::number<sizeof(int)>>,
+        metal::pair<char, metal::number<sizeof(char)>>,
+        metal::pair<float, metal::number<sizeof(float)>>,
+        metal::pair<void, metal::number<0>>
+    >
+);
+/// [insert_key]
+)
+
+HIDE(
 /// [erase_key]
 using m = metal::map<
     metal::pair<int, metal::number<sizeof(int)>>,
