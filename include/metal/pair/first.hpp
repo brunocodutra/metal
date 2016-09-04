@@ -19,14 +19,14 @@ namespace metal
     /// Returns the first element of a \pair.
     ///
     /// ### Usage
-    /// For any \pair `pair`
+    /// For any \pair `p`
     /// \code
-    ///     using result = metal::first<pair>;
+    ///     using result = metal::first<p>;
     /// \endcode
     ///
     /// \returns: \value
     /// \semantics:
-    ///     If `pair` contains \values `x` and `y` in that order, then
+    ///     If `p` contains \values `x` and `y` in that order, then
     ///     \code
     ///         using result = x;
     ///     \endcode

@@ -8,16 +8,16 @@
 
 HIDE(
 /// [list1]
-using list = metal::list<>; // an empty list
+using l = metal::list<>; // an empty list
 /// [list1]
 
-IS_SAME(metal::is_list<list>, metal::true_);
+IS_SAME(metal::is_list<l>, metal::true_);
 )
 
 HIDE(
 /// [list2]
-using list = metal::list<int, int*, int&>;
+using l = metal::list<int, int*, int&>;
 /// [list2]
 
-IS_SAME(metal::is_list<list>, metal::true_);
+IS_SAME(metal::is_list<l>, metal::true_);
 )

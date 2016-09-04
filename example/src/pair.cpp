@@ -8,16 +8,17 @@
 
 HIDE(
 /// [pair1]
-using pair = metal::list<int, unsigned>;
+using p = metal::list<int, unsigned>;
 /// [pair1]
 
-IS_SAME(metal::is_pair<pair>, metal::true_);
+IS_SAME(metal::is_pair<p>, metal::true_);
 )
 
 HIDE(
 /// [is_pair]
-IS_SAME(metal::is_pair<metal::list<int, unsigned>>, metal::true_);
-IS_SAME(metal::is_pair<metal::list<int>>, metal::false_);
+IS_SAME(metal::is_pair<metal::pair<int, unsigned>>, metal::true_);
+IS_SAME(metal::is_pair<metal::list<void, void*>>, metal::true_);
+IS_SAME(metal::is_pair<metal::list<void>>, metal::false_);
 /// [is_pair]
 )
 

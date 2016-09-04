@@ -21,17 +21,17 @@ namespace metal
     /// Returns a \list of keys contained in a \map.
     ///
     /// ### Usage
-    /// For any \map `map`
+    /// For any \map `m`
     /// \code
-    ///     using result = metal::keys<map>;
+    ///     using result = metal::keys<m>;
     /// \endcode
     ///
     /// \returns: \list
     /// \semantics:
-    ///     If `map` associates keys `key_1, ..., key_n` to values
-    ///     `val_1, ..., val_n`, then
+    ///     If `m` associates keys `k_1, ..., k_n` to values `v_1, ..., v_n`,
+    ///     then
     ///     \code
-    ///         using result = metal::list<key_1, ..., key_n>;
+    ///         using result = metal::list<k_1, ..., k_n>;
     ///     \endcode
     ///
     /// ### Example

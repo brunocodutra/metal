@@ -8,21 +8,21 @@
 
 HIDE(
 /// [map1]
-using map = metal::list<>; // an empty map
+using m = metal::list<>; // an empty map
 /// [map1]
 
-IS_SAME(metal::is_map<map>, metal::true_);
+IS_SAME(metal::is_map<m>, metal::true_);
 )
 
 HIDE(
 /// [map2]
-using map = metal::list<
+using m = metal::list<
     metal::list<int, long>,
     metal::list<float, double>
 >;
 /// [map2]
 
-IS_SAME(metal::is_map<map>, metal::true_);
+IS_SAME(metal::is_map<m>, metal::true_);
 )
 
 HIDE(
@@ -48,27 +48,118 @@ IS_SAME(metal::is_map<not_a_map>, metal::false_);
 )
 
 HIDE(
-/// [keys]
-using map = metal::map<
+/// [is_map]
+using m = metal::map<
     metal::pair<int, metal::number<sizeof(int)>>,
     metal::pair<char, metal::number<sizeof(char)>>,
     metal::pair<float, metal::number<sizeof(float)>>
 >;
 
-IS_SAME(metal::keys<map>, metal::list<int, char, float>);
-/// [keys]
+IS_SAME(metal::is_map<m>, metal::true_);
+IS_SAME(metal::is_map<metal::list<>>, metal::true_);
+IS_SAME(metal::is_map<metal::list<int, int*>>, metal::false_);
+/// [is_map]
 )
 
 HIDE(
-/// [values]
-using map = metal::map<
+/// [order]
+using m = metal::map<
+    metal::pair<int, metal::number<sizeof(int)>>,
+    metal::pair<char, metal::number<sizeof(char)>>,
+    metal::pair<float, metal::number<sizeof(float)>>
+>;
+
+IS_SAME(metal::order<m, int>, metal::number<0>);
+IS_SAME(metal::order<m, char>, metal::number<1>);
+IS_SAME(metal::order<m, float>, metal::number<2>);
+/// [order]
+)
+
+HIDE(
+/// [has_key]
+using m = metal::map<
+    metal::pair<int, metal::number<sizeof(int)>>,
+    metal::pair<char, metal::number<sizeof(char)>>,
+    metal::pair<float, metal::number<sizeof(float)>>
+>;
+
+IS_SAME(metal::has_key<m, int>, metal::true_);
+IS_SAME(metal::has_key<m, char>, metal::true_);
+IS_SAME(metal::has_key<m, float>, metal::true_);
+IS_SAME(metal::has_key<m, void>, metal::false_);
+/// [has_key]
+)
+
+HIDE(
+/// [at_key]
+using m = metal::map<
+    metal::pair<int, metal::number<sizeof(int)>>,
+    metal::pair<char, metal::number<sizeof(char)>>,
+    metal::pair<float, metal::number<sizeof(float)>>
+>;
+
+IS_SAME(metal::at_key<m, int>, metal::number<sizeof(int)>);
+IS_SAME(metal::at_key<m, char>, metal::number<sizeof(char)>);
+IS_SAME(metal::at_key<m, float>, metal::number<sizeof(float)>);
+/// [at_key]
+)
+
+HIDE(
+/// [erase_key]
+using m = metal::map<
     metal::pair<int, metal::number<sizeof(int)>>,
     metal::pair<char, metal::number<sizeof(char)>>,
     metal::pair<float, metal::number<sizeof(float)>>
 >;
 
 IS_SAME(
-    metal::values<map>,
+    metal::erase_key<m, int>,
+    metal::map<
+        metal::pair<char, metal::number<sizeof(char)>>,
+        metal::pair<float, metal::number<sizeof(float)>>
+    >
+);
+
+IS_SAME(
+    metal::erase_key<m, char>,
+    metal::map<
+        metal::pair<int, metal::number<sizeof(int)>>,
+        metal::pair<float, metal::number<sizeof(float)>>
+    >
+);
+
+IS_SAME(
+    metal::erase_key<m, float>,
+    metal::map<
+        metal::pair<int, metal::number<sizeof(int)>>,
+        metal::pair<char, metal::number<sizeof(char)>>
+    >
+);
+/// [erase_key]
+)
+
+HIDE(
+/// [keys]
+using m = metal::map<
+    metal::pair<int, metal::number<sizeof(int)>>,
+    metal::pair<char, metal::number<sizeof(char)>>,
+    metal::pair<float, metal::number<sizeof(float)>>
+>;
+
+IS_SAME(metal::keys<m>, metal::list<int, char, float>);
+/// [keys]
+)
+
+HIDE(
+/// [values]
+using m = metal::map<
+    metal::pair<int, metal::number<sizeof(int)>>,
+    metal::pair<char, metal::number<sizeof(char)>>,
+    metal::pair<float, metal::number<sizeof(float)>>
+>;
+
+IS_SAME(
+    metal::values<m>,
     metal::list<
         metal::number<sizeof(int)>,
         metal::number<sizeof(char)>,
