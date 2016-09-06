@@ -21,7 +21,7 @@ namespace test
     enum  val9 {type};
 }
 
-#define VAL(N) CAT(test::val, N)
-#define VALS(N) ENUM(N, VAL)
+#define VALUE(N) CAT(test::val, N)
+#define VALUES(N) ENUM(N, VALUE)
 
 #endif

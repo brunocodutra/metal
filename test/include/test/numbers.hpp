@@ -33,8 +33,8 @@ namespace test
 #define FACT_9 FACT_7*9
 #define FACT(N) (CAT(FACT_, N))
 
-#define NUM(N) CAT(test::num, N)
-#define NUMS(N) ENUM(N, NUM)
+#define NUMBER(N) CAT(test::num, N)
+#define NUMBERS(N) ENUM(N, NUMBER)
 
 #define BOOL(B) metal::number<(B)>
 #define TRUE BOOL(true)

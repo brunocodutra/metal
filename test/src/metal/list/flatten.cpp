@@ -12,17 +12,17 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, VAL(M)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, NUM(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, VALUE(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, NUMBER(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::flatten>, PAIR(M)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::flatten>, LIST(M)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::flatten>, MAP(M)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, LBD(M)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, LBD(_)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, LAMBDA(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::flatten>, LAMBDA(_)>), (FALSE)); \
     CHECK((metal::flatten<PAIR(M)>), (PAIR(M))); \
     CHECK((metal::flatten<LIST(M)>), (LIST(M))); \
-    CHECK((metal::flatten<MAP(M)>), (metal::list<ENUM(M, FWD, NUM, VAL)>)); \
-    CHECK((metal::flatten<metal::enumerate<NUM(0), metal::number<100*M>, NUM(N)>>), (metal::enumerate<NUM(0), metal::number<100*M>, NUM(N)>)); \
+    CHECK((metal::flatten<MAP(M)>), (metal::list<ENUM(M, FWD, NUMBER, VALUE)>)); \
+    CHECK((metal::flatten<metal::enumerate<NUMBER(0), metal::number<100*M>, NUMBER(N)>>), (metal::enumerate<NUMBER(0), metal::number<100*M>, NUMBER(N)>)); \
 /**/
 
 GEN(MATRIX)

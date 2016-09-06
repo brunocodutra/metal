@@ -10,20 +10,19 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) VALS(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) NUMS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) VALUES(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) NUMBERS(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) PAIRS(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) LISTS(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) LISTS(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) MAPS(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) LBDS(N)>), (TRUE)); \
-    CHECK((metal::is_list<VAL(N)>), (FALSE)); \
-    CHECK((metal::is_list<NUM(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) LAMBDAS(N)>), (TRUE)); \
+    CHECK((metal::is_list<VALUE(N)>), (FALSE)); \
+    CHECK((metal::is_list<NUMBER(N)>), (FALSE)); \
     CHECK((metal::is_list<PAIR(N)>), (TRUE)); \
     CHECK((metal::is_list<LIST(N)>), (TRUE)); \
     CHECK((metal::is_list<MAP(N)>), (TRUE)); \
-    CHECK((metal::is_list<LBD(N)>), (FALSE)); \
-    CHECK((metal::is_list<LBD(_)>), (FALSE)); \
+    CHECK((metal::is_list<LAMBDA(N)>), (FALSE)); \
+    CHECK((metal::is_list<LAMBDA(_)>), (FALSE)); \
 /**/
 
 GEN(MATRIX)

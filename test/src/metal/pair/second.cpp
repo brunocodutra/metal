@@ -11,14 +11,14 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    CHECK((metal::is_invocable<metal::lambda<metal::second>, VAL(M)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::second>, NUM(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::second>, VALUE(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::second>, NUMBER(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::second>, PAIR(M)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::second>, LIST(M)>), (BOOL(M == 2))); \
     CHECK((metal::is_invocable<metal::lambda<metal::second>, MAP(M)>), (BOOL(M == 2))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::second>, LBD(M)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::second>, LBD(_)>), (FALSE)); \
-    CHECK((metal::second<PAIR(M)>), (VAL(M))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::second>, LAMBDA(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::second>, LAMBDA(_)>), (FALSE)); \
+    CHECK((metal::second<PAIR(M)>), (VALUE(M))); \
 /**/
 
 GEN(MATRIX)

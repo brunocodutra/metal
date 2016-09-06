@@ -7,18 +7,12 @@
 
 #include <metal/config.hpp>
 
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/if.hpp>
-
 namespace metal
 {
     namespace detail
     {
         template<typename seq, typename lbd>
         struct _sort;
-
-        template<typename seq, typename lbd>
-        using sort = typename _sort<seq, lbd>::type;
     }
 
     /// \ingroup list
@@ -26,7 +20,7 @@ namespace metal
     /// ### Description
     /// ...
     template<typename seq, typename lbd>
-    using sort = detail::sort<seq, if_<is_lambda<lbd>, lbd>>;
+    using sort = typename detail::_sort<seq, lbd>::type;
 }
 
 #include <metal/list/list.hpp>
@@ -34,8 +28,10 @@ namespace metal
 #include <metal/list/size.hpp>
 #include <metal/list/range.hpp>
 #include <metal/lambda/invoke.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/div.hpp>
+#include <metal/number/if.hpp>
 
 namespace metal
 {
@@ -108,16 +104,14 @@ namespace metal
         {};
 
         template<typename x, typename lbd>
-        struct _sort<list<x>, lbd>
-        {
-            using type = list<x>;
-        };
+        struct _sort<list<x>, lbd> :
+            _if_<is_lambda<lbd>, list<x>>
+        {};
 
         template<typename lbd>
-        struct _sort<list<>, lbd>
-        {
-            using type = list<>;
-        };
+        struct _sort<list<>, lbd> :
+            _if_<is_lambda<lbd>, list<>>
+        {};
     }
 }
 

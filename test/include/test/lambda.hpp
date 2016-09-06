@@ -8,7 +8,7 @@
 #include "test/expressions.hpp"
 #include "test/preprocessor.hpp"
 
-#define LBD(...) metal::lambda<EXPR(__VA_ARGS__)>
-#define LBDS(N) ENUM(N, LBD)
+#define LAMBDA(...) metal::lambda<EXPR(__VA_ARGS__)>
+#define LAMBDAS(N) ENUM(N, LAMBDA)
 
 #endif
