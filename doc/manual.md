@@ -398,6 +398,33 @@ A [Map] is a [List] of [Pairs], whose first elements are all distinct, that is
 
 metal::map, metal::is_map, metal::keys, metal::values
 
+A Word on SFINAE-Friendliness {#SFINAE}
+================================================================================
+
+An [Expression] is said to be SFINAE-friendly when it is carefully designed so
+as never to prevent the [SFINAE] rule to be triggered. In general, such
+[Expressions] may only trigger template substitution errors at the point of
+instantiation of the *signature* of a type, which includes the instantiation of
+alias templates and default template arguments.
+
+SFINAE-friendly [Expressions] are exceedingly powerful, because they may be used
+to drive overload resolution, much like [`std::enable_if`][enable_if] does.
+For that reason all [Expressions] within `namespace metal` are guaranteed to be
+themselves SFINAE-friendly.
+
+\snippet sfinae.cpp SFINAE
+
+Conversely, an SFINAE-unfriendly [Expression] produces so called *hard errors*,
+which require the compilation to halt immediately. Examples of *hard errors*
+are failed `static_assert`'ions or template substitution errors at the point of
+instantiation of the nested members of a type.
+
+SFINAE-unfriendly [Expressions] are very inconvenient, because they force
+compilation to halt when they are not selected by overload resolution, thereby
+hindering the usage of the entire overloaded set. For that reason
+SFINAE-unfriendly [Expressions] should always be avoided.
+
+
 Metal in Action {#metal_in_action}
 ================================================================================
 
@@ -605,7 +632,7 @@ And ignores digit separators too.
 Church Booleans {#church_booleans}
 --------------------------------------------------------------------------------
 
-TODO
+[TODO]
 
 [Value]:            #value
 [Values]:           #value
@@ -646,7 +673,9 @@ TODO
 [constexpr]:        http://en.cppreference.com/w/cpp/language/constexpr
 [tuple]:            http://en.cppreference.com/w/cpp/utility/tuple
 [get]:              http://en.cppreference.com/w/cpp/utility/tuple/get
+[enable_if]:        http://en.cppreference.com/w/cpp/types/enable_if
 [literal]:          http://en.cppreference.com/w/cpp/language/user_literal
+[SFINAE]:           http://en.cppreference.com/w/cpp/language/sfinae
 
 [CMake]:            http://cmake.org/
 [Doxygen]:          http://doxygen.org/

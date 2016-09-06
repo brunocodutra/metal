@@ -249,6 +249,8 @@ ALIASES +=pairs="\ref pair \"Pairs\""
 ALIASES +=map="\ref map"
 ALIASES +=maps="\ref map \"Maps\""
 
+ALIASES +=SFINAE="\ref SFINAE \"SFINAE\""
+
 ALIASES +=semantics="\par Semantics"
 
 ALIASES +=tip{1}="<div class=\"panel panel-info\"><div class="panel-heading"><span class=\"octicon octicon-light-bulb\"> Tip</span></div><div class="panel-body">\1</div></div>"
