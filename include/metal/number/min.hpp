@@ -23,14 +23,15 @@ namespace metal
     /// Computes the minimum of \numbers.
     ///
     /// ### Usage
-    /// For any \numbers `num_1, ..., num_n`
+    /// For any \numbers `num_0, ..., num_n-1`
     /// \code
-    ///     using result = metal::min<num_1, ..., num_n>;
+    ///     using result = metal::min<num_0, ..., num_n-1>;
     /// \endcode
     ///
     /// \returns: \number
     /// \semantics:
-    ///     If `m` the minimum between all \numbers in `num_1, ..., num_n`, then
+    ///     If `m` the minimum between all \numbers in `num_0, ..., num_n-1`,
+    ///     then
     ///     \code
     ///         using result = m;
     ///     \endcode

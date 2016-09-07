@@ -23,24 +23,22 @@ namespace metal
     /// Computes the arithmetic exponentiation of \numbers.
     ///
     /// ### Usage
-    /// For any \numbers `num_1, ..., num_n`
+    /// For any \numbers `num_0, ..., num_n-1`
     /// \code
-    ///     using result = metal::pow<num_1, ..., num_n>;
+    ///     using result = metal::pow<num_0, ..., num_n-1>;
     /// \endcode
     ///
-    /// \pre: `num_1{} ** ... ** num_m-1{}` is nonzero for all
+    /// \pre: `metal::pow<num_0, ..., num_m-1> != metal::number<0>` for all
     /// negative `num_m`
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
-    ///         using result = metal::number<num_1{} ** ... ** num_n{}>;
+    ///         using result = metal::number<num_0{} ** ... ** num_n-1{}>;
     ///     \endcode
-    ///     \note{
-    ///         Borrowing from Fortran, `x ** y` should be understood as
-    ///         `x` raised to the power of `y`.
-    ///     }
+    ///     Where the notation `x**y` stands for `x` raised to the power of `y`
     ///     \warning{
-    ///         `x ** y` is always null for `y < 0` and `|x| > 1`
+    ///         `x**y` is always null for `y < 0` and `|x| > 1`
     ///         due to inherent limitations of integer arithmetic.
     ///     }
     ///

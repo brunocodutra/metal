@@ -23,15 +23,15 @@ namespace metal
     /// Computes the arithmetic subtraction of \numbers.
     ///
     /// ### Usage
-    /// For any \numbers `num_1, ..., num_n`
+    /// For any \numbers `num_0, ..., num_n-1`
     /// \code
-    ///     using result = metal::sub<num_1, ..., num_n>;
+    ///     using result = metal::sub<num_0, ..., num_n-1>;
     /// \endcode
     ///
     /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::number<num_1{} - ... - num_n{}>;
+    ///         using result = metal::number<num_0{} - ... - num_n-1{}>;
     ///     \endcode
     ///
     /// ### Example

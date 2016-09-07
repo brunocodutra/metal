@@ -22,7 +22,34 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Returns the index of the first element of a \list that satisfy a
+    /// predicate.
+    ///
+    /// ### Usage
+    /// For any \list `l` and \lambda `lbd`
+    /// \code
+    ///     using result = metal::find_if<l, lbd>;
+    /// \endcode
+    ///
+    /// \pre: For any element `l[i]` contained in `l`,
+    /// `metal::invoke<lbd, l[i]>` returns a \number
+    /// \returns: \number
+    /// \semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         using result = metal::number<i>;
+    ///     \endcode
+    ///     where `i` is such that `l[i]` is the first element in `l` for which
+    ///     `metal::invoke<lbd, l[i]>{} != false`, otherwise
+    ///     \code
+    ///         using result = metal::size<l>;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp find_if
+    ///
+    /// ### See Also
+    /// \see list, find, all, any, none, count_if
     template<typename seq, typename lbd>
     using find_if = typename detail::_find_if_impl<transform<lbd, seq>>::type;
 }

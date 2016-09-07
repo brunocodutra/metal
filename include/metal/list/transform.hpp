@@ -28,7 +28,32 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Transforms one or more \lists into a new \list through an arbitrary
+    /// n-ary \lambda.
+    ///
+    /// ### Usage
+    /// For any \lists `l_0, ..., l_n-1` and \lambda `lbd`
+    /// \code
+    ///     using result = metal::transform<lbd, l_0, ..., l_n-1>;
+    /// \endcode
+    ///
+    /// \pre: `metal::size<l_0>{} == metal::size<>{}... == metal::size<l_n-1>{}`
+    /// \returns: \list
+    /// \semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         using result = metal::list<
+    ///             metal::invoke<lbd, l_0[0], ...[0], l_n-1[0]>,
+    ///             ...,
+    ///             metal::invoke<lbd, l_0[m-1], ...[m-1], l_n-1[m-1]>,
+    ///         >;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp transform
+    ///
+    /// ### See Also
+    /// \see list, transpose
     template<typename lbd, typename head, typename... tail>
     using transform = typename if_<
         same<size<head>, size<tail>...>,

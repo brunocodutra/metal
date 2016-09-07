@@ -24,6 +24,9 @@ namespace metal
     ///
     /// ### Description
     /// ...
+    ///
+    /// ### See Also
+    /// \see lambda, is_value, is_number, is_pair, is_list, is_map
     template<typename val>
     using is_lambda = typename detail::_is_lambda<val>::type;
 

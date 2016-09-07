@@ -20,7 +20,35 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Sorts the elements of a \list according to an ordering relation.
+    ///
+    /// \tip{The sorting is [stable] if the ordering relation is [strict].}
+    /// [stable]: https://en.wikipedia.org/wiki/Sorting_algorithm#Stability
+    /// [strict]: https://en.wikipedia.org/wiki/Weak_ordering#Strict_weak_orderings
+    ///
+    /// ### Usage
+    /// For any \list `l` and \lambda `lbd`
+    /// \code
+    ///     using result = metal::sort<l, lbd>;
+    /// \endcode
+    ///
+    /// \pre: For any two \values `val_i` and `val_j` contained in `l`
+    /// `metal::invoke<lbd, val_i, val_j>` returns a \number
+    /// \returns: \list
+    /// \semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         using result = metal::list<val_0, ..., val_m-1>;
+    ///     \endcode
+    ///     where `val_0, ..., val_m-1` is a permutation of the elements in `l`
+    ///     such that `metal::invoke<lbd, val_i, val_i+1>{} != false` for all
+    ///     `i` in `[0, m-2]`.
+    ///
+    /// ### Example
+    /// \snippet list.cpp sort
+    ///
+    /// ### See Also
+    /// \see list, reverse, rotate
     template<typename seq, typename lbd>
     using sort = typename detail::_sort<seq, lbd>::type;
 }

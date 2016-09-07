@@ -30,7 +30,33 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Returns a contiguous subsequence of a \list.
+    ///
+    /// ### Usage
+    /// For any \list `l` and \numbers `beg` and `end`
+    /// \code
+    ///     using result = metal::range<l, beg, end>;
+    /// \endcode
+    ///
+    /// \pre: `metal::number<0>{} &le; beg{} &le; metal::size<l>{}` and
+    /// `metal::number<0>{} &le; end{} &le; metal::size<l>{}`
+    /// \returns: \list
+    /// \semantics:
+    ///     If `l` contains elements `l[0], ..., l[i], ..., l[j], ..., l[m-1]`,
+    ///     `beg{} == i` and `end{} == j`, then
+    ///     \code
+    ///         using result = metal::list<l[i], ..., l[j-1]>;
+    ///     \endcode
+    ///     otherwise, if `beg{} == j` and `end{} == i`, then
+    ///     \code
+    ///         using result = metal::list<l[j-1], ..., l[i]>;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp range
+    ///
+    /// ### See Also
+    /// \see list, erase, take, drop
     template<typename seq, typename beg, typename end>
     using range = detail::range<
         seq,

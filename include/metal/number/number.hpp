@@ -51,7 +51,7 @@ namespace metal
     /// \snippet number.cpp is_number
     ///
     /// ### See Also
-    /// \see number, true_, false_
+    /// \see number, is_value, is_lambda, is_pair, is_list, is_map
     template<typename val>
     using is_number = typename detail::_is_number<val>::type;
 
@@ -69,8 +69,16 @@ namespace metal
     /// ### Description
     /// Constructs a \number out of an integral value.
     ///
+    /// ### Usage
+    /// For any integral value `N`
+    /// \code
+    ///     using result = metal::number<N>;
+    /// \endcode
+    ///
+    /// \returns: \number
+    ///
     /// ### See Also
-    /// \see int_, is_number
+    /// \see int_, true_, false_, is_number
     template<int_ v>
     using number = std::integral_constant<metal::int_, v>;
 

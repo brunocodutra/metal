@@ -22,7 +22,32 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Replaces every element in a \list that satisfies a predicate by some
+    /// \value.
+    ///
+    /// ### Usage
+    /// For any \list `l`, \lambda `lbd` and \value `val`
+    /// \code
+    ///     using result = metal::replace_if<l, lbd, val>;
+    /// \endcode
+    ///
+    /// \pre: For any element `l[i]` contained in `l`,
+    /// `metal::invoke<lbd, l[i]>` returns a \number
+    /// \returns: \list
+    /// \semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         using result = metal::list<...>;
+    ///     \endcode
+    ///     where `result` contains all and only the elements in `l`, except
+    ///     that every element `l[i]` for which
+    ///     `metal::invoke<lbd, l[i]>{} != false` has been replaced by `val`.
+    ///
+    /// ### Example
+    /// \snippet list.cpp replace_if
+    ///
+    /// ### See Also
+    /// \see list, replace, copy_if, remove_if
     template<typename seq, typename lbd, typename val>
     using replace_if =
         typename detail::_replace_if_impl<seq, transform<lbd, seq>, val>::type;

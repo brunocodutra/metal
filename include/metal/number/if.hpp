@@ -23,9 +23,14 @@ namespace metal
     /// A multi-clause conditional expression.
     ///
     /// ### Usage
-    /// For any \numbers `num_1, ..., num_n` and \values `val_1, ..., val_n+1`
+    /// For any \numbers `num_0, ..., num_n-1` and \values `val_0, ..., val_n`
     /// \code
-    ///     using result = metal::if<num_1, val_1, ..., num_n, val_n, val_n+1>;
+    ///     using result = metal::if<
+    ///         num_0, val_0,
+    ///         ...,
+    ///         num_n-1, val_n-1,
+    ///         val_n
+    ///     >;
     /// \endcode
     ///
     /// \returns: \value
@@ -34,9 +39,9 @@ namespace metal
     ///     \code
     ///         using result = val_i;
     ///     \endcode
-    ///     otherwise, if `num_i{} == false` for all `i` in `[1, ..., n]`, then
+    ///     otherwise, if `num_i{} == false` for all `i` in `[0, n-1]`, then
     ///     \code
-    ///         using result = val_n+1;
+    ///         using result = val_n;
     ///     \endcode
     ///
     /// ### Example

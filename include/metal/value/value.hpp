@@ -45,7 +45,7 @@ namespace metal
     /// \snippet value.cpp is_value
     ///
     /// ### See Also
-    /// \see value, nil
+    /// \see value, nil, is_number, is_lambda, is_pair, is_list, is_map
     template<typename val>
     using is_value = metal::true_;
 

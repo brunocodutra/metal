@@ -19,15 +19,15 @@ namespace metal
     /// Computes the logical conjunction of \numbers.
     ///
     /// ### Usage
-    /// For any \numbers `num_1, ..., num_n`
+    /// For any \numbers `num_0, ..., num_n-1`
     /// \code
-    ///     using result = metal::and_<num_1, ..., num_n>;
+    ///     using result = metal::and_<num_0, ..., num_n-1>;
     /// \endcode
     ///
     /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::number<num_1{} && ... && num_n{}>;
+    ///         using result = metal::number<num_0{} && ... && num_n-1{}>;
     ///     \endcode
     ///
     /// ### Example

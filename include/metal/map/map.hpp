@@ -46,7 +46,7 @@ namespace metal
     /// \snippet map.cpp is_map
     ///
     /// ### See Also
-    /// \see map
+    /// \see map, is_value, is_number, is_lambda, is_pair, is_list
     template<typename val>
     using is_map = typename detail::_is_map<val>::type;
 
@@ -54,6 +54,15 @@ namespace metal
     ///
     /// ### Description
     /// Constructs a \map out of a sequence of \pairs.
+    ///
+    /// ### Usage
+    /// For any \pairs `pair_0, ..., pair_n-1`
+    /// \code
+    ///     using result = metal::map<pair_0, ..., pair_n-1>;
+    /// \endcode
+    ///
+    /// \pre: No two \pairs have the same key
+    /// \returns: \map
     ///
     /// ### See Also
     /// \see is_map

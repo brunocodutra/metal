@@ -20,7 +20,26 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Returns the number of elements in a \list.
+    ///
+    /// ### Usage
+    /// For any \list `l`
+    /// \code
+    ///     using result = metal::size<l>;
+    /// \endcode
+    ///
+    /// \returns: \number
+    /// \semantics:
+    ///     If `l` contains elements `l[0], ..., l[m-1]`, then
+    ///     \code
+    ///         using result = metal::number<m>;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp size
+    ///
+    /// ### See Also
+    /// \see list, empty
     template<typename seq>
     using size = typename detail::_size<seq>::type;
 }

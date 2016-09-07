@@ -21,7 +21,7 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// TODO
     template<
         typename seq,
         typename start, typename size, typename stride = number<1>

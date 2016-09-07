@@ -20,7 +20,31 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Computes the recursive invocation of a binary \lambda to the result of
+    /// the previous invocation (starting with some arbitrary \value) and each
+    /// element of a \list traversed from the beginning to the end.
+    ///
+    /// ### Usage
+    /// For any \list `l`, \value `val` and \lambda `lbd`
+    /// \code
+    ///     using result = metal::fold_left<l, val, lbd>;
+    /// \endcode
+    ///
+    /// \returns: \value
+    /// \semantics:
+    ///     If `l` contains elements `l[0], ..., l[m-1]`, then
+    ///     \code
+    ///         using result =
+    ///             lbd(... lbd(lbd(lbd(val, l[0]), l[1]), l[2]), ..., l[m-1])
+    ///     \endcode
+    ///     where the notation `lbd(x, y)` stands for
+    ///     `metal::invoke<lbd, x, y>`.
+    ///
+    /// ### Example
+    /// \snippet list.cpp fold_left
+    ///
+    /// ### See Also
+    /// \see list, fold_right
     template<typename seq, typename state, typename lbd>
     using fold_left = typename detail::_fold_left<seq, state, lbd>::type;
 }

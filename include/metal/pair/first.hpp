@@ -16,7 +16,7 @@ namespace metal
     /// \ingroup pair
     ///
     /// ### Description
-    /// Returns the first element of a \pair.
+    /// Retrieves the first element of a \pair.
     ///
     /// ### Usage
     /// For any \pair `p`
@@ -26,9 +26,9 @@ namespace metal
     ///
     /// \returns: \value
     /// \semantics:
-    ///     If `p` contains \values `x` and `y` in that order, then
+    ///     If `p` contains \values `p_0` and `p_1` in that order, then
     ///     \code
-    ///         using result = x;
+    ///         using result = p_0;
     ///     \endcode
     ///
     /// ### Example

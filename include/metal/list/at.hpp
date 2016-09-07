@@ -16,7 +16,28 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Retrieves an element of a \list at an arbitrary position.
+    ///
+    /// ### Usage
+    /// For any \list `l` and \number `num`
+    /// \code
+    ///     using result = metal::at<l, num>;
+    /// \endcode
+    ///
+    /// \pre: `metal::number<0>{} &le; num{} < metal::size<l>{}`
+    /// \returns: \value
+    /// \semantics:
+    ///     If `l` contains elements `l[0], ..., l[i], ..., l[m-1]` and
+    ///     `num{} == i`, then
+    ///     \code
+    ///         using result = l[i];
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp at
+    ///
+    /// ### See Also
+    /// \see list, front, back
     template<typename seq, typename num>
     using at = detail::lookup<seq, indices<seq>, num>;
 }

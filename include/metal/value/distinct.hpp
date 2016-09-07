@@ -23,14 +23,14 @@ namespace metal
     /// Checks whether no \values are identical.
     ///
     /// ### Usage
-    /// For any \values `val_1, ..., val_n`
+    /// For any \values `val_0, ..., val_n-1`
     /// \code
-    ///     using result = metal::distinct<val_1, ..., val_n>;
+    ///     using result = metal::distinct<val_0, ..., val_n-1>;
     /// \endcode
     ///
     /// \returns: \number
     /// \semantics:
-    ///     If at least two \values in `val_1, ..., val_n` are identical to
+    ///     If at least two \values in `val_0, ..., val_n-1` are identical to
     ///     each other, then
     ///     \code
     ///         using result = metal::false_;

@@ -20,7 +20,28 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Concatenates \lists.
+    ///
+    /// ### Usage
+    /// For any \lists `l_0, ..., l_n-1`
+    /// \code
+    ///     using result = metal::join<l_0, ..., l_n-1>;
+    /// \endcode
+    ///
+    /// \returns: \list
+    /// \semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         using result = metal::list<l_0[:], ...[:], l_n-1[:]>;
+    ///     \endcode
+    ///     where the notation `l[:]` stands for the expansion of all elements
+    ///     contained in `l`.
+    ///
+    /// ### Example
+    /// \snippet list.cpp join
+    ///
+    /// ### See Also
+    /// \see list, flatten
     template<typename head, typename... tail>
     using join = typename detail::_join<head, tail...>::type;
 }

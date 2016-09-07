@@ -23,14 +23,15 @@ namespace metal
     /// Computes the maximum of \numbers.
     ///
     /// ### Usage
-    /// For any \numbers `num_1, ..., num_n`
+    /// For any \numbers `num_0, ..., num_n-1`
     /// \code
-    ///     using result = metal::max<num_1, ..., num_n>;
+    ///     using result = metal::max<num_0, ..., num_n-1>;
     /// \endcode
     ///
     /// \returns: \number
     /// \semantics:
-    ///     If `M` the maximum between all \numbers in `num_1, ..., num_n`, then
+    ///     If `M` the maximum between all \numbers in `num_0, ..., num_n-1`,
+    ///     then
     ///     \code
     ///         using result = M;
     ///     \endcode

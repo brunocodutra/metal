@@ -16,7 +16,28 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Replaces each element of a \list by its corresponding index.
+    ///
+    /// ### Usage
+    /// For any \list `l`
+    /// \code
+    ///     using result = metal::indices<l>;
+    /// \endcode
+    ///
+    /// \returns: \list
+    /// \semantics:
+    ///     If `l` contains elements `l[0], ..., l[m-1]`, then
+    ///     \code
+    ///         using result = metal::list<
+    ///             metal::number<0>, metal::number<>..., metal::number<m-1>
+    ///         >;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp indices
+    ///
+    /// ### See Also
+    /// \see list, enumerate
     template<typename seq>
     using indices = metal::enumerate<metal::number<0>, metal::size<seq>>;
 }
