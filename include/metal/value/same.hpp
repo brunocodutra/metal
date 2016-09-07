@@ -18,7 +18,7 @@ namespace metal
     /// \ingroup value
     ///
     /// ### Description
-    /// Checks whether \values are identical.
+    /// Checks whether all \values are identical.
     ///
     /// ### Usage
     /// For any \values `val_1, ..., val_n`

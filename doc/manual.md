@@ -486,8 +486,8 @@ At a first glance it might be tempting to try something like this
 \snippet literal.cpp naive_2
 }
 
-but do not forget why we're here to begin with, that is, recall we can't
-instantiate a template using a non-constexpr variable as argument!
+but let us not forget why we're here to begin with, that is, recall we can't
+instantiate a template using a non-`constexpr` variable as argument!
 
 At this point, a watchful reader might argue that in theory there is no real
 reason for this to be rejected, since the literal value must always be known at
@@ -535,8 +535,8 @@ individual digits according to the radix.
 To parse characters into their corresponding numerical value, we must first
 remove all digit separators.
 That can be easily accomplished using `metal::remove`, which takes a [List] `l`
-and a [Value] `v` and returns another [List] that contains every element from
-`l` and in the same order, except for those that are identical to `v`.
+and a [Value] `val` and returns another [List] that contains every element from
+`l` and in the same order, except for those that are identical to `val`.
 
 \snippet literal.cpp remove
 
@@ -550,8 +550,7 @@ another [List] containing the results of invoking `lbd` for each element in `l`.
 
 \snippet literal.cpp transform
 
-Notice how integral values of type `char` are translated into their actual
-numerical representation.
+Notice how characters are translated into their actual numerical representation.
 
 So there it is
 

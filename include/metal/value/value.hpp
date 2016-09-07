@@ -57,7 +57,7 @@ namespace metal
     /// `::type`, unless `metal::value` is [empty](\ref nil), in which case it
     /// is undefined.
     ///
-    /// \tip{Use `metal::value` to prevent template pattern matching.}
+    /// \tip{Use `metal::value` to prevent undesired template pattern matching.}
     ///
     /// ### Usage
     /// For any \value `val`

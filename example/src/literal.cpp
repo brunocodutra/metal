@@ -307,7 +307,6 @@ struct AugmentedTuple :
         return std::get<i>(*this);
     }
 };
-///[augmented_tuple]
 #else
 ///[augmented_tuple]
 template<typename... T>
@@ -322,6 +321,7 @@ struct AugmentedTuple :
         return std::get<i>(*this);
     }
 };
+///[augmented_tuple]
 #endif
 
 ///[teaser_1]
