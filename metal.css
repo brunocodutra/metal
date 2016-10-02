@@ -53,29 +53,6 @@ html, body {
     width: 102px;
 }
 
-.toolbar > * {
-    border-bottom: 1px solid #EEEEEE;
-}
-
-.nav-pills > li > a:hover,
-.nav-pills > li > a:focus,
-.nav-pills > li > a:active {
-    background-color: #F9F9F9;
-}
-
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:hover,
-.nav-pills > li.active > a:focus,
-.nav-pills > li.active > a:active {
-    background-color: #464646;
-}
-
-.nav-pills > li > a {
-    color: #464646;
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
 .toc {
     background-color: #F9F9F9;
     border: 1px solid #EEEEEE;
@@ -209,6 +186,10 @@ dl.section.user dd {
 
 i.octicon {
     margin-right: 10px;
+}
+
+.caret {
+    margin-left: .5em;
 }
 
 .strike {

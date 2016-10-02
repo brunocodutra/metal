@@ -5,37 +5,28 @@
 $(function(){
     var page = window.location.pathname.split("/").pop().split("#")[0];
 
-    $("li > a[href='index.html'] > span")
-        .before("<i class='octicon octicon-book'></i>");
-    $("li > a[href='modules.html'] > span")
-        .before("<i class='octicon octicon-code'></i>");
-    $("li > a[href='namespacemembers.html'] > span")
-        .before("<i class='octicon octicon-list-unordered'></i>");
+    if(/[^_]+__[^_.]+.html/.test(page))
+        section = "modules.html";
+    else
+        section = page;
 
-    $(".current").removeClass("current").addClass("active");
-
-    $("#navrow1 > ul > li").appendTo("#menu");
-
-    $("#sections").on("click", function(){
-        $("> .active > .name", this).text($("#menu > .active", this).text());
-    }).click();
+    $("#sections > #menu a[href='" + section +"']").each(function(){
+        $(this).parent().addClass("active");
+        $("#sections #name").html($(this).html());
+    });
 
     if(/namespacemembers(_type)?\.html$/.test(page)){
-        $("[id='navrow4']")
-            .removeAttr("id")
-            .addClass("hidden-xs")
-            .find("> ul")
-            .addClass("nav nav-pills nav-justified")
-            .find("> li")
-            .removeClass("active")
-            .find("> a")
-            .click(function(){
-                $(this)
-                    .parent().addClass("active")
-                    .siblings().removeClass("active");
-            });
-
         var $entries = $("h3").addClass("index-entry");
+
+        $entries
+            .find("> a")
+            .each(function(){
+                var entry = $(this).attr("id").replace(/index_(.+)/g, "$1");
+                $(this)
+                    .addClass("anchor")
+                    .attr("id", entry)
+                    .attr("href", "#" + entry);
+            });
 
         $entries
             .find("+ ul")
@@ -52,8 +43,13 @@ $(function(){
         })
     }
 
-    $(".levels, .arrow, .heading, .memSeparator, \
-        [id^='navrow'], [id^='nav-path'], [class^='separator\\:']").remove();
+    $("a[href^='" + page + "#']").each(function(){
+        $(this).attr("href", $(this).attr("href").replace(/.*(#.+)/g, "$1"));
+    });
+
+    $(".levels, .arrow, .heading, .memtitle, .memSeparator, [class^='separator\\:']").remove();
+
+    $("a + .memitem").prev().addClass("anchor");
 
     $("div.header")
         .each(function(){
@@ -92,16 +88,22 @@ $(function(){
                 .append($(".memtemplate", this).append("<br>").contents())
                 .append($(".memname td", this).contents())
                 .prependTo(this)
+                .each(function(){
+                    if(/.*=[^=]*detail::[^=]*/.test($(this).text())){
+                        $(this).html(
+                            $(this).html().replace(
+                                /(.+=) typedef.+/,
+                                "$1 unspecified"
+                            )
+                        );
+                    }
+                })
                 .contents()
                 .each(function(){
                     if(this.nodeType == 3){
                         this.data = this.data
-                            .replace(
-                                /= typedef( typename)? (?!std::).+/g,
-                                "= unspecified"
-                            )
-                            .replace(/= typedef/g, "=")
-                            .replace(/detail::[_a-zA-Z_]+/g, "unspecified");
+                            .replace(/= typedef/, "=")
+                            .replace(/detail::[_a-zA-Z0-9_]+/, "unspecified");
                     }
                 });
 
@@ -167,7 +169,7 @@ $(function(){
         $(this).attr("href", "#" + $(this).attr("id"));
     });
 
-    $("a[href^='" + page + "#'], a[href^='#']").click(function(){
+    $("a[href^='#']").click(function(){
         var href = "#" + $.attr(this, "href").split("#").pop();
         if(href.length > 1){
             $("html, body").animate({
