@@ -14,6 +14,7 @@ add_custom_target(doc
     COMMAND ${CMAKE_COMMAND} -E remove_directory "html"
     COMMAND ${DOXYGEN_EXECUTABLE} METAL_DOXYFILE
     COMMAND ${CMAKE_COMMAND} -E remove
-        "html/*.png" "html/dir_*.html" "html/namespacemetal.html"
-        "html/dynsections.js" "html/doxygen.css" "html/tabs.css"
+        "html/*.png" "html/dynsections.js" "html/doxygen.css" "html/tabs.css"
+        "html/dir_*.html" "html/namespacemetal.html"
+        "html/namespacemembers_type.html"
 )
