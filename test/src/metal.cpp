@@ -7,43 +7,43 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    CHECK((metal::not_<metal::not_<NUM(N)>>), (BOOL(!!N))); \
-    CHECK((metal::not_<metal::and_<NUM(M), NUM(N)>>), (metal::or_<metal::not_<NUM(M)>, metal::not_<NUM(N)>>)); \
-    CHECK((metal::not_<metal::or_<NUM(M), NUM(N)>>), (metal::and_<metal::not_<NUM(M)>, metal::not_<NUM(N)>>)); \
-    CHECK((metal::neg<metal::neg<NUM(N)>>), (NUM(N))); \
-    CHECK((metal::inc<metal::dec<NUM(N)>>), (NUM(N))); \
-    CHECK((metal::dec<metal::inc<NUM(N)>>), (NUM(N))); \
-    CHECK((metal::same<metal::add<NUM(0) COMMA(N) ENUM(N, NUM FIX(M))>, metal::mul<NUM(M), NUM(N)>>), (TRUE)); \
-    CHECK((metal::same<metal::mul<NUM(1) COMMA(N) ENUM(N, NUM FIX(M))>, metal::pow<NUM(M), NUM(N)>>), (TRUE)); \
-    CHECK((metal::same<metal::add<NUMS(INC(N))>, metal::div<metal::mul<NUM(N), metal::inc<NUM(N)>>, NUM(2)>>), (TRUE)); \
-    CHECK((metal::same<metal::sub<NUM(M), metal::mul<metal::div<NUM(M), NUM(INC(N))>, NUM(INC(N))>>, metal::mod<NUM(M), NUM(INC(N))>>), (TRUE)); \
-    CHECK((metal::same<metal::mod<metal::pow<NUM(INC(M)), NUM(INC(N))>, NUM(INC(M))>, NUM(0)>), (TRUE)); \
-    CHECK((metal::same<NUM(M), NUM(N)>), (metal::not_<metal::or_<metal::less<NUM(M), NUM(N)>, metal::greater<NUM(M), NUM(N)>>>)); \
-    CHECK((metal::less<NUM(M), NUM(N)>), (metal::greater<NUM(N), NUM(M)>)); \
-    CHECK((metal::if_<NUM(M), BOOL(!!N), FALSE>), (metal::and_<NUM(M), NUM(N)>)); \
-    CHECK((metal::if_<NUM(M), TRUE, BOOL(!!N)>), (metal::or_<NUM(M), NUM(N)>)); \
-    CHECK((metal::at<LIST(INF), metal::find<LIST(INF), VAL(M)>>), (VAL(M))); \
-    CHECK((metal::insert<LIST(M), NUM(M), VAL(N)>), (metal::append<LIST(M), VAL(N)>)); \
-    CHECK((metal::insert<LIST(M), NUM(0), VAL(N)>), (metal::prepend<LIST(M), VAL(N)>)); \
-    CHECK((metal::erase<LIST(INF), NUM(M), NUM(INF)>), (metal::take<LIST(INF), NUM(M)>)); \
-    CHECK((metal::erase<LIST(INF), NUM(0), NUM(M)>), (metal::drop<LIST(INF), NUM(M)>)); \
-    CHECK((metal::slice<LIST(M), NUM(0), metal::size<LIST(M)>>), (LIST(M))); \
-    CHECK((metal::take<LIST(INF), NUM(M)>), (metal::reverse<metal::drop<metal::reverse<LIST(INF)>, NUM(CMPL(M))>>)); \
-    CHECK((metal::rotate<LIST(INF), NUM(M)>), (metal::join<metal::drop<LIST(INF), NUM(M)>, metal::take<LIST(INF), NUM(M)>>)); \
-    CHECK((metal::sort<metal::list<NUMS(M)>, metal::lambda<metal::greater>>), (metal::reverse<metal::list<NUMS(M)>>)); \
-    CHECK((metal::same<metal::enumerate<NUM(M), NUM(N), NUM(0)>>), (TRUE)); \
+    CHECK((metal::not_<metal::not_<NUMBER(N)>>), (BOOL(!!N))); \
+    CHECK((metal::not_<metal::and_<NUMBER(M), NUMBER(N)>>), (metal::or_<metal::not_<NUMBER(M)>, metal::not_<NUMBER(N)>>)); \
+    CHECK((metal::not_<metal::or_<NUMBER(M), NUMBER(N)>>), (metal::and_<metal::not_<NUMBER(M)>, metal::not_<NUMBER(N)>>)); \
+    CHECK((metal::neg<metal::neg<NUMBER(N)>>), (NUMBER(N))); \
+    CHECK((metal::inc<metal::dec<NUMBER(N)>>), (NUMBER(N))); \
+    CHECK((metal::dec<metal::inc<NUMBER(N)>>), (NUMBER(N))); \
+    CHECK((metal::same<metal::add<NUMBER(0) COMMA(N) ENUM(N, NUMBER FIX(M))>, metal::mul<NUMBER(M), NUMBER(N)>>), (TRUE)); \
+    CHECK((metal::same<metal::mul<NUMBER(1) COMMA(N) ENUM(N, NUMBER FIX(M))>, metal::pow<NUMBER(M), NUMBER(N)>>), (TRUE)); \
+    CHECK((metal::same<metal::add<NUMBERS(INC(N))>, metal::div<metal::mul<NUMBER(N), metal::inc<NUMBER(N)>>, NUMBER(2)>>), (TRUE)); \
+    CHECK((metal::same<metal::sub<NUMBER(M), metal::mul<metal::div<NUMBER(M), NUMBER(INC(N))>, NUMBER(INC(N))>>, metal::mod<NUMBER(M), NUMBER(INC(N))>>), (TRUE)); \
+    CHECK((metal::same<metal::mod<metal::pow<NUMBER(INC(M)), NUMBER(INC(N))>, NUMBER(INC(M))>, NUMBER(0)>), (TRUE)); \
+    CHECK((metal::same<NUMBER(M), NUMBER(N)>), (metal::not_<metal::or_<metal::less<NUMBER(M), NUMBER(N)>, metal::greater<NUMBER(M), NUMBER(N)>>>)); \
+    CHECK((metal::less<NUMBER(M), NUMBER(N)>), (metal::greater<NUMBER(N), NUMBER(M)>)); \
+    CHECK((metal::if_<NUMBER(M), BOOL(!!N), FALSE>), (metal::and_<NUMBER(M), NUMBER(N)>)); \
+    CHECK((metal::if_<NUMBER(M), TRUE, BOOL(!!N)>), (metal::or_<NUMBER(M), NUMBER(N)>)); \
+    CHECK((metal::at<LIST(INF), metal::find<LIST(INF), VALUE(M)>>), (VALUE(M))); \
+    CHECK((metal::insert<LIST(M), NUMBER(M), VALUE(N)>), (metal::append<LIST(M), VALUE(N)>)); \
+    CHECK((metal::insert<LIST(M), NUMBER(0), VALUE(N)>), (metal::prepend<LIST(M), VALUE(N)>)); \
+    CHECK((metal::erase<LIST(INF), NUMBER(M), NUMBER(INF)>), (metal::take<LIST(INF), NUMBER(M)>)); \
+    CHECK((metal::erase<LIST(INF), NUMBER(0), NUMBER(M)>), (metal::drop<LIST(INF), NUMBER(M)>)); \
+    CHECK((metal::slice<LIST(M), NUMBER(0), metal::size<LIST(M)>>), (LIST(M))); \
+    CHECK((metal::take<LIST(INF), NUMBER(M)>), (metal::reverse<metal::drop<metal::reverse<LIST(INF)>, NUMBER(CMPL(M))>>)); \
+    CHECK((metal::rotate<LIST(INF), NUMBER(M)>), (metal::join<metal::drop<LIST(INF), NUMBER(M)>, metal::take<LIST(INF), NUMBER(M)>>)); \
+    CHECK((metal::sort<metal::list<NUMBERS(M)>, metal::lambda<metal::greater>>), (metal::reverse<metal::list<NUMBERS(M)>>)); \
+    CHECK((metal::same<metal::enumerate<NUMBER(M), NUMBER(N), NUMBER(0)>>), (TRUE)); \
     CHECK((metal::flatten<metal::transpose<metal::list<LIST(M)>>>), (LIST(M))); \
     CHECK((metal::flatten<metal::fold_left<LIST(M), metal::list<>, metal::lambda<metal::list>>>), (LIST(M))); \
     CHECK((metal::fold_left<LIST(M), metal::list<>, metal::lambda<metal::prepend>>), (metal::fold_right<LIST(M), metal::list<>, metal::lambda<metal::append>>)); \
-    CHECK((metal::range<LIST(M), metal::size<LIST(M)>, NUM(0)>), (metal::reverse<LIST(M)>)); \
+    CHECK((metal::range<LIST(M), metal::size<LIST(M)>, NUMBER(0)>), (metal::reverse<LIST(M)>)); \
     CHECK((metal::transform<metal::bind<metal::lambda<metal::at>, metal::quote<LIST(M)>, metal::_1>, metal::indices<LIST(M)>>), (LIST(M))); \
     CHECK((metal::transpose<metal::transpose<MAP(INC(M))>>), (MAP(INC(M)))); \
     CHECK((metal::transform<metal::bind<metal::lambda<metal::first>, metal::_1>, MAP(M)>), (metal::keys<MAP(M)>)); \
     CHECK((metal::transform<metal::bind<metal::lambda<metal::second>, metal::_1>, MAP(M)>), (metal::values<MAP(M)>)); \
     CHECK((metal::first<metal::transpose<MAP(INC(M))>>), (metal::keys<MAP(INC(M))>)); \
     CHECK((metal::second<metal::transpose<MAP(INC(M))>>), (metal::values<MAP(INC(M))>)); \
-    CHECK((metal::at<MAP(INF), metal::order<MAP(INF), NUM(N)>>), (PAIR(N))); \
-    CHECK((metal::has_key<metal::erase_key<metal::list<PAIRS(INF)>, NUM(M)>, NUM(M)>), (FALSE)); \
+    CHECK((metal::at<MAP(INF), metal::order<MAP(INF), NUMBER(N)>>), (PAIR(N))); \
+    CHECK((metal::has_key<metal::erase_key<MAP(INF), NUMBER(M)>, NUMBER(N)>), (BOOL(M != N))); \
 /**/
 
 GEN(MATRIX)

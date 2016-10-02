@@ -11,20 +11,20 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    CHECK((metal::is_invocable<metal::lambda<metal::value>, VAL(M)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::value>, NUM(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::value>, VALUE(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::value>, NUMBER(M)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::value>, PAIR(M)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::value>, LIST(M)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::value>, MAP(M)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::value>, LBD(M)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::value>, LBD(_)>), (TRUE)); \
-    CHECK((metal::is_value<VAL(N)>), (TRUE)); \
-    CHECK((metal::is_value<NUM(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::value>, LAMBDA(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::value>, LAMBDA(_)>), (TRUE)); \
+    CHECK((metal::is_value<VALUE(N)>), (TRUE)); \
+    CHECK((metal::is_value<NUMBER(N)>), (TRUE)); \
     CHECK((metal::is_value<PAIR(N)>), (TRUE)); \
     CHECK((metal::is_value<LIST(N)>), (TRUE)); \
     CHECK((metal::is_value<MAP(N)>), (TRUE)); \
-    CHECK((metal::is_value<LBD(N)>), (TRUE)); \
-    CHECK((metal::is_value<LBD(_)>), (TRUE)); \
+    CHECK((metal::is_value<LAMBDA(N)>), (TRUE)); \
+    CHECK((metal::is_value<LAMBDA(_)>), (TRUE)); \
     CHECK((metal::value<>), (metal::nil)); \
 /**/
 

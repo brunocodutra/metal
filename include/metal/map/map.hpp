@@ -62,7 +62,7 @@ namespace metal
     >;
 }
 
-#include <metal/list/list.hpp>
+#include <metal/number/number.hpp>
 #include <metal/value/distinct.hpp>
 
 namespace metal

@@ -13,15 +13,15 @@
 #define SEQ(N, ...) metal::list<FWD(N, __VA_ARGS__)>
 
 #define MATRIX(M, N) \
-    CHECK((metal::is_invocable<metal::lambda<metal::transpose>, VAL(M)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::transpose>, NUM(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::transpose>, VALUE(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::transpose>, NUMBER(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::transpose>, PAIR(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::transpose>, LIST(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::transpose>, MAP(M)>), (BOOL(M > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::transpose>, LBD(M)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::transpose>, LBD(_)>), (FALSE)); \
-    CHECK((metal::transpose<MAP(INC(M))>), (metal::list<metal::list<NUMS(INC(M))>, metal::list<VALS(INC(M))>>)); \
-    CHECK((metal::transpose<metal::list<ENUM(INC(M), LIST FIX(N))>>), (metal::list<ENUM(N, SEQ, RENUM(INC(M), VAL NIL))>)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::transpose>, LAMBDA(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::transpose>, LAMBDA(_)>), (FALSE)); \
+    CHECK((metal::transpose<MAP(INC(M))>), (metal::list<metal::list<NUMBERS(INC(M))>, metal::list<VALUES(INC(M))>>)); \
+    CHECK((metal::transpose<metal::list<ENUM(INC(M), LIST FIX(N))>>), (metal::list<ENUM(N, SEQ, RENUM(INC(M), VALUE NIL))>)); \
 
 /**/
 

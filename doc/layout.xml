@@ -9,7 +9,7 @@ See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
     <tab type="mainpage" visible="yes" title="Documentation"/>
     <tab type="modules" visible="yes" title="Reference" intro=" "/>
     <tab type="namespacemembers"
-         visible="$ALPHABETICAL_INDEX"
+         visible="yes"
          title="Alphabetical Index"
          intro=" "
     />

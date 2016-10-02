@@ -24,8 +24,7 @@ namespace metal
     /// ### Description
     /// A tautological predicate that checks whether some type is a \value.
     ///
-    /// \tip{Use `metal::is_value` to trigger [SFINAE].}
-    /// [SFINAE]: http://en.cppreference.com/w/cpp/language/sfinae
+    /// \tip{Use `metal::is_value` to trigger \SFINAE.}
     ///
     /// ### Usage
     /// For any \value `val`
@@ -58,7 +57,7 @@ namespace metal
     /// `::type`, unless `metal::value` is [empty](\ref nil), in which case it
     /// is undefined.
     ///
-    /// \tip{Use `metal::value` to prevent template pattern matching.}
+    /// \tip{Use `metal::value` to prevent undesired template pattern matching.}
     ///
     /// ### Usage
     /// For any \value `val`

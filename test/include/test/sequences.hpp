@@ -9,10 +9,10 @@
 #include "test/numbers.hpp"
 #include "test/preprocessor.hpp"
 
-#define PAIR(N) metal::list<NUM(N), VAL(N)>
+#define PAIR(N) metal::list<NUMBER(N), VALUE(N)>
 #define PAIRS(N) ENUM(N, PAIR)
 
-#define LIST(N) metal::list<VALS(N)>
+#define LIST(N) metal::list<VALUES(N)>
 #define LISTS(N) ENUM(N, LIST)
 
 #define MAP(N) metal::list<PAIRS(N)>

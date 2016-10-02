@@ -11,60 +11,60 @@
 #include "test.hpp"
 
 #define MATRIX(M, N) \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VAL(M), VAL(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VAL(M), NUM(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VAL(M), PAIR(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VAL(M), LIST(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VAL(M), MAP(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VAL(M), LBD(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VAL(M), LBD(_)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUM(M), VAL(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUM(M), NUM(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUM(M), PAIR(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUM(M), LIST(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUM(M), MAP(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUM(M), LBD(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUM(M), LBD(_)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, PAIR(M), VAL(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, PAIR(M), NUM(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VALUE(M), VALUE(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VALUE(M), NUMBER(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VALUE(M), PAIR(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VALUE(M), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VALUE(M), MAP(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VALUE(M), LAMBDA(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, VALUE(M), LAMBDA(_)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUMBER(M), VALUE(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUMBER(M), NUMBER(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUMBER(M), PAIR(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUMBER(M), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUMBER(M), MAP(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUMBER(M), LAMBDA(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, NUMBER(M), LAMBDA(_)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, PAIR(M), VALUE(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, PAIR(M), NUMBER(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::contains>, PAIR(M), PAIR(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::contains>, PAIR(M), LIST(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::contains>, PAIR(M), MAP(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, PAIR(M), LBD(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, PAIR(M), LBD(_)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LIST(M), VAL(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LIST(M), NUM(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, PAIR(M), LAMBDA(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, PAIR(M), LAMBDA(_)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LIST(M), VALUE(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LIST(M), NUMBER(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::contains>, LIST(M), PAIR(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::contains>, LIST(M), LIST(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::contains>, LIST(M), MAP(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LIST(M), LBD(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LIST(M), LBD(_)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, MAP(M), VAL(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, MAP(M), NUM(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LIST(M), LAMBDA(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LIST(M), LAMBDA(_)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, MAP(M), VALUE(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, MAP(M), NUMBER(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::contains>, MAP(M), PAIR(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::contains>, MAP(M), LIST(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::contains>, MAP(M), MAP(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, MAP(M), LBD(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, MAP(M), LBD(_)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(M), VAL(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(M), NUM(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(M), PAIR(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(M), LIST(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(M), MAP(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(M), LBD(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(M), LBD(_)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(_), NUM(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(_), PAIR(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(_), LIST(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(_), MAP(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(_), LBD(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LBD(_), LBD(_)>), (FALSE)); \
-    CHECK((metal::contains<PAIR(M), VAL(N)>), (BOOL(M == N))); \
-    CHECK((metal::contains<PAIR(M), NUM(N)>), (BOOL(M == N))); \
-    CHECK((metal::contains<LIST(M), VAL(N)>), (BOOL(M > N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, MAP(M), LAMBDA(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, MAP(M), LAMBDA(_)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(M), VALUE(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(M), NUMBER(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(M), PAIR(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(M), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(M), MAP(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(M), LAMBDA(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(M), LAMBDA(_)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(_), NUMBER(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(_), PAIR(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(_), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(_), MAP(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(_), LAMBDA(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::contains>, LAMBDA(_), LAMBDA(_)>), (FALSE)); \
+    CHECK((metal::contains<PAIR(M), VALUE(N)>), (BOOL(M == N))); \
+    CHECK((metal::contains<PAIR(M), NUMBER(N)>), (BOOL(M == N))); \
+    CHECK((metal::contains<LIST(M), VALUE(N)>), (BOOL(M > N))); \
     CHECK((metal::contains<MAP(M), PAIR(N)>), (BOOL(M > N))); \
-    CHECK((metal::contains<metal::list<VALS(M) COMMA(M) VAL(N)>, VAL(N)>), (TRUE)); \
-    CHECK((metal::contains<metal::list<ENUM(M, VAL FIX(N))>, VAL(N)>), (BOOL(M > 0))); \
+    CHECK((metal::contains<metal::list<VALUES(M) COMMA(M) VALUE(N)>, VALUE(N)>), (TRUE)); \
+    CHECK((metal::contains<metal::list<ENUM(M, VALUE FIX(N))>, VALUE(N)>), (BOOL(M > 0))); \
 /**/
 
 GEN(MATRIX)

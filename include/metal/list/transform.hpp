@@ -36,6 +36,7 @@ namespace metal
 
 #include <metal/list/at.hpp>
 #include <metal/list/list.hpp>
+#include <metal/list/indices.hpp>
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/apply.hpp>
 #include <metal/lambda/invoke.hpp>
