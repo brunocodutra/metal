@@ -3,12 +3,13 @@
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
 $(function(){
-    var page = window.location.pathname.split("/").pop().split("#")[0];
+    var page = window.location.pathname.split("/").pop();
+    if(!page.length)
+        page = "index.html";
 
-    if(/[^_]+__[^_.]+.html/.test(page))
+    var section = page;
+    if(/[^_]+__[^_.]+.html/.test(section))
         section = "modules.html";
-    else
-        section = page;
 
     $("#sections > #menu a[href='" + section +"']").each(function(){
         $(this).parent().addClass("active");
