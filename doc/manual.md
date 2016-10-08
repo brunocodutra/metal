@@ -94,7 +94,7 @@ Metal may optionally be installed system-wide to ease integration with external
 projects. If you'd rather use Metal locally, you may skip to the
 [next section](#using_metal).
 
-Make sure to have [CMake] v2.8.12 or newer installed on your system, then,
+Make sure to have [CMake] v3.0 or newer installed on your system, then,
 from within an empty directory, issue the following commands.
 
     cmake /path/to/Metal
