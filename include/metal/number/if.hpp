@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename...>
         struct _if_;
     }
+    /// \endcond
 
     /// \ingroup number
     ///
@@ -50,6 +52,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename...>
@@ -73,6 +76,7 @@ namespace metal
             using type = then_;
         };
     }
+    /// \endcond
 }
 
 #endif

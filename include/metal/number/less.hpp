@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename x, typename y>
         struct _less;
     }
+    /// \endcond
 
     /// \ingroup number
     ///
@@ -45,6 +47,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename x, typename y>
@@ -56,6 +59,7 @@ namespace metal
             number<(x < y)>
         {};
     }
+    /// \endcond
 }
 
 #endif

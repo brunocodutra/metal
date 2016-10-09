@@ -11,11 +11,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq, typename nums>
         struct _copy_if_impl;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -33,6 +35,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq, typename nums>
@@ -50,6 +53,7 @@ namespace metal
             _join<if_<number<vs>, list<vals>, list<>>...>
         {};
     }
+    /// \endcond
 }
 
 #endif

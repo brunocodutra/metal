@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename head, typename... tail>
         struct _max;
     }
+    /// \endcond
 
     /// \ingroup number
     ///
@@ -51,6 +53,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename head, typename... tail>
@@ -88,6 +91,7 @@ namespace metal
         {};
 #endif
     }
+    /// \endcond
 }
 
 #endif

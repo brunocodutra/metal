@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq, typename lbd>
         struct _sort;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -35,6 +37,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename, typename, typename, typename, typename = true_>
@@ -113,6 +116,7 @@ namespace metal
             _if_<is_lambda<lbd>, list<>>
         {};
     }
+    /// \endcond
 }
 
 #endif

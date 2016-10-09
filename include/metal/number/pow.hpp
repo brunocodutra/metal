@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename head, typename... tail>
         struct _pow;
     }
+    /// \endcond
 
     /// \ingroup number
     ///
@@ -58,6 +60,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename base, typename exp, typename ret = number<1>>
@@ -107,6 +110,7 @@ namespace metal
             _fold_left<numbers<y, tail...>, number<x>, lambda<pow>>
         {};
     }
+    /// \endcond
 }
 
 #endif

@@ -12,6 +12,7 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
@@ -22,6 +23,7 @@ namespace metal
         template<int_... vs>
         struct _numbers;
     }
+    /// \endcond
 
     /// \ingroup number
     ///
@@ -113,6 +115,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
@@ -131,6 +134,7 @@ namespace metal
             using type = list<number<vs>...>;
         };
     }
+    /// \endcond
 }
 
 #endif

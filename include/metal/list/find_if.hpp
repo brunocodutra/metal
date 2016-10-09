@@ -11,11 +11,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq>
         struct _find_if_impl;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -37,6 +39,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq>
@@ -82,6 +85,7 @@ namespace metal
         {};
 #endif
     }
+    /// \endcond
 }
 
 #endif

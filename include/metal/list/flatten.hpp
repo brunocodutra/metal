@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq>
         struct _flatten;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -28,6 +30,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq>
@@ -56,6 +59,7 @@ namespace metal
             using type = list<>;
         };
     }
+    /// \endcond
 }
 
 #endif

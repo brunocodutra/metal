@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename lbd, typename... vals>
         struct _bind;
     }
+    /// \endcond
 
     /// \ingroup lambda
     ///
@@ -30,6 +32,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<template<typename...> class, template<typename...> class...>
@@ -81,6 +84,7 @@ namespace metal
             using type = lambda<impl>;
         };
     }
+    /// \endcond
 }
 
 #endif

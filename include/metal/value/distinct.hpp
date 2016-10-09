@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename... vals>
         struct _distinct;
     }
+    /// \endcond
 
     /// \ingroup value
     ///
@@ -56,6 +58,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename, typename base>
@@ -92,6 +95,7 @@ namespace metal
             decltype(_distinct_impl<inherit<value<vals>...>, value<vals>...>(0))
         {};
     }
+    /// \endcond
 }
 
 #endif

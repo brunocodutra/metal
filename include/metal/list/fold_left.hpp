@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq, typename state, typename lbd>
         struct _fold_left;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -30,6 +32,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename cons, typename state, typename lbd, typename = true_>
@@ -269,6 +272,7 @@ namespace metal
             _fold_left_impl<cons<vals...>, state, lbd>
         {};
     }
+    /// \endcond
 }
 
 #endif

@@ -14,6 +14,7 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename lbd, typename head, typename... tail>
@@ -22,6 +23,7 @@ namespace metal
         template<typename lbd, typename head, typename... tail>
         using transform = typename _transform<lbd, head, tail...>::type;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -46,6 +48,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename, typename, typename = true_>
@@ -101,6 +104,7 @@ namespace metal
             using type = list<>;
         };
     }
+    /// \endcond
 }
 
 #endif

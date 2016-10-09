@@ -11,11 +11,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename, typename, typename>
         struct _replace_if_impl;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -32,6 +34,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename, typename, typename>
@@ -50,6 +53,7 @@ namespace metal
             using type = list<if_<number<vs>, val, vals>...>;
         };
     }
+    /// \endcond
 }
 
 #endif

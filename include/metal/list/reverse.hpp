@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq>
         struct _reverse;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -29,6 +31,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<int_ n>
@@ -126,6 +129,7 @@ namespace metal
                 typename _reverse_impl<sizeof...(vals)>::template type<vals...>;
         };
     }
+    /// \endcond
 }
 
 #endif

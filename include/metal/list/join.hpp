@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename... seqs>
         struct _join;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -31,6 +33,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<
@@ -191,6 +194,7 @@ namespace metal
             _if_<is_list<seq>, seq>
         {};
     }
+    /// \endcond
 }
 
 #endif

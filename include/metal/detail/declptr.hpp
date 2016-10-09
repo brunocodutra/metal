@@ -7,11 +7,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename T>
         T* declptr();
     }
+    /// \endcond
 }
 
 #endif

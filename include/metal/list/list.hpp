@@ -9,6 +9,7 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
@@ -17,6 +18,7 @@ namespace metal
         template<typename... vals>
         struct list {};
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -37,6 +39,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
@@ -49,6 +52,7 @@ namespace metal
             true_
         {};
     }
+    /// \endcond
 }
 
 #endif

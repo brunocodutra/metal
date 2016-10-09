@@ -16,6 +16,7 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq, typename beg, typename end>
@@ -24,6 +25,7 @@ namespace metal
         template<typename seq, typename beg, typename end>
         using range = typename detail::_range<seq, beg, end>::type;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -50,6 +52,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename> using void_ = void;
@@ -114,6 +117,7 @@ namespace metal
             using type = list<>;
         };
     }
+    /// \endcond
 }
 
 #endif

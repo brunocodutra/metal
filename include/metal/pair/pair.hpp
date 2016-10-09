@@ -11,11 +11,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
         struct _is_pair;
     }
+    /// \endcond
 
     /// \ingroup pair
     ///
@@ -62,6 +64,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
@@ -74,6 +77,7 @@ namespace metal
             true_
         {};
     }
+    /// \endcond
 }
 
 #endif

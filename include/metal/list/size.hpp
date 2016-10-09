@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq>
         struct _size;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -28,6 +30,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq>
@@ -39,6 +42,7 @@ namespace metal
             number<sizeof...(vals)>
         {};
     }
+    /// \endcond
 }
 
 #endif

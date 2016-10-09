@@ -12,11 +12,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
         struct _is_map;
     }
+    /// \endcond
 
     /// \ingroup map
     ///
@@ -67,6 +69,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
@@ -84,6 +87,7 @@ namespace metal
             distinct<keys...>
         {};
     }
+    /// \endcond
 }
 
 #endif

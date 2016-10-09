@@ -11,11 +11,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq, typename num, typename = size<seq>>
         struct _rotate;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -30,6 +32,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<int_ n>
@@ -134,6 +137,7 @@ namespace metal
             using type = list<>;
         };
     }
+    /// \endcond
 }
 
 #endif

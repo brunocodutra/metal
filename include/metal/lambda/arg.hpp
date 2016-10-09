@@ -16,6 +16,7 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<std::uintmax_t n>
@@ -31,6 +32,7 @@ namespace metal
         struct arg_impl<0U>
         {};
     }
+    /// \endcond
 
     /// \ingroup lambda
     ///

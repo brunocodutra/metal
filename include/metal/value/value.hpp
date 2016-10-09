@@ -11,6 +11,7 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         struct na;
@@ -18,6 +19,7 @@ namespace metal
         template<typename val = na>
         struct value;
     }
+    /// \endcond
 
     /// \ingroup value
     ///
@@ -53,8 +55,8 @@ namespace metal
     /// Constructs a \value that is guaranteed not to be a \number, or a
     /// \lambda or a \list, out of any other \value.
     ///
-    /// The original \value may be retrieved back by naming its nested typename
-    /// `::type`, unless `metal::value` is [empty](\ref nil), in which case it
+    /// The original \value may be retrieved back by naming the nested typename
+    /// `type`, unless `metal::value` is [empty](\ref nil), in which case `type`
     /// is undefined.
     ///
     /// \tip{Use `metal::value` to prevent undesired template pattern matching.}
@@ -105,6 +107,7 @@ namespace metal
     /// \see is_value, value
     using nil = metal::value<>;
 
+    /// \cond
     namespace detail
     {
         template<typename val>
@@ -116,6 +119,7 @@ namespace metal
         template<>
         struct value<na> {};
     }
+    /// \endcond
 }
 
 #endif
