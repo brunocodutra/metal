@@ -15,7 +15,7 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// TODO
     template<typename seq, typename state, typename lbd>
     using fold_right = metal::fold_left<metal::reverse<seq>, state, lbd>;
 }

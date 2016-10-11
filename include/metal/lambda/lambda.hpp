@@ -9,6 +9,7 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
@@ -17,11 +18,15 @@ namespace metal
         template<template<typename...> class expr>
         struct lambda {};
     }
+    /// \endcond
 
     /// \ingroup lambda
     ///
     /// ### Description
     /// ...
+    ///
+    /// ### See Also
+    /// \see lambda, is_value, is_number, is_pair, is_list, is_map
     template<typename val>
     using is_lambda = typename detail::_is_lambda<val>::type;
 
@@ -37,6 +42,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
@@ -49,6 +55,7 @@ namespace metal
             true_
         {};
     }
+    /// \endcond
 }
 
 #endif

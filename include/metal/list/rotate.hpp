@@ -11,16 +11,40 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq, typename num, typename = size<seq>>
         struct _rotate;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Rotates the elements of a \list around a pivot.
+    ///
+    /// ### Usage
+    /// For any \list `l` and \number `num`
+    /// \code
+    ///     using result = metal::rotate<l, num>;
+    /// \endcode
+    ///
+    /// \returns: \list
+    /// \semantics:
+    ///     If `l` contains elements `l[0], ..., l[i-1], l[i], ..., l[m-1]` and
+    ///     `num{} % m == i`, then
+    ///     \code
+    ///         using result = metal::list<
+    ///             l[i], ..., l[m-1], l[0], ..., l[i-1]
+    ///         >;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp rotate
+    ///
+    /// ### See Also
+    /// \see list, reverse, sort
     template<typename seq, typename num>
     using rotate = typename detail::_rotate<seq, num>::type;
 }
@@ -30,6 +54,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<int_ n>
@@ -134,6 +159,7 @@ namespace metal
             using type = list<>;
         };
     }
+    /// \endcond
 }
 
 #endif

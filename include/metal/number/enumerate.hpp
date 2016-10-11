@@ -11,11 +11,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename, typename, typename>
         struct _enumerate;
     }
+    /// \endcond
 
     /// \ingroup number
     ///
@@ -68,6 +70,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<int_... vs>
@@ -104,6 +107,7 @@ namespace metal
             >
         {};
     }
+    /// \endcond
 }
 
 #endif

@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename head, typename... tail>
         struct _mod;
     }
+    /// \endcond
 
     /// \ingroup number
     ///
@@ -21,16 +23,17 @@ namespace metal
     /// Computes the remainder of the arithmetic division of \numbers.
     ///
     /// ### Usage
-    /// For any \numbers `num_1, ..., num_n`
+    /// For any \numbers `num_0, ..., num_n-1`
     /// \code
-    ///     using result = metal::mod<num_1, ..., num_n>;
+    ///     using result = metal::mod<num_0, ..., num_n-1>;
     /// \endcode
     ///
-    /// \pre: all \numbers in `[num_2, ..., num_n]` are nonzero
+    /// \pre: All \numbers in `num_1, ..., num_n-1` are nonzero
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
-    ///         using result = metal::number<num_1{} % ... % num_n{}>;
+    ///         using result = metal::number<num_0{} % ... % num_n-1{}>;
     ///     \endcode
     ///
     /// ### Example
@@ -51,6 +54,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename head, typename... tail>
@@ -103,6 +107,7 @@ namespace metal
         {};
 #endif
     }
+    /// \endcond
 }
 
 #endif

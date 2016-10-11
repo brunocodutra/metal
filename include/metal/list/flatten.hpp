@@ -9,16 +9,40 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq>
         struct _flatten;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Flattens a \list by recursively replacing its sub-\lists by their
+    /// contents.
+    ///
+    /// ### Usage
+    /// For any \list `l`
+    /// \code
+    ///     using result = metal::flatten<l>;
+    /// \endcode
+    ///
+    /// \returns: \list
+    /// \semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         using result = metal::list<...>;
+    ///     \endcode
+    ///     where `result` is *flat* (i.e. contains no sub-\lists) and contains
+    ///     all the elements in `l` and in all its sub-\lists.
+    ///
+    /// ### Example
+    /// \snippet list.cpp flatten
+    ///
+    /// ### See Also
+    /// \see list, join
     template<typename seq>
     using flatten = typename detail::_flatten<seq>::type;
 }
@@ -28,6 +52,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq>
@@ -56,6 +81,7 @@ namespace metal
             using type = list<>;
         };
     }
+    /// \endcond
 }
 
 #endif

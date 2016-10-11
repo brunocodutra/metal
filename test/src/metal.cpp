@@ -44,6 +44,7 @@
     CHECK((metal::second<metal::transpose<MAP(INC(M))>>), (metal::values<MAP(INC(M))>)); \
     CHECK((metal::at<MAP(INF), metal::order<MAP(INF), NUMBER(N)>>), (PAIR(N))); \
     CHECK((metal::has_key<metal::erase_key<MAP(INF), NUMBER(M)>, NUMBER(N)>), (BOOL(M != N))); \
+    CHECK((metal::insert_key<MAP(M), NUMBER(M), VALUE(N)>), (metal::append<MAP(M), metal::pair<NUMBER(M), VALUE(N)>>)); \
 /**/
 
 GEN(MATRIX)

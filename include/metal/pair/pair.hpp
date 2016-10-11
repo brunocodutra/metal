@@ -11,11 +11,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
         struct _is_pair;
     }
+    /// \endcond
 
     /// \ingroup pair
     ///
@@ -43,7 +45,7 @@ namespace metal
     /// \snippet pair.cpp is_pair
     ///
     /// ### See Also
-    /// \see pair
+    /// \see pair, is_value, is_number, is_lambda, is_list, is_map
     template<typename val>
     using is_pair = typename detail::_is_pair<val>::type;
 
@@ -51,6 +53,14 @@ namespace metal
     ///
     /// ### Description
     /// Constructs a \pair out of a pair of \values.
+    ///
+    /// ### Usage
+    /// For any pair of \values `x` and `y`
+    /// \code
+    ///     using result = metal::pair<x, y>;
+    /// \endcode
+    ///
+    /// \returns: \pair
     ///
     /// ### See Also
     /// \see is_pair
@@ -62,6 +72,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
@@ -74,6 +85,7 @@ namespace metal
             true_
         {};
     }
+    /// \endcond
 }
 
 #endif

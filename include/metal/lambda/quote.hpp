@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
         struct _quote;
     }
+    /// \endcond
 
     /// \ingroup lambda
     ///
@@ -27,6 +29,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename val>
@@ -38,6 +41,7 @@ namespace metal
             using type = lambda<impl>;
         };
     }
+    /// \endcond
 }
 
 #endif

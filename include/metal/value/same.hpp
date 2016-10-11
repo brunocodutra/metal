@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename... vals>
         struct _same;
     }
+    /// \endcond
 
     /// \ingroup value
     ///
@@ -21,15 +23,15 @@ namespace metal
     /// Checks whether all \values are identical.
     ///
     /// ### Usage
-    /// For any \values `val_1, ..., val_n`
+    /// For any \values `val_0, ..., val_n-1`
     /// \code
-    ///     using result = metal::same<val_1, ..., val_n>;
+    ///     using result = metal::same<val_0, ..., val_n-1>;
     /// \endcode
     ///
     /// \returns: \number
     /// \semantics:
-    ///     If at least two \values in `val_1, ..., val_n` are not identical to
-    ///     each other, then
+    ///     If at least two \values in `val_0, ..., val_n-1` are not identical
+    ///     to each other, then
     ///     \code
     ///         using result = metal::false_;
     ///     \endcode
@@ -52,6 +54,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename...>
@@ -89,6 +92,7 @@ namespace metal
             true_
         {};
     }
+    /// \endcond
 }
 
 #endif

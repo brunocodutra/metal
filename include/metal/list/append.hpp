@@ -15,7 +15,28 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Inserts \values at the end of a \list.
+    ///
+    /// ### Usage
+    /// For any \list `l` and \values `val_0, ..., val_n-1`
+    /// \code
+    ///     using result = metal::append<l, val_0, ..., val_n-1>;
+    /// \endcode
+    ///
+    /// \returns: \list
+    /// \semantics:
+    ///     If `l` contains elements `l[0], ..., l[m-1]`, then
+    ///     \code
+    ///         using result = metal::list<
+    ///             l[0], ..., l[m-1], val_0, ..., val_n-1
+    ///         >;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp append
+    ///
+    /// ### See Also
+    /// \see list, insert, prepend
     template<typename seq, typename head, typename... tail>
     using append = metal::join<seq, metal::list<head, tail...>>;
 }

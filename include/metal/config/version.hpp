@@ -30,7 +30,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_PATCH 2
+#define METAL_PATCH 3
 
 /// \ingroup config
 /// \hideinitializer

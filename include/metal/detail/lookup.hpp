@@ -20,6 +20,7 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename, typename>
@@ -104,6 +105,7 @@ namespace metal
         template<typename vals, typename keys, typename key>
         using lookup = typename _lookup<vals, keys, key>::type;
     }
+    /// \endcond
 }
 
 #endif

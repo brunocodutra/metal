@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename lbd, typename... vals>
         struct _partial;
     }
+    /// \endcond
 
     /// \ingroup lambda
     ///
@@ -28,6 +30,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename lbd, typename... vals>
@@ -49,6 +52,7 @@ namespace metal
             using type = lambda<expr>;
         };
     }
+    /// \endcond
 }
 
 #endif

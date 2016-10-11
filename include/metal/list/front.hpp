@@ -15,7 +15,26 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Retrieves the first element of a \list.
+    ///
+    /// ### Usage
+    /// For any \list `l`
+    /// \code
+    ///     using result = metal::front<l>;
+    /// \endcode
+    ///
+    /// \returns: \value
+    /// \semantics:
+    ///     If `l` contains elements `l[0], ..., l[m-1]`, then
+    ///     \code
+    ///         using result = l[0];
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp front
+    ///
+    /// ### See Also
+    /// \see list, at, back
     template<typename seq>
     using front = metal::at<seq, metal::number<0>>;
 }

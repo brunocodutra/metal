@@ -37,7 +37,7 @@ namespace metal
     /// \snippet map.cpp erase_key
     ///
     /// ### See Also
-    /// \see map, has_key, at_key
+    /// \see map, has_key, at_key, insert_key
     template<typename seq, typename key>
     using erase_key = metal::erase<seq, metal::order<seq, key>>;
 }

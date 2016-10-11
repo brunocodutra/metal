@@ -16,6 +16,7 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename lbd, typename seq, typename = true_>
@@ -24,6 +25,7 @@ namespace metal
         template<typename lbd, typename... args>
         struct _invoke;
     }
+    /// \endcond
 
     /// \ingroup lambda
     ///
@@ -51,6 +53,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename lbd, typename seq, typename>
@@ -80,6 +83,7 @@ namespace metal
             _invoke_impl<lbd, list<args...>>
         {};
     }
+    /// \endcond
 }
 
 #endif

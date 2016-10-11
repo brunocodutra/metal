@@ -37,7 +37,7 @@ namespace metal
     /// \snippet map.cpp at_key
     ///
     /// ### See Also
-    /// \see map, has_key, erase_key
+    /// \see map, has_key, insert_key, erase_key
     template<typename seq, typename key>
     using at_key = detail::lookup<values<seq>, keys<seq>, key>;
 }

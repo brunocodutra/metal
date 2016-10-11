@@ -9,11 +9,13 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename x, typename y>
         struct _less;
     }
+    /// \endcond
 
     /// \ingroup number
     ///
@@ -21,15 +23,15 @@ namespace metal
     /// Checks whether a \number is less than another.
     ///
     /// ### Usage
-    /// For any \numbers `num_1` and `num_2`
+    /// For any \numbers `x` and `y`
     /// \code
-    ///     using result = metal::less<num_1, num_2>;
+    ///     using result = metal::less<x, y>;
     /// \endcode
     ///
     /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::number<(num_1{} < num_2{})>;
+    ///         using result = metal::number<(x{} < y{})>;
     ///     \endcode
     ///
     /// ### Example
@@ -45,6 +47,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename x, typename y>
@@ -56,6 +59,7 @@ namespace metal
             number<(x < y)>
         {};
     }
+    /// \endcond
 }
 
 #endif

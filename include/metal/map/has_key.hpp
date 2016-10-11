@@ -38,7 +38,7 @@ namespace metal
     /// \snippet map.cpp has_key
     ///
     /// ### See Also
-    /// \see map, at_key, erase_key
+    /// \see map, at_key, insert_key, erase_key
     template<typename seq, typename key>
     using has_key = metal::contains<metal::keys<seq>, key>;
 }

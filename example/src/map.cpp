@@ -57,7 +57,7 @@ using m = metal::map<
 
 IS_SAME(metal::is_map<m>, metal::true_);
 IS_SAME(metal::is_map<metal::list<>>, metal::true_);
-IS_SAME(metal::is_map<metal::list<int, int*>>, metal::false_);
+IS_SAME(metal::is_map<metal::pair<int, int*>>, metal::false_);
 /// [is_map]
 )
 
@@ -102,6 +102,26 @@ IS_SAME(metal::at_key<m, int>, metal::number<sizeof(int)>);
 IS_SAME(metal::at_key<m, char>, metal::number<sizeof(char)>);
 IS_SAME(metal::at_key<m, float>, metal::number<sizeof(float)>);
 /// [at_key]
+)
+
+HIDE(
+/// [insert_key]
+using m = metal::map<
+    metal::pair<int, metal::number<sizeof(int)>>,
+    metal::pair<char, metal::number<sizeof(char)>>,
+    metal::pair<float, metal::number<sizeof(float)>>
+>;
+
+IS_SAME(
+    metal::insert_key<m, void, metal::number<0>>,
+    metal::map<
+        metal::pair<int, metal::number<sizeof(int)>>,
+        metal::pair<char, metal::number<sizeof(char)>>,
+        metal::pair<float, metal::number<sizeof(float)>>,
+        metal::pair<void, metal::number<0>>
+    >
+);
+/// [insert_key]
 )
 
 HIDE(

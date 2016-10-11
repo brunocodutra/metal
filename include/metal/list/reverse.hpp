@@ -9,16 +9,37 @@
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<typename seq>
         struct _reverse;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
     /// ### Description
-    /// ...
+    /// Reverses the order of the elements of a \list.
+    ///
+    /// ### Usage
+    /// For any \list `l`
+    /// \code
+    ///     using result = metal::reverse<l>;
+    /// \endcode
+    ///
+    /// \returns: \list
+    /// \semantics:
+    ///     If `l` contains elements `l[0], ..., l[m-1]`, then
+    ///     \code
+    ///         using result = metal::list<l[m-1], ..., l[0]>;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp reverse
+    ///
+    /// ### See Also
+    /// \see list, rotate, sort
     template<typename seq>
     using reverse = typename detail::_reverse<seq>::type;
 }
@@ -29,6 +50,7 @@ namespace metal
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
         template<int_ n>
@@ -126,6 +148,7 @@ namespace metal
                 typename _reverse_impl<sizeof...(vals)>::template type<vals...>;
         };
     }
+    /// \endcond
 }
 
 #endif
