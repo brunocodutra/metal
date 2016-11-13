@@ -303,7 +303,7 @@ struct AugmentedTuple :
 
     template<metal::int_ i>
     constexpr auto operator [](metal::number<i>) const
-        -> std::tuple_element_t<i, std::tuple<T...>> {
+        -> metal::at<metal::list<T...>, metal::number<i>> {
         return std::get<i>(*this);
     }
 };
@@ -317,7 +317,7 @@ struct AugmentedTuple :
 
     template<metal::int_ i>
     constexpr auto operator [](metal::number<i>)
-        -> std::tuple_element_t<i, std::tuple<T...>>& {
+        -> metal::at<metal::list<T...>, metal::number<i>>& {
         return std::get<i>(*this);
     }
 };
