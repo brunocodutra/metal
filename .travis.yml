@@ -31,6 +31,19 @@ matrix:
       - env: BUILD_DOC=true
 
       - compiler: clang++
+        env: CXX_VERSION=3.4 CXXFLAGS=-stdlib=libc++
+        addons:
+            apt:
+                packages:
+                  - *base_packages
+                  - clang-3.4
+                  - libc++-dev
+                sources:
+                  - *base_sources
+                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main'
+                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+
+      - compiler: clang++
         env: CXX_VERSION=3.5 CXXFLAGS=-stdlib=libc++
         addons:
             apt:

@@ -209,7 +209,7 @@ if your favorite compiler is not included, please [let us know][Metal.issues].
     </tr>
     <tr>
         <th>Clang</th>
-        <td class="hidden-xs">3.5</td>
+        <td class="hidden-xs">3.4</td>
     </tr>
     <tr>
         <th>MSVC</th>
