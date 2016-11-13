@@ -31,60 +31,65 @@ matrix:
       - env: BUILD_DOC=true
 
       - compiler: clang++
-        env: CXX_VERSION=3.5
+        env: CXX_VERSION=3.5 CXXFLAGS=-stdlib=libc++
         addons:
             apt:
                 packages:
                   - *base_packages
                   - clang-3.5
+                  - libc++-dev
                 sources:
                   - *base_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.5 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - compiler: clang++
-        env: CXX_VERSION=3.6
+        env: CXX_VERSION=3.6 CXXFLAGS=-stdlib=libc++
         addons:
             apt:
                 packages:
                   - *base_packages
                   - clang-3.6
+                  - libc++-dev
                 sources:
                   - *base_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - compiler: clang++
-        env: CXX_VERSION=3.7
+        env: CXX_VERSION=3.7 CXXFLAGS=-stdlib=libc++
         addons:
             apt:
                 packages:
                   - *base_packages
                   - clang-3.7
+                  - libc++-dev
                 sources:
                   - *base_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.7 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - compiler: clang++
-        env: CXX_VERSION=3.8
+        env: CXX_VERSION=3.8 CXXFLAGS=-stdlib=libc++
         addons:
             apt:
                 packages:
                   - *base_packages
                   - clang-3.8
+                  - libc++-dev
                 sources:
                   - *base_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - compiler: clang++
-        env: CXX_VERSION=3.9
+        env: CXX_VERSION=3.9 CXXFLAGS=-stdlib=libc++
         addons:
             apt:
                 packages:
                   - *base_packages
                   - clang-3.9
+                  - libc++-dev
                 sources:
                   - *base_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main'
