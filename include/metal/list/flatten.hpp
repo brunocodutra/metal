@@ -7,21 +7,17 @@
 
 #include <metal/config.hpp>
 
+#include <metal/list/join.hpp>
+#include <metal/lambda/apply.hpp>
+#include <metal/lambda/lambda.hpp>
+
 namespace metal
 {
-    /// \cond
-    namespace detail
-    {
-        template<typename seq>
-        struct _flatten;
-    }
-    /// \endcond
-
     /// \ingroup list
     ///
     /// ### Description
-    /// Flattens a \list by recursively replacing its sub-\lists by their
-    /// contents.
+    /// Collapses a \list of \lists into a flat \list that contains all the
+    /// elements of the inner \lists preserving their order.
     ///
     /// ### Usage
     /// For any \list `l`
@@ -31,12 +27,12 @@ namespace metal
     ///
     /// \returns: \list
     /// \semantics:
-    ///     Equivalent to
+    ///     If `l` contains elements `l[0], ..., l[m-1]`, then
     ///     \code
-    ///         using result = metal::list<...>;
+    ///         using result = metal::list<l[0][:], ...[:], l[n-1][:]>;
     ///     \endcode
-    ///     where `result` is *flat* (i.e. contains no sub-\lists) and contains
-    ///     all the elements in `l` and in all its sub-\lists.
+    ///     where the notation `l[:]` stands for the expansion of all elements
+    ///     contained in `l`.
     ///
     /// ### Example
     /// \snippet list.cpp flatten
@@ -44,44 +40,7 @@ namespace metal
     /// ### See Also
     /// \see list, join
     template<typename seq>
-    using flatten = typename detail::_flatten<seq>::type;
-}
-
-#include <metal/list/list.hpp>
-#include <metal/list/join.hpp>
-
-namespace metal
-{
-    /// \cond
-    namespace detail
-    {
-        template<typename seq>
-        struct _flatten
-        {};
-
-        template<typename... vals>
-        struct _flatten<list<vals...>> :
-            _join<flatten<list<vals>>...>
-        {};
-
-        template<typename... vals>
-        struct _flatten<list<list<vals...>>> :
-            _flatten<list<vals...>>
-        {};
-
-        template<typename val>
-        struct _flatten<list<val>>
-        {
-            using type = list<val>;
-        };
-
-        template<>
-        struct _flatten<list<>>
-        {
-            using type = list<>;
-        };
-    }
-    /// \endcond
+    using flatten = metal::apply<metal::lambda<metal::join>, seq>;
 }
 
 #endif

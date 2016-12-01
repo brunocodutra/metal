@@ -420,7 +420,7 @@ using integral = metal::list<short, int, long, long long>;
 using floating = metal::list<float, double, long double>;
 
 IS_SAME(
-    metal::flatten<metal::list<character, metal::list<integral, floating>>>,
+    metal::flatten<metal::list<character, integral, floating>>,
     metal::list<
         char, wchar_t, char16_t, char32_t,
         short, int, long, long long,
