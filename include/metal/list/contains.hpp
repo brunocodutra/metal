@@ -7,7 +7,7 @@
 
 #include <metal/config.hpp>
 
-#include <metal/list/any.hpp>
+#include <metal/list/any_of.hpp>
 #include <metal/lambda/arg.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
@@ -44,7 +44,7 @@ namespace metal
     /// \see list, count, find
     template<typename seq, typename val>
     using contains =
-        metal::any<seq, metal::partial<metal::lambda<metal::same>, val>>;
+        metal::any_of<seq, metal::partial<metal::lambda<metal::same>, val>>;
 }
 
 #endif

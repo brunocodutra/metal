@@ -178,7 +178,7 @@ IS_SAME(
 )
 
 HIDE(
-/// [all]
+/// [all_of]
 template<typename val>
 using is_fundamental =
     metal::same<typename std::is_fundamental<val>::type, std::true_type>;
@@ -192,14 +192,14 @@ using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
-IS_SAME(metal::all<l, metal::lambda<is_fundamental>>, metal::true_);
-IS_SAME(metal::all<l, metal::lambda<is_floating_point>>, metal::false_);
-IS_SAME(metal::all<l, metal::lambda<is_class>>, metal::false_);
-/// [all]
+IS_SAME(metal::all_of<l, metal::lambda<is_fundamental>>, metal::true_);
+IS_SAME(metal::all_of<l, metal::lambda<is_floating_point>>, metal::false_);
+IS_SAME(metal::all_of<l, metal::lambda<is_class>>, metal::false_);
+/// [all_of]
 )
 
 HIDE(
-/// [any]
+/// [any_of]
 template<typename val>
 using is_fundamental =
     metal::same<typename std::is_fundamental<val>::type, std::true_type>;
@@ -213,14 +213,14 @@ using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
-IS_SAME(metal::any<l, metal::lambda<is_fundamental>>, metal::true_);
-IS_SAME(metal::any<l, metal::lambda<is_floating_point>>, metal::true_);
-IS_SAME(metal::any<l, metal::lambda<is_class>>, metal::false_);
-/// [any]
+IS_SAME(metal::any_of<l, metal::lambda<is_fundamental>>, metal::true_);
+IS_SAME(metal::any_of<l, metal::lambda<is_floating_point>>, metal::true_);
+IS_SAME(metal::any_of<l, metal::lambda<is_class>>, metal::false_);
+/// [any_of]
 )
 
 HIDE(
-/// [none]
+/// [none_of]
 template<typename val>
 using is_fundamental =
     metal::same<typename std::is_fundamental<val>::type, std::true_type>;
@@ -234,10 +234,10 @@ using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
-IS_SAME(metal::none<l, metal::lambda<is_fundamental>>, metal::false_);
-IS_SAME(metal::none<l, metal::lambda<is_floating_point>>, metal::false_);
-IS_SAME(metal::none<l, metal::lambda<is_class>>, metal::true_);
-/// [none]
+IS_SAME(metal::none_of<l, metal::lambda<is_fundamental>>, metal::false_);
+IS_SAME(metal::none_of<l, metal::lambda<is_floating_point>>, metal::false_);
+IS_SAME(metal::none_of<l, metal::lambda<is_class>>, metal::true_);
+/// [none_of]
 )
 
 HIDE(
