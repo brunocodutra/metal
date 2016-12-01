@@ -7,10 +7,7 @@
 
 #include <metal/config.hpp>
 
-#include <metal/list/copy_if.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/not.hpp>
+#include <metal/list/replace_if.hpp>
 
 namespace metal
 {
@@ -42,8 +39,7 @@ namespace metal
     /// ### See Also
     /// \see list, remove, copy_if, replace_if
     template<typename seq, typename lbd>
-    using remove_if =
-        metal::copy_if<seq, metal::bind<metal::lambda<metal::not_>, lbd>>;
+    using remove_if = metal::replace_if<seq, lbd>;
 }
 
 #endif

@@ -39,9 +39,9 @@ namespace metal
     ///
     /// ### See Also
     /// \see list, replace_if, copy, remove
-    template<typename seq, typename from, typename to>
+    template<typename seq, typename val, typename... vals>
     using replace = metal::replace_if<
-        seq, metal::partial<metal::lambda<metal::same>, from>, to
+        seq, metal::partial<metal::lambda<metal::same>, val>, vals...
     >;
 }
 
