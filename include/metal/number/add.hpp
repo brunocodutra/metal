@@ -12,7 +12,7 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename head, typename... tail>
+        template<typename... nums>
         struct _add;
     }
     /// \endcond
@@ -39,8 +39,8 @@ namespace metal
     ///
     /// ### See Also
     /// \see number, inc, dec, neg, sub, mul, div, mod, pow
-    template<typename head, typename... tail>
-    using add = typename detail::_add<head, tail...>::type;
+    template<typename... nums>
+    using add = typename detail::_add<nums...>::type;
 }
 
 #include <metal/number/number.hpp>
@@ -55,8 +55,13 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename head, typename... tail>
+        template<typename... nums>
         struct _add
+        {};
+
+        template<>
+        struct _add<> :
+            number<0>
         {};
 
         template<int_ x>
