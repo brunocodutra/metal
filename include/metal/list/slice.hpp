@@ -21,14 +21,40 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// TODO
+    /// Returns a subset of elements in a \list picked at regular intervals in a
+    /// range.
+    ///
+    /// ### Usage
+    /// For any \list `l` and \numbers `st`, `sz` and `sd`
+    /// \code
+    ///     using result = metal::slice<l, st, sz, sd>;
+    /// \endcode
+    ///
+    /// \pre: `metal::number<0>{} &le; n{} &le; metal::size<l>{}` for all `n` in
+    /// `metal::enumerate<st, sz, sd>`
+    /// \returns: \list
+    /// \semantics:
+    ///     If `metal::enumerate<st, sz, sd>` contains \numbers
+    ///     `num_0, ..., num_n-1`, then
+    ///     \code
+    ///         using result = metal::list<l[num_0], ..., l[num_n-1]>;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp slice
+    ///
+    /// ### See Also
+    /// \see list, range
     template<
         typename seq,
         typename start, typename size, typename stride = number<1>
     >
-    using slice = transform<
-        partial<lambda<at>, if_<is_list<seq>, seq>>,
-        enumerate<start, size, stride>
+    using slice = metal::transform<
+        metal::partial<
+            metal::lambda<metal::at>,
+            metal::if_<metal::is_list<seq>, seq>
+        >,
+        metal::enumerate<start, size, stride>
     >;
 }
 

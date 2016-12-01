@@ -492,6 +492,27 @@ IS_SAME(
 )
 
 HIDE(
+/// [slice]
+using l = metal::list<short, int, long, float, double, void>;
+
+IS_SAME(
+    metal::slice<l, metal::number<2>, metal::number<3>>,
+    metal::list<long, float, double>
+);
+
+IS_SAME(
+    metal::slice<l, metal::number<1>, metal::number<2>, metal::number<3>>,
+    metal::list<int, double>
+);
+
+IS_SAME(
+    metal::slice<l, metal::number<5>, metal::number<-3>, metal::number<2>>,
+    metal::list<void, float, int>
+);
+/// [slice]
+)
+
+HIDE(
 /// [range]
 using l = metal::list<short, int, long, float, double, void>;
 
