@@ -492,6 +492,25 @@ IS_SAME(
 )
 
 HIDE(
+/// [iota]
+IS_SAME(
+    metal::iota<metal::number<'a'>, metal::number<3>>,
+    metal::list<metal::number<'a'>, metal::number<'b'>, metal::number<'c'>>
+);
+
+IS_SAME(
+    metal::iota<metal::number<2>, metal::number<3>, metal::number<-5>>,
+    metal::list<metal::number<2>, metal::number<-3>, metal::number<-8>>
+);
+
+IS_SAME(
+    metal::iota<metal::number<2>, metal::number<-3>, metal::number<-5>>,
+    metal::list<metal::number<2>, metal::number<7>, metal::number<12>>
+);
+/// [iota]
+)
+
+HIDE(
 /// [slice]
 using l = metal::list<short, int, long, float, double, void>;
 

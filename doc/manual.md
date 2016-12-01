@@ -574,11 +574,11 @@ so that it becomes
 
     D0 + D1*radix + ... + D{n-2}*radix^(n-2) + D{n-1}*radix^(n-1)
 
-Next we need to `metal::enumerate` the exponents that correspond to each digit.
+Next we need to `metal::iota` the exponents that correspond to each digit.
 
-\snippet literal.cpp enumerate
+\snippet literal.cpp iota
 
-This version of `metal::enumerate` takes two [Numbers], `start` and `size`,
+This version of `metal::iota` takes two [Numbers], `start` and `size`,
 and returns a [List] containing a sequence of [Numbers] beginning with `start`
 and ending in `size - 1`.
 

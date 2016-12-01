@@ -11,7 +11,6 @@
 #include <metal/number/and.hpp>
 #include <metal/number/dec.hpp>
 #include <metal/number/div.hpp>
-#include <metal/number/enumerate.hpp>
 #include <metal/number/greater.hpp>
 #include <metal/number/if.hpp>
 #include <metal/number/inc.hpp>

@@ -9,12 +9,12 @@
 
 #include <metal/list/at.hpp>
 #include <metal/list/list.hpp>
+#include <metal/list/iota.hpp>
 #include <metal/list/transform.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
 #include <metal/number/if.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/enumerate.hpp>
 
 namespace metal
 {
@@ -31,10 +31,10 @@ namespace metal
     /// \endcode
     ///
     /// \pre: `metal::number<0>{} &le; n{} &le; metal::size<l>{}` for all `n` in
-    /// `metal::enumerate<st, sz, sd>`
+    /// `metal::iota<st, sz, sd>`
     /// \returns: \list
     /// \semantics:
-    ///     If `metal::enumerate<st, sz, sd>` contains \numbers
+    ///     If `metal::iota<st, sz, sd>` contains \numbers
     ///     `num_0, ..., num_n-1`, then
     ///     \code
     ///         using result = metal::list<l[num_0], ..., l[num_n-1]>;
@@ -54,7 +54,7 @@ namespace metal
             metal::lambda<metal::at>,
             metal::if_<metal::is_list<seq>, seq>
         >,
-        metal::enumerate<start, size, stride>
+        metal::iota<start, size, stride>
     >;
 }
 

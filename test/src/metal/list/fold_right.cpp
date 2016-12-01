@@ -4,10 +4,10 @@
 
 #include <metal/list/fold_right.hpp>
 #include <metal/list/list.hpp>
+#include <metal/list/iota.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/enumerate.hpp>
 
 #include "test.hpp"
 
@@ -64,7 +64,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::fold_right>, LAMBDA(_), LAMBDA(N), LAMBDA(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::fold_right>, LAMBDA(_), LAMBDA(N), LAMBDA(_)>), (FALSE)); \
     CHECK((metal::fold_right<LIST(M), VALUE(N), LAMBDA(_)>), (REFOLD(M, TAB, VALUE(N)))); \
-    CHECK((metal::fold_right<metal::enumerate<NUMBER(0), metal::number<100*M>, NUMBER(N)>, NUMBER(2), LAMBDA(2)>), (NUMBER(2))); \
+    CHECK((metal::fold_right<metal::iota<NUMBER(0), metal::number<100*M>, NUMBER(N)>, NUMBER(2), LAMBDA(2)>), (NUMBER(2))); \
 /**/
 
 GEN(MATRIX)

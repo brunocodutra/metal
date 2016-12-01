@@ -97,12 +97,12 @@ IS_SAME(metal::reverse<metal::numbers<3, 7, 1>>, metal::numbers<1, 7, 3>);
 )
 
 HIDE(
-///[enumerate]
+///[iota]
 IS_SAME(
-    metal::enumerate<metal::number<0>, metal::size<metal::numbers<1, 7, 3>>>,
+    metal::iota<metal::number<0>, metal::size<metal::numbers<1, 7, 3>>>,
     metal::numbers<0, 1, 2>
 );
-///[enumerate]
+///[iota]
 )
 
 HIDE(
@@ -154,7 +154,7 @@ using assemble_number = metal::apply<
             >
         >,
         metal::reverse<digits>,
-        metal::enumerate<metal::number<0>, metal::size<digits>>
+        metal::iota<metal::number<0>, metal::size<digits>>
     >
 >;
 ///[assemble_number]

@@ -26,6 +26,7 @@
 #include <metal/list/fold_left.hpp>
 #include <metal/list/fold_right.hpp>
 #include <metal/list/front.hpp>
+#include <metal/list/iota.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/list/insert.hpp>
 #include <metal/list/join.hpp>

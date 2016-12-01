@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-#ifndef METAL_NUMBER_ENUMERATE_HPP
-#define METAL_NUMBER_ENUMERATE_HPP
+#ifndef METAL_NUMBER_IOTA_HPP
+#define METAL_NUMBER_IOTA_HPP
 
 #include <metal/config.hpp>
 
@@ -15,11 +15,11 @@ namespace metal
     namespace detail
     {
         template<typename, typename, typename>
-        struct _enumerate;
+        struct _iota;
     }
     /// \endcond
 
-    /// \ingroup number
+    /// \ingroup list
     ///
     /// ### Description
     /// Generates a sequence of \numbers.
@@ -27,7 +27,7 @@ namespace metal
     /// ### Usage
     /// For any \numbers `st`, `sz` and `sd`
     /// \code
-    ///     using result = metal::enumerate<st, sz, sd>;
+    ///     using result = metal::iota<st, sz, sd>;
     /// \endcode
     ///
     /// \returns: \list
@@ -50,12 +50,12 @@ namespace metal
     ///     \endcode
     ///
     /// ### Example
-    /// \snippet number.cpp enumerate
+    /// \snippet list.cpp iota
     ///
     /// ### See Also
     /// \see numbers
     template<typename start, typename size, typename stride = number<1>>
-    using enumerate = typename detail::_enumerate<start, size, stride>::type;
+    using iota = typename detail::_iota<start, size, stride>::type;
 }
 
 #include <metal/list/list.hpp>
@@ -95,11 +95,11 @@ namespace metal
         {};
 
         template<typename, typename, typename>
-        struct _enumerate
+        struct _iota
         {};
 
         template<int_ st, int_ sz, int_ sd>
-        struct _enumerate<number<st>, number<sz>, number<sd>> :
+        struct _iota<number<st>, number<sz>, number<sd>> :
             _stretch<
                 make_integer_sequence<(sz < 0) ? (0 - sz) : sz>,
                 (sz < 0) ? (0 - sd) : sd,
