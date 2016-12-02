@@ -17,6 +17,24 @@ For a quick get going, be sure to check out
 See Metal in comparison with other modern metaprogramming libraries at
 [Metabench].
 
+## Supported Compilers
+
+The following compilers are currently tested in continuous integration at
+[Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
+
+| Compiler          | Version   | Operating System
+|-------------------|-----------|-----------------------
+| GCC               | 5         | Ubuntu 14.04 LTS
+| GCC               | 6         | Ubuntu 14.04 LTS
+| Clang             | 3.4       | Ubuntu 14.04 LTS
+| Clang             | 3.5       | Ubuntu 14.04 LTS
+| Clang             | 3.6       | Ubuntu 14.04 LTS
+| Clang             | 3.7       | Ubuntu 14.04 LTS
+| Clang             | 3.8       | Ubuntu 14.04 LTS
+| Clang             | 3.9       | Ubuntu 14.04 LTS
+| Clang             | 4.0       | Ubuntu 14.04 LTS
+| Visual Studio     | 14 2015   | Windows Server 2012 R2
+
 ## Documentation
 
 The complete up to date documentation is available

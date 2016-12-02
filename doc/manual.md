@@ -84,7 +84,6 @@ branch `develop` instead.
 
 \note{
     During development it is possible that branch `develop` breaks temporarily.
-    Be sure to check current compilation [status](#status) prior to cloning.
 }
 
 Installing {#installing}
@@ -179,51 +178,18 @@ Portability {#portability}
 
 Great effort is undertaken to keep Metal strictly in conformance with the C++14
 standard and compatible with the widest possible variety of compilers.
-To this end, some of the most popular freely available C++ compilers are
-actively supported through [Continuous Integration (CI)][ci] premisses.
-GCC and Clang are tested with help of [Travis CI][travis.metal],
-while Microsoft Visual Studio is tested using [Appveyor CI][appveyor.metal].
+To this end, several versions of the most popular freely available C++ compilers
+are actively supported through [Continuous Integration (CI)][ci] using
+[Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
 
-Current Status {#status}
+Supported Compilers {#supported_compilers}
 --------------------------------------------------------------------------------
 
-Current compilation status is summarized in the table bellow,
-if your favorite compiler is not included, please [let us know][Metal.issues].
-
-<table>
-    <tr>
-        <th rowspan="2">Compiler</th>
-        <th rowspan="2" class="hidden-xs">Minimum Version</th>
-        <th colspan="2">Branch</th>
-    </tr>
-    <tr>
-        <th>Master</th>
-        <th>Develop</th>
-    </tr>
-
-    <tr>
-        <th>GCC</th>
-        <td class="hidden-xs">5</td>
-        <td rowspan="2">![travis.master]</td>
-        <td rowspan="2">![travis.develop]</td>
-    </tr>
-    <tr>
-        <th>Clang</th>
-        <td class="hidden-xs">3.4</td>
-    </tr>
-    <tr>
-        <th>MSVC</th>
-        <td class="hidden-xs">14 (2015)</td>
-        <td>![appveyor.master]</td>
-        <td>![appveyor.develop]</td>
-    </tr>
-</table>
-
-\note{
-    Status badges are updated live to reflect current status as reported by the
-    continuous integration tools. If they don't load correctly that
-    might be due to a temporary network downtime.
-}
+Compiler        | Version
+----------------|-------------
+GCC             | &ge; 5
+Clang           | &ge; 3.4
+Visual Studio   | &ge; 14 2015
 
 Benchmarks {#benchmarks}
 ================================================================================
@@ -698,7 +664,6 @@ Church Booleans {#church_booleans}
 [appveyor.master]:  http://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/master?svg=true
 [appveyor.develop]: http://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/develop?svg=true
 
-[Metal.issues]:     http://github.com/brunocodutra/metal/issues
 [Metal.latest]:     http://github.com/brunocodutra/metal/archive/master.zip
 [Metal.headers]:    http://github.com/brunocodutra/metal/tree/master/include
 

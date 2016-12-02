@@ -124,14 +124,12 @@ p {
     border-bottom: 1px solid #eee;
 }
 
-.doxtable th,
-.doxtable td {
-    text-align: center;
+.doxtable {
+    font-size: 1.1em;
 }
 
 .doxtable th {
-    color: white;
-    background-color: #464646;
+    background-color: #f9f9f9;
 }
 
 .table > tbody > tr > td,

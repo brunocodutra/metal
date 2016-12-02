@@ -140,12 +140,8 @@ $(function(){
 
     $("table.directory").addClass("table table-striped");
     $("table.doxtable")
-        .addClass("table table-bordered")
+        .addClass("table table-condensed table-bordered")
         .wrap("<div class='table-responsive'>")
-        .find("p.starttd, p.endtd")
-        .replaceWith(function(){
-            return $(this).contents();
-        });
 
     $("dl.section.see").replaceWith(function(){
         return $(this).find("dd").contents();
