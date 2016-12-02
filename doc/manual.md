@@ -196,7 +196,7 @@ Benchmarks {#benchmarks}
 
 To make sure Metal does not slow compilation times even when manipulating
 hundreds or even thousands of types at a time, a comprehensive set of benchmarks
-has been set up at [Metabench] to help keeping track of Metal's performance
+has been set up at [metaben.ch] to help keeping track of Metal's performance
 against some of the most popular metaprogramming libraries available out there.
 Benchmark results are updated nightly for various supported compilers and should
 reflect the performance delivered by Metal at branch `master`.
@@ -667,4 +667,4 @@ Church Booleans {#church_booleans}
 [Metal.latest]:     http://github.com/brunocodutra/metal/archive/master.zip
 [Metal.headers]:    http://github.com/brunocodutra/metal/tree/master/include
 
-[Metabench]:        http://brunocodutra.github.io/metabench/
+[metaben.ch]:        http://metaben.ch/

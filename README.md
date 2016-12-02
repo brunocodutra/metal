@@ -15,7 +15,7 @@ For a quick get going, be sure to check out
 ## Benchmarks
 
 See Metal in comparison with other modern metaprogramming libraries at
-[Metabench].
+[metaben.ch].
 
 ## Supported Compilers
 
@@ -71,4 +71,4 @@ Metal is distributed under the
 
 [CMake]:            http://cmake.org/
 [Doxygen]:          http://doxygen.org/
-[Metabench]:        http://brunocodutra.github.io/metabench
+[metaben.ch]:       http://metaben.ch/
