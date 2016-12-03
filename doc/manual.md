@@ -189,6 +189,7 @@ Compiler        | Version
 ----------------|-------------
 GCC             | &ge; 5
 Clang           | &ge; 3.4
+Xcode           | &ge; 6.4
 Visual Studio   | &ge; 14 2015
 
 Benchmarks {#benchmarks}
