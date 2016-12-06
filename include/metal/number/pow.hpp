@@ -54,7 +54,7 @@ namespace metal
 #include <metal/number/number.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/list/list.hpp>
-#include <metal/list/fold_left.hpp>
+#include <metal/list/accumulate.hpp>
 
 namespace metal
 {
@@ -105,7 +105,7 @@ namespace metal
 
         template<int_ x, int_ y, int_... tail>
         struct _pow<number<x>, number<y>, number<tail>...> :
-            _fold_left<numbers<y, tail...>, number<x>, lambda<pow>>
+            _accumulate<numbers<y, tail...>, number<x>, lambda<pow>>
         {};
     }
     /// \endcond

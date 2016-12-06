@@ -659,12 +659,12 @@ IS_SAME(
 )
 
 HIDE(
-/// [fold_left]
+/// [accumulate]
 using l = metal::list<short, int, long>;
 
 IS_SAME(
-    metal::fold_left<l, void, metal::lambda<metal::list>>,
+    metal::accumulate<l, void, metal::lambda<metal::list>>,
     metal::list<metal::list<metal::list<void, short>, int>, long>
 );
-/// [fold_left]
+/// [accumulate]
 )

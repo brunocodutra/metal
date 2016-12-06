@@ -53,7 +53,7 @@ namespace metal
     /// \snippet list.cpp transform
     ///
     /// ### See Also
-    /// \see list, transpose
+    /// \see list, accumulate
     template<typename lbd, typename head, typename... tail>
     using transform = typename if_<
         same<size<head>, size<tail>...>,

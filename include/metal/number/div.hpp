@@ -47,7 +47,7 @@ namespace metal
 
 #include <metal/number/number.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/list/fold_left.hpp>
+#include <metal/list/accumulate.hpp>
 #include <metal/list/list.hpp>
 
 #include <initializer_list>
@@ -78,7 +78,7 @@ namespace metal
 #if defined(METAL_COMPAT_MODE)
         template<int_ x, int_ y, int_... tail>
         struct _div<number<x>, number<y>, number<tail>...> :
-            _fold_left<numbers<y, tail...>, number<x>, lambda<div>>
+            _accumulate<numbers<y, tail...>, number<x>, lambda<div>>
         {};
 #else
         template<typename... _>
