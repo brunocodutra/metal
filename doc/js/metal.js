@@ -161,7 +161,6 @@ $(function(){
         });
 
     $("a.el").wrapInner("<strong>");
-    $("a.download").attr("href", $("a#download").attr("href"));
     $("a.anchor").each(function(){
         $(this).attr("href", "#" + $(this).attr("id"));
     });
