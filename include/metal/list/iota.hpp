@@ -59,6 +59,7 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
+#include <metal/number/numbers.hpp>
 
 #include <utility>
 

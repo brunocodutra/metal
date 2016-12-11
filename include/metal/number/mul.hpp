@@ -44,6 +44,7 @@ namespace metal
 }
 
 #include <metal/number/number.hpp>
+#include <metal/number/numbers.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/list/accumulate.hpp>
 #include <metal/list/list.hpp>
