@@ -90,9 +90,10 @@ namespace metal
         {};
 
         template<int_... vs, int_ a, int_ b>
-        struct _stretch<integer_sequence<vs...>, a, b> :
-            _numbers<(b + a*vs)...>
-        {};
+        struct _stretch<integer_sequence<vs...>, a, b>
+        {
+            using type = numbers<(b + a*vs)...>;
+        };
 
         template<typename, typename, typename>
         struct _iota

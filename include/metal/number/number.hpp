@@ -99,7 +99,12 @@ namespace metal
     /// ### See Also
     /// \see number
     using false_ = metal::number<false>;
+}
 
+#include <metal/list/list.hpp>
+
+namespace metal
+{
     /// \ingroup number
     ///
     /// ### Description
@@ -112,17 +117,12 @@ namespace metal
     /// \see int_, number, list
     template<int_... vs>
     using numbers =
-#if defined(METAL_DOXYGENATING)
-        metal::list<metal::number<vs>...>;
-#else
+#if defined(METAL_COMPAT_MODE) && !defined(METAL_DOXYGENATING)
         typename detail::_numbers<vs...>::type;
+#else
+        metal::list<metal::number<vs>...>;
 #endif
-}
 
-#include <metal/list/list.hpp>
-
-namespace metal
-{
     /// \cond
     namespace detail
     {
@@ -136,11 +136,13 @@ namespace metal
             true_
         {};
 
+#if defined(METAL_COMPAT_MODE)
         template<int_... vs>
         struct _numbers
         {
-            using type = list<number<vs>...>;
+            using type = list<std::integral_constant<int_, vs>...>;
         };
+#endif
     }
     /// \endcond
 }
