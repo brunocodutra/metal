@@ -6,7 +6,8 @@
 
 Metal is a header-only C++14 library designed to make metaprogramming easy.
 
-* **Portable** - compatible with the [most popular compilers][portability].
+* **Portable** - compatible with the
+[most popular compilers](#supported-compilers).
 * **Blazing fast** - browse up to date benchmarks at [metaben.ch].
 * **Trivial integration** - `#include <metal.hpp>` and start enjoying
 metaprogramming right away.
@@ -31,6 +32,29 @@ or locally building the target `doc` ([CMake] and [Doxygen] required)
 
 Then open `doc/html/index.html` on your favourite web browser.
 
+## Supported Compilers
+
+The following compilers are tested in continuous integration using
+[Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
+
+| Compiler          | Version   | Operating System
+|-------------------|-----------|-----------------------
+| GCC               | 5         | Ubuntu 14.04 LTS
+| GCC               | 6         | Ubuntu 14.04 LTS
+| Clang             | 3.4       | Ubuntu 14.04 LTS
+| Clang             | 3.5       | Ubuntu 14.04 LTS
+| Clang             | 3.6       | Ubuntu 14.04 LTS
+| Clang             | 3.7       | Ubuntu 14.04 LTS
+| Clang             | 3.8       | Ubuntu 14.04 LTS
+| Clang             | 3.9       | Ubuntu 14.04 LTS
+| Clang             | 4.0       | Ubuntu 14.04 LTS
+| Xcode             | 6.4       | OS X 10.10
+| Xcode             | 7.3       | OS X 10.11
+| Xcode             | 8.0       | OS X 10.11
+| Xcode             | 8.1       | OS X 10.12
+| Xcode             | 8.2       | OS X 10.12
+| Visual Studio     | 14 (2015) | Windows Server 2012 R2
+
 ## License
 
 Metal is distributed under the
@@ -52,6 +76,5 @@ Metal is distributed under the
 [metaben.ch]:       http://metaben.ch/
 
 [documentation]:    http://brunocodutra.github.io/metal
-[portability]:      http://brunocodutra.github.io/metal/#supported_compilers
 [examples]:         http://brunocodutra.github.io/metal/#examples
 [SFINAE]:           http://brunocodutra.github.io/metal/#SFINAE

@@ -22,7 +22,39 @@ power of function templates.
 In a Glimpse {#in_a_glimpse}
 ================================================================================
 
-[TODO]
+We start with an empty [List]
+
+\snippet tutorial.cpp empty
+
+then we insert some [Values]
+
+\snippet tutorial.cpp insert
+
+We can check the sizes of lists,
+
+\snippet tutorial.cpp size
+
+access their elements
+
+\snippet tutorial.cpp access
+
+or erase them
+
+\snippet tutorial.cpp erase
+
+We can reverse the order of elements
+
+\snippet tutorial.cpp reverse
+
+count their occurrences
+
+\snippet tutorial.cpp count
+
+and even transform them
+
+\snippet tutorial.cpp transform
+
+That and much, much more!
 
 Getting Started {#getting_started}
 ================================================================================
@@ -80,23 +112,12 @@ Supported Compilers {#supported_compilers}
 The following compilers are tested in continuous integration using
 [Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
 
-| Compiler          | Version   | Operating System
-|-------------------|-----------|-----------------------
-| GCC               | 5         | Ubuntu 14.04 LTS
-| GCC               | 6         | Ubuntu 14.04 LTS
-| Clang             | 3.4       | Ubuntu 14.04 LTS
-| Clang             | 3.5       | Ubuntu 14.04 LTS
-| Clang             | 3.6       | Ubuntu 14.04 LTS
-| Clang             | 3.7       | Ubuntu 14.04 LTS
-| Clang             | 3.8       | Ubuntu 14.04 LTS
-| Clang             | 3.9       | Ubuntu 14.04 LTS
-| Clang             | 4.0       | Ubuntu 14.04 LTS
-| Xcode             | 6.4       | OS X 10.10
-| Xcode             | 7.3       | OS X 10.11
-| Xcode             | 8.0       | OS X 10.11
-| Xcode             | 8.1       | OS X 10.12
-| Xcode             | 8.2       | OS X 10.12
-| Visual Studio     | 14 2015   | Windows Server 2012 R2
+| Compiler          | Version
+|-------------------|-----------
+| GCC               | &ge; 5
+| Clang             | &ge; 3.4
+| Xcode             | &ge; 6.4
+| Visual Studio     | &ge; 14 (2015)
 
 Project Organization {#project_organization}
 --------------------------------------------------------------------------------
