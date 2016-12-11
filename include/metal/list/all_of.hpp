@@ -2,32 +2,34 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-#ifndef METAL_LIST_NONE_HPP
-#define METAL_LIST_NONE_HPP
+#ifndef METAL_LIST_ALL_OF_HPP
+#define METAL_LIST_ALL_OF_HPP
 
 #include <metal/config.hpp>
 
-#include <metal/list/any.hpp>
-#include <metal/number/not.hpp>
+#include <metal/list/transform.hpp>
+#include <metal/lambda/apply.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/number/and.hpp>
 
 namespace metal
 {
     /// \ingroup list
     ///
     /// ### Description
-    /// Checks whether a predicate does not hold for any element of a \list.
+    /// Checks whether a predicate holds for all elements of a \list.
     ///
     /// ### Usage
     /// For any \list `l` and \lambda `lbd`
     /// \code
-    ///     using result = metal::none<l, lbd>;
+    ///     using result = metal::all_of<l, lbd>;
     /// \endcode
     ///
     /// \pre: For any element `l[i]` contained in `l`,
     /// `metal::invoke<lbd, l[i]>` returns a \number
     /// \returns: \number
     /// \semantics:
-    ///     If `metal::invoke<lbd, l[i]>{} == false` for all `l[i]` contained in
+    ///     If `metal::invoke<lbd, l[i]>{} != false` for all `l[i]` contained in
     ///     `l`, then
     ///     \code
     ///         using result = metal::true_;
@@ -38,12 +40,13 @@ namespace metal
     ///     \endcode
     ///
     /// ### Example
-    /// \snippet list.cpp none
+    /// \snippet list.cpp all_of
     ///
     /// ### See Also
-    /// \see list, all, any
+    /// \see list, any_of, none_of
     template<typename seq, typename lbd>
-    using none = metal::not_<metal::any<seq, lbd>>;
+    using all_of =
+        metal::apply<metal::lambda<metal::and_>, metal::transform<lbd, seq>>;
 }
 
 #endif

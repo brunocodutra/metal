@@ -31,10 +31,9 @@
     CHECK((metal::take<LIST(INF), NUMBER(M)>), (metal::reverse<metal::drop<metal::reverse<LIST(INF)>, NUMBER(CMPL(M))>>)); \
     CHECK((metal::rotate<LIST(INF), NUMBER(M)>), (metal::join<metal::drop<LIST(INF), NUMBER(M)>, metal::take<LIST(INF), NUMBER(M)>>)); \
     CHECK((metal::sort<metal::list<NUMBERS(M)>, metal::lambda<metal::greater>>), (metal::reverse<metal::list<NUMBERS(M)>>)); \
-    CHECK((metal::same<metal::enumerate<NUMBER(M), NUMBER(N), NUMBER(0)>>), (TRUE)); \
+    CHECK((metal::same<metal::iota<NUMBER(M), NUMBER(N), NUMBER(0)>>), (TRUE)); \
     CHECK((metal::flatten<metal::transpose<metal::list<LIST(M)>>>), (LIST(M))); \
-    CHECK((metal::flatten<metal::fold_left<LIST(M), metal::list<>, metal::lambda<metal::list>>>), (LIST(M))); \
-    CHECK((metal::fold_left<LIST(M), metal::list<>, metal::lambda<metal::prepend>>), (metal::fold_right<LIST(M), metal::list<>, metal::lambda<metal::append>>)); \
+    CHECK((metal::accumulate<LIST(M), metal::list<>, metal::lambda<metal::prepend>>), (metal::accumulate<metal::reverse<LIST(M)>, metal::list<>, metal::lambda<metal::append>>)); \
     CHECK((metal::range<LIST(M), metal::size<LIST(M)>, NUMBER(0)>), (metal::reverse<LIST(M)>)); \
     CHECK((metal::transform<metal::bind<metal::lambda<metal::at>, metal::quote<LIST(M)>, metal::_1>, metal::indices<LIST(M)>>), (LIST(M))); \
     CHECK((metal::transpose<metal::transpose<MAP(INC(M))>>), (MAP(INC(M)))); \

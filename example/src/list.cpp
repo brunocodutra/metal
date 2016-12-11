@@ -178,7 +178,7 @@ IS_SAME(
 )
 
 HIDE(
-/// [all]
+/// [all_of]
 template<typename val>
 using is_fundamental =
     metal::same<typename std::is_fundamental<val>::type, std::true_type>;
@@ -192,14 +192,14 @@ using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
-IS_SAME(metal::all<l, metal::lambda<is_fundamental>>, metal::true_);
-IS_SAME(metal::all<l, metal::lambda<is_floating_point>>, metal::false_);
-IS_SAME(metal::all<l, metal::lambda<is_class>>, metal::false_);
-/// [all]
+IS_SAME(metal::all_of<l, metal::lambda<is_fundamental>>, metal::true_);
+IS_SAME(metal::all_of<l, metal::lambda<is_floating_point>>, metal::false_);
+IS_SAME(metal::all_of<l, metal::lambda<is_class>>, metal::false_);
+/// [all_of]
 )
 
 HIDE(
-/// [any]
+/// [any_of]
 template<typename val>
 using is_fundamental =
     metal::same<typename std::is_fundamental<val>::type, std::true_type>;
@@ -213,14 +213,14 @@ using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
-IS_SAME(metal::any<l, metal::lambda<is_fundamental>>, metal::true_);
-IS_SAME(metal::any<l, metal::lambda<is_floating_point>>, metal::true_);
-IS_SAME(metal::any<l, metal::lambda<is_class>>, metal::false_);
-/// [any]
+IS_SAME(metal::any_of<l, metal::lambda<is_fundamental>>, metal::true_);
+IS_SAME(metal::any_of<l, metal::lambda<is_floating_point>>, metal::true_);
+IS_SAME(metal::any_of<l, metal::lambda<is_class>>, metal::false_);
+/// [any_of]
 )
 
 HIDE(
-/// [none]
+/// [none_of]
 template<typename val>
 using is_fundamental =
     metal::same<typename std::is_fundamental<val>::type, std::true_type>;
@@ -234,10 +234,10 @@ using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
-IS_SAME(metal::none<l, metal::lambda<is_fundamental>>, metal::false_);
-IS_SAME(metal::none<l, metal::lambda<is_floating_point>>, metal::false_);
-IS_SAME(metal::none<l, metal::lambda<is_class>>, metal::true_);
-/// [none]
+IS_SAME(metal::none_of<l, metal::lambda<is_fundamental>>, metal::false_);
+IS_SAME(metal::none_of<l, metal::lambda<is_floating_point>>, metal::false_);
+IS_SAME(metal::none_of<l, metal::lambda<is_class>>, metal::true_);
+/// [none_of]
 )
 
 HIDE(
@@ -420,7 +420,7 @@ using integral = metal::list<short, int, long, long long>;
 using floating = metal::list<float, double, long double>;
 
 IS_SAME(
-    metal::flatten<metal::list<character, metal::list<integral, floating>>>,
+    metal::flatten<metal::list<character, integral, floating>>,
     metal::list<
         char, wchar_t, char16_t, char32_t,
         short, int, long, long long,
@@ -489,6 +489,46 @@ IS_SAME(
     metal::list<char, char[], short, int, long, float, double, void>
 );
 /// [prepend]
+)
+
+HIDE(
+/// [iota]
+IS_SAME(
+    metal::iota<metal::number<'a'>, metal::number<3>>,
+    metal::list<metal::number<'a'>, metal::number<'b'>, metal::number<'c'>>
+);
+
+IS_SAME(
+    metal::iota<metal::number<2>, metal::number<3>, metal::number<-5>>,
+    metal::list<metal::number<2>, metal::number<-3>, metal::number<-8>>
+);
+
+IS_SAME(
+    metal::iota<metal::number<2>, metal::number<-3>, metal::number<-5>>,
+    metal::list<metal::number<2>, metal::number<7>, metal::number<12>>
+);
+/// [iota]
+)
+
+HIDE(
+/// [slice]
+using l = metal::list<short, int, long, float, double, void>;
+
+IS_SAME(
+    metal::slice<l, metal::number<2>, metal::number<3>>,
+    metal::list<long, float, double>
+);
+
+IS_SAME(
+    metal::slice<l, metal::number<1>, metal::number<2>, metal::number<3>>,
+    metal::list<int, double>
+);
+
+IS_SAME(
+    metal::slice<l, metal::number<5>, metal::number<-3>, metal::number<2>>,
+    metal::list<void, float, int>
+);
+/// [slice]
 )
 
 HIDE(
@@ -619,12 +659,12 @@ IS_SAME(
 )
 
 HIDE(
-/// [fold_left]
+/// [accumulate]
 using l = metal::list<short, int, long>;
 
 IS_SAME(
-    metal::fold_left<l, void, metal::lambda<metal::list>>,
+    metal::accumulate<l, void, metal::lambda<metal::list>>,
     metal::list<metal::list<metal::list<void, short>, int>, long>
 );
-/// [fold_left]
+/// [accumulate]
 )

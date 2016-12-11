@@ -4,10 +4,10 @@
 
 #include <metal/list/reverse.hpp>
 #include <metal/list/list.hpp>
+#include <metal/list/iota.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/enumerate.hpp>
 
 #include "test.hpp"
 
@@ -22,7 +22,7 @@
     CHECK((metal::reverse<PAIR(M)>), (metal::list<VALUE(M), NUMBER(M)>)); \
     CHECK((metal::reverse<LIST(M)>), (metal::list<RENUM(M, VALUE)>)); \
     CHECK((metal::reverse<MAP(M)>), (metal::list<RENUM(M, PAIR)>)); \
-    CHECK((metal::reverse<metal::enumerate<NUMBER(0), metal::number<100*M>, NUMBER(N)>>), (metal::enumerate<metal::number<(100*M - 1)*N>, metal::number<-100*M>, NUMBER(N)>)); \
+    CHECK((metal::reverse<metal::iota<NUMBER(0), metal::number<100*M>, NUMBER(N)>>), (metal::iota<metal::number<(100*M - 1)*N>, metal::number<-100*M>, NUMBER(N)>)); \
 /**/
 
 GEN(MATRIX)

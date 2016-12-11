@@ -91,70 +91,57 @@ IS_SAME(
 )
 
 HIDE(
-///[reverse]
-IS_SAME(metal::reverse<metal::numbers<3, 7, 1>>, metal::numbers<1, 7, 3>);
-///[reverse]
-)
-
-HIDE(
-///[enumerate]
-IS_SAME(
-    metal::enumerate<metal::number<0>, metal::size<metal::numbers<1, 7, 3>>>,
-    metal::numbers<0, 1, 2>
-);
-///[enumerate]
-)
-
-HIDE(
-///[zip]
+///[accumulate_1]
 using radix = metal::number<10>;
-using digits = metal::numbers<1, 7, 3>;
-using exponents = metal::numbers<0, 1, 2>;
+using digits = metal::numbers<3, 7, 1>;
+
+template<typename x, typename y>
+using expr = metal::add<metal::mul<radix, x>, y>;
+
+using lbd = metal::lambda<expr>;
 
 IS_SAME(
-    metal::transform<
-        metal::bind<
-            metal::lambda<metal::mul>,
-            metal::_1,
-            metal::bind<
-                metal::lambda<metal::pow>,
-                metal::quote<radix>,
-                metal::_2
-            >
-        >,
-        digits,
-        exponents
-    >,
-    metal::numbers<1, 70, 300>
-);
-///[zip]
-)
-
-HIDE(
-///[sum]
-IS_SAME(
-    metal::apply<metal::lambda<metal::add>, metal::numbers<1, 70, 300>>,
+    metal::accumulate<digits, metal::number<0>, lbd>,
     metal::number<371>
 );
-///[sum]
+///[accumulate_1]
+)
+
+HIDE(
+///[accumulate_2]
+using radix = metal::number<10>;
+using digits = metal::numbers<3, 7, 1>;
+
+using lbd = metal::bind<
+    metal::lambda<metal::add>,
+    metal::bind<
+        metal::lambda<metal::mul>,
+        metal::quote<radix>,
+        metal::_1
+    >,
+    metal::_2
+>;
+
+IS_SAME(
+    metal::accumulate<digits, metal::number<0>, lbd>,
+    metal::number<371>
+);
+///[accumulate_2]
 )
 
 ///[assemble_number]
 template<typename radix, typename digits>
-using assemble_number = metal::apply<
-    metal::lambda<metal::add>,
-    metal::transform<
+using assemble_number = metal::accumulate<
+    digits,
+    metal::number<0>,
+    metal::bind<
+        metal::lambda<metal::add>,
         metal::bind<
             metal::lambda<metal::mul>,
-            metal::_1,
-            metal::bind<
-                metal::lambda<metal::pow>,
-                metal::quote<radix>,
-                metal::_2
-            >
+            metal::quote<radix>,
+            metal::_1
         >,
-        metal::reverse<digits>,
-        metal::enumerate<metal::number<0>, metal::size<digits>>
+        metal::_2
     >
 >;
 ///[assemble_number]
@@ -303,7 +290,7 @@ struct AugmentedTuple :
 
     template<metal::int_ i>
     constexpr auto operator [](metal::number<i>) const
-        -> std::tuple_element_t<i, std::tuple<T...>> {
+        -> metal::at<metal::list<T...>, metal::number<i>> {
         return std::get<i>(*this);
     }
 };
@@ -317,7 +304,7 @@ struct AugmentedTuple :
 
     template<metal::int_ i>
     constexpr auto operator [](metal::number<i>)
-        -> std::tuple_element_t<i, std::tuple<T...>>& {
+        -> metal::at<metal::list<T...>, metal::number<i>>& {
         return std::get<i>(*this);
     }
 };

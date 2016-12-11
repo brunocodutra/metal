@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-#ifndef METAL_LIST_ANY_HPP
-#define METAL_LIST_ANY_HPP
+#ifndef METAL_LIST_ANY_OF_HPP
+#define METAL_LIST_ANY_OF_HPP
 
 #include <metal/config.hpp>
 
@@ -22,7 +22,7 @@ namespace metal
     /// ### Usage
     /// For any \list `l` and \lambda `lbd`
     /// \code
-    ///     using result = metal::any<l, lbd>;
+    ///     using result = metal::any_of<l, lbd>;
     /// \endcode
     ///
     /// \pre: For any element `l[i]` contained in `l`,
@@ -40,12 +40,12 @@ namespace metal
     ///     \endcode
     ///
     /// ### Example
-    /// \snippet list.cpp any
+    /// \snippet list.cpp any_of
     ///
     /// ### See Also
-    /// \see list, all, none
+    /// \see list, all_of, none_of
     template<typename seq, typename lbd>
-    using any =
+    using any_of =
         metal::apply<metal::lambda<metal::or_>, metal::transform<lbd, seq>>;
 }
 

@@ -12,7 +12,7 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename head, typename... tail>
+        template<typename... nums>
         struct _add;
     }
     /// \endcond
@@ -39,13 +39,14 @@ namespace metal
     ///
     /// ### See Also
     /// \see number, inc, dec, neg, sub, mul, div, mod, pow
-    template<typename head, typename... tail>
-    using add = typename detail::_add<head, tail...>::type;
+    template<typename... nums>
+    using add = typename detail::_add<nums...>::type;
 }
 
 #include <metal/number/number.hpp>
+#include <metal/number/numbers.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/list/fold_left.hpp>
+#include <metal/list/accumulate.hpp>
 #include <metal/list/list.hpp>
 
 #include <initializer_list>
@@ -55,8 +56,13 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename head, typename... tail>
+        template<typename... nums>
         struct _add
+        {};
+
+        template<>
+        struct _add<> :
+            number<0>
         {};
 
         template<int_ x>
@@ -72,7 +78,7 @@ namespace metal
 #if defined(METAL_COMPAT_MODE)
         template<int_ x, int_ y, int_... tail>
         struct _add<number<x>, number<y>, number<tail>...> :
-            _fold_left<numbers<y, tail...>, number<x>, lambda<add>>
+            _accumulate<numbers<y, tail...>, number<x>, lambda<add>>
         {};
 #else
         template<typename... _>

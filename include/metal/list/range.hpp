@@ -66,9 +66,9 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
+#include <metal/list/iota.hpp>
 #include <metal/list/rotate.hpp>
 #include <metal/list/reverse.hpp>
-#include <metal/number/enumerate.hpp>
 #include <metal/number/sub.hpp>
 #include <metal/number/max.hpp>
 #include <metal/number/min.hpp>
@@ -97,7 +97,7 @@ namespace metal
         };
 
         template<typename seq, typename num>
-        using skip = typename _skip_impl<seq, enumerate<number<0>, num>>::type;
+        using skip = typename _skip_impl<seq, iota<number<0>, num>>::type;
 
         template<typename seq, typename beg, typename end>
         struct _range

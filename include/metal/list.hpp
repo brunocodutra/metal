@@ -7,8 +7,9 @@
 
 #include <metal/config.hpp>
 
-#include <metal/list/all.hpp>
-#include <metal/list/any.hpp>
+#include <metal/list/accumulate.hpp>
+#include <metal/list/all_of.hpp>
+#include <metal/list/any_of.hpp>
 #include <metal/list/append.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/back.hpp>
@@ -23,14 +24,13 @@
 #include <metal/list/find.hpp>
 #include <metal/list/find_if.hpp>
 #include <metal/list/flatten.hpp>
-#include <metal/list/fold_left.hpp>
-#include <metal/list/fold_right.hpp>
 #include <metal/list/front.hpp>
+#include <metal/list/iota.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/list/insert.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
-#include <metal/list/none.hpp>
+#include <metal/list/none_of.hpp>
 #include <metal/list/partition.hpp>
 #include <metal/list/prepend.hpp>
 #include <metal/list/range.hpp>

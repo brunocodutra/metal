@@ -212,22 +212,3 @@ using num = metal::min<metal::number<-17>, metal::number<5>, metal::number<3>>;
 IS_SAME(num, metal::number<-17>);
 /// [min]
 )
-
-HIDE(
-/// [enumerate]
-IS_SAME(
-    metal::enumerate<metal::number<'a'>, metal::number<3>>,
-    metal::list<metal::number<'a'>, metal::number<'b'>, metal::number<'c'>>
-);
-
-IS_SAME(
-    metal::enumerate<metal::number<2>, metal::number<3>, metal::number<-5>>,
-    metal::list<metal::number<2>, metal::number<-3>, metal::number<-8>>
-);
-
-IS_SAME(
-    metal::enumerate<metal::number<2>, metal::number<-3>, metal::number<-5>>,
-    metal::list<metal::number<2>, metal::number<7>, metal::number<12>>
-);
-/// [enumerate]
-)

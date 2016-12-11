@@ -10,7 +10,6 @@
 #include <metal/list/transform.hpp>
 #include <metal/lambda/apply.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/lambda/partial.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/add.hpp>
 
@@ -44,10 +43,8 @@ namespace metal
     /// ### See Also
     /// \see list, count, all, any, none, find_if
     template<typename seq, typename lbd>
-    using count_if = metal::apply<
-        metal::partial<metal::lambda<metal::add>, metal::number<0>>,
-        metal::transform<lbd, seq>
-    >;
+    using count_if =
+        metal::apply<metal::lambda<metal::add>, metal::transform<lbd, seq>>;
 }
 
 #endif

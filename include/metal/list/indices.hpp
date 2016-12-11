@@ -8,8 +8,8 @@
 #include <metal/config.hpp>
 
 #include <metal/list/size.hpp>
+#include <metal/list/iota.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/enumerate.hpp>
 
 namespace metal
 {
@@ -37,9 +37,9 @@ namespace metal
     /// \snippet list.cpp indices
     ///
     /// ### See Also
-    /// \see list, enumerate
+    /// \see list, iota
     template<typename seq>
-    using indices = metal::enumerate<metal::number<0>, metal::size<seq>>;
+    using indices = metal::iota<metal::number<0>, metal::size<seq>>;
 }
 
 #endif

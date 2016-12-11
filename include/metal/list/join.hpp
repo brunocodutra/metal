@@ -42,15 +42,14 @@ namespace metal
     ///
     /// ### See Also
     /// \see list, flatten
-    template<typename head, typename... tail>
-    using join = typename detail::_join<head, tail...>::type;
+    template<typename... seqs>
+    using join = typename detail::_join<seqs...>::type;
 }
 
 #include <metal/list/list.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/if.hpp>
 
 namespace metal
 {
@@ -100,6 +99,16 @@ namespace metal
         struct _join2<list<_0...>, list<_1...>>
         {
             using type = list<_0..., _1...>;
+        };
+
+        template<typename>
+        struct _join1
+        {};
+
+        template<typename... _0>
+        struct _join1<list<_0...>>
+        {
+            using type = list<_0...>;
         };
 
         template<int_ n>
@@ -212,8 +221,14 @@ namespace metal
 
         template<typename seq>
         struct _join<seq> :
-            _if_<is_list<seq>, seq>
+            _join1<seq>
         {};
+
+        template<>
+        struct _join<>
+        {
+            using type = list<>;
+        };
     }
     /// \endcond
 }

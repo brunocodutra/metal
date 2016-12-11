@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-#ifndef METAL_LIST_FOLD_LEFT_HPP
-#define METAL_LIST_FOLD_LEFT_HPP
+#ifndef METAL_LIST_ACCUMULATE_HPP
+#define METAL_LIST_ACCUMULATE_HPP
 
 #include <metal/config.hpp>
 
@@ -13,7 +13,7 @@ namespace metal
     namespace detail
     {
         template<typename seq, typename state, typename lbd>
-        struct _fold_left;
+        struct _accumulate;
     }
     /// \endcond
 
@@ -27,7 +27,7 @@ namespace metal
     /// ### Usage
     /// For any \list `l`, \value `val` and \lambda `lbd`
     /// \code
-    ///     using result = metal::fold_left<l, val, lbd>;
+    ///     using result = metal::accumulate<l, val, lbd>;
     /// \endcode
     ///
     /// \returns: \value
@@ -41,12 +41,12 @@ namespace metal
     ///     `metal::invoke<lbd, x, y>`.
     ///
     /// ### Example
-    /// \snippet list.cpp fold_left
+    /// \snippet list.cpp accumulate
     ///
     /// ### See Also
-    /// \see list, fold_right
+    /// \see list, transform
     template<typename seq, typename state, typename lbd>
-    using fold_left = typename detail::_fold_left<seq, state, lbd>::type;
+    using accumulate = typename detail::_accumulate<seq, state, lbd>::type;
 }
 
 #include <metal/list/list.hpp>
@@ -60,7 +60,7 @@ namespace metal
     namespace detail
     {
         template<typename cons, typename state, typename lbd, typename = true_>
-        struct _fold_left_impl
+        struct _accumulate_impl
         {};
 
         template<
@@ -92,7 +92,7 @@ namespace metal
             typename tail,
             typename state, template<typename...> class expr
         >
-        struct _fold_left_impl<
+        struct _accumulate_impl<
             list<
                 _00, _01, _02, _03, _04, _05, _06, _07, _08, _09,
                 _10, _11, _12, _13, _14, _15, _16, _17, _18, _19,
@@ -130,7 +130,7 @@ namespace metal
                     _90>, _91>, _92>, _93>, _94>, _95>, _96>, _97>, _98>, _99>
             >
         > :
-            _fold_left_impl<
+            _accumulate_impl<
                 tail,
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<
@@ -162,7 +162,7 @@ namespace metal
             typename _08, typename _09, typename tail,
             typename state, template<typename...> class expr
         >
-        struct _fold_left_impl<
+        struct _accumulate_impl<
             list<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09, tail>,
             state,
             lambda<expr>,
@@ -171,7 +171,7 @@ namespace metal
                     _00>, _01>, _02>, _03>, _04>, _05>, _06>, _07>, _08>, _09>
             >
         > :
-            _fold_left_impl<
+            _accumulate_impl<
                 tail,
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<state,
                     _00>, _01>, _02>, _03>, _04>, _05>, _06>, _07>, _08>, _09>,
@@ -183,14 +183,14 @@ namespace metal
             typename head, typename tail,
             typename state, template<typename...> class expr
         >
-        struct _fold_left_impl<list<head, tail>, state, lambda<expr>,
+        struct _accumulate_impl<list<head, tail>, state, lambda<expr>,
             is_value<expr<state, head>>
         > :
-            _fold_left_impl<tail, expr<state, head>, lambda<expr>>
+            _accumulate_impl<tail, expr<state, head>, lambda<expr>>
         {};
 
         template<typename state, template<typename...> class expr>
-        struct _fold_left_impl<list<>, state, lambda<expr>>
+        struct _accumulate_impl<list<>, state, lambda<expr>>
         {
             using type = state;
         };
@@ -288,12 +288,12 @@ namespace metal
         using cons = typename _cons<vals...>::type;
 
         template<typename seq, typename state, typename lbd>
-        struct _fold_left
+        struct _accumulate
         {};
 
         template<typename... vals, typename state, typename lbd>
-        struct _fold_left<list<vals...>, state, lbd> :
-            _fold_left_impl<cons<vals...>, state, lbd>
+        struct _accumulate<list<vals...>, state, lbd> :
+            _accumulate_impl<cons<vals...>, state, lbd>
         {};
     }
     /// \endcond

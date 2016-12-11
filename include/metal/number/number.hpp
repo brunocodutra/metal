@@ -19,9 +19,6 @@ namespace metal
         struct _is_number;
 
         using int_ = std::intmax_t;
-
-        template<int_... vs>
-        struct _numbers;
     }
     /// \endcond
 
@@ -100,29 +97,6 @@ namespace metal
     /// \see number
     using false_ = metal::number<false>;
 
-    /// \ingroup number
-    ///
-    /// ### Description
-    /// Constructs a \list of \numbers out of a sequence of integral values.
-    ///
-    /// ### Example
-    /// \snippet number.cpp numbers
-    ///
-    /// ### See Also
-    /// \see int_, number, list
-    template<int_... vs>
-    using numbers =
-#if defined(METAL_DOXYGENATING)
-        metal::list<metal::number<vs>...>;
-#else
-        typename detail::_numbers<vs...>::type;
-#endif
-}
-
-#include <metal/list/list.hpp>
-
-namespace metal
-{
     /// \cond
     namespace detail
     {
@@ -135,12 +109,6 @@ namespace metal
         struct _is_number<number<value>> :
             true_
         {};
-
-        template<int_... vs>
-        struct _numbers
-        {
-            using type = list<number<vs>...>;
-        };
     }
     /// \endcond
 }

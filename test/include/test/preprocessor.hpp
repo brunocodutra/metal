@@ -136,20 +136,6 @@
 
 #define FOLD(N, MACRO, ...) FOLD_IMPL(0, N, MACRO, __VA_ARGS__)
 
-#define REFOLD_KWD() REFOLD_IMPL
-#define REFOLD_IMPL(N, MACRO, ...) \
-    IF(N)(HEAD, TAIL)( \
-        DEFER(REFOLD_KWD)()( \
-            DEC(N), \
-            MACRO, \
-            DEFER(MACRO)(DEC(N), __VA_ARGS__) \
-        ), \
-        __VA_ARGS__ \
-    ) \
-/**/
-
-#define REFOLD(N, MACRO, ...) REFOLD_IMPL(N, MACRO, __VA_ARGS__)
-
 #define FWD_ID(...) __VA_ARGS__
 #define FWD_KWD() FWD_IMPL
 #define FWD_IMPL(ARG, MACRO, ...) \

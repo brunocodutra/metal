@@ -15,7 +15,7 @@ namespace metal
     namespace detail
     {
         template<typename seq>
-        struct _find_if_impl;
+        struct _find_if;
     }
     /// \endcond
 
@@ -51,13 +51,12 @@ namespace metal
     /// ### See Also
     /// \see list, find, all, any, none, count_if
     template<typename seq, typename lbd>
-    using find_if = typename detail::_find_if_impl<transform<lbd, seq>>::type;
+    using find_if = typename detail::_find_if<transform<lbd, seq>>::type;
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/size.hpp>
+#include <metal/list/join.hpp>
 #include <metal/list/front.hpp>
-#include <metal/list/flatten.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/number/number.hpp>
 #include <metal/number/if.hpp>
@@ -70,11 +69,11 @@ namespace metal
     namespace detail
     {
         template<typename seq>
-        struct _find_if_impl
+        struct _find_if
         {};
 
         template<>
-        struct _find_if_impl<list<>> :
+        struct _find_if<list<>> :
             number<0>
         {};
 
@@ -86,14 +85,12 @@ namespace metal
         template<int_... vs, typename... is>
         struct _find_index<list<number<vs>...>, list<is...>>
         {
-            using type = front<
-                flatten<list<if_<number<vs>, is, list<>>..., size<list<is...>>>>
-            >;
+            using type = front<join<if_<number<vs>, list<is>, list<>>...>>;
         };
 
         template<int_... vs>
-        struct _find_if_impl<list<number<vs>...>> :
-            _find_index<list<number<vs>...>>
+        struct _find_if<list<number<vs>...>> :
+            _find_index<list<number<vs>..., true_>>
         {};
 #else
         template<typename... _>
@@ -107,7 +104,7 @@ namespace metal
         }
 
         template<int_... vs>
-        struct _find_if_impl<list<number<vs>...>> :
+        struct _find_if<list<number<vs>...>> :
             number<find_index(vs...)>
         {};
 #endif

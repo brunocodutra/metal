@@ -4,10 +4,10 @@
 
 #include <metal/list/rotate.hpp>
 #include <metal/list/list.hpp>
+#include <metal/list/iota.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/enumerate.hpp>
 
 #include "test.hpp"
 
@@ -64,7 +64,7 @@
     CHECK((metal::rotate<LIST(M), metal::number<M*N>>), (LIST(M))); \
     CHECK((metal::rotate<LIST(INF), metal::number<M + N*INF>>), (metal::rotate<LIST(INF), metal::number<M - N*INF>>)); \
     CHECK((metal::rotate<metal::list<VALUES(M) COMMA(AND(M, N)) VALUES(N)>, NUMBER(M)>), (metal::list<VALUES(N) COMMA(AND(M, N)) VALUES(M)>)); \
-    CHECK((metal::rotate<metal::rotate<metal::enumerate<NUMBER(0), metal::number<100*M>>, metal::number<100*N>>, metal::number<-100*N>>), (metal::enumerate<NUMBER(0), metal::number<100*M>>)); \
+    CHECK((metal::rotate<metal::rotate<metal::iota<NUMBER(0), metal::number<100*M>>, metal::number<100*N>>, metal::number<-100*N>>), (metal::iota<NUMBER(0), metal::number<100*M>>)); \
 /**/
 
 GEN(MATRIX)

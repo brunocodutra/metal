@@ -4,23 +4,21 @@
 [![travis.badge]][travis.metal]
 [![appveyor.badge]][appveyor.metal]
 
-Metal is a portable header-only C++14 library designed to make template
-metaprogramming enjoyable.
+Metal is a header-only C++14 library designed to make metaprogramming easy.
 
-## TL;DR
-
-For a quick get going, be sure to check out
-[Metal in Action](http://brunocodutra.github.io/metal/#metal_in_action).
-
-## Benchmarks
-
-See Metal in comparison with other modern metaprogramming libraries at
-[Metabench].
+* **Portable** - compatible with the
+[most popular compilers](#supported-compilers).
+* **Blazing fast** - browse up to date benchmarks at [metaben.ch].
+* **Trivial integration** - `#include <metal.hpp>` and start enjoying
+metaprogramming right away.
+* **Metaprogramming made easy** - it doesn't have to be hard, check out
+[the examples][examples].
+* **SFINAE-Friendly** - [control overload resolution][SFINAE] and unleash the
+power of function templates.
 
 ## Documentation
 
-The complete up to date documentation is available
-[online](http://brunocodutra.github.io/metal).
+The complete up to date documentation is available [online][documentation].
 
 Alternatively, an offline copy may be obtained by either cloning the branch
 `gh-pages`
@@ -32,8 +30,30 @@ or locally building the target `doc` ([CMake] and [Doxygen] required)
     cmake /path/to/Metal
     cmake --build . --target doc
 
-In both cases, the same documentation website that is available online will be
-placed into `doc/html/`.
+Then open `doc/html/index.html` on your favourite web browser.
+
+## Supported Compilers
+
+The following compilers are tested in continuous integration using
+[Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
+
+| Compiler          | Version   | Operating System
+|-------------------|-----------|-----------------------
+| GCC               | 5         | Ubuntu 14.04 LTS
+| GCC               | 6         | Ubuntu 14.04 LTS
+| Clang             | 3.4       | Ubuntu 14.04 LTS
+| Clang             | 3.5       | Ubuntu 14.04 LTS
+| Clang             | 3.6       | Ubuntu 14.04 LTS
+| Clang             | 3.7       | Ubuntu 14.04 LTS
+| Clang             | 3.8       | Ubuntu 14.04 LTS
+| Clang             | 3.9       | Ubuntu 14.04 LTS
+| Clang             | 4.0       | Ubuntu 14.04 LTS
+| Xcode             | 6.4       | OS X 10.10
+| Xcode             | 7.3       | OS X 10.11
+| Xcode             | 8.0       | OS X 10.11
+| Xcode             | 8.1       | OS X 10.12
+| Xcode             | 8.2       | OS X 10.12
+| Visual Studio     | 14 (2015) | Windows Server 2012 R2
 
 ## License
 
@@ -53,4 +73,8 @@ Metal is distributed under the
 
 [CMake]:            http://cmake.org/
 [Doxygen]:          http://doxygen.org/
-[Metabench]:        http://brunocodutra.github.io/metabench
+[metaben.ch]:       http://metaben.ch/
+
+[documentation]:    http://brunocodutra.github.io/metal
+[examples]:         http://brunocodutra.github.io/metal/#examples
+[SFINAE]:           http://brunocodutra.github.io/metal/#SFINAE
