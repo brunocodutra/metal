@@ -259,7 +259,7 @@ script:
     if [[ "${BUILD_DOC}" == "true" ]]
     then
         (cd "${METAL_BUILD_PATH}" && make doc) &&
-        if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" ]]
+        if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_OS_NAME}" == "linux" ]]
         then
             git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages "${METAL_BUILD_PATH}/doc/gh-pages" &> /dev/null &&
             cp -r "${METAL_BUILD_PATH}/doc/gh-pages/.git/" "${METAL_BUILD_PATH}/doc/html/" &> /dev/null &&
