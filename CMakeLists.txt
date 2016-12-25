@@ -6,6 +6,10 @@ cmake_minimum_required(VERSION 3.0)
 
 project(Metal CXX)
 
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
+include(Deploy)
+
 set(METAL_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
 file(STRINGS "${METAL_INCLUDE_DIR}/metal/config/version.hpp"
@@ -24,12 +28,16 @@ set(METAL_VERSION "${METAL_MAJOR}.${METAL_MINOR}.${METAL_PATCH}")
 
 message(STATUS "Configuring Metal ${METAL_VERSION}")
 
-add_library(metal INTERFACE)
-target_include_directories(metal INTERFACE ${METAL_INCLUDE_DIR})
+add_library(Metal INTERFACE)
+set_target_properties(Metal PROPERTIES
+    INTERFACE_LIB_VERSION ${METAL_VERSION}
+    INTERFACE_INCLUDE_DIRECTORIES ${METAL_INCLUDE_DIR}
+)
+
+deploy(Metal)
 
 include("${CMAKE_SOURCE_DIR}/cmake/config.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/testing.cmake")
-include("${CMAKE_SOURCE_DIR}/cmake/deployment.cmake")
 
 add_subdirectory(doc)
 add_subdirectory(example)
