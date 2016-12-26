@@ -56,3 +56,58 @@ endif()
         DESTINATION ${cmake_install_dir}
     )
 endfunction()
+
+include(ExternalProject)
+function(test_deployment _target _pkg _header)
+    get_target_property(name ${_pkg} NAME)
+    get_target_property(version ${_pkg} INTERFACE_LIB_VERSION)
+
+    set(prefix "${CMAKE_CURRENT_BINARY_DIR}/external")
+    set(src_dir "${prefix}/src/${_target}")
+    set(bin_dir "${src_dir}-build")
+
+    file(WRITE "${src_dir}/CMakeLists.txt" "\
+cmake_minimum_required(VERSION ${CMAKE_VERSION})
+project(external CXX)
+find_package(${name} ${version} EXACT REQUIRED)
+include_directories(\${${name}_INCLUDE_DIR})
+add_executable(external main.cpp)
+"
+    )
+
+    file(WRITE "${src_dir}/main.cpp"
+        "#include <${_header}>\nint main(){return 0;}\n"
+    )
+
+    ExternalProject_Add(${_target}
+        URL ""
+        BUILD_ALWAYS 1
+        EXCLUDE_FROM_ALL 1
+        PREFIX ${prefix}
+        CMAKE_GENERATOR ${CMAKE_GENERATOR}
+        CMAKE_ARGS
+            -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+            -DCMAKE_CXX_STANDARD=14
+            -DCMAKE_PREFIX_PATH=${CMAKE_CURRENT_BINARY_DIR}/install
+        INSTALL_COMMAND ""
+    )
+
+    ExternalProject_Add_Step(${_target} deploy
+        ALWAYS 1
+        EXCLUDE_FROM_ALL 1
+        DEPENDERS configure
+        COMMAND ${CMAKE_COMMAND} -E remove_directory install
+        COMMAND ${CMAKE_COMMAND}
+            -DCMAKE_INSTALL_PREFIX=install
+            -P ${CMAKE_BINARY_DIR}/cmake_install.cmake
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+
+    ExternalProject_Add_Step(${_target} clean
+        ALWAYS 1
+        EXCLUDE_FROM_ALL 1
+        DEPENDEES configure
+        COMMAND ${CMAKE_COMMAND} --build ${bin_dir} --target clean
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+endfunction()

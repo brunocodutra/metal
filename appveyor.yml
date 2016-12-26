@@ -11,44 +11,28 @@ environment:
       - GENERATOR: "NMake Makefiles"
         COMPILER: cl
 
-      - GENERATOR: "Ninja"
-        COMPILER: cl
-
 configuration:
   - Debug
 
 install:
-  - if "%GENERATOR%" equ "Ninja" (choco install ninja)
   - if "%BUILD_DOC%" equ "true" (choco install doxygen.portable)
 
 before_build:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 
   - set "METAL_SOURCE_PATH=%APPVEYOR_BUILD_FOLDER%"
-  - set "EXTERNAL_SOURCE_PATH=%METAL_SOURCE_PATH%\example\external"
 
   - set "METAL_BUILD_PATH=%APPVEYOR_BUILD_FOLDER%\build"
   - mkdir "%METAL_BUILD_PATH%"
 
-  - set "METAL_INSTALL_PATH=%APPVEYOR_BUILD_FOLDER%\install"
-  - mkdir "%METAL_INSTALL_PATH%"
-
-  - set "EXTERNAL_BUILD_PATH=%METAL_BUILD_PATH%/example/external"
-  - mkdir "%EXTERNAL_BUILD_PATH%"
-
-  - set "CMAKE_ARGS=-DCMAKE_BUILD_TYPE=%CONFIGURATION% -DCMAKE_INSTALL_PREFIX=%METAL_INSTALL_PATH%"
+  - set "CMAKE_ARGS=-DCMAKE_BUILD_TYPE=%CONFIGURATION%"
   - if defined COMPILER (set "CMAKE_ARGS=-DCMAKE_CXX_COMPILER=%COMPILER% %CMAKE_ARGS%")
   - if defined GENERATOR (set "CMAKE_ARGS=-G"%GENERATOR%" %CMAKE_ARGS%")
   - pushd "%METAL_BUILD_PATH%" && cmake "%METAL_SOURCE_PATH%" %CMAKE_ARGS% & popd
-  - cmake --build "%METAL_BUILD_PATH%" --target install --config "%CONFIGURATION%"
-
-  - set "CMAKE_ARGS=%CMAKE_ARGS% -DCMAKE_PREFIX_PATH=%METAL_INSTALL_PATH%"
-  - pushd "%EXTERNAL_BUILD_PATH%" && cmake "%EXTERNAL_SOURCE_PATH%" %CMAKE_ARGS% & popd
 
 build_script:
   - if "%BUILD_DOC%" equ "true" (
         cmake --build "%METAL_BUILD_PATH%" --target doc --config "%CONFIGURATION%"
     ) else (
-        cmake --build "%EXTERNAL_BUILD_PATH%" --target external --config "%CONFIGURATION%" &
         pushd "%METAL_BUILD_PATH%" && ctest -C "%CONFIGURATION%" --output-on-failure & popd
     )
