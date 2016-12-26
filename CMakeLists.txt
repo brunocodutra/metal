@@ -9,6 +9,7 @@ project(Metal CXX)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 include(Deploy)
+include(TestTree)
 
 set(METAL_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
@@ -37,7 +38,8 @@ set_target_properties(Metal PROPERTIES
 deploy(Metal)
 
 include("${CMAKE_SOURCE_DIR}/cmake/config.cmake")
-include("${CMAKE_SOURCE_DIR}/cmake/testing.cmake")
+
+enable_testing()
 
 add_subdirectory(doc)
 add_subdirectory(example)

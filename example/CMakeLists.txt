@@ -4,5 +4,7 @@
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
-add_custom_target(examples)
-metal_build_test_tree(examples "${CMAKE_CURRENT_SOURCE_DIR}/src/")
+add_custom_target(example)
+unit_test_tree(Metal example "${CMAKE_CURRENT_SOURCE_DIR}/src/")
+
+add_custom_target(examples DEPENDS example)
