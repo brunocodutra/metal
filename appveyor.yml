@@ -7,7 +7,7 @@ shallow_clone: true
 environment:
     matrix:
       - BUILD_DOC: true
-
+      - GENERATOR: "MinGW Makefiles"
       - GENERATOR: "NMake Makefiles"
         COMPILER: cl
 
@@ -19,6 +19,8 @@ install:
 
 before_build:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
+
+  - set PATH=C:\mingw-w64\i686-5.3.0-posix-dwarf-rt_v4-rev0\mingw32\bin;%PATH:C:\Program Files\Git\usr\bin;=%
 
   - set "METAL_SOURCE_PATH=%APPVEYOR_BUILD_FOLDER%"
 

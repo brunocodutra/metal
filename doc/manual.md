@@ -118,6 +118,7 @@ The following compilers are tested in continuous integration using
 | Clang             | &ge; 3.4
 | Xcode             | &ge; 6.4
 | Visual Studio     | &ge; 14 (2015)
+| MinGW             | &ge; 5
 
 Project Organization {#project_organization}
 --------------------------------------------------------------------------------
