@@ -21,55 +21,48 @@
 #define FOLD(M, ARG, MACRO, ...) FOLD_IMPL(0, M, ARG, MACRO, __VA_ARGS__)
 
 #define MATRIX(M, N) \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(M), VALUE(N), VALUE(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(M), VALUE(N), NUMBER(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(M), VALUE(N), PAIR(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(M), VALUE(N), LIST(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(M), VALUE(N), MAP(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(M), VALUE(N), LAMBDA(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(M), VALUE(N), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(M), NUMBER(N), VALUE(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(M), NUMBER(N), NUMBER(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(M), NUMBER(N), PAIR(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(M), NUMBER(N), LIST(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(M), NUMBER(N), MAP(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(M), NUMBER(N), LAMBDA(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(M), NUMBER(N), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(M), PAIR(N), VALUE(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(M), PAIR(N), NUMBER(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(M), PAIR(N), PAIR(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(M), PAIR(N), LIST(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(M), PAIR(N), MAP(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(M), PAIR(N), LAMBDA(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(M), PAIR(N), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(M), LIST(N), VALUE(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(M), LIST(N), NUMBER(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(M), LIST(N), PAIR(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(M), LIST(N), LIST(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(M), LIST(N), MAP(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(M), LIST(N), LAMBDA(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(M), LIST(N), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(M), MAP(N), VALUE(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(M), MAP(N), NUMBER(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(M), MAP(N), PAIR(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(M), MAP(N), LIST(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(M), MAP(N), MAP(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(M), MAP(N), LAMBDA(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(M), MAP(N), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(M), LAMBDA(N), VALUE(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(M), LAMBDA(N), NUMBER(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(M), LAMBDA(N), PAIR(N)>), (BOOL(M == 2))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(M), LAMBDA(N), LIST(N)>), (BOOL(M == 2 || !N))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(M), LAMBDA(N), MAP(N)>), (BOOL(M == 2 || !N))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(M), LAMBDA(N), LAMBDA(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(M), LAMBDA(N), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_), LAMBDA(N), VALUE(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_), LAMBDA(N), NUMBER(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_), LAMBDA(N), PAIR(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_), LAMBDA(N), LIST(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_), LAMBDA(N), MAP(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_), LAMBDA(N), LAMBDA(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_), LAMBDA(N), LAMBDA(_)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(INC(M)) COMMA(N) ENUM(N, VALUE FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(INC(M)) COMMA(N) ENUM(N, NUMBER FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(INC(M)) COMMA(N) ENUM(N, PAIR FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(INC(M)) COMMA(N) ENUM(N, LIST FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(INC(M)) COMMA(N) ENUM(N, MAP FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, VALUE(INC(M)) COMMA(N) ENUM(N, LAMBDA FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(INC(M)) COMMA(N) ENUM(N, VALUE FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(INC(M)) COMMA(N) ENUM(N, NUMBER FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(INC(M)) COMMA(N) ENUM(N, PAIR FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(INC(M)) COMMA(N) ENUM(N, LIST FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(INC(M)) COMMA(N) ENUM(N, MAP FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, NUMBER(INC(M)) COMMA(N) ENUM(N, LAMBDA FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(INC(M)) COMMA(N) ENUM(N, VALUE FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(INC(M)) COMMA(N) ENUM(N, NUMBER FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(INC(M)) COMMA(N) ENUM(N, PAIR FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(INC(M)) COMMA(N) ENUM(N, LIST FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(INC(M)) COMMA(N) ENUM(N, MAP FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, PAIR(INC(M)) COMMA(N) ENUM(N, LAMBDA FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(INC(M)) COMMA(N) ENUM(N, VALUE FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(INC(M)) COMMA(N) ENUM(N, NUMBER FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(INC(M)) COMMA(N) ENUM(N, PAIR FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(INC(M)) COMMA(N) ENUM(N, LIST FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(INC(M)) COMMA(N) ENUM(N, MAP FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LIST(INC(M)) COMMA(N) ENUM(N, LAMBDA FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(INC(M)) COMMA(N) ENUM(N, VALUE FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(INC(M)) COMMA(N) ENUM(N, NUMBER FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(INC(M)) COMMA(N) ENUM(N, PAIR FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(INC(M)) COMMA(N) ENUM(N, LIST FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(INC(M)) COMMA(N) ENUM(N, MAP FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, MAP(INC(M)) COMMA(N) ENUM(N, LAMBDA FIX(M)), LIST(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(INC(M)) COMMA(N) ENUM(N, VALUE FIX(M)), LIST(N)>), (BOOL(N == 1 && M == N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(INC(M)) COMMA(N) ENUM(N, NUMBER FIX(M)), LIST(N)>), (BOOL(N == 1 && M == N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(INC(M)) COMMA(N) ENUM(N, PAIR FIX(M)), LIST(N)>), (BOOL(M && M == N && M < 3))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(INC(M)) COMMA(N) ENUM(N, LIST FIX(M)), LIST(N)>), (BOOL(M && M == N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(INC(M)) COMMA(N) ENUM(N, MAP FIX(M)), LIST(N)>), (BOOL(M && M == N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(INC(M)) COMMA(N) ENUM(N, LAMBDA FIX(M)), LIST(N)>), (BOOL(N == 1 && M == N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_) COMMA(N) ENUM(N, VALUE FIX(M)), LIST(N)>), (BOOL(N == 1))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_) COMMA(N) ENUM(N, NUMBER FIX(M)), LIST(N)>), (BOOL(N == 1))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_) COMMA(N) ENUM(N, PAIR FIX(M)), LIST(N)>), (BOOL(N == 1 || N == 2))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_) COMMA(N) ENUM(N, LIST FIX(M)), LIST(N)>), (BOOL(N == 1 || (N && M == N)))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_) COMMA(N) ENUM(N, MAP FIX(M)), LIST(N)>), (BOOL(N == 1 || (N && M == N)))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_) COMMA(N) ENUM(N, LAMBDA FIX(M)), LIST(N)>), (BOOL(N == 1))); \
     CHECK((metal::accumulate<LAMBDA(_), VALUE(N), ENUM(INC(N), LIST FIX(M))>), (FOLD(M, INC(N), ENTRY, VALUE(N)))); \
     CHECK((metal::accumulate<LAMBDA(2), NUMBER(2), metal::list<TAGSX20(M) COMMA(AND(M, N)) TAGSX20(N)>>), (NUMBER(2))); \
 /**/
