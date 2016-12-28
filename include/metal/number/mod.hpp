@@ -79,7 +79,7 @@ namespace metal
 #if defined(METAL_COMPAT_MODE)
         template<int_ x, int_ y, int_... tail>
         struct _mod<number<x>, number<y>, number<tail>...> :
-            _accumulate<numbers<y, tail...>, number<x>, lambda<mod>>
+            _accumulate<lambda<mod>, number<x>, numbers<y, tail...>>
         {};
 #else
         template<typename... _>

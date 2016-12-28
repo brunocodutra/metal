@@ -31,8 +31,8 @@ namespace metal
     ///     \code
     ///         using result = metal::list<l[0][:], ...[:], l[n-1][:]>;
     ///     \endcode
-    ///     where the notation `l[:]` stands for the expansion of all elements
-    ///     contained in `l`.
+    ///     where `l[:]` stands for the expansion of all elements contained in
+    ///     `l`.
     ///
     /// ### Example
     /// \snippet list.cpp flatten

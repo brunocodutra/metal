@@ -33,7 +33,7 @@
     CHECK((metal::sort<metal::list<NUMBERS(M)>, metal::lambda<metal::greater>>), (metal::reverse<metal::list<NUMBERS(M)>>)); \
     CHECK((metal::same<metal::iota<NUMBER(M), NUMBER(N), NUMBER(0)>>), (TRUE)); \
     CHECK((metal::flatten<metal::transpose<metal::list<LIST(M)>>>), (LIST(M))); \
-    CHECK((metal::accumulate<LIST(M), metal::list<>, metal::lambda<metal::prepend>>), (metal::accumulate<metal::reverse<LIST(M)>, metal::list<>, metal::lambda<metal::append>>)); \
+    CHECK((metal::accumulate<metal::lambda<metal::prepend>, metal::list<>, LIST(M)>), (metal::accumulate<metal::lambda<metal::append>, metal::list<>, metal::reverse<LIST(M)>>)); \
     CHECK((metal::range<LIST(M), metal::size<LIST(M)>, NUMBER(0)>), (metal::reverse<LIST(M)>)); \
     CHECK((metal::transform<metal::bind<metal::lambda<metal::at>, metal::quote<LIST(M)>, metal::_1>, metal::indices<LIST(M)>>), (LIST(M))); \
     CHECK((metal::transpose<metal::transpose<MAP(INC(M))>>), (MAP(INC(M)))); \

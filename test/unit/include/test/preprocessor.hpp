@@ -121,21 +121,6 @@
 
 #define RENUM(N, ...) RENUM_IMPL(N, __VA_ARGS__)
 
-#define FOLD_KWD() FOLD_IMPL
-#define FOLD_IMPL(M, N, MACRO, ...) \
-    IF(N)(HEAD, TAIL)( \
-        DEFER(FOLD_KWD)()( \
-            INC(M), \
-            DEC(N), \
-            MACRO, \
-            DEFER(MACRO)(M, __VA_ARGS__) \
-        ), \
-        __VA_ARGS__ \
-    ) \
-/**/
-
-#define FOLD(N, MACRO, ...) FOLD_IMPL(0, N, MACRO, __VA_ARGS__)
-
 #define FWD_ID(...) __VA_ARGS__
 #define FWD_KWD() FWD_IMPL
 #define FWD_IMPL(ARG, MACRO, ...) \

@@ -75,7 +75,7 @@ namespace metal
 #if defined(METAL_COMPAT_MODE)
         template<int_ x, int_ y, int_... tail>
         struct _max<number<x>, number<y>, number<tail>...> :
-            _accumulate<numbers<y, tail...>, number<x>, lambda<max>>
+            _accumulate<lambda<max>, number<x>, numbers<y, tail...>>
         {};
 #else
         template<typename... _>

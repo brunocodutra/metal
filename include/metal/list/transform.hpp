@@ -32,7 +32,7 @@ namespace metal
     /// n-ary \lambda.
     ///
     /// ### Usage
-    /// For any \lists `l_0, ..., l_n-1` and \lambda `lbd`
+    /// For any \lambda `lbd` and \lists `l_0, ..., l_n-1`
     /// \code
     ///     using result = metal::transform<lbd, l_0, ..., l_n-1>;
     /// \endcode
@@ -43,11 +43,13 @@ namespace metal
     ///     Equivalent to
     ///     \code
     ///         using result = metal::list<
-    ///             metal::invoke<lbd, l_0[0], ...[0], l_n-1[0]>,
+    ///             metal::invoke<lbd, l[0]...>,
+    ///             metal::invoke<lbd, l[1]...>,
     ///             ...,
-    ///             metal::invoke<lbd, l_0[m-1], ...[m-1], l_n-1[m-1]>,
+    ///             metal::invoke<lbd, l[m-1]...>,
     ///         >;
     ///     \endcode
+    ///     where `l[N]...` stands for `l_0[N], ...[N], l_n-1[N]`.
     ///
     /// ### Example
     /// \snippet list.cpp transform

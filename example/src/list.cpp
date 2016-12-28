@@ -660,11 +660,26 @@ IS_SAME(
 
 HIDE(
 /// [accumulate]
-using l = metal::list<short, int, long>;
+template<typename val, typename num>
+using add_extent = val[num::value];
+
+using l = metal::list<metal::number<3>, metal::number<5>, metal::number<2>>;
+
+IS_SAME(metal::accumulate<metal::lambda<add_extent>, char, l>, char[2][5][3]);
+
+template<typename seq, typename op, typename val>
+using commit = metal::invoke<op, seq, val>;
+
+using ops = metal::list<
+    metal::lambda<metal::append>,
+    metal::lambda<metal::prepend>,
+    metal::lambda<metal::append>
+>;
 
 IS_SAME(
-    metal::accumulate<l, void, metal::lambda<metal::list>>,
-    metal::list<metal::list<metal::list<void, short>, int>, long>
+    metal::accumulate<metal::lambda<commit>, metal::list<>, ops, l>,
+    metal::list<metal::number<5>, metal::number<3>, metal::number<2>>
 );
+
 /// [accumulate]
 )

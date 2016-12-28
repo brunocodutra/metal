@@ -101,7 +101,7 @@ using expr = metal::add<metal::mul<radix, x>, y>;
 using lbd = metal::lambda<expr>;
 
 IS_SAME(
-    metal::accumulate<digits, metal::number<0>, lbd>,
+    metal::accumulate<lbd, metal::number<0>, digits>,
     metal::number<371>
 );
 ///[accumulate_1]
@@ -123,7 +123,7 @@ using lbd = metal::bind<
 >;
 
 IS_SAME(
-    metal::accumulate<digits, metal::number<0>, lbd>,
+    metal::accumulate<lbd, metal::number<0>, digits>,
     metal::number<371>
 );
 ///[accumulate_2]
@@ -132,8 +132,6 @@ IS_SAME(
 ///[assemble_number]
 template<typename radix, typename digits>
 using assemble_number = metal::accumulate<
-    digits,
-    metal::number<0>,
     metal::bind<
         metal::lambda<metal::add>,
         metal::bind<
@@ -142,7 +140,9 @@ using assemble_number = metal::accumulate<
             metal::_1
         >,
         metal::_2
-    >
+    >,
+    metal::number<0>,
+    digits
 >;
 ///[assemble_number]
 

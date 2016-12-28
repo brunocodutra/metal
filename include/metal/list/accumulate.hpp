@@ -7,12 +7,17 @@
 
 #include <metal/config.hpp>
 
+#include <metal/list/size.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/number/if.hpp>
+#include <metal/value/same.hpp>
+
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<typename seq, typename state, typename lbd>
+        template<typename lbd, typename state, typename head, typename... tail>
         struct _accumulate;
     }
     /// \endcond
@@ -22,35 +27,44 @@ namespace metal
     /// ### Description
     /// Computes the recursive invocation of a binary \lambda to the result of
     /// the previous invocation (starting with some arbitrary \value) and each
-    /// element of a \list traversed from the beginning to the end.
+    /// element of one or more \lists traversed in parallel from the beginning
+    /// to the end.
     ///
     /// ### Usage
-    /// For any \list `l`, \value `val` and \lambda `lbd`
+    /// For any \lambda `lbd`, \value `val` and \lists `l_0, ..., l_n-1`
     /// \code
-    ///     using result = metal::accumulate<l, val, lbd>;
+    ///     using result = metal::accumulate<lbd, val, l_0, ..., l_n-1>;
     /// \endcode
     ///
+    /// \pre: `metal::size<l_0>{} == metal::size<>{}... == metal::size<l_n-1>{}`
     /// \returns: \value
     /// \semantics:
-    ///     If `l` contains elements `l[0], ..., l[m-1]`, then
+    ///     Equivalent to
     ///     \code
     ///         using result =
-    ///             lbd(... lbd(lbd(lbd(val, l[0]), l[1]), l[2]), ..., l[m-1])
+    ///             lbd(... lbd(lbd(val, l[0]...), l[1]...), ..., l[m-1]...)
     ///     \endcode
-    ///     where the notation `lbd(x, y)` stands for
-    ///     `metal::invoke<lbd, x, y>`.
+    ///     where `l[N]...` stands for `l_0[N], ...[N], l_n-1[N]` and
+    ///     `lbd(x, y)` stands for `metal::invoke<lbd, x, y>`.
     ///
     /// ### Example
     /// \snippet list.cpp accumulate
     ///
     /// ### See Also
     /// \see list, transform
-    template<typename seq, typename state, typename lbd>
-    using accumulate = typename detail::_accumulate<seq, state, lbd>::type;
+    template<typename lbd, typename state, typename head, typename... tail>
+    using accumulate =  typename if_<
+        same<size<head>, size<tail>...>,
+        detail::_accumulate<if_<is_lambda<lbd>, lbd>, state, head, tail...>
+    >::type;
 }
 
+#include <metal/list/at.hpp>
 #include <metal/list/list.hpp>
-#include <metal/lambda/lambda.hpp>
+#include <metal/list/indices.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/quote.hpp>
 #include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
 
@@ -59,11 +73,12 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename cons, typename state, typename lbd, typename = true_>
+        template<typename lbd, typename state, typename cons, typename = true_>
         struct _accumulate_impl
         {};
 
         template<
+            template<typename...> class expr, typename state,
             typename _00, typename _01, typename _02, typename _03,
             typename _04, typename _05, typename _06, typename _07,
             typename _08, typename _09, typename _10, typename _11,
@@ -89,10 +104,11 @@ namespace metal
             typename _88, typename _89, typename _90, typename _91,
             typename _92, typename _93, typename _94, typename _95,
             typename _96, typename _97, typename _98, typename _99,
-            typename tail,
-            typename state, template<typename...> class expr
+            typename tail
         >
         struct _accumulate_impl<
+            lambda<expr>,
+            state,
             list<
                 _00, _01, _02, _03, _04, _05, _06, _07, _08, _09,
                 _10, _11, _12, _13, _14, _15, _16, _17, _18, _19,
@@ -105,8 +121,6 @@ namespace metal
                 _80, _81, _82, _83, _84, _85, _86, _87, _88, _89,
                 _90, _91, _92, _93, _94, _95, _96, _97, _98, _99, tail
             >,
-            state,
-            lambda<expr>,
             is_value<
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<
@@ -131,7 +145,7 @@ namespace metal
             >
         > :
             _accumulate_impl<
-                tail,
+                lambda<expr>,
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<
@@ -152,45 +166,45 @@ namespace metal
                     _70>, _71>, _72>, _73>, _74>, _75>, _76>, _77>, _78>, _79>,
                     _80>, _81>, _82>, _83>, _84>, _85>, _86>, _87>, _88>, _89>,
                     _90>, _91>, _92>, _93>, _94>, _95>, _96>, _97>, _98>, _99>,
-                lambda<expr>
+                tail
             >
         {};
 
         template<
+            template<typename...> class expr, typename state,
             typename _00, typename _01, typename _02, typename _03,
             typename _04, typename _05, typename _06, typename _07,
-            typename _08, typename _09, typename tail,
-            typename state, template<typename...> class expr
+            typename _08, typename _09, typename tail
         >
         struct _accumulate_impl<
-            list<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09, tail>,
-            state,
             lambda<expr>,
+            state,
+            list<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09, tail>,
             is_value<
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<state,
                     _00>, _01>, _02>, _03>, _04>, _05>, _06>, _07>, _08>, _09>
             >
         > :
             _accumulate_impl<
-                tail,
+                lambda<expr>,
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<state,
                     _00>, _01>, _02>, _03>, _04>, _05>, _06>, _07>, _08>, _09>,
-                lambda<expr>
+                tail
             >
         {};
 
         template<
-            typename head, typename tail,
-            typename state, template<typename...> class expr
+            template<typename...> class expr, typename state,
+            typename head, typename tail
         >
-        struct _accumulate_impl<list<head, tail>, state, lambda<expr>,
+        struct _accumulate_impl<lambda<expr>, state, list<head, tail>,
             is_value<expr<state, head>>
         > :
-            _accumulate_impl<tail, expr<state, head>, lambda<expr>>
+            _accumulate_impl<lambda<expr>, expr<state, head>, tail>
         {};
 
-        template<typename state, template<typename...> class expr>
-        struct _accumulate_impl<list<>, state, lambda<expr>>
+        template<template<typename...> class expr, typename state>
+        struct _accumulate_impl<lambda<expr>, state, list<>>
         {
             using type = state;
         };
@@ -287,13 +301,24 @@ namespace metal
         template<typename... vals>
         using cons = typename _cons<vals...>::type;
 
-        template<typename seq, typename state, typename lbd>
-        struct _accumulate
+
+        template<typename lbd, typename state, typename head, typename... tail>
+        struct _accumulate :
+            _accumulate<
+                bind<
+                    lbd,
+                    _1,
+                    bind<lambda<at>, quote<head>, _2>,
+                    bind<lambda<at>, quote<tail>, _2>...
+                >,
+                state,
+                indices<head>
+            >
         {};
 
-        template<typename... vals, typename state, typename lbd>
-        struct _accumulate<list<vals...>, state, lbd> :
-            _accumulate_impl<cons<vals...>, state, lbd>
+        template<typename lbd, typename state, typename... vals>
+        struct _accumulate<lbd, state, list<vals...>> :
+            _accumulate_impl<lbd, state, cons<vals...>>
         {};
     }
     /// \endcond
