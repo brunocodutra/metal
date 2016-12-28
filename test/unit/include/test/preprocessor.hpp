@@ -5,9 +5,12 @@
 #ifndef METAL_TEST_PREPROCESSOR_HPP
 #define METAL_TEST_PREPROCESSOR_HPP
 
-#if !defined(INF)
-#   define INF 9
+#if !defined(METAL_TEST_GEN_LIMIT)
+#   define METAL_TEST_GEN_LIMIT 5
 #endif
+
+#undef INF
+#define INF METAL_TEST_GEN_LIMIT
 
 #define CAT_IMPL(X, Y) X##Y
 #define CAT(X, Y) CAT_IMPL(X, Y)

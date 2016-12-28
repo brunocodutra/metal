@@ -230,7 +230,7 @@ install:
     fi
 
 before_script:
-  - CMAKE_ARGS=()
+  - CMAKE_ARGS=("${METAL_SOURCE_PATH}")
 
   - |
     if [[ -n "${CXX}" && -n "${CXX_VERSION}" ]]
@@ -238,7 +238,9 @@ before_script:
         CMAKE_ARGS+=("-DCMAKE_CXX_COMPILER=${CXX}-${CXX_VERSION}")
     fi
 
-  - (cd "${METAL_BUILD_PATH}" && cmake "${METAL_SOURCE_PATH}" ${CMAKE_ARGS[@]})
+    CMAKE_ARGS+=("-DCMAKE_CXX_FLAGS=-DMETAL_TEST_GEN_LIMIT=9")
+
+  - (cd "${METAL_BUILD_PATH}" && cmake ${CMAKE_ARGS[@]})
 
 script:
   - |

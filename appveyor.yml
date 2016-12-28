@@ -8,8 +8,10 @@ environment:
     matrix:
       - BUILD_DOC: true
       - GENERATOR: "MinGW Makefiles"
+        CXXFLAGS: -DMETAL_TEST_GEN_LIMIT=9
       - GENERATOR: "NMake Makefiles"
         COMPILER: cl
+        CXXFLAGS: /DMETAL_TEST_GEN_LIMIT=7
 
 configuration:
   - Debug
@@ -27,10 +29,11 @@ before_build:
   - set "METAL_BUILD_PATH=%APPVEYOR_BUILD_FOLDER%\build"
   - mkdir "%METAL_BUILD_PATH%"
 
-  - set "CMAKE_ARGS=-DCMAKE_BUILD_TYPE=%CONFIGURATION%"
-  - if defined COMPILER (set "CMAKE_ARGS=-DCMAKE_CXX_COMPILER=%COMPILER% %CMAKE_ARGS%")
-  - if defined GENERATOR (set "CMAKE_ARGS=-G"%GENERATOR%" %CMAKE_ARGS%")
-  - pushd "%METAL_BUILD_PATH%" && cmake "%METAL_SOURCE_PATH%" %CMAKE_ARGS% & popd
+  - set "CMAKE_ARGS=%METAL_SOURCE_PATH%"
+  - if defined GENERATOR (set "CMAKE_ARGS=%CMAKE_ARGS% -G"%GENERATOR%"")
+  - if defined COMPILER (set "CMAKE_ARGS=%CMAKE_ARGS% -DCMAKE_CXX_COMPILER=%COMPILER%")
+  - set "CMAKE_ARGS=%CMAKE_ARGS% -DCMAKE_BUILD_TYPE=%CONFIGURATION%"
+  - pushd "%METAL_BUILD_PATH%" && cmake %CMAKE_ARGS% & popd
 
 build_script:
   - if "%BUILD_DOC%" equ "true" (
