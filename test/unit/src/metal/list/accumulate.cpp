@@ -71,7 +71,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_), LAMBDA(N), LAMBDA(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::accumulate>, LAMBDA(_), LAMBDA(N), LAMBDA(_)>), (FALSE)); \
     CHECK((metal::accumulate<LAMBDA(_), VALUE(N), ENUM(INC(N), LIST FIX(M))>), (FOLD(M, INC(N), ENTRY, VALUE(N)))); \
-    CHECK((metal::accumulate<LAMBDA(2), NUMBER(2), metal::iota<NUMBER(0), metal::number<100*M>, NUMBER(N)>>), (NUMBER(2))); \
+    CHECK((metal::accumulate<LAMBDA(2), NUMBER(2), metal::list<TAGSX20(M) COMMA(AND(M, N)) TAGSX20(N)>>), (NUMBER(2))); \
 /**/
 
 GEN(MATRIX)

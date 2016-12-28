@@ -17,7 +17,7 @@
     CHECK((metal::reverse<PAIR(M)>), (metal::list<VALUE(M), NUMBER(M)>)); \
     CHECK((metal::reverse<LIST(M)>), (metal::list<RENUM(M, VALUE)>)); \
     CHECK((metal::reverse<MAP(M)>), (metal::list<RENUM(M, PAIR)>)); \
-    CHECK((metal::reverse<metal::iota<NUMBER(0), metal::number<100*M>, NUMBER(N)>>), (metal::iota<metal::number<(100*M - 1)*N>, metal::number<-100*M>, NUMBER(N)>)); \
+    CHECK((metal::reverse<metal::list<TAGSX20(M) COMMA(AND(M, N)) TAGSX20(N)>>), (metal::list<RENUM(N, FWD, TAGX20) COMMA(AND(M, N)) RENUM(M, FWD, TAGX20)>)); \
 /**/
 
 GEN(MATRIX)

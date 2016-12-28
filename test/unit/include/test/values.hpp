@@ -19,9 +19,21 @@ namespace test
     union val7 {template<typename...> struct type;};
     using val8 = val7::template type<>;
     enum  val9 {type};
+
+    template<std::intmax_t> struct tag {};
 }
 
 #define VALUE(N) CAT(test::val, N)
 #define VALUES(N) ENUM(N, VALUE)
+
+#define TAG(M) test::tag<(M)>
+
+#define X20(M, N) \
+    M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), \
+    M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N) \
+/**/
+
+#define TAGX20(N) X20(TAG, N)
+#define TAGSX20(N) ENUM(N, FWD, TAGX20)
 
 #endif

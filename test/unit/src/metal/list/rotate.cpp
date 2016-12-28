@@ -59,7 +59,7 @@
     CHECK((metal::rotate<LIST(M), metal::number<M*N>>), (LIST(M))); \
     CHECK((metal::rotate<LIST(INF), metal::number<M + N*INF>>), (metal::rotate<LIST(INF), metal::number<M - N*INF>>)); \
     CHECK((metal::rotate<metal::list<VALUES(M) COMMA(AND(M, N)) VALUES(N)>, NUMBER(M)>), (metal::list<VALUES(N) COMMA(AND(M, N)) VALUES(M)>)); \
-    CHECK((metal::rotate<metal::rotate<metal::iota<NUMBER(0), metal::number<100*M>>, metal::number<100*N>>, metal::number<-100*N>>), (metal::iota<NUMBER(0), metal::number<100*M>>)); \
+    CHECK((metal::rotate<metal::list<TAGSX20(M) COMMA(AND(M, N)) TAGSX20(N)>, metal::number<20*M>>), (metal::list<TAGSX20(N) COMMA(AND(M, N)) TAGSX20(M)>)); \
 /**/
 
 GEN(MATRIX)
