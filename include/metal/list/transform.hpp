@@ -89,14 +89,17 @@ namespace metal
             value<list<expr<vals>...>>
         {};
 
+        template<typename lbd, typename... seqs>
+        struct transformer
+        {
+            template<typename num>
+            using type = invoke<lbd, at<seqs, num>...>;
+        };
+
         template<typename lbd, typename head, typename... tail>
         struct _transform :
             _transform<
-                bind<
-                    lbd,
-                    partial<lambda<at>, head>,
-                    partial<lambda<at>, tail>...
-                >,
+                lambda<transformer<lbd, head, tail...>::template type>,
                 indices<head>
             >
         {};
