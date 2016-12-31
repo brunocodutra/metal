@@ -43,7 +43,7 @@ namespace metal
     /// \snippet list.cpp transpose
     ///
     /// ### See Also
-    /// \see list, transform
+    /// \see list, cartesian
     template<typename seq>
     using transpose = metal::apply<
         metal::partial<

@@ -13,6 +13,7 @@
 #include <metal/list/append.hpp>
 #include <metal/list/at.hpp>
 #include <metal/list/back.hpp>
+#include <metal/list/cartesian.hpp>
 #include <metal/list/contains.hpp>
 #include <metal/list/copy.hpp>
 #include <metal/list/copy_if.hpp>
