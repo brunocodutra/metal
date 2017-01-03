@@ -4,6 +4,7 @@
 
 #include <metal.hpp>
 
+#include <tuple>
 #include <cstdint>
 
 #include "example.hpp"
@@ -33,6 +34,20 @@ IS_SAME(metal::is_list<metal::list<>>, metal::true_);
 IS_SAME(metal::is_list<metal::pair<int, int*>>, metal::true_);
 IS_SAME(metal::is_list<metal::map<metal::pair<int, int*>>>, metal::true_);
 /// [is_list]
+)
+
+HIDE(
+/// [as_list]
+template<typename> struct one {};
+template<typename, typename = char> struct two {};
+
+IS_SAME(metal::as_list<one<int>>, metal::list<int>);
+IS_SAME(metal::as_list<two<int>>, metal::list<int, char>);
+IS_SAME(
+    metal::as_list<std::tuple<int, char, float>>,
+    metal::list<int, char, float>
+);
+/// [as_list]
 )
 
 HIDE(
