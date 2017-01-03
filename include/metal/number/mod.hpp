@@ -85,9 +85,7 @@ namespace metal
         template<typename... _>
         constexpr int_ imod(int_ head, _... tail) {
             int_ ret = head;
-            for(int_ x : {tail...})
-                ret %= x;
-
+            void(std::initializer_list<int_>{(ret %= tail)...});
             return ret;
         }
 

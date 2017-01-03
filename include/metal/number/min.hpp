@@ -81,9 +81,9 @@ namespace metal
         template<typename... _>
         constexpr int_ imin(int_ head, _... tail) {
             int_ ret = head;
-            for(int_ x : {tail...})
-                if(x < ret) ret = x;
-
+            void(std::initializer_list<int_>{
+                (ret = (tail < ret) ? tail : ret)...
+            });
             return ret;
         }
 
