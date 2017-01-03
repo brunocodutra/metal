@@ -50,6 +50,17 @@ IS_SAME(metal::is_number<void>, metal::false_);
 )
 
 HIDE(
+/// [as_number]
+struct one { static const auto value = 1L; };
+enum two { value = 2U };
+
+IS_SAME(metal::as_number<one>, metal::number<1>);
+IS_SAME(metal::as_number<two>, metal::number<2>);
+IS_SAME(metal::as_number<std::integral_constant<short, 42>>, metal::number<42>);
+/// [as_number]
+)
+
+HIDE(
 /// [numbers]
 IS_SAME(metal::numbers<>, metal::list<>);
 

@@ -180,15 +180,13 @@ IS_SAME(
 HIDE(
 /// [all_of]
 template<typename val>
-using is_fundamental =
-    metal::same<typename std::is_fundamental<val>::type, std::true_type>;
+using is_fundamental = metal::as_number<std::is_fundamental<val>>;
 
 template<typename val>
-using is_floating_point =
-    metal::same<typename std::is_floating_point<val>::type, std::true_type>;
+using is_floating_point = metal::as_number<std::is_floating_point<val>>;
 
 template<typename val>
-using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
+using is_class = metal::as_number<std::is_class<val>>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
@@ -201,15 +199,13 @@ IS_SAME(metal::all_of<l, metal::lambda<is_class>>, metal::false_);
 HIDE(
 /// [any_of]
 template<typename val>
-using is_fundamental =
-    metal::same<typename std::is_fundamental<val>::type, std::true_type>;
+using is_fundamental = metal::as_number<std::is_fundamental<val>>;
 
 template<typename val>
-using is_floating_point =
-    metal::same<typename std::is_floating_point<val>::type, std::true_type>;
+using is_floating_point = metal::as_number<std::is_floating_point<val>>;
 
 template<typename val>
-using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
+using is_class = metal::as_number<std::is_class<val>>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
@@ -222,15 +218,13 @@ IS_SAME(metal::any_of<l, metal::lambda<is_class>>, metal::false_);
 HIDE(
 /// [none_of]
 template<typename val>
-using is_fundamental =
-    metal::same<typename std::is_fundamental<val>::type, std::true_type>;
+using is_fundamental = metal::as_number<std::is_fundamental<val>>;
 
 template<typename val>
-using is_floating_point =
-    metal::same<typename std::is_floating_point<val>::type, std::true_type>;
+using is_floating_point = metal::as_number<std::is_floating_point<val>>;
 
 template<typename val>
-using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
+using is_class = metal::as_number<std::is_class<val>>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
@@ -243,15 +237,13 @@ IS_SAME(metal::none_of<l, metal::lambda<is_class>>, metal::true_);
 HIDE(
 /// [count_if]
 template<typename val>
-using is_fundamental =
-    metal::same<typename std::is_fundamental<val>::type, std::true_type>;
+using is_fundamental = metal::as_number<std::is_fundamental<val>>;
 
 template<typename val>
-using is_floating_point =
-    metal::same<typename std::is_floating_point<val>::type, std::true_type>;
+using is_floating_point = metal::as_number<std::is_floating_point<val>>;
 
 template<typename val>
-using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
+using is_class = metal::as_number<std::is_class<val>>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
@@ -264,15 +256,13 @@ IS_SAME(metal::count_if<l, metal::lambda<is_class>>, metal::number<0>);
 HIDE(
 /// [find_if]
 template<typename val>
-using is_fundamental =
-    metal::same<typename std::is_fundamental<val>::type, std::true_type>;
+using is_fundamental = metal::as_number<std::is_fundamental<val>>;
 
 template<typename val>
-using is_floating_point =
-    metal::same<typename std::is_floating_point<val>::type, std::true_type>;
+using is_floating_point = metal::as_number<std::is_floating_point<val>>;
 
 template<typename val>
-using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
+using is_class = metal::as_number<std::is_class<val>>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
@@ -285,15 +275,13 @@ IS_SAME(metal::find_if<l, metal::lambda<is_class>>, metal::number<6>);
 HIDE(
 /// [partition]
 template<typename val>
-using is_fundamental =
-    metal::same<typename std::is_fundamental<val>::type, std::true_type>;
+using is_fundamental = metal::as_number<std::is_fundamental<val>>;
 
 template<typename val>
-using is_floating_point =
-    metal::same<typename std::is_floating_point<val>::type, std::true_type>;
+using is_floating_point = metal::as_number<std::is_floating_point<val>>;
 
 template<typename val>
-using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
+using is_class = metal::as_number<std::is_class<val>>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
@@ -326,15 +314,13 @@ IS_SAME(
 HIDE(
 /// [copy_if]
 template<typename val>
-using is_fundamental =
-    metal::same<typename std::is_fundamental<val>::type, std::true_type>;
+using is_fundamental = metal::as_number<std::is_fundamental<val>>;
 
 template<typename val>
-using is_floating_point =
-    metal::same<typename std::is_floating_point<val>::type, std::true_type>;
+using is_floating_point = metal::as_number<std::is_floating_point<val>>;
 
 template<typename val>
-using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
+using is_class = metal::as_number<std::is_class<val>>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
@@ -355,15 +341,13 @@ IS_SAME(metal::copy_if<l, metal::lambda<is_class>>, metal::list<>);
 HIDE(
 /// [remove_if]
 template<typename val>
-using is_fundamental =
-    metal::same<typename std::is_fundamental<val>::type, std::true_type>;
+using is_fundamental = metal::as_number<std::is_fundamental<val>>;
 
 template<typename val>
-using is_floating_point =
-    metal::same<typename std::is_floating_point<val>::type, std::true_type>;
+using is_floating_point = metal::as_number<std::is_floating_point<val>>;
 
 template<typename val>
-using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
+using is_class = metal::as_number<std::is_class<val>>;
 
 using l = metal::list<short, int, long, float, double, void>;
 
@@ -384,15 +368,13 @@ IS_SAME(
 HIDE(
 /// [replace_if]
 template<typename val>
-using is_fundamental =
-    metal::same<typename std::is_fundamental<val>::type, std::true_type>;
+using is_fundamental = metal::as_number<std::is_fundamental<val>>;
 
 template<typename val>
-using is_floating_point =
-    metal::same<typename std::is_floating_point<val>::type, std::true_type>;
+using is_floating_point = metal::as_number<std::is_floating_point<val>>;
 
 template<typename val>
-using is_class = metal::same<typename std::is_class<val>::type, std::true_type>;
+using is_class = metal::as_number<std::is_class<val>>;
 
 using l = metal::list<short, int, long, float, double, void>;
 

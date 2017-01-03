@@ -49,10 +49,10 @@ static_assert(metal::same<l2, l2_>::value, "");
 
 /// [count]
 template<typename T>
-using is_class = metal::same<typename std::is_class<T>::type, std::true_type>;
+using is_class = metal::as_number<std::is_class<T>>;
 
 template<typename T>
-using is_union = metal::same<typename std::is_union<T>::type, std::true_type>;
+using is_union = metal::as_number<std::is_union<T>>;
 
 static_assert(metal::count_if<l3, metal::lambda<is_class>>::value == 2, "");
 static_assert(metal::count_if<l3, metal::lambda<is_union>>::value == 1, "");
