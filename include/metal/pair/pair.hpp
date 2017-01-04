@@ -8,6 +8,8 @@
 #include <metal/config.hpp>
 
 #include <metal/list/list.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/apply.hpp>
 
 namespace metal
 {
@@ -66,6 +68,30 @@ namespace metal
     /// \see is_pair
     template<typename x, typename y>
     using pair = metal::list<x, y>;
+
+    /// \ingroup pair
+    ///
+    /// ### Description
+    /// Constructs a \pair out of any \value that is a specialization of a
+    /// template class or union that takes exactly two template parameters that
+    /// are themselves \values.
+    ///
+    /// ### Usage
+    /// For any \value `val`
+    /// \code
+    ///     using result = metal::as_pair<val>;
+    /// \endcode
+    ///
+    /// \returns: \pair
+    ///
+    /// ### Example
+    /// \snippet pair.cpp as_pair
+    ///
+    /// ### See Also
+    /// \see pair
+    template<typename val>
+    using as_pair =
+        metal::apply<metal::lambda<metal::pair>, metal::as_list<val>>;
 }
 
 #include <metal/number/number.hpp>

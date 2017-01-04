@@ -55,6 +55,13 @@
     CHECK((metal::is_invocable<metal::lambda<metal::pair>, LAMBDA(_), MAP(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::pair>, LAMBDA(_), LAMBDA(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::pair>, LAMBDA(_), LAMBDA(_)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::as_pair>, VALUE(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::as_pair>, NUMBER(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::as_pair>, PAIR(M)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::as_pair>, LIST(M)>), (BOOL(M == 2))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::as_pair>, MAP(M)>), (BOOL(M == 2))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::as_pair>, LAMBDA(M)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::as_pair>, LAMBDA(_)>), (FALSE)); \
     CHECK((metal::is_pair<VALUE(N)>), (FALSE)); \
     CHECK((metal::is_pair<NUMBER(N)>), (FALSE)); \
     CHECK((metal::is_pair<PAIR(N)>), (TRUE)); \
