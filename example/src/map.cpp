@@ -4,6 +4,9 @@
 
 #include <metal.hpp>
 
+#include <tuple>
+#include <utility>
+
 #include "example.hpp"
 
 HIDE(
@@ -59,6 +62,24 @@ IS_SAME(metal::is_map<m>, metal::true_);
 IS_SAME(metal::is_map<metal::list<>>, metal::true_);
 IS_SAME(metal::is_map<metal::pair<int, int*>>, metal::false_);
 /// [is_map]
+)
+
+HIDE(
+/// [as_map]
+template<typename...> struct a {};
+template<typename...> struct b {};
+template<typename...> struct c {};
+
+IS_SAME(
+    metal::as_map<a<b<int, int*>, c<char, char*>>>,
+    metal::map<metal::pair<int, int*>, metal::pair<char, char*>>
+);
+
+IS_SAME(
+    metal::as_map<std::tuple<std::pair<int, int*>, std::pair<char, char*>>>,
+    metal::map<metal::pair<int, int*>, metal::pair<char, char*>>
+);
+/// [as_map]
 )
 
 HIDE(

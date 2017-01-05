@@ -8,6 +8,10 @@
 #include <metal/config.hpp>
 
 #include <metal/list/list.hpp>
+#include <metal/list/transform.hpp>
+#include <metal/pair/pair.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/apply.hpp>
 #include <metal/number/if.hpp>
 
 namespace metal
@@ -70,6 +74,33 @@ namespace metal
     using map = metal::if_<
         metal::is_map<metal::list<pairs...>>,
         metal::list<pairs...>
+    >;
+
+    /// \ingroup map
+    ///
+    /// ### Description
+    /// Constructs a \map out of any \value that is a specialization of a
+    /// template class or union whose template parameters are all themselves
+    /// specializations of template classes or unions that take exactly two
+    /// template parameters, the first \values of which are all distinct.
+    ///
+    /// ### Usage
+    /// For any \value `val`
+    /// \code
+    ///     using result = metal::as_map<val>;
+    /// \endcode
+    ///
+    /// \returns: \map
+    ///
+    /// ### Example
+    /// \snippet map.cpp as_map
+    ///
+    /// ### See Also
+    /// \see map
+    template<typename val>
+    using as_map = metal::apply<
+        metal::lambda<metal::map>,
+        metal::transform<metal::lambda<metal::as_pair>, metal::as_list<val>>
     >;
 }
 
