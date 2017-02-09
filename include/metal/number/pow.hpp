@@ -46,7 +46,7 @@ namespace metal
     /// \snippet number.cpp pow
     ///
     /// ### See Also
-    /// \see number, inc, dec, neg, add, sub, mul, div, mod
+    /// \see number, abs, inc, dec, neg, add, sub, mul, div, mod
     template<typename head, typename... tail>
     using pow = typename detail::_pow<head, tail...>::type;
 }

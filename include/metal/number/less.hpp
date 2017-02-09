@@ -38,7 +38,7 @@ namespace metal
     /// \snippet number.cpp less
     ///
     /// ### See Also
-    /// \see number, greater
+    /// \see number, greater, max, min
     template<typename x, typename y>
     using less = typename detail::_less<x, y>::type;
 }

@@ -38,7 +38,7 @@ namespace metal
     /// \snippet number.cpp mul
     ///
     /// ### See Also
-    /// \see number, inc, dec, neg, add, sub, div, mod, pow
+    /// \see number, abs, inc, dec, neg, add, sub, div, mod, pow
     template<typename... nums>
     using mul = typename detail::_mul<nums...>::type;
 }

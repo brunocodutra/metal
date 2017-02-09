@@ -40,7 +40,7 @@ namespace metal
     /// \snippet number.cpp div
     ///
     /// ### See Also
-    /// \see number, inc, dec, neg, add, sub, mul, mod, pow
+    /// \see number, abs, inc, dec, neg, add, sub, mul, mod, pow
     template<typename head, typename... tail>
     using div = typename detail::_div<head, tail...>::type;
 }

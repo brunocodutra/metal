@@ -128,6 +128,13 @@ IS_SAME(metal::or_<metal::number<42>, metal::number<0>>, metal::true_);
 )
 
 HIDE(
+/// [abs]
+IS_SAME(metal::abs<metal::number<-10>>, metal::number<10>);
+IS_SAME(metal::abs<metal::number<0>>, metal::number<0>);
+/// [abs]
+)
+
+HIDE(
 /// [inc]
 IS_SAME(metal::inc<metal::number<-10>>, metal::number<-9>);
 IS_SAME(metal::inc<metal::number<0>>, metal::number<1>);

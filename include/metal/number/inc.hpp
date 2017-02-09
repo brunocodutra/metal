@@ -33,7 +33,7 @@ namespace metal
     /// \snippet number.cpp inc
     ///
     /// ### See Also
-    /// \see number, dec, neg, add, sub, mul, div, mod, pow
+    /// \see number, abs, dec, neg, add, sub, mul, div, mod, pow
     template<typename num>
     using inc = metal::add<num, metal::number<1>>;
 }

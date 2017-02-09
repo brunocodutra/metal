@@ -40,7 +40,7 @@ namespace metal
     /// \snippet number.cpp mod
     ///
     /// ### See Also
-    /// \see number, inc, dec, neg, add, sub, mul, div, pow
+    /// \see number, abs, inc, dec, neg, add, sub, mul, div, pow
     template<typename head, typename... tail>
     using mod = typename detail::_mod<head, tail...>::type;
 }

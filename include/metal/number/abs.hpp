@@ -2,40 +2,41 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-#ifndef METAL_NUMBER_DEC_HPP
-#define METAL_NUMBER_DEC_HPP
+#ifndef METAL_NUMBER_ABS_HPP
+#define METAL_NUMBER_ABS_HPP
 
 #include <metal/config.hpp>
 
 #include <metal/number/number.hpp>
-#include <metal/number/sub.hpp>
+#include <metal/number/max.hpp>
+#include <metal/number/neg.hpp>
 
 namespace metal
 {
     /// \ingroup number
     ///
     /// ### Description
-    /// Decrements a \number.
+    /// Computes absolute value of a \number.
     ///
     /// ### Usage
     /// For any \number `num`
     /// \code
-    ///     using result = metal::dec<num>;
+    ///     using result = metal::abs<num>;
     /// \endcode
     ///
     /// \returns: \number
     /// \semantics:
     ///     \code
-    ///         using result = metal::number<num{} - 1>;
+    ///         using result = metal::number<(num{} > 0) ? num{} : -num{}>;
     ///     \endcode
     ///
     /// ### Example
-    /// \snippet number.cpp dec
+    /// \snippet number.cpp abs
     ///
     /// ### See Also
-    /// \see number, abs, inc, neg, add, sub, mul, div, mod, pow
+    /// \see number, inc, dec, neg, add, sub, mul, div, mod, pow
     template<typename num>
-    using dec = metal::sub<num, metal::number<1>>;
+    using abs = metal::max<num, metal::neg<num>>;
 }
 
 #endif

@@ -40,7 +40,7 @@ namespace metal
     /// \snippet number.cpp max
     ///
     /// ### See Also
-    /// \see number, min
+    /// \see number, greater, less, min
     template<typename head, typename... tail>
     using max = typename detail::_max<head, tail...>::type;
 }

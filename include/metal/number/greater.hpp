@@ -32,7 +32,7 @@ namespace metal
     /// \snippet number.cpp greater
     ///
     /// ### See Also
-    /// \see number, less
+    /// \see number, less, max, min
     template<typename x, typename y>
     using greater = metal::less<y, x>;
 }

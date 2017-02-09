@@ -33,7 +33,7 @@ namespace metal
     /// \snippet number.cpp neg
     ///
     /// ### See Also
-    /// \see number, inc, dec, add, sub, mul, div, mod, pow
+    /// \see number, abs, inc, dec, add, sub, mul, div, mod, pow
     template<typename num>
     using neg = metal::sub<metal::number<0>, num>;
 }
