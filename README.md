@@ -102,6 +102,7 @@ Don't worry, all your favourite compilers are continuously tested at
 | Clang             | 3.8       | Ubuntu 14.04 LTS
 | Clang             | 3.9       | Ubuntu 14.04 LTS
 | Clang             | 4.0       | Ubuntu 14.04 LTS
+| Clang             | 5.0       | Ubuntu 14.04 LTS
 | Xcode             | 6.4       | OS X 10.10
 | Xcode             | 7.3       | OS X 10.11
 | Xcode             | 8.0       | OS X 10.11

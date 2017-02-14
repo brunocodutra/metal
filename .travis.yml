@@ -165,6 +165,22 @@ matrix:
                   - libc++abi-dev
                 sources:
                   - *ubuntu_sources
+                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main'
+                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+
+      - os: linux
+        dist: trusty
+        compiler: clang++
+        env: CXX_VERSION=5.0
+        addons:
+            apt:
+                packages:
+                  - *ubuntu_packages
+                  - clang-5.0
+                  - libc++-dev
+                  - libc++abi-dev
+                sources:
+                  - *ubuntu_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
