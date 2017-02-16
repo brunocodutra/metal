@@ -13,3 +13,11 @@ using lbd = metal::lambda<std::add_pointer_t>;
 
 IS_SAME(metal::is_lambda<lbd>, metal::true_);
 )
+
+HIDE(
+/// [apply]
+using l = metal::list<bool, char, long, float>;
+
+IS_SAME(metal::apply<metal::lambda<std::common_type_t>, l>, float);
+/// [apply]
+)
