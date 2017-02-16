@@ -44,7 +44,7 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
-    /// Default placeholder.
+    /// Predefined placeholder.
     /// \{
     using _1 = metal::arg<1U>;
     using _2 = metal::arg<2U>;

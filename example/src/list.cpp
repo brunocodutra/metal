@@ -645,6 +645,19 @@ IS_SAME(
 )
 
 HIDE(
+/// [transform]
+using a = metal::list<void(),    bool, int[],  void*>;
+using b = metal::list<void(*)(), char, int[1], char*>;
+using c = metal::list<void(&)(), long, int*,   long*>;
+
+IS_SAME(
+    metal::transform<metal::lambda<std::common_type_t>, a, b, c>,
+    metal::list<void(*)(), long, int*, void*>
+);
+/// [transform]
+)
+
+HIDE(
 /// [transpose]
 using l = metal::list<
     metal::list<int, int&, int*, int[]>,
@@ -665,40 +678,26 @@ IS_SAME(
 )
 
 HIDE(
-/// [transform]
-using fnsig = metal::list<void(), int(), char(), float()>;
-using fnptr = metal::list<void(*)(), int(*)(), char(*)(), float(*)()>;
-using fnref = metal::list<void(&)(), int(&)(), char(&)(), float(&)()>;
-
-IS_SAME(
-    metal::transform<metal::lambda<std::common_type_t>, fnsig, fnptr, fnref>,
-    metal::list<void(*)(), int(*)(), char(*)(), float(*)()>
-);
-/// [transform]
-)
-
-HIDE(
 /// [accumulate]
 template<typename val, typename num>
 using add_extent = val[num::value];
 
-using l = metal::list<metal::number<3>, metal::number<5>, metal::number<2>>;
+using ext = metal::numbers<3, 5, 2>;
 
-IS_SAME(metal::accumulate<metal::lambda<add_extent>, char, l>, char[2][5][3]);
+IS_SAME(metal::accumulate<metal::lambda<add_extent>, char, ext>, char[2][5][3]);
 
-template<typename seq, typename op, typename val>
-using commit = metal::invoke<op, seq, val>;
-
-using ops = metal::list<
-    metal::lambda<metal::append>,
-    metal::lambda<metal::prepend>,
-    metal::lambda<metal::append>
->;
+using a = metal::list<int, int&, int*, int[]>;
+using b = metal::list<char, char&, char*, char[]>;
+using c = metal::list<float, float&, float*, float[]>;
 
 IS_SAME(
-    metal::accumulate<metal::lambda<commit>, metal::list<>, ops, l>,
-    metal::list<metal::number<5>, metal::number<3>, metal::number<2>>
+    metal::accumulate<metal::lambda<metal::append>, metal::list<>, a, b, c>,
+    metal::list<
+        int, char, float,
+        int&, char&, float&,
+        int*, char*, float*,
+        int[], char[], float[]
+    >
 );
-
 /// [accumulate]
 )

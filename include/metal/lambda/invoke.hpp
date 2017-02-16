@@ -7,8 +7,6 @@
 
 #include <metal/config.hpp>
 
-#include <metal/number/not.hpp>
-#include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
 #include <metal/value/same.hpp>
 
@@ -19,9 +17,6 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename lbd, typename seq, typename = true_>
-        struct _invoke_impl;
-
         template<typename lbd, typename... args>
         struct _invoke;
     }
@@ -50,13 +45,14 @@ namespace metal
 
 #include <metal/lambda/lambda.hpp>
 #include <metal/list/list.hpp>
+#include <metal/number/number.hpp>
 
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<typename lbd, typename seq, typename>
+        template<typename lbd, typename seq, typename = true_>
         struct _invoke_impl :
             value<>
         {};

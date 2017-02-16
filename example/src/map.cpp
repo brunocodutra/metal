@@ -61,6 +61,7 @@ using m = metal::map<
 IS_SAME(metal::is_map<m>, metal::true_);
 IS_SAME(metal::is_map<metal::list<>>, metal::true_);
 IS_SAME(metal::is_map<metal::pair<int, int*>>, metal::false_);
+IS_SAME(metal::is_map<void>, metal::false_);
 /// [is_map]
 )
 
@@ -201,11 +202,7 @@ using m = metal::map<
 
 IS_SAME(
     metal::values<m>,
-    metal::list<
-        metal::number<sizeof(int)>,
-        metal::number<sizeof(char)>,
-        metal::number<sizeof(float)>
-    >
+    metal::numbers<sizeof(int), sizeof(char), sizeof(float)>
 );
 /// [values]
 )

@@ -14,7 +14,7 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename, typename, typename>
+        template<typename, typename, typename...>
         struct _replace_if;
     }
     /// \endcond
@@ -51,7 +51,7 @@ namespace metal
     /// \see list, replace, copy_if, remove_if
     template<typename seq, typename lbd, typename... vals>
     using replace_if = typename detail::_replace_if<
-        seq, transform<lbd, seq>, list<vals...>
+        seq, transform<lbd, seq>, vals...
     >::type;
 }
 
@@ -65,33 +65,43 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename, typename, typename>
-        struct _replace_if_impl
+        template<typename vals, typename vs, typename...>
+        struct _replace_if
         {};
 
-        template<typename... vals, int_... vs, typename seq>
-        struct _replace_if_impl<list<vals...>, list<number<vs>...>, seq> :
-            _join<if_<number<vs>, seq, list<vals>>...>
+        template<typename... vals, int_... vs, typename x, typename y, typename... t>
+        struct _replace_if<list<vals...>, list<number<vs>...>, x, y, t...> :
+            _join<if_<number<vs>, list<x, y, t...>, list<vals>>...>
         {};
 
-        template<typename vals, typename vs, typename seq>
-        struct _replace_if :
-            _replace_if_impl<vals, vs, seq>
-        {};
-
-        template<typename... vals, int_... vs, typename val>
-        struct _replace_if<list<vals...>, list<number<vs>...>, list<val>>
+        template<typename... vals, int_... vs, typename x>
+        struct _replace_if<list<vals...>, list<number<vs>...>, x>
         {
-            using type = list<if_<number<vs>, val, vals>...>;
+            using type = list<if_<number<vs>, x, vals>...>;
         };
 
-#if defined(METAL_COMPAT_MODE)
-        template<typename seq>
-        struct _replace_if<list<>, list<>, seq>
+        template<typename... vals, int_... vs>
+        struct _replace_if<list<vals...>, list<number<vs>...>> :
+            _join<if_<number<vs>, list<>, list<vals>>...>
+        {};
+
+        template<typename x, typename y, typename... t>
+        struct _replace_if<list<>, list<>, x, y, t...>
         {
             using type = list<>;
         };
-#endif
+
+        template<typename x>
+        struct _replace_if<list<>, list<>, x>
+        {
+            using type = list<>;
+        };
+
+        template<>
+        struct _replace_if<list<>, list<>>
+        {
+            using type = list<>;
+        };
     }
     /// \endcond
 }

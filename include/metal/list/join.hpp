@@ -7,12 +7,19 @@
 
 #include <metal/config.hpp>
 
+#include <metal/list/list.hpp>
+
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<typename... seqs>
+        template<
+            typename = list<>, typename = list<>, typename = list<>,
+            typename = list<>, typename = list<>, typename = list<>,
+            typename = list<>, typename = list<>, typename = list<>,
+            typename = list<>, typename... tail
+        >
         struct _join;
     }
     /// \endcond
@@ -46,7 +53,6 @@ namespace metal
     using join = typename detail::_join<seqs...>::type;
 }
 
-#include <metal/list/list.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/number/number.hpp>
@@ -56,68 +62,13 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<
-            typename, typename, typename, typename, typename,
-            typename, typename, typename, typename, typename
-        >
-        struct _join10
-        {};
-
-        template<
-            typename... _0, typename... _1, typename... _2, typename... _3,
-            typename... _4, typename... _5, typename... _6, typename... _7,
-            typename... _8, typename... _9
-        >
-        struct _join10<
-            list<_0...>, list<_1...>, list<_2...>, list<_3...>,
-            list<_4...>, list<_5...>, list<_6...>, list<_7...>,
-            list<_8...>, list<_9...>
-        >
-        {
-            using type = list<
-                _0..., _1..., _2..., _3..., _4...,
-                _5..., _6..., _7..., _8..., _9...
-
-            >;
-        };
-
-        template<typename, typename, typename>
-        struct _join3
-        {};
-
-        template<typename... _0, typename... _1, typename... _2>
-        struct _join3<list<_0...>, list<_1...>, list<_2...>>
-        {
-            using type = list<_0..., _1..., _2...>;
-        };
-
-        template<typename, typename>
-        struct _join2
-        {};
-
-        template<typename... _0, typename... _1>
-        struct _join2<list<_0...>, list<_1...>>
-        {
-            using type = list<_0..., _1...>;
-        };
-
-        template<typename>
-        struct _join1
-        {};
-
-        template<typename... _0>
-        struct _join1<list<_0...>>
-        {
-            using type = list<_0...>;
-        };
-
         template<int_ n>
-        struct _join_impl :
-            _join_impl<(n >= 100) ? 100 : (n >= 10) ? 10 : (n >= 1)>
+        struct _joiner :
+            _joiner<(n >= 100) ? 100 : (n > 10) ? 10 : 0>
         {};
 
         template<>
-        struct _join_impl<100>
+        struct _joiner<100>
         {
             template<
                 typename _00, typename _01, typename _02, typename _03,
@@ -147,7 +98,7 @@ namespace metal
                 typename _96, typename _97, typename _98, typename _99,
                 typename... tail
             >
-            using type = join<
+            using type = typename _joiner<sizeof...(tail) + 1>::template type<
                 join<
                     join<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09>,
                     join<_10, _11, _12, _13, _14, _15, _16, _17, _18, _19>,
@@ -160,75 +111,66 @@ namespace metal
                     join<_80, _81, _82, _83, _84, _85, _86, _87, _88, _89>,
                     join<_90, _91, _92, _93, _94, _95, _96, _97, _98, _99>
                 >,
-                typename _join_impl<sizeof...(tail)>::template type<tail...>
+                tail...
             >;
         };
 
         template<>
-        struct _join_impl<10>
+        struct _joiner<10>
         {
             template<
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename... tail
             >
-            using type = join<
-                join<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09>,
-                typename _join_impl<sizeof...(tail)>::template type<tail...>
+            using type = typename _joiner<sizeof...(tail) + 1>::template type<
+                join<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09>, tail...
             >;
         };
 
         template<>
-        struct _join_impl<1>
+        struct _joiner<0>
         {
-            template<typename head, typename... tail>
-            using type = join<
-                head,
-                typename _join_impl<sizeof...(tail)>::template type<tail...>
-            >;
+            template<typename... seqs>
+            using type = join<seqs...>;
         };
 
-        template<>
-        struct _join_impl<0>
-        {
-            template<typename...>
-            using type = list<>;
-        };
-
-        template<typename... seqs>
+        template<
+            typename _0, typename _1, typename _2, typename _3, typename _4,
+            typename _5, typename _6, typename _7, typename _8, typename _9,
+            typename... tail
+        >
         struct _join :
-            _invoke<lambda<_join_impl<sizeof...(seqs)>::template type>, seqs...>
+            _invoke<
+                lambda<_joiner<sizeof...(tail) + 10>::template type>,
+                _0, _1, _2, _3, _4, _5, _6, _7, _8, _9,  tail...
+            >
         {};
 
         template<
-            typename _00, typename _01, typename _02, typename _03,
-            typename _04, typename _05, typename _06, typename _07,
-            typename _08, typename _09
+            typename... _0, typename... _1, typename... _2, typename... _3,
+            typename... _4, typename... _5, typename... _6, typename... _7,
+            typename... _8, typename... _9
         >
-        struct _join<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09> :
-            _join10<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09>
-        {};
-
-        template<typename _00, typename _01, typename _02>
-        struct _join<_00, _01, _02> :
-            _join3<_00, _01, _02>
-        {};
-
-        template<typename _00, typename _01>
-        struct _join<_00, _01> :
-            _join2<_00, _01>
-        {};
-
-        template<typename seq>
-        struct _join<seq> :
-            _join1<seq>
-        {};
-
-        template<>
-        struct _join<>
+        struct _join<
+            list<_0...>, list<_1...>, list<_2...>, list<_3...>,
+            list<_4...>, list<_5...>, list<_6...>, list<_7...>,
+            list<_8...>, list<_9...>
+        >
         {
-            using type = list<>;
+            using type = list<
+                _0..., _1..., _2..., _3..., _4...,
+                _5..., _6..., _7..., _8..., _9...
+
+            >;
         };
+
+        template<
+            typename _0, typename _1, typename _2, typename _3, typename _4,
+            typename _5, typename _6, typename _7, typename _8, typename _9
+        >
+        struct _join<_0, _1, _2, _3, _4, _5, _6, _7, _8, _9>
+        {};
     }
     /// \endcond
 }

@@ -84,7 +84,7 @@ namespace metal
     /// ### Usage
     /// For any \values `val_0, ..., val_n-1`
     /// \code
-    ///     using result = metal::pair<val_0, ..., val_n-1>;
+    ///     using result = metal::list<val_0, ..., val_n-1>;
     /// \endcode
     ///
     /// \returns: \list

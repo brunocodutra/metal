@@ -12,49 +12,17 @@ There is a myriad of C++ metaprogramming libraries out there so why Metal?
 * **Portable** - compatible with the
 [most popular compilers](#supported_compilers).
 * **Blazing fast** - browse up to date benchmarks at [metaben.ch].
-* **Trivial integration** - `#include <metal.hpp>` and start enjoying
-metaprogramming right away.
-* **Metaprogramming made easy** - it doesn't have to be hard, check out
-[the examples](#examples).
-* **SFINAE-Friendly** - [control overload resolution](#SFINAE) and unleash the
-power of function templates.
+* **SFINAE-Friendly** - [control overload resolution][SFINAE] and make the most
+out of function templates.
+* **Metaprogramming made easy** - it doesn't have to be hard,
+[check it out](#in_a_glimpse)!
 
 In a Glimpse {#in_a_glimpse}
 ================================================================================
 
-We start with an empty [List]
+\snippet tutorial.cpp tutorial
 
-\snippet tutorial.cpp empty
-
-then we insert some [Values]
-
-\snippet tutorial.cpp insert
-
-We can check the sizes of lists,
-
-\snippet tutorial.cpp size
-
-access their elements
-
-\snippet tutorial.cpp access
-
-or erase them
-
-\snippet tutorial.cpp erase
-
-We can reverse the order of elements
-
-\snippet tutorial.cpp reverse
-
-count their occurrences
-
-\snippet tutorial.cpp count
-
-and even transform them
-
-\snippet tutorial.cpp transform
-
-That and much, much more!
+Check out [more examples](#examples) below.
 
 Getting Started {#getting_started}
 ================================================================================
@@ -301,6 +269,11 @@ metal::map, metal::is_map, metal::keys, metal::values
 
 Examples {#examples}
 ================================================================================
+
+\tip{
+    In the following examples, `IS_SAME(X, Y)` is just a terser shorthand for
+    `static_assert(std::is_same<X, Y>::value, "")`.
+}
 
 Parsing Raw Literals {#parsing_raw_literals}
 --------------------------------------------------------------------------------
