@@ -25,14 +25,57 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
-    /// ...
+    /// Invokes a \lambda with some \values.
+    ///
+    /// ### Usage
+    /// For any \lambda `lbd` and \values `val_0, ..., val_n-1`
+    /// \code
+    ///     using result = metal::invoke<lbd, val_0, ..., val_n-1>;
+    /// \endcode
+    ///
+    /// \returns: \value
+    /// \semantics:
+    ///     If `lbd` holds \expression `expr`, then
+    ///     \code
+    ///         using result = expr<val_0, ..., val_n-1>;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet lambda.cpp invoke
+    ///
+    /// ### See Also
+    /// \see lambda, is_invocable
     template<typename lbd, typename... args>
     using invoke = typename detail::_invoke<lbd, args...>::type;
 
     /// \ingroup lambda
     ///
     /// ### Description
-    /// ...
+    /// Checks whether a \lambda is invocable with some \values.
+    ///
+    /// ### Usage
+    /// For any \lambda `lbd` and \values `val_0, ..., val_n-1`
+    /// \code
+    ///     using result = metal::is_invocable<lbd, val_0, ..., val_n-1>;
+    /// \endcode
+    ///
+    /// \returns: \number
+    /// \semantics:
+    ///     If `lbd` holds \expression `expr`, and `expr<val_0, ..., val_n-1>`
+    ///     is well defined after template substitution, then
+    ///     \code
+    ///         using result = metal::true_;
+    ///     \endcode
+    ///     otherwise
+    ///     \code
+    ///         using result = metal::false_;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet lambda.cpp is_invocable
+    ///
+    /// ### See Also
+    /// \see lambda, invoke
     template<typename lbd, typename... args>
     using is_invocable = same<
         typename std::is_base_of<
