@@ -27,10 +27,12 @@ IS_SAME(metal::is_list<l>, metal::true_);
 
 HIDE(
 /// [is_list]
-using l = metal::list<short, int, long, float, double, void>;
+template<typename> struct single {};
 
-IS_SAME(metal::is_list<l>, metal::true_);
-IS_SAME(metal::is_list<metal::list<>>, metal::true_);
+IS_SAME(metal::is_list<void>, metal::false_);
+IS_SAME(metal::is_list<single<int>>, metal::false_);
+IS_SAME(metal::is_list<std::tuple<int, float, void>>, metal::false_);
+IS_SAME(metal::is_list<metal::list<int, float, void>>, metal::true_);
 IS_SAME(metal::is_list<metal::pair<int, int*>>, metal::true_);
 IS_SAME(metal::is_list<metal::map<metal::pair<int, int*>>>, metal::true_);
 /// [is_list]
@@ -38,11 +40,11 @@ IS_SAME(metal::is_list<metal::map<metal::pair<int, int*>>>, metal::true_);
 
 HIDE(
 /// [as_list]
-template<typename> struct one {};
-template<typename, typename = char> struct two {};
+template<typename> struct single {};
+template<typename, typename = char> struct couple {};
 
-IS_SAME(metal::as_list<one<int>>, metal::list<int>);
-IS_SAME(metal::as_list<two<int>>, metal::list<int, char>);
+IS_SAME(metal::as_list<single<int>>, metal::list<int>);
+IS_SAME(metal::as_list<couple<int>>, metal::list<int, char>);
 IS_SAME(
     metal::as_list<std::tuple<int, char, float>>,
     metal::list<int, char, float>

@@ -42,10 +42,15 @@ IS_SAME(metal::is_number<not_a_num>, metal::false_);
 
 HIDE(
 /// [is_number]
-IS_SAME(metal::is_number<metal::number<-10>>, metal::true_);
-IS_SAME(metal::is_number<metal::true_>, metal::true_);
-IS_SAME(metal::is_number<metal::false_>, metal::true_);
+struct one { static const auto value = 1L; };
+enum two { value = 2U };
+
 IS_SAME(metal::is_number<void>, metal::false_);
+IS_SAME(metal::is_number<one>, metal::false_);
+IS_SAME(metal::is_number<two>, metal::false_);
+IS_SAME(metal::is_number<std::integral_constant<short, 42>>, metal::false_);
+IS_SAME(metal::is_number<metal::number<-10>>, metal::true_);
+IS_SAME(metal::is_number<metal::false_>, metal::true_);
 /// [is_number]
 )
 

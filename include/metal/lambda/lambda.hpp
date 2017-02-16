@@ -23,7 +23,27 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
-    /// ...
+    /// Checks whether some \value is a \lambda.
+    ///
+    /// ### Usage
+    /// For any \value `val`
+    /// \code
+    ///     using result = metal::is_lambda<val>;
+    /// \endcode
+    ///
+    /// \returns: \number
+    /// \semantics:
+    ///     If `val` is a \lambda, then
+    ///     \code
+    ///         using result = metal::true_;
+    ///     \endcode
+    ///     otherwise
+    ///     \code
+    ///         using result = metal::false_;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet lambda.cpp is_lambda
     ///
     /// ### See Also
     /// \see lambda, is_value, is_number, is_pair, is_list, is_map

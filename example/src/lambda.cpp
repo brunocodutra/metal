@@ -15,6 +15,13 @@ IS_SAME(metal::is_lambda<lbd>, metal::true_);
 )
 
 HIDE(
+/// [is_lambda]
+IS_SAME(metal::is_lambda<void>, metal::false_);
+IS_SAME(metal::is_lambda<metal::lambda<std::add_pointer_t>>, metal::true_);
+/// [is_lambda]
+)
+
+HIDE(
 /// [is_invocable]
 template<typename val>
 using array = typename metal::value<val[]>::type; // MSVC friendly
