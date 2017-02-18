@@ -20,7 +20,34 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
-    /// ...
+    /// Provides higher-order composition of \lambdas.
+    ///
+    /// \tip{Use metal::arg<n> as a placeholder for the n-th argument.}
+    ///
+    /// ### Usage
+    /// For any \lambdas `lbd` and `lbd_0, ..., lbd_n-1`
+    /// \code
+    ///     using result = metal::bind<lbd, lbd_0, ..., val_n-1>;
+    /// \endcode
+    ///
+    /// \returns: \lambda
+    /// \semantics:
+    ///     If `lbd` holds \expression `f` and, likewise, `lbd_0, ..., lbd_n-1`
+    ///     hold \expressions `f_0, ..., f_n-1`, then
+    ///     \code
+    ///         using result = metal::lambda<g>;
+    ///     \endcode
+    ///     where `g` is an \expression such that
+    ///     \code
+    ///         template<typename... args>
+    ///         using g = f<f_0<args...>, ...<args...>, f_n-1<args...>>;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet lambda.cpp bind
+    ///
+    /// ### See Also
+    /// \see lambda, invoke, arg, quote
     template<typename lbd, typename... vals>
     using bind = typename detail::_bind<lbd, vals...>::type;
 }

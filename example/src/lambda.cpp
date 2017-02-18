@@ -79,3 +79,27 @@ IS_SAME(metal::invoke<metal::arg<3>, bool, char, long, float>, long);
 IS_SAME(metal::invoke<metal::arg<4>, bool, char, long, float>, float);
 /// [arg]
 )
+
+HIDE(
+/// [bind]
+using promote = metal::bind<
+    metal::lambda<std::common_type_t>,
+    metal::quote<int>,
+    metal::_1 // equivalent to metal::arg<1>
+>;
+
+IS_SAME(metal::invoke<promote, char>, int);
+IS_SAME(metal::invoke<promote, short>, int);
+IS_SAME(metal::invoke<promote, long>, long);
+
+using uac = metal::bind< // usual arithmetic conversion
+    metal::lambda<std::common_type_t>,
+    metal::bind<promote, metal::_1>,
+    metal::bind<promote, metal::_2>
+>;
+
+IS_SAME(metal::invoke<uac, int, long>, long);
+IS_SAME(metal::invoke<uac, char, char>, int);
+IS_SAME(metal::invoke<uac, short, float>, float);
+/// [bind]
+)
