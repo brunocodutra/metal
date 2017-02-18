@@ -37,7 +37,28 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
-    /// ...
+    /// A parametric \lambda that selects the n-th argument it is invoked with.
+    ///
+    /// ### Usage
+    /// For any non negative integral value `m`
+    /// \code
+    ///     using result = metal::arg<m>;
+    /// \endcode
+    ///
+    /// \returns: \lambda
+    /// \semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         using result = metal::lambda<expr>;
+    ///     \endcode
+    ///     where `expr` is an \expression such that
+    ///     `expr<val_0, ..., val_m, ..., val_n-1>` yields `val_m`.
+    ///
+    /// ### Example
+    /// \snippet lambda.cpp arg
+    ///
+    /// ### See Also
+    /// \see lambda, invoke, bind, quote
     template<std::size_t n>
     using arg = typename detail::arg_impl<n>::type;
 

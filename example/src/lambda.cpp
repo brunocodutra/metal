@@ -70,3 +70,12 @@ IS_SAME(metal::invoke<void_, short, int, long>, void);
 IS_SAME(metal::invoke<metal::quote<void_>, short, int, long>, void_);
 /// [quote]
 )
+
+HIDE(
+/// [arg]
+IS_SAME(metal::invoke<metal::arg<1>, bool, char, long, float>, bool);
+IS_SAME(metal::invoke<metal::arg<2>, bool, char, long, float>, char);
+IS_SAME(metal::invoke<metal::arg<3>, bool, char, long, float>, long);
+IS_SAME(metal::invoke<metal::arg<4>, bool, char, long, float>, float);
+/// [arg]
+)
