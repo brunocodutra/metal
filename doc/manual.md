@@ -427,7 +427,7 @@ but we could also have chosen to use *bind expressions* instead.
 
 \note{
     If *bind expressions* look scary to you, don't panic, we will exercise
-    [Expression] composition in our [next practical example](#church_booleans).
+    [Expression] composition in our [next example](#church_booleans).
     Here it suffices to keep in mind that *bind expressions* return anonymous
     [Lambdas], just like [`std::bind`][bind] returns anonymous functions, and
     that `metal::_1` and `metal::_2` are the equivalents of
@@ -453,7 +453,48 @@ And ignores digit separators too.
 Church Booleans {#church_booleans}
 --------------------------------------------------------------------------------
 
-[TODO]
+[Church Booleans][church] refer to a mathematical framework used to express
+logical operation in the context of [lambda notation][lambda_calculus],
+where they have an important theoretical significance.
+Of less practical importance in C++, even in the context of template
+metaprogramming, they will nevertheless help us acquaint with *bind expressions*
+in this toy example.
+
+The boolean constants `true_` and `false_` are, by definition, \lambdas that
+return respectively the first and second argument with which they are invoked.
+
+\snippet church.cpp bool
+
+That given, we start by defining the logical operator `not_`.
+Using the fact that booleans are themselves \lambdas, it is not too hard to
+realize that invoking a boolean to `<false_, true>` always yields its negation.
+
+\snippet church.cpp not_expr
+
+To enable higher-order composition we really need `not_` to be a \lambda, not an
+\expression. Granted one could easily define it terms of the respective
+\expression as `metal::lambda<not_>`, but that would defeat the whole purpose of
+this exercise, the idea is to use *bind expressions* directly.
+
+\snippet church.cpp not
+
+Admittedly a little more verbose, but that saves us from introducing a new named
+alias template.
+
+To define `and_` and `or_` we'll use the very same technique.
+
+\snippet church.cpp and
+\snippet church.cpp or
+
+This exercise might me mind-boggling at first, but you'll get used to it soon
+enough.
+
+Without further ado we'll present the logical operator `xor`.
+
+\snippet church.cpp xor
+
+Notice how we *bind* `not_`, which is itself a *bind expression*, which is only
+possible due to the fact it is a \lambda.
 
 A Word on SFINAE-Friendliness {#SFINAE}
 ================================================================================
@@ -505,6 +546,8 @@ SFINAE-unfriendly [Expressions] should always be avoided.
 [higher-order]:     http://en.wikipedia.org/wiki/Higher-order_function
 [first-class]:      http://en.wikipedia.org/wiki/First-class_citizen
 [fold]:             http://en.wikipedia.org/wiki/Fold_(higher-order_function)
+[church]:           https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans
+[lambda_calculus]:  https://en.wikipedia.org/wiki/Lambda_calculus
 
 [algorithm]:        http://en.cppreference.com/w/cpp/algorithm
 [alias templates]:  http://en.cppreference.com/w/cpp/language/type_alias
