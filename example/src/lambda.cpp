@@ -50,3 +50,13 @@ using l = metal::list<bool, char, long, float>;
 IS_SAME(metal::apply<lbd, l>, float);
 /// [apply]
 )
+
+HIDE(
+/// [partial]
+using promote = metal::partial<metal::lambda<std::common_type_t>, int>;
+
+IS_SAME(metal::invoke<promote, char>, int);
+IS_SAME(metal::invoke<promote, short>, int);
+IS_SAME(metal::invoke<promote, long>, long);
+/// [partial]
+)
