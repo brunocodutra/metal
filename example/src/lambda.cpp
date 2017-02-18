@@ -60,3 +60,13 @@ IS_SAME(metal::invoke<promote, short>, int);
 IS_SAME(metal::invoke<promote, long>, long);
 /// [partial]
 )
+
+HIDE(
+/// [quote]
+using void_ = metal::quote<void>;
+
+IS_SAME(metal::invoke<void_>, void);
+IS_SAME(metal::invoke<void_, short, int, long>, void);
+IS_SAME(metal::invoke<metal::quote<void_>, short, int, long>, void_);
+/// [quote]
+)
