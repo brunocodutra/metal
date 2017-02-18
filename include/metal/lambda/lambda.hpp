@@ -53,7 +53,18 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
-    /// ...
+    /// Constructs a \lambda out of an \expression.
+    ///
+    /// ### Usage
+    /// For any \expression `expr`
+    /// \code
+    ///     using result = metal::lambda<expr>;
+    /// \endcode
+    ///
+    /// \returns: \lambda
+    ///
+    /// ### See Also
+    /// \see is_lambda
     template<template<typename...> class expr>
     using lambda = detail::lambda<expr>;
 }
