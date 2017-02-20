@@ -19,6 +19,7 @@ addons:
     apt:
         packages: &ubuntu_packages
           - libstdc++-5-dev
+          - libboost-dev
         sources: &ubuntu_sources
           - ubuntu-toolchain-r-test
 

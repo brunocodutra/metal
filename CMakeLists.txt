@@ -77,6 +77,8 @@ deploy(Metal)
 
 enable_testing()
 
+find_package(Boost)
+
 add_subdirectory(doc)
 add_subdirectory(example)
 add_subdirectory(test)

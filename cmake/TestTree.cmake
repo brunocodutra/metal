@@ -55,12 +55,27 @@ function(get_tree_nodes _prefix _nodes)
 endfunction()
 
 function(unit_test_tree _lib _root _prefix)
+    set(options)
+    set(one_value_args)
+    set(multi_value_args EXCLUDE)
+    cmake_parse_arguments(ARGS "${options}" "${one_value_args}" "${multi_value_args}" ${ARGN})
+
+    if(NOT ARGS_EXCLUDE)
+        set(ARGS_EXCLUDE "^$")
+    else()
+        string(REPLACE ";" "|" ARGS_EXCLUDE "${ARGS_EXCLUDE}")
+    endif()
+
     absolute(_prefix)
     assert_dir(${_prefix})
     assert_target(${_root})
 
     get_tree_nodes(${_prefix} nodes)
     foreach(node ${nodes})
+        if(node MATCHES ${ARGS_EXCLUDE})
+            continue()
+        endif()
+
         set(target ${_root}.${node})
         set(node "${_prefix}/${node}")
         if(EXISTS "${node}.cpp")
@@ -71,7 +86,7 @@ function(unit_test_tree _lib _root _prefix)
         endif()
 
         if(IS_DIRECTORY ${node})
-            unit_test_tree(${_lib} ${target} ${node})
+            unit_test_tree(${_lib} ${target} ${node} ${ARGN})
         endif()
 
         if(TARGET ${target})
@@ -82,12 +97,27 @@ function(unit_test_tree _lib _root _prefix)
 endfunction()
 
 function(header_test_tree _lib _root _prefix)
+    set(options)
+    set(one_value_args)
+    set(multi_value_args EXCLUDE)
+    cmake_parse_arguments(ARGS "${options}" "${one_value_args}" "${multi_value_args}" ${ARGN})
+
+    if(NOT ARGS_EXCLUDE)
+        set(ARGS_EXCLUDE "^$")
+    else()
+        string(REPLACE ";" "|" ARGS_EXCLUDE "${ARGS_EXCLUDE}")
+    endif()
+
     absolute(_prefix)
     assert_dir(${_prefix})
     assert_target(${_root})
 
     get_tree_nodes(${_prefix} nodes)
     foreach(node ${nodes})
+        if(node MATCHES ${ARGS_EXCLUDE})
+            continue()
+        endif()
+
         set(target ${_root}.${node})
         set(node "${_prefix}/${node}")
         if(EXISTS "${node}.hpp")
@@ -100,7 +130,7 @@ function(header_test_tree _lib _root _prefix)
         endif()
 
         if(IS_DIRECTORY ${node})
-            header_test_tree(${_lib} ${target} ${node})
+            header_test_tree(${_lib} ${target} ${node} ${ARGN})
         endif()
 
         if(TARGET ${target})

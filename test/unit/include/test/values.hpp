@@ -9,7 +9,7 @@
 
 namespace test
 {
-    enum  val0 {value, type};
+    enum  val0 {type};
     union val1 {template<typename...> struct type;};
     using val2 = val1::template type<>;
     using val3 = decltype(nullptr);

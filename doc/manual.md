@@ -522,6 +522,12 @@ compilation to halt when they are not selected by overload resolution, thereby
 hindering the usage of the entire overloaded set. For that reason
 SFINAE-unfriendly [Expressions] should always be avoided.
 
+Migrating from Boost.MPL {#MPL}
+================================================================================
+
+To make it easier porting legacy metaprograms written using Boost.MPL,
+consider using `metal::from_mpl`.
+
 [Value]:            #value
 [Values]:           #value
 [Optional]:         #optional

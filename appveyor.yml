@@ -29,7 +29,7 @@ before_build:
 
   - set "CMAKE_ARGS=%METAL_SOURCE_PATH%"
   - if defined GENERATOR (set "CMAKE_ARGS=%CMAKE_ARGS% -G"%GENERATOR%"")
-  - set "CMAKE_ARGS=%CMAKE_ARGS% -DCMAKE_BUILD_TYPE=%CONFIGURATION%"
+  - set "CMAKE_ARGS=%CMAKE_ARGS% -DCMAKE_BUILD_TYPE=%CONFIGURATION% -DBOOST_ROOT=C:\Libraries\boost"
   - pushd "%METAL_BUILD_PATH%" && cmake %CMAKE_ARGS% & popd
 
 build_script:

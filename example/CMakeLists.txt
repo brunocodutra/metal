@@ -4,7 +4,14 @@
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
+set(EXCLUDE)
+if(NOT Boost_FOUND)
+    list(APPEND EXCLUDE "mpl")
+else()
+    include_directories(${Boost_INCLUDE_DIRS})
+endif()
+
 add_custom_target(example)
-unit_test_tree(Metal example "${CMAKE_CURRENT_SOURCE_DIR}/src/")
+unit_test_tree(Metal example "${CMAKE_CURRENT_SOURCE_DIR}/src/" EXCLUDE ${EXCLUDE})
 
 add_custom_target(examples DEPENDS example)
