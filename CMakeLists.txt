@@ -1,10 +1,23 @@
-# Copyright Bruno Dutra 2015-2016
+# Copyright Bruno Dutra 2015-2017
 # Distributed under the Boost Software License, Version 1.0.
 # See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.4)
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "")
+endif()
 
 project(Metal CXX)
+
+option(METAL_STRICT                 "treat compiler warnings as errors"     OFF)
+option(METAL_VERBOSE                "increase output verbosity"             OFF)
+
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
+include(Deploy)
+include(TestTree)
+include(CompileFlags)
 
 set(METAL_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
@@ -24,12 +37,47 @@ set(METAL_VERSION "${METAL_MAJOR}.${METAL_MINOR}.${METAL_PATCH}")
 
 message(STATUS "Configuring Metal ${METAL_VERSION}")
 
-add_library(metal INTERFACE)
-target_include_directories(metal INTERFACE ${METAL_INCLUDE_DIR})
+add_library(Metal INTERFACE)
+set_target_properties(Metal PROPERTIES
+    INTERFACE_LIB_VERSION ${METAL_VERSION}
+    INTERFACE_INCLUDE_DIRECTORIES ${METAL_INCLUDE_DIR}
+)
 
-include("${CMAKE_SOURCE_DIR}/cmake/config.cmake")
-include("${CMAKE_SOURCE_DIR}/cmake/testing.cmake")
-include("${CMAKE_SOURCE_DIR}/cmake/deployment.cmake")
+target_compile_flags(Metal INTERFACE -W)
+target_compile_flags(Metal INTERFACE -Wextra)
+target_compile_flags(Metal INTERFACE -pedantic)
+
+if(NOT MSVC)
+    target_compile_flags(Metal INTERFACE -Wall)
+endif()
+
+if(METAL_STRICT)
+    target_compile_flags(Metal INTERFACE -pedantic-errors)
+    target_compile_flags(Metal INTERFACE -Werror)
+    target_compile_flags(Metal INTERFACE /Za)
+    target_compile_flags(Metal INTERFACE /WX)
+endif()
+
+if(METAL_VERBOSE)
+    target_compile_flags(Metal INTERFACE -v)
+    target_compile_flags(Metal INTERFACE -ftemplate-backtrace-limit=0)
+    target_compile_flags(Metal INTERFACE -fdiagnostics-show-template-tree)
+    target_compile_flags(Metal INTERFACE -fno-elide-type)
+endif()
+
+target_compile_flags(Metal INTERFACE -stdlib=libc++ LIBS c++ c++abi)
+
+target_compile_flags(Metal INTERFACE /std:c++latest)
+
+target_compile_flags(Metal INTERFACE -std=c++17
+    FALLBACK -std=c++1z -std=c++14 -std=c++1y
+)
+
+deploy(Metal)
+
+enable_testing()
+
+find_package(Boost)
 
 add_subdirectory(doc)
 add_subdirectory(example)

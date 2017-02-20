@@ -1,4 +1,4 @@
-// Copyright Bruno Dutra 2015-2016
+// Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
@@ -40,7 +40,7 @@ namespace metal
     /// \snippet number.cpp min
     ///
     /// ### See Also
-    /// \see number, max
+    /// \see number, greater, less, max
     template<typename head, typename... tail>
     using min = typename detail::_min<head, tail...>::type;
 }
@@ -75,15 +75,15 @@ namespace metal
 #if defined(METAL_COMPAT_MODE)
         template<int_ x, int_ y, int_... tail>
         struct _min<number<x>, number<y>, number<tail>...> :
-            _accumulate<numbers<y, tail...>, number<x>, lambda<min>>
+            _accumulate<lambda<min>, number<x>, numbers<y, tail...>>
         {};
 #else
         template<typename... _>
         constexpr int_ imin(int_ head, _... tail) {
             int_ ret = head;
-            for(int_ x : {tail...})
-                if(x < ret) ret = x;
-
+            void(std::initializer_list<int_>{
+                (ret = (tail < ret) ? tail : ret)...
+            });
             return ret;
         }
 

@@ -1,4 +1,4 @@
-// Copyright Bruno Dutra 2015-2016
+// Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
@@ -17,6 +17,11 @@ namespace metal
     {
         template<typename val>
         struct _is_number;
+
+#if defined(METAL_COMPAT_MODE)
+        template<typename val, typename = void>
+        struct _as_number;
+#endif
 
         using int_ = std::intmax_t;
     }
@@ -67,7 +72,7 @@ namespace metal
     /// Constructs a \number out of an integral value.
     ///
     /// ### Usage
-    /// For any integral value `N`
+    /// For any integral constant `N`
     /// \code
     ///     using result = metal::number<N>;
     /// \endcode
@@ -85,7 +90,7 @@ namespace metal
     /// The boolean constant `true`.
     ///
     /// ### See Also
-    /// \see number
+    /// \see number, int_
     using true_ = metal::number<true>;
 
     /// \ingroup number
@@ -96,6 +101,33 @@ namespace metal
     /// ### See Also
     /// \see number
     using false_ = metal::number<false>;
+
+    /// \ingroup number
+    ///
+    /// ### Description
+    /// Constructs a \number out of any \value that defines a nested static
+    /// integral constant `::value` convertible to metal::int_.
+    ///
+    /// ### Usage
+    /// For any \value `val`
+    /// \code
+    ///     using result = metal::as_number<val>;
+    /// \endcode
+    ///
+    /// \returns: \number
+    ///
+    /// ### Example
+    /// \snippet number.cpp as_number
+    ///
+    /// ### See Also
+    /// \see number
+    template<typename val>
+    using as_number =
+#if defined(METAL_COMPAT_MODE) && !defined(METAL_DOXYGENATING)
+        typename detail::_as_number<val>::type;
+#else
+        metal::number<metal::int_{val::value}>;
+#endif
 
     /// \cond
     namespace detail
@@ -109,6 +141,17 @@ namespace metal
         struct _is_number<number<value>> :
             true_
         {};
+#if defined(METAL_COMPAT_MODE)
+        template<typename val, typename>
+        struct _as_number
+        {};
+
+        template<typename val>
+        struct _as_number<val, decltype(void(val::value))>
+        {
+            using type = number<val::value>;
+        };
+#endif
     }
     /// \endcond
 }

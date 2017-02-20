@@ -1,4 +1,4 @@
-// Copyright Bruno Dutra 2015-2016
+// Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
@@ -38,7 +38,7 @@ namespace metal
     /// \snippet number.cpp mul
     ///
     /// ### See Also
-    /// \see number, inc, dec, neg, add, sub, div, mod, pow
+    /// \see number, abs, inc, dec, neg, add, sub, div, mod, pow
     template<typename... nums>
     using mul = typename detail::_mul<nums...>::type;
 }
@@ -78,15 +78,13 @@ namespace metal
 #if defined(METAL_COMPAT_MODE)
         template<int_ x, int_ y, int_... tail>
         struct _mul<number<x>, number<y>, number<tail>...> :
-            _accumulate<numbers<y, tail...>, number<x>, lambda<mul>>
+            _accumulate<lambda<mul>, number<x>, numbers<y, tail...>>
         {};
 #else
         template<typename... _>
         constexpr int_ imul(int_ head, _... tail) {
             int_ ret = head;
-            for(int_ x : {tail...})
-                ret *= x;
-
+            void(std::initializer_list<int_>{(ret *= tail)...});
             return ret;
         }
 

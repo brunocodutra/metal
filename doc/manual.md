@@ -12,49 +12,17 @@ There is a myriad of C++ metaprogramming libraries out there so why Metal?
 * **Portable** - compatible with the
 [most popular compilers](#supported_compilers).
 * **Blazing fast** - browse up to date benchmarks at [metaben.ch].
-* **Trivial integration** - `#include <metal.hpp>` and start enjoying
-metaprogramming right away.
-* **Metaprogramming made easy** - it doesn't have to be hard, check out
-[the examples](#examples).
-* **SFINAE-Friendly** - [control overload resolution](#SFINAE) and unleash the
-power of function templates.
+* **SFINAE-Friendly** - [control overload resolution][SFINAE] and make the most
+out of function templates.
+* **Metaprogramming made easy** - it doesn't have to be hard,
+[check it out](#in_a_glimpse)!
 
 In a Glimpse {#in_a_glimpse}
 ================================================================================
 
-We start with an empty [List]
+\snippet tutorial.cpp tutorial
 
-\snippet tutorial.cpp empty
-
-then we insert some [Values]
-
-\snippet tutorial.cpp insert
-
-We can check the sizes of lists,
-
-\snippet tutorial.cpp size
-
-access their elements
-
-\snippet tutorial.cpp access
-
-or erase them
-
-\snippet tutorial.cpp erase
-
-We can reverse the order of elements
-
-\snippet tutorial.cpp reverse
-
-count their occurrences
-
-\snippet tutorial.cpp count
-
-and even transform them
-
-\snippet tutorial.cpp transform
-
-That and much, much more!
+Check out [more examples](#examples) below.
 
 Getting Started {#getting_started}
 ================================================================================
@@ -82,7 +50,7 @@ Metal may optionally be installed system-wide to ease integration with external
 projects. If you'd rather use Metal locally, you can skip to the
 [next section](#integration).
 
-Make sure to have CMake v3.0 or newer installed on your system, then,
+Make sure to have CMake v3.4 or newer installed on your system, then,
 from within an empty directory, issue the following commands.
 
     cmake /path/to/Metal
@@ -118,6 +86,7 @@ The following compilers are tested in continuous integration using
 | Clang             | &ge; 3.4
 | Xcode             | &ge; 6.4
 | Visual Studio     | &ge; 14 (2015)
+| MinGW             | &ge; 5
 
 Project Organization {#project_organization}
 --------------------------------------------------------------------------------
@@ -301,6 +270,11 @@ metal::map, metal::is_map, metal::keys, metal::values
 Examples {#examples}
 ================================================================================
 
+\tip{
+    In the following examples, `IS_SAME(X, Y)` is just a terser shorthand for
+    `static_assert(std::is_same<X, Y>::value, "")`.
+}
+
 Parsing Raw Literals {#parsing_raw_literals}
 --------------------------------------------------------------------------------
 
@@ -453,7 +427,7 @@ but we could also have chosen to use *bind expressions* instead.
 
 \note{
     If *bind expressions* look scary to you, don't panic, we will exercise
-    [Expression] composition in our [next practical example](#church_booleans).
+    [Expression] composition in our [next example](#church_booleans).
     Here it suffices to keep in mind that *bind expressions* return anonymous
     [Lambdas], just like [`std::bind`][bind] returns anonymous functions, and
     that `metal::_1` and `metal::_2` are the equivalents of
@@ -479,7 +453,48 @@ And ignores digit separators too.
 Church Booleans {#church_booleans}
 --------------------------------------------------------------------------------
 
-[TODO]
+[Church Booleans][church] refer to a mathematical framework used to express
+logical operation in the context of [lambda notation][lambda_calculus],
+where they have an important theoretical significance.
+Of less practical importance in C++, even in the context of template
+metaprogramming, they will nevertheless help us acquaint with *bind expressions*
+in this toy example.
+
+The boolean constants `true_` and `false_` are, by definition, \lambdas that
+return respectively the first and second argument with which they are invoked.
+
+\snippet church.cpp bool
+
+That given, we start by defining the logical operator `not_`.
+Using the fact that booleans are themselves \lambdas, it is not too hard to
+realize that invoking a boolean to `<false_, true>` always yields its negation.
+
+\snippet church.cpp not_expr
+
+To enable higher-order composition we really need `not_` to be a \lambda, not an
+\expression. Granted one could easily define it terms of the respective
+\expression as `metal::lambda<not_>`, but that would defeat the whole purpose of
+this exercise, the idea is to use *bind expressions* directly.
+
+\snippet church.cpp not
+
+Admittedly a little more verbose, but that saves us from introducing a new named
+alias template.
+
+To define `and_` and `or_` we'll use the very same technique.
+
+\snippet church.cpp and
+\snippet church.cpp or
+
+This exercise might me mind-boggling at first, but you'll get used to it soon
+enough.
+
+Without further ado we'll present the logical operator `xor`.
+
+\snippet church.cpp xor
+
+Notice how we *bind* `not_`, which is itself a *bind expression*, which is only
+possible due to the fact it is a \lambda.
 
 A Word on SFINAE-Friendliness {#SFINAE}
 ================================================================================
@@ -507,6 +522,12 @@ compilation to halt when they are not selected by overload resolution, thereby
 hindering the usage of the entire overloaded set. For that reason
 SFINAE-unfriendly [Expressions] should always be avoided.
 
+Migrating from Boost.MPL {#MPL}
+================================================================================
+
+To make it easier porting legacy metaprograms written using Boost.MPL,
+consider using `metal::from_mpl`.
+
 [Value]:            #value
 [Values]:           #value
 [Optional]:         #optional
@@ -531,6 +552,8 @@ SFINAE-unfriendly [Expressions] should always be avoided.
 [higher-order]:     http://en.wikipedia.org/wiki/Higher-order_function
 [first-class]:      http://en.wikipedia.org/wiki/First-class_citizen
 [fold]:             http://en.wikipedia.org/wiki/Fold_(higher-order_function)
+[church]:           https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans
+[lambda_calculus]:  https://en.wikipedia.org/wiki/Lambda_calculus
 
 [algorithm]:        http://en.cppreference.com/w/cpp/algorithm
 [alias templates]:  http://en.cppreference.com/w/cpp/language/type_alias

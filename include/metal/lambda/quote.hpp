@@ -1,4 +1,4 @@
-// Copyright Bruno Dutra 2015-2016
+// Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
@@ -20,7 +20,31 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
-    /// ...
+    /// Lifts a \value to an n-ary \lambda that always evaluates to that \value.
+    ///
+    /// ### Usage
+    /// For any and \value `val`
+    /// \code
+    ///     using result = metal::quote<val>;
+    /// \endcode
+    ///
+    /// \returns: \lambda
+    /// \semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         using result = metal::lambda<expr>;
+    ///     \endcode
+    ///     where `expr` is an \expression such that
+    ///     \code
+    ///         template<typename...>
+    ///         using expr = val;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet lambda.cpp quote
+    ///
+    /// ### See Also
+    /// \see lambda, invoke, partial, bind
     template<typename val>
     using quote = typename detail::_quote<val>::type;
 }

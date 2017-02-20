@@ -1,4 +1,4 @@
-# Copyright Bruno Dutra 2015-2016
+# Copyright Bruno Dutra 2015-2017
 # Distributed under the Boost Software License, Version 1.0.
 # See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
@@ -18,6 +18,8 @@ env:
 addons:
     apt:
         packages: &ubuntu_packages
+          - libstdc++-5-dev
+          - libboost-dev
         sources: &ubuntu_sources
           - ubuntu-toolchain-r-test
 
@@ -36,7 +38,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXX_VERSION=5
+        env: CXXVER=5
         addons:
             apt:
                 packages:
@@ -47,7 +49,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXX_VERSION=6
+        env: CXXVER=6
         addons:
             apt:
                 packages:
@@ -58,13 +60,14 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXX_VERSION=3.4 CXXFLAGS=-stdlib=libc++
+        env: CXXVER=3.4
         addons:
             apt:
                 packages:
                   - *ubuntu_packages
                   - clang-3.4
                   - libc++-dev
+                  - libc++abi-dev
                 sources:
                   - *ubuntu_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main'
@@ -73,13 +76,14 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXX_VERSION=3.5 CXXFLAGS=-stdlib=libc++
+        env: CXXVER=3.5
         addons:
             apt:
                 packages:
                   - *ubuntu_packages
                   - clang-3.5
                   - libc++-dev
+                  - libc++abi-dev
                 sources:
                   - *ubuntu_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.5 main'
@@ -88,13 +92,14 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXX_VERSION=3.6 CXXFLAGS=-stdlib=libc++
+        env: CXXVER=3.6
         addons:
             apt:
                 packages:
                   - *ubuntu_packages
                   - clang-3.6
                   - libc++-dev
+                  - libc++abi-dev
                 sources:
                   - *ubuntu_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main'
@@ -103,13 +108,14 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXX_VERSION=3.7 CXXFLAGS=-stdlib=libc++
+        env: CXXVER=3.7
         addons:
             apt:
                 packages:
                   - *ubuntu_packages
                   - clang-3.7
                   - libc++-dev
+                  - libc++abi-dev
                 sources:
                   - *ubuntu_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.7 main'
@@ -118,13 +124,14 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXX_VERSION=3.8 CXXFLAGS=-stdlib=libc++
+        env: CXXVER=3.8
         addons:
             apt:
                 packages:
                   - *ubuntu_packages
                   - clang-3.8
                   - libc++-dev
+                  - libc++abi-dev
                 sources:
                   - *ubuntu_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main'
@@ -133,13 +140,14 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXX_VERSION=3.9 CXXFLAGS=-stdlib=libc++
+        env: CXXVER=3.9
         addons:
             apt:
                 packages:
                   - *ubuntu_packages
                   - clang-3.9
                   - libc++-dev
+                  - libc++abi-dev
                 sources:
                   - *ubuntu_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main'
@@ -148,13 +156,30 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXX_VERSION=4.0 CXXFLAGS=-stdlib=libc++
+        env: CXXVER=4.0
         addons:
             apt:
                 packages:
                   - *ubuntu_packages
                   - clang-4.0
                   - libc++-dev
+                  - libc++abi-dev
+                sources:
+                  - *ubuntu_sources
+                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main'
+                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+
+      - os: linux
+        dist: trusty
+        compiler: clang++
+        env: CXXVER=5.0
+        addons:
+            apt:
+                packages:
+                  - *ubuntu_packages
+                  - clang-5.0
+                  - libc++-dev
+                  - libc++abi-dev
                 sources:
                   - *ubuntu_sources
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty main'
@@ -180,79 +205,59 @@ before_install:
   - git config --global user.email "\<\>"
 
   - METAL_SOURCE_PATH="${TRAVIS_BUILD_DIR}"
-  - EXTERNAL_SOURCE_PATH="${METAL_SOURCE_PATH}/example/external/"
 
   - METAL_BUILD_PATH="${TRAVIS_BUILD_DIR}/build"
   - mkdir -p "${METAL_BUILD_PATH}"
 
-  - METAL_INSTALL_PATH="${TRAVIS_BUILD_DIR}/install"
-  - mkdir -p "${METAL_INSTALL_PATH}"
-
-  - EXTERNAL_BUILD_PATH="${METAL_BUILD_PATH}/example/external/"
-  - mkdir -p "${EXTERNAL_BUILD_PATH}"
-
   - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
   - mkdir -p "${DEPS_PATH}"
 
-  - |
-    if [[ -n "${TRAVIS_TAG}" ]]
-    then
-        METAL_VERSION="${TRAVIS_TAG}"
-        METAL_VERSION_EXACT=true
-    else
-        METAL_VERSION=$( \
-            curl -Ls https://github.com/brunocodutra/metal/tags | \
-            awk '/tag-name/{print $3;exit}' FS='[<>]' \
-        )
-        METAL_VERSION_EXACT=false
-    fi
-
-  - METAL_VERSION="${METAL_VERSION%%-*}"
-  - METAL_VERSION="${METAL_VERSION##*v}"
-  - echo "METAL_VERSION=${METAL_VERSION}"
-
 install:
   - |
-    if [[ "${TRAVIS_OS_NAME}" == "osx" ]]
+    if [[ "${TRAVIS_OS_NAME}" == "linux" ]]
     then
-        brew update
-        brew unlink cmake doxygen
-        brew install cmake doxygen
-        true
+        CMAKE_URL="http://www.cmake.org/files/v3.4/cmake-3.4.0-Linux-x86_64.tar.gz"
+        mkdir -p "${DEPS_PATH}/cmake" &&
+        travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake"
+        export PATH=${DEPS_PATH}/cmake/bin:${PATH}
+    else
+        CMAKE_URL="http://www.cmake.org/files/v3.4/cmake-3.4.0-Darwin-x86_64.tar.gz"
+        mkdir -p "${DEPS_PATH}/cmake" &&
+        travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake"
+        export PATH=${DEPS_PATH}/cmake/CMake.app/Contents/bin:${PATH}
     fi
 
   - |
-    if [[ "${BUILD_DOC}" == "true" && "${TRAVIS_OS_NAME}" == "linux" ]]
+    if [[ "${BUILD_DOC}" == "true" ]]
     then
-        # download the latest doxygen available
-        DOXYGEN_FTP="ftp://ftp.stack.nl/pub/users/dimitri/"
-        DOXYGEN_PKG=$(travis_retry curl -Ls "${DOXYGEN_FTP}" | grep -Eo "doxygen-[0-9.]+linux[.]bin[.]tar[.]gz" | sort -V | tail -1)
-        DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_PKG}"
-        mkdir -p "${DEPS_PATH}/doxygen" &&
-        travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen"
-        export PATH="${DEPS_PATH}/doxygen/bin:${PATH}"
+        if [[ "${TRAVIS_OS_NAME}" == "linux" ]]
+        then
+            # download the latest doxygen available
+            DOXYGEN_FTP="ftp://ftp.stack.nl/pub/users/dimitri/"
+            DOXYGEN_PKG=$(travis_retry curl -Ls "${DOXYGEN_FTP}" | grep -Eo "doxygen-[0-9.]+linux[.]bin[.]tar[.]gz" | sort -V | tail -1)
+            DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_PKG}"
+            mkdir -p "${DEPS_PATH}/doxygen" &&
+            travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen"
+            export PATH="${DEPS_PATH}/doxygen/bin:${PATH}"
+        else
+            brew update
+            brew unlink doxygen
+            brew install doxygen
+        fi
     fi
 
 before_script:
-  - CMAKE_ARGS=("-DCMAKE_INSTALL_PREFIX=${METAL_INSTALL_PATH}")
+  - CMAKE_ARGS=("${METAL_SOURCE_PATH}")
 
   - |
-    if [[ -n "${CXX}" && -n "${CXX_VERSION}" ]]
+    if [[ -n "${CXX}" && -n "${CXXVER}" ]]
     then
-        CMAKE_ARGS+=("-DCMAKE_CXX_COMPILER=${CXX}-${CXX_VERSION}")
+        CMAKE_ARGS+=("-DCMAKE_CXX_COMPILER=${CXX}-${CXXVER}")
     fi
 
-  - (cd "${METAL_BUILD_PATH}" && cmake "${METAL_SOURCE_PATH}" ${CMAKE_ARGS[@]} && make install)
+    CMAKE_ARGS+=("-DCMAKE_CXX_FLAGS=-DMETAL_TEST_GEN_LIMIT=9")
 
-  - CMAKE_ARGS+=("-DCMAKE_PREFIX_PATH=${METAL_INSTALL_PATH}")
-  - CMAKE_ARGS+=("-DMETAL_VERSION=${METAL_VERSION}")
-  - CMAKE_ARGS+=("-DMETAL_VERSION_EXACT=${METAL_VERSION_EXACT}")
-
-  - |
-    if [[ "${BUILD_DOC}" != "true" ]]
-    then
-      (cd "${EXTERNAL_BUILD_PATH}" && cmake "${EXTERNAL_SOURCE_PATH}" ${CMAKE_ARGS[@]})
-    fi
+  - (cd "${METAL_BUILD_PATH}" && cmake ${CMAKE_ARGS[@]})
 
 script:
   - |
@@ -268,6 +273,5 @@ script:
             git -C "${METAL_BUILD_PATH}/doc/html/" push origin gh-pages &> /dev/null
         fi
     else
-        (cd "${EXTERNAL_BUILD_PATH}" && make all) &&
         (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure)
     fi

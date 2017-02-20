@@ -1,4 +1,4 @@
-// Copyright Bruno Dutra 2015-2016
+// Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
@@ -54,12 +54,12 @@ namespace metal
     namespace detail
     {
         template<int_ n>
-        struct _reverse_impl :
-            _reverse_impl<(n >= 100) ? 100 : (n >= 10) ? 10 : (n >= 1)>
+        struct _reverser :
+            _reverser<(n >= 100) ? 100 : (n >= 10) ? 10 : (n >= 1)>
         {};
 
         template<>
-        struct _reverse_impl<100>
+        struct _reverser<100>
         {
             template<
                 typename _00, typename _01, typename _02, typename _03,
@@ -90,7 +90,7 @@ namespace metal
                 typename... tail
             >
             using type = join<
-                typename _reverse_impl<sizeof...(tail)>::template type<tail...>,
+                typename _reverser<sizeof...(tail)>::template type<tail...>,
                 list<
                     _99, _98, _97, _96, _95, _94, _93, _92, _91, _90,
                     _89, _88, _87, _86, _85, _84, _83, _82, _81, _80,
@@ -107,7 +107,7 @@ namespace metal
         };
 
         template<>
-        struct _reverse_impl<10>
+        struct _reverser<10>
         {
             template<
                 typename _00, typename _01, typename _02, typename _03,
@@ -115,23 +115,23 @@ namespace metal
                 typename _08, typename _09, typename... tail
             >
             using type = join<
-                typename _reverse_impl<sizeof...(tail)>::template type<tail...>,
+                typename _reverser<sizeof...(tail)>::template type<tail...>,
                 list<_09, _08, _07, _06, _05, _04, _03, _02, _01, _00>
             >;
         };
 
         template<>
-        struct _reverse_impl<1>
+        struct _reverser<1>
         {
             template<typename head, typename... tail>
             using type = join<
-                typename _reverse_impl<sizeof...(tail)>::template type<tail...>,
+                typename _reverser<sizeof...(tail)>::template type<tail...>,
                 list<head>
             >;
         };
 
         template<>
-        struct _reverse_impl<0>
+        struct _reverser<0>
         {
             template<typename...>
             using type = list<>;
@@ -145,7 +145,7 @@ namespace metal
         struct _reverse<list<vals...>>
         {
             using type =
-                typename _reverse_impl<sizeof...(vals)>::template type<vals...>;
+                typename _reverser<sizeof...(vals)>::template type<vals...>;
         };
     }
     /// \endcond

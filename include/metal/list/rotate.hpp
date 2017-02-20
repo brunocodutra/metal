@@ -1,4 +1,4 @@
-// Copyright Bruno Dutra 2015-2016
+// Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
@@ -58,12 +58,12 @@ namespace metal
     namespace detail
     {
         template<int_ n>
-        struct _rotate_impl :
-            _rotate_impl<(n >= 100) ? 100 : (n >= 10) ? 10 : (n >= 1)>
+        struct _rotator :
+            _rotator<(n >= 100) ? 100 : (n >= 10) ? 10 : (n >= 1)>
         {};
 
         template<>
-        struct _rotate_impl<100>
+        struct _rotator<100>
         {
             template<
                 int_ n,
@@ -94,7 +94,7 @@ namespace metal
                 typename _96, typename _97, typename _98, typename _99,
                 typename... tail
             >
-            using type = typename _rotate_impl<(n - 100)>::template type<
+            using type = typename _rotator<(n - 100)>::template type<
                 (n - 100),
                 tail...,
                 _00, _01, _02, _03, _04, _05, _06, _07, _08, _09,
@@ -111,7 +111,7 @@ namespace metal
         };
 
         template<>
-        struct _rotate_impl<10>
+        struct _rotator<10>
         {
             template<
                 int_ n,
@@ -119,23 +119,23 @@ namespace metal
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename... tail
             >
-            using type = typename _rotate_impl<(n - 10)>::template type<
+            using type = typename _rotator<(n - 10)>::template type<
                 (n - 10),
                 tail..., _00, _01, _02, _03, _04, _05, _06, _07, _08, _09
             >;
         };
 
         template<>
-        struct _rotate_impl<1>
+        struct _rotator<1>
         {
             template<int_ n, typename head, typename... tail>
-            using type = typename _rotate_impl<(n - 1)>::template type<
+            using type = typename _rotator<(n - 1)>::template type<
                 (n - 1), tail..., head
             >;
         };
 
         template<>
-        struct _rotate_impl<0>
+        struct _rotator<0>
         {
             template<int_, typename... vals>
             using type = list<vals...>;
@@ -150,7 +150,7 @@ namespace metal
         {
             static constexpr int_ m = ((n % s) + s*(n < 0));
 
-            using type = typename _rotate_impl<m>::template type<m, vals...>;
+            using type = typename _rotator<m>::template type<m, vals...>;
         };
 
         template<int_ n>

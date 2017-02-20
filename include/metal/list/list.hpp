@@ -1,4 +1,4 @@
-// Copyright Bruno Dutra 2015-2016
+// Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
@@ -14,6 +14,9 @@ namespace metal
     {
         template<typename val>
         struct _is_list;
+
+        template<typename val>
+        struct _as_list;
 
         template<typename... vals>
         struct list {};
@@ -53,12 +56,35 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
+    /// Constructs a \list out of any \value that is a specialization of a
+    /// template class or union whose template parameters are all themselves
+    /// \values.
+    ///
+    /// ### Usage
+    /// For any \value `val`
+    /// \code
+    ///     using result = metal::as_list<val>;
+    /// \endcode
+    ///
+    /// \returns: \list
+    ///
+    /// ### Example
+    /// \snippet list.cpp as_list
+    ///
+    /// ### See Also
+    /// \see list
+    template<typename val>
+    using as_list = typename detail::_as_list<val>::type;
+
+    /// \ingroup list
+    ///
+    /// ### Description
     /// Constructs a \list out of a sequence of \values.
     ///
     /// ### Usage
     /// For any \values `val_0, ..., val_n-1`
     /// \code
-    ///     using result = metal::pair<val_0, ..., val_n-1>;
+    ///     using result = metal::list<val_0, ..., val_n-1>;
     /// \endcode
     ///
     /// \returns: \list
@@ -85,6 +111,16 @@ namespace metal
         struct _is_list<list<vals...>> :
             true_
         {};
+
+        template<typename val>
+        struct _as_list
+        {};
+
+        template<template<typename...> class seq, typename... vals>
+        struct _as_list<seq<vals...>>
+        {
+            using type = list<vals...>;
+        };
     }
     /// \endcond
 }

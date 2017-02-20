@@ -1,4 +1,4 @@
-// Copyright Bruno Dutra 2015-2016
+// Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
@@ -42,11 +42,27 @@ IS_SAME(metal::is_number<not_a_num>, metal::false_);
 
 HIDE(
 /// [is_number]
-IS_SAME(metal::is_number<metal::number<-10>>, metal::true_);
-IS_SAME(metal::is_number<metal::true_>, metal::true_);
-IS_SAME(metal::is_number<metal::false_>, metal::true_);
+struct one { static const auto value = 1L; };
+enum two { value = 2U };
+
 IS_SAME(metal::is_number<void>, metal::false_);
+IS_SAME(metal::is_number<one>, metal::false_);
+IS_SAME(metal::is_number<two>, metal::false_);
+IS_SAME(metal::is_number<std::integral_constant<short, 42>>, metal::false_);
+IS_SAME(metal::is_number<metal::number<-10>>, metal::true_);
+IS_SAME(metal::is_number<metal::false_>, metal::true_);
 /// [is_number]
+)
+
+HIDE(
+/// [as_number]
+struct one { static const auto value = 1L; };
+enum two { value = 2U };
+
+IS_SAME(metal::as_number<one>, metal::number<1>);
+IS_SAME(metal::as_number<two>, metal::number<2>);
+IS_SAME(metal::as_number<std::integral_constant<short, 42>>, metal::number<42>);
+/// [as_number]
 )
 
 HIDE(
@@ -114,6 +130,13 @@ IS_SAME(metal::or_<metal::number<0>>, metal::false_);
 IS_SAME(metal::or_<metal::number<42>>, metal::true_);
 IS_SAME(metal::or_<metal::number<42>, metal::number<0>>, metal::true_);
 /// [or_]
+)
+
+HIDE(
+/// [abs]
+IS_SAME(metal::abs<metal::number<-10>>, metal::number<10>);
+IS_SAME(metal::abs<metal::number<0>>, metal::number<0>);
+/// [abs]
 )
 
 HIDE(

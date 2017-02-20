@@ -1,4 +1,4 @@
-// Copyright Bruno Dutra 2015-2016
+// Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
@@ -32,7 +32,7 @@ namespace metal
     /// n-ary \lambda.
     ///
     /// ### Usage
-    /// For any \lists `l_0, ..., l_n-1` and \lambda `lbd`
+    /// For any \lambda `lbd` and \lists `l_0, ..., l_n-1`
     /// \code
     ///     using result = metal::transform<lbd, l_0, ..., l_n-1>;
     /// \endcode
@@ -43,11 +43,13 @@ namespace metal
     ///     Equivalent to
     ///     \code
     ///         using result = metal::list<
-    ///             metal::invoke<lbd, l_0[0], ...[0], l_n-1[0]>,
+    ///             metal::invoke<lbd, l[0]...>,
+    ///             metal::invoke<lbd, l[1]...>,
     ///             ...,
-    ///             metal::invoke<lbd, l_0[m-1], ...[m-1], l_n-1[m-1]>,
+    ///             metal::invoke<lbd, l[m-1]...>,
     ///         >;
     ///     \endcode
+    ///     where `l[N]...` stands for `l_0[N], ...[N], l_n-1[N]`.
     ///
     /// ### Example
     /// \snippet list.cpp transform
@@ -87,14 +89,17 @@ namespace metal
             value<list<expr<vals>...>>
         {};
 
+        template<typename lbd, typename... seqs>
+        struct transformer
+        {
+            template<typename num>
+            using type = invoke<lbd, at<seqs, num>...>;
+        };
+
         template<typename lbd, typename head, typename... tail>
         struct _transform :
             _transform<
-                bind<
-                    lbd,
-                    partial<lambda<at>, head>,
-                    partial<lambda<at>, tail>...
-                >,
+                lambda<transformer<lbd, head, tail...>::template type>,
                 indices<head>
             >
         {};

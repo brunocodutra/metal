@@ -1,4 +1,4 @@
-// Copyright Bruno Dutra 2015-2016
+// Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
@@ -31,8 +31,8 @@ namespace metal
     ///     \code
     ///         using result = metal::list<l[0][:], ...[:], l[n-1][:]>;
     ///     \endcode
-    ///     where the notation `l[:]` stands for the expansion of all elements
-    ///     contained in `l`.
+    ///     where `l[:]` stands for the expansion of all elements contained in
+    ///     `l`.
     ///
     /// ### Example
     /// \snippet list.cpp flatten

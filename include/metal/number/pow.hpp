@@ -1,4 +1,4 @@
-// Copyright Bruno Dutra 2015-2016
+// Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
@@ -36,7 +36,7 @@ namespace metal
     ///     \code
     ///         using result = metal::number<num_0{} ** ... ** num_n-1{}>;
     ///     \endcode
-    ///     Where the notation `x**y` stands for `x` raised to the power of `y`
+    ///     Where `x**y` stands for `x` raised to the power of `y`
     ///     \warning{
     ///         `x**y` is always null for `y < 0` and `|x| > 1`
     ///         due to inherent limitations of integer arithmetic.
@@ -46,7 +46,7 @@ namespace metal
     /// \snippet number.cpp pow
     ///
     /// ### See Also
-    /// \see number, inc, dec, neg, add, sub, mul, div, mod
+    /// \see number, abs, inc, dec, neg, add, sub, mul, div, mod
     template<typename head, typename... tail>
     using pow = typename detail::_pow<head, tail...>::type;
 }
@@ -106,7 +106,7 @@ namespace metal
 
         template<int_ x, int_ y, int_... tail>
         struct _pow<number<x>, number<y>, number<tail>...> :
-            _accumulate<numbers<y, tail...>, number<x>, lambda<pow>>
+            _accumulate<lambda<pow>, number<x>, numbers<y, tail...>>
         {};
     }
     /// \endcond
