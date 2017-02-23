@@ -142,7 +142,7 @@ cmake --build . --target install
 Integration </h2>
 <p>If you chose to <a href="#install">install Metal system-wide</a>, you just have to make sure the installation prefix is looked up by your compiler.</p>
 <p>Using CMake it suffices to add the following to your <code>CMakeLists.txt</code>. </p><pre class="fragment">find_package(Metal REQUIRED)
-include_directories(${METAL_INCLUDE_DIRS})
+include_directories(${Metal_INCLUDE_DIR})
 </pre><p>To use your local copy of Metal instead, just add its <code>include/</code> sub-directory to the include search paths of your project and you are all set.</p>
 <h2><a class="anchor" id="supported_compilers"></a>
 Supported Compilers </h2>
