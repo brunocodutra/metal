@@ -269,7 +269,7 @@ script:
             git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages "${METAL_BUILD_PATH}/doc/gh-pages" &> /dev/null &&
             cp -r "${METAL_BUILD_PATH}/doc/gh-pages/.git/" "${METAL_BUILD_PATH}/doc/html/" &> /dev/null &&
             git -C "${METAL_BUILD_PATH}/doc/html/" add --all . &> /dev/null &&
-            git -C "${METAL_BUILD_PATH}/doc/html/" commit --allow-empty -m "updating to $(git -C ${METAL_SOURCE_PATH} rev-parse --short HEAD)" &> /dev/null &&
+            git -C "${METAL_BUILD_PATH}/doc/html/" commit --allow-empty -m "update to $(git -C ${METAL_SOURCE_PATH} rev-parse --short HEAD)" &> /dev/null &&
             git -C "${METAL_BUILD_PATH}/doc/html/" push origin gh-pages &> /dev/null
         fi
     else
