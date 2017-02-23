@@ -1161,10 +1161,10 @@ HTML_EXTRA_STYLESHEET  =
 # files will be copied as-is; there are no commands or markers available.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_FILES       = @Metal_SOURCE_DIR@/doc/icons/octicons.eot \
-                         @Metal_SOURCE_DIR@/doc/icons/octicons.svg \
-                         @Metal_SOURCE_DIR@/doc/icons/octicons.ttf \
-                         @Metal_SOURCE_DIR@/doc/icons/octicons.woff \
+HTML_EXTRA_FILES       = @Metal_SOURCE_DIR@/doc/fonts/octicons.eot \
+                         @Metal_SOURCE_DIR@/doc/fonts/octicons.svg \
+                         @Metal_SOURCE_DIR@/doc/fonts/octicons.ttf \
+                         @Metal_SOURCE_DIR@/doc/fonts/octicons.woff \
                          @Metal_SOURCE_DIR@/doc/css/bootstrap.min.css \
                          @Metal_SOURCE_DIR@/doc/css/octicons.css \
                          @Metal_SOURCE_DIR@/doc/css/metal.css \
