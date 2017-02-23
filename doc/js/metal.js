@@ -86,6 +86,8 @@ $(function(){
     .attr("data-toggle", "collapse-next")
     .attr("role", "button")
     .each(function(){
+      $("<i class='octicon octicon-chevron-down'>").appendTo(this);
+
       $("<div class='panel-title'>")
         .append($(".memtemplate", this).append("<br>").contents())
         .append($(".memname td", this).contents())
@@ -186,6 +188,17 @@ $(function(){
       'click.collapse-next.data-api',
       '[data-toggle=collapse-next]',
       function(){
+        var $chevron = $("> i", this);
+        if($chevron.hasClass("octicon-chevron-up")){
+          $chevron
+            .removeClass("octicon-chevron-up")
+            .addClass("octicon-chevron-down");
+        } else {
+          $chevron
+            .removeClass("octicon-chevron-down")
+            .addClass("octicon-chevron-up");
+        }
+
         var $target = $(this).next();
         $target.data('bs.collapse') ?
           $target.collapse('toggle') : $target.collapse();

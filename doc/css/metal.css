@@ -68,8 +68,24 @@ html, body {
     padding-left: 1em;
 }
 
-.memitem.panel .panel-title {
-    font-size: 14px;
+.memitem.panel > .panel-heading {
+    position: relative;
+    padding-right: 0;
+}
+
+.memitem.panel > .panel-heading > i {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    margin-right: 1em;
+    font-size: 1.5em;
+    opacity: 0.9;
+}
+
+.memitem.panel > .panel-heading > .panel-title {
+    font-size: 1em;
+    margin-right: 2.5em;
 }
 
 h1:hover > a.anchor:after,
@@ -183,7 +199,7 @@ dl.section.user dd {
 }
 
 i.octicon {
-    margin-right: 10px;
+    margin-right: .5em;
 }
 
 .caret {
