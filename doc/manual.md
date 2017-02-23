@@ -69,7 +69,7 @@ sure the installation prefix is looked up by your compiler.
 Using CMake it suffices to add the following to your `CMakeLists.txt`.
 
     find_package(Metal REQUIRED)
-    include_directories(${METAL_INCLUDE_DIRS})
+    include_directories(${Metal_INCLUDE_DIR})
 
 To use your local copy of Metal instead, just add its `include/` sub-directory
 to the include search paths of your project and you are all set.
