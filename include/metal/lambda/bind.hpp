@@ -57,6 +57,10 @@ namespace metal
 #include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
 
+#include <metal/detail/declptr.hpp>
+
+#include <type_traits>
+
 namespace metal
 {
     /// \cond
@@ -65,6 +69,25 @@ namespace metal
         template<template<typename...> class, template<typename...> class...>
         struct bound;
 
+#if defined(METAL_COMPAT_MODE)
+        template<
+            template<typename...> class expr,
+            template<typename...> class... params,
+            typename... vals,
+            typename std::enable_if<
+                is_value<expr<params<vals...>...>>::value
+            >* = nullptr
+        >
+        value<expr<params<vals...>...>>
+            bind_impl(bound<expr, params...>*, list<vals...>*);
+
+        value<> bind_impl(...);
+
+        template<typename bound, typename seq>
+        struct _bind_impl :
+            decltype(bind_impl(declptr<bound>(), declptr<seq>()))
+        {};
+#else
         template<typename, typename, typename = true_>
         struct _bind_impl
         {};
@@ -79,6 +102,7 @@ namespace metal
         > :
             value<expr<params<vals...>...>>
         {};
+#endif
 
         template<typename lbd, typename... vals>
         struct _bind
@@ -99,6 +123,7 @@ namespace metal
             using type = lambda<impl>;
         };
 
+#if defined(METAL_COMPAT_MODE)
         template<template<typename...> class expr>
         struct _bind<lambda<expr>>
         {
@@ -110,6 +135,7 @@ namespace metal
 
             using type = lambda<impl>;
         };
+#endif
     }
     /// \endcond
 }

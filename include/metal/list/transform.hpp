@@ -73,11 +73,31 @@ namespace metal
 #include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
 
+#include <metal/detail/declptr.hpp>
+
+#include <type_traits>
+
 namespace metal
 {
     /// \cond
     namespace detail
     {
+#if defined(METAL_COMPAT_MODE)
+        template<template<typename...> class expr, typename... vals,
+            typename std::enable_if<
+                is_value<list<expr<vals>...>>::value
+            >::type* = nullptr
+        >
+        value<list<expr<vals>...>>
+            transform_impl(lambda<expr>*, list<vals...>*);
+
+        value<> transform_impl(...);
+
+        template<typename lbd, typename seq>
+        struct _transform_impl :
+            decltype(transform_impl(declptr<lbd>(), declptr<seq>()))
+        {};
+#else
         template<typename, typename, typename = true_>
         struct _transform_impl
         {};
@@ -88,6 +108,7 @@ namespace metal
         > :
             value<list<expr<vals>...>>
         {};
+#endif
 
         template<typename lbd, typename... seqs>
         struct transformer

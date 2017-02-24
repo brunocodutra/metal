@@ -17,7 +17,7 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename lbd, typename... args>
+        template<typename lbd, typename... vals>
         struct _invoke;
     }
     /// \endcond
@@ -45,8 +45,8 @@ namespace metal
     ///
     /// ### See Also
     /// \see lambda, is_invocable
-    template<typename lbd, typename... args>
-    using invoke = typename detail::_invoke<lbd, args...>::type;
+    template<typename lbd, typename... vals>
+    using invoke = typename detail::_invoke<lbd, vals...>::type;
 
     /// \ingroup lambda
     ///
@@ -76,11 +76,11 @@ namespace metal
     ///
     /// ### See Also
     /// \see lambda, invoke
-    template<typename lbd, typename... args>
+    template<typename lbd, typename... vals>
     using is_invocable = same<
         typename std::is_base_of<
             value<>,
-            detail::_invoke<lbd, args...>
+            detail::_invoke<lbd, vals...>
         >::type,
         std::false_type
     >;
@@ -90,36 +90,52 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 
+#include <metal/detail/declptr.hpp>
+
 namespace metal
 {
     /// \cond
     namespace detail
     {
+#if defined(METAL_COMPAT_MODE)
+        template<template<typename...> class expr, typename... vals,
+            typename std::enable_if<
+                is_value<expr<vals...>>::value
+            >::type* = nullptr
+        >
+        value<expr<vals...>> invoke_impl(lambda<expr>*, list<vals...>*);
+
+        value<> invoke_impl(...);
+
+        template<typename lbd, typename seq>
+        struct _invoke_impl :
+            value<>
+        {};
+
+        template<template<typename...> class expr, typename... vals>
+        struct _invoke_impl<lambda<expr>, list<vals...>> :
+            decltype(invoke_impl(
+                declptr<lambda<expr>>(),
+                declptr<list<vals...>>()
+            ))
+        {};
+#else
         template<typename lbd, typename seq, typename = true_>
         struct _invoke_impl :
             value<>
         {};
 
-        template<
-            template<typename...> class expr,
-            typename head, typename... tail
-        >
-        struct _invoke_impl<lambda<expr>, list<head, tail...>,
-            is_value<expr<head, tail...>>
+        template<template<typename...> class expr, typename... vals>
+        struct _invoke_impl<lambda<expr>, list<vals...>,
+            is_value<expr<vals...>>
         > :
-            value<expr<head, tail...>>
+            value<expr<vals...>>
         {};
+#endif
 
-        template<template<typename...> class expr>
-        struct _invoke_impl<lambda<expr>, list<>,
-            is_value<expr<>>
-        > :
-            value<expr<>>
-        {};
-
-        template<typename lbd, typename... args>
+        template<typename lbd, typename... vals>
         struct _invoke :
-            _invoke_impl<lbd, list<args...>>
+            _invoke_impl<lbd, list<vals...>>
         {};
     }
     /// \endcond

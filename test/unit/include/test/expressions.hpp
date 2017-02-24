@@ -10,22 +10,13 @@
 
 namespace test
 {
-    template<typename... _>
-    struct length :
-        std::integral_constant<std::size_t, sizeof...(_)>
-    {};
-
     template<typename...>
     union expr_;
 
     template<typename... _>
-    using expr0 =
-        typename std::enable_if<length<_...>::value == 0, NUMBER(0)>::type;
+    using expr0 = typename std::enable_if<!sizeof...(_), NUMBER(0)>::type;
 
-    template<typename... _>
-    using expr1 =
-        typename std::enable_if<length<_...>::value == 1, NUMBER(1)>::type;
-
+    template<SCAN(ENUM(1, typename NIL))> using expr1  = NUMBER(1);
     template<SCAN(ENUM(2, typename NIL))> using expr2  = NUMBER(2);
     template<SCAN(ENUM(3, typename NIL))> using expr3  = NUMBER(3);
     template<SCAN(ENUM(4, typename NIL))> using expr4  = NUMBER(4);
