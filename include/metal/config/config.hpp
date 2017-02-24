@@ -17,11 +17,14 @@
 ///
 /// \note{
 ///     This preprocessor switch is currently defined by default for all
-///     versions of Microsoft Visual Studio.
+///     versions of Microsoft Visual Studio and GCC < 5.
 /// }
-#if defined(METAL_DOXYGENATING) || \
-    (!defined(METAL_COMPAT_MODE) && defined(_MSC_VER) && !defined(__clang__))
-#   define METAL_COMPAT_MODE
+#if !defined(METAL_COMPAT_MODE)
+#   if defined(METAL_DOXYGENATING) \
+        || (__GNUC__ < 5) \
+        || (defined(_MSC_VER) && !defined(__clang__))
+#       define METAL_COMPAT_MODE
+#   endif
 #endif
 
 #if defined(_MSC_VER) && !defined(__clang__)

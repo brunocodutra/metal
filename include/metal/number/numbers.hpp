@@ -17,8 +17,10 @@ namespace metal
     /// \cond
     namespace detail
     {
+#if defined(METAL_COMPAT_MODE)
         template<int_... vs>
         struct _numbers;
+#endif
     }
     /// \endcond
 
