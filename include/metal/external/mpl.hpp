@@ -93,7 +93,8 @@ namespace metal
     namespace detail
     {
         template<typename val>
-        true_ number_like_impl(number<val::value>*);
+        same<typename val::tag, boost::mpl::integral_c_tag>
+            number_like_impl(number<val::value>*);
 
         template<typename>
         false_ number_like_impl(...);
@@ -149,7 +150,7 @@ namespace metal
         template<typename val>
         struct _from_mpl_impl<val, true_, false_, false_, false_, false_>
         {
-            using type = as_number<typename val::type>;
+            using type = as_number<val>;
         };
 
         template<typename val>
