@@ -27,16 +27,4 @@
 #   endif
 #endif
 
-#if defined(_MSC_VER) && !defined(__clang__)
-#   define METAL_WARNING(MSG) __pragma(message("warning: "MSG))
-#else
-#   define METAL_WARNING_IMPL(MSG) _Pragma(#MSG)
-#   define METAL_WARNING(MSG) METAL_WARNING_IMPL(GCC warning MSG)
-#endif
-
-#if (defined(_MSC_VER) && (_MSC_VER < 1900) && !defined(__clang__)) || \
-    (!defined(_MSC_VER) && (__cplusplus < 201402L))
-    METAL_WARNING("your compiler does not appear to support C++14 properly")
-#endif
-
 #endif

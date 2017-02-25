@@ -646,6 +646,8 @@ IS_SAME(
 /// [cartesian]
 )
 
+#if !defined(METAL_COMPAT_MODE)
+
 HIDE(
 /// [transform]
 using a = metal::list<void(),    bool, int[],  void*>;
@@ -658,6 +660,8 @@ IS_SAME(
 );
 /// [transform]
 )
+
+#endif
 
 HIDE(
 /// [transpose]
