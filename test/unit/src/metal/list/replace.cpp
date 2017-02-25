@@ -56,8 +56,8 @@
     CHECK((metal::is_invocable<metal::lambda<metal::replace>, LAMBDA(_), MAP(N) COMMA(M) VALUES(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::replace>, LAMBDA(_), LAMBDA(N) COMMA(M) VALUES(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::replace>, LAMBDA(_), LAMBDA(_) COMMA(M) VALUES(M)>), (FALSE)); \
-    CHECK((metal::replace<PAIR(M), VALUE(N), NUMBER(N)>), (metal::list<NUMBER(M), std::conditional_t<M == N, NUMBER(N), VALUE(M)>>)); \
-    CHECK((metal::replace<PAIR(M), NUMBER(N), VALUE(N)>), (metal::list<std::conditional_t<M == N, VALUE(N), NUMBER(M)>, VALUE(M)>)); \
+    CHECK((metal::replace<PAIR(M), VALUE(N), NUMBER(N)>), (metal::list<NUMBER(M), metal::if_<metal::number<M == N>, NUMBER(N), VALUE(M)>>)); \
+    CHECK((metal::replace<PAIR(M), NUMBER(N), VALUE(N)>), (metal::list<metal::if_<metal::number<M == N>, VALUE(N), NUMBER(M)>, VALUE(M)>)); \
     CHECK((metal::replace<metal::list<VALUES(M) COMMA(AND(M, CMPL(M))) ENUM(CMPL(M), NUMBER FIX(N))>, NUMBER(N), VALUE(N)>), (metal::list<VALUES(M) COMMA(AND(M, CMPL(M))) ENUM(CMPL(M), VALUE FIX(N))>)); \
 /**/
 

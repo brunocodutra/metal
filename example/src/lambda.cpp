@@ -6,6 +6,8 @@
 
 #include "example.hpp"
 
+#if !defined(METAL_COMPAT_MODE)
+
 HIDE(
 /// [lbd1]
 using lbd = metal::lambda<std::add_pointer_t>;
@@ -103,3 +105,5 @@ IS_SAME(metal::invoke<uac, char, char>, int);
 IS_SAME(metal::invoke<uac, short, float>, float);
 /// [bind]
 )
+
+#endif

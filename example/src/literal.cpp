@@ -38,6 +38,8 @@ IS_SAME(decltype(371_raw), metal::numbers<'3', '7', '1'>);
 IS_SAME(decltype(0x371_raw), metal::numbers<'0', 'x', '3', '7', '1'>);
 ///[_raw_ex1]
 
+#if !defined(METAL_COMPAT_MODE)
+
 ///[_raw_ex2]
 IS_SAME(decltype(3'7'1_raw), metal::numbers<'3', '\'', '7', '\'', '1'>);
 ///[_raw_ex2]
@@ -52,6 +54,8 @@ IS_SAME(
 );
 ///[remove]
 )
+
+#endif
 
 ///[parse_digit]
 template<typename c>
@@ -259,6 +263,8 @@ IS_SAME(
     metal::number<11259375>
 );
 
+#if !defined(METAL_COMPAT_MODE)
+
 ///[_c_ex2]
 IS_SAME(
     decltype(0b111101101011011101011010101100101011110001000111000111000111000_c),
@@ -277,6 +283,8 @@ IS_SAME(
     metal::number<123456789>
 );
 ///[_c_ex3]
+
+#endif
 
 #if defined(METAL_COMPAT_MODE)
 template<typename... T>

@@ -18,7 +18,6 @@ env:
 addons:
     apt:
         packages: &ubuntu_packages
-          - libstdc++-5-dev
           - libboost-dev
         sources: &ubuntu_sources
           - ubuntu-toolchain-r-test
@@ -34,6 +33,17 @@ matrix:
 
       - os: osx
         env: BUILD_DOC=true
+
+      - os: linux
+        dist: trusty
+        compiler: g++
+        env: CXXVER=4.8
+        addons:
+            apt:
+                packages:
+                  - *ubuntu_packages
+                  - g++-4.8
+                sources: *ubuntu_sources
 
       - os: linux
         dist: trusty

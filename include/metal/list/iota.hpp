@@ -61,7 +61,7 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/number/numbers.hpp>
 
-#include <utility>
+#include <type_traits>
 
 #if defined(__has_builtin)
 #   if __has_builtin(__make_integer_seq)
@@ -74,24 +74,64 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<int_... vs>
-        using integer_sequence = std::integer_sequence<int_, vs...>;
+        template<int_... ns>
+        struct enumeration
+        {};
 
 #if defined(METAL_USE_BUILTIN_MAKE_INTEGER_SEQ)
-        template<int_ n>
-        using make_integer_sequence =
-            __make_integer_seq<std::integer_sequence, int_, n>;
-#else
-        template<int_ n>
-        using make_integer_sequence = std::make_integer_sequence<int_, n>;
-#endif
+        template<typename int_, int_... ns>
+        using enumerator = enumeration<ns...>;
 
+        template<int_ n>
+        using enumerate = __make_integer_seq<enumerator, int_, n>;
+#else
+        template<typename ns>
+        struct _even
+        {};
+
+        template<int_... ns>
+        struct _even<enumeration<ns...>>
+        {
+            using type = enumeration<ns..., (sizeof...(ns) + ns)...>;
+        };
+
+        template<typename ns>
+        struct _odd
+        {};
+
+        template<int_... ns>
+        struct _odd<enumeration<ns...>>
+        {
+            using type =
+                enumeration<ns..., (sizeof...(ns) + ns)..., 2*sizeof...(ns)>;
+        };
+
+        template<int_ n>
+        struct _enumerate;
+
+        template<int_ n>
+        using enumerate = typename _enumerate<n>::type;
+
+        template<bool b, typename t, typename f>
+        using branch = typename std::conditional<b, t, f>::type;
+
+        template<int_ n>
+        struct _enumerate :
+            branch<n%2, _odd<enumerate<n/2>>, _even<enumerate<n/2>>>
+        {};
+
+        template<>
+        struct _enumerate<0>
+        {
+            using type = enumeration<>;
+        };
+#endif
         template<typename, int_ a, int_ b>
-        struct _stretch
+        struct _iota_impl
         {};
 
         template<int_... vs, int_ a, int_ b>
-        struct _stretch<integer_sequence<vs...>, a, b>
+        struct _iota_impl<enumeration<vs...>, a, b>
         {
             using type = numbers<(b + a*vs)...>;
         };
@@ -102,8 +142,8 @@ namespace metal
 
         template<int_ st, int_ sz, int_ sd>
         struct _iota<number<st>, number<sz>, number<sd>> :
-            _stretch<
-                make_integer_sequence<(sz < 0) ? (0 - sz) : sz>,
+            _iota_impl<
+                enumerate<(sz < 0) ? (0 - sz) : sz>,
                 (sz < 0) ? (0 - sd) : sd,
                 st
             >

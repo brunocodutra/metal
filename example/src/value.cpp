@@ -39,12 +39,16 @@ int not_a_val;
 /// [not_a_val1]
 )
 
+#if !defined(METAL_COMPAT_MODE)
+
 HIDE(
 static constexpr
 /// [not_a_val2]
 decltype(auto) not_a_val = 3.14;
 /// [not_a_val2]
 )
+
+#endif
 
 HIDE(
 /// [not_a_val3]
@@ -55,6 +59,8 @@ struct not_a_val
 };
 /// [not_a_val3]
 )
+
+#if !defined(METAL_COMPAT_MODE)
 
 HIDE(
 /// [value]
@@ -71,6 +77,8 @@ IS_SAME(metal::is_list<metal::value<list>>, metal::false_);
 IS_SAME(metal::value<list>::type, list);
 /// [value]
 )
+
+#endif
 
 HIDE(
 /// [is_value]

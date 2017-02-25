@@ -59,9 +59,19 @@ namespace metal
         template<typename val>
         struct _quote
         {
+#if defined(METAL_COMPAT_MODE)
+            template<typename...>
+            struct _impl
+            {
+                using type = val;
+            };
+
+            template<typename... vals>
+            using impl = typename _impl<vals...>::type;
+#else
             template<typename...>
             using impl = val;
-
+#endif
             using type = lambda<impl>;
         };
     }
