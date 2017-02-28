@@ -4,6 +4,7 @@
 
 #include <metal.hpp>
 
+#include <map>
 #include <tuple>
 #include <utility>
 
@@ -61,6 +62,7 @@ using m = metal::map<
 IS_SAME(metal::is_map<m>, metal::true_);
 IS_SAME(metal::is_map<metal::list<>>, metal::true_);
 IS_SAME(metal::is_map<metal::pair<int, int*>>, metal::false_);
+IS_SAME(metal::is_map<std::map<char, int>>, metal::false_);
 IS_SAME(metal::is_map<void>, metal::false_);
 /// [is_map]
 )

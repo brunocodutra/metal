@@ -4,8 +4,10 @@
 
 #include <metal.hpp>
 
-#include <tuple>
 #include <cstdint>
+#include <list>
+#include <memory>
+#include <tuple>
 
 #include "example.hpp"
 
@@ -27,10 +29,8 @@ IS_SAME(metal::is_list<l>, metal::true_);
 
 HIDE(
 /// [is_list]
-template<typename> struct single {};
-
 IS_SAME(metal::is_list<void>, metal::false_);
-IS_SAME(metal::is_list<single<int>>, metal::false_);
+IS_SAME(metal::is_list<std::list<int>>, metal::false_);
 IS_SAME(metal::is_list<std::tuple<int, float, void>>, metal::false_);
 IS_SAME(metal::is_list<metal::list<int, float, void>>, metal::true_);
 IS_SAME(metal::is_list<metal::pair<int, int*>>, metal::true_);
@@ -40,11 +40,9 @@ IS_SAME(metal::is_list<metal::map<metal::pair<int, int*>>>, metal::true_);
 
 HIDE(
 /// [as_list]
-template<typename> struct single {};
-template<typename, typename = char> struct couple {};
+IS_SAME(metal::as_list<std::shared_ptr<int>>, metal::list<int>);
+IS_SAME(metal::as_list<std::list<int>>, metal::list<int, std::allocator<int>>);
 
-IS_SAME(metal::as_list<single<int>>, metal::list<int>);
-IS_SAME(metal::as_list<couple<int>>, metal::list<int, char>);
 IS_SAME(
     metal::as_list<std::tuple<int, char, float>>,
     metal::list<int, char, float>

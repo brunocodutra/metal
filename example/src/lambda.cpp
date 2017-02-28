@@ -63,9 +63,8 @@ IS_SAME(metal::invoke<lbd, bool, char, long, float>, float);
 HIDE(
 /// [apply]
 using lbd = metal::lambda<std::common_type_t>;
-using l = metal::list<bool, char, long, float>;
 
-IS_SAME(metal::apply<lbd, l>, float);
+IS_SAME(metal::apply<lbd, metal::list<bool, char, long, float>>, float);
 /// [apply]
 )
 
