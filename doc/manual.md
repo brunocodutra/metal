@@ -465,23 +465,23 @@ return respectively the first and second argument with which they are invoked.
 
 \snippet church.cpp bool
 
-That given, we start by defining the logical operator `not_`.
-Using the fact that booleans are themselves \lambdas, it is not too hard to
-realize that invoking a boolean to `<false_, true>` always yields its negation.
+Now, using the fact that booleans are themselves \lambdas, it's not too hard to
+realize that invoking a boolean with arguments `<false_, true>` always yields
+its negation.
 
 \snippet church.cpp not_expr
 
-To enable higher-order composition we really need `not_` to be a \lambda, not an
-\expression. Granted one could easily define it terms of the respective
-\expression as `metal::lambda<not_>`, but that would defeat the whole purpose of
-this exercise, the idea is to use *bind expressions* directly.
+However, to enable higher-order composition we really need `not_` to be a
+\lambda, not an \expression. Granted one could easily define former in terms of
+the latter as `metal::lambda<not_>`, but that would defeat the whole
+purpose of this exercise, the idea is to use *bind expressions* directly.
 
 \snippet church.cpp not
 
 Admittedly a little more verbose, but that saves us from introducing a new named
 alias template.
 
-To define `and_` and `or_` we'll use the very same technique.
+Using a similar technique, we can also define operators `and_` and `or_`.
 
 \snippet church.cpp and
 \snippet church.cpp or
@@ -489,12 +489,12 @@ To define `and_` and `or_` we'll use the very same technique.
 This exercise might me mind-boggling at first, but you'll get used to it soon
 enough.
 
-Without further ado we'll present the logical operator `xor`.
+Without further ado we present the logical operator `xor`.
 
 \snippet church.cpp xor
 
-Notice how we *bind* `not_`, which is itself a *bind expression*, which is only
-possible due to the fact it is a \lambda.
+Notice how we *bind* `not_`, which is only possible due to the fact it is a
+\lambda.
 
 A Word on SFINAE-Friendliness {#SFINAE}
 ================================================================================

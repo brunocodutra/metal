@@ -21,8 +21,8 @@ HIDE(
 template<typename b>
 using not_ = metal::invoke<b, false_, true_>;
 
-IS_SAME(metal::invoke<metal::lambda<not_>, true_>, false_);
-IS_SAME(metal::invoke<metal::lambda<not_>, false_>, true_);
+IS_SAME(not_<true_>, false_);
+IS_SAME(not_<false_>, true_);
 /// [not_expr]
 )
 
