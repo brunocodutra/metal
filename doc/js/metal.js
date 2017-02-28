@@ -9,7 +9,7 @@ $(function(){
 
   var section = page;
   if(/[^_]+__[^_.]+.html/.test(section))
-    section = "modules.html";
+    section = "group__metal.html";
 
   $("#sections > #menu a[href='" + section +"']").each(function(){
     $(this).parent().addClass("active");
