@@ -15,6 +15,9 @@ namespace metal
         template<typename val>
         struct _is_lambda;
 
+        template<typename val>
+        struct _as_lambda;
+
         template<template<typename...> class expr>
         struct lambda {};
     }
@@ -53,6 +56,29 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
+    /// Given any \value that is a specialization of a template class or union
+    /// whose template parameters are all themselves \values, constructs a
+    /// \lambda that contains that template.
+    ///
+    /// ### Usage
+    /// For any \value `val`
+    /// \code
+    ///     using result = metal::as_lambda<val>;
+    /// \endcode
+    ///
+    /// \returns: \lambda
+    ///
+    /// ### Example
+    /// \snippet lambda.cpp as_lambda
+    ///
+    /// ### See Also
+    /// \see lambda, as_list
+    template<typename val>
+    using as_lambda = typename detail::_as_lambda<val>::type;
+
+    /// \ingroup lambda
+    ///
+    /// ### Description
     /// Constructs a \lambda out of an \expression.
     ///
     /// ### Usage
@@ -85,6 +111,16 @@ namespace metal
         struct _is_lambda<lambda<expr>> :
             true_
         {};
+
+        template<typename val>
+        struct _as_lambda
+        {};
+
+        template<template<typename...> class expr, typename... vals>
+        struct _as_lambda<expr<vals...>>
+        {
+            using type = lambda<expr>;
+        };
     }
     /// \endcond
 }

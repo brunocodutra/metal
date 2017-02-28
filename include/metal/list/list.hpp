@@ -56,9 +56,9 @@ namespace metal
     /// \ingroup list
     ///
     /// ### Description
-    /// Constructs a \list out of any \value that is a specialization of a
-    /// template class or union whose template parameters are all themselves
-    /// \values.
+    /// Given any \value that is a specialization of a template class or union
+    /// whose template parameters are all themselves \values, constructs a \list
+    /// that contains all those \values.
     ///
     /// ### Usage
     /// For any \value `val`
@@ -72,7 +72,7 @@ namespace metal
     /// \snippet list.cpp as_list
     ///
     /// ### See Also
-    /// \see list
+    /// \see list, as_lambda
     template<typename val>
     using as_list = typename detail::_as_list<val>::type;
 
