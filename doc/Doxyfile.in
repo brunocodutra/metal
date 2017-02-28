@@ -1165,10 +1165,10 @@ HTML_EXTRA_FILES       = @Metal_SOURCE_DIR@/doc/fonts/octicons.eot \
                          @Metal_SOURCE_DIR@/doc/fonts/octicons.svg \
                          @Metal_SOURCE_DIR@/doc/fonts/octicons.ttf \
                          @Metal_SOURCE_DIR@/doc/fonts/octicons.woff \
-                         @Metal_SOURCE_DIR@/doc/css/bootstrap.min.css \
+                         @Metal_SOURCE_DIR@/doc/css/bootstrap.css \
                          @Metal_SOURCE_DIR@/doc/css/octicons.css \
                          @Metal_SOURCE_DIR@/doc/css/metal.css \
-                         @Metal_SOURCE_DIR@/doc/js/bootstrap.min.js \
+                         @Metal_SOURCE_DIR@/doc/js/bootstrap.js \
                          @Metal_SOURCE_DIR@/doc/js/jquery.js \
                          @Metal_SOURCE_DIR@/doc/js/metal.js
 
