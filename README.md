@@ -9,6 +9,8 @@ Metal is a header-only C++14 library designed to make metaprogramming easy.
 ## Modern
 
 ```{.cpp}
+#include <metal.hpp>
+
 // First we need some Values
 union x { char payload[10]; };
 class y { public: char c; };

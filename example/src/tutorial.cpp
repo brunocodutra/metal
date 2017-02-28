@@ -11,6 +11,8 @@
 #if !defined(METAL_COMPAT_MODE)
 
 /// [tutorial]
+#include <metal.hpp>
+
 // First we need some Values
 union x { char payload[10]; };
 class y { public: char c; };
