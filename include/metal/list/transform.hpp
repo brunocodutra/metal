@@ -20,8 +20,8 @@ namespace metal
         template<typename lbd, typename head, typename... tail>
         struct _transform;
 
-        template<typename lbd, typename head, typename... tail>
-        using transform = typename _transform<lbd, head, tail...>::type;
+        template<typename lbd, typename... seqs>
+        using transform = typename _transform<lbd, seqs...>::type;
     }
     /// \endcond
 
@@ -56,10 +56,10 @@ namespace metal
     ///
     /// ### See Also
     /// \see list, accumulate
-    template<typename lbd, typename head, typename... tail>
+    template<typename lbd, typename... seqs>
     using transform = typename if_<
-        same<size<head>, size<tail>...>,
-        detail::_transform<if_<is_lambda<lbd>, lbd>, head, tail...>
+        same<size<seqs>...>,
+        detail::_transform<if_<is_lambda<lbd>, lbd>, seqs...>
     >::type;
 }
 

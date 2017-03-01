@@ -39,8 +39,8 @@ namespace metal
     ///
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, mul, div, mod, pow
-    template<typename head, typename... tail>
-    using sub = typename detail::_sub<head, tail...>::type;
+    template<typename... nums>
+    using sub = typename detail::_sub<nums...>::type;
 }
 
 #include <metal/number/number.hpp>

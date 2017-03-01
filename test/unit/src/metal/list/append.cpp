@@ -19,24 +19,24 @@
     CHECK((metal::is_invocable<metal::lambda<metal::append>, NUMBER(M) COMMA(N) LISTS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::append>, NUMBER(M) COMMA(N) MAPS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::append>, NUMBER(M) COMMA(N) LAMBDAS(N)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, PAIR(M) COMMA(N) VALUES(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, PAIR(M) COMMA(N) NUMBERS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, PAIR(M) COMMA(N) PAIRS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, PAIR(M) COMMA(N) LISTS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, PAIR(M) COMMA(N) MAPS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, PAIR(M) COMMA(N) LAMBDAS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, LIST(M) COMMA(N) VALUES(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, LIST(M) COMMA(N) NUMBERS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, LIST(M) COMMA(N) PAIRS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, LIST(M) COMMA(N) LISTS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, LIST(M) COMMA(N) MAPS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, LIST(M) COMMA(N) LAMBDAS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, MAP(M) COMMA(N) VALUES(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, MAP(M) COMMA(N) NUMBERS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, MAP(M) COMMA(N) PAIRS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, MAP(M) COMMA(N) LISTS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, MAP(M) COMMA(N) MAPS(N)>), (BOOL(N > 0))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::append>, MAP(M) COMMA(N) LAMBDAS(N)>), (BOOL(N > 0))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, PAIR(M) COMMA(N) VALUES(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, PAIR(M) COMMA(N) NUMBERS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, PAIR(M) COMMA(N) PAIRS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, PAIR(M) COMMA(N) LISTS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, PAIR(M) COMMA(N) MAPS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, PAIR(M) COMMA(N) LAMBDAS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, LIST(M) COMMA(N) VALUES(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, LIST(M) COMMA(N) NUMBERS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, LIST(M) COMMA(N) PAIRS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, LIST(M) COMMA(N) LISTS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, LIST(M) COMMA(N) MAPS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, LIST(M) COMMA(N) LAMBDAS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, MAP(M) COMMA(N) VALUES(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, MAP(M) COMMA(N) NUMBERS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, MAP(M) COMMA(N) PAIRS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, MAP(M) COMMA(N) LISTS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, MAP(M) COMMA(N) MAPS(N)>), (TRUE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::append>, MAP(M) COMMA(N) LAMBDAS(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::append>, LAMBDA(M) COMMA(N) VALUES(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::append>, LAMBDA(M) COMMA(N) NUMBERS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::append>, LAMBDA(M) COMMA(N) PAIRS(N)>), (FALSE)); \
@@ -49,9 +49,9 @@
     CHECK((metal::is_invocable<metal::lambda<metal::append>, LAMBDA(_) COMMA(N) LISTS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::append>, LAMBDA(_) COMMA(N) MAPS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::append>, LAMBDA(_) COMMA(N) LAMBDAS(N)>), (FALSE)); \
-    CHECK((metal::append<PAIR(M), VALUES(INC(N))>), (metal::list<NUMBER(M), VALUE(M), VALUES(INC(N))>)); \
-    CHECK((metal::append<LIST(M), VALUES(INC(N))>), (metal::list<VALUES(M) COMMA(M) VALUES(INC(N))>)); \
-    CHECK((metal::append<MAP(M), VALUES(INC(N))>), (metal::list<PAIRS(M) COMMA(M) VALUES(INC(N))>)); \
+    CHECK((metal::append<PAIR(M) COMMA(N) VALUES(N)>), (metal::list<NUMBER(M), VALUE(M) COMMA(N) VALUES(N)>)); \
+    CHECK((metal::append<LIST(M) COMMA(N) VALUES(N)>), (metal::list<VALUES(M) COMMA(AND(M, N)) VALUES(N)>)); \
+    CHECK((metal::append<MAP(M) COMMA(N) VALUES(N)>), (metal::list<PAIRS(M) COMMA(AND(M, N)) VALUES(N)>)); \
 /**/
 
 GEN(MATRIX)
