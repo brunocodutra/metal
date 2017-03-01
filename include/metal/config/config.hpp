@@ -21,8 +21,8 @@
 /// }
 #if !defined(METAL_COMPAT_MODE)
 #   if defined(METAL_DOXYGENATING) \
-        || (__GNUC__ < 5) \
-        || (defined(_MSC_VER) && !defined(__clang__))
+    || (defined(__GNUC__) && !defined(__clang__) && (__GNUC__ < 5)) \
+    || (defined(_MSC_VER) && !defined(__clang__))
 #       define METAL_COMPAT_MODE
 #   endif
 #endif
