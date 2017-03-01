@@ -50,8 +50,6 @@ $(function(){
 
   $(".levels, .arrow, .heading, .memtitle, .memSeparator, [class^='separator\\:']").remove();
 
-  $("a + .memitem").prev().addClass("anchor");
-
   $("div.header")
     .each(function(){
       $("> div.headertitle > div.title", this)
@@ -78,7 +76,6 @@ $(function(){
   $("div.contents").addClass("col-xs-12");
 
   var $memitem = $("div.memitem").addClass("panel panel-default");
-  $memitem.wrapAll("<div class='panel-group'>")
 
   $("> div.memproto", $memitem)
     .removeClass("memproto")
@@ -130,6 +127,12 @@ $(function(){
         )
       );
     });
+
+  $("a + .memitem").prev().addClass("anchor").each(function(){
+    $("+ .memitem .panel-title", this).prepend(this);
+  });
+
+  $memitem.wrapAll("<div class='panel-group'>")
 
   $("table.memberdecls")
     .addClass("table table-striped")
