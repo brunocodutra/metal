@@ -86,7 +86,7 @@ Minutes-long compile times are a thing of the past!
 
 You don't have to just take my word for it, see for yourself at [metaben.ch].
 
-## Portalble
+## Portable
 
 Don't worry, all your favourite compilers are continuously tested at
 [Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
