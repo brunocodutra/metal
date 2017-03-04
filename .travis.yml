@@ -18,9 +18,12 @@ env:
 addons:
     apt:
         packages: &ubuntu_packages
-          - libboost-dev
         sources: &ubuntu_sources
           - ubuntu-toolchain-r-test
+
+cache:
+  directories:
+    - deps/boost
 
 matrix:
     exclude:
@@ -267,6 +270,17 @@ install:
         fi
     fi
 
+  - |
+    if [[ -d "${DEPS_PATH}/boost/.git" ]]
+    then
+        (cd "${DEPS_PATH}/boost" && git submodule update --recursive)
+    else
+        BOOST_URL="http://github.com/boostorg/boost.git"
+        travis_retry git clone --depth 1 --recursive --quiet ${BOOST_URL} ${DEPS_PATH}/boost
+    fi
+
+    (cd "${DEPS_PATH}/boost" && ./bootstrap.sh && ./b2 headers)
+
 before_script:
   - CMAKE_ARGS=("${METAL_SOURCE_PATH}")
 
@@ -277,6 +291,7 @@ before_script:
     fi
 
     CMAKE_ARGS+=("-DCMAKE_CXX_FLAGS=-DMETAL_TEST_GEN_LIMIT=9")
+    CMAKE_ARGS+=("-DBOOST_ROOT=${DEPS_PATH}/boost")
 
   - (cd "${METAL_BUILD_PATH}" && cmake ${CMAKE_ARGS[@]})
 
