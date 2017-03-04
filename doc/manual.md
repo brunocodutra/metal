@@ -97,8 +97,8 @@ models of that concept. The complete hierarchy of modules and headers is
 available on [Metal's repository][Metal.headers] on GitHub.
 
 \tip{
-    You may choose to `#include <metal.hpp>` to get access to all that Metal has
-    to offer without concerning yourself with which specific headers to include.
+    You may simply include `metal.hpp` and get access to all that Metal has to
+    offer without concerning yourself with which specific headers to include.
 }
 
 Concepts {#concepts}
@@ -334,7 +334,7 @@ Examples {#examples}
 
 \tip{
     In the following examples, `IS_SAME(X, Y)` is just a terser shorthand for
-    `static_assert(std::is_same<X, Y>::value, "")`.
+    `static_assert(std::is_same<X, Y>{}, "")`.
 }
 
 Parsing Raw Literals {#parsing_raw_literals}
