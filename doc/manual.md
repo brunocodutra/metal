@@ -277,6 +277,7 @@ Examples {#examples}
 
 Parsing Raw Literals {#parsing_raw_literals}
 --------------------------------------------------------------------------------
+________________________________________________________________________________
 
 If you ever considered augmenting [`std::tuple`][tuple],
 so that instead of the rather clunky [`std::get<N>()`][get]
@@ -452,6 +453,7 @@ And ignores digit separators too.
 
 Church Booleans {#church_booleans}
 --------------------------------------------------------------------------------
+________________________________________________________________________________
 
 [Church Booleans][church] refer to a mathematical framework used to express
 logical operation in the context of [lambda notation][lambda_calculus],
@@ -497,30 +499,83 @@ Notice how we *bind* `not_`, which is only possible due to the fact it is a
 \lambda.
 
 A Word on SFINAE-Friendliness {#SFINAE}
-================================================================================
+--------------------------------------------------------------------------------
+________________________________________________________________________________
 
 An [Expression] is said to be SFINAE-friendly when it is carefully designed so
 as never to prevent the [SFINAE] rule to be triggered. In general, such
 [Expressions] may only trigger template substitution errors at the point of
 instantiation of the *signature* of a type, which includes the instantiation of
 [alias templates] and default template arguments.
-
 SFINAE-friendly [Expressions] are exceedingly powerful, because they may be used
 to drive overload resolution, much like [`std::enable_if`][enable_if] does.
-For that reason all [Expressions] within `namespace metal` are guaranteed to be
-themselves SFINAE-friendly.
+For this reason,
+__all [Expressions] in Metal are guaranteed to be SFINAE-friendly__.
 
-\snippet sfinae.cpp SFINAE
-
-Conversely, an SFINAE-unfriendly [Expression] produces so called *hard errors*,
+Conversely, a SFINAE-unfriendly [Expression] produces so called *hard errors*,
 which require the compilation to halt immediately. Examples of *hard errors*
 are failed `static_assert`'ions or template substitution errors at the point of
 instantiation of the nested members of a type.
-
 SFINAE-unfriendly [Expressions] are very inconvenient, because they force
 compilation to halt when they are not selected by overload resolution, thereby
-hindering the usage of the entire overloaded set. For that reason
-SFINAE-unfriendly [Expressions] should always be avoided.
+hindering the usage of the entire overloaded set.
+
+To illustrate how useful SFINAE-friendliness can be, suppose we need a factory
+function `make_array` that takes an arbitrary number of arguments and returns
+a `std::array`. Because arrays are homogeneous collections, we need the
+_common type_ of all its arguments, that is, the type to which every argument
+can be converted to. Fortunately `std::common_type_t` does just that and is also
+guaranteed to be SFINAE-friendly as per the C++ Standard.
+
+\snippet sfinae.cpp make_array
+
+There is one caveat to `std::common_type_t` however: it doesn't work with
+`std::tuple`s in general, even though the _common tuple_ is really
+just a _tuple_ of _common types_.
+Hence, we need a new trait that computes the _common tuple_ from a set of
+_tuples_ so that we may overload `make_array`.
+
+\snippet sfinae.cpp common_tuple_t
+\snippet sfinae.cpp make_array_of_tuples
+
+And it works as expected, for both numerical values
+
+\snippet sfinae.cpp array_of_numbers
+
+as well as `std::tuple`s
+
+\snippet sfinae.cpp array_of_tuples
+
+Now, it might not be obvious to the untrained eye, but the reason why
+overloading works as expected in this example, is precisely the fact
+`common_tuple_t` is SFINAE-friendly. If it weren't, as soon as one attempted to
+call `make_array` for anything that isn't a `std::tuple`, the compilation would
+halt immediately, even if the first overload would be a perfect match otherwise.
+
+To demonstrate this issue, we'll implement the same common tuple trait, but this
+time using Boost.Hana, which, contrary to Metal, doesn't provide any guarantees
+regarding SFINAE-friendliness.
+
+\snippet sfinae.cpp naive_common_tuple_t
+
+Now, if we use `naive_common_tuple_t` to overload `make_array`
+
+\snippet sfinae.cpp naive_make_array_of_tuples
+
+it does work as expected for `std::tuples`
+
+\snippet sfinae.cpp array_of_tuples
+
+however it produces a compilation error as soon as we try to make an array of
+anything that is not a Boost.Hana _Sequence_, even if the first overload remains
+available and would be a perfect match as we just verified
+
+\strike{
+\snippet sfinae.cpp array_of_numbers
+}
+
+> error: static_assert failed "hana::zip_with(f, xs, ys...)
+> requires 'xs' and 'ys...' to be Sequences"
 
 Migrating from Boost.MPL {#MPL}
 ================================================================================
