@@ -9,7 +9,7 @@
     <!--<link rel="icon" href="icons/..."> -->
     <title>Metal</title>
     <link href="octicons.css" rel="stylesheet">
-    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap.css" rel="stylesheet">
     <link href="metal.css" rel="stylesheet">
     <style>
       /*!
@@ -24,7 +24,7 @@
       @viewport         { width: device-width; }
     </style>
     <script type="text/javascript" src="jquery.js"></script>
-    <script type="text/javascript" src="bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstrap.js"></script>
     <script type="text/javascript" src="metal.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -47,7 +47,7 @@
         <div class="container">
           <div class="navbar-header">
             <a class="navbar-brand" href="#">
-              Metal <small>0.5.0</small>
+              Metal <small>0.5.1</small>
             </a>
           </div>
           <ul class="nav navbar-nav navbar-left">
@@ -55,14 +55,14 @@
               <a class="active dropdown-toggle" data-toggle="dropdown" href="#"><span id="name"></span><span class="caret"></span></a>
               <ul id="menu" class="dropdown-menu">
                 <li><a href="index.html"><i class="octicon octicon-book"></i><span>Documentation</span></a></li>
-                <li><a href="modules.html"><i class="octicon octicon-code"></i><span>Reference</span></a></li>
+                <li><a href="group__metal.html"><i class="octicon octicon-code"></i><span>Reference</span></a></li>
                 <li><a href="namespacemembers.html"><i class="octicon octicon-list-unordered"></i><span>Alphabetical Index</span></a></li>
               </ul>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/archive/v0.5.0.zip">
+              <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/archive/v0.5.1.zip">
                 <span class="hidden-xs">Download</span>
                 <span class="hidden-xs octicon octicon-cloud-download" aria-hidden="true"></span>
                 <span class="visible-xs-block mega-octicon octicon-cloud-download" aria-hidden="true"></span>
@@ -98,7 +98,7 @@
 template&lt;typename num &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">metal::abs</a> = typedef <a class="el" href="group__number.html#ga36ac435ad0533531681d12b5bb420953">metal::max</a>&lt;num, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">metal::neg</a>&lt;num&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">metal::abs</a> = typedef <a class="el" href="group__number.html#gacb1a4eff29dd876a8727e884bb30ca57">metal::max</a>&lt;num, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">metal::neg</a>&lt;num&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -111,7 +111,7 @@ template&lt;typename num &gt; </div>
 <dl class="section user"><dt>Semantics:</dt><dd><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;(num{} &gt; 0) ? num{} : -num{}&gt;;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
 <div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">metal::abs</a>&lt;<a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-10&gt;</a>&gt;, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;10&gt;</a>);</div><div class="line">IS_SAME(<a class="code" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">metal::abs</a>&lt;metal::number&lt;0&gt;&gt;, metal::number&lt;0&gt;);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga1ac0f23d62b599e6efcda3e415bbcbc5">div</a>, <a class="el" href="group__number.html#ga20764935783a67476c3cadba35965e7e">mod</a>, <a class="el" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">pow</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga2d29cfe750976f5909d7474a34a2b400">div</a>, <a class="el" href="group__number.html#gaea197c3c691bb963532cd560954fe0b5">mod</a>, <a class="el" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">pow</a> </dd></dl>
 
 </div>
 </div>
@@ -137,7 +137,7 @@ template&lt;typename... nums&gt; </div>
 <dl class="section user"><dt>Semantics:</dt><dd><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;num_0{} + ... + num_n-1{}&gt;;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
 <div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">metal::add</a>&lt;<a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;-17&gt;, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;5&gt;</a>, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;3&gt;</a>&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-9&gt;</a>);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga1ac0f23d62b599e6efcda3e415bbcbc5">div</a>, <a class="el" href="group__number.html#ga20764935783a67476c3cadba35965e7e">mod</a>, <a class="el" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">pow</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga2d29cfe750976f5909d7474a34a2b400">div</a>, <a class="el" href="group__number.html#gaea197c3c691bb963532cd560954fe0b5">mod</a>, <a class="el" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">pow</a> </dd></dl>
 
 </div>
 </div>
@@ -201,7 +201,7 @@ template&lt;typename val &gt; </div>
 template&lt;typename num &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">metal::dec</a> = typedef <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">metal::sub</a>&lt;num, <a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;1&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">metal::dec</a> = typedef <a class="el" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">metal::sub</a>&lt;num, <a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;1&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -214,20 +214,20 @@ template&lt;typename num &gt; </div>
 <dl class="section user"><dt>Semantics:</dt><dd><div class="fragment"><div class="line"><span class="keyword">using</span> result = metal::number&lt;num{} - 1&gt;;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
 <div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">metal::dec</a>&lt;<a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-10&gt;</a>&gt;, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-11&gt;</a>);</div><div class="line">IS_SAME(<a class="code" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">metal::dec</a>&lt;metal::number&lt;0&gt;&gt;, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-1&gt;</a>);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga1ac0f23d62b599e6efcda3e415bbcbc5">div</a>, <a class="el" href="group__number.html#ga20764935783a67476c3cadba35965e7e">mod</a>, <a class="el" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">pow</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga2d29cfe750976f5909d7474a34a2b400">div</a>, <a class="el" href="group__number.html#gaea197c3c691bb963532cd560954fe0b5">mod</a>, <a class="el" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">pow</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga1ac0f23d62b599e6efcda3e415bbcbc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1ac0f23d62b599e6efcda3e415bbcbc5">&#9670;&nbsp;</a></span>div</h2>
+<a id="ga2d29cfe750976f5909d7474a34a2b400"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2d29cfe750976f5909d7474a34a2b400">&#9670;&nbsp;</a></span>div</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename head , typename... tail&gt; </div>
+template&lt;typename... nums&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__number.html#ga1ac0f23d62b599e6efcda3e415bbcbc5">metal::div</a> = typedef typename detail::_div&lt;head, tail...&gt;::type</td>
+          <td class="memname">using <a class="el" href="group__number.html#ga2d29cfe750976f5909d7474a34a2b400">metal::div</a> = typedef typename detail::_div&lt;nums...&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -236,12 +236,12 @@ template&lt;typename head , typename... tail&gt; </div>
 <h3>Description</h3>
 <p>Computes the quotient of the arithmetic division of <a class="el" href="index.html#number">Numbers</a>.</p>
 <h3>Usage</h3>
-<p>For any <a class="el" href="index.html#number">Numbers</a> <code>num_0, ..., num_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#ga1ac0f23d62b599e6efcda3e415bbcbc5">metal::div</a>&lt;num_0, ..., num_n-1&gt;;</div></div><!-- fragment --><dl class="section pre"><dt>Precondition</dt><dd>: All <a class="el" href="index.html#number">Numbers</a> in <code>num_1, ..., num_n-1</code> are nonzero </dd></dl>
+<p>For any <a class="el" href="index.html#number">Numbers</a> <code>num_0, ..., num_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#ga2d29cfe750976f5909d7474a34a2b400">metal::div</a>&lt;num_0, ..., num_n-1&gt;;</div></div><!-- fragment --><dl class="section pre"><dt>Precondition</dt><dd>: All <a class="el" href="index.html#number">Numbers</a> in <code>num_1, ..., num_n-1</code> are nonzero </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#number">Number </a> </dd></dl>
 <dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result = metal::number&lt;num_0{} / ... / num_n-1{}&gt;;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
-<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#ga1ac0f23d62b599e6efcda3e415bbcbc5">metal::div</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-1&gt;</a>);</div><div class="line">IS_SAME(</div><div class="line">    <a class="code" href="group__lambda.html#ga194fba894622c3c44f23cb62d633000a">metal::is_invocable</a>&lt;<a class="code" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda&lt;metal::div&gt;</a>, num, metal::number&lt;0&gt;&gt;,</div><div class="line">    <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a></div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga20764935783a67476c3cadba35965e7e">mod</a>, <a class="el" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">pow</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#ga2d29cfe750976f5909d7474a34a2b400">metal::div</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-1&gt;</a>);</div><div class="line">IS_SAME(</div><div class="line">    <a class="code" href="group__lambda.html#ga5325a658fd84d45c1c6f177ee4c12aa0">metal::is_invocable</a>&lt;<a class="code" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda&lt;metal::div&gt;</a>, num, metal::number&lt;0&gt;&gt;,</div><div class="line">    <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a></div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#gaea197c3c691bb963532cd560954fe0b5">mod</a>, <a class="el" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">pow</a> </dd></dl>
 
 </div>
 </div>
@@ -287,7 +287,7 @@ template&lt;typename x , typename y &gt; </div>
 <dl class="section user"><dt>Semantics:</dt><dd><div class="fragment"><div class="line"><span class="keyword">using</span> result = metal::number&lt;(x{} &gt; y{})&gt;;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
 <div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">metal::greater</a>&lt;<a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-10&gt;</a>, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;10&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div><div class="line">IS_SAME(<a class="code" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">metal::greater</a>&lt;<a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;10&gt;</a>, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;10&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div><div class="line">IS_SAME(<a class="code" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">metal::greater</a>&lt;<a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;10&gt;</a>, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-10&gt;</a>&gt;, <a class="code" href="group__number.html#gadff72c366480cfd6569d65e0e70a2a27">metal::true_</a>);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gabac07f17029f149fe27f6cfaffca7eb4">less</a>, <a class="el" href="group__number.html#ga36ac435ad0533531681d12b5bb420953">max</a>, <a class="el" href="group__number.html#ga0e92c726284f786bf6385f42361b6426">min</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gabac07f17029f149fe27f6cfaffca7eb4">less</a>, <a class="el" href="group__number.html#gacb1a4eff29dd876a8727e884bb30ca57">max</a>, <a class="el" href="group__number.html#gaa1f6e8b0a3bf4292e881a3b0b716a157">min</a> </dd></dl>
 
 </div>
 </div>
@@ -339,7 +339,7 @@ template&lt;typename num &gt; </div>
 <dl class="section user"><dt>Semantics:</dt><dd><div class="fragment"><div class="line"><span class="keyword">using</span> result = metal::number&lt;num::{} + 1&gt;;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
 <div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__number.html#gae96999b870415f429ec7f96964a01714">metal::inc</a>&lt;<a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-10&gt;</a>&gt;, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-9&gt;</a>);</div><div class="line">IS_SAME(<a class="code" href="group__number.html#gae96999b870415f429ec7f96964a01714">metal::inc</a>&lt;metal::number&lt;0&gt;&gt;, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;1&gt;</a>);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga1ac0f23d62b599e6efcda3e415bbcbc5">div</a>, <a class="el" href="group__number.html#ga20764935783a67476c3cadba35965e7e">mod</a>, <a class="el" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">pow</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga2d29cfe750976f5909d7474a34a2b400">div</a>, <a class="el" href="group__number.html#gaea197c3c691bb963532cd560954fe0b5">mod</a>, <a class="el" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">pow</a> </dd></dl>
 
 </div>
 </div>
@@ -411,20 +411,20 @@ template&lt;typename x , typename y &gt; </div>
 <dl class="section user"><dt>Semantics:</dt><dd><div class="fragment"><div class="line"><span class="keyword">using</span> result = metal::number&lt;(x{} &lt; y{})&gt;;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
 <div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__number.html#gabac07f17029f149fe27f6cfaffca7eb4">metal::less</a>&lt;<a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-10&gt;</a>, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;10&gt;</a>&gt;, <a class="code" href="group__number.html#gadff72c366480cfd6569d65e0e70a2a27">metal::true_</a>);</div><div class="line">IS_SAME(<a class="code" href="group__number.html#gabac07f17029f149fe27f6cfaffca7eb4">metal::less</a>&lt;<a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;10&gt;</a>, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;10&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div><div class="line">IS_SAME(<a class="code" href="group__number.html#gabac07f17029f149fe27f6cfaffca7eb4">metal::less</a>&lt;<a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;10&gt;</a>, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-10&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>, <a class="el" href="group__number.html#ga36ac435ad0533531681d12b5bb420953">max</a>, <a class="el" href="group__number.html#ga0e92c726284f786bf6385f42361b6426">min</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>, <a class="el" href="group__number.html#gacb1a4eff29dd876a8727e884bb30ca57">max</a>, <a class="el" href="group__number.html#gaa1f6e8b0a3bf4292e881a3b0b716a157">min</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga36ac435ad0533531681d12b5bb420953"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga36ac435ad0533531681d12b5bb420953">&#9670;&nbsp;</a></span>max</h2>
+<a id="gacb1a4eff29dd876a8727e884bb30ca57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacb1a4eff29dd876a8727e884bb30ca57">&#9670;&nbsp;</a></span>max</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename head , typename... tail&gt; </div>
+template&lt;typename... nums&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__number.html#ga36ac435ad0533531681d12b5bb420953">metal::max</a> = typedef typename detail::_max&lt;head, tail...&gt;::type</td>
+          <td class="memname">using <a class="el" href="group__number.html#gacb1a4eff29dd876a8727e884bb30ca57">metal::max</a> = typedef typename detail::_max&lt;nums...&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -433,24 +433,24 @@ template&lt;typename head , typename... tail&gt; </div>
 <h3>Description</h3>
 <p>Computes the maximum of <a class="el" href="index.html#number">Numbers</a>.</p>
 <h3>Usage</h3>
-<p>For any <a class="el" href="index.html#number">Numbers</a> <code>num_0, ..., num_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#ga36ac435ad0533531681d12b5bb420953">metal::max</a>&lt;num_0, ..., num_n-1&gt;;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#number">Number </a> </dd></dl>
+<p>For any <a class="el" href="index.html#number">Numbers</a> <code>num_0, ..., num_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#gacb1a4eff29dd876a8727e884bb30ca57">metal::max</a>&lt;num_0, ..., num_n-1&gt;;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#number">Number </a> </dd></dl>
 <dl class="section user"><dt>Semantics:</dt><dd>If <code>M</code> the maximum between all <a class="el" href="index.html#number">Numbers</a> in <code>num_0, ..., num_n-1</code>, then <div class="fragment"><div class="line"><span class="keyword">using</span> result = M;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
-<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#ga36ac435ad0533531681d12b5bb420953">metal::max</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, metal::number&lt;5&gt;);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>, <a class="el" href="group__number.html#gabac07f17029f149fe27f6cfaffca7eb4">less</a>, <a class="el" href="group__number.html#ga0e92c726284f786bf6385f42361b6426">min</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#gacb1a4eff29dd876a8727e884bb30ca57">metal::max</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, metal::number&lt;5&gt;);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>, <a class="el" href="group__number.html#gabac07f17029f149fe27f6cfaffca7eb4">less</a>, <a class="el" href="group__number.html#gaa1f6e8b0a3bf4292e881a3b0b716a157">min</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga0e92c726284f786bf6385f42361b6426"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0e92c726284f786bf6385f42361b6426">&#9670;&nbsp;</a></span>min</h2>
+<a id="gaa1f6e8b0a3bf4292e881a3b0b716a157"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa1f6e8b0a3bf4292e881a3b0b716a157">&#9670;&nbsp;</a></span>min</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename head , typename... tail&gt; </div>
+template&lt;typename... nums&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__number.html#ga0e92c726284f786bf6385f42361b6426">metal::min</a> = typedef typename detail::_min&lt;head, tail...&gt;::type</td>
+          <td class="memname">using <a class="el" href="group__number.html#gaa1f6e8b0a3bf4292e881a3b0b716a157">metal::min</a> = typedef typename detail::_min&lt;nums...&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -459,24 +459,24 @@ template&lt;typename head , typename... tail&gt; </div>
 <h3>Description</h3>
 <p>Computes the minimum of <a class="el" href="index.html#number">Numbers</a>.</p>
 <h3>Usage</h3>
-<p>For any <a class="el" href="index.html#number">Numbers</a> <code>num_0, ..., num_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#ga0e92c726284f786bf6385f42361b6426">metal::min</a>&lt;num_0, ..., num_n-1&gt;;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#number">Number </a> </dd></dl>
+<p>For any <a class="el" href="index.html#number">Numbers</a> <code>num_0, ..., num_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#gaa1f6e8b0a3bf4292e881a3b0b716a157">metal::min</a>&lt;num_0, ..., num_n-1&gt;;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#number">Number </a> </dd></dl>
 <dl class="section user"><dt>Semantics:</dt><dd>If <code>m</code> the minimum between all <a class="el" href="index.html#number">Numbers</a> in <code>num_0, ..., num_n-1</code>, then <div class="fragment"><div class="line"><span class="keyword">using</span> result = m;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
-<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#ga0e92c726284f786bf6385f42361b6426">metal::min</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-17&gt;</a>);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>, <a class="el" href="group__number.html#gabac07f17029f149fe27f6cfaffca7eb4">less</a>, <a class="el" href="group__number.html#ga36ac435ad0533531681d12b5bb420953">max</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#gaa1f6e8b0a3bf4292e881a3b0b716a157">metal::min</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-17&gt;</a>);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>, <a class="el" href="group__number.html#gabac07f17029f149fe27f6cfaffca7eb4">less</a>, <a class="el" href="group__number.html#gacb1a4eff29dd876a8727e884bb30ca57">max</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga20764935783a67476c3cadba35965e7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga20764935783a67476c3cadba35965e7e">&#9670;&nbsp;</a></span>mod</h2>
+<a id="gaea197c3c691bb963532cd560954fe0b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaea197c3c691bb963532cd560954fe0b5">&#9670;&nbsp;</a></span>mod</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename head , typename... tail&gt; </div>
+template&lt;typename... nums&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__number.html#ga20764935783a67476c3cadba35965e7e">metal::mod</a> = typedef typename detail::_mod&lt;head, tail...&gt;::type</td>
+          <td class="memname">using <a class="el" href="group__number.html#gaea197c3c691bb963532cd560954fe0b5">metal::mod</a> = typedef typename detail::_mod&lt;nums...&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -485,12 +485,12 @@ template&lt;typename head , typename... tail&gt; </div>
 <h3>Description</h3>
 <p>Computes the remainder of the arithmetic division of <a class="el" href="index.html#number">Numbers</a>.</p>
 <h3>Usage</h3>
-<p>For any <a class="el" href="index.html#number">Numbers</a> <code>num_0, ..., num_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#ga20764935783a67476c3cadba35965e7e">metal::mod</a>&lt;num_0, ..., num_n-1&gt;;</div></div><!-- fragment --><dl class="section pre"><dt>Precondition</dt><dd>: All <a class="el" href="index.html#number">Numbers</a> in <code>num_1, ..., num_n-1</code> are nonzero </dd></dl>
+<p>For any <a class="el" href="index.html#number">Numbers</a> <code>num_0, ..., num_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#gaea197c3c691bb963532cd560954fe0b5">metal::mod</a>&lt;num_0, ..., num_n-1&gt;;</div></div><!-- fragment --><dl class="section pre"><dt>Precondition</dt><dd>: All <a class="el" href="index.html#number">Numbers</a> in <code>num_1, ..., num_n-1</code> are nonzero </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#number">Number </a> </dd></dl>
 <dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result = metal::number&lt;num_0{} % ... % num_n-1{}&gt;;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
-<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#ga20764935783a67476c3cadba35965e7e">metal::mod</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-2&gt;</a>);</div><div class="line">IS_SAME(</div><div class="line">    <a class="code" href="group__lambda.html#ga194fba894622c3c44f23cb62d633000a">metal::is_invocable</a>&lt;<a class="code" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda&lt;metal::mod&gt;</a>, num, metal::number&lt;0&gt;&gt;,</div><div class="line">    <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a></div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga1ac0f23d62b599e6efcda3e415bbcbc5">div</a>, <a class="el" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">pow</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#gaea197c3c691bb963532cd560954fe0b5">metal::mod</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-2&gt;</a>);</div><div class="line">IS_SAME(</div><div class="line">    <a class="code" href="group__lambda.html#ga5325a658fd84d45c1c6f177ee4c12aa0">metal::is_invocable</a>&lt;<a class="code" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda&lt;metal::mod&gt;</a>, num, metal::number&lt;0&gt;&gt;,</div><div class="line">    <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a></div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga2d29cfe750976f5909d7474a34a2b400">div</a>, <a class="el" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">pow</a> </dd></dl>
 
 </div>
 </div>
@@ -516,7 +516,7 @@ template&lt;typename... nums&gt; </div>
 <dl class="section user"><dt>Semantics:</dt><dd><div class="fragment"><div class="line"><span class="keyword">using</span> result = metal::number&lt;num_0{} * ... * num_n-1{}&gt;;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
 <div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">metal::mul</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-255&gt;</a>);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">sub</a>, <a class="el" href="group__number.html#ga1ac0f23d62b599e6efcda3e415bbcbc5">div</a>, <a class="el" href="group__number.html#ga20764935783a67476c3cadba35965e7e">mod</a>, <a class="el" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">pow</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">sub</a>, <a class="el" href="group__number.html#ga2d29cfe750976f5909d7474a34a2b400">div</a>, <a class="el" href="group__number.html#gaea197c3c691bb963532cd560954fe0b5">mod</a>, <a class="el" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">pow</a> </dd></dl>
 
 </div>
 </div>
@@ -529,7 +529,7 @@ template&lt;typename... nums&gt; </div>
 template&lt;typename num &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">metal::neg</a> = typedef <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">metal::sub</a>&lt;<a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;0&gt;, num&gt;</td>
+          <td class="memname">using <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">metal::neg</a> = typedef <a class="el" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">metal::sub</a>&lt;<a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;0&gt;, num&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -542,7 +542,7 @@ template&lt;typename num &gt; </div>
 <dl class="section user"><dt>Semantics:</dt><dd><div class="fragment"><div class="line"><span class="keyword">using</span> result = metal::number&lt;-num{}&gt;;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
 <div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">metal::neg</a>&lt;<a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-10&gt;</a>&gt;, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;10&gt;</a>);</div><div class="line">IS_SAME(<a class="code" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">metal::neg</a>&lt;metal::number&lt;0&gt;&gt;, metal::number&lt;0&gt;);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga1ac0f23d62b599e6efcda3e415bbcbc5">div</a>, <a class="el" href="group__number.html#ga20764935783a67476c3cadba35965e7e">mod</a>, <a class="el" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">pow</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga2d29cfe750976f5909d7474a34a2b400">div</a>, <a class="el" href="group__number.html#gaea197c3c691bb963532cd560954fe0b5">mod</a>, <a class="el" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">pow</a> </dd></dl>
 
 </div>
 </div>
@@ -645,16 +645,16 @@ template&lt;typename... nums&gt; </div>
 
 </div>
 </div>
-<a id="ga52c2574d2b13d4d154605a2cf002f5e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga52c2574d2b13d4d154605a2cf002f5e3">&#9670;&nbsp;</a></span>pow</h2>
+<a id="ga4188195c0ea27b6c45abf90859904975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4188195c0ea27b6c45abf90859904975">&#9670;&nbsp;</a></span>pow</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename head , typename... tail&gt; </div>
+template&lt;typename... nums&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">metal::pow</a> = typedef typename detail::_pow&lt;head, tail...&gt;::type</td>
+          <td class="memname">using <a class="el" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">metal::pow</a> = typedef typename detail::_pow&lt;nums...&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -663,25 +663,25 @@ template&lt;typename head , typename... tail&gt; </div>
 <h3>Description</h3>
 <p>Computes the arithmetic exponentiation of <a class="el" href="index.html#number">Numbers</a>.</p>
 <h3>Usage</h3>
-<p>For any <a class="el" href="index.html#number">Numbers</a> <code>num_0, ..., num_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">metal::pow</a>&lt;num_0, ..., num_n-1&gt;;</div></div><!-- fragment --><dl class="section pre"><dt>Precondition</dt><dd>: <code><a class="el" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">metal::pow</a>&lt;num_0, ..., num_m-1&gt; != <a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;0&gt;</code> for all negative <code>num_m</code> </dd></dl>
+<p>For any <a class="el" href="index.html#number">Numbers</a> <code>num_0, ..., num_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">metal::pow</a>&lt;num_0, ..., num_n-1&gt;;</div></div><!-- fragment --><dl class="section pre"><dt>Precondition</dt><dd>: <code><a class="el" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">metal::pow</a>&lt;num_0, ..., num_m-1&gt; != <a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;0&gt;</code> for all negative <code>num_m</code> </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#number">Number </a> </dd></dl>
 <dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result = metal::number&lt;num_0{} ** ... ** num_n-1{}&gt;;</div></div><!-- fragment --> Where <code>x**y</code> stands for <code>x</code> raised to the power of <code>y</code> <div class="panel panel-danger"><div class="panel-heading"><span class="octicon octicon-stop"> Warning</span></div><div class="panel-body"> <code>x**y</code> is always null for <code>y &lt; 0</code> and <code>|x| &gt; 1</code> due to inherent limitations of integer arithmetic. </div></div></dd></dl>
 <h3>Example</h3>
-<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">metal::pow</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-2862423051509815793&gt;</a>);</div><div class="line">IS_SAME(</div><div class="line">    <a class="code" href="group__lambda.html#ga194fba894622c3c44f23cb62d633000a">metal::is_invocable</a>&lt;<a class="code" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda&lt;metal::pow&gt;</a>, metal::number&lt;0&gt;, num&gt;,</div><div class="line">    <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a></div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga1ac0f23d62b599e6efcda3e415bbcbc5">div</a>, <a class="el" href="group__number.html#ga20764935783a67476c3cadba35965e7e">mod</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">metal::pow</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-2862423051509815793&gt;</a>);</div><div class="line">IS_SAME(</div><div class="line">    <a class="code" href="group__lambda.html#ga5325a658fd84d45c1c6f177ee4c12aa0">metal::is_invocable</a>&lt;<a class="code" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda&lt;metal::pow&gt;</a>, metal::number&lt;0&gt;, num&gt;,</div><div class="line">    <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a></div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">sub</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga2d29cfe750976f5909d7474a34a2b400">div</a>, <a class="el" href="group__number.html#gaea197c3c691bb963532cd560954fe0b5">mod</a> </dd></dl>
 
 </div>
 </div>
-<a id="gae36e6f72ee176cb1a3b5a2ae8da5d888"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae36e6f72ee176cb1a3b5a2ae8da5d888">&#9670;&nbsp;</a></span>sub</h2>
+<a id="ga2bb54b88ef0a7a336a8da1d23a95c1e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2bb54b88ef0a7a336a8da1d23a95c1e6">&#9670;&nbsp;</a></span>sub</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename head , typename... tail&gt; </div>
+template&lt;typename... nums&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">metal::sub</a> = typedef typename detail::_sub&lt;head, tail...&gt;::type</td>
+          <td class="memname">using <a class="el" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">metal::sub</a> = typedef typename detail::_sub&lt;nums...&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -690,11 +690,11 @@ template&lt;typename head , typename... tail&gt; </div>
 <h3>Description</h3>
 <p>Computes the arithmetic subtraction of <a class="el" href="index.html#number">Numbers</a>.</p>
 <h3>Usage</h3>
-<p>For any <a class="el" href="index.html#number">Numbers</a> <code>num_0, ..., num_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">metal::sub</a>&lt;num_0, ..., num_n-1&gt;;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#number">Number </a> </dd></dl>
+<p>For any <a class="el" href="index.html#number">Numbers</a> <code>num_0, ..., num_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">metal::sub</a>&lt;num_0, ..., num_n-1&gt;;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#number">Number </a> </dd></dl>
 <dl class="section user"><dt>Semantics:</dt><dd><div class="fragment"><div class="line"><span class="keyword">using</span> result = metal::number&lt;num_0{} - ... - num_n-1{}&gt;;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
-<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#gae36e6f72ee176cb1a3b5a2ae8da5d888">metal::sub</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-25&gt;</a>);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga1ac0f23d62b599e6efcda3e415bbcbc5">div</a>, <a class="el" href="group__number.html#ga20764935783a67476c3cadba35965e7e">mod</a>, <a class="el" href="group__number.html#ga52c2574d2b13d4d154605a2cf002f5e3">pow</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#ga2bb54b88ef0a7a336a8da1d23a95c1e6">metal::sub</a>&lt;metal::number&lt;-17&gt;, metal::number&lt;5&gt;, metal::number&lt;3&gt;&gt;;</div><div class="line"></div><div class="line">IS_SAME(num, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;-25&gt;</a>);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>, <a class="el" href="group__number.html#gaaaf0cfb7b8fad78aace0fe718c0a3b99">abs</a>, <a class="el" href="group__number.html#gae96999b870415f429ec7f96964a01714">inc</a>, <a class="el" href="group__number.html#ga0529d2db40fe814d7f6aff353f59e218">dec</a>, <a class="el" href="group__number.html#gab7663b0f8fce1b2fbbbf6d06060b6dbb">neg</a>, <a class="el" href="group__number.html#ga980bf986731e49ce9f2b1a8cf3431804">add</a>, <a class="el" href="group__number.html#ga376b23ada42745479a65a0c3f38d642c">mul</a>, <a class="el" href="group__number.html#ga2d29cfe750976f5909d7474a34a2b400">div</a>, <a class="el" href="group__number.html#gaea197c3c691bb963532cd560954fe0b5">mod</a>, <a class="el" href="group__number.html#ga4188195c0ea27b6c45abf90859904975">pow</a> </dd></dl>
 
 </div>
 </div>

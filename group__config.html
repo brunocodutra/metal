@@ -9,7 +9,7 @@
     <!--<link rel="icon" href="icons/..."> -->
     <title>Metal</title>
     <link href="octicons.css" rel="stylesheet">
-    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap.css" rel="stylesheet">
     <link href="metal.css" rel="stylesheet">
     <style>
       /*!
@@ -24,7 +24,7 @@
       @viewport         { width: device-width; }
     </style>
     <script type="text/javascript" src="jquery.js"></script>
-    <script type="text/javascript" src="bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstrap.js"></script>
     <script type="text/javascript" src="metal.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -47,7 +47,7 @@
         <div class="container">
           <div class="navbar-header">
             <a class="navbar-brand" href="#">
-              Metal <small>0.5.0</small>
+              Metal <small>0.5.1</small>
             </a>
           </div>
           <ul class="nav navbar-nav navbar-left">
@@ -55,14 +55,14 @@
               <a class="active dropdown-toggle" data-toggle="dropdown" href="#"><span id="name"></span><span class="caret"></span></a>
               <ul id="menu" class="dropdown-menu">
                 <li><a href="index.html"><i class="octicon octicon-book"></i><span>Documentation</span></a></li>
-                <li><a href="modules.html"><i class="octicon octicon-code"></i><span>Reference</span></a></li>
+                <li><a href="group__metal.html"><i class="octicon octicon-code"></i><span>Reference</span></a></li>
                 <li><a href="namespacemembers.html"><i class="octicon octicon-list-unordered"></i><span>Alphabetical Index</span></a></li>
               </ul>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/archive/v0.5.0.zip">
+              <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/archive/v0.5.1.zip">
                 <span class="hidden-xs">Download</span>
                 <span class="hidden-xs octicon octicon-cloud-download" aria-hidden="true"></span>
                 <span class="visible-xs-block mega-octicon octicon-cloud-download" aria-hidden="true"></span>
@@ -104,7 +104,7 @@
 <p><code>#include &lt;metal/config/config.hpp&gt;</code></p>
 <h3>Description</h3>
 <p>When this preprocessor switch is defined, certain language features that are known to cause problems to some compilers are avoided.</p>
-<div class="panel panel-danger"><div class="panel-heading"><span class="octicon octicon-stop"> Warning</span></div><div class="panel-body"> Defining this preprocessor switch may lead to longer compilation times. </div></div><div class="panel panel-warning"><div class="panel-heading"><span class="octicon octicon-info"> Note</span></div><div class="panel-body"> This preprocessor switch is currently defined by default for all versions of Microsoft Visual Studio. </div></div> 
+<div class="panel panel-danger"><div class="panel-heading"><span class="octicon octicon-stop"> Warning</span></div><div class="panel-body"> Defining this preprocessor switch may lead to longer compilation times. </div></div><div class="panel panel-warning"><div class="panel-heading"><span class="octicon octicon-info"> Note</span></div><div class="panel-body"> This preprocessor switch is currently defined by default for all versions of Microsoft Visual Studio and GCC &lt; 5. </div></div> 
 </div>
 </div>
 <a id="ga54b9861bafd780c162fe59f4112a6489"></a>
@@ -154,7 +154,7 @@
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define METAL_PATCH&#160;&#160;&#160;0</td>
+          <td class="memname">#define METAL_PATCH&#160;&#160;&#160;1</td>
         </tr>
       </table>
 </div><div class="memdoc">
