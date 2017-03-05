@@ -82,3 +82,57 @@ IS_SAME(
     metal::list<metal::number<1>>
 );
 /// [lambda]
+
+HIDE(
+/// [variadic_emulation]
+template<typename elm_1>
+struct sequence_1 {};
+
+template<typename elm_1, typename elm_2>
+struct sequence_2 {};
+
+// ...
+
+template<typename elm_1, typename elm_2, /*...*/ typename elm_n>
+struct sequence_n {};
+/// [variadic_emulation]
+)
+
+HIDE(
+/// [variadic]
+template<typename...> struct sequence {};
+/// [variadic]
+)
+
+#if 0
+/// [alias_emulation]
+struct na {};
+
+template<typename arg_1 = na, typename arg_2 = na, /*...*/ typename arg_n = na>
+struct metafunction
+{
+    typedef result type;
+};
+
+template<typename arg_1, typename arg_2, /*...*/ typename arg_n>
+struct compound_metafunction
+{
+    typedef typename metafunction<
+        typename metafunction<arg_1>::type,
+        typename metafunction<arg_2>::type,
+        /*...*/
+        typename metafunction<arg_n>::type
+    >::type type;
+};
+/// [alias_emulation]
+#endif
+
+#if 0
+/// [alias]
+template<typename... args>
+using metafunction = result;
+
+template<typename... args>
+using compound_metafunction = metafunction<metafunction<args>...>;
+/// [alias]
+#endif

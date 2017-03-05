@@ -9,6 +9,8 @@ Metal is a header-only C++14 library designed to make metaprogramming easy.
 ## Modern
 
 ```{.cpp}
+#include <metal.hpp>
+
 // First we need some Values
 union x { char payload[10]; };
 class y { public: char c; };
@@ -93,6 +95,8 @@ Don't worry, all your favourite compilers are continuously tested at
 
 | Compiler          | Version   | Operating System
 |-------------------|-----------|-----------------------
+| GCC               | 4.8       | Ubuntu 14.04 LTS
+| GCC               | 4.9       | Ubuntu 14.04 LTS
 | GCC               | 5         | Ubuntu 14.04 LTS
 | GCC               | 6         | Ubuntu 14.04 LTS
 | Clang             | 3.4       | Ubuntu 14.04 LTS

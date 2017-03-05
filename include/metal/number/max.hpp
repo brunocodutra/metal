@@ -41,8 +41,8 @@ namespace metal
     ///
     /// ### See Also
     /// \see number, greater, less, min
-    template<typename head, typename... tail>
-    using max = typename detail::_max<head, tail...>::type;
+    template<typename... nums>
+    using max = typename detail::_max<nums...>::type;
 }
 
 #include <metal/number/number.hpp>

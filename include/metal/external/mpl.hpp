@@ -36,12 +36,19 @@ namespace metal
     ///     \endcode
     ///     otherwise, if `val` is an MPL Pair, then
     ///     \code
-    ///         using result = metal::pair<val::first, val::second>;
+    ///         using result = metal::pair<
+    ///             metal::from_mpl<val::first>,
+    ///             metal::from_mpl<val::second>
+    ///         >;
     ///     \endcode
     ///     otherwise, if `val` is an MPL Sequence that contains
     ///     `val_0, ..., val_n-1`, then
     ///     \code
-    ///         using result = metal::list<val_0, ..., val_n-1>;
+    ///         using result = metal::list<
+    ///             metal::from_mpl<val_0>,
+    ///             metal::from_mpl<>...,
+    ///             metal::from_mpl<val_n-1>
+    ///         >;
     ///     \endcode
     ///     otherwise, if `val` is an MPL Metafunction Class, then
     ///     \code
@@ -50,7 +57,9 @@ namespace metal
     ///     where `expr` is an \expression such that
     ///     \code
     ///         template<typename... args>
-    ///         using expr = typename val::template apply<args...>::type;
+    ///         using expr = metal::from_mpl<
+    ///             typename val::template apply<args...>::type
+    ///         >;
     ///     \endcode
     ///     otherwise
     ///     \code
@@ -84,7 +93,8 @@ namespace metal
     namespace detail
     {
         template<typename val>
-        true_ number_like_impl(number<val::value>*);
+        same<typename val::tag, boost::mpl::integral_c_tag>
+            number_like_impl(number<val::value>*);
 
         template<typename>
         false_ number_like_impl(...);
@@ -140,7 +150,7 @@ namespace metal
         template<typename val>
         struct _from_mpl_impl<val, true_, false_, false_, false_, false_>
         {
-            using type = as_number<typename val::type>;
+            using type = as_number<val>;
         };
 
         template<typename val>

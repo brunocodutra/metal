@@ -20,8 +20,8 @@ namespace metal
         template<typename lbd, typename head, typename... tail>
         struct _transform;
 
-        template<typename lbd, typename head, typename... tail>
-        using transform = typename _transform<lbd, head, tail...>::type;
+        template<typename lbd, typename... seqs>
+        using transform = typename _transform<lbd, seqs...>::type;
     }
     /// \endcond
 
@@ -56,10 +56,10 @@ namespace metal
     ///
     /// ### See Also
     /// \see list, accumulate
-    template<typename lbd, typename head, typename... tail>
+    template<typename lbd, typename... seqs>
     using transform = typename if_<
-        same<size<head>, size<tail>...>,
-        detail::_transform<if_<is_lambda<lbd>, lbd>, head, tail...>
+        same<size<seqs>...>,
+        detail::_transform<if_<is_lambda<lbd>, lbd>, seqs...>
     >::type;
 }
 
@@ -73,11 +73,31 @@ namespace metal
 #include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
 
+#include <metal/detail/declptr.hpp>
+
+#include <type_traits>
+
 namespace metal
 {
     /// \cond
     namespace detail
     {
+#if defined(METAL_COMPAT_MODE)
+        template<template<typename...> class expr, typename... vals,
+            typename std::enable_if<
+                is_value<list<expr<vals>...>>::value
+            >::type* = nullptr
+        >
+        value<list<expr<vals>...>>
+            transform_impl(lambda<expr>*, list<vals...>*);
+
+        value<> transform_impl(...);
+
+        template<typename lbd, typename seq>
+        struct _transform_impl :
+            decltype(transform_impl(declptr<lbd>(), declptr<seq>()))
+        {};
+#else
         template<typename, typename, typename = true_>
         struct _transform_impl
         {};
@@ -88,6 +108,7 @@ namespace metal
         > :
             value<list<expr<vals>...>>
         {};
+#endif
 
         template<typename lbd, typename... seqs>
         struct transformer

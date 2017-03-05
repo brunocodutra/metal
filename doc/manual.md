@@ -69,7 +69,7 @@ sure the installation prefix is looked up by your compiler.
 Using CMake it suffices to add the following to your `CMakeLists.txt`.
 
     find_package(Metal REQUIRED)
-    include_directories(${METAL_INCLUDE_DIRS})
+    include_directories(${Metal_INCLUDE_DIR})
 
 To use your local copy of Metal instead, just add its `include/` sub-directory
 to the include search paths of your project and you are all set.
@@ -82,7 +82,7 @@ The following compilers are tested in continuous integration using
 
 | Compiler          | Version
 |-------------------|-----------
-| GCC               | &ge; 5
+| GCC               | &ge; 4.8
 | Clang             | &ge; 3.4
 | Xcode             | &ge; 6.4
 | Visual Studio     | &ge; 14 (2015)
@@ -97,8 +97,8 @@ models of that concept. The complete hierarchy of modules and headers is
 available on [Metal's repository][Metal.headers] on GitHub.
 
 \tip{
-    You may choose to `#include <metal.hpp>` to get access to all that Metal has
-    to offer without concerning yourself with which specific headers to include.
+    You may simply include `metal.hpp` and get access to all that Metal has to
+    offer without concerning yourself with which specific headers to include.
 }
 
 Concepts {#concepts}
@@ -267,16 +267,79 @@ A [Map] is a [List] of [Pairs], whose first elements are all distinct, that is
 
 metal::map, metal::is_map, metal::keys, metal::values
 
+Migrating from Boost.MPL {#MPL}
+================================================================================
+
+Metal was heavily influenced by Boost.MPL, from which it inherited the
+convention of naming algorithms after their counterparts in the C++ standard
+library. For this reason, metaprograms written using Metal might resemble those
+written using Boost.MPL, but there are fundamental differences between these
+libraries that you must keep in mind when porting a legacy metaprogram that uses
+Boost.MPL to modern C++ using Metal.
+
+Boost.MPL is notable for employing various tricks to emulate features that only
+became directly supported by the core language much later on with C++11. Most
+notably, Boost.MPL relies on a template arguments to emulate variadic
+templates and create an illusion that _Sequences_, such as `mpl::vector` or
+`mpl::map`, can hold an arbitrary number of elements. However, because these
+templates could not be truly variadic, every possible size of these _Sequences_
+had to be enumerated one by one as a distinct numbered version of the template.
+
+\snippet mpl.cpp variadic_emulation
+
+This trick clearly doesn't scale well and implies there must be an upper limit
+to the size of _Sequences_. Indeed Boost.MPL limits the sizes of sequences to only
+a couple of dozen elements by default. Moreover, because this boilerplate is too
+troublesome to maintain, Boost.MPL relies heavily on the C++ preprocessor, which
+on one hand reduces code redundancy, but on the other hand dramatically impacts
+compilation time figures.
+
+Metal has none of these issues, since it takes advantage of variadic templates
+to reduce that boilerplate to a one-liner, while at the same time overcoming
+all of the drawbacks mentioned.
+
+\snippet mpl.cpp variadic
+
+Indeed, Metal [Lists] and [Maps] can easily exceed the hundreds and even
+thousands of elements with little impact to the compiler performance. For up to
+date benchmark figures, visit [metaben.ch].
+
+Another important difference that arises from the lack of language support at
+the time Boost.MPL was designed, is the fact that it had no other means of
+expressing metafunctions other than by the rather verbose idiom of declaring a
+nested type alias within template classes.
+
+\snippet mpl.cpp alias_emulation
+
+Metal on the other hand is able to take advantage of [alias templates] and make
+it much less verbose
+
+\snippet mpl.cpp alias
+
+... but that is not all that there's to it. While template aliases produce
+SFINAE-friendly errors, substitution errors on nested types prevent the [SFINAE]
+rule from kicking in and trigger hard compilation errors instead, which is
+another important drawback of Boost.MPL when compared to Metal. For a discussion
+about the importance of SFINAE-friendliness, take a look at \ref SFINAE.
+
+For the reasons discussed, Metal cannot interoperate with Boost.MPL out of the
+box, but fortunately it is always possible to map Boost.MPL concepts to their
+equivalents in Metal, such as _Sequences_ to [Lists], _Metafunction Classes_ to
+[Lambdas] and _Integral Constants_ to [Numbers]. To ease the migration, Metal
+provides a built in helper `metal::from_mpl` that does just that for you, simply
+include `metal/external/mpl.hpp` to make it available.
+
 Examples {#examples}
 ================================================================================
 
 \tip{
     In the following examples, `IS_SAME(X, Y)` is just a terser shorthand for
-    `static_assert(std::is_same<X, Y>::value, "")`.
+    `static_assert(std::is_same<X, Y>{}, "")`.
 }
 
 Parsing Raw Literals {#parsing_raw_literals}
 --------------------------------------------------------------------------------
+________________________________________________________________________________
 
 If you ever considered augmenting [`std::tuple`][tuple],
 so that instead of the rather clunky [`std::get<N>()`][get]
@@ -317,8 +380,8 @@ argument?
 That looks promising, but then again `metal::number<1>{}` is even clunkier than
 `std::get<1>()`, we want something more expressive.
 
-A custom [literal operator][literal.operator] that constructs \numbers out of
-integer literals could help reducing the verbosity
+A custom [literal operator] that constructs \numbers out of integer literals
+could help reducing the verbosity
 
 \snippet literal.cpp teaser_4
 
@@ -452,9 +515,10 @@ And ignores digit separators too.
 
 Church Booleans {#church_booleans}
 --------------------------------------------------------------------------------
+________________________________________________________________________________
 
 [Church Booleans][church] refer to a mathematical framework used to express
-logical operation in the context of [lambda notation][lambda_calculus],
+logical operation in the context of [lambda notation],
 where they have an important theoretical significance.
 Of less practical importance in C++, even in the context of template
 metaprogramming, they will nevertheless help us acquaint with *bind expressions*
@@ -465,23 +529,23 @@ return respectively the first and second argument with which they are invoked.
 
 \snippet church.cpp bool
 
-That given, we start by defining the logical operator `not_`.
-Using the fact that booleans are themselves \lambdas, it is not too hard to
-realize that invoking a boolean to `<false_, true>` always yields its negation.
+Now, using the fact that booleans are themselves \lambdas, it's not too hard to
+realize that invoking a boolean with arguments `<false_, true>` always yields
+its negation.
 
 \snippet church.cpp not_expr
 
-To enable higher-order composition we really need `not_` to be a \lambda, not an
-\expression. Granted one could easily define it terms of the respective
-\expression as `metal::lambda<not_>`, but that would defeat the whole purpose of
-this exercise, the idea is to use *bind expressions* directly.
+However, to enable higher-order composition we really need `not_` to be a
+\lambda, not an \expression. Granted one could easily define former in terms of
+the latter as `metal::lambda<not_>`, but that would defeat the whole
+purpose of this exercise, the idea is to use *bind expressions* directly.
 
 \snippet church.cpp not
 
 Admittedly a little more verbose, but that saves us from introducing a new named
 alias template.
 
-To define `and_` and `or_` we'll use the very same technique.
+Using a similar technique, we can also define operators `and_` and `or_`.
 
 \snippet church.cpp and
 \snippet church.cpp or
@@ -489,53 +553,148 @@ To define `and_` and `or_` we'll use the very same technique.
 This exercise might me mind-boggling at first, but you'll get used to it soon
 enough.
 
-Without further ado we'll present the logical operator `xor`.
+Without further ado we present the logical operator `xor`.
 
 \snippet church.cpp xor
 
-Notice how we *bind* `not_`, which is itself a *bind expression*, which is only
-possible due to the fact it is a \lambda.
+Notice how we *bind* `not_`, which is only possible due to the fact it is a
+\lambda.
 
 A Word on SFINAE-Friendliness {#SFINAE}
-================================================================================
+--------------------------------------------------------------------------------
+________________________________________________________________________________
 
 An [Expression] is said to be SFINAE-friendly when it is carefully designed so
 as never to prevent the [SFINAE] rule to be triggered. In general, such
 [Expressions] may only trigger template substitution errors at the point of
 instantiation of the *signature* of a type, which includes the instantiation of
 [alias templates] and default template arguments.
-
 SFINAE-friendly [Expressions] are exceedingly powerful, because they may be used
 to drive overload resolution, much like [`std::enable_if`][enable_if] does.
-For that reason all [Expressions] within `namespace metal` are guaranteed to be
-themselves SFINAE-friendly.
+For this reason,
+__all [Expressions] in Metal are guaranteed to be SFINAE-friendly__.
 
-\snippet sfinae.cpp SFINAE
-
-Conversely, an SFINAE-unfriendly [Expression] produces so called *hard errors*,
+Conversely, a SFINAE-unfriendly [Expression] produces so called *hard errors*,
 which require the compilation to halt immediately. Examples of *hard errors*
 are failed `static_assert`'ions or template substitution errors at the point of
 instantiation of the nested members of a type.
-
 SFINAE-unfriendly [Expressions] are very inconvenient, because they force
 compilation to halt when they are not selected by overload resolution, thereby
-hindering the usage of the entire overloaded set. For that reason
-SFINAE-unfriendly [Expressions] should always be avoided.
+hindering the usage of the entire overloaded set.
 
-Migrating from Boost.MPL {#MPL}
+To illustrate how useful SFINAE-friendliness can be, suppose we need a factory
+function `make_array` that takes an arbitrary number of arguments and returns
+a `std::array`. Because arrays are homogeneous collections, we need the
+_common type_ of all its arguments, that is, the type to which every argument
+can be converted to. Fortunately `std::common_type_t` does just that and is also
+guaranteed to be SFINAE-friendly as per the C++ Standard.
+
+\snippet sfinae.cpp make_array
+
+There is one caveat to `std::common_type_t` however: it doesn't work with
+`std::tuple`s in general, even though the _common tuple_ is really
+just a _tuple_ of _common types_.
+Hence, we need a new trait that computes the _common tuple_ from a set of
+_tuples_ so that we may overload `make_array`.
+
+\snippet sfinae.cpp common_tuple_t
+\snippet sfinae.cpp make_array_of_tuples
+
+And it works as expected, for both numerical values
+
+\snippet sfinae.cpp array_of_numbers
+
+as well as `std::tuple`s
+
+\snippet sfinae.cpp array_of_tuples
+
+Now, it might not be obvious to the untrained eye, but the reason why
+overloading works as expected in this example, is precisely the fact
+`common_tuple_t` is SFINAE-friendly. If it weren't, as soon as one attempted to
+call `make_array` for anything that isn't a `std::tuple`, the compilation would
+halt immediately, even if the first overload would be a perfect match otherwise.
+
+To demonstrate this issue, we'll implement the same common tuple trait, but this
+time using Boost.Hana, which, contrary to Metal, doesn't provide any guarantees
+regarding SFINAE-friendliness.
+
+\snippet sfinae.cpp naive_common_tuple_t
+
+Now, if we use `naive_common_tuple_t` to overload `make_array`
+
+\snippet sfinae.cpp naive_make_array_of_tuples
+
+it does work as expected for `std::tuples`
+
+\snippet sfinae.cpp array_of_tuples
+
+however it produces a compilation error as soon as we try to make an array of
+anything that is not a Boost.Hana _Sequence_, even if the first overload remains
+available and would be a perfect match as we just verified
+
+\strike{
+\snippet sfinae.cpp array_of_numbers
+}
+
+> error: static_assert failed "hana::zip_with(f, xs, ys...)
+> requires 'xs' and 'ys...' to be Sequences"
+
+Frequently Asked Questions {#FAQ}
 ================================================================================
 
-To make it easier porting legacy metaprograms written using Boost.MPL,
-consider using `metal::from_mpl`.
+What are some advantages of Metal with respect to Boost.MPL? {#FAQ_MPL}
+--------------------------------------------------------------------------------
+________________________________________________________________________________
+
+The most apparent advantage of Metal with respect to Boost.MPL is the fact Metal
+[Lists] and [Maps] can easily exceed the hundreds and even thousands of elements
+with little impact to the compiler performance, whereas Boost.MPL _Sequences_,
+such as `mpl::vector` and `mpl::map`, are hard-limited to at most a couple dozen
+elements and even then at much longer compilation times and increased memory
+consumption. Another obvious improvement is the much terser syntax of Metal made
+possible by alias templates, which were not available at the time Boost.MPL was
+developed. Finally, Metal is guaranteed to be SFINAE-friendly, whereas no
+guarantees whatsoever are made with this respect by Boost.MPL.
+
+Visit [metaben.ch] for up to date benchmarks that compare Metal against
+Boost.MPL and other notable metaprogramming libraries. For a more detailed
+discussion on the limitations of Boost.MPL refer to \ref MPL and for a real
+world example of the importance of SFINAE-friendliness, check out \ref SFINAE.
+
+What are some advantages of Metal with respect to Boost.Hana? {#FAQ_Hana}
+--------------------------------------------------------------------------------
+________________________________________________________________________________
+
+As a tool specifically designed for type level programming, Metal is able to
+provide stronger guarantees and much faster compilation times than Boost.Hana
+when used for similar purposes. In fact, Metal guarantees SFINAE-friendliness,
+whereas Boost.Hana does not. Check out \ref SFINAE for a real world example of
+the limitations of Boost.Hana with this respect.
+
+Moreover, since Metal \ref concepts are defined by their type signatures, it is
+always safe to use template pattern matching on them to partially specialize
+class templates or overload function templates, while the types of most
+Boost.Hana objects is left unspecified and thus cannot be used for these
+purposes.
+
+Why isn't std::integral_constant always a Number? {#FAQ_numbers}
+--------------------------------------------------------------------------------
+________________________________________________________________________________
+
+[Numbers] are defined as a specific specialization of `std::integral_constant`s,
+whose binary representation is fixed to `metal::int_`, an implementation-defined
+integral type. This design choice stems from the fact two [Values] compare equal
+if and only if they have the same type signature. As [Values] themselves,
+[Numbers] are also subject to this requirement, thus had [Numbers] been defined
+as a numerical value _plus_ its binary representation, would two [Numbers] only
+compare equal if they had both the same numerical value _and_ the same binary
+representation. This is unreasonable in the context of metaprogramming, where
+the binary representation of numerical values is entirely irrelevant.
 
 [Value]:            #value
 [Values]:           #value
-[Optional]:         #optional
-[Optionals]:        #optional
 [Number]:           #number
 [Numbers]:          #number
-[Boolean]:          #number
-[Booleans]:         #number
 [Expression]:       #expression
 [Expressions]:      #expression
 [Lambda]:           #lambda
@@ -552,8 +711,8 @@ consider using `metal::from_mpl`.
 [higher-order]:     http://en.wikipedia.org/wiki/Higher-order_function
 [first-class]:      http://en.wikipedia.org/wiki/First-class_citizen
 [fold]:             http://en.wikipedia.org/wiki/Fold_(higher-order_function)
-[church]:           https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans
-[lambda_calculus]:  https://en.wikipedia.org/wiki/Lambda_calculus
+[church]:           http://en.wikipedia.org/wiki/Church_encoding#Church_Booleans
+[lambda notation]:  http://en.wikipedia.org/wiki/Lambda_calculus
 
 [algorithm]:        http://en.cppreference.com/w/cpp/algorithm
 [alias templates]:  http://en.cppreference.com/w/cpp/language/type_alias
@@ -563,7 +722,7 @@ consider using `metal::from_mpl`.
 [enable_if]:        http://en.cppreference.com/w/cpp/types/enable_if
 [bind]:             http://en.cppreference.com/w/cpp/utility/functional/bind
 [placeholders]:     http://en.cppreference.com/w/cpp/utility/functional/placeholders
-[literal.operator]: http://en.cppreference.com/w/cpp/language/user_literal
+[literal operator]: http://en.cppreference.com/w/cpp/language/user_literal
 [SFINAE]:           http://en.cppreference.com/w/cpp/language/sfinae
 
 [travis.metal]:     http://travis-ci.org/brunocodutra/metal

@@ -9,16 +9,16 @@
 
 namespace test
 {
-    enum  val0 {type};
-    union val1 {template<typename...> struct type;};
-    using val2 = val1::template type<>;
-    using val3 = decltype(nullptr);
-    class val4 final {};
-    using val5 = int;
-    using val6 = int*;
-    using val7 = int[];
-    using val8 = int const;
-    using val9 = int volatile;
+    enum  val0 {value, type};
+    union val1 {struct value {};};
+    union val2 {struct type {};};
+    union val3 {template<typename...> struct type;};
+    using val4 = val3::template type<>;
+    class val5 final {};
+    using val6 = int;
+    using val7 = int*;
+    using val8 = int[];
+    using val9 = int();
 
     template<std::intmax_t> struct tag {};
 }

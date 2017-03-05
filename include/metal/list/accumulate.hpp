@@ -52,10 +52,10 @@ namespace metal
     ///
     /// ### See Also
     /// \see list, transform
-    template<typename lbd, typename state, typename head, typename... tail>
+    template<typename lbd, typename state, typename... seqs>
     using accumulate =  typename if_<
-        same<size<head>, size<tail>...>,
-        detail::_accumulate<if_<is_lambda<lbd>, lbd>, state, head, tail...>
+        same<size<seqs>...>,
+        detail::_accumulate<if_<is_lambda<lbd>, lbd>, state, seqs...>
     >::type;
 }
 

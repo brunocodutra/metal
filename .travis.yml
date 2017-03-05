@@ -18,10 +18,12 @@ env:
 addons:
     apt:
         packages: &ubuntu_packages
-          - libstdc++-5-dev
-          - libboost-dev
         sources: &ubuntu_sources
           - ubuntu-toolchain-r-test
+
+cache:
+  directories:
+    - deps/boost
 
 matrix:
     exclude:
@@ -34,6 +36,28 @@ matrix:
 
       - os: osx
         env: BUILD_DOC=true
+
+      - os: linux
+        dist: trusty
+        compiler: g++
+        env: CXXVER=4.8
+        addons:
+            apt:
+                packages:
+                  - *ubuntu_packages
+                  - g++-4.8
+                sources: *ubuntu_sources
+
+      - os: linux
+        dist: trusty
+        compiler: g++
+        env: CXXVER=4.9
+        addons:
+            apt:
+                packages:
+                  - *ubuntu_packages
+                  - g++-4.9
+                sources: *ubuntu_sources
 
       - os: linux
         dist: trusty
@@ -217,13 +241,13 @@ install:
     if [[ "${TRAVIS_OS_NAME}" == "linux" ]]
     then
         CMAKE_URL="http://www.cmake.org/files/v3.4/cmake-3.4.0-Linux-x86_64.tar.gz"
-        mkdir -p "${DEPS_PATH}/cmake" &&
-        travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake"
+        mkdir -p "${DEPS_PATH}/cmake"
+        travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit 1
         export PATH=${DEPS_PATH}/cmake/bin:${PATH}
     else
         CMAKE_URL="http://www.cmake.org/files/v3.4/cmake-3.4.0-Darwin-x86_64.tar.gz"
-        mkdir -p "${DEPS_PATH}/cmake" &&
-        travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake"
+        mkdir -p "${DEPS_PATH}/cmake"
+        travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit 1
         export PATH=${DEPS_PATH}/cmake/CMake.app/Contents/bin:${PATH}
     fi
 
@@ -236,8 +260,8 @@ install:
             DOXYGEN_FTP="ftp://ftp.stack.nl/pub/users/dimitri/"
             DOXYGEN_PKG=$(travis_retry curl -Ls "${DOXYGEN_FTP}" | grep -Eo "doxygen-[0-9.]+linux[.]bin[.]tar[.]gz" | sort -V | tail -1)
             DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_PKG}"
-            mkdir -p "${DEPS_PATH}/doxygen" &&
-            travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen"
+            mkdir -p "${DEPS_PATH}/doxygen"
+            travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" || exit 1
             export PATH="${DEPS_PATH}/doxygen/bin:${PATH}"
         else
             brew update
@@ -245,6 +269,17 @@ install:
             brew install doxygen
         fi
     fi
+
+  - |
+    if [[ -d "${DEPS_PATH}/boost/.git" ]]
+    then
+        (cd "${DEPS_PATH}/boost" && git submodule update --recursive) || exit
+    else
+        BOOST_URL="http://github.com/boostorg/boost.git"
+        travis_retry git clone --depth 1 --recursive --quiet ${BOOST_URL} ${DEPS_PATH}/boost || exit 1
+    fi
+
+    (cd "${DEPS_PATH}/boost" && ./bootstrap.sh && ./b2 headers)
 
 before_script:
   - CMAKE_ARGS=("${METAL_SOURCE_PATH}")
@@ -256,6 +291,7 @@ before_script:
     fi
 
     CMAKE_ARGS+=("-DCMAKE_CXX_FLAGS=-DMETAL_TEST_GEN_LIMIT=9")
+    CMAKE_ARGS+=("-DBOOST_ROOT=${DEPS_PATH}/boost")
 
   - (cd "${METAL_BUILD_PATH}" && cmake ${CMAKE_ARGS[@]})
 
@@ -263,14 +299,14 @@ script:
   - |
     if [[ "${BUILD_DOC}" == "true" ]]
     then
-        (cd "${METAL_BUILD_PATH}" && make doc) &&
+        (cd "${METAL_BUILD_PATH}" && ! make doc 2>&1 | grep --color -iE "warning|error") || exit 1
         if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_OS_NAME}" == "linux" ]]
         then
-            git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages "${METAL_BUILD_PATH}/doc/gh-pages" &> /dev/null &&
-            cp -r "${METAL_BUILD_PATH}/doc/gh-pages/.git/" "${METAL_BUILD_PATH}/doc/html/" &> /dev/null &&
-            git -C "${METAL_BUILD_PATH}/doc/html/" add --all . &> /dev/null &&
-            git -C "${METAL_BUILD_PATH}/doc/html/" commit --allow-empty -m "updating to $(git -C ${METAL_SOURCE_PATH} rev-parse --short HEAD)" &> /dev/null &&
-            git -C "${METAL_BUILD_PATH}/doc/html/" push origin gh-pages &> /dev/null
+            git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages "${METAL_BUILD_PATH}/doc/gh-pages" &> /dev/null || exit 1
+            cp -r "${METAL_BUILD_PATH}/doc/gh-pages/.git/" "${METAL_BUILD_PATH}/doc/html/" &> /dev/null || exit 1
+            git -C "${METAL_BUILD_PATH}/doc/html/" add --all . &> /dev/null || exit 1
+            git -C "${METAL_BUILD_PATH}/doc/html/" commit --allow-empty -m "update to $(git -C ${METAL_SOURCE_PATH} rev-parse --short HEAD)" &> /dev/null || exit 1
+            git -C "${METAL_BUILD_PATH}/doc/html/" push origin gh-pages &> /dev/null || exit 1
         fi
     else
         (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure)

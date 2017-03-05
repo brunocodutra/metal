@@ -6,6 +6,12 @@
 
 #include "example.hpp"
 
+#include <list>
+#include <memory>
+#include <tuple>
+
+#if !defined(METAL_COMPAT_MODE)
+
 HIDE(
 /// [lbd1]
 using lbd = metal::lambda<std::add_pointer_t>;
@@ -19,6 +25,18 @@ HIDE(
 IS_SAME(metal::is_lambda<void>, metal::false_);
 IS_SAME(metal::is_lambda<metal::lambda<std::add_pointer_t>>, metal::true_);
 /// [is_lambda]
+)
+
+HIDE(
+/// [as_lambda]
+IS_SAME(metal::as_lambda<std::shared_ptr<int>>, metal::lambda<std::shared_ptr>);
+IS_SAME(metal::as_lambda<std::list<int>>, metal::lambda<std::list>);
+
+IS_SAME(
+    metal::as_lambda<std::tuple<int, char, float>>,
+    metal::lambda<std::tuple>
+);
+/// [as_lambda]
 )
 
 HIDE(
@@ -45,9 +63,8 @@ IS_SAME(metal::invoke<lbd, bool, char, long, float>, float);
 HIDE(
 /// [apply]
 using lbd = metal::lambda<std::common_type_t>;
-using l = metal::list<bool, char, long, float>;
 
-IS_SAME(metal::apply<lbd, l>, float);
+IS_SAME(metal::apply<lbd, metal::list<bool, char, long, float>>, float);
 /// [apply]
 )
 
@@ -103,3 +120,5 @@ IS_SAME(metal::invoke<uac, char, char>, int);
 IS_SAME(metal::invoke<uac, short, float>, float);
 /// [bind]
 )
+
+#endif

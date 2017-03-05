@@ -17,23 +17,14 @@
 ///
 /// \note{
 ///     This preprocessor switch is currently defined by default for all
-///     versions of Microsoft Visual Studio.
+///     versions of Microsoft Visual Studio and GCC < 5.
 /// }
-#if defined(METAL_DOXYGENATING) || \
-    (!defined(METAL_COMPAT_MODE) && defined(_MSC_VER) && !defined(__clang__))
-#   define METAL_COMPAT_MODE
-#endif
-
-#if defined(_MSC_VER) && !defined(__clang__)
-#   define METAL_WARNING(MSG) __pragma(message("warning: "MSG))
-#else
-#   define METAL_WARNING_IMPL(MSG) _Pragma(#MSG)
-#   define METAL_WARNING(MSG) METAL_WARNING_IMPL(GCC warning MSG)
-#endif
-
-#if (defined(_MSC_VER) && (_MSC_VER < 1900) && !defined(__clang__)) || \
-    (!defined(_MSC_VER) && (__cplusplus < 201402L))
-    METAL_WARNING("your compiler does not appear to support C++14 properly")
+#if !defined(METAL_COMPAT_MODE)
+#   if defined(METAL_DOXYGENATING) \
+    || (defined(__GNUC__) && !defined(__clang__) && (__GNUC__ < 5)) \
+    || (defined(_MSC_VER) && !defined(__clang__))
+#       define METAL_COMPAT_MODE
+#   endif
 #endif
 
 #endif

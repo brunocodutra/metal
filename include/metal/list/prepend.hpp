@@ -37,8 +37,8 @@ namespace metal
     ///
     /// ### See Also
     /// \see list, insert, append
-    template<typename seq, typename head, typename... tail>
-    using prepend = metal::join<metal::list<head, tail...>, seq>;
+    template<typename seq, typename... vals>
+    using prepend = metal::join<metal::list<vals...>, seq>;
 }
 
 #endif

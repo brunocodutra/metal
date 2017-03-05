@@ -8,7 +8,11 @@
 
 // NOTE: keep in sync with the README
 
+#if !defined(METAL_COMPAT_MODE)
+
 /// [tutorial]
+#include <metal.hpp>
+
 // First we need some Values
 union x { char payload[10]; };
 class y { public: char c; };
@@ -77,3 +81,5 @@ static_assert(metal::same<sorted, metal::list<y, z, x>>::value, "");
 
 // that and much more!
 /// [tutorial]
+
+#endif

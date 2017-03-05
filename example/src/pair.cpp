@@ -4,6 +4,7 @@
 
 #include <metal.hpp>
 
+#include <memory>
 #include <utility>
 
 #include "example.hpp"
@@ -18,6 +19,7 @@ IS_SAME(metal::is_pair<p>, metal::true_);
 
 HIDE(
 /// [is_pair]
+IS_SAME(metal::is_pair<std::pair<int, unsigned>>, metal::false_);
 IS_SAME(metal::is_pair<metal::pair<int, unsigned>>, metal::true_);
 IS_SAME(metal::is_pair<metal::list<void, void*>>, metal::true_);
 IS_SAME(metal::is_pair<metal::list<void>>, metal::false_);
@@ -26,10 +28,12 @@ IS_SAME(metal::is_pair<metal::list<void>>, metal::false_);
 
 HIDE(
 /// [as_pair]
-template<typename...> struct many {};
-
-IS_SAME(metal::as_pair<many<int, char>>, metal::pair<int, char>);
 IS_SAME(metal::as_pair<std::pair<int, char>>, metal::list<int, char>);
+
+IS_SAME(
+    metal::as_pair<std::unique_ptr<int>>,
+    metal::pair<int, std::default_delete<int>>
+);
 /// [as_pair]
 )
 

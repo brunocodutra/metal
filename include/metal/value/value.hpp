@@ -18,6 +18,11 @@ namespace metal
 
         template<typename val = na>
         struct value;
+
+#if defined(METAL_COMPAT_MODE)
+        template<typename val>
+        struct _is_value;
+#endif
     }
     /// \endcond
 
@@ -47,7 +52,12 @@ namespace metal
     /// ### See Also
     /// \see value, nil, is_number, is_lambda, is_pair, is_list, is_map
     template<typename val>
-    using is_value = metal::true_;
+    using is_value =
+#if defined(METAL_COMPAT_MODE) && !defined(METAL_DOXYGENATING)
+        typename detail::_is_value<val>::type;
+#else
+        metal::true_;
+#endif
 
     /// \ingroup value
     ///
@@ -118,6 +128,14 @@ namespace metal
 
         template<>
         struct value<na> {};
+
+#if defined(METAL_COMPAT_MODE)
+        template<typename val>
+        struct _is_value
+        {
+            using type = true_;
+        };
+#endif
     }
     /// \endcond
 }
