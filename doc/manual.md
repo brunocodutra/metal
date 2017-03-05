@@ -267,6 +267,68 @@ A [Map] is a [List] of [Pairs], whose first elements are all distinct, that is
 
 metal::map, metal::is_map, metal::keys, metal::values
 
+Migrating from Boost.MPL {#MPL}
+================================================================================
+
+Metal was heavily influenced by Boost.MPL, from which it inherited the
+convention of naming algorithms after their counterparts in the C++ standard
+library. For this reason, metaprograms written using Metal might resemble those
+written using Boost.MPL, but there are fundamental differences between these
+libraries that you must keep in mind when porting a legacy metaprogram that uses
+Boost.MPL to modern C++ using Metal.
+
+Boost.MPL is notable for employing various tricks to emulate features that only
+became directly supported by the core language much later on with C++11. Most
+notably, Boost.MPL relies on a template arguments to emulate variadic
+templates and create an illusion that _Sequences_, such as `mpl::vector` or
+`mpl::map`, can hold an arbitrary number of elements. However, because these
+templates could not be truly variadic, every possible size of these _Sequences_
+had to be enumerated one by one as a distinct numbered version of the template.
+
+\snippet mpl.cpp variadic_emulation
+
+This trick clearly doesn't scale well and implies there must be an upper limit
+to the size of _Sequences_. Indeed Boost.MPL limits the sizes of sequences to only
+a couple of dozen elements by default. Moreover, because this boilerplate is too
+troublesome to maintain, Boost.MPL relies heavily on the C++ preprocessor, which
+on one hand reduces code redundancy, but on the other hand dramatically impacts
+compilation time figures.
+
+Metal has none of these issues, since it takes advantage of variadic templates
+to reduce that boilerplate to a one-liner, while at the same time overcoming
+all of the drawbacks mentioned.
+
+\snippet mpl.cpp variadic
+
+Indeed, Metal [Lists] and [Maps] can easily exceed the hundreds and even
+thousands of elements with little impact to the compiler performance. For up to
+date benchmark figures, visit [metaben.ch].
+
+Another important difference that arises from the lack of language support at
+the time Boost.MPL was designed, is the fact that it had no other means of
+expressing metafunctions other than by the rather verbose idiom of declaring a
+nested type alias within template classes.
+
+\snippet mpl.cpp alias_emulation
+
+Metal on the other hand is able to take advantage of [alias templates] and make
+it much less verbose
+
+\snippet mpl.cpp alias
+
+... but that is not all that there's to it. While template aliases produce
+SFINAE-friendly errors, substitution errors on nested types prevent the [SFINAE]
+rule from kicking in and trigger hard compilation errors instead, which is
+another important drawback of Boost.MPL when compared to Metal. For a discussion
+about the importance of SFINAE-friendliness, take a look at \ref SFINAE.
+
+For the reasons discussed, Metal cannot interoperate with Boost.MPL out of the
+box, but fortunately it is always possible to map Boost.MPL concepts to their
+equivalents in Metal, such as _Sequences_ to [Lists], _Metafunction Classes_ to
+[Lambdas] and _Integral Constants_ to [Numbers]. To ease the migration, Metal
+provides a built in helper `metal::from_mpl` that does just that for you, simply
+include `metal/external/mpl.hpp` to make it available.
+
 Examples {#examples}
 ================================================================================
 
@@ -576,12 +638,6 @@ available and would be a perfect match as we just verified
 
 > error: static_assert failed "hana::zip_with(f, xs, ys...)
 > requires 'xs' and 'ys...' to be Sequences"
-
-Migrating from Boost.MPL {#MPL}
-================================================================================
-
-To make it easier porting legacy metaprograms written using Boost.MPL,
-consider using `metal::from_mpl`.
 
 [Value]:            #value
 [Values]:           #value
