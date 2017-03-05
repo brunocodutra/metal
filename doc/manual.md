@@ -380,8 +380,8 @@ argument?
 That looks promising, but then again `metal::number<1>{}` is even clunkier than
 `std::get<1>()`, we want something more expressive.
 
-A custom [literal operator][literal.operator] that constructs \numbers out of
-integer literals could help reducing the verbosity
+A custom [literal operator] that constructs \numbers out of integer literals
+could help reducing the verbosity
 
 \snippet literal.cpp teaser_4
 
@@ -518,7 +518,7 @@ Church Booleans {#church_booleans}
 ________________________________________________________________________________
 
 [Church Booleans][church] refer to a mathematical framework used to express
-logical operation in the context of [lambda notation][lambda_calculus],
+logical operation in the context of [lambda notation],
 where they have an important theoretical significance.
 Of less practical importance in C++, even in the context of template
 metaprogramming, they will nevertheless help us acquaint with *bind expressions*
@@ -641,12 +641,8 @@ available and would be a perfect match as we just verified
 
 [Value]:            #value
 [Values]:           #value
-[Optional]:         #optional
-[Optionals]:        #optional
 [Number]:           #number
 [Numbers]:          #number
-[Boolean]:          #number
-[Booleans]:         #number
 [Expression]:       #expression
 [Expressions]:      #expression
 [Lambda]:           #lambda
@@ -663,8 +659,8 @@ available and would be a perfect match as we just verified
 [higher-order]:     http://en.wikipedia.org/wiki/Higher-order_function
 [first-class]:      http://en.wikipedia.org/wiki/First-class_citizen
 [fold]:             http://en.wikipedia.org/wiki/Fold_(higher-order_function)
-[church]:           https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans
-[lambda_calculus]:  https://en.wikipedia.org/wiki/Lambda_calculus
+[church]:           http://en.wikipedia.org/wiki/Church_encoding#Church_Booleans
+[lambda notation]:  http://en.wikipedia.org/wiki/Lambda_calculus
 
 [algorithm]:        http://en.cppreference.com/w/cpp/algorithm
 [alias templates]:  http://en.cppreference.com/w/cpp/language/type_alias
@@ -674,7 +670,7 @@ available and would be a perfect match as we just verified
 [enable_if]:        http://en.cppreference.com/w/cpp/types/enable_if
 [bind]:             http://en.cppreference.com/w/cpp/utility/functional/bind
 [placeholders]:     http://en.cppreference.com/w/cpp/utility/functional/placeholders
-[literal.operator]: http://en.cppreference.com/w/cpp/language/user_literal
+[literal operator]: http://en.cppreference.com/w/cpp/language/user_literal
 [SFINAE]:           http://en.cppreference.com/w/cpp/language/sfinae
 
 [travis.metal]:     http://travis-ci.org/brunocodutra/metal
