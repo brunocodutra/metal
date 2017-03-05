@@ -639,6 +639,58 @@ available and would be a perfect match as we just verified
 > error: static_assert failed "hana::zip_with(f, xs, ys...)
 > requires 'xs' and 'ys...' to be Sequences"
 
+Frequently Asked Questions {#FAQ}
+================================================================================
+
+What are some advantages of Metal with respect to Boost.MPL? {#FAQ_MPL}
+--------------------------------------------------------------------------------
+________________________________________________________________________________
+
+The most apparent advantage of Metal with respect to Boost.MPL is the fact Metal
+[Lists] and [Maps] can easily exceed the hundreds and even thousands of elements
+with little impact to the compiler performance, whereas Boost.MPL _Sequences_,
+such as `mpl::vector` and `mpl::map`, are hard-limited to at most a couple dozen
+elements and even then at much longer compilation times and increased memory
+consumption. Another obvious improvement is the much terser syntax of Metal made
+possible by alias templates, which were not available at the time Boost.MPL was
+developed. Finally, Metal is guaranteed to be SFINAE-friendly, whereas no
+guarantees whatsoever are made with this respect by Boost.MPL.
+
+Visit [metaben.ch] for up to date benchmarks that compare Metal against
+Boost.MPL and other notable metaprogramming libraries. For a more detailed
+discussion on the limitations of Boost.MPL refer to \ref MPL and for a real
+world example of the importance of SFINAE-friendliness, check out \ref SFINAE.
+
+What are some advantages of Metal with respect to Boost.Hana? {#FAQ_Hana}
+--------------------------------------------------------------------------------
+________________________________________________________________________________
+
+As a tool specifically designed for type level programming, Metal is able to
+provide stronger guarantees and much faster compilation times than Boost.Hana
+when used for similar purposes. In fact, Metal guarantees SFINAE-friendliness,
+whereas Boost.Hana does not. Check out \ref SFINAE for a real world example of
+the limitations of Boost.Hana with this respect.
+
+Moreover, since Metal \ref concepts are defined by their type signatures, it is
+always safe to use template pattern matching on them to partially specialize
+class templates or overload function templates, while the types of most
+Boost.Hana objects is left unspecified and thus cannot be used for these
+purposes.
+
+Why isn't std::integral_constant always a Number? {#FAQ_numbers}
+--------------------------------------------------------------------------------
+________________________________________________________________________________
+
+[Numbers] are defined as a specific specialization of `std::integral_constant`s,
+whose binary representation is fixed to `metal::int_`, an implementation-defined
+integral type. This design choice stems from the fact two [Values] compare equal
+if and only if they have the same type signature. As [Values] themselves,
+[Numbers] are also subject to this requirement, thus had [Numbers] been defined
+as a numerical value _plus_ its binary representation, would two [Numbers] only
+compare equal if they had both the same numerical value _and_ the same binary
+representation. This is unreasonable in the context of metaprogramming, where
+the binary representation of numerical values is entirely irrelevant.
+
 [Value]:            #value
 [Values]:           #value
 [Number]:           #number
