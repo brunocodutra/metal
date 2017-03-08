@@ -6,7 +6,7 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
 set(EXCLUDE)
 if(NOT Boost_FOUND)
-    list(APPEND EXCLUDE "mpl")
+    list(APPEND EXCLUDE "mpl" "sfinae")
 else()
     if(Boost_MINOR_VERSION LESS 61)
         list(APPEND EXCLUDE "sfinae")
