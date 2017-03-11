@@ -5,7 +5,6 @@
 #include <metal.hpp>
 
 #include <cstdint>
-#include <list>
 #include <memory>
 #include <tuple>
 
@@ -30,7 +29,6 @@ IS_SAME(metal::is_list<l>, metal::true_);
 HIDE(
 /// [is_list]
 IS_SAME(metal::is_list<void>, metal::false_);
-IS_SAME(metal::is_list<std::list<int>>, metal::false_);
 IS_SAME(metal::is_list<std::tuple<int, float, void>>, metal::false_);
 IS_SAME(metal::is_list<metal::list<int, float, void>>, metal::true_);
 IS_SAME(metal::is_list<metal::pair<int, int*>>, metal::true_);
@@ -41,7 +39,11 @@ IS_SAME(metal::is_list<metal::map<metal::pair<int, int*>>>, metal::true_);
 HIDE(
 /// [as_list]
 IS_SAME(metal::as_list<std::shared_ptr<int>>, metal::list<int>);
-IS_SAME(metal::as_list<std::list<int>>, metal::list<int, std::allocator<int>>);
+
+IS_SAME(
+    metal::as_list<std::unique_ptr<int>>,
+    metal::list<int, std::default_delete<int>>
+);
 
 IS_SAME(
     metal::as_list<std::tuple<int, char, float>>,
@@ -171,8 +173,8 @@ HIDE(
 using l = metal::list<int, int, float, int, void, float>;
 
 IS_SAME(
-    metal::replace<l, int, char>,
-    metal::list<char, char, float, char, void, float>
+    metal::replace<l, float>,
+    metal::list<int, int, int, void>
 );
 
 IS_SAME(
@@ -181,13 +183,8 @@ IS_SAME(
 );
 
 IS_SAME(
-    metal::replace<l, void, char>,
-    metal::list<int, int, float, int, char, float>
-);
-
-IS_SAME(
-    metal::replace<l, char, char>,
-    metal::list<int, int, float, int, void, float>
+    metal::replace<l, float, char, char*>,
+    metal::list<int, int, char, char*, int, void, char, char*>
 );
 /// [replace]
 )
@@ -302,26 +299,17 @@ using l = metal::list<short, int, long, float, double, void>;
 
 IS_SAME(
     metal::partition<l, metal::lambda<is_fundamental>>,
-    metal::pair<
-        metal::list<short, int, long, float, double, void>,
-        metal::list<>
-    >
+    metal::pair<metal::list<short, int, long, float, double, void>, metal::list<>>
 );
 
 IS_SAME(
     metal::partition<l, metal::lambda<is_floating_point>>,
-    metal::pair<
-        metal::list<float, double>,
-        metal::list<short, int, long, void>
-    >
+    metal::pair<metal::list<float, double>, metal::list<short, int, long, void>>
 );
 
 IS_SAME(
     metal::partition<l, metal::lambda<is_class>>,
-    metal::pair<
-        metal::list<>,
-        metal::list<short, int, long, float, double, void>
-    >
+    metal::pair<metal::list<>, metal::list<short, int, long, float, double, void>>
 );
 /// [partition]
 )

@@ -5,6 +5,8 @@
 #ifndef METAL_DETAIL_DECLPTR_HPP
 #define METAL_DETAIL_DECLPTR_HPP
 
+#include <metal/config.hpp>
+
 namespace metal
 {
     /// \cond

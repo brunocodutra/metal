@@ -20,9 +20,9 @@ namespace metal
     /// Replaces every occurrence of a \value in a \list by another \value.
     ///
     /// ### Usage
-    /// For any \list `l` and \values `val_1` and `val_2`
+    /// For any \list `l` and \values `val` and `val_0, ..., val_n-1`
     /// \code
-    ///     using result = metal::replace<l, val_1, val_2>;
+    ///     using result = metal::replace<l, val, val_0, ..., val_n-1>;
     /// \endcode
     ///
     /// \returns: \list
@@ -32,7 +32,8 @@ namespace metal
     ///         using result = metal::list<...>;
     ///     \endcode
     ///     where `result` contains all and only the elements in `l`, except
-    ///     that every occurrence of `val_1` has been replaced by `val_2`.
+    ///     that every occurrence of `val` has been replaced by
+    ///     `val_0, ..., val_n-1`.
     ///
     /// ### Example
     /// \snippet list.cpp replace

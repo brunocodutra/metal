@@ -16,6 +16,9 @@ namespace metal
     {
         template<typename... seqs>
         struct _cartesian;
+
+        template<typename... seqs>
+        using cartesian = typename detail::_cartesian<seqs...>::type;
     }
 
     /// \ingroup list
@@ -46,8 +49,7 @@ namespace metal
     /// ### See Also
     /// \see list, transpose
     template<typename... seqs>
-    using cartesian =
-        typename detail::_cartesian<if_<is_list<seqs>, seqs>...>::type;
+    using cartesian = detail::cartesian<if_<is_list<seqs>, seqs>...>;
 }
 
 #include <metal/list/join.hpp>
@@ -70,9 +72,10 @@ namespace metal
         };
 
         template<typename... _, typename... hs, typename... tail>
-        struct _cartesian_impl<list<_...>, list<hs...>, tail...> :
-            _join<cartesian_impl<list<_..., hs>, tail...>...>
-        {};
+        struct _cartesian_impl<list<_...>, list<hs...>, tail...>
+        {
+            using type = join<cartesian_impl<list<_..., hs>, tail...>...>;
+        };
 
         template<typename... seqs>
         struct _cartesian :

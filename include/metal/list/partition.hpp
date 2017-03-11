@@ -10,9 +10,6 @@
 #include <metal/list/copy_if.hpp>
 #include <metal/list/remove_if.hpp>
 #include <metal/pair/pair.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/not.hpp>
 
 namespace metal
 {

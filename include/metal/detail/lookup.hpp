@@ -5,6 +5,8 @@
 #ifndef METAL_DETAIL_LOOKUP_HPP
 #define METAL_DETAIL_LOOKUP_HPP
 
+#include <metal/config.hpp>
+
 #include <metal/list/list.hpp>
 #include <metal/list/indices.hpp>
 #include <metal/number/number.hpp>

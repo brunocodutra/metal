@@ -102,14 +102,13 @@ namespace metal
         template<typename seq, typename beg, typename end>
         struct _range
         {
+            using left = min<beg, end>;
+            using right = max<beg, end>;
+
             using type = range<
-                range<
-                    range<seq, min<beg, end>, size<seq>>,
-                    number<0>,
-                    sub<max<beg, end>, min<beg, end>>
-                >,
-                sub<beg, min<beg, end>>,
-                sub<end, min<beg, end>>
+                range<range<seq, number<0>, right>, left, right>,
+                sub<beg, left>,
+                sub<end, left>
             >;
         };
 

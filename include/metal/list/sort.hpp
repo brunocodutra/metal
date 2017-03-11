@@ -101,14 +101,16 @@ namespace metal
         {};
 
         template<typename ret, typename seq, typename lbd>
-        struct _merge<ret, seq, list<>, lbd> :
-            _join<ret, seq>
-        {};
+        struct _merge<ret, seq, list<>, lbd>
+        {
+            using type = join<ret, seq>;
+        };
 
         template<typename ret, typename seq, typename lbd>
-        struct _merge<ret, list<>, seq, lbd> :
-            _join<ret, seq>
-        {};
+        struct _merge<ret, list<>, seq, lbd>
+        {
+            using type = join<ret, seq>;
+        };
 
         template<typename ret, typename lbd>
         struct _merge<ret, list<>, list<>, lbd>

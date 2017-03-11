@@ -27,7 +27,9 @@
     CHECK((metal::is_list<MAP(N)>), (TRUE)); \
     CHECK((metal::is_list<LAMBDA(N)>), (FALSE)); \
     CHECK((metal::is_list<LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::as_list<VALUE(4)>), (metal::list<>)); \
+    CHECK((metal::as_list<PAIR(N)>), (PAIR(N))); \
+    CHECK((metal::as_list<LIST(N)>), (LIST(N))); \
+    CHECK((metal::as_list<MAP(N)>), (MAP(N))); \
 /**/
 
 GEN(MATRIX)

@@ -17,9 +17,6 @@ namespace metal
 
         template<typename val>
         struct _as_list;
-
-        template<typename... vals>
-        struct list {};
     }
     /// \endcond
 
@@ -92,7 +89,11 @@ namespace metal
     /// ### See Also
     /// \see is_list
     template<typename... vals>
-    using list = detail::list<vals...>;
+#if defined(METAL_DOXYGENATING)
+    using list = {};
+#else
+    struct list {};
+#endif
 }
 
 #include <metal/number/number.hpp>

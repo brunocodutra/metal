@@ -59,7 +59,7 @@ namespace metal
     {
         template<int_ n>
         struct _rotator :
-            _rotator<(n >= 100) ? 100 : (n >= 10) ? 10 : (n >= 1)>
+            _rotator<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
         {};
 
         template<>
