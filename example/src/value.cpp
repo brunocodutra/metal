@@ -120,3 +120,31 @@ IS_SAME(metal::distinct<void, void*, void, void, void>, metal::false_);
 IS_SAME(metal::distinct<void, void*, void**, void***, void****>, metal::true_);
 /// [distinct]
 )
+
+HIDE(
+/// [fold_left]
+template<typename x, typename y>
+struct f {};
+
+using lbd = metal::lambda<f>;
+
+IS_SAME(
+    metal::fold_left<lbd, short, int, long, float, double, void>,
+    f<f<f<f<f<short, int>, long>, float>, double>, void>
+);
+/// [fold_left]
+)
+
+HIDE(
+/// [fold_right]
+template<typename x, typename y>
+struct f {};
+
+using lbd = metal::lambda<f>;
+
+IS_SAME(
+    metal::fold_right<lbd, short, int, long, float, double, void>,
+    f<short, f<int, f<long, f<float, f<double, void>>>>>
+);
+/// [fold_right]
+)

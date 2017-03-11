@@ -124,6 +124,32 @@
 
 #define RENUM(N, ...) RENUM_IMPL(N, __VA_ARGS__)
 
+#define FOLD_LEFT_KWD() FOLD_LEFT_IMPL
+#define FOLD_LEFT_IMPL(M, _, ARG, MACRO, ...) \
+    IF(_)(HEAD, TAIL)( \
+        DEFER(FOLD_LEFT_KWD)()( \
+            INC(M), DEC(_), ARG, MACRO, DEFER(MACRO)(M, ARG, __VA_ARGS__) \
+        ), \
+        __VA_ARGS__ \
+    ) \
+/**/
+
+#define FOLD_LEFT(M, ARG, MACRO, ...) \
+    FOLD_LEFT_IMPL(0, M, ARG, MACRO, __VA_ARGS__)
+
+#define FOLD_RIGHT_KWD() FOLD_RIGHT_IMPL
+#define FOLD_RIGHT_IMPL(M, ARG, MACRO, ...) \
+    IF(M)(HEAD, TAIL)( \
+        DEFER(FOLD_RIGHT_KWD)()( \
+            DEC(M), ARG, MACRO, DEFER(MACRO)(DEC(M), ARG, __VA_ARGS__) \
+        ), \
+        __VA_ARGS__ \
+    ) \
+/**/
+
+#define FOLD_RIGHT(M, ARG, MACRO, ...) \
+    FOLD_RIGHT_IMPL(M, ARG, MACRO, __VA_ARGS__)
+
 #define FWD_ID(...) __VA_ARGS__
 #define FWD_KWD() FWD_IMPL
 #define FWD_IMPL(ARG, MACRO, ...) \
