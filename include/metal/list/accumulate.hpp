@@ -62,7 +62,6 @@ namespace metal
 #include <metal/list/at.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/indices.hpp>
-#include <metal/lambda/invoke.hpp>
 #include <metal/number/number.hpp>
 #include <metal/value/value.hpp>
 
@@ -299,11 +298,23 @@ namespace metal
         template<typename... vals>
         using cons = typename _cons<vals...>::type;
 
+        template<typename state, typename num>
+        struct accumulator_impl
+        {
+            template<template<typename...> class expr, typename... seqs>
+            using type = expr<state, at<seqs, num>...>;
+        };
+
         template<typename lbd, typename... seqs>
         struct accumulator
+        {};
+
+        template<template<typename...> class expr, typename... seqs>
+        struct accumulator<lambda<expr>, seqs...>
         {
             template<typename state, typename num>
-            using type = invoke<lbd, state, at<seqs, num>...>;
+            using type = typename accumulator_impl<state, num>
+                ::template type<expr, seqs...>;
         };
 
         template<typename lbd, typename state, typename head, typename... tail>
