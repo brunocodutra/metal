@@ -7,10 +7,18 @@
 
 #include <metal/config.hpp>
 
-#include <metal/lambda/invoke.hpp>
+#include <metal/detail/sfinae.hpp>
 
 namespace metal
 {
+    /// \cond
+    namespace detail
+    {
+        template<typename lbd>
+        struct _apply;
+    }
+    /// \endcond
+
     /// \ingroup lambda
     ///
     /// ### Description
@@ -35,7 +43,40 @@ namespace metal
     /// ### See Also
     /// \see lambda, invoke, list
     template<typename lbd, typename seq>
-    using apply = typename detail::_invoke_impl<lbd, seq>::type;
+    using apply = detail::call<detail::_apply<lbd>::template type, seq>;
+}
+
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/list.hpp>
+
+namespace metal
+{
+    /// \cond
+    namespace detail
+    {
+        template<typename seq>
+        struct _apply_impl
+        {};
+
+        template<typename... vals>
+        struct _apply_impl<list<vals...>>
+        {
+            template<template<typename...> class expr>
+            using type = call<expr, vals...>;
+        };
+
+        template<typename lbd>
+        struct _apply
+        {};
+
+        template<template<typename...> class expr>
+        struct _apply<lambda<expr>>
+        {
+            template<typename seq>
+            using type = forward<_apply_impl<seq>::template type, expr>;
+        };
+    }
+    /// \endcond
 }
 
 #endif
