@@ -127,10 +127,13 @@ namespace metal
             using mid = number<sizeof...(vals)/2>;
             using end = number<sizeof...(vals)>;
 
+            using x = _sort_impl<range<seq, beg, mid>>;
+            using y = _sort_impl<range<seq, mid, end>>;
+
             template<template<typename...> class expr>
             using type = typename _merge<
-                forward<_sort_impl<range<seq, beg, mid>>::template type, expr>,
-                forward<_sort_impl<range<seq, mid, end>>::template type, expr>
+                forward<x::template type, expr>,
+                forward<y::template type, expr>
             >::template type<expr>;
         };
 
