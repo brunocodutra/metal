@@ -7,12 +7,14 @@
 
 #include <metal/config.hpp>
 
+#include <metal/detail/sfinae.hpp>
+
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<typename head, typename... tail>
+        template<typename... nums>
         struct _pow;
     }
     /// \endcond
@@ -48,14 +50,12 @@ namespace metal
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, sub, mul, div, mod
     template<typename... nums>
-    using pow = typename detail::_pow<nums...>::type;
+    using pow = detail::call<detail::_pow<nums...>::template type>;
 }
 
 #include <metal/number/number.hpp>
-#include <metal/number/numbers.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/list/list.hpp>
-#include <metal/list/accumulate.hpp>
+#include <metal/value/fold_left.hpp>
 
 namespace metal
 {
@@ -90,24 +90,19 @@ namespace metal
         struct _pow_impl<number<0>, number<-1>, number<r>>
         {};
 
-        template<typename head, typename... tail>
+        template<typename x, typename y>
+        using pow_impl = typename _pow_impl<x, y>::type;
+
+        template<typename... nums>
         struct _pow
         {};
 
-        template<int_ x>
-        struct _pow<number<x>> :
-            number<x>
-        {};
-
-        template<int_ x, int_ y>
-        struct _pow<number<x>, number<y>> :
-            _pow_impl<number<x>, number<y>>
-        {};
-
-        template<int_ x, int_ y, int_... tail>
-        struct _pow<number<x>, number<y>, number<tail>...> :
-            _accumulate<lambda<pow>, number<x>, numbers<y, tail...>>
-        {};
+        template<int_... ns>
+        struct _pow<number<ns>...>
+        {
+            template<typename... _>
+            using type = fold_left<lambda<pow_impl>, number<ns>..., _...>;
+        };
     }
     /// \endcond
 }
