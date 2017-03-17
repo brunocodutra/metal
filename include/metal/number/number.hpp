@@ -18,10 +18,8 @@ namespace metal
         template<typename val>
         struct _is_number;
 
-#if defined(METAL_COMPAT_MODE)
-        template<typename val, typename = void>
+        template<typename val>
         struct _as_number;
-#endif
 
         using int_ = std::intmax_t;
     }
@@ -122,12 +120,7 @@ namespace metal
     /// ### See Also
     /// \see number
     template<typename val>
-    using as_number =
-#if defined(METAL_COMPAT_MODE) && !defined(METAL_DOXYGENATING)
-        typename detail::_as_number<val>::type;
-#else
-        metal::number<metal::int_{val::value}>;
-#endif
+    using as_number = typename detail::_as_number<val>::type;
 
     /// \cond
     namespace detail
@@ -141,17 +134,72 @@ namespace metal
         struct _is_number<number<value>> :
             true_
         {};
-#if defined(METAL_COMPAT_MODE)
-        template<typename val, typename>
-        struct _as_number
+
+        template<typename val, typename = std::true_type>
+        struct has_enum_value :
+            std::false_type
         {};
 
         template<typename val>
-        struct _as_number<val, decltype(void(val::value))>
+        struct has_enum_value<val,
+            typename std::is_enum<decltype(val::value)>::type
+        > :
+            std::true_type
+        {};
+
+        template<typename val>
+        struct is_pointer_to_const_integral :
+            std::false_type
+        {};
+
+        template<typename val>
+        struct is_pointer_to_const_integral<val const*> :
+            std::is_integral<val>
+        {};
+
+        template<typename val, typename = std::true_type>
+        struct has_integral_value_impl :
+            has_enum_value<val>
+        {};
+
+        template<typename val>
+        struct has_integral_value_impl<val,
+            typename is_pointer_to_const_integral<decltype(&val::value)>::type
+        > :
+            std::true_type
+        {};
+
+        template<typename val>
+        struct has_integral_value_impl<val,
+            typename std::is_member_pointer<decltype(&val::value)>::type
+        > :
+            std::false_type
+        {};
+
+        template<typename val, typename = std::true_type>
+        struct has_integral_value :
+            has_integral_value_impl<val>
+        {};
+
+        template<typename val>
+        struct has_integral_value<val, typename std::is_enum<val>::type> :
+            has_enum_value<val>
+        {};
+
+        template<typename val, typename = std::true_type>
+        struct _as_number_impl
+        {};
+
+        template<typename val>
+        struct _as_number_impl<val, typename has_integral_value<val>::type>
         {
             using type = number<val::value>;
         };
-#endif
+
+        template<typename val>
+        struct _as_number :
+            _as_number_impl<val>
+        {};
     }
     /// \endcond
 }

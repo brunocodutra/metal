@@ -13,7 +13,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) LISTS(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) MAPS(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) LAMBDAS(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::as_list>, VALUE(M)>), (BOOL(M == 4))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::as_list>, VALUE(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::as_list>, NUMBER(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::as_list>, PAIR(M)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::as_list>, LIST(M)>), (TRUE)); \
