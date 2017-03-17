@@ -7,14 +7,12 @@
 
 #include <metal/config.hpp>
 
-#include <metal/list/size.hpp>
-
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<typename seq, typename num, typename = size<seq>>
+        template<typename seq, typename num>
         struct _rotate;
     }
     /// \endcond
@@ -52,21 +50,23 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 
+#include <cstddef>
+
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<int_ n>
-        struct _rotator :
-            _rotator<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
+        template<std::size_t n>
+        struct rotator :
+            rotator<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
         {};
 
         template<>
-        struct _rotator<100>
+        struct rotator<100>
         {
             template<
-                int_ n,
+                std::size_t n,
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename _10, typename _11,
@@ -94,7 +94,7 @@ namespace metal
                 typename _96, typename _97, typename _98, typename _99,
                 typename... tail
             >
-            using type = typename _rotator<(n - 100)>::template type<
+            using type = typename rotator<(n - 100)>::template type<
                 (n - 100),
                 tail...,
                 _00, _01, _02, _03, _04, _05, _06, _07, _08, _09,
@@ -111,46 +111,47 @@ namespace metal
         };
 
         template<>
-        struct _rotator<10>
+        struct rotator<10>
         {
             template<
-                int_ n,
+                std::size_t n,
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename... tail
             >
-            using type = typename _rotator<(n - 10)>::template type<
+            using type = typename rotator<(n - 10)>::template type<
                 (n - 10),
                 tail..., _00, _01, _02, _03, _04, _05, _06, _07, _08, _09
             >;
         };
 
         template<>
-        struct _rotator<1>
+        struct rotator<1>
         {
-            template<int_ n, typename head, typename... tail>
-            using type = typename _rotator<(n - 1)>::template type<
+            template<std::size_t n, typename head, typename... tail>
+            using type = typename rotator<(n - 1)>::template type<
                 (n - 1), tail..., head
             >;
         };
 
         template<>
-        struct _rotator<0>
+        struct rotator<0>
         {
-            template<int_, typename... vals>
+            template<std::size_t, typename... vals>
             using type = list<vals...>;
         };
 
-        template<typename seq, typename num, typename>
+        template<typename seq, typename num>
         struct _rotate
         {};
 
-        template<typename... vals, int_ n, int_ s>
-        struct _rotate<list<vals...>, number<n>, number<s>>
+        template<typename... vals, int_ n>
+        struct _rotate<list<vals...>, number<n>>
         {
-            static constexpr int_ m = ((n % s) + s*(n < 0));
+            enum : int_ { size = sizeof...(vals) };
+            enum : std::size_t { m = ((n % size) + size*(n < 0)) };
 
-            using type = typename _rotator<m>::template type<m, vals...>;
+            using type = typename rotator<m>::template type<m, vals...>;
         };
 
         template<int_ n>
