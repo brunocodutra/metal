@@ -70,7 +70,7 @@ target_compile_flags(Metal INTERFACE -stdlib=libc++ LIBS c++ c++abi)
 target_compile_flags(Metal INTERFACE /std:c++latest)
 
 target_compile_flags(Metal INTERFACE -std=c++17
-    FALLBACK -std=c++1z -std=c++14 -std=c++1y
+    FALLBACK -std=c++1z -std=c++14 -std=c++1y -std=c++11 -std=c++0x
 )
 
 deploy(Metal)
