@@ -107,8 +107,9 @@ Don't worry, all your favourite compilers are continuously tested at
 | Xcode             | 8.0       | OS X 10.11
 | Xcode             | 8.1       | OS X 10.12
 | Xcode             | 8.2       | OS X 10.12
-| Visual Studio     | 14 (2015) | Windows Server 2012 R2
 | MinGW-w64         | 5         | Windows Server 2012 R2
+| MinGW-w64         | 6         | Windows Server 2012 R2
+| Visual Studio     | 14 (2015) | Windows Server 2012 R2
 
 ## Documentation
 
