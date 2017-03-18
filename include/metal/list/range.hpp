@@ -66,49 +66,102 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/iota.hpp>
 #include <metal/list/rotate.hpp>
 #include <metal/list/reverse.hpp>
 #include <metal/number/sub.hpp>
 #include <metal/number/max.hpp>
 #include <metal/number/min.hpp>
-#include <metal/value/value.hpp>
-
-#include <metal/detail/declptr.hpp>
 
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<typename> using void_ = void;
-
-        template<typename, typename>
-        struct _skip_impl
+        template<std::size_t n>
+        struct skipper :
+            skipper<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
         {};
 
-        template<typename... vals, typename... _>
-        struct _skip_impl<list<vals...>, list<_...>>
+        template<>
+        struct skipper<100>
         {
-            template<typename... tail>
-            static list<tail...> impl(void_<_>*..., value<tail>*...);
+            template<
+                std::size_t n,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename... tail
+            >
+            using type = typename skipper<(n - 100)>::template type<
+                (n - 100), tail...
+            >;
+        };
 
-            using type = decltype(impl(declptr<value<vals>>()...));
+        template<>
+        struct skipper<10>
+        {
+            template<
+                std::size_t n,
+                typename, typename, typename, typename, typename, typename,
+                typename, typename, typename, typename, typename... tail
+            >
+            using type = typename skipper<(n - 10)>::template type<
+                (n - 10), tail...
+            >;
+        };
+
+        template<>
+        struct skipper<1>
+        {
+            template<std::size_t n, typename, typename... tail>
+            using type = typename skipper<(n - 1)>::template type<
+                (n - 1), tail...
+            >;
+        };
+
+        template<>
+        struct skipper<0>
+        {
+            template<std::size_t, typename... vals>
+            using type = list<vals...>;
         };
 
         template<typename seq, typename num>
-        using skip = typename _skip_impl<seq, iota<number<0>, num>>::type;
+        struct _skip
+        {};
+
+        template<typename... vals, int_ n>
+        struct _skip<list<vals...>, number<n>>
+        {
+            using type = typename skipper<n>::template type<n, vals...>;
+        };
+
+        template<typename seq, typename num>
+        using skip = typename _skip<seq, num>::type;
 
         template<typename seq, typename beg, typename end>
         struct _range
         {
-            using left = min<beg, end>;
-            using right = max<beg, end>;
+            using b = min<beg, end>;
+            using e = max<beg, end>;
 
             using type = range<
-                range<range<seq, number<0>, right>, left, right>,
-                sub<beg, left>,
-                sub<end, left>
+                range<range<seq, number<0>, e>, b, e>,
+                sub<beg, b>,
+                sub<end, b>
             >;
         };
 
