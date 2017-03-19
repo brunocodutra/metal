@@ -24,84 +24,7 @@ In a Glimpse {#in_a_glimpse}
 
 Check out [more examples](#examples) below.
 
-Getting Started {#getting_started}
-================================================================================
-
-Download {#download}
---------------------------------------------------------------------------------
-
-There are a few ways to get Metal, the easiest might be to simply
-[download the latest release][Metal.releases] as a compressed package.
-
-If you have git installed and would rather have the latest stable Metal,
-you may consider cloning branch `master` from GitHub.
-
-    git clone https://github.com/brunocodutra/metal
-
-Likewise, the bleeding edge development version can be obtained by cloning
-branch `develop` instead.
-
-    git clone https://github.com/brunocodutra/metal --branch=develop
-
-Install (optional) {#install}
---------------------------------------------------------------------------------
-
-Metal may optionally be installed system-wide to ease integration with external
-projects. If you'd rather use Metal locally, you can skip to the
-[next section](#integration).
-
-Make sure to have CMake v3.4 or newer installed on your system, then,
-from within an empty directory, issue the following commands.
-
-    cmake /path/to/Metal
-    cmake --build . --target install
-
-At this point Metal's include tree will be installed in
-`/usr/local/include` on Posix systems and `C:\Program Files\Metal\include`
-on Windows.
-
-Integration {#integration}
---------------------------------------------------------------------------------
-
-If you chose to [install Metal system-wide](#install), you just have to make
-sure the installation prefix is looked up by your compiler.
-
-Using CMake it suffices to add the following to your `CMakeLists.txt`.
-
-    find_package(Metal REQUIRED)
-    include_directories(${Metal_INCLUDE_DIR})
-
-To use your local copy of Metal instead, just add its `include/` sub-directory
-to the include search paths of your project and you are all set.
-
-Supported Compilers {#supported_compilers}
---------------------------------------------------------------------------------
-
-The following compilers are tested in continuous integration using
-[Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
-
-| Compiler          | Version
-|-------------------|-----------
-| GCC               | &ge; 4.7
-| Clang             | &ge; 3.4
-| Xcode             | &ge; 6.4
-| Visual Studio     | &ge; 14 (2015)
-| MinGW             | &ge; 5
-
-Project Organization {#project_organization}
---------------------------------------------------------------------------------
-
-Header files are divided in modules named after each [concept](#concepts).
-Modules are organized in directories and contain algorithms that operate on
-models of that concept. The complete hierarchy of modules and headers is
-available on [Metal's repository][Metal.headers] on GitHub.
-
-\tip{
-    You may simply include `metal.hpp` and get access to all that Metal has to
-    offer without concerning yourself with which specific headers to include.
-}
-
-Concepts {#concepts}
+Definitions {#concepts}
 ================================================================================
 
 Template metaprogramming may be seen as a language of its own right.
@@ -266,68 +189,6 @@ A [Map] is a [List] of [Pairs], whose first elements are all distinct, that is
 ### See Also
 
 metal::map, metal::is_map, metal::keys, metal::values
-
-Migrating from Boost.MPL {#MPL}
-================================================================================
-
-Metal was heavily influenced by Boost.MPL, from which it inherited the
-convention of naming algorithms after their counterparts in the C++ standard
-library. For this reason, metaprograms written using Metal might resemble those
-written using Boost.MPL, but there are fundamental differences between these
-libraries that you must keep in mind when porting a legacy metaprogram that uses
-Boost.MPL to modern C++ using Metal.
-
-Boost.MPL is notable for employing various tricks to emulate features that only
-became directly supported by the core language much later on with C++11. Most
-notably, Boost.MPL relies on a template arguments to emulate variadic
-templates and create an illusion that _Sequences_, such as `mpl::vector` or
-`mpl::map`, can hold an arbitrary number of elements. However, because these
-templates could not be truly variadic, every possible size of these _Sequences_
-had to be enumerated one by one as a distinct numbered version of the template.
-
-\snippet mpl.cpp variadic_emulation
-
-This trick clearly doesn't scale well and implies there must be an upper limit
-to the size of _Sequences_. Indeed Boost.MPL limits the sizes of sequences to only
-a couple of dozen elements by default. Moreover, because this boilerplate is too
-troublesome to maintain, Boost.MPL relies heavily on the C++ preprocessor, which
-on one hand reduces code redundancy, but on the other hand dramatically impacts
-compilation time figures.
-
-Metal has none of these issues, since it takes advantage of variadic templates
-to reduce that boilerplate to a one-liner, while at the same time overcoming
-all of the drawbacks mentioned.
-
-\snippet mpl.cpp variadic
-
-Indeed, Metal [Lists] and [Maps] can easily exceed the hundreds and even
-thousands of elements with little impact to the compiler performance. For up to
-date benchmark figures, visit [metaben.ch].
-
-Another important difference that arises from the lack of language support at
-the time Boost.MPL was designed, is the fact that it had no other means of
-expressing metafunctions other than by the rather verbose idiom of declaring a
-nested type alias within template classes.
-
-\snippet mpl.cpp alias_emulation
-
-Metal on the other hand is able to take advantage of [alias templates] and make
-it much less verbose
-
-\snippet mpl.cpp alias
-
-... but that is not all that there's to it. While template aliases produce
-SFINAE-friendly errors, substitution errors on nested types prevent the [SFINAE]
-rule from kicking in and trigger hard compilation errors instead, which is
-another important drawback of Boost.MPL when compared to Metal. For a discussion
-about the importance of SFINAE-friendliness, take a look at \ref SFINAE.
-
-For the reasons discussed, Metal cannot interoperate with Boost.MPL out of the
-box, but fortunately it is always possible to map Boost.MPL concepts to their
-equivalents in Metal, such as _Sequences_ to [Lists], _Metafunction Classes_ to
-[Lambdas] and _Integral Constants_ to [Numbers]. To ease the migration, Metal
-provides a built in helper `metal::from_mpl` that does just that for you, simply
-include `metal/external/mpl.hpp` to make it available.
 
 Examples {#examples}
 ================================================================================
@@ -639,6 +500,145 @@ available and would be a perfect match as we just verified
 > error: static_assert failed "hana::zip_with(f, xs, ys...)
 > requires 'xs' and 'ys...' to be Sequences"
 
+Migrating from Boost.MPL {#MPL}
+================================================================================
+
+Metal was heavily influenced by Boost.MPL, from which it inherited the
+convention of naming algorithms after their counterparts in the C++ standard
+library. For this reason, metaprograms written using Metal might resemble those
+written using Boost.MPL, but there are fundamental differences between these
+libraries that you must keep in mind when porting a legacy metaprogram that uses
+Boost.MPL to modern C++ using Metal.
+
+Boost.MPL is notable for employing various tricks to emulate features that only
+became directly supported by the core language much later on with C++11. Most
+notably, Boost.MPL relies on a template arguments to emulate variadic
+templates and create an illusion that _Sequences_, such as `mpl::vector` or
+`mpl::map`, can hold an arbitrary number of elements. However, because these
+templates could not be truly variadic, every possible size of these _Sequences_
+had to be enumerated one by one as a distinct numbered version of the template.
+
+\snippet mpl.cpp variadic_emulation
+
+This trick clearly doesn't scale well and implies there must be an upper limit
+to the size of _Sequences_. Indeed Boost.MPL limits the sizes of sequences to only
+a couple of dozen elements by default. Moreover, because this boilerplate is too
+troublesome to maintain, Boost.MPL relies heavily on the C++ preprocessor, which
+on one hand reduces code redundancy, but on the other hand dramatically impacts
+compilation time figures.
+
+Metal has none of these issues, since it takes advantage of variadic templates
+to reduce that boilerplate to a one-liner, while at the same time overcoming
+all of the drawbacks mentioned.
+
+\snippet mpl.cpp variadic
+
+Indeed, Metal [Lists] and [Maps] can easily exceed the hundreds and even
+thousands of elements with little impact to the compiler performance. For up to
+date benchmark figures, visit [metaben.ch].
+
+Another important difference that arises from the lack of language support at
+the time Boost.MPL was designed, is the fact that it had no other means of
+expressing metafunctions other than by the rather verbose idiom of declaring a
+nested type alias within template classes.
+
+\snippet mpl.cpp alias_emulation
+
+Metal on the other hand is able to take advantage of [alias templates] and make
+it much less verbose
+
+\snippet mpl.cpp alias
+
+... but that is not all that there's to it. While template aliases produce
+SFINAE-friendly errors, substitution errors on nested types prevent the [SFINAE]
+rule from kicking in and trigger hard compilation errors instead, which is
+another important drawback of Boost.MPL when compared to Metal. For a discussion
+about the importance of SFINAE-friendliness, take a look at \ref SFINAE.
+
+For the reasons discussed, Metal cannot interoperate with Boost.MPL out of the
+box, but fortunately it is always possible to map Boost.MPL concepts to their
+equivalents in Metal, such as _Sequences_ to [Lists], _Metafunction Classes_ to
+[Lambdas] and _Integral Constants_ to [Numbers]. To ease the migration, Metal
+provides a built in helper `metal::from_mpl` that does just that for you, simply
+include `metal/external/mpl.hpp` to make it available.
+
+Getting Started {#getting_started}
+================================================================================
+
+Download {#download}
+--------------------------------------------------------------------------------
+
+There are a few ways to get Metal, the easiest might be to simply
+[download the latest release][Metal.releases] as a compressed package.
+
+If you have git installed and would rather have the latest stable Metal,
+you may consider cloning branch `master` from GitHub.
+
+    git clone https://github.com/brunocodutra/metal
+
+Likewise, the bleeding edge development version can be obtained by cloning
+branch `develop` instead.
+
+    git clone https://github.com/brunocodutra/metal --branch=develop
+
+Install (optional) {#install}
+--------------------------------------------------------------------------------
+
+Metal may optionally be installed system-wide to ease integration with external
+projects. If you'd rather use Metal locally, you can skip to the
+[next section](#integration).
+
+Make sure to have CMake v3.4 or newer installed on your system, then,
+from within an empty directory, issue the following commands.
+
+    cmake /path/to/Metal
+    cmake --build . --target install
+
+At this point Metal's include tree will be installed in
+`/usr/local/include` on Posix systems and `C:\Program Files\Metal\include`
+on Windows.
+
+Integration {#integration}
+--------------------------------------------------------------------------------
+
+If you chose to [install Metal system-wide](#install), you just have to make
+sure the installation prefix is looked up by your compiler.
+
+Using CMake it suffices to add the following to your `CMakeLists.txt`.
+
+    find_package(Metal REQUIRED)
+    include_directories(${Metal_INCLUDE_DIR})
+
+To use your local copy of Metal instead, just add its `include/` sub-directory
+to the include search paths of your project and you are all set.
+
+Supported Compilers {#supported_compilers}
+--------------------------------------------------------------------------------
+
+The following compilers are tested in continuous integration using
+[Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
+
+| Compiler          | Version
+|-------------------|-----------
+| GCC               | &ge; 4.7
+| Clang             | &ge; 3.4
+| Xcode             | &ge; 6.4
+| Visual Studio     | &ge; 14 (2015)
+| MinGW             | &ge; 5
+
+Project Organization {#project_organization}
+--------------------------------------------------------------------------------
+
+Header files are divided in modules named after each [concept](#concepts).
+Modules are organized in directories and contain algorithms that operate on
+models of that [concept](#concepts). The complete hierarchy of modules and
+headers is available on [Metal's repository][Metal.headers] on GitHub.
+
+\tip{
+    You may simply include `metal.hpp` and get access to all that Metal has to
+    offer without concerning yourself with which specific headers to include.
+}
+
 Frequently Asked Questions {#FAQ}
 ================================================================================
 
@@ -671,11 +671,11 @@ when used for similar purposes. In fact, Metal guarantees SFINAE-friendliness,
 whereas Boost.Hana does not. Check out \ref SFINAE for a real world example of
 the limitations of Boost.Hana with this respect.
 
-Moreover, since Metal \ref concepts are defined by their type signatures, it is
-always safe to use template pattern matching on them to partially specialize
-class templates or overload function templates, while the types of most
-Boost.Hana objects is left unspecified and thus cannot be used for these
-purposes.
+Moreover, since Metal [concepts](#concepts) are defined by their type
+signatures, it is always safe to use template pattern matching on them to
+partially specialize class templates or overload function templates, while the
+types of most Boost.Hana objects is left unspecified and thus cannot be used for
+these purposes.
 
 Why isn't std::integral_constant always a Number? {#FAQ_numbers}
 --------------------------------------------------------------------------------
