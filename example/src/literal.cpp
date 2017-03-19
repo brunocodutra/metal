@@ -48,13 +48,9 @@ HIDE(
 ///[remove]
 using tokens = metal::numbers<'3', '\'', '7', '\'', '1'>;
 
-IS_SAME(
-    metal::remove<tokens, metal::number<'\''>>,
-    metal::numbers<'3', '7', '1'>
-);
+IS_SAME(metal::remove<tokens, metal::number<'\''>>, metal::numbers<'3', '7', '1'>);
 ///[remove]
 )
-
 #endif
 
 ///[parse_digit]
@@ -87,10 +83,7 @@ using parse_digit = metal::if_<
 
 HIDE(
 ///[transform]
-IS_SAME(
-    metal::transform<metal::lambda<parse_digit>, metal::numbers<'3', '7', '1'>>,
-    metal::numbers<3, 7, 1>
-);
+IS_SAME(metal::transform<metal::lambda<parse_digit>, metal::numbers<'3', '7', '1'>>, metal::numbers<3, 7, 1>);
 ///[transform]
 )
 
@@ -104,10 +97,7 @@ using expr = metal::add<metal::mul<radix, x>, y>;
 
 using lbd = metal::lambda<expr>;
 
-IS_SAME(
-    metal::accumulate<lbd, metal::number<0>, digits>,
-    metal::number<371>
-);
+IS_SAME(metal::accumulate<lbd, metal::number<0>, digits>, metal::number<371>);
 ///[accumulate_1]
 )
 
@@ -122,10 +112,7 @@ using lbd = metal::bind<
     metal::_2
 >;
 
-IS_SAME(
-    metal::accumulate<lbd, metal::number<0>, digits>,
-    metal::number<371>
-);
+IS_SAME(metal::accumulate<lbd, metal::number<0>, digits>, metal::number<371>);
 ///[accumulate_2]
 )
 
@@ -156,69 +143,39 @@ struct parse_number_impl
 {};
 
 template<typename... tokens>
-struct parse_number_impl<
-    metal::list<tokens...>
->
+struct parse_number_impl<metal::list<tokens...>>
 {
-    using type = assemble_number<
-        metal::number<10>,
-        parse_digits<metal::list<tokens...>>
-    >;
+    using type = assemble_number<metal::number<10>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<
-    metal::list<metal::number<'0'>, tokens...>
->
+struct parse_number_impl<metal::list<metal::number<'0'>, tokens...>>
 {
-    using type = assemble_number<
-        metal::number<8>,
-        parse_digits<metal::list<tokens...>>
-    >;
+    using type = assemble_number<metal::number<8>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<
-    metal::list<metal::number<'0'>, metal::number<'x'>, tokens...>
->
+struct parse_number_impl<metal::list<metal::number<'0'>, metal::number<'x'>, tokens...>>
 {
-    using type = assemble_number<
-        metal::number<16>,
-        parse_digits<metal::list<tokens...>>
-    >;
+    using type = assemble_number<metal::number<16>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<
-    metal::list<metal::number<'0'>, metal::number<'X'>, tokens...>
->
+struct parse_number_impl<metal::list<metal::number<'0'>, metal::number<'X'>, tokens...>>
 {
-    using type = assemble_number<
-        metal::number<16>,
-        parse_digits<metal::list<tokens...>>
-    >;
+    using type = assemble_number<metal::number<16>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<
-    metal::list<metal::number<'0'>, metal::number<'b'>, tokens...>
->
+struct parse_number_impl<metal::list<metal::number<'0'>, metal::number<'b'>, tokens...>>
 {
-    using type = assemble_number<
-        metal::number<2>,
-        parse_digits<metal::list<tokens...>>
-    >;
+    using type = assemble_number<metal::number<2>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<
-    metal::list<metal::number<'0'>, metal::number<'B'>, tokens...>
->
+struct parse_number_impl<metal::list<metal::number<'0'>, metal::number<'B'>, tokens...>>
 {
-    using type = assemble_number<
-        metal::number<2>,
-        parse_digits<metal::list<tokens...>>
-    >;
+    using type = assemble_number<metal::number<2>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename tokens>
@@ -234,26 +191,12 @@ constexpr auto operator ""/**/_c()
 ///[_c]
 
 ///[_c_ex1]
-IS_SAME(
-    decltype(01234567_c), //octal
-    metal::number<342391>
-);
-
-IS_SAME(
-    decltype(123456789_c), //decimal
-    metal::number<123456789>
-);
-
-IS_SAME(
-    decltype(0xABCDEF_c), //hexadecimal
-    metal::number<11259375>
-);
+IS_SAME(decltype(01234567_c), metal::number<342391>); //octal
+IS_SAME(decltype(123456789_c), metal::number<123456789>); //decimal
+IS_SAME(decltype(0xABCDEF_c), metal::number<11259375>); //hexadecimal
 ///[_c_ex1]
 
-IS_SAME(
-    decltype(0Xabcdef_c),
-    metal::number<11259375>
-);
+IS_SAME(decltype(0Xabcdef_c), metal::number<11259375>);
 
 #if !defined(METAL_COMPAT_MODE)
 
@@ -270,10 +213,7 @@ IS_SAME(
 );
 
 ///[_c_ex3]
-IS_SAME(
-    decltype(1'2'3'4'5'6'7'8'9_c),
-    metal::number<123456789>
-);
+IS_SAME(decltype(1'2'3'4'5'6'7'8'9_c), metal::number<123456789>);
 ///[_c_ex3]
 
 #endif

@@ -2,9 +2,9 @@
 
 \tableofcontents
 
-Metal is a header-only C++14 library designed to make metaprogramming easy.
-It provides a powerful high-level abstraction for compile-time algorithms that
-mimic the Standard Algorithms Library, hence
+Metal is a header-only C++14 library designed to make template metaprogramming
+intuitive. It provides a powerful high-level abstraction for compile-time
+algorithms that mimic the Standard Algorithms Library, hence
 **Metal** - <b>Meta</b>programming <b>Al</b>gorithms.
 
 There is a myriad of C++ metaprogramming libraries out there so why Metal?
@@ -12,19 +12,17 @@ There is a myriad of C++ metaprogramming libraries out there so why Metal?
 * **Portable** - compatible with the
 [most popular compilers](#supported_compilers).
 * **Blazing fast** - browse up to date benchmarks at [metaben.ch].
-* **SFINAE-Friendly** - [control overload resolution][SFINAE] and make the most
+* **SFINAE-Friendly** - [control overload resolution](#SFINAE) and make the most
 out of function templates.
-* **Metaprogramming made easy** - it doesn't have to be hard,
-[check it out](#in_a_glimpse)!
 
 In a Glimpse {#in_a_glimpse}
 ================================================================================
 
 \snippet tutorial.cpp tutorial
 
-Check out [more examples](#examples) below.
+Be sure to take a look at the [examples](#examples) below.
 
-Definitions {#concepts}
+Definitions {#definitions}
 ================================================================================
 
 Template metaprogramming may be seen as a language of its own right.
@@ -67,7 +65,7 @@ A [Number] is a compile-time representation of a numerical value.
 `num` is a model of [Number] if and only if `num` is a specialization of
 `metal::number`.
 
-\note{
+\tip{
     `metal::number<n>` is guaranteed to be an alias template to
     `std::integral_constant<metal::int_, n>`.
 }
@@ -81,10 +79,15 @@ A [Number] is a compile-time representation of a numerical value.
 ### Counterexamples
 
 \snippet number.cpp not_a_num1
+\snippet number.cpp not_a_num2
+
+### FAQ
+
+\ref FAQ_numbers
 
 ### See Also
 
-metal::number, metal::int_
+metal::number, metal::is_number, metal::as_number
 
 Expression {#expression}
 --------------------------------------------------------------------------------
@@ -126,7 +129,7 @@ thus enabling [higher-order] composition.
 
 ### See Also
 
-metal::lambda, metal::is_lambda
+metal::lambda, metal::is_lambda, metal::as_lambda
 
 List {#list}
 --------------------------------------------------------------------------------
@@ -143,9 +146,13 @@ A [List] is a sequence of [Values].
 \snippet list.cpp  list1
 \snippet list.cpp  list2
 
+### Counterexamples
+
+\snippet list.cpp not_a_list1
+
 ### See Also
 
-metal::list, metal::is_list
+metal::list, metal::is_list, metal::as_list
 
 Pair {#pair}
 --------------------------------------------------------------------------------
@@ -160,9 +167,13 @@ A [Pair] is any [List] whose size is 2.
 
 \snippet pair.cpp  pair1
 
+### Counterexamples
+
+\snippet pair.cpp not_a_pair1
+
 ### See Also
 
-metal::pair, metal::is_pair, metal::first, metal::second
+metal::pair, metal::is_pair, metal::as_pair
 
 Map {#map}
 --------------------------------------------------------------------------------
@@ -188,12 +199,12 @@ A [Map] is a [List] of [Pairs], whose first elements are all distinct, that is
 
 ### See Also
 
-metal::map, metal::is_map, metal::keys, metal::values
+metal::map, metal::is_map, metal::as_map
 
 Examples {#examples}
 ================================================================================
 
-\tip{
+\note{
     In the following examples, `IS_SAME(X, Y)` is just a terser shorthand for
     `static_assert(std::is_same<X, Y>{}, "")`.
 }
@@ -258,11 +269,6 @@ but let us not forget the reason why we got this far down the road to begin
 with, recall we can't instantiate a template using a non-`constexpr` variable as
 argument!
 
-At this point, a watchful reader might argue that in theory there is no real
-reason for this to be rejected, since the literal value must always be known at
-compile-time and that makes a lot of sense indeed, but unfortunately that's just
-not how C++14 works.
-
 All is not lost however, because we can still parse raw literals, in other
 words, we are in for some fun!
 
@@ -286,8 +292,8 @@ as well as digit separators
 
 We start by defining the literal operator `_c` as a function that forwards the
 raw literal characters as a [List] of [Numbers] to `parse_number` and returns a
-default constructed object of whatever type it aliases to, which in this case
-is guaranteed to be a [Number].
+default constructed object of whatever type it evaluates to, which is guaranteed
+to be a [Number] in this case.
 
 \snippet literal.cpp _c
 
@@ -300,6 +306,9 @@ The radix and digits are then forwarded to `assemble_number`, which adds up the
 individual digits according to the radix.
 
 \snippet literal.cpp parse_number
+
+Notice how we are able to use template pattern matching and partial template
+specializations to extract all relevant information from the tokens.
 
 ### Parsing Digits
 
@@ -335,11 +344,11 @@ according to the radix, in other words
 
     D0*radix^(n-1) + D1*radix^(n-2) + ... + D{n-2}*radix + D{n-1}
 
-or, recursively,
+which can also be written recursively
 
     ((...((0*radix + D0)*radix + D1)*...)*radix + D{n-2})*radix + D{n-1}
 
-This is the equivalent of [left folding][fold], or, in the Metal parlance,
+This is the equivalent of [left folding][fold] a [List], or, in Metal parlance,
 `metal::accumulate`, after its run-time counterpart in the standard library.
 
 \snippet literal.cpp accumulate_1
@@ -349,13 +358,13 @@ but we could also have chosen to use *bind expressions* instead.
 
 \snippet literal.cpp accumulate_2
 
-\note{
+\tip{
     If *bind expressions* look scary to you, don't panic, we will exercise
     [Expression] composition in our [next example](#church_booleans).
     Here it suffices to keep in mind that *bind expressions* return anonymous
     [Lambdas], just like [`std::bind`][bind] returns anonymous functions, and
     that `metal::_1` and `metal::_2` are the equivalents of
-    [`std::placeholders::_1` and `std::placeholder::_2`][placeholders].
+    [`std::placeholders`][placeholders].
 }
 
 Finally
@@ -431,7 +440,7 @@ as never to prevent the [SFINAE] rule to be triggered. In general, such
 instantiation of the *signature* of a type, which includes the instantiation of
 [alias templates] and default template arguments.
 SFINAE-friendly [Expressions] are exceedingly powerful, because they may be used
-to drive overload resolution, much like [`std::enable_if`][enable_if] does.
+to drive overload resolution, think [`std::enable_if`][enable_if] on steroids.
 For this reason,
 __all [Expressions] in Metal are guaranteed to be SFINAE-friendly__.
 
@@ -629,9 +638,9 @@ The following compilers are tested in continuous integration using
 Project Organization {#project_organization}
 --------------------------------------------------------------------------------
 
-Header files are divided in modules named after each [concept](#concepts).
+Header files are divided in modules named after each [concept](#definitions).
 Modules are organized in directories and contain algorithms that operate on
-models of that [concept](#concepts). The complete hierarchy of modules and
+models of that [concept](#definitions). The complete hierarchy of modules and
 headers is available on [Metal's repository][Metal.headers] on GitHub.
 
 \tip{
@@ -653,13 +662,11 @@ such as `mpl::vector` and `mpl::map`, are hard-limited to at most a couple dozen
 elements and even then at much longer compilation times and increased memory
 consumption. Another obvious improvement is the much terser syntax of Metal made
 possible by alias templates, which were not available at the time Boost.MPL was
-developed. Finally, Metal is guaranteed to be SFINAE-friendly, whereas no
-guarantees whatsoever are made with this respect by Boost.MPL.
+developed.
 
 Visit [metaben.ch] for up to date benchmarks that compare Metal against
 Boost.MPL and other notable metaprogramming libraries. For a more detailed
-discussion on the limitations of Boost.MPL refer to \ref MPL and for a real
-world example of the importance of SFINAE-friendliness, check out \ref SFINAE.
+discussion on the limitations of Boost.MPL refer to \ref MPL.
 
 What are some advantages of Metal with respect to Boost.Hana? {#FAQ_Hana}
 --------------------------------------------------------------------------------
@@ -671,13 +678,12 @@ when used for similar purposes. In fact, Metal guarantees SFINAE-friendliness,
 whereas Boost.Hana does not. Check out \ref SFINAE for a real world example of
 the limitations of Boost.Hana with this respect.
 
-Moreover, since Metal [concepts](#concepts) are defined by their type
+Moreover, since Metal [concepts](#definitions) are defined by their type
 signatures, it is always safe to use template pattern matching on them to
-partially specialize class templates or overload function templates, while the
-types of most Boost.Hana objects is left unspecified and thus cannot be used for
-these purposes.
+partially specialize class templates or overload function templates. In
+contrast, the types of most Boost.Hana objects are left unspecified.
 
-Why isn't std::integral_constant always a Number? {#FAQ_numbers}
+Why isn't std::integral_constant a Number in general? {#FAQ_numbers}
 --------------------------------------------------------------------------------
 ________________________________________________________________________________
 

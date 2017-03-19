@@ -41,6 +41,14 @@ IS_SAME(metal::is_number<not_a_num>, metal::false_);
 )
 
 HIDE(
+/// [not_a_num2]
+using not_a_num = std::integral_constant<int, 0>;
+/// [not_a_num2]
+
+IS_SAME(metal::is_number<not_a_num>, metal::false_);
+)
+
+HIDE(
 /// [is_number]
 struct one { static const auto value = 1L; };
 enum two { value = 2U };

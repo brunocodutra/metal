@@ -12,18 +12,26 @@
 
 HIDE(
 /// [list1]
-using l = metal::list<>; // an empty list
+using list = metal::list<>; // an empty list
 /// [list1]
 
-IS_SAME(metal::is_list<l>, metal::true_);
+IS_SAME(metal::is_list<list>, metal::true_);
 )
 
 HIDE(
 /// [list2]
-using l = metal::list<int, int*, int&>;
+using list = metal::list<int, int*, int&>;
 /// [list2]
 
-IS_SAME(metal::is_list<l>, metal::true_);
+IS_SAME(metal::is_list<list>, metal::true_);
+)
+
+HIDE(
+/// [not_a_list1]
+using not_a_list = std::tuple<int, int*, int&>; // not a specialization of metal::list
+/// [not_a_list1]
+
+IS_SAME(metal::is_list<not_a_list>, metal::false_);
 )
 
 HIDE(

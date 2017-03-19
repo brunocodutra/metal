@@ -104,7 +104,7 @@ namespace metal
     ///
     /// ### Description
     /// Constructs a \number out of any \value that defines a nested integral
-    /// constant `::value` convertible to metal::int_.
+    /// constant `value` convertible to metal::int_.
     ///
     /// ### Usage
     /// For any \value `val`

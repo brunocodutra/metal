@@ -4,11 +4,12 @@
 [![travis.badge]][travis.metal]
 [![appveyor.badge]][appveyor.metal]
 
-Metal is a header-only C++14 library designed to make metaprogramming easy.
+Metal is a header-only C++14 library designed to make template metaprogramming
+intuitive.
 
 ## Modern
 
-```{.cpp}
+```.cpp
 #include <metal.hpp>
 
 // First we need some Values

@@ -11,10 +11,18 @@
 
 HIDE(
 /// [pair1]
-using p = metal::list<int, unsigned>;
+using pair = metal::list<int, unsigned>;
 /// [pair1]
 
-IS_SAME(metal::is_pair<p>, metal::true_);
+IS_SAME(metal::is_pair<pair>, metal::true_);
+)
+
+HIDE(
+/// [not_a_pair1]
+using not_a_pair = std::pair<int, unsigned>; // not a List
+/// [not_a_pair1]
+
+IS_SAME(metal::is_pair<not_a_pair>, metal::false_);
 )
 
 HIDE(

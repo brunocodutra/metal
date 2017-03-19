@@ -24,10 +24,7 @@ IS_SAME(metal::is_value<val>, metal::true_);
 
 HIDE(
 /// [val3]
-struct val
-{
-    //...
-};
+struct val { /*...*/ };
 /// [val3]
 
 IS_SAME(metal::is_value<val>, metal::true_);
@@ -53,10 +50,7 @@ decltype(auto) not_a_val = 3.14;
 HIDE(
 /// [not_a_val3]
 template<typename...>
-struct not_a_val
-{
-    //...
-};
+struct not_a_val { /*...*/ };
 /// [not_a_val3]
 )
 

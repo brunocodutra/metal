@@ -18,7 +18,7 @@ namespace metal
     /// ### Description
     /// Constructs a _predicate_ out of a _trait_, that is a \lambda that
     /// evaluates to a \number, out of an \expression that defines a nested
-    /// integral constant `::value` convertible to metal::int_.
+    /// integral constant `value` convertible to metal::int_.
     ///
     /// ### Usage
     /// For any \expression `expr`
