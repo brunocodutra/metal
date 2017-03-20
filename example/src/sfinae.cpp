@@ -6,17 +6,41 @@
 
 #include "example.hpp"
 
+#if !defined(METAL_COMPAT_MODE)
+
 #include <array>
 #include <chrono>
+#include <complex>
 #include <tuple>
 #include <type_traits>
 #include <utility>
 
-#include <boost/hana/config.hpp>
+/// [make_array]
+template<typename... Xs,
+    typename R = std::array<std::common_type_t<Xs...>, sizeof...(Xs)>
+>
+constexpr R make_array(Xs&&... xs) {
+    return R{{std::forward<Xs>(xs)...}};
+}
+/// [make_array]
 
-#if defined(METAL_COMPAT_MODE)
-#   define SKIP
+/// [tuples]
+using namespace std::chrono;
+using namespace std::literals::chrono_literals;
+using namespace std::literals::complex_literals;
+
+auto tup1 = std::make_tuple(42ns, 0x42, 42.f);
+auto tup2 = std::make_tuple(42us, 042L, 42.L);
+auto tup3 = std::make_tuple(42ms, 42LL, 42.i);
+/// [tuples]
+
+#if 0
+/// [naive_array_of_tuples]
+auto array_of_tuples =  make_array(tup1, tup2, tup3);
+/// [naive_array_of_tuples]
 #endif
+
+#include <boost/hana/config.hpp>
 
 #if defined(BOOST_HANA_CONFIG_GCC) && \
     BOOST_HANA_CONFIG_GCC < BOOST_HANA_CONFIG_VERSION(5, 4, 0)
@@ -36,70 +60,64 @@
 #include <boost/hana/unpack.hpp>
 #include <boost/hana/zip.hpp>
 
-/// [make_array]
-template<typename... Xs,
-    typename R = std::array<std::common_type_t<Xs...>, sizeof...(Xs)>
->
-constexpr R make_array(Xs&&... xs) {
-    return R{{std::forward<Xs>(xs)...}};
-}
-/// [make_array]
-
-/// [common_tuple_t]
-template<typename... Ts>
-using common_tuple_t = metal::apply<
-    std::common_type_t<metal::lambda<std::tuple>, metal::as_lambda<Ts>...>,
-    metal::transform<metal::lambda<std::common_type_t>, metal::as_list<Ts>...>
->;
-/// [common_tuple_t]
-
-/// [make_array_of_tuples]
-template<typename Head, typename... Tail,
-    typename R = std::array<
-        common_tuple_t<std::decay_t<Head>, std::decay_t<Tail>...>,
-        1 + sizeof...(Tail)
-    >
->
-constexpr R make_array(Head&& head, Tail&&... tail) {
-    return R{{std::forward<Head>(head), std::forward<Tail>(tail)...}};
-}
-/// [make_array_of_tuples]
-
-/// [array_of_tuples]
-using namespace std::chrono;
-using namespace std::literals::chrono_literals;
-
-IS_SAME(
-    decltype(
-        make_array(
-            std::make_tuple(42ns, 0x42, 42.f),
-            std::make_tuple(42us, 042L, 42.L),
-            std::make_tuple(42ms, 42LL, 42.0)
-        )
-    ),
-    std::array<std::tuple<nanoseconds, long long, long double>, 3>
-);
-/// [array_of_tuples]
-
-/// [array_of_numbers]
-IS_SAME(decltype(make_array(42, 42L, 42LL)), std::array<long long, 3>);
-/// [array_of_numbers]
-
-/// [naive_common_tuple_t]
-template<typename... Ts>
-using naive_common_tuple_t = typename decltype(
+namespace hana
+{
+/// [hana_common_tuple_t]
+template<typename... xs>
+using hana_common_tuple_t = typename decltype(
     boost::hana::unpack(
         boost::hana::zip_with(
             boost::hana::template_<std::common_type_t>,
-            boost::hana::zip_with(boost::hana::decltype_, std::declval<Ts>())...
+            boost::hana::zip_with(boost::hana::decltype_, std::declval<xs>())...
         ),
         boost::hana::template_<std::tuple>
     )
 )::type;
-/// [naive_common_tuple_t]
+/// [hana_common_tuple_t]
 
-namespace {
-/// [naive_make_array_of_tuples]
+/// [hana_make_array_of_tuples]
+template<typename... Xs,
+    typename R = std::array<std::common_type_t<Xs...>, sizeof...(Xs)>
+>
+constexpr R hana_make_array(Xs&&... xs) {
+    return R{{std::forward<Xs>(xs)...}};
+}
+
+template<typename Head, typename... Tail,
+    typename R = std::array<hana_common_tuple_t<std::decay_t<Head>, std::decay_t<Tail>...>, 1 + sizeof...(Tail)>
+>
+constexpr R hana_make_array(Head&& head, Tail&&... tail) {
+    return R{{std::forward<Head>(head), std::forward<Tail>(tail)...}};
+}
+/// [hana_make_array_of_tuples]
+
+#if !defined(_LIBCPP_VERSION) || _LIBCPP_VERSION >= 5000
+/// [hana_array_of_tuples]
+auto array_of_tuples = hana_make_array(tup1, tup2, tup3);
+
+IS_SAME(decltype(array_of_tuples), std::array<std::tuple<nanoseconds, long long, std::complex<double>>, 3>);
+/// [hana_array_of_tuples]
+#endif
+
+#if 0
+/// [hana_array_of_numbers]
+IS_SAME(decltype(hana_make_array(42, 42L, 42LL)), std::array<long long, 3>);
+/// [hana_array_of_numbers]
+#endif
+}
+#endif
+
+namespace
+{
+/// [common_tuple_t]
+template<typename... xs>
+using common_tuple_t = metal::apply<
+    std::common_type_t<metal::lambda<std::tuple>, metal::as_lambda<xs>...>,
+    metal::transform<metal::lambda<std::common_type_t>, metal::as_list<xs>...>
+>;
+/// [common_tuple_t]
+
+/// [make_array_of_tuples]
 template<typename... Xs,
     typename R = std::array<std::common_type_t<Xs...>, sizeof...(Xs)>
 >
@@ -108,28 +126,23 @@ constexpr R make_array(Xs&&... xs) {
 }
 
 template<typename Head, typename... Tail,
-    typename R = std::array<
-        naive_common_tuple_t<std::decay_t<Head>, std::decay_t<Tail>...>,
-        1 + sizeof...(Tail)
-    >
+    typename R = std::array<common_tuple_t<std::decay_t<Head>, std::decay_t<Tail>...>, 1 + sizeof...(Tail)>
 >
 constexpr R make_array(Head&& head, Tail&&... tail) {
     return R{{std::forward<Head>(head), std::forward<Tail>(tail)...}};
 }
-/// [naive_make_array_of_tuples]
+/// [make_array_of_tuples]
+
+#if !defined(_LIBCPP_VERSION) || _LIBCPP_VERSION >= 5000
+/// [array_of_tuples]
+auto array_of_tuples = make_array(tup1, tup2, tup3);
+
+IS_SAME(decltype(array_of_tuples), std::array<std::tuple<nanoseconds, long long, std::complex<double>>, 3>);
+/// [array_of_tuples]
+#endif
+
+/// [array_of_numbers]
+IS_SAME(decltype(make_array(42, 42L, 42LL)), std::array<long long, 3>);
+/// [array_of_numbers]
 }
-
-using x = std::tuple<nanoseconds, int, float>;
-using y = std::tuple<microseconds, long, long double>;
-using z = std::tuple<milliseconds, long long, double>;
-
-using common_tuple = std::tuple<
-    std::common_type_t<nanoseconds, microseconds, milliseconds>,
-    std::common_type_t<int, long, long long>,
-    std::common_type_t<float, long double, double>
->;
-
-IS_SAME(common_tuple_t<x, y, z>, common_tuple);
-IS_SAME(naive_common_tuple_t<x, y, z>, common_tuple);
-
 #endif

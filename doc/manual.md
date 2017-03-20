@@ -437,77 +437,98 @@ ________________________________________________________________________________
 An [Expression] is said to be SFINAE-friendly when it is carefully designed so
 as never to prevent the [SFINAE] rule to be triggered. In general, such
 [Expressions] may only trigger template substitution errors at the point of
-instantiation of the *signature* of a type, which includes the instantiation of
-[alias templates] and default template arguments.
+declaration of a type, which includes the instantiation of [alias templates],
+default template arguments and the _signature_ of function templates.
 SFINAE-friendly [Expressions] are exceedingly powerful, because they may be used
 to drive overload resolution, think [`std::enable_if`][enable_if] on steroids.
 For this reason,
-__all [Expressions] in Metal are guaranteed to be SFINAE-friendly__.
+__all [Expressions] in Metal are guaranteed to be strictly SFINAE-friendly__.
 
 Conversely, a SFINAE-unfriendly [Expression] produces so called *hard errors*,
 which require the compilation to halt immediately. Examples of *hard errors*
 are failed `static_assert`'ions or template substitution errors at the point of
-instantiation of the nested members of a type.
-SFINAE-unfriendly [Expressions] are very inconvenient, because they force
-compilation to halt when they are not selected by overload resolution, thereby
-hindering the usage of the entire overloaded set.
+definition of a class or function template. SFINAE-unfriendly [Expressions] are
+very inconvenient, because they force compilation to halt when they are not
+selected by overload resolution, thereby hindering the usage of the entire
+overloaded set.
+
+### make_array
 
 To illustrate how useful SFINAE-friendliness can be, suppose we need a factory
 function `make_array` that takes an arbitrary number of arguments and returns
 a `std::array`. Because arrays are homogeneous collections, we need the
 _common type_ of all its arguments, that is, the type to which every argument
-can be converted to. Fortunately `std::common_type_t` does just that and is also
-guaranteed to be SFINAE-friendly as per the C++ Standard.
+can be converted to.
+
+The base case is straightforward.
 
 \snippet sfinae.cpp make_array
 
-There is one caveat to `std::common_type_t` however: it doesn't work with
-`std::tuple`s in general, even though the _common tuple_ is really
-just a _tuple_ of _common types_.
-Hence, we need a new trait that computes the _common tuple_ from a set of
-_tuples_ so that we may overload `make_array`.
-
-\snippet sfinae.cpp common_tuple_t
-\snippet sfinae.cpp make_array_of_tuples
-
-And it works as expected, for both numerical values
-
 \snippet sfinae.cpp array_of_numbers
 
-as well as `std::tuple`s
+Now suppose we need an array of tuples
 
-\snippet sfinae.cpp array_of_tuples
-
-Now, it might not be obvious to the untrained eye, but the reason why
-overloading works as expected in this example, is precisely the fact
-`common_tuple_t` is SFINAE-friendly. If it weren't, as soon as one attempted to
-call `make_array` for anything that isn't a `std::tuple`, the compilation would
-halt immediately, even if the first overload would be a perfect match otherwise.
-
-To demonstrate this issue, we'll implement the same common tuple trait, but this
-time using Boost.Hana, which, contrary to Metal, doesn't provide any guarantees
-regarding SFINAE-friendliness.
-
-\snippet sfinae.cpp naive_common_tuple_t
-
-Now, if we use `naive_common_tuple_t` to overload `make_array`
-
-\snippet sfinae.cpp naive_make_array_of_tuples
-
-it does work as expected for `std::tuples`
-
-\snippet sfinae.cpp array_of_tuples
-
-however it produces a compilation error as soon as we try to make an array of
-anything that is not a Boost.Hana _Sequence_, even if the first overload remains
-available and would be a perfect match as we just verified
+\snippet sfinae.cpp tuples
 
 \strike{
-\snippet sfinae.cpp array_of_numbers
+\snippet sfinae.cpp naive_array_of_tuples
+}
+
+> error: no matching function for call to 'make_array'
+
+Even though the _common tuple_ is really just a _tuple_ of _common types_,
+`std::common_type_t` is unable to find it in general. That means we need to
+overload `make_array` and handle the _array of tuples_ case.
+
+### make_array of tuples
+
+The idea is to define a metafunction that computes the _common tuple_ from a
+set of _tuples_ and then use it to overload our factory function.
+
+This sounds like a use-case for Boost.Hana, let's try it.
+
+\snippet sfinae.cpp hana_common_tuple_t
+\snippet sfinae.cpp hana_make_array_of_tuples
+
+It works as expected for `std::tuples`
+
+\snippet sfinae.cpp hana_array_of_tuples
+
+but we get a compilation error as soon as we try to make an array of anything
+that is not a Boost.Hana _Sequence_, even though the first overload remains
+available and would be a perfect match otherwise.
+
+\strike{
+\snippet sfinae.cpp hana_array_of_numbers
 }
 
 > error: static_assert failed "hana::zip_with(f, xs, ys...)
 > requires 'xs' and 'ys...' to be Sequences"
+
+### make_array of tuples _done right_
+
+The reason why Boost.Hana can't help us overload `make_array` is the fact that
+it doesn't provide any SFINAE-friendliness guarantees, which essentially means
+that it cannot be used effectively to control overload resolution. Metal, on the
+other hand, was carefully designed to never trigger hard errors but rather
+_substitution failures_, which makes it able to select candidates from an
+overloaded set by means of the [SFINAE] rule.
+
+Let's try the same approach using Metal.
+
+\snippet sfinae.cpp common_tuple_t
+\snippet sfinae.cpp make_array_of_tuples
+
+This time it works not only for `std::tuple`'s
+
+\snippet sfinae.cpp array_of_tuples
+
+but also for numerical values
+
+\snippet sfinae.cpp array_of_numbers
+
+Again, this only works as expected because of the strict SFINAE-friendliness
+guarantees provided by Metal.
 
 Migrating from Boost.MPL {#MPL}
 ================================================================================
