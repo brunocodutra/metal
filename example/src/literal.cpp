@@ -118,11 +118,7 @@ using digits = metal::numbers<3, 7, 1>;
 
 using lbd = metal::bind<
     metal::lambda<metal::add>,
-    metal::bind<
-        metal::lambda<metal::mul>,
-        metal::quote<radix>,
-        metal::_1
-    >,
+    metal::bind<metal::lambda<metal::mul>, metal::always<radix>, metal::_1>,
     metal::_2
 >;
 
@@ -138,11 +134,7 @@ template<typename radix, typename digits>
 using assemble_number = metal::accumulate<
     metal::bind<
         metal::lambda<metal::add>,
-        metal::bind<
-            metal::lambda<metal::mul>,
-            metal::quote<radix>,
-            metal::_1
-        >,
+        metal::bind<metal::lambda<metal::mul>, metal::always<radix>, metal::_1>,
         metal::_2
     >,
     metal::number<0>,

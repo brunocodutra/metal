@@ -44,7 +44,7 @@ namespace metal
     /// \snippet lambda.cpp partial
     ///
     /// ### See Also
-    /// \see lambda, invoke, bind, quote
+    /// \see lambda, invoke, bind, always
     template<typename lbd, typename... vals>
     using partial = typename detail::_partial<lbd, vals...>::type;
 }

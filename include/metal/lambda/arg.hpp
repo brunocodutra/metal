@@ -43,7 +43,7 @@ namespace metal
     /// \snippet lambda.cpp arg
     ///
     /// ### See Also
-    /// \see lambda, invoke, bind, quote
+    /// \see lambda, invoke, bind, always
     template<std::size_t n>
     using arg = typename detail::_arg<n>::type;
 }

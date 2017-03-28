@@ -29,7 +29,7 @@ IS_SAME(not_<false_>, true_);
 /// [not]
 using not_ = metal::bind<
     metal::lambda<metal::invoke>,
-    metal::_1, metal::quote<false_>, metal::quote<true_>
+    metal::_1, metal::always<false_>, metal::always<true_>
 >;
 
 IS_SAME(metal::invoke<not_, true_>, false_);

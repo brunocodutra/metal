@@ -47,7 +47,7 @@ namespace metal
     /// \snippet lambda.cpp bind
     ///
     /// ### See Also
-    /// \see lambda, invoke, arg, quote
+    /// \see lambda, invoke, arg, always
     template<typename lbd, typename... vals>
     using bind = typename detail::_bind<lbd, vals...>::type;
 }

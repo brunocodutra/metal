@@ -89,13 +89,13 @@ IS_SAME(metal::invoke<promote, long>, long);
 )
 
 HIDE(
-/// [quote]
-using void_ = metal::quote<void>;
+/// [always]
+using void_ = metal::always<void>;
 
 IS_SAME(metal::invoke<void_>, void);
 IS_SAME(metal::invoke<void_, short, int, long>, void);
-IS_SAME(metal::invoke<metal::quote<void_>, short, int, long>, void_);
-/// [quote]
+IS_SAME(metal::invoke<metal::always<void_>, short, int, long>, void_);
+/// [always]
 )
 
 HIDE(
@@ -111,7 +111,7 @@ HIDE(
 /// [bind]
 using promote = metal::bind<
     metal::lambda<std::common_type_t>,
-    metal::quote<int>,
+    metal::always<int>,
     metal::_1 // equivalent to metal::arg<1>
 >;
 
