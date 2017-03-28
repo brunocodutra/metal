@@ -22,7 +22,7 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
-    /// Invokes a \lambda with the \values contained in a \list.
+    /// [Invokes](\ref invoke) a \lambda with the \values contained in a \list.
     ///
     /// ### Usage
     /// For any \lambda `lbd` and \list `l`

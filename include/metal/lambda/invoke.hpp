@@ -14,7 +14,7 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
-    /// Invokes a \lambda with some \values.
+    /// Invokes a \lambda with the given \values as arguments.
     ///
     /// ### Usage
     /// For any \lambda `lbd` and \values `val_0, ..., val_n-1`

@@ -27,7 +27,7 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
-    /// Checks whether a \lambda is invocable with some \values.
+    /// Checks whether a \lambda is [invocable](\ref invoke) with some \values.
     ///
     /// ### Usage
     /// For any \lambda `lbd` and \values `val_0, ..., val_n-1`

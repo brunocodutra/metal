@@ -20,7 +20,7 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
-    /// Partially invokes a \lambda with some \values.
+    /// Partially [invokes](\ref invoke) a \lambda with some \values.
     ///
     /// ### Usage
     /// For any \lambda `lbd` and \values `val_0, ..., val_n-1`
