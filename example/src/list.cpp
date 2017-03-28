@@ -191,124 +191,70 @@ IS_SAME(
 
 HIDE(
 /// [all_of]
-template<typename val>
-using is_fundamental = metal::as_number<std::is_fundamental<val>>;
-
-template<typename val>
-using is_floating_point = metal::as_number<std::is_floating_point<val>>;
-
-template<typename val>
-using is_class = metal::as_number<std::is_class<val>>;
-
 using l = metal::list<short, int, long, float, double, void>;
 
-IS_SAME(metal::all_of<l, metal::lambda<is_fundamental>>, metal::true_);
-IS_SAME(metal::all_of<l, metal::lambda<is_floating_point>>, metal::false_);
-IS_SAME(metal::all_of<l, metal::lambda<is_class>>, metal::false_);
+IS_SAME(metal::all_of<l, metal::trait<std::is_fundamental>>, metal::true_);
+IS_SAME(metal::all_of<l, metal::trait<std::is_floating_point>>, metal::false_);
+IS_SAME(metal::all_of<l, metal::trait<std::is_class>>, metal::false_);
 /// [all_of]
 )
 
 HIDE(
 /// [any_of]
-template<typename val>
-using is_fundamental = metal::as_number<std::is_fundamental<val>>;
-
-template<typename val>
-using is_floating_point = metal::as_number<std::is_floating_point<val>>;
-
-template<typename val>
-using is_class = metal::as_number<std::is_class<val>>;
-
 using l = metal::list<short, int, long, float, double, void>;
 
-IS_SAME(metal::any_of<l, metal::lambda<is_fundamental>>, metal::true_);
-IS_SAME(metal::any_of<l, metal::lambda<is_floating_point>>, metal::true_);
-IS_SAME(metal::any_of<l, metal::lambda<is_class>>, metal::false_);
+IS_SAME(metal::any_of<l, metal::trait<std::is_fundamental>>, metal::true_);
+IS_SAME(metal::any_of<l, metal::trait<std::is_floating_point>>, metal::true_);
+IS_SAME(metal::any_of<l, metal::trait<std::is_class>>, metal::false_);
 /// [any_of]
 )
 
 HIDE(
 /// [none_of]
-template<typename val>
-using is_fundamental = metal::as_number<std::is_fundamental<val>>;
-
-template<typename val>
-using is_floating_point = metal::as_number<std::is_floating_point<val>>;
-
-template<typename val>
-using is_class = metal::as_number<std::is_class<val>>;
-
 using l = metal::list<short, int, long, float, double, void>;
 
-IS_SAME(metal::none_of<l, metal::lambda<is_fundamental>>, metal::false_);
-IS_SAME(metal::none_of<l, metal::lambda<is_floating_point>>, metal::false_);
-IS_SAME(metal::none_of<l, metal::lambda<is_class>>, metal::true_);
+IS_SAME(metal::none_of<l, metal::trait<std::is_fundamental>>, metal::false_);
+IS_SAME(metal::none_of<l, metal::trait<std::is_floating_point>>, metal::false_);
+IS_SAME(metal::none_of<l, metal::trait<std::is_class>>, metal::true_);
 /// [none_of]
 )
 
 HIDE(
 /// [count_if]
-template<typename val>
-using is_fundamental = metal::as_number<std::is_fundamental<val>>;
-
-template<typename val>
-using is_floating_point = metal::as_number<std::is_floating_point<val>>;
-
-template<typename val>
-using is_class = metal::as_number<std::is_class<val>>;
-
 using l = metal::list<short, int, long, float, double, void>;
 
-IS_SAME(metal::count_if<l, metal::lambda<is_fundamental>>, metal::number<6>);
-IS_SAME(metal::count_if<l, metal::lambda<is_floating_point>>, metal::number<2>);
-IS_SAME(metal::count_if<l, metal::lambda<is_class>>, metal::number<0>);
+IS_SAME(metal::count_if<l, metal::trait<std::is_fundamental>>, metal::number<6>);
+IS_SAME(metal::count_if<l, metal::trait<std::is_floating_point>>, metal::number<2>);
+IS_SAME(metal::count_if<l, metal::trait<std::is_class>>, metal::number<0>);
 /// [count_if]
 )
 
 HIDE(
 /// [find_if]
-template<typename val>
-using is_fundamental = metal::as_number<std::is_fundamental<val>>;
-
-template<typename val>
-using is_floating_point = metal::as_number<std::is_floating_point<val>>;
-
-template<typename val>
-using is_class = metal::as_number<std::is_class<val>>;
-
 using l = metal::list<short, int, long, float, double, void>;
 
-IS_SAME(metal::find_if<l, metal::lambda<is_fundamental>>, metal::number<0>);
-IS_SAME(metal::find_if<l, metal::lambda<is_floating_point>>, metal::number<3>);
-IS_SAME(metal::find_if<l, metal::lambda<is_class>>, metal::number<6>);
+IS_SAME(metal::find_if<l, metal::trait<std::is_fundamental>>, metal::number<0>);
+IS_SAME(metal::find_if<l, metal::trait<std::is_floating_point>>, metal::number<3>);
+IS_SAME(metal::find_if<l, metal::trait<std::is_class>>, metal::number<6>);
 /// [find_if]
 )
 
 HIDE(
 /// [partition]
-template<typename val>
-using is_fundamental = metal::as_number<std::is_fundamental<val>>;
-
-template<typename val>
-using is_floating_point = metal::as_number<std::is_floating_point<val>>;
-
-template<typename val>
-using is_class = metal::as_number<std::is_class<val>>;
-
 using l = metal::list<short, int, long, float, double, void>;
 
 IS_SAME(
-    metal::partition<l, metal::lambda<is_fundamental>>,
+    metal::partition<l, metal::trait<std::is_fundamental>>,
     metal::pair<metal::list<short, int, long, float, double, void>, metal::list<>>
 );
 
 IS_SAME(
-    metal::partition<l, metal::lambda<is_floating_point>>,
+    metal::partition<l, metal::trait<std::is_floating_point>>,
     metal::pair<metal::list<float, double>, metal::list<short, int, long, void>>
 );
 
 IS_SAME(
-    metal::partition<l, metal::lambda<is_class>>,
+    metal::partition<l, metal::trait<std::is_class>>,
     metal::pair<metal::list<>, metal::list<short, int, long, float, double, void>>
 );
 /// [partition]
@@ -316,53 +262,35 @@ IS_SAME(
 
 HIDE(
 /// [copy_if]
-template<typename val>
-using is_fundamental = metal::as_number<std::is_fundamental<val>>;
-
-template<typename val>
-using is_floating_point = metal::as_number<std::is_floating_point<val>>;
-
-template<typename val>
-using is_class = metal::as_number<std::is_class<val>>;
-
 using l = metal::list<short, int, long, float, double, void>;
 
 IS_SAME(
-    metal::copy_if<l, metal::lambda<is_fundamental>>,
+    metal::copy_if<l, metal::trait<std::is_fundamental>>,
     metal::list<short, int, long, float, double, void>
 );
 
 IS_SAME(
-    metal::copy_if<l, metal::lambda<is_floating_point>>,
+    metal::copy_if<l, metal::trait<std::is_floating_point>>,
     metal::list<float, double>
 );
 
-IS_SAME(metal::copy_if<l, metal::lambda<is_class>>, metal::list<>);
+IS_SAME(metal::copy_if<l, metal::trait<std::is_class>>, metal::list<>);
 /// [copy_if]
 )
 
 HIDE(
 /// [remove_if]
-template<typename val>
-using is_fundamental = metal::as_number<std::is_fundamental<val>>;
-
-template<typename val>
-using is_floating_point = metal::as_number<std::is_floating_point<val>>;
-
-template<typename val>
-using is_class = metal::as_number<std::is_class<val>>;
-
 using l = metal::list<short, int, long, float, double, void>;
 
-IS_SAME(metal::remove_if<l, metal::lambda<is_fundamental>>, metal::list<>);
+IS_SAME(metal::remove_if<l, metal::trait<std::is_fundamental>>, metal::list<>);
 
 IS_SAME(
-    metal::remove_if<l, metal::lambda<is_floating_point>>,
+    metal::remove_if<l, metal::trait<std::is_floating_point>>,
     metal::list<short, int, long, void>
 );
 
 IS_SAME(
-    metal::remove_if<l, metal::lambda<is_class>>,
+    metal::remove_if<l, metal::trait<std::is_class>>,
     metal::list<short, int, long, float, double, void>
 );
 /// [remove_if]
@@ -370,29 +298,20 @@ IS_SAME(
 
 HIDE(
 /// [replace_if]
-template<typename val>
-using is_fundamental = metal::as_number<std::is_fundamental<val>>;
-
-template<typename val>
-using is_floating_point = metal::as_number<std::is_floating_point<val>>;
-
-template<typename val>
-using is_class = metal::as_number<std::is_class<val>>;
-
 using l = metal::list<short, int, long, float, double, void>;
 
 IS_SAME(
-    metal::replace_if<l, metal::lambda<is_fundamental>, char>,
+    metal::replace_if<l, metal::trait<std::is_fundamental>, char>,
     metal::list<char, char, char, char, char, char>
 );
 
 IS_SAME(
-    metal::replace_if<l, metal::lambda<is_floating_point>, char>,
+    metal::replace_if<l, metal::trait<std::is_floating_point>, char>,
     metal::list<short, int, long, char, char, void>
 );
 
 IS_SAME(
-    metal::replace_if<l, metal::lambda<is_class>, char>,
+    metal::replace_if<l, metal::trait<std::is_class>, char>,
     metal::list<short, int, long, float, double, void>
 );
 /// [replace_if]

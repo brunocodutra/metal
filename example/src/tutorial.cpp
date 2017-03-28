@@ -40,14 +40,8 @@ static_assert(metal::same<metal::back<l3>, z>::value, "");
 static_assert(metal::same<metal::at<l3, metal::number<1>>, y>::value, "");
 
 // count those that satisfy a predicate...
-template<typename T>
-using is_class = metal::as_number<std::is_class<T>>;
-
-template<typename T>
-using is_union = metal::as_number<std::is_union<T>>;
-
-static_assert(metal::count_if<l3, metal::lambda<is_class>>::value == 2, "");
-static_assert(metal::count_if<l3, metal::lambda<is_union>>::value == 1, "");
+static_assert(metal::count_if<l3, metal::trait<std::is_class>>::value == 2, "");
+static_assert(metal::count_if<l3, metal::trait<std::is_union>>::value == 1, "");
 
 // We can create new Lists by removing elements...
 using l0_ = metal::drop<l3, metal::number<3>>;

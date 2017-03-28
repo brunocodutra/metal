@@ -103,8 +103,8 @@ namespace metal
     /// \ingroup number
     ///
     /// ### Description
-    /// Constructs a \number out of any \value that defines a nested static
-    /// integral constant `::value` convertible to metal::int_.
+    /// Constructs a \number out of any \value that defines a nested integral
+    /// constant `::value` convertible to metal::int_.
     ///
     /// ### Usage
     /// For any \value `val`

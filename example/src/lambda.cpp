@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <tuple>
+#include <type_traits>
 
 #if !defined(METAL_COMPAT_MODE)
 
@@ -23,6 +24,7 @@ HIDE(
 /// [is_lambda]
 IS_SAME(metal::is_lambda<void>, metal::false_);
 IS_SAME(metal::is_lambda<metal::lambda<std::add_pointer_t>>, metal::true_);
+IS_SAME(metal::is_lambda<metal::trait<std::is_pointer>>, metal::true_);
 /// [is_lambda]
 )
 
@@ -32,6 +34,19 @@ IS_SAME(metal::as_lambda<std::shared_ptr<int>>, metal::lambda<std::shared_ptr>);
 IS_SAME(metal::as_lambda<std::unique_ptr<int>>, metal::lambda<std::unique_ptr>);
 IS_SAME(metal::as_lambda<std::tuple<int, char, float>>, metal::lambda<std::tuple>);
 /// [as_lambda]
+)
+
+HIDE(
+/// [trait]
+IS_SAME(metal::invoke<metal::trait<std::is_fundamental>, int>, metal::true_);
+IS_SAME(metal::invoke<metal::trait<std::is_fundamental>, void>, metal::true_);
+
+IS_SAME(metal::invoke<metal::trait<std::is_integral>, int>, metal::true_);
+IS_SAME(metal::invoke<metal::trait<std::is_integral>, void>, metal::false_);
+
+IS_SAME(metal::invoke<metal::trait<std::is_class>, int>, metal::false_);
+IS_SAME(metal::invoke<metal::trait<std::is_class>, void>, metal::false_);
+/// [trait]
 )
 
 HIDE(

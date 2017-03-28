@@ -15,6 +15,7 @@
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/partial.hpp>
 #include <metal/lambda/quote.hpp>
+#include <metal/lambda/trait.hpp>
 
 /// \defgroup lambda Lambda
 /// \ingroup metal
