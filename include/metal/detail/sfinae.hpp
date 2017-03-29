@@ -7,6 +7,7 @@
 
 #include <metal/config.hpp>
 
+#include <metal/value/eval.hpp>
 #include <metal/value/value.hpp>
 
 #include <metal/detail/declptr.hpp>
@@ -27,9 +28,7 @@ namespace metal
         template<
             template<template<typename...> class...> class tmpl,
             template<typename...> class... exprs,
-            typename std::enable_if<
-                is_value<tmpl<exprs...>>::value
-            >::type* = nullptr
+            eval<std::enable_if<is_value<tmpl<exprs...>>::value>>* = nullptr
         >
         value<tmpl<exprs...>> sfinae_impl(forwarder<tmpl, exprs...>*);
 
@@ -39,9 +38,7 @@ namespace metal
         template<
             template<typename...> class expr,
             typename... vals,
-            typename std::enable_if<
-                is_value<expr<vals...>>::value
-            >::type* = nullptr
+            eval<std::enable_if<is_value<expr<vals...>>::value>>* = nullptr
         >
         value<expr<vals...>> sfinae_impl(caller<expr, vals...>*);
 

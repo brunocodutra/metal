@@ -46,13 +46,16 @@ IS_SAME(metal::invoke<metal::trait<std::is_integral>, void>, metal::false_);
 
 IS_SAME(metal::invoke<metal::trait<std::is_class>, int>, metal::false_);
 IS_SAME(metal::invoke<metal::trait<std::is_class>, void>, metal::false_);
+
+IS_SAME(metal::invoke<metal::trait<std::is_convertible>, int*, void*>, metal::true_);
+IS_SAME(metal::invoke<metal::trait<std::is_convertible>, void*, int*>, metal::false_);
 /// [trait]
 )
 
 HIDE(
 /// [is_invocable]
 template<typename val>
-using array = typename metal::value<val[]>::type; // MSVC friendly
+using array = metal::eval<metal::value<val[]>>; // MSVC friendly
 
 using lbd = metal::lambda<array>;
 

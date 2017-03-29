@@ -139,53 +139,43 @@ using parse_digits = metal::transform<
 
 ///[parse_number]
 template<typename tokens>
-struct parse_number_impl
-{};
+struct parse_number {};
 
 template<typename... tokens>
-struct parse_number_impl<metal::list<tokens...>>
-{
+struct parse_number<metal::list<tokens...>> {
     using type = assemble_number<metal::number<10>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<metal::list<metal::number<'0'>, tokens...>>
-{
+struct parse_number<metal::list<metal::number<'0'>, tokens...>> {
     using type = assemble_number<metal::number<8>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<metal::list<metal::number<'0'>, metal::number<'x'>, tokens...>>
-{
+struct parse_number<metal::list<metal::number<'0'>, metal::number<'x'>, tokens...>> {
     using type = assemble_number<metal::number<16>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<metal::list<metal::number<'0'>, metal::number<'X'>, tokens...>>
-{
+struct parse_number<metal::list<metal::number<'0'>, metal::number<'X'>, tokens...>> {
     using type = assemble_number<metal::number<16>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<metal::list<metal::number<'0'>, metal::number<'b'>, tokens...>>
-{
+struct parse_number<metal::list<metal::number<'0'>, metal::number<'b'>, tokens...>> {
     using type = assemble_number<metal::number<2>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<metal::list<metal::number<'0'>, metal::number<'B'>, tokens...>>
-{
+struct parse_number<metal::list<metal::number<'0'>, metal::number<'B'>, tokens...>> {
     using type = assemble_number<metal::number<2>, parse_digits<metal::list<tokens...>>>;
 };
-
-template<typename tokens>
-using parse_number = typename parse_number_impl<tokens>::type;
 ///[parse_number]
 
 ///[_c]
 template<char... cs>
 constexpr auto operator ""/**/_c()
-    -> parse_number<metal::numbers<cs...>> {
+    -> metal::eval<parse_number<metal::numbers<cs...>>> {
     return {};
 }
 ///[_c]

@@ -96,6 +96,13 @@ IS_SAME(has_type<metal::value<>>, metal::false_);
 )
 
 HIDE(
+/// [eval]
+IS_SAME(metal::eval<metal::value<void>>, void);
+IS_SAME(metal::eval<std::add_pointer<void>>, void*);
+/// [eval]
+)
+
+HIDE(
 /// [same]
 IS_SAME(metal::same<>, metal::true_);
 IS_SAME(metal::same<void>, metal::true_);
