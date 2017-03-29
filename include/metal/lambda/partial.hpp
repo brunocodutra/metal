@@ -50,6 +50,7 @@ namespace metal
 }
 
 #include <metal/lambda/lambda.hpp>
+#include <metal/value/same.hpp>
 
 #include <metal/detail/sfinae.hpp>
 
@@ -82,6 +83,15 @@ namespace metal
                 _partial_impl<leading..., trailing...>::template type,
                 expr
             >;
+
+            using type = lambda<impl>;
+        };
+
+        template<typename x>
+        struct _partial<lambda<same>, x>
+        {
+            template<typename y>
+            using impl = same<x, y>;
 
             using type = lambda<impl>;
         };
