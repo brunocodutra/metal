@@ -29,6 +29,9 @@ namespace metal
     ///
     /// ### Example
     /// \snippet value.cpp eval
+    ///
+    /// ### See Also
+    /// \see value, lazy
     template<typename val>
     using eval = typename val::type;
 }

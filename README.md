@@ -58,8 +58,8 @@ static_assert(metal::same<metal::reverse<l2>, metal::list<z, x>>::value, "");
 static_assert(metal::same<metal::reverse<l3>, metal::list<z, y, x>>::value, "");
 
 // by transforming the elements...
-using l2ptrs = metal::transform<metal::lambda<std::add_pointer_t>, l2>;
-using l3refs = metal::transform<metal::lambda<std::add_lvalue_reference_t>, l3>;
+using l2ptrs = metal::transform<metal::lazy<std::add_pointer>, l2>;
+using l3refs = metal::transform<metal::lazy<std::add_lvalue_reference>, l3>;
 
 static_assert(metal::same<l2ptrs, metal::list<x*, z*>>::value, "");
 static_assert(metal::same<l3refs, metal::list<x&, y&, z&>>::value, "");

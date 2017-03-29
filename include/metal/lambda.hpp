@@ -14,6 +14,7 @@
 #include <metal/lambda/is_invocable.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
+#include <metal/lambda/lazy.hpp>
 #include <metal/lambda/partial.hpp>
 #include <metal/lambda/trait.hpp>
 

@@ -559,17 +559,17 @@ IS_SAME(
 /// [cartesian]
 )
 
-#if !defined(METAL_COMPAT_MODE)
+#if !defined(METAL_WORKAROUND)
 
 HIDE(
 /// [transform]
-using a = metal::list<void(),    bool, int[],  void*>;
-using b = metal::list<void(*)(), char, int[1], char*>;
-using c = metal::list<void(&)(), long, int*,   long*>;
+using a = metal::list<void(),    int,   bool, void*>;
+using b = metal::list<void(*)(), int& , char, char*>;
+using c = metal::list<void(&)(), int&&, long, long*>;
 
 IS_SAME(
-    metal::transform<metal::lambda<std::common_type_t>, a, b, c>,
-    metal::list<void(*)(), long, int*, void*>
+    metal::transform<metal::lazy<std::common_type>, a, b, c>,
+    metal::list<void(*)(), int, long, void*>
 );
 /// [transform]
 )

@@ -25,6 +25,7 @@ HIDE(
 IS_SAME(metal::is_lambda<void>, metal::false_);
 IS_SAME(metal::is_lambda<metal::lambda<std::add_pointer_t>>, metal::true_);
 IS_SAME(metal::is_lambda<metal::trait<std::is_pointer>>, metal::true_);
+IS_SAME(metal::is_lambda<metal::lazy<std::add_pointer>>, metal::true_);
 /// [is_lambda]
 )
 
@@ -50,6 +51,14 @@ IS_SAME(metal::invoke<metal::trait<std::is_class>, void>, metal::false_);
 IS_SAME(metal::invoke<metal::trait<std::is_convertible>, int*, void*>, metal::true_);
 IS_SAME(metal::invoke<metal::trait<std::is_convertible>, void*, int*>, metal::false_);
 /// [trait]
+)
+
+HIDE(
+/// [lazy]
+IS_SAME(metal::invoke<metal::lazy<std::add_pointer>, int>, int*);
+IS_SAME(metal::invoke<metal::lazy<std::decay>, int()>, int(*)());
+IS_SAME(metal::invoke<metal::lazy<std::common_type>, int[], void*>, void*);
+/// [lazy]
 )
 
 HIDE(
