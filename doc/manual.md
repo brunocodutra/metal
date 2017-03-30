@@ -395,7 +395,8 @@ metaprogramming, they will nevertheless help us acquaint with *bind expressions*
 in this toy example.
 
 The boolean constants `true_` and `false_` are, by definition, \lambdas that
-return respectively the first and second argument with which they are invoked.
+return respectively the first and second argument with which they are
+[invoked](\ref metal::invoke).
 
 \snippet church.cpp bool
 
@@ -533,64 +534,87 @@ guarantees provided by Metal.
 Migrating from Boost.MPL {#MPL}
 ================================================================================
 
-Metal was heavily influenced by Boost.MPL, from which it inherited the
-convention of naming algorithms after their counterparts in the C++ standard
-library. For this reason, metaprograms written using Metal might resemble those
-written using Boost.MPL, but there are fundamental differences between these
-libraries that you must keep in mind when porting a legacy metaprogram that uses
-Boost.MPL to modern C++ using Metal.
+Metal was heavily influenced by Boost.MPL and at a quick glance they even look
+very similar, however, because Metal leverages modern language features that
+were not available at the time Boost.MPL was developed, there are fundamental
+differences between these libraries that one must keep in mind.
 
-Boost.MPL is notable for employing various tricks to emulate features that only
-became directly supported by the core language much later on with C++11. Most
-notably, Boost.MPL relies on a template arguments to emulate variadic
-templates and create an illusion that _Sequences_, such as `mpl::vector` or
-`mpl::map`, can hold an arbitrary number of elements. However, because these
-templates could not be truly variadic, every possible size of these _Sequences_
-had to be enumerated one by one as a distinct numbered version of the template.
+### Metafunctions
 
-\snippet mpl.cpp variadic_emulation
+The representation of *metafunctions* has been completely redesigned in Metal.
+Instead of expressing them as class templates that define a nested typename
+`type`, Metal assumes *metafunctions* to be templates, usually but not
+necessarily alias, that evaluate directly to the result type.
 
-This trick clearly doesn't scale well and implies there must be an upper limit
-to the size of _Sequences_. Indeed Boost.MPL limits the sizes of sequences to only
-a couple of dozen elements by default. Moreover, because this boilerplate is too
-troublesome to maintain, Boost.MPL relies heavily on the C++ preprocessor, which
-on one hand reduces code redundancy, but on the other hand dramatically impacts
-compilation time figures.
+That is, instead of something like this
 
-Metal has none of these issues, since it takes advantage of variadic templates
-to reduce that boilerplate to a one-liner, while at the same time overcoming
-all of the drawbacks mentioned.
+\snippet mpl.cpp lazy_expression
 
-\snippet mpl.cpp variadic
+you should simply write this
 
-Indeed, Metal [Lists] and [Maps] can easily exceed the hundreds and even
-thousands of elements with little impact to the compiler performance. For up to
-date benchmark figures, visit [metaben.ch].
+\snippet mpl.cpp eager_expression
 
-Another important difference that arises from the lack of language support at
-the time Boost.MPL was designed, is the fact that it had no other means of
-expressing metafunctions other than by the rather verbose idiom of declaring a
-nested type alias within template classes.
+Notice that traditional *lazy metafunctions* are still valid [Expressions] in
+Metal, but keep in mind that their nested typename `type` is never implicitly
+evaluated.
 
-\snippet mpl.cpp alias_emulation
+\snippet mpl.cpp lazy_evaluation
 
-Metal on the other hand is able to take advantage of [alias templates] and make
-it much less verbose
+Don't worry, you can still use *lazy metafunctions* with Metal just fine, you
+just need to use the adaptor `metal::lazy` instead of `metal::lambda`.
 
-\snippet mpl.cpp alias
+\snippet mpl.cpp lazy_adaptor
 
-... but that is not all that there's to it. While template aliases produce
-SFINAE-friendly errors, substitution errors on nested types prevent the [SFINAE]
-rule from kicking in and trigger hard compilation errors instead, which is
-another important drawback of Boost.MPL when compared to Metal. For a discussion
-about the importance of SFINAE-friendliness, take a look at \ref SFINAE.
+Additionally, you can also explicitly evaluate *lazy values* using
+`metal::eval`.
 
-For the reasons discussed, Metal cannot interoperate with Boost.MPL out of the
-box, but fortunately it is always possible to map Boost.MPL concepts to their
-equivalents in Metal, such as _Sequences_ to [Lists], _Metafunction Classes_ to
-[Lambdas] and _Integral Constants_ to [Numbers]. To ease the migration, Metal
-provides a built in helper `metal::from_mpl` that does just that for you, simply
-include `metal/external/mpl.hpp` to make it available.
+\snippet mpl.cpp eval
+
+### Type Traits
+
+Traditionally, *type traits* are represented as class templates that define a
+nested integral constant `value`. Metal on the other hand defines a *type trait*
+as any [Expression] that returns a [Number], but that's not to say you can't use
+good old *type traits* with Metal just fine, on the contrary, in a similar
+fashion to *lazy metafunctions*, all you have to do is use the trait adaptor
+`metal::trait` instead of `metal::lambda`.
+
+\snippet mpl.cpp trait_adaptor
+
+Alternatively, you can also explicitly convert *traits* to [Numbers] using
+`metal::as_number`.
+
+\snippet mpl.cpp as_number
+
+### Metafunction Classes
+
+The concept of _Metafunction Class_ became obsolete with Metal. Instead of
+defining [first-class][first-class] metafunctions like you would with Boost.MPL
+
+\snippet mpl.cpp lazy_lambda
+
+you just have to wrap regular metafunctions using `metal::lambda` instead
+
+\snippet mpl.cpp eager_lambda
+
+It's that simple.
+
+### metal::from_mpl
+
+Even though Metal cannot interoperate with natively with Boost.MPL types, it is
+always possible to translate Boost.MPL concepts to their equivalents in Metal,
+that is _Sequences_ to [Lists], _Metafunction Classes_ to [Lambdas] and
+_Integral Constants_ to [Numbers], but it's not always trivial to do so in a
+portable way. For this reason, Metal provides a helper `metal::from_mpl`,
+which takes any type that follows Boost.MPL conventions and returns the semantic
+equivalent in Metal. All you have to do is include `metal/external/mpl.hpp` to
+make it available.
+
+\snippet mpl.cpp number
+\snippet mpl.cpp list
+\snippet mpl.cpp vector
+\snippet mpl.cpp map
+\snippet mpl.cpp lambda
 
 Getting Started {#getting_started}
 ================================================================================
@@ -680,14 +704,15 @@ The most apparent advantage of Metal with respect to Boost.MPL is the fact Metal
 [Lists] and [Maps] can easily exceed the hundreds and even thousands of elements
 with little impact to the compiler performance, whereas Boost.MPL _Sequences_,
 such as `mpl::vector` and `mpl::map`, are hard-limited to at most a couple dozen
-elements and even then at much longer compilation times and increased memory
-consumption. Another obvious improvement is the much terser syntax of Metal made
-possible by alias templates, which were not available at the time Boost.MPL was
-developed.
+elements and even then at much longer compilation times and higher memory
+consumption than Metal. Another obvious improvement in Metal is the much terser
+syntax made possible by alias templates, which were not available at the time
+Boost.MPL was developed.
 
 Visit [metaben.ch] for up to date benchmarks that compare Metal against
-Boost.MPL and other notable metaprogramming libraries. For a more detailed
-discussion on the limitations of Boost.MPL refer to \ref MPL.
+Boost.MPL and other notable metaprogramming libraries. For a brief discussion
+about fundamental design differences between Boost.MPL and Metal, refer to
+\ref MPL.
 
 What are some advantages of Metal with respect to Boost.Hana? {#FAQ_Hana}
 --------------------------------------------------------------------------------
