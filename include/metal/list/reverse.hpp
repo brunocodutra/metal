@@ -45,7 +45,6 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/join.hpp>
 
 #include <cstddef>
 
@@ -54,6 +53,13 @@ namespace metal
     /// \cond
     namespace detail
     {
+        template<typename... vals>
+        struct reverser_impl
+        {
+            template<template<typename...> class expr, typename... _>
+            using type = expr<vals..., _...>;
+        };
+
         template<std::size_t n>
         struct reverser :
             reverser<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
@@ -90,9 +96,9 @@ namespace metal
                 typename _96, typename _97, typename _98, typename _99,
                 typename... tail
             >
-            using type = join<
-                typename reverser<sizeof...(tail)>::template type<tail...>,
-                list<
+            using type = typename reverser<sizeof...(tail)>
+                ::template type<tail...>::template type<
+                    reverser_impl,
                     _99, _98, _97, _96, _95, _94, _93, _92, _91, _90,
                     _89, _88, _87, _86, _85, _84, _83, _82, _81, _80,
                     _79, _78, _77, _76, _75, _74, _73, _72, _71, _70,
@@ -103,8 +109,7 @@ namespace metal
                     _29, _28, _27, _26, _25, _24, _23, _22, _21, _20,
                     _19, _18, _17, _16, _15, _14, _13, _12, _11, _10,
                     _09, _08, _07, _06, _05, _04, _03, _02, _01, _00
-                >
-            >;
+                >;
         };
 
         template<>
@@ -115,27 +120,26 @@ namespace metal
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename... tail
             >
-            using type = join<
-                typename reverser<sizeof...(tail)>::template type<tail...>,
-                list<_09, _08, _07, _06, _05, _04, _03, _02, _01, _00>
-            >;
+            using type = typename reverser<sizeof...(tail)>
+                ::template type<tail...>::template type<
+                    reverser_impl,
+                    _09, _08, _07, _06, _05, _04, _03, _02, _01, _00
+                >;
         };
 
         template<>
         struct reverser<1>
         {
-            template<typename head, typename... tail>
-            using type = join<
-                typename reverser<sizeof...(tail)>::template type<tail...>,
-                list<head>
-            >;
+            template<typename _00, typename... tail>
+            using type = typename reverser<sizeof...(tail)>
+                ::template type<tail...>::template type<reverser_impl, _00>;
         };
 
         template<>
         struct reverser<0>
         {
             template<typename...>
-            using type = list<>;
+            using type = reverser_impl<>;
         };
 
         template<typename seq>
@@ -146,7 +150,7 @@ namespace metal
         struct _reverse<list<vals...>>
         {
             using type = typename reverser<sizeof...(vals)>
-                ::template type<vals...>;
+                ::template type<vals...>::template type<list>;
         };
     }
     /// \endcond
