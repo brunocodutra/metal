@@ -431,6 +431,61 @@ Without further ado we present the logical operator `xor`.
 Notice how we *bind* `not_`, which is only possible due to the fact it is a
 \lambda.
 
+Automatic Test Cases Generation {#automatic_test_cases_generation}
+--------------------------------------------------------------------------------
+________________________________________________________________________________
+
+Suppose you have a component you want to test, say an algorithm on sequences.
+Because it's a generic algorithm, it's able to work with any kind of containers
+and, as such, is specialized for different categories of iterators so that it
+always delivers optimal performance. Moreover, to provide exception safety
+guarantees without compromising on execution time or memory consumption, it must
+also specialize on `noexcept` properties of the elements, particularly of their
+move constructors. Finally, it's conceivable that such a generic algorithm could
+also take advantage of other properties, such as whether elements can be ordered
+or not.
+
+As such a complex implementation, it ought to be thoroughly tested for all
+relevant combinations of iterator categories and interesting properties
+implemented by the contained elements. Furthermore, it's crucial that all corner
+cases are covered, such as empty sequences to name the most obvious, so, before
+we even start to get fancy with our test cases, we already have three dimensions
+that vary independently, namely
+
+1. Iterator category;
+2. Element properties;
+3. Size of the sequence.
+
+How can we possibly implement this testing suite?
+
+First of all, it's a good idea to subdivide each _test case_ into three steps:
+the set-up phase constructs the particular sequence to be tested, the execution
+phase runs our algorithm and the tear-down phase releases the resources. This
+way we can leverage on [RAII] and reduce the boilerplate to a minimum.
+
+\snippet testing.cpp test_case
+
+That's a good start, but in order to run all test cases we still have to
+manually instantiate each and every combination of iterator categories, element
+type and sequence size. That is, if we want to test for `M` different categories
+of iterators, `N` sets of interesting properties that could be provided by
+elements and `O` different sizes of containers, we end up with `M*N*O` distinct
+instantiations to maintain! That's too troublesome and prone to error, there
+ought to be a way to generate all test cases automatically.
+
+Fortunately Metal can do just that for us. With the help of `metal::cartesian`,
+we can generate every test case automatically, which we can then run by
+instantiating a single driver class. It's actually very simple.
+
+\snippet testing.cpp automatic
+
+And that was it.
+
+To verify that we are in fact generating all possible combinations of test cases
+under the hood, let's inspect the return type of `generate_test_cases`
+
+\snippet testing.cpp inspect
+
 A Word on SFINAE-Friendliness {#SFINAE}
 --------------------------------------------------------------------------------
 ________________________________________________________________________________
@@ -776,6 +831,7 @@ the binary representation of numerical values is entirely irrelevant.
 [placeholders]:     http://en.cppreference.com/w/cpp/utility/functional/placeholders
 [literal operator]: http://en.cppreference.com/w/cpp/language/user_literal
 [SFINAE]:           http://en.cppreference.com/w/cpp/language/sfinae
+[RAII]:             http://en.cppreference.com/w/cpp/language/raii
 
 [travis.metal]:     http://travis-ci.org/brunocodutra/metal
 [appveyor.metal]:   http://ci.appveyor.com/project/brunocodutra/metal
