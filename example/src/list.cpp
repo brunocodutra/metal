@@ -612,21 +612,21 @@ IS_SAME(
 
 HIDE(
 /// [cartesian]
-struct a; struct b;
-struct c; struct d;
-struct e; struct f; struct g;
+struct a; struct b; struct c;
+struct d; struct e;
+struct f; struct g;
 
-using x = metal::list<a, b>;
-using y = metal::list<c, d>;
-using z = metal::list<e, f, g>;
+using x = metal::list<a, b, c>;
+using y = metal::list<d, e>;
+using z = metal::list<f, g>;
 
 IS_SAME(
     metal::cartesian<x, y, z>,
     metal::list<
-        metal::list<a, c, e>, metal::list<a, c, f>, metal::list<a, c, g>,
-        metal::list<a, d, e>, metal::list<a, d, f>, metal::list<a, d, g>,
-        metal::list<b, c, e>, metal::list<b, c, f>, metal::list<b, c, g>,
-        metal::list<b, d, e>, metal::list<b, d, f>, metal::list<b, d, g>
+        metal::list<a, d, f>, metal::list<b, d, f>, metal::list<c, d, f>,
+        metal::list<a, e, f>, metal::list<b, e, f>, metal::list<c, e, f>,
+        metal::list<a, d, g>, metal::list<b, d, g>, metal::list<c, d, g>,
+        metal::list<a, e, g>, metal::list<b, e, g>, metal::list<c, e, g>
     >
 );
 /// [cartesian]
