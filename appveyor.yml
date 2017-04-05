@@ -13,6 +13,11 @@ environment:
         CXXFLAGS: /DMETAL_TEST_GEN_LIMIT=7
         APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
 
+      - COMPILER: Visual Studio 15 2017
+        GENERATOR: "Visual Studio 15 2017"
+        CXXFLAGS: /DMETAL_TEST_GEN_LIMIT=7
+        APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+
       - COMPILER: MinGW 5
         GENERATOR: "MinGW Makefiles"
         CXXFLAGS: -DMETAL_TEST_GEN_LIMIT=9
@@ -41,7 +46,10 @@ before_build:
 
   - set "CMAKE_ARGS=%METAL_SOURCE_PATH%"
   - if defined GENERATOR (set "CMAKE_ARGS=%CMAKE_ARGS% -G"%GENERATOR%"")
-  - set "CMAKE_ARGS=%CMAKE_ARGS% -DCMAKE_BUILD_TYPE=%CONFIGURATION% -DBOOST_ROOT=C:\Libraries\boost"
+  - set "CMAKE_ARGS=%CMAKE_ARGS% -DCMAKE_BUILD_TYPE=%CONFIGURATION% -DBOOST_ROOT=C:/Libraries/boost/"
+
+  - cmake --version
+  - echo cmake %CMAKE_ARGS%
   - pushd "%METAL_BUILD_PATH%" && cmake %CMAKE_ARGS% & popd
 
 build_script:
