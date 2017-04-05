@@ -6,7 +6,7 @@
 
 #include "example.hpp"
 
-#if !defined(METAL_COMPAT_MODE)
+#if !defined(METAL_WORKAROUND)
 
 #include <array>
 #include <chrono>

@@ -64,7 +64,7 @@ namespace metal
         struct _min
         {};
 
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<typename x, typename y>
         using min_impl = if_<less<x, y>, x, y>;
 

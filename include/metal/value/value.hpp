@@ -16,7 +16,7 @@ namespace metal
     {
         struct na;
 
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<typename val>
         struct _is_value;
 #endif
@@ -50,7 +50,7 @@ namespace metal
     /// \see value, nil, is_number, is_lambda, is_pair, is_list, is_map
     template<typename val>
     using is_value =
-#if defined(METAL_COMPAT_MODE) && !defined(METAL_DOXYGENATING)
+#if defined(METAL_WORKAROUND)
         typename detail::_is_value<val>::type;
 #else
         metal::true_;
@@ -127,7 +127,7 @@ namespace metal
 
     namespace detail
     {
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<typename val>
         struct _is_value
         {

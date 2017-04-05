@@ -64,7 +64,7 @@ namespace metal
         struct _max
         {};
 
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<typename x, typename y>
         using max_impl = if_<greater<x, y>, x, y>;
 

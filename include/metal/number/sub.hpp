@@ -60,7 +60,7 @@ namespace metal
         struct _sub
         {};
 
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<typename x, typename y>
         using sub_impl = number<x::value - y::value>;
 

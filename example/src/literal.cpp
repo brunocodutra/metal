@@ -38,7 +38,7 @@ IS_SAME(decltype(371_raw), metal::numbers<'3', '7', '1'>);
 IS_SAME(decltype(0x371_raw), metal::numbers<'0', 'x', '3', '7', '1'>);
 ///[_raw_ex1]
 
-#if !defined(METAL_COMPAT_MODE)
+#if !defined(METAL_WORKAROUND)
 
 ///[_raw_ex2]
 IS_SAME(decltype(3'7'1_raw), metal::numbers<'3', '\'', '7', '\'', '1'>);
@@ -188,7 +188,7 @@ IS_SAME(decltype(0xABCDEF_c), metal::number<11259375>); //hexadecimal
 
 IS_SAME(decltype(0Xabcdef_c), metal::number<11259375>);
 
-#if !defined(METAL_COMPAT_MODE)
+#if !defined(METAL_WORKAROUND)
 
 ///[_c_ex2]
 IS_SAME(
@@ -208,7 +208,7 @@ IS_SAME(decltype(1'2'3'4'5'6'7'8'9_c), metal::number<123456789>);
 
 #endif
 
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
 template<typename... T>
 struct AugmentedTuple :
     std::tuple<T...>

@@ -36,7 +36,7 @@ int not_a_val;
 /// [not_a_val1]
 )
 
-#if !defined(METAL_COMPAT_MODE)
+#if !defined(METAL_WORKAROUND)
 
 HIDE(
 static constexpr

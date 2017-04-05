@@ -53,7 +53,7 @@ namespace metal
         template<template<typename...> class expr, typename... vals>
         decltype(sfinae_impl(declptr<caller<expr, vals...>>())) sfinae();
 
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<
             template<template<typename...> class...> class tmpl,
             template<typename...> class... exprs

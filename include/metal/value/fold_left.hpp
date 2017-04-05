@@ -139,7 +139,7 @@ namespace metal
         template<typename state>
         struct left_folder_0
         {
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
             template<template<typename...> class>
             struct impl
             {

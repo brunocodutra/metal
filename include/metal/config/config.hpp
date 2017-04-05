@@ -5,25 +5,10 @@
 #ifndef METAL_CONFIG_CONFIG_HPP
 #define METAL_CONFIG_CONFIG_HPP
 
-/// \ingroup config
-///
-/// ### Description
-/// When this preprocessor switch is defined, certain language features that
-/// are known to cause problems to some compilers are avoided.
-///
-/// \warning{
-///     Defining this preprocessor switch may lead to longer compilation times.
-/// }
-///
-/// \note{
-///     This preprocessor switch is currently defined by default for all
-///     versions of Microsoft Visual Studio and GCC < 5.
-/// }
-#if !defined(METAL_COMPAT_MODE)
-#   if defined(METAL_DOXYGENATING) \
-    || (defined(__GNUC__) && !defined(__clang__) && (__GNUC__ < 5)) \
+#if !defined(METAL_WORKAROUND)
+#   if (defined(__GNUC__) && !defined(__clang__) && (__GNUC__ < 5)) \
     || (defined(_MSC_VER) && !defined(__clang__))
-#       define METAL_COMPAT_MODE
+#       define METAL_WORKAROUND
 #   endif
 #endif
 

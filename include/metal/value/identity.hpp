@@ -37,7 +37,7 @@ namespace metal
     /// \see value, eval
     template<typename val>
     using identity =
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         eval<value<val>>;
 #else
         val;

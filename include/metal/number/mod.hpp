@@ -62,7 +62,7 @@ namespace metal
         struct _mod
         {};
 
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<typename x, typename y>
         struct _mod_impl
         {};

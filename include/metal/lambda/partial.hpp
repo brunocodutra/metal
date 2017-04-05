@@ -64,7 +64,7 @@ namespace metal
         {
             template<template<typename...> class expr>
             using type =
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
                 call<expr, vals...>;
 #else
                 expr<vals...>;

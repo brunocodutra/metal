@@ -69,7 +69,7 @@ namespace metal
                 template<typename...> class... params
             >
             using type =
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
                 call<expr, call<params, vals...>...>;
 #else
                 expr<params<vals...>...>;

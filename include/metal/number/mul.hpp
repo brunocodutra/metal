@@ -60,7 +60,7 @@ namespace metal
         struct _mul
         {};
 
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<typename x, typename y>
         using mul_impl = number<x::value * y::value>;
 

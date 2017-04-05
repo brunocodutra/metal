@@ -10,7 +10,7 @@
 #include <tuple>
 #include <type_traits>
 
-#if !defined(METAL_COMPAT_MODE)
+#if !defined(METAL_WORKAROUND)
 
 HIDE(
 /// [lbd1]

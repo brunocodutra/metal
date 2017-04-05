@@ -77,7 +77,7 @@ namespace metal
             number<0>
         {};
 
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<typename seq, typename = indices<seq>>
         struct _find_index
         {};
