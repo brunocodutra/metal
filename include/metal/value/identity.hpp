@@ -2,38 +2,46 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-#ifndef METAL_VALUE_EVAL_HPP
-#define METAL_VALUE_EVAL_HPP
+#ifndef METAL_VALUE_IDENTITY_HPP
+#define METAL_VALUE_IDENTITY_HPP
 
 #include <metal/config.hpp>
+
+#include <metal/value/eval.hpp>
+#include <metal/value/value.hpp>
 
 namespace metal
 {
     /// \ingroup value
     ///
     /// ### Description
-    /// Evaluates _lazy_ constructs by retrieving their nested typename `type`.
+    /// The identity \expression.
     ///
     /// ### Usage
     /// For any \value `val`
     /// \code
-    ///     using result = metal::eval<val>;
+    ///     using result = metal::identity<val>;
     /// \endcode
     ///
     /// \returns: \value
     /// \semantics:
     ///     Equivalent to
     ///     \code
-    ///         using result = typename val::type;
+    ///         using result = val;
     ///     \endcode
     ///
     /// ### Example
-    /// \snippet value.cpp eval
+    /// \snippet value.cpp identity
     ///
     /// ### See Also
-    /// \see value, lazy, id
+    /// \see value, eval
     template<typename val>
-    using eval = typename val::type;
+    using identity =
+#if defined(METAL_COMPAT_MODE)
+        eval<value<val>>;
+#else
+        val;
+#endif
 }
 
 #endif

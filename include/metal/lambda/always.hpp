@@ -51,6 +51,7 @@ namespace metal
 }
 
 #include <metal/lambda/lambda.hpp>
+#include <metal/value/identity.hpp>
 
 namespace metal
 {
@@ -60,19 +61,9 @@ namespace metal
         template<typename val>
         struct _always
         {
-#if defined(METAL_COMPAT_MODE)
             template<typename...>
-            struct _impl
-            {
-                using type = val;
-            };
+            using impl = identity<val>;
 
-            template<typename... vals>
-            using impl = typename _impl<vals...>::type;
-#else
-            template<typename...>
-            using impl = val;
-#endif
             using type = lambda<impl>;
         };
     }

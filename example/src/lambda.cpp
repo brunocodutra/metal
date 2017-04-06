@@ -29,6 +29,8 @@ IS_SAME(metal::is_lambda<metal::lazy<std::add_pointer>>, metal::true_);
 /// [is_lambda]
 )
 
+#endif
+
 HIDE(
 /// [as_lambda]
 IS_SAME(metal::as_lambda<std::shared_ptr<int>>, metal::lambda<std::shared_ptr>);
@@ -64,7 +66,7 @@ IS_SAME(metal::invoke<metal::lazy<std::common_type>, int[], void*>, void*);
 HIDE(
 /// [is_invocable]
 template<typename val>
-using array = metal::eval<metal::value<val[]>>; // MSVC friendly
+using array = metal::identity<val[]>; // MSVC friendly
 
 using lbd = metal::lambda<array>;
 
@@ -73,6 +75,27 @@ IS_SAME(metal::is_invocable<lbd, void>, metal::false_); // void[] is ill-formed
 IS_SAME(metal::is_invocable<lbd, int>, metal::true_);
 /// [is_invocable]
 )
+
+HIDE(
+/// [always]
+using void_ = metal::always<void>;
+
+IS_SAME(metal::invoke<void_>, void);
+IS_SAME(metal::invoke<void_, bool, char, long, float>, void);
+IS_SAME(metal::invoke<metal::always<void_>, bool, char, long, float>, void_);
+/// [always]
+)
+
+HIDE(
+/// [arg]
+IS_SAME(metal::invoke<metal::arg<1>, bool, char, long, float>, bool);
+IS_SAME(metal::invoke<metal::arg<2>, bool, char, long, float>, char);
+IS_SAME(metal::invoke<metal::arg<3>, bool, char, long, float>, long);
+IS_SAME(metal::invoke<metal::arg<4>, bool, char, long, float>, float);
+/// [arg]
+)
+
+#if !defined(METAL_WORKAROUND)
 
 HIDE(
 /// [invoke]
@@ -98,25 +121,6 @@ IS_SAME(metal::invoke<promote, char>, int);
 IS_SAME(metal::invoke<promote, short>, int);
 IS_SAME(metal::invoke<promote, long>, long);
 /// [partial]
-)
-
-HIDE(
-/// [always]
-using void_ = metal::always<void>;
-
-IS_SAME(metal::invoke<void_>, void);
-IS_SAME(metal::invoke<void_, short, int, long>, void);
-IS_SAME(metal::invoke<metal::always<void_>, short, int, long>, void_);
-/// [always]
-)
-
-HIDE(
-/// [arg]
-IS_SAME(metal::invoke<metal::arg<1>, bool, char, long, float>, bool);
-IS_SAME(metal::invoke<metal::arg<2>, bool, char, long, float>, char);
-IS_SAME(metal::invoke<metal::arg<3>, bool, char, long, float>, long);
-IS_SAME(metal::invoke<metal::arg<4>, bool, char, long, float>, float);
-/// [arg]
 )
 
 HIDE(

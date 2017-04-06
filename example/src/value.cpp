@@ -54,15 +54,13 @@ struct not_a_val { /*...*/ };
 /// [not_a_val3]
 )
 
-#if !defined(METAL_COMPAT_MODE)
-
 HIDE(
 /// [value]
 using num = metal::number<42>;
 IS_SAME(metal::is_number<metal::value<num>>, metal::false_);
 IS_SAME(metal::value<num>::type, num);
 
-using lbd = metal::lambda<std::add_pointer_t>;
+using lbd = metal::lambda<metal::identity>;
 IS_SAME(metal::is_lambda<metal::value<lbd>>, metal::false_);
 IS_SAME(metal::value<lbd>::type, lbd);
 
@@ -71,8 +69,6 @@ IS_SAME(metal::is_list<metal::value<list>>, metal::false_);
 IS_SAME(metal::value<list>::type, list);
 /// [value]
 )
-
-#endif
 
 HIDE(
 /// [is_value]
@@ -100,6 +96,26 @@ HIDE(
 IS_SAME(metal::eval<metal::value<void>>, void);
 IS_SAME(metal::eval<std::add_pointer<void>>, void*);
 /// [eval]
+)
+
+HIDE(
+/// [identity]
+IS_SAME(metal::identity<void>, void);
+IS_SAME(metal::invoke<metal::lambda<metal::identity>, void>, void);
+
+template<typename pred, typename lbd, typename seq>
+using transform_if = metal::transform<
+    metal::bind<metal::lambda<metal::if_>, pred, lbd, metal::lambda<metal::identity>>,
+    seq
+>;
+
+using l = metal::list<short, int, long, float, double, void>;
+
+IS_SAME(
+    transform_if<metal::trait<std::is_integral>, metal::lazy<std::add_pointer>, l>,
+    metal::list<short*, int*, long*, float, double, void>
+);
+/// [identity]
 )
 
 HIDE(
