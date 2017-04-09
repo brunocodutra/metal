@@ -47,7 +47,7 @@
         <div class="container">
           <div class="navbar-header">
             <a class="navbar-brand" href="#">
-              Metal <small>0.5.1</small>
+              Metal <small>0.6.0</small>
             </a>
           </div>
           <ul class="nav navbar-nav navbar-left">
@@ -62,7 +62,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/archive/v0.5.1.zip">
+              <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/archive/v0.6.0.zip">
                 <span class="hidden-xs">Download</span>
                 <span class="hidden-xs octicon octicon-cloud-download" aria-hidden="true"></span>
                 <span class="visible-xs-block mega-octicon octicon-cloud-download" aria-hidden="true"></span>
@@ -115,6 +115,110 @@ template&lt;typename... vals&gt; </div>
 
 </div>
 </div>
+<a id="gae97c09ebc447382ca7bfbdf64ae8fb00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae97c09ebc447382ca7bfbdf64ae8fb00">&#9670;&nbsp;</a></span>eval</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename val &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__value.html#gae97c09ebc447382ca7bfbdf64ae8fb00">metal::eval</a> = typedef typename val::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;metal/value/eval.hpp&gt;</code></p>
+<h3>Description</h3>
+<p>Evaluates <em>lazy</em> constructs by retrieving their nested typename <code>type</code>.</p>
+<h3>Usage</h3>
+<p>For any <a class="el" href="index.html#value">Value </a> <code>val</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__value.html#gae97c09ebc447382ca7bfbdf64ae8fb00">metal::eval&lt;val&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
+<dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result = <span class="keyword">typename</span> val::type;</div></div><!-- fragment --></dd></dl>
+<h3>Example</h3>
+<div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__value.html#gae97c09ebc447382ca7bfbdf64ae8fb00">metal::eval</a>&lt;<a class="code" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value&lt;void&gt;</a>&gt;, <span class="keywordtype">void</span>);</div><div class="line">IS_SAME(<a class="code" href="group__value.html#gae97c09ebc447382ca7bfbdf64ae8fb00">metal::eval</a>&lt;std::add_pointer&lt;void&gt;&gt;, <span class="keywordtype">void</span>*);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">value</a>, <a class="el" href="group__lambda.html#ga00420618cd4689ece80838e596897d36">lazy</a>, id </dd></dl>
+
+</div>
+</div>
+<a id="ga73dd45528d3a238848ddb5156e737af3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga73dd45528d3a238848ddb5156e737af3">&#9670;&nbsp;</a></span>fold_left</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename lbd , typename... vals&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__value.html#ga73dd45528d3a238848ddb5156e737af3">metal::fold_left</a> = typedef detail::call&lt;detail::_fold_left&lt;lbd&gt;::template type, vals...&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;metal/value/fold_left.hpp&gt;</code></p>
+<h3>Description</h3>
+<p>Computes the recursive invocation of a binary <a class="el" href="index.html#lambda">Lambda </a> with the result of the previous invocation and each <a class="el" href="index.html#value">Value </a>, from the first to the last.</p>
+<h3>Usage</h3>
+<p>For any <a class="el" href="index.html#lambda">Lambda </a> <code>lbd</code>, and <a class="el" href="index.html#value">Values</a> <code>val_0, ..., val_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__value.html#ga73dd45528d3a238848ddb5156e737af3">metal::fold_left</a>&lt;lbd, val_0, ..., val_n-1&gt;;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
+<dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result =</div><div class="line">    lbd(... lbd(lbd(val_0, val_1), val_2), ..., val_n-1)</div></div><!-- fragment --> where <code>lbd(x, y)</code> stands for <code><a class="el" href="group__lambda.html#gab55bec3884b050822e67739389d9f7a4">metal::invoke</a>&lt;lbd, x, y&gt;</code>.</dd></dl>
+<h3>Example</h3>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> x, <span class="keyword">typename</span> y&gt;</div><div class="line"><span class="keyword">struct </span>f {};</div><div class="line"></div><div class="line"><span class="keyword">using</span> lbd = <a class="code" href="group__lambda.html#gaa8a7f7e134046ebb0b59f67bbadb2967">metal::lambda&lt;f&gt;</a>;</div><div class="line"></div><div class="line">IS_SAME(</div><div class="line">    <a class="code" href="group__value.html#ga73dd45528d3a238848ddb5156e737af3">metal::fold_left&lt;lbd, short, int, long, float, double, void&gt;</a>,</div><div class="line">    f&lt;f&lt;f&lt;f&lt;f&lt;short, int&gt;, <span class="keywordtype">long</span>&gt;, <span class="keywordtype">float</span>&gt;, <span class="keywordtype">double</span>&gt;, <span class="keywordtype">void</span>&gt;</div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__value.html#ga06e66303d65e1b71cc219dcb8ada5bc3">fold_right</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga06e66303d65e1b71cc219dcb8ada5bc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga06e66303d65e1b71cc219dcb8ada5bc3">&#9670;&nbsp;</a></span>fold_right</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename lbd , typename... vals&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__value.html#ga06e66303d65e1b71cc219dcb8ada5bc3">metal::fold_right</a> = typedef detail::call&lt;detail::_fold_right&lt;lbd&gt;::template type, vals...&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;metal/value/fold_right.hpp&gt;</code></p>
+<h3>Description</h3>
+<p>Computes the recursive invocation of a binary <a class="el" href="index.html#lambda">Lambda </a> with the result of the previous invocation and each <a class="el" href="index.html#value">Value </a>, from the last to the first.</p>
+<h3>Usage</h3>
+<p>For any <a class="el" href="index.html#lambda">Lambda </a> <code>lbd</code>, and <a class="el" href="index.html#value">Values</a> <code>val_0, ..., val_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__value.html#ga06e66303d65e1b71cc219dcb8ada5bc3">metal::fold_right</a>&lt;lbd, val_0, ..., val_n-1&gt;;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
+<dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result =</div><div class="line">    lbd(val_0, ..., lbd(val_n-3, lbd(val_n-2, val_n-1)), ...)</div></div><!-- fragment --> where <code>lbd(x, y)</code> stands for <code><a class="el" href="group__lambda.html#gab55bec3884b050822e67739389d9f7a4">metal::invoke</a>&lt;lbd, x, y&gt;</code>.</dd></dl>
+<h3>Example</h3>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> x, <span class="keyword">typename</span> y&gt;</div><div class="line"><span class="keyword">struct </span>f {};</div><div class="line"></div><div class="line"><span class="keyword">using</span> lbd = <a class="code" href="group__lambda.html#gaa8a7f7e134046ebb0b59f67bbadb2967">metal::lambda&lt;f&gt;</a>;</div><div class="line"></div><div class="line">IS_SAME(</div><div class="line">    <a class="code" href="group__value.html#ga06e66303d65e1b71cc219dcb8ada5bc3">metal::fold_right&lt;lbd, short, int, long, float, double, void&gt;</a>,</div><div class="line">    f&lt;<span class="keywordtype">short</span>, f&lt;<span class="keywordtype">int</span>, f&lt;<span class="keywordtype">long</span>, f&lt;<span class="keywordtype">float</span>, f&lt;double, void&gt;&gt;&gt;&gt;&gt;</div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__value.html#ga06e66303d65e1b71cc219dcb8ada5bc3">fold_right</a> </dd></dl>
+
+</div>
+</div>
+<a id="gae6dd6304ac36b87ec1a01374b46d690e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae6dd6304ac36b87ec1a01374b46d690e">&#9670;&nbsp;</a></span>identity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename val &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__value.html#gae6dd6304ac36b87ec1a01374b46d690e">metal::identity</a> = typedef val</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;metal/value/identity.hpp&gt;</code></p>
+<h3>Description</h3>
+<p>The identity <a class="el" href="index.html#expression">Expression </a>.</p>
+<h3>Usage</h3>
+<p>For any <a class="el" href="index.html#value">Value </a> <code>val</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__value.html#gae6dd6304ac36b87ec1a01374b46d690e">metal::identity&lt;val&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
+<dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result = val;</div></div><!-- fragment --></dd></dl>
+<h3>Example</h3>
+<div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__value.html#gae6dd6304ac36b87ec1a01374b46d690e">metal::identity&lt;void&gt;</a>, <span class="keywordtype">void</span>);</div><div class="line">IS_SAME(<a class="code" href="group__lambda.html#gab55bec3884b050822e67739389d9f7a4">metal::invoke</a>&lt;<a class="code" href="group__lambda.html#gaa8a7f7e134046ebb0b59f67bbadb2967">metal::lambda&lt;metal::identity&gt;</a>, <span class="keywordtype">void</span>&gt;, <span class="keywordtype">void</span>);</div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> pred, <span class="keyword">typename</span> lbd, <span class="keyword">typename</span> seq&gt;</div><div class="line"><span class="keyword">using</span> transform_if = <a class="code" href="group__list.html#ga428917280ab5c482b380106c91a6a958">metal::transform</a>&lt;</div><div class="line">    <a class="code" href="group__lambda.html#gadc53fa4741d4ac0f180c937b42534049">metal::bind&lt;metal::lambda&lt;metal::if_&gt;</a>, pred, lbd, <a class="code" href="group__lambda.html#gaa8a7f7e134046ebb0b59f67bbadb2967">metal::lambda&lt;metal::identity&gt;</a>&gt;,</div><div class="line">    seq</div><div class="line">&gt;;</div><div class="line"></div><div class="line"><span class="keyword">using</span> l = <a class="code" href="group__list.html#gafdf77a09929ad5889fb87146833a13aa">metal::list&lt;short, int, long, float, double, void&gt;</a>;</div><div class="line"></div><div class="line">IS_SAME(</div><div class="line">    transform_if&lt;<a class="code" href="group__lambda.html#gaa1d838da057cf0ff4c26bb2e66283fea">metal::trait&lt;std::is_integral&gt;</a>, <a class="code" href="group__lambda.html#ga00420618cd4689ece80838e596897d36">metal::lazy&lt;std::add_pointer&gt;</a>, l&gt;,</div><div class="line">    <a class="code" href="group__list.html#gafdf77a09929ad5889fb87146833a13aa">metal::list&lt;short*, int*, long*, float, double, void&gt;</a></div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">value</a>, <a class="el" href="group__value.html#gae97c09ebc447382ca7bfbdf64ae8fb00">eval</a> </dd></dl>
+
+</div>
+</div>
 <a id="ga4588f7571a3129dc67d4defa403426f8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga4588f7571a3129dc67d4defa403426f8">&#9670;&nbsp;</a></span>is_value</h2>
 
@@ -136,8 +240,8 @@ template&lt;typename val &gt; </div>
 <p>For any <a class="el" href="index.html#value">Value </a> <code>val</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__value.html#ga4588f7571a3129dc67d4defa403426f8">metal::is_value&lt;val&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#number">Number </a> </dd></dl>
 <dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__number.html#gadff72c366480cfd6569d65e0e70a2a27">metal::true_</a>;</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
-<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> = metal::true_&gt;</div><div class="line"><span class="keyword">struct </span>has_type_impl :</div><div class="line">    <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a></div><div class="line">{};</div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div><div class="line"><span class="keyword">struct </span>has_type_impl&lt;T, <a class="code" href="namespacemetal.html">metal</a>::<a class="code" href="group__value.html#ga4588f7571a3129dc67d4defa403426f8">is_value</a>&lt;typename T::type&gt;&gt; :</div><div class="line">    <a class="code" href="group__number.html#gadff72c366480cfd6569d65e0e70a2a27">metal::true_</a></div><div class="line">{};</div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div><div class="line"><span class="keyword">using</span> has_type = <span class="keyword">typename</span> has_type_impl&lt;T&gt;::type;</div><div class="line"></div><div class="line"></div><div class="line">IS_SAME(has_type&lt;<a class="code" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value&lt;void&gt;</a>&gt;, <a class="code" href="group__number.html#gadff72c366480cfd6569d65e0e70a2a27">metal::true_</a>);</div><div class="line">IS_SAME(has_type&lt;<a class="code" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value&lt;&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">value</a>, <a class="el" href="group__value.html#ga0763f038a2aa53ac72d55a3f3a093e22">nil</a>, <a class="el" href="group__number.html#ga1a7355bbc4395a349a12646ac66b8876">is_number</a>, <a class="el" href="group__lambda.html#gafacca9003bb9e12d31b08a678b108e12">is_lambda</a>, <a class="el" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">is_pair</a>, <a class="el" href="group__list.html#ga0d35b093a78a38d60906901eb78a5946">is_list</a>, <a class="el" href="group__map.html#ga74aaca3fae66a7618dff3f439927d9ed">is_map</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> = metal::true_&gt;</div><div class="line"><span class="keyword">struct </span>has_type_impl :</div><div class="line">    <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a></div><div class="line">{};</div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div><div class="line"><span class="keyword">struct </span>has_type_impl&lt;T, <a class="code" href="namespacemetal.html">metal</a>::<a class="code" href="group__value.html#ga4588f7571a3129dc67d4defa403426f8">is_value</a>&lt;typename T::type&gt;&gt; :</div><div class="line">    <a class="code" href="group__number.html#gadff72c366480cfd6569d65e0e70a2a27">metal::true_</a></div><div class="line">{};</div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div><div class="line"><span class="keyword">using</span> has_type = <span class="keyword">typename</span> has_type_impl&lt;T&gt;::type;</div><div class="line"></div><div class="line"></div><div class="line">IS_SAME(has_type&lt;<a class="code" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value&lt;void&gt;</a>&gt;, <a class="code" href="group__number.html#gadff72c366480cfd6569d65e0e70a2a27">metal::true_</a>);</div><div class="line">IS_SAME(has_type&lt;<a class="code" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value&lt;&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">value</a>, <a class="el" href="group__value.html#ga0763f038a2aa53ac72d55a3f3a093e22">nil</a>, <a class="el" href="group__number.html#ga1a7355bbc4395a349a12646ac66b8876">is_number</a>, <a class="el" href="group__lambda.html#gafacca9003bb9e12d31b08a678b108e12">is_lambda</a>, <a class="el" href="group__pair.html#gac3091dc09ba574a6386bd58842e91eb8">is_pair</a>, <a class="el" href="group__list.html#ga0d35b093a78a38d60906901eb78a5946">is_list</a>, <a class="el" href="group__map.html#ga74aaca3fae66a7618dff3f439927d9ed">is_map</a> </dd></dl>
 
 </div>
 </div>
@@ -148,19 +252,19 @@ template&lt;typename val &gt; </div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__value.html#ga0763f038a2aa53ac72d55a3f3a093e22">metal::nil</a> = typedef <a class="el" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value</a>&lt;&gt;</td>
+          <td class="memname">using <a class="el" href="group__value.html#ga0763f038a2aa53ac72d55a3f3a093e22">metal::nil</a> = typedef <a class="el" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value</a>&lt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p><code>#include &lt;metal/value/value.hpp&gt;</code></p>
 <h3>Description</h3>
-<p>An <em>empty</em> <code><a class="el" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value</a></code>.</p>
-<div class="panel panel-info"><div class="panel-heading"><span class="octicon octicon-light-bulb"> Tip</span></div><div class="panel-body">Use <code><a class="el" href="group__value.html#ga0763f038a2aa53ac72d55a3f3a093e22">metal::nil</a></code> and <code><a class="el" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value</a></code> to emulate <a href="http://en.cppreference.com/w/cpp/utility/optional">optionals</a>.</div></div><h3>Usage</h3>
+<p>An <em>empty</em> <code><a class="el" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value</a></code>.</p>
+<h3>Usage</h3>
 <div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__value.html#ga0763f038a2aa53ac72d55a3f3a093e22">metal::nil</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
-<dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result = <span class="keyword">struct </span>{};</div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result = {};</div></div><!-- fragment --></dd></dl>
 <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__value.html#ga4588f7571a3129dc67d4defa403426f8">is_value</a>, <a class="el" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">value</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__value.html#ga4588f7571a3129dc67d4defa403426f8">is_value</a>, <a class="el" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">value</a> </dd></dl>
 
 </div>
 </div>
@@ -190,8 +294,8 @@ template&lt;typename... vals&gt; </div>
 
 </div>
 </div>
-<a id="gaff19a67d69d7ab4804e61d8c6d0dc76a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaff19a67d69d7ab4804e61d8c6d0dc76a">&#9670;&nbsp;</a></span>value</h2>
+<a id="ga3804cb5cb28bf4b2d03713ba8e30a185"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3804cb5cb28bf4b2d03713ba8e30a185">&#9670;&nbsp;</a></span>value</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,7 +303,7 @@ template&lt;typename... vals&gt; </div>
 template&lt;typename val  = detail::na&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value</a> = typedef detail::value&lt;val&gt;</td>
+          <td class="memname">using <a class="el" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value</a> = typedef { using type = val</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -207,12 +311,12 @@ template&lt;typename val  = detail::na&gt; </div>
 <p><code>#include &lt;metal/value/value.hpp&gt;</code></p>
 <h3>Description</h3>
 <p>Constructs a <a class="el" href="index.html#value">Value </a> that is guaranteed not to be a <a class="el" href="index.html#number">Number </a>, or a <a class="el" href="index.html#lambda">Lambda </a> or a <a class="el" href="index.html#list">List </a>, out of any other <a class="el" href="index.html#value">Value </a>.</p>
-<p>The original <a class="el" href="index.html#value">Value </a> may be retrieved back by naming the nested typename <code>type</code>, unless <code><a class="el" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value</a></code> is <a class="el" href="group__value.html#ga0763f038a2aa53ac72d55a3f3a093e22">empty</a>, in which case <code>type</code> is undefined.</p>
-<div class="panel panel-info"><div class="panel-heading"><span class="octicon octicon-light-bulb"> Tip</span></div><div class="panel-body">Use <code><a class="el" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value</a></code> to prevent undesired template pattern matching.</div></div><h3>Usage</h3>
-<p>For any <a class="el" href="index.html#value">Value </a> <code>val</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value&lt;val&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
-<dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result = <span class="keyword">struct </span>{<span class="keyword">using</span> type = val;};</div></div><!-- fragment --></dd></dl>
+<p>The original <a class="el" href="index.html#value">Value </a> may be retrieved back by naming the nested typename <code>type</code>, unless <code><a class="el" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value</a></code> is <a class="el" href="group__value.html#ga0763f038a2aa53ac72d55a3f3a093e22">empty</a>, in which case <code>type</code> is undefined.</p>
+<div class="panel panel-info"><div class="panel-heading"><span class="octicon octicon-light-bulb"> Tip</span></div><div class="panel-body">Use <code><a class="el" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value</a></code> to prevent undesired template pattern matching.</div></div><h3>Usage</h3>
+<p>For any <a class="el" href="index.html#value">Value </a> <code>val</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value&lt;val&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
+<dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result = { <span class="keyword">using</span> type = val; };</div></div><!-- fragment --></dd></dl>
 <h3>Example</h3>
-<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;42&gt;</a>;</div><div class="line">IS_SAME(<a class="code" href="group__number.html#ga1a7355bbc4395a349a12646ac66b8876">metal::is_number</a>&lt;<a class="code" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value&lt;num&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div><div class="line">IS_SAME(<a class="code" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value&lt;num&gt;::type</a>, num);</div><div class="line"></div><div class="line"><span class="keyword">using</span> lbd = <a class="code" href="group__lambda.html#gad1c1dcdd5fae23712d016b52504cbb22">metal::lambda&lt;std::add_pointer_t&gt;</a>;</div><div class="line">IS_SAME(<a class="code" href="group__lambda.html#gafacca9003bb9e12d31b08a678b108e12">metal::is_lambda</a>&lt;<a class="code" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value&lt;lbd&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div><div class="line">IS_SAME(<a class="code" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value&lt;lbd&gt;::type</a>, lbd);</div><div class="line"></div><div class="line"><span class="keyword">using</span> <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">list</a> = <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">metal::list&lt;&gt;</a>;</div><div class="line">IS_SAME(<a class="code" href="group__list.html#ga0d35b093a78a38d60906901eb78a5946">metal::is_list</a>&lt;<a class="code" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value&lt;list&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div><div class="line">IS_SAME(<a class="code" href="group__value.html#gaff19a67d69d7ab4804e61d8c6d0dc76a">metal::value&lt;list&gt;::type</a>, <a class="code" href="group__list.html#ga45230fa3bb5136fc2c47bb68e962ee94">list</a>);</div></div><!-- fragment --> <h3>See Also</h3>
+<div class="fragment"><div class="line"><span class="keyword">using</span> num = <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;42&gt;</a>;</div><div class="line">IS_SAME(<a class="code" href="group__number.html#ga1a7355bbc4395a349a12646ac66b8876">metal::is_number</a>&lt;<a class="code" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value&lt;num&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div><div class="line">IS_SAME(<a class="code" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value&lt;num&gt;::type</a>, num);</div><div class="line"></div><div class="line"><span class="keyword">using</span> lbd = metal::lambda&lt;metal::identity&gt;;</div><div class="line">IS_SAME(<a class="code" href="group__lambda.html#gafacca9003bb9e12d31b08a678b108e12">metal::is_lambda</a>&lt;<a class="code" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value&lt;lbd&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div><div class="line">IS_SAME(<a class="code" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value&lt;lbd&gt;::type</a>, lbd);</div><div class="line"></div><div class="line"><span class="keyword">using</span> <a class="code" href="group__list.html#gafdf77a09929ad5889fb87146833a13aa">list</a> = <a class="code" href="group__list.html#gafdf77a09929ad5889fb87146833a13aa">metal::list&lt;&gt;</a>;</div><div class="line">IS_SAME(<a class="code" href="group__list.html#ga0d35b093a78a38d60906901eb78a5946">metal::is_list</a>&lt;<a class="code" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value&lt;list&gt;</a>&gt;, <a class="code" href="group__number.html#ga2b8268fd8b95748afa8db51554554ba7">metal::false_</a>);</div><div class="line">IS_SAME(<a class="code" href="group__value.html#ga3804cb5cb28bf4b2d03713ba8e30a185">metal::value&lt;list&gt;::type</a>, <a class="code" href="group__list.html#gafdf77a09929ad5889fb87146833a13aa">list</a>);</div></div><!-- fragment --> <h3>See Also</h3>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__value.html#ga4588f7571a3129dc67d4defa403426f8">is_value</a>, <a class="el" href="group__value.html#ga0763f038a2aa53ac72d55a3f3a093e22">nil</a> </dd></dl>
 
 </div>
