@@ -77,7 +77,7 @@ namespace metal
             number<0>
         {};
 
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<typename seq, typename = indices<seq>>
         struct _find_index
         {};
@@ -96,10 +96,10 @@ namespace metal
         template<typename... _>
         constexpr int_ find_index(_... vs) {
             int_ ret = 0;
-            for(int_ x : std::initializer_list<int_>{vs...})
+            for(int_ x : std::initializer_list<int_>{vs...}) {
                 if(x) break;
                 else ++ret;
-
+            }
             return ret;
         }
 

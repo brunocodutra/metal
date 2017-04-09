@@ -35,7 +35,7 @@
     CHECK((metal::flatten<metal::transpose<metal::list<LIST(M)>>>), (LIST(M))); \
     CHECK((metal::accumulate<metal::lambda<metal::prepend>, metal::list<>, LIST(M)>), (metal::accumulate<metal::lambda<metal::append>, metal::list<>, metal::reverse<LIST(M)>>)); \
     CHECK((metal::range<LIST(M), metal::size<LIST(M)>, NUMBER(0)>), (metal::reverse<LIST(M)>)); \
-    CHECK((metal::transform<metal::bind<metal::lambda<metal::at>, metal::quote<LIST(M)>, metal::_1>, metal::indices<LIST(M)>>), (LIST(M))); \
+    CHECK((metal::transform<metal::bind<metal::lambda<metal::at>, metal::always<LIST(M)>, metal::_1>, metal::indices<LIST(M)>>), (LIST(M))); \
     CHECK((metal::transpose<metal::transpose<MAP(INC(M))>>), (MAP(INC(M)))); \
     CHECK((metal::transform<metal::bind<metal::lambda<metal::first>, metal::_1>, MAP(M)>), (metal::keys<MAP(M)>)); \
     CHECK((metal::transform<metal::bind<metal::lambda<metal::second>, metal::_1>, MAP(M)>), (metal::values<MAP(M)>)); \

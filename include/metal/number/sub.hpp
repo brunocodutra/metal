@@ -7,12 +7,14 @@
 
 #include <metal/config.hpp>
 
+#include <metal/detail/sfinae.hpp>
+
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<typename head, typename... tail>
+        template<typename... nums>
         struct _sub;
     }
     /// \endcond
@@ -40,14 +42,12 @@ namespace metal
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, mul, div, mod, pow
     template<typename... nums>
-    using sub = typename detail::_sub<nums...>::type;
+    using sub = detail::call<detail::_sub<nums...>::template type>;
 }
 
 #include <metal/number/number.hpp>
-#include <metal/number/numbers.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/list/accumulate.hpp>
-#include <metal/list/list.hpp>
+#include <metal/value/fold_left.hpp>
 
 #include <initializer_list>
 
@@ -56,37 +56,32 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename head, typename... tail>
+        template<typename... nums>
         struct _sub
         {};
 
-        template<int_ x>
-        struct _sub<number<x>> :
-            number<x>
-        {};
+#if defined(METAL_WORKAROUND)
+        template<typename x, typename y>
+        using sub_impl = number<x::value - y::value>;
 
-        template<int_ x, int_ y>
-        struct _sub<number<x>, number<y>> :
-            number<x - y>
-        {};
-
-#if defined(METAL_COMPAT_MODE)
-        template<int_ x, int_ y, int_... tail>
-        struct _sub<number<x>, number<y>, number<tail>...> :
-            _accumulate<lambda<sub>, number<x>, numbers<y, tail...>>
-        {};
+        template<int_... ns>
+        struct _sub<number<ns>...>
+        {
+            template<typename... _>
+            using type = fold_left<lambda<sub_impl>, number<ns>..., _...>;
+        };
 #else
         template<typename... _>
-        constexpr int_ isub(int_ head, _... tail) {
-            int_ ret = head;
-            void(std::initializer_list<int_>{(ret -= tail)...});
-            return ret;
+        constexpr int_ sub_impl(int_ head, _... tail) {
+            return void(std::initializer_list<int_>{(head -= tail)...}), head;
         }
 
-        template<int_ x, int_ y, int_... tail>
-        struct _sub<number<x>, number<y>, number<tail>...> :
-            number<isub(x, y, tail...)>
-        {};
+        template<int_... ns>
+        struct _sub<number<ns>...>
+        {
+            template<typename... _>
+            using type = number<sub_impl((void(sizeof...(_)), ns)...)>;
+        };
 #endif
     }
     /// \endcond

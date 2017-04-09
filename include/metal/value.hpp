@@ -7,7 +7,11 @@
 
 #include <metal/config.hpp>
 
+#include <metal/value/identity.hpp>
+#include <metal/value/eval.hpp>
 #include <metal/value/distinct.hpp>
+#include <metal/value/fold_left.hpp>
+#include <metal/value/fold_right.hpp>
 #include <metal/value/same.hpp>
 #include <metal/value/value.hpp>
 

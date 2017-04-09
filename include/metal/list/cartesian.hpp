@@ -7,16 +7,21 @@
 
 #include <metal/config.hpp>
 
-#include <metal/list/list.hpp>
-#include <metal/number/if.hpp>
+#include <metal/detail/sfinae.hpp>
+
+#include <cstddef>
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
-        template<typename... seqs>
-        struct _cartesian;
+        template<std::size_t n>
+        struct cartesianer;
+
+        struct cartesianer_impl_0;
     }
+    /// \endcond
 
     /// \ingroup list
     ///
@@ -46,39 +51,68 @@ namespace metal
     /// ### See Also
     /// \see list, transpose
     template<typename... seqs>
-    using cartesian =
-        typename detail::_cartesian<if_<is_list<seqs>, seqs>...>::type;
+    using cartesian = detail::call<
+        detail::cartesianer<sizeof...(seqs)>::template type,
+        detail::cartesianer_impl_0,
+        seqs...
+    >;
 }
 
+#include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
 
 namespace metal
 {
+    /// \cond
     namespace detail
     {
-        template<typename, typename...>
-        struct _cartesian_impl
-        {};
-
-        template<typename result, typename... seqs>
-        using cartesian_impl = typename _cartesian_impl<result, seqs...>::type;
-
-        template<typename result>
-        struct _cartesian_impl<result>
+        struct cartesianer_impl_0
         {
-            using type = list<result>;
+            template<typename... vals>
+            using type = list<list<vals...>>;
         };
 
-        template<typename... _, typename... hs, typename... tail>
-        struct _cartesian_impl<list<_...>, list<hs...>, tail...> :
-            _join<cartesian_impl<list<_..., hs>, tail...>...>
+        template<typename next, typename seq>
+        struct cartesianer_impl
         {};
 
-        template<typename... seqs>
-        struct _cartesian :
-            _cartesian_impl<list<>, seqs...>
+        template<typename next, typename... vals>
+        struct cartesianer_impl<next, list<vals...>>
+        {
+            template<template<typename...> class expr, typename... _>
+            struct impl
+            {
+                using type = join<expr<vals, _...>...>;
+            };
+
+            template<typename... _>
+            using type = typename impl<next::template type, _...>::type;
+        };
+
+        template<std::size_t n>
+        struct cartesianer :
+            cartesianer<(n > 0)>
         {};
+
+        template<>
+        struct cartesianer<1>
+        {
+            template<typename next, typename head, typename... tail>
+            using type = call<
+                cartesianer<sizeof...(tail)>::template type,
+                cartesianer_impl<next, head>,
+                tail...
+            >;
+        };
+
+        template<>
+        struct cartesianer<0>
+        {
+            template<typename next>
+            using type = typename next::template type<>;
+        };
     }
+    /// \endcond
 }
 
 #endif

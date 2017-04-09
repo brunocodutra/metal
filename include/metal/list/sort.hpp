@@ -7,12 +7,14 @@
 
 #include <metal/config.hpp>
 
+#include <metal/detail/sfinae.hpp>
+
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<typename seq, typename lbd>
+        template<typename lbd>
         struct _sort;
     }
     /// \endcond
@@ -33,7 +35,7 @@ namespace metal
     /// \endcode
     ///
     /// \pre: For any two \values `val_i` and `val_j` contained in `l`
-    /// `metal::invoke<lbd, val_i, val_j>` returns a \number
+    /// `metal::expr<val_i, val_j>` returns a \number
     /// \returns: \list
     /// \semantics:
     ///     Equivalent to
@@ -41,7 +43,7 @@ namespace metal
     ///         using result = metal::list<val_0, ..., val_m-1>;
     ///     \endcode
     ///     where `val_0, ..., val_m-1` is a permutation of the elements in `l`
-    ///     such that `metal::invoke<lbd, val_i, val_i+1>{} != false` for all
+    ///     such that `metal::expr<val_i, val_i+1>{} != false` for all
     ///     `i` in `[0, m-2]`.
     ///
     /// ### Example
@@ -50,17 +52,13 @@ namespace metal
     /// ### See Also
     /// \see list, reverse, rotate
     template<typename seq, typename lbd>
-    using sort = typename detail::_sort<seq, lbd>::type;
+    using sort = detail::call<detail::_sort<lbd>::template type, seq>;
 }
 
 #include <metal/list/list.hpp>
-#include <metal/list/join.hpp>
-#include <metal/list/size.hpp>
 #include <metal/list/range.hpp>
-#include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/div.hpp>
 #include <metal/number/if.hpp>
 
 namespace metal
@@ -68,81 +66,108 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename, typename, typename, typename, typename = true_>
-        struct _merge
+        template<typename>
+        struct cons
         {};
 
-        template<
-            typename ret,
-            typename xh, typename... xt,
-            typename yh, typename... yt,
-            template<typename...> class expr
-        >
-        struct _merge<ret, list<xh, xt...>, list<yh, yt...>, lambda<expr>,
-            if_<expr<yh, xh>, false_, true_>
-        > :
-            _merge<
-                join<ret, list<xh>>, list<xt...>, list<yh, yt...>, lambda<expr>
-            >
-        {};
-
-        template<
-            typename ret,
-            typename xh, typename... xt,
-            typename yh, typename... yt,
-            template<typename...> class expr
-        >
-        struct _merge<ret, list<xh, xt...>, list<yh, yt...>, lambda<expr>,
-            if_<expr<yh, xh>, true_, false_>
-        > :
-            _merge<
-                join<ret, list<yh>>, list<xh, xt...>, list<yt...>, lambda<expr>
-            >
-        {};
-
-        template<typename ret, typename seq, typename lbd>
-        struct _merge<ret, seq, list<>, lbd> :
-            _join<ret, seq>
-        {};
-
-        template<typename ret, typename seq, typename lbd>
-        struct _merge<ret, list<>, seq, lbd> :
-            _join<ret, seq>
-        {};
-
-        template<typename ret, typename lbd>
-        struct _merge<ret, list<>, list<>, lbd>
+        template<typename h, typename... t>
+        struct cons<list<h, t...>>
         {
-            using type = ret;
+            using head = h;
+            using tail = list<t...>;
         };
 
-        template<typename seq, typename lbd>
-        using sort_impl = typename _merge<
-            list<>,
-            sort<range<seq, number<0>, div<size<seq>, number<2>>>, lbd>,
-            sort<range<seq, div<size<seq>, number<2>>, size<seq>>, lbd>,
-            lbd
-        >::type;
+        template<typename seq>
+        using head = typename cons<seq>::head;
 
-        template<typename seq, typename lbd>
-        struct _sort :
-            _invoke<lambda<sort_impl>, seq, lbd>
+        template<typename seq>
+        using tail = typename cons<seq>::tail;
+
+        template<typename x, typename y, typename... zs>
+        struct _merge
+        {
+            template<template<typename...> class expr>
+            using type = typename if_<
+                expr<head<y>, head<x>>,
+                _merge<x, tail<y>, zs..., head<y>>,
+                _merge<tail<x>, y, zs..., head<x>>
+            >::template type<expr>;
+        };
+
+        template<typename... xs, typename... zs>
+        struct _merge<list<xs...>, list<>, zs...>
+        {
+            template<template<typename...> class>
+            using type = list<zs..., xs...>;
+        };
+
+        template<typename... ys, typename... zs>
+        struct _merge<list<>, list<ys...>, zs...>
+        {
+            template<template<typename...> class>
+            using type = list<zs..., ys...>;
+        };
+
+        template<typename... zs>
+        struct _merge<list<>, list<>, zs...>
+        {
+            template<template<typename...> class>
+            using type = list<zs...>;
+        };
+
+        template<typename seq>
+        struct _sort_impl
         {};
 
-        template<typename x, typename y, typename lbd>
-        struct _sort<list<x, y>, lbd> :
-            _merge<list<>, list<x>, list<y>, lbd>
-        {};
+        template<typename... vals>
+        struct _sort_impl<list<vals...>>
+        {
+            using seq = list<vals...>;
+            using beg = number<0>;
+            using mid = number<sizeof...(vals)/2>;
+            using end = number<sizeof...(vals)>;
 
-        template<typename x, typename lbd>
-        struct _sort<list<x>, lbd> :
-            _if_<is_lambda<lbd>, list<x>>
-        {};
+            using x = _sort_impl<range<seq, beg, mid>>;
+            using y = _sort_impl<range<seq, mid, end>>;
+
+            template<template<typename...> class expr>
+            using type = typename _merge<
+                forward<x::template type, expr>,
+                forward<y::template type, expr>
+            >::template type<expr>;
+        };
+
+        template<typename x, typename y>
+        struct _sort_impl<list<x, y>>
+        {
+            template<template<typename...> class expr>
+            using type = if_<expr<y, x>, list<y, x>, list<x, y>>;
+        };
+
+        template<typename x>
+        struct _sort_impl<list<x>>
+        {
+            template<template<typename...> class>
+            using type = list<x>;
+        };
+
+        template<>
+        struct _sort_impl<list<>>
+        {
+            template<template<typename...> class>
+            using type = list<>;
+        };
 
         template<typename lbd>
-        struct _sort<list<>, lbd> :
-            _if_<is_lambda<lbd>, list<>>
+        struct _sort
         {};
+
+        template<template<typename...> class expr>
+        struct _sort<lambda<expr>>
+        {
+            template<typename seq>
+            using type = forward<_sort_impl<seq>::template type, expr>;
+        };
     }
     /// \endcond
 }

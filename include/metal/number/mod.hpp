@@ -7,12 +7,14 @@
 
 #include <metal/config.hpp>
 
+#include <metal/detail/sfinae.hpp>
+
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<typename head, typename... tail>
+        template<typename... mod>
         struct _mod;
     }
     /// \endcond
@@ -42,14 +44,12 @@ namespace metal
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, sub, mul, div, pow
     template<typename... nums>
-    using mod = typename detail::_mod<nums...>::type;
+    using mod = detail::call<detail::_mod<nums...>::template type>;
 }
 
 #include <metal/number/number.hpp>
-#include <metal/number/numbers.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/list/accumulate.hpp>
-#include <metal/list/list.hpp>
+#include <metal/value/fold_left.hpp>
 
 #include <initializer_list>
 
@@ -58,52 +58,45 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename head, typename... tail>
+        template<typename... nums>
         struct _mod
         {};
 
-        template<int_ x>
-        struct _mod<number<x>> :
-            number<x>
+#if defined(METAL_WORKAROUND)
+        template<typename x, typename y>
+        struct _mod_impl
         {};
 
         template<int_ x, int_ y>
-        struct _mod<number<x>, number<y>> :
+        struct _mod_impl<number<x>, number<y>> :
             number<x % y>
         {};
 
         template<int_ x>
-        struct _mod<number<x>, number<0>>
+        struct _mod_impl<number<x>, number<0>>
         {};
 
-#if defined(METAL_COMPAT_MODE)
-        template<int_ x, int_ y, int_... tail>
-        struct _mod<number<x>, number<y>, number<tail>...> :
-            _accumulate<lambda<mod>, number<x>, numbers<y, tail...>>
-        {};
+        template<typename x, typename y>
+        using mod_impl = typename _mod_impl<x, y>::type;
+
+        template<int_... ns>
+        struct _mod<number<ns>...>
+        {
+            template<typename... _>
+            using type = fold_left<lambda<mod_impl>, number<ns>..., _...>;
+        };
 #else
         template<typename... _>
-        constexpr int_ imod(int_ head, _... tail) {
-            int_ ret = head;
-            void(std::initializer_list<int_>{(ret %= tail)...});
-            return ret;
+        constexpr int_ mod_impl(int_ head, _... tail) {
+            return void(std::initializer_list<int_>{(head %= tail)...}), head;
         }
 
-        template<typename, typename = true_>
-        struct _mod_impl
-        {};
-
-        template<int_... vs>
-        struct _mod_impl<list<number<vs>...>,
-            is_number<number<imod(vs...)>>
-        >:
-            number<imod(vs...)>
-        {};
-
-        template<int_ x, int_ y, int_... tail>
-        struct _mod<number<x>, number<y>, number<tail>...> :
-            _mod_impl<numbers<x, y, tail...>>
-        {};
+        template<int_... ns>
+        struct _mod<number<ns>...>
+        {
+            template<typename... _>
+            using type = number<mod_impl((void(sizeof...(_)), ns)...)>;
+        };
 #endif
     }
     /// \endcond

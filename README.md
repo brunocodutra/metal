@@ -4,11 +4,12 @@
 [![travis.badge]][travis.metal]
 [![appveyor.badge]][appveyor.metal]
 
-Metal is a header-only C++14 library designed to make metaprogramming easy.
+Metal is a header-only C++14 library designed to make template metaprogramming
+intuitive.
 
 ## Modern
 
-```{.cpp}
+```.cpp
 #include <metal.hpp>
 
 // First we need some Values
@@ -38,14 +39,8 @@ static_assert(metal::same<metal::back<l3>, z>::value, "");
 static_assert(metal::same<metal::at<l3, metal::number<1>>, y>::value, "");
 
 // count those that satisfy a predicate...
-template<typename T>
-using is_class = metal::as_number<std::is_class<T>>;
-
-template<typename T>
-using is_union = metal::as_number<std::is_union<T>>;
-
-static_assert(metal::count_if<l3, metal::lambda<is_class>>::value == 2, "");
-static_assert(metal::count_if<l3, metal::lambda<is_union>>::value == 1, "");
+static_assert(metal::count_if<l3, metal::trait<std::is_class>>::value == 2, "");
+static_assert(metal::count_if<l3, metal::trait<std::is_union>>::value == 1, "");
 
 // We can create new Lists by removing elements...
 using l0_ = metal::drop<l3, metal::number<3>>;
@@ -63,8 +58,8 @@ static_assert(metal::same<metal::reverse<l2>, metal::list<z, x>>::value, "");
 static_assert(metal::same<metal::reverse<l3>, metal::list<z, y, x>>::value, "");
 
 // by transforming the elements...
-using l2ptrs = metal::transform<metal::lambda<std::add_pointer_t>, l2>;
-using l3refs = metal::transform<metal::lambda<std::add_lvalue_reference_t>, l3>;
+using l2ptrs = metal::transform<metal::lazy<std::add_pointer>, l2>;
+using l3refs = metal::transform<metal::lazy<std::add_lvalue_reference>, l3>;
 
 static_assert(metal::same<l2ptrs, metal::list<x*, z*>>::value, "");
 static_assert(metal::same<l3refs, metal::list<x&, y&, z&>>::value, "");
@@ -95,6 +90,7 @@ Don't worry, all your favourite compilers are continuously tested at
 
 | Compiler          | Version   | Operating System
 |-------------------|-----------|-----------------------
+| GCC               | 4.7       | Ubuntu 14.04 LTS
 | GCC               | 4.8       | Ubuntu 14.04 LTS
 | GCC               | 4.9       | Ubuntu 14.04 LTS
 | GCC               | 5         | Ubuntu 14.04 LTS
@@ -112,8 +108,10 @@ Don't worry, all your favourite compilers are continuously tested at
 | Xcode             | 8.0       | OS X 10.11
 | Xcode             | 8.1       | OS X 10.12
 | Xcode             | 8.2       | OS X 10.12
-| Visual Studio     | 14 (2015) | Windows Server 2012 R2
 | MinGW-w64         | 5         | Windows Server 2012 R2
+| MinGW-w64         | 6         | Windows Server 2012 R2
+| Visual Studio     | 14 (2015) | Windows Server 2012 R2
+| Visual Studio     | 15 (2017) | Windows Server 2016
 
 ## Documentation
 

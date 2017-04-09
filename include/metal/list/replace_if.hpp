@@ -50,9 +50,8 @@ namespace metal
     /// ### See Also
     /// \see list, replace, copy_if, remove_if
     template<typename seq, typename lbd, typename... vals>
-    using replace_if = typename detail::_replace_if<
-        seq, transform<lbd, seq>, vals...
-    >::type;
+    using replace_if =
+        typename detail::_replace_if<seq, transform<lbd, seq>, vals...>::type;
 }
 
 #include <metal/list/list.hpp>
@@ -69,10 +68,14 @@ namespace metal
         struct _replace_if
         {};
 
-        template<typename... vals, int_... vs, typename x, typename y, typename... t>
-        struct _replace_if<list<vals...>, list<number<vs>...>, x, y, t...> :
-            _join<if_<number<vs>, list<x, y, t...>, list<vals>>...>
-        {};
+        template<
+            typename... vals, int_... vs,
+            typename x, typename y, typename... t
+        >
+        struct _replace_if<list<vals...>, list<number<vs>...>, x, y, t...>
+        {
+            using type = join<if_<number<vs>, list<x, y, t...>, list<vals>>...>;
+        };
 
         template<typename... vals, int_... vs, typename x>
         struct _replace_if<list<vals...>, list<number<vs>...>, x>
@@ -81,9 +84,10 @@ namespace metal
         };
 
         template<typename... vals, int_... vs>
-        struct _replace_if<list<vals...>, list<number<vs>...>> :
-            _join<if_<number<vs>, list<>, list<vals>>...>
-        {};
+        struct _replace_if<list<vals...>, list<number<vs>...>>
+        {
+            using type = join<if_<number<vs>, list<>, list<vals>>...>;
+        };
 
         template<typename x, typename y, typename... t>
         struct _replace_if<list<>, list<>, x, y, t...>

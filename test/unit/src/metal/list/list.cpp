@@ -13,7 +13,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) LISTS(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) MAPS(N)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::list> COMMA(N) LAMBDAS(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::as_list>, VALUE(M)>), (BOOL(M == 4))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::as_list>, VALUE(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::as_list>, NUMBER(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::as_list>, PAIR(M)>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::as_list>, LIST(M)>), (TRUE)); \
@@ -27,7 +27,9 @@
     CHECK((metal::is_list<MAP(N)>), (TRUE)); \
     CHECK((metal::is_list<LAMBDA(N)>), (FALSE)); \
     CHECK((metal::is_list<LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::as_list<VALUE(4)>), (metal::list<>)); \
+    CHECK((metal::as_list<PAIR(N)>), (PAIR(N))); \
+    CHECK((metal::as_list<LIST(N)>), (LIST(N))); \
+    CHECK((metal::as_list<MAP(N)>), (MAP(N))); \
 /**/
 
 GEN(MATRIX)

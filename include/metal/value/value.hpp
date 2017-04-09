@@ -16,10 +16,7 @@ namespace metal
     {
         struct na;
 
-        template<typename val = na>
-        struct value;
-
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<typename val>
         struct _is_value;
 #endif
@@ -53,7 +50,7 @@ namespace metal
     /// \see value, nil, is_number, is_lambda, is_pair, is_list, is_map
     template<typename val>
     using is_value =
-#if defined(METAL_COMPAT_MODE) && !defined(METAL_DOXYGENATING)
+#if defined(METAL_WORKAROUND)
         typename detail::_is_value<val>::type;
 #else
         metal::true_;
@@ -81,7 +78,7 @@ namespace metal
     /// \semantics:
     ///     Equivalent to
     ///     \code
-    ///         using result = struct {using type = val;};
+    ///         using result = { using type = val; };
     ///     \endcode
     ///
     /// ### Example
@@ -90,15 +87,16 @@ namespace metal
     /// ### See Also
     /// \see is_value, nil
     template<typename val = detail::na>
-    using value = detail::value<val>;
+#if defined(METAL_DOXYGENATING)
+    using value = { using type = val; };
+#else
+    struct value;
+#endif
 
     /// \ingroup value
     ///
     /// ### Description
     /// An *empty* `metal::value`.
-    ///
-    /// \tip{Use `metal::nil` and `metal::value` to emulate [optionals].}
-    /// [optionals]: http://en.cppreference.com/w/cpp/utility/optional
     ///
     /// ### Usage
     ///
@@ -110,7 +108,7 @@ namespace metal
     /// \semantics:
     ///     Equivalent to
     ///     \code
-    ///         using result = struct {};
+    ///         using result = {};
     ///     \endcode
     ///
     /// ### See Also
@@ -118,18 +116,18 @@ namespace metal
     using nil = metal::value<>;
 
     /// \cond
+    template<typename val>
+    struct value
+    {
+        using type = val;
+    };
+
+    template<>
+    struct value<detail::na> {};
+
     namespace detail
     {
-        template<typename val>
-        struct value
-        {
-            using type = val;
-        };
-
-        template<>
-        struct value<na> {};
-
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<typename val>
         struct _is_value
         {

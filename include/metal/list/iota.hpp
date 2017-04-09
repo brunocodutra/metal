@@ -59,9 +59,8 @@ namespace metal
 }
 
 #include <metal/list/list.hpp>
+#include <metal/number/if.hpp>
 #include <metal/number/numbers.hpp>
-
-#include <type_traits>
 
 #if defined(__has_builtin)
 #   if __has_builtin(__make_integer_seq)
@@ -112,12 +111,9 @@ namespace metal
         template<int_ n>
         using enumerate = typename _enumerate<n>::type;
 
-        template<bool b, typename t, typename f>
-        using branch = typename std::conditional<b, t, f>::type;
-
         template<int_ n>
         struct _enumerate :
-            branch<n%2, _odd<enumerate<n/2>>, _even<enumerate<n/2>>>
+            if_<number<n%2>, _odd<enumerate<n/2>>, _even<enumerate<n/2>>>
         {};
 
         template<>

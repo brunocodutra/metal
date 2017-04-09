@@ -7,6 +7,8 @@
 
 #include <metal/config.hpp>
 
+#include <metal/detail/sfinae.hpp>
+
 namespace metal
 {
     /// \cond
@@ -40,14 +42,12 @@ namespace metal
     /// ### See Also
     /// \see number, abs, inc, dec, neg, sub, mul, div, mod, pow
     template<typename... nums>
-    using add = typename detail::_add<nums...>::type;
+    using add = detail::call<detail::_add<nums...>::template type>;
 }
 
 #include <metal/number/number.hpp>
-#include <metal/number/numbers.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/list/accumulate.hpp>
-#include <metal/list/list.hpp>
+#include <metal/value/fold_left.hpp>
 
 #include <initializer_list>
 
@@ -60,40 +60,35 @@ namespace metal
         struct _add
         {};
 
-        template<>
-        struct _add<> :
-            number<0>
-        {};
+#if defined(METAL_WORKAROUND)
+        template<typename x, typename y>
+        using add_impl = number<x::value + y::value>;
 
-        template<int_ x>
-        struct _add<number<x>> :
-            number<x>
-        {};
-
-        template<int_ x, int_ y>
-        struct _add<number<x>, number<y>> :
-            number<x + y>
-        {};
-
-#if defined(METAL_COMPAT_MODE)
-        template<int_ x, int_ y, int_... tail>
-        struct _add<number<x>, number<y>, number<tail>...> :
-            _accumulate<lambda<add>, number<x>, numbers<y, tail...>>
-        {};
+        template<int_... ns>
+        struct _add<number<ns>...>
+        {
+            template<typename... _>
+            using type = fold_left<lambda<add_impl>, number<ns>..., _...>;
+        };
 #else
         template<typename... _>
-        constexpr int_ iadd(int_ head, _... tail) {
-            int_ ret = head;
-            void(std::initializer_list<int_>{(ret += tail)...});
-            return ret;
+        constexpr int_ add_impl(int_ head, _... tail) {
+            return void(std::initializer_list<int_>{(head += tail)...}), head;
         }
 
-        template<int_ x, int_ y, int_... tail>
-        struct _add<number<x>, number<y>, number<tail>...> :
-            number<iadd(x, y, tail...)>
-        {};
-
+        template<int_... ns>
+        struct _add<number<ns>...>
+        {
+            template<typename... _>
+            using type = number<add_impl((void(sizeof...(_)), ns)...)>;
+        };
 #endif
+        template<>
+        struct _add<>
+        {
+            template<typename...>
+            using type = number<0>;
+        };
     }
     /// \endcond
 }

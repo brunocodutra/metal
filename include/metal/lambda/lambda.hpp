@@ -17,9 +17,6 @@ namespace metal
 
         template<typename val>
         struct _as_lambda;
-
-        template<template<typename...> class expr>
-        struct lambda {};
     }
     /// \endcond
 
@@ -92,7 +89,11 @@ namespace metal
     /// ### See Also
     /// \see is_lambda
     template<template<typename...> class expr>
-    using lambda = detail::lambda<expr>;
+#if defined(METAL_DOXYGENATING)
+    using lambda = {};
+#else
+    struct lambda {};
+#endif
 }
 
 #include <metal/number/number.hpp>

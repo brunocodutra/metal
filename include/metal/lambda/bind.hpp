@@ -47,62 +47,34 @@ namespace metal
     /// \snippet lambda.cpp bind
     ///
     /// ### See Also
-    /// \see lambda, invoke, arg, quote
+    /// \see lambda, invoke, arg, always
     template<typename lbd, typename... vals>
     using bind = typename detail::_bind<lbd, vals...>::type;
 }
 
 #include <metal/lambda/lambda.hpp>
-#include <metal/list/list.hpp>
-#include <metal/number/number.hpp>
-#include <metal/value/value.hpp>
 
-#include <metal/detail/declptr.hpp>
-
-#include <type_traits>
+#include <metal/detail/sfinae.hpp>
 
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<template<typename...> class, template<typename...> class...>
-        struct bound;
-
-#if defined(METAL_COMPAT_MODE)
-        template<
-            template<typename...> class expr,
-            template<typename...> class... params,
-            typename... vals,
-            typename std::enable_if<
-                is_value<expr<params<vals...>...>>::value
-            >* = nullptr
-        >
-        value<expr<params<vals...>...>>
-            bind_impl(bound<expr, params...>*, list<vals...>*);
-
-        value<> bind_impl(...);
-
-        template<typename bound, typename seq>
-        struct _bind_impl :
-            decltype(bind_impl(declptr<bound>(), declptr<seq>()))
-        {};
-#else
-        template<typename, typename, typename = true_>
+        template<typename... vals>
         struct _bind_impl
-        {};
-
-        template<
-            template<typename...> class expr,
-            template<typename...> class... params,
-            typename... vals
-        >
-        struct _bind_impl<bound<expr, params...>, list<vals...>,
-            is_value<expr<params<vals...>...>>
-        > :
-            value<expr<params<vals...>...>>
-        {};
+        {
+            template<
+                template<typename...> class expr,
+                template<typename...> class... params
+            >
+            using type =
+#if defined(METAL_WORKAROUND)
+                call<expr, call<params, vals...>...>;
+#else
+                expr<params<vals...>...>;
 #endif
+        };
 
         template<typename lbd, typename... vals>
         struct _bind
@@ -115,27 +87,14 @@ namespace metal
         struct _bind<lambda<expr>, lambda<params>...>
         {
             template<typename... vals>
-            using impl = typename _bind_impl<
-                bound<expr, params...>,
-                list<vals...>
-            >::type;
+            using impl = forward<
+                _bind_impl<vals...>::template type,
+                expr,
+                params...
+            >;
 
             using type = lambda<impl>;
         };
-
-#if defined(METAL_COMPAT_MODE)
-        template<template<typename...> class expr>
-        struct _bind<lambda<expr>>
-        {
-            template<typename... vals>
-            using impl = typename _bind_impl<
-                bound<expr>,
-                list<vals...>
-            >::type;
-
-            using type = lambda<impl>;
-        };
-#endif
     }
     /// \endcond
 }

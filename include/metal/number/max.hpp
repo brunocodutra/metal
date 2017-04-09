@@ -7,12 +7,14 @@
 
 #include <metal/config.hpp>
 
+#include <metal/detail/sfinae.hpp>
+
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<typename head, typename... tail>
+        template<typename... nums>
         struct _max;
     }
     /// \endcond
@@ -42,14 +44,14 @@ namespace metal
     /// ### See Also
     /// \see number, greater, less, min
     template<typename... nums>
-    using max = typename detail::_max<nums...>::type;
+    using max = detail::call<detail::_max<nums...>::template type>;
 }
 
+#include <metal/number/if.hpp>
 #include <metal/number/number.hpp>
-#include <metal/number/numbers.hpp>
+#include <metal/number/greater.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/list/accumulate.hpp>
-#include <metal/list/list.hpp>
+#include <metal/value/fold_left.hpp>
 
 #include <initializer_list>
 
@@ -58,39 +60,34 @@ namespace metal
     /// \cond
     namespace detail
     {
-        template<typename head, typename... tail>
+        template<typename... nums>
         struct _max
         {};
 
-        template<int_ x>
-        struct _max<number<x>> :
-            number<x>
-        {};
+#if defined(METAL_WORKAROUND)
+        template<typename x, typename y>
+        using max_impl = if_<greater<x, y>, x, y>;
 
-        template<int_ x, int_ y>
-        struct _max<number<x>, number<y>> :
-            number<(x > y) ? x : y>
-        {};
-
-#if defined(METAL_COMPAT_MODE)
-        template<int_ x, int_ y, int_... tail>
-        struct _max<number<x>, number<y>, number<tail>...> :
-            _accumulate<lambda<max>, number<x>, numbers<y, tail...>>
-        {};
+        template<int_... ns>
+        struct _max<number<ns>...>
+        {
+            template<typename... _>
+            using type = fold_left<lambda<max_impl>, number<ns>..., _...>;
+        };
 #else
         template<typename... _>
-        constexpr int_ imax(int_ head, _... tail) {
-            int_ ret = head;
-            void(std::initializer_list<int_>{
-                (ret = (tail > ret) ? tail : ret)...
-            });
-            return ret;
+        constexpr int_ max_impl(int_ head, _... tail) {
+            return void(std::initializer_list<int_>{
+                (head = (tail > head) ? tail : head)...
+            }), head;
         }
 
-        template<int_ x, int_ y, int_... tail>
-        struct _max<number<x>, number<y>, number<tail>...> :
-            number<imax(x, y, tail...)>
-        {};
+        template<int_... ns>
+        struct _max<number<ns>...>
+        {
+            template<typename... _>
+            using type = number<max_impl((void(sizeof...(_)), ns)...)>;
+        };
 #endif
     }
     /// \endcond

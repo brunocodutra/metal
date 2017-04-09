@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-#ifndef METAL_LAMBDA_QUOTE_HPP
-#define METAL_LAMBDA_QUOTE_HPP
+#ifndef METAL_LAMBDA_ALWAYS_HPP
+#define METAL_LAMBDA_ALWAYS_HPP
 
 #include <metal/config.hpp>
 
@@ -13,19 +13,20 @@ namespace metal
     namespace detail
     {
         template<typename val>
-        struct _quote;
+        struct _always;
     }
     /// \endcond
 
     /// \ingroup lambda
     ///
     /// ### Description
-    /// Lifts a \value to an n-ary \lambda that always evaluates to that \value.
+    /// Lifts a \value to an n-ary \lambda that always evaluates to that \value,
+    /// regardless of the argument(s) it's [invoked](\ref invoke) with.
     ///
     /// ### Usage
     /// For any and \value `val`
     /// \code
-    ///     using result = metal::quote<val>;
+    ///     using result = metal::always<val>;
     /// \endcode
     ///
     /// \returns: \lambda
@@ -41,15 +42,16 @@ namespace metal
     ///     \endcode
     ///
     /// ### Example
-    /// \snippet lambda.cpp quote
+    /// \snippet lambda.cpp always
     ///
     /// ### See Also
     /// \see lambda, invoke, partial, bind
     template<typename val>
-    using quote = typename detail::_quote<val>::type;
+    using always = typename detail::_always<val>::type;
 }
 
 #include <metal/lambda/lambda.hpp>
+#include <metal/value/identity.hpp>
 
 namespace metal
 {
@@ -57,21 +59,11 @@ namespace metal
     namespace detail
     {
         template<typename val>
-        struct _quote
+        struct _always
         {
-#if defined(METAL_COMPAT_MODE)
             template<typename...>
-            struct _impl
-            {
-                using type = val;
-            };
+            using impl = identity<val>;
 
-            template<typename... vals>
-            using impl = typename _impl<vals...>::type;
-#else
-            template<typename...>
-            using impl = val;
-#endif
             using type = lambda<impl>;
         };
     }

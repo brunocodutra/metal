@@ -7,21 +7,15 @@
 
 #include <metal/config.hpp>
 
-#include <metal/list/size.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/if.hpp>
-#include <metal/value/same.hpp>
+#include <metal/detail/sfinae.hpp>
 
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<typename lbd, typename head, typename... tail>
+        template<typename lbd>
         struct _transform;
-
-        template<typename lbd, typename... seqs>
-        using transform = typename _transform<lbd, seqs...>::type;
     }
     /// \endcond
 
@@ -57,102 +51,82 @@ namespace metal
     /// ### See Also
     /// \see list, accumulate
     template<typename lbd, typename... seqs>
-    using transform = typename if_<
-        same<size<seqs>...>,
-        detail::_transform<if_<is_lambda<lbd>, lbd>, seqs...>
-    >::type;
+    using transform =
+        detail::call<detail::_transform<lbd>::template type, seqs...>;
 }
 
 #include <metal/list/at.hpp>
+#include <metal/list/size.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/indices.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/apply.hpp>
-#include <metal/lambda/invoke.hpp>
-#include <metal/lambda/partial.hpp>
-#include <metal/number/number.hpp>
-#include <metal/value/value.hpp>
-
-#include <metal/detail/declptr.hpp>
-
-#include <type_traits>
+#include <metal/lambda/lambda.hpp>
+#include <metal/number/if.hpp>
+#include <metal/value/same.hpp>
 
 namespace metal
 {
     /// \cond
     namespace detail
     {
-#if defined(METAL_COMPAT_MODE)
-        template<template<typename...> class expr, typename... vals,
-            typename std::enable_if<
-                is_value<list<expr<vals>...>>::value
-            >::type* = nullptr
-        >
-        value<list<expr<vals>...>>
-            transform_impl(lambda<expr>*, list<vals...>*);
+        template<typename num, typename... seqs>
+        struct transformer_impl
+        {
+            template<template<typename...> class expr>
+            using type = expr<at<seqs, num>...>;
+        };
 
-        value<> transform_impl(...);
-
-        template<typename lbd, typename seq>
-        struct _transform_impl :
-            decltype(transform_impl(declptr<lbd>(), declptr<seq>()))
-        {};
-#else
-        template<typename, typename, typename = true_>
-        struct _transform_impl
-        {};
-
-        template<template<typename...> class expr, typename... vals>
-        struct _transform_impl<lambda<expr>, list<vals...>,
-            is_value<list<expr<vals>...>>
-        > :
-            value<list<expr<vals>...>>
-        {};
-#endif
-
-        template<typename lbd, typename... seqs>
+        template<template<typename...> class expr, typename... seqs>
         struct transformer
         {
             template<typename num>
-            using type = invoke<lbd, at<seqs, num>...>;
+            using type =
+                forward<transformer_impl<num, seqs...>::template type, expr>;
         };
 
-        template<typename lbd, typename head, typename... tail>
-        struct _transform :
-            _transform<
-                lambda<transformer<lbd, head, tail...>::template type>,
-                indices<head>
-            >
-        {};
+        template<typename head, typename... tail>
+        struct _transform_impl
+        {
+            template<template<typename...> class expr>
+            using type = forward<
+                _transform_impl<indices<head>>::template type,
+                transformer<expr, head, tail...>::template type
+            >;
+        };
 
-        template<
-            typename lbd,
-            typename x, typename y, typename z,
-            typename h, typename... t
-        >
-        struct _transform<lbd, list<x>, list<y>, list<z>, list<h>, list<t>...> :
-            _invoke<bind<lambda<list>, lbd>, x, y, z, h, t...>
-        {};
+        template<typename... xs, typename... ys, typename... zs>
+        struct _transform_impl<list<xs...>, list<ys...>, list<zs...>>
+        {
+            template<template<typename...> class expr>
+            using type = list<expr<xs, ys, zs>...>;
+        };
 
-        template<typename lbd, typename... x, typename... y, typename... z>
-        struct _transform<lbd, list<x...>, list<y...>, list<z...>> :
-            _transform_impl<partial<lambda<apply>, lbd>, list<list<x, y, z>...>>
-        {};
+        template<typename... xs, typename... ys>
+        struct _transform_impl<list<xs...>, list<ys...>>
+        {
+            template<template<typename...> class expr>
+            using type = list<expr<xs, ys>...>;
+        };
 
-        template<typename lbd, typename... x, typename... y>
-        struct _transform<lbd, list<x...>, list<y...>> :
-            _transform_impl<partial<lambda<apply>, lbd>, list<list<x, y>...>>
-        {};
-
-        template<typename lbd, typename... x>
-        struct _transform<lbd, list<x...>> :
-            _transform_impl<lbd, list<x...>>
-        {};
+        template<typename... xs>
+        struct _transform_impl<list<xs...>>
+        {
+            template<template<typename...> class expr>
+            using type = list<expr<xs>...>;
+        };
 
         template<typename lbd>
-        struct _transform<lbd, list<>>
+        struct _transform
+        {};
+
+        template<template<typename...> class expr>
+        struct _transform<lambda<expr>>
         {
-            using type = list<>;
+            template<typename... seqs>
+            using type = forward<
+                if_<same<size<seqs>...>, _transform_impl<seqs...>>
+                    ::template type,
+                expr
+            >;
         };
     }
     /// \endcond

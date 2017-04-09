@@ -2,9 +2,9 @@
 
 \tableofcontents
 
-Metal is a header-only C++14 library designed to make metaprogramming easy.
-It provides a powerful high-level abstraction for compile-time algorithms that
-mimic the Standard Algorithms Library, hence
+Metal is a header-only C++14 library designed to make template metaprogramming
+intuitive. It provides a powerful high-level abstraction for compile-time
+algorithms that mimic the Standard Algorithms Library, hence
 **Metal** - <b>Meta</b>programming <b>Al</b>gorithms.
 
 There is a myriad of C++ metaprogramming libraries out there so why Metal?
@@ -12,96 +12,17 @@ There is a myriad of C++ metaprogramming libraries out there so why Metal?
 * **Portable** - compatible with the
 [most popular compilers](#supported_compilers).
 * **Blazing fast** - browse up to date benchmarks at [metaben.ch].
-* **SFINAE-Friendly** - [control overload resolution][SFINAE] and make the most
+* **SFINAE-Friendly** - [control overload resolution](#SFINAE) and make the most
 out of function templates.
-* **Metaprogramming made easy** - it doesn't have to be hard,
-[check it out](#in_a_glimpse)!
 
 In a Glimpse {#in_a_glimpse}
 ================================================================================
 
 \snippet tutorial.cpp tutorial
 
-Check out [more examples](#examples) below.
+Be sure to take a look at the [examples](#examples) below.
 
-Getting Started {#getting_started}
-================================================================================
-
-Download {#download}
---------------------------------------------------------------------------------
-
-There are a few ways to get Metal, the easiest might be to simply
-[download the latest release][Metal.releases] as a compressed package.
-
-If you have git installed and would rather have the latest stable Metal,
-you may consider cloning branch `master` from GitHub.
-
-    git clone https://github.com/brunocodutra/metal
-
-Likewise, the bleeding edge development version can be obtained by cloning
-branch `develop` instead.
-
-    git clone https://github.com/brunocodutra/metal --branch=develop
-
-Install (optional) {#install}
---------------------------------------------------------------------------------
-
-Metal may optionally be installed system-wide to ease integration with external
-projects. If you'd rather use Metal locally, you can skip to the
-[next section](#integration).
-
-Make sure to have CMake v3.4 or newer installed on your system, then,
-from within an empty directory, issue the following commands.
-
-    cmake /path/to/Metal
-    cmake --build . --target install
-
-At this point Metal's include tree will be installed in
-`/usr/local/include` on Posix systems and `C:\Program Files\Metal\include`
-on Windows.
-
-Integration {#integration}
---------------------------------------------------------------------------------
-
-If you chose to [install Metal system-wide](#install), you just have to make
-sure the installation prefix is looked up by your compiler.
-
-Using CMake it suffices to add the following to your `CMakeLists.txt`.
-
-    find_package(Metal REQUIRED)
-    include_directories(${Metal_INCLUDE_DIR})
-
-To use your local copy of Metal instead, just add its `include/` sub-directory
-to the include search paths of your project and you are all set.
-
-Supported Compilers {#supported_compilers}
---------------------------------------------------------------------------------
-
-The following compilers are tested in continuous integration using
-[Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
-
-| Compiler          | Version
-|-------------------|-----------
-| GCC               | &ge; 4.8
-| Clang             | &ge; 3.4
-| Xcode             | &ge; 6.4
-| Visual Studio     | &ge; 14 (2015)
-| MinGW             | &ge; 5
-
-Project Organization {#project_organization}
---------------------------------------------------------------------------------
-
-Header files are divided in modules named after each [concept](#concepts).
-Modules are organized in directories and contain algorithms that operate on
-models of that concept. The complete hierarchy of modules and headers is
-available on [Metal's repository][Metal.headers] on GitHub.
-
-\tip{
-    You may simply include `metal.hpp` and get access to all that Metal has to
-    offer without concerning yourself with which specific headers to include.
-}
-
-Concepts {#concepts}
+Definitions {#definitions}
 ================================================================================
 
 Template metaprogramming may be seen as a language of its own right.
@@ -144,7 +65,7 @@ A [Number] is a compile-time representation of a numerical value.
 `num` is a model of [Number] if and only if `num` is a specialization of
 `metal::number`.
 
-\note{
+\tip{
     `metal::number<n>` is guaranteed to be an alias template to
     `std::integral_constant<metal::int_, n>`.
 }
@@ -158,10 +79,15 @@ A [Number] is a compile-time representation of a numerical value.
 ### Counterexamples
 
 \snippet number.cpp not_a_num1
+\snippet number.cpp not_a_num2
+
+### FAQ
+
+\ref FAQ_numbers
 
 ### See Also
 
-metal::number, metal::int_
+metal::number, metal::is_number, metal::as_number
 
 Expression {#expression}
 --------------------------------------------------------------------------------
@@ -203,7 +129,7 @@ thus enabling [higher-order] composition.
 
 ### See Also
 
-metal::lambda, metal::is_lambda
+metal::lambda, metal::is_lambda, metal::as_lambda
 
 List {#list}
 --------------------------------------------------------------------------------
@@ -220,9 +146,13 @@ A [List] is a sequence of [Values].
 \snippet list.cpp  list1
 \snippet list.cpp  list2
 
+### Counterexamples
+
+\snippet list.cpp not_a_list1
+
 ### See Also
 
-metal::list, metal::is_list
+metal::list, metal::is_list, metal::as_list
 
 Pair {#pair}
 --------------------------------------------------------------------------------
@@ -237,9 +167,13 @@ A [Pair] is any [List] whose size is 2.
 
 \snippet pair.cpp  pair1
 
+### Counterexamples
+
+\snippet pair.cpp not_a_pair1
+
 ### See Also
 
-metal::pair, metal::is_pair, metal::first, metal::second
+metal::pair, metal::is_pair, metal::as_pair
 
 Map {#map}
 --------------------------------------------------------------------------------
@@ -265,74 +199,12 @@ A [Map] is a [List] of [Pairs], whose first elements are all distinct, that is
 
 ### See Also
 
-metal::map, metal::is_map, metal::keys, metal::values
-
-Migrating from Boost.MPL {#MPL}
-================================================================================
-
-Metal was heavily influenced by Boost.MPL, from which it inherited the
-convention of naming algorithms after their counterparts in the C++ standard
-library. For this reason, metaprograms written using Metal might resemble those
-written using Boost.MPL, but there are fundamental differences between these
-libraries that you must keep in mind when porting a legacy metaprogram that uses
-Boost.MPL to modern C++ using Metal.
-
-Boost.MPL is notable for employing various tricks to emulate features that only
-became directly supported by the core language much later on with C++11. Most
-notably, Boost.MPL relies on a template arguments to emulate variadic
-templates and create an illusion that _Sequences_, such as `mpl::vector` or
-`mpl::map`, can hold an arbitrary number of elements. However, because these
-templates could not be truly variadic, every possible size of these _Sequences_
-had to be enumerated one by one as a distinct numbered version of the template.
-
-\snippet mpl.cpp variadic_emulation
-
-This trick clearly doesn't scale well and implies there must be an upper limit
-to the size of _Sequences_. Indeed Boost.MPL limits the sizes of sequences to only
-a couple of dozen elements by default. Moreover, because this boilerplate is too
-troublesome to maintain, Boost.MPL relies heavily on the C++ preprocessor, which
-on one hand reduces code redundancy, but on the other hand dramatically impacts
-compilation time figures.
-
-Metal has none of these issues, since it takes advantage of variadic templates
-to reduce that boilerplate to a one-liner, while at the same time overcoming
-all of the drawbacks mentioned.
-
-\snippet mpl.cpp variadic
-
-Indeed, Metal [Lists] and [Maps] can easily exceed the hundreds and even
-thousands of elements with little impact to the compiler performance. For up to
-date benchmark figures, visit [metaben.ch].
-
-Another important difference that arises from the lack of language support at
-the time Boost.MPL was designed, is the fact that it had no other means of
-expressing metafunctions other than by the rather verbose idiom of declaring a
-nested type alias within template classes.
-
-\snippet mpl.cpp alias_emulation
-
-Metal on the other hand is able to take advantage of [alias templates] and make
-it much less verbose
-
-\snippet mpl.cpp alias
-
-... but that is not all that there's to it. While template aliases produce
-SFINAE-friendly errors, substitution errors on nested types prevent the [SFINAE]
-rule from kicking in and trigger hard compilation errors instead, which is
-another important drawback of Boost.MPL when compared to Metal. For a discussion
-about the importance of SFINAE-friendliness, take a look at \ref SFINAE.
-
-For the reasons discussed, Metal cannot interoperate with Boost.MPL out of the
-box, but fortunately it is always possible to map Boost.MPL concepts to their
-equivalents in Metal, such as _Sequences_ to [Lists], _Metafunction Classes_ to
-[Lambdas] and _Integral Constants_ to [Numbers]. To ease the migration, Metal
-provides a built in helper `metal::from_mpl` that does just that for you, simply
-include `metal/external/mpl.hpp` to make it available.
+metal::map, metal::is_map, metal::as_map
 
 Examples {#examples}
 ================================================================================
 
-\tip{
+\note{
     In the following examples, `IS_SAME(X, Y)` is just a terser shorthand for
     `static_assert(std::is_same<X, Y>{}, "")`.
 }
@@ -397,11 +269,6 @@ but let us not forget the reason why we got this far down the road to begin
 with, recall we can't instantiate a template using a non-`constexpr` variable as
 argument!
 
-At this point, a watchful reader might argue that in theory there is no real
-reason for this to be rejected, since the literal value must always be known at
-compile-time and that makes a lot of sense indeed, but unfortunately that's just
-not how C++14 works.
-
 All is not lost however, because we can still parse raw literals, in other
 words, we are in for some fun!
 
@@ -425,8 +292,8 @@ as well as digit separators
 
 We start by defining the literal operator `_c` as a function that forwards the
 raw literal characters as a [List] of [Numbers] to `parse_number` and returns a
-default constructed object of whatever type it aliases to, which in this case
-is guaranteed to be a [Number].
+default constructed object of whatever type it evaluates to, which is guaranteed
+to be a [Number] in this case.
 
 \snippet literal.cpp _c
 
@@ -439,6 +306,9 @@ The radix and digits are then forwarded to `assemble_number`, which adds up the
 individual digits according to the radix.
 
 \snippet literal.cpp parse_number
+
+Notice how we are able to use template pattern matching and partial template
+specializations to extract all relevant information from the tokens.
 
 ### Parsing Digits
 
@@ -474,11 +344,11 @@ according to the radix, in other words
 
     D0*radix^(n-1) + D1*radix^(n-2) + ... + D{n-2}*radix + D{n-1}
 
-or, recursively,
+which can also be written recursively
 
     ((...((0*radix + D0)*radix + D1)*...)*radix + D{n-2})*radix + D{n-1}
 
-This is the equivalent of [left folding][fold], or, in the Metal parlance,
+This is the equivalent of [left folding][fold] a [List], or, in Metal parlance,
 `metal::accumulate`, after its run-time counterpart in the standard library.
 
 \snippet literal.cpp accumulate_1
@@ -488,13 +358,13 @@ but we could also have chosen to use *bind expressions* instead.
 
 \snippet literal.cpp accumulate_2
 
-\note{
+\tip{
     If *bind expressions* look scary to you, don't panic, we will exercise
     [Expression] composition in our [next example](#church_booleans).
     Here it suffices to keep in mind that *bind expressions* return anonymous
     [Lambdas], just like [`std::bind`][bind] returns anonymous functions, and
     that `metal::_1` and `metal::_2` are the equivalents of
-    [`std::placeholders::_1` and `std::placeholder::_2`][placeholders].
+    [`std::placeholders`][placeholders].
 }
 
 Finally
@@ -525,7 +395,8 @@ metaprogramming, they will nevertheless help us acquaint with *bind expressions*
 in this toy example.
 
 The boolean constants `true_` and `false_` are, by definition, \lambdas that
-return respectively the first and second argument with which they are invoked.
+return respectively the first and second argument with which they are
+[invoked](\ref metal::invoke).
 
 \snippet church.cpp bool
 
@@ -560,6 +431,61 @@ Without further ado we present the logical operator `xor`.
 Notice how we *bind* `not_`, which is only possible due to the fact it is a
 \lambda.
 
+Automatic Test Cases Generation {#automatic_test_cases_generation}
+--------------------------------------------------------------------------------
+________________________________________________________________________________
+
+Suppose you have a component you want to test, say an algorithm on sequences.
+Because it's a generic algorithm, it's able to work with any kind of containers
+and, as such, is specialized for different categories of iterators so that it
+always delivers optimal performance. Moreover, to provide exception safety
+guarantees without compromising on execution time or memory consumption, it must
+also specialize on `noexcept` properties of the elements, particularly of their
+move constructors. Finally, it's conceivable that such a generic algorithm could
+also take advantage of other properties, such as whether elements can be ordered
+or not.
+
+As such a complex implementation, it ought to be thoroughly tested for all
+relevant combinations of iterator categories and interesting properties
+implemented by the contained elements. Furthermore, it's crucial that all corner
+cases are covered, such as empty sequences to name the most obvious, so, before
+we even start to get fancy with our test cases, we already have three dimensions
+that vary independently, namely
+
+1. Iterator category;
+2. Element properties;
+3. Size of the sequence.
+
+How can we possibly implement this testing suite?
+
+First of all, it's a good idea to subdivide each _test case_ into three steps:
+the set-up phase constructs the particular sequence to be tested, the execution
+phase runs our algorithm and the tear-down phase releases the resources. This
+way we can leverage on [RAII] and reduce the boilerplate to a minimum.
+
+\snippet testing.cpp test_case
+
+That's a good start, but in order to run all test cases we still have to
+manually instantiate each and every combination of iterator categories, element
+type and sequence size. That is, if we want to test for `M` different categories
+of iterators, `N` sets of interesting properties that could be provided by
+elements and `O` different sizes of containers, we end up with `M*N*O` distinct
+instantiations to maintain! That's too troublesome and prone to error, there
+ought to be a way to generate all test cases automatically.
+
+Fortunately Metal can do just that for us. With the help of `metal::cartesian`,
+we can generate every test case automatically, which we can then run by
+instantiating a single driver class. It's actually very simple.
+
+\snippet testing.cpp automatic
+
+And that was it.
+
+To verify that we are in fact generating all possible combinations of test cases
+under the hood, let's inspect the return type of `generate_test_cases`
+
+\snippet testing.cpp inspect
+
 A Word on SFINAE-Friendliness {#SFINAE}
 --------------------------------------------------------------------------------
 ________________________________________________________________________________
@@ -567,77 +493,260 @@ ________________________________________________________________________________
 An [Expression] is said to be SFINAE-friendly when it is carefully designed so
 as never to prevent the [SFINAE] rule to be triggered. In general, such
 [Expressions] may only trigger template substitution errors at the point of
-instantiation of the *signature* of a type, which includes the instantiation of
-[alias templates] and default template arguments.
+declaration of a type, which includes the instantiation of [alias templates],
+default template arguments and the _signature_ of function templates.
 SFINAE-friendly [Expressions] are exceedingly powerful, because they may be used
-to drive overload resolution, much like [`std::enable_if`][enable_if] does.
+to drive overload resolution, think [`std::enable_if`][enable_if] on steroids.
 For this reason,
-__all [Expressions] in Metal are guaranteed to be SFINAE-friendly__.
+__all [Expressions] in Metal are guaranteed to be strictly SFINAE-friendly__.
 
 Conversely, a SFINAE-unfriendly [Expression] produces so called *hard errors*,
 which require the compilation to halt immediately. Examples of *hard errors*
 are failed `static_assert`'ions or template substitution errors at the point of
-instantiation of the nested members of a type.
-SFINAE-unfriendly [Expressions] are very inconvenient, because they force
-compilation to halt when they are not selected by overload resolution, thereby
-hindering the usage of the entire overloaded set.
+definition of a class or function template. SFINAE-unfriendly [Expressions] are
+very inconvenient, because they force compilation to halt when they are not
+selected by overload resolution, thereby hindering the usage of the entire
+overloaded set.
+
+### make_array
 
 To illustrate how useful SFINAE-friendliness can be, suppose we need a factory
 function `make_array` that takes an arbitrary number of arguments and returns
 a `std::array`. Because arrays are homogeneous collections, we need the
 _common type_ of all its arguments, that is, the type to which every argument
-can be converted to. Fortunately `std::common_type_t` does just that and is also
-guaranteed to be SFINAE-friendly as per the C++ Standard.
+can be converted to.
+
+The base case is straightforward.
 
 \snippet sfinae.cpp make_array
 
-There is one caveat to `std::common_type_t` however: it doesn't work with
-`std::tuple`s in general, even though the _common tuple_ is really
-just a _tuple_ of _common types_.
-Hence, we need a new trait that computes the _common tuple_ from a set of
-_tuples_ so that we may overload `make_array`.
-
-\snippet sfinae.cpp common_tuple_t
-\snippet sfinae.cpp make_array_of_tuples
-
-And it works as expected, for both numerical values
-
 \snippet sfinae.cpp array_of_numbers
 
-as well as `std::tuple`s
+Now suppose we need an array of tuples
 
-\snippet sfinae.cpp array_of_tuples
-
-Now, it might not be obvious to the untrained eye, but the reason why
-overloading works as expected in this example, is precisely the fact
-`common_tuple_t` is SFINAE-friendly. If it weren't, as soon as one attempted to
-call `make_array` for anything that isn't a `std::tuple`, the compilation would
-halt immediately, even if the first overload would be a perfect match otherwise.
-
-To demonstrate this issue, we'll implement the same common tuple trait, but this
-time using Boost.Hana, which, contrary to Metal, doesn't provide any guarantees
-regarding SFINAE-friendliness.
-
-\snippet sfinae.cpp naive_common_tuple_t
-
-Now, if we use `naive_common_tuple_t` to overload `make_array`
-
-\snippet sfinae.cpp naive_make_array_of_tuples
-
-it does work as expected for `std::tuples`
-
-\snippet sfinae.cpp array_of_tuples
-
-however it produces a compilation error as soon as we try to make an array of
-anything that is not a Boost.Hana _Sequence_, even if the first overload remains
-available and would be a perfect match as we just verified
+\snippet sfinae.cpp tuples
 
 \strike{
-\snippet sfinae.cpp array_of_numbers
+\snippet sfinae.cpp naive_array_of_tuples
+}
+
+> error: no matching function for call to 'make_array'
+
+Even though the _common tuple_ is really just a _tuple_ of _common types_,
+`std::common_type_t` is unable to find it in general. That means we need to
+overload `make_array` and handle the _array of tuples_ case.
+
+### make_array of tuples
+
+The idea is to define a metafunction that computes the _common tuple_ from a
+set of _tuples_ and then use it to overload our factory function.
+
+This sounds like a use-case for Boost.Hana, let's try it.
+
+\snippet sfinae.cpp hana_common_tuple_t
+\snippet sfinae.cpp hana_make_array_of_tuples
+
+It works as expected for `std::tuples`
+
+\snippet sfinae.cpp hana_array_of_tuples
+
+but we get a compilation error as soon as we try to make an array of anything
+that is not a Boost.Hana _Sequence_, even though the first overload remains
+available and would be a perfect match otherwise.
+
+\strike{
+\snippet sfinae.cpp hana_array_of_numbers
 }
 
 > error: static_assert failed "hana::zip_with(f, xs, ys...)
 > requires 'xs' and 'ys...' to be Sequences"
+
+### make_array of tuples _done right_
+
+The reason why Boost.Hana can't help us overload `make_array` is the fact that
+it doesn't provide any SFINAE-friendliness guarantees, which essentially means
+that it cannot be used effectively to control overload resolution. Metal, on the
+other hand, was carefully designed to never trigger hard errors but rather
+_substitution failures_, which makes it able to select candidates from an
+overloaded set by means of the [SFINAE] rule.
+
+Let's try the same approach using Metal.
+
+\snippet sfinae.cpp common_tuple_t
+\snippet sfinae.cpp make_array_of_tuples
+
+This time it works not only for `std::tuple`'s
+
+\snippet sfinae.cpp array_of_tuples
+
+but also for numerical values
+
+\snippet sfinae.cpp array_of_numbers
+
+Again, this only works as expected because of the strict SFINAE-friendliness
+guarantees provided by Metal.
+
+Migrating from Boost.MPL {#MPL}
+================================================================================
+
+Metal was heavily influenced by Boost.MPL and at a quick glance they even look
+very similar, however, because Metal leverages modern language features that
+were not available at the time Boost.MPL was developed, there are fundamental
+differences between these libraries that one must keep in mind.
+
+### Metafunctions
+
+The representation of *metafunctions* has been completely redesigned in Metal.
+Instead of expressing them as class templates that define a nested typename
+`type`, Metal assumes *metafunctions* to be templates, usually but not
+necessarily alias, that evaluate directly to the result type.
+
+That is, instead of something like this
+
+\snippet mpl.cpp lazy_expression
+
+you should simply write this
+
+\snippet mpl.cpp eager_expression
+
+Notice that traditional *lazy metafunctions* are still valid [Expressions] in
+Metal, but keep in mind that their nested typename `type` is never implicitly
+evaluated.
+
+\snippet mpl.cpp lazy_evaluation
+
+Don't worry, you can still use *lazy metafunctions* with Metal just fine, you
+just need to use the adaptor `metal::lazy` instead of `metal::lambda`.
+
+\snippet mpl.cpp lazy_adaptor
+
+Additionally, you can also explicitly evaluate *lazy values* using
+`metal::eval`.
+
+\snippet mpl.cpp eval
+
+### Type Traits
+
+Traditionally, *type traits* are represented as class templates that define a
+nested integral constant `value`. Metal on the other hand defines a *type trait*
+as any [Expression] that returns a [Number], but that's not to say you can't use
+good old *type traits* with Metal just fine, on the contrary, in a similar
+fashion to *lazy metafunctions*, all you have to do is use the trait adaptor
+`metal::trait` instead of `metal::lambda`.
+
+\snippet mpl.cpp trait_adaptor
+
+Alternatively, you can also explicitly convert *traits* to [Numbers] using
+`metal::as_number`.
+
+\snippet mpl.cpp as_number
+
+### Metafunction Classes
+
+The concept of _Metafunction Class_ became obsolete with Metal. Instead of
+defining [first-class][first-class] metafunctions like you would with Boost.MPL
+
+\snippet mpl.cpp lazy_lambda
+
+you just have to wrap regular metafunctions using `metal::lambda` instead
+
+\snippet mpl.cpp eager_lambda
+
+It's that simple.
+
+### metal::from_mpl
+
+Even though Metal cannot interoperate with natively with Boost.MPL types, it is
+always possible to translate Boost.MPL concepts to their equivalents in Metal,
+that is _Sequences_ to [Lists], _Metafunction Classes_ to [Lambdas] and
+_Integral Constants_ to [Numbers], but it's not always trivial to do so in a
+portable way. For this reason, Metal provides a helper `metal::from_mpl`,
+which takes any type that follows Boost.MPL conventions and returns the semantic
+equivalent in Metal. All you have to do is include `metal/external/mpl.hpp` to
+make it available.
+
+\snippet mpl.cpp number
+\snippet mpl.cpp list
+\snippet mpl.cpp vector
+\snippet mpl.cpp map
+\snippet mpl.cpp lambda
+
+Getting Started {#getting_started}
+================================================================================
+
+Download {#download}
+--------------------------------------------------------------------------------
+
+There are a few ways to get Metal, the easiest might be to simply
+[download the latest release][Metal.releases] as a compressed package.
+
+If you have git installed and would rather have the latest stable Metal,
+you may consider cloning branch `master` from GitHub.
+
+    git clone https://github.com/brunocodutra/metal
+
+Likewise, the bleeding edge development version can be obtained by cloning
+branch `develop` instead.
+
+    git clone https://github.com/brunocodutra/metal --branch=develop
+
+Install (optional) {#install}
+--------------------------------------------------------------------------------
+
+Metal may optionally be installed system-wide to ease integration with external
+projects. If you'd rather use Metal locally, you can skip to the
+[next section](#integration).
+
+Make sure to have CMake v3.4 or newer installed on your system, then,
+from within an empty directory, issue the following commands.
+
+    cmake /path/to/Metal
+    cmake --build . --target install
+
+At this point Metal's include tree will be installed in
+`/usr/local/include` on Posix systems and `C:\Program Files\Metal\include`
+on Windows.
+
+Integration {#integration}
+--------------------------------------------------------------------------------
+
+If you chose to [install Metal system-wide](#install), you just have to make
+sure the installation prefix is looked up by your compiler.
+
+Using CMake it suffices to add the following to your `CMakeLists.txt`.
+
+    find_package(Metal REQUIRED)
+    include_directories(${Metal_INCLUDE_DIR})
+
+To use your local copy of Metal instead, just add its `include/` sub-directory
+to the include search paths of your project and you are all set.
+
+Supported Compilers {#supported_compilers}
+--------------------------------------------------------------------------------
+
+The following compilers are tested in continuous integration using
+[Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
+
+| Compiler          | Version
+|-------------------|-----------
+| GCC               | &ge; 4.7
+| Clang             | &ge; 3.4
+| Xcode             | &ge; 6.4
+| Visual Studio     | &ge; 14 (2015)
+| MinGW             | &ge; 5
+
+Project Organization {#project_organization}
+--------------------------------------------------------------------------------
+
+Header files are divided in modules named after each [concept](#definitions).
+Modules are organized in directories and contain algorithms that operate on
+models of that [concept](#definitions). The complete hierarchy of modules and
+headers is available on [Metal's repository][Metal.headers] on GitHub.
+
+\tip{
+    You may simply include `metal.hpp` and get access to all that Metal has to
+    offer without concerning yourself with which specific headers to include.
+}
 
 Frequently Asked Questions {#FAQ}
 ================================================================================
@@ -650,16 +759,15 @@ The most apparent advantage of Metal with respect to Boost.MPL is the fact Metal
 [Lists] and [Maps] can easily exceed the hundreds and even thousands of elements
 with little impact to the compiler performance, whereas Boost.MPL _Sequences_,
 such as `mpl::vector` and `mpl::map`, are hard-limited to at most a couple dozen
-elements and even then at much longer compilation times and increased memory
-consumption. Another obvious improvement is the much terser syntax of Metal made
-possible by alias templates, which were not available at the time Boost.MPL was
-developed. Finally, Metal is guaranteed to be SFINAE-friendly, whereas no
-guarantees whatsoever are made with this respect by Boost.MPL.
+elements and even then at much longer compilation times and higher memory
+consumption than Metal. Another obvious improvement in Metal is the much terser
+syntax made possible by alias templates, which were not available at the time
+Boost.MPL was developed.
 
 Visit [metaben.ch] for up to date benchmarks that compare Metal against
-Boost.MPL and other notable metaprogramming libraries. For a more detailed
-discussion on the limitations of Boost.MPL refer to \ref MPL and for a real
-world example of the importance of SFINAE-friendliness, check out \ref SFINAE.
+Boost.MPL and other notable metaprogramming libraries. For a brief discussion
+about fundamental design differences between Boost.MPL and Metal, refer to
+\ref MPL.
 
 What are some advantages of Metal with respect to Boost.Hana? {#FAQ_Hana}
 --------------------------------------------------------------------------------
@@ -671,13 +779,12 @@ when used for similar purposes. In fact, Metal guarantees SFINAE-friendliness,
 whereas Boost.Hana does not. Check out \ref SFINAE for a real world example of
 the limitations of Boost.Hana with this respect.
 
-Moreover, since Metal \ref concepts are defined by their type signatures, it is
-always safe to use template pattern matching on them to partially specialize
-class templates or overload function templates, while the types of most
-Boost.Hana objects is left unspecified and thus cannot be used for these
-purposes.
+Moreover, since Metal [concepts](#definitions) are defined by their type
+signatures, it is always safe to use template pattern matching on them to
+partially specialize class templates or overload function templates. In
+contrast, the types of most Boost.Hana objects are left unspecified.
 
-Why isn't std::integral_constant always a Number? {#FAQ_numbers}
+Why isn't std::integral_constant a Number in general? {#FAQ_numbers}
 --------------------------------------------------------------------------------
 ________________________________________________________________________________
 
@@ -724,6 +831,7 @@ the binary representation of numerical values is entirely irrelevant.
 [placeholders]:     http://en.cppreference.com/w/cpp/utility/functional/placeholders
 [literal operator]: http://en.cppreference.com/w/cpp/language/user_literal
 [SFINAE]:           http://en.cppreference.com/w/cpp/language/sfinae
+[RAII]:             http://en.cppreference.com/w/cpp/language/raii
 
 [travis.metal]:     http://travis-ci.org/brunocodutra/metal
 [appveyor.metal]:   http://ci.appveyor.com/project/brunocodutra/metal

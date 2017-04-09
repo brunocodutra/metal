@@ -9,9 +9,9 @@
 #define SEQ1(M) metal::list<VALUE(M)>
 #define CART1(M) metal::list<ENUM(M, SEQ1)>
 
-#define SEQ2(N, M) metal::list<VALUE(M), VALUE(N)>
+#define SEQ2(N, M) metal::list<VALUE(N), VALUE(M)>
 #define CART2_IMPL(M, N) ENUM(N, SEQ2, M)
-#define CART2(M, N) metal::list<ENUM(M, CART2_IMPL, N)>
+#define CART2(M, N) metal::list<ENUM(N, CART2_IMPL, M)>
 
 #define CART(...) CAT(CART, LENGTH(__VA_ARGS__))(__VA_ARGS__)
 

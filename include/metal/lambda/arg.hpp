@@ -7,30 +7,15 @@
 
 #include <metal/config.hpp>
 
-#include <metal/list/at.hpp>
-#include <metal/list/list.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/number.hpp>
-
-#include <cstdint>
+#include <cstddef>
 
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<std::uintmax_t n>
-        struct arg_impl
-        {
-            template<typename... vals>
-            using impl = at<list<vals...>, number<n - 1>>;
-
-            using type = lambda<impl>;
-        };
-
-        template<>
-        struct arg_impl<0U>
-        {};
+        template<std::size_t n>
+        struct _arg;
     }
     /// \endcond
 
@@ -58,9 +43,35 @@ namespace metal
     /// \snippet lambda.cpp arg
     ///
     /// ### See Also
-    /// \see lambda, invoke, bind, quote
+    /// \see lambda, invoke, bind, always
     template<std::size_t n>
-    using arg = typename detail::arg_impl<n>::type;
+    using arg = typename detail::_arg<n>::type;
+}
+
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/at.hpp>
+#include <metal/list/list.hpp>
+#include <metal/number/number.hpp>
+
+namespace metal
+{
+    /// \cond
+    namespace detail
+    {
+        template<std::size_t n>
+        struct _arg
+        {
+            template<typename... vals>
+            using impl = at<list<vals...>, number<n - 1>>;
+
+            using type = lambda<impl>;
+        };
+
+        template<>
+        struct _arg<0U>
+        {};
+    }
+    /// \endcond
 
     /// \ingroup lambda
     ///

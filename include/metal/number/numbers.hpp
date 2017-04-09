@@ -17,7 +17,7 @@ namespace metal
     /// \cond
     namespace detail
     {
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<int_... vs>
         struct _numbers;
 #endif
@@ -36,7 +36,7 @@ namespace metal
     /// \see int_, number, list
     template<int_... vs>
     using numbers =
-#if defined(METAL_COMPAT_MODE) && !defined(METAL_DOXYGENATING)
+#if defined(METAL_WORKAROUND)
         typename detail::_numbers<vs...>::type;
 #else
         metal::list<metal::number<vs>...>;
@@ -45,7 +45,7 @@ namespace metal
     /// \cond
     namespace detail
     {
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
         template<int_... vs>
         struct _numbers
         {

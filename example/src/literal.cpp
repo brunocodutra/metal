@@ -38,7 +38,7 @@ IS_SAME(decltype(371_raw), metal::numbers<'3', '7', '1'>);
 IS_SAME(decltype(0x371_raw), metal::numbers<'0', 'x', '3', '7', '1'>);
 ///[_raw_ex1]
 
-#if !defined(METAL_COMPAT_MODE)
+#if !defined(METAL_WORKAROUND)
 
 ///[_raw_ex2]
 IS_SAME(decltype(3'7'1_raw), metal::numbers<'3', '\'', '7', '\'', '1'>);
@@ -48,13 +48,9 @@ HIDE(
 ///[remove]
 using tokens = metal::numbers<'3', '\'', '7', '\'', '1'>;
 
-IS_SAME(
-    metal::remove<tokens, metal::number<'\''>>,
-    metal::numbers<'3', '7', '1'>
-);
+IS_SAME(metal::remove<tokens, metal::number<'\''>>, metal::numbers<'3', '7', '1'>);
 ///[remove]
 )
-
 #endif
 
 ///[parse_digit]
@@ -87,10 +83,7 @@ using parse_digit = metal::if_<
 
 HIDE(
 ///[transform]
-IS_SAME(
-    metal::transform<metal::lambda<parse_digit>, metal::numbers<'3', '7', '1'>>,
-    metal::numbers<3, 7, 1>
-);
+IS_SAME(metal::transform<metal::lambda<parse_digit>, metal::numbers<'3', '7', '1'>>, metal::numbers<3, 7, 1>);
 ///[transform]
 )
 
@@ -104,10 +97,7 @@ using expr = metal::add<metal::mul<radix, x>, y>;
 
 using lbd = metal::lambda<expr>;
 
-IS_SAME(
-    metal::accumulate<lbd, metal::number<0>, digits>,
-    metal::number<371>
-);
+IS_SAME(metal::accumulate<lbd, metal::number<0>, digits>, metal::number<371>);
 ///[accumulate_1]
 )
 
@@ -118,18 +108,11 @@ using digits = metal::numbers<3, 7, 1>;
 
 using lbd = metal::bind<
     metal::lambda<metal::add>,
-    metal::bind<
-        metal::lambda<metal::mul>,
-        metal::quote<radix>,
-        metal::_1
-    >,
+    metal::bind<metal::lambda<metal::mul>, metal::always<radix>, metal::_1>,
     metal::_2
 >;
 
-IS_SAME(
-    metal::accumulate<lbd, metal::number<0>, digits>,
-    metal::number<371>
-);
+IS_SAME(metal::accumulate<lbd, metal::number<0>, digits>, metal::number<371>);
 ///[accumulate_2]
 )
 
@@ -138,11 +121,7 @@ template<typename radix, typename digits>
 using assemble_number = metal::accumulate<
     metal::bind<
         metal::lambda<metal::add>,
-        metal::bind<
-            metal::lambda<metal::mul>,
-            metal::quote<radix>,
-            metal::_1
-        >,
+        metal::bind<metal::lambda<metal::mul>, metal::always<radix>, metal::_1>,
         metal::_2
     >,
     metal::number<0>,
@@ -160,110 +139,56 @@ using parse_digits = metal::transform<
 
 ///[parse_number]
 template<typename tokens>
-struct parse_number_impl
-{};
+struct parse_number {};
 
 template<typename... tokens>
-struct parse_number_impl<
-    metal::list<tokens...>
->
-{
-    using type = assemble_number<
-        metal::number<10>,
-        parse_digits<metal::list<tokens...>>
-    >;
+struct parse_number<metal::list<tokens...>> {
+    using type = assemble_number<metal::number<10>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<
-    metal::list<metal::number<'0'>, tokens...>
->
-{
-    using type = assemble_number<
-        metal::number<8>,
-        parse_digits<metal::list<tokens...>>
-    >;
+struct parse_number<metal::list<metal::number<'0'>, tokens...>> {
+    using type = assemble_number<metal::number<8>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<
-    metal::list<metal::number<'0'>, metal::number<'x'>, tokens...>
->
-{
-    using type = assemble_number<
-        metal::number<16>,
-        parse_digits<metal::list<tokens...>>
-    >;
+struct parse_number<metal::list<metal::number<'0'>, metal::number<'x'>, tokens...>> {
+    using type = assemble_number<metal::number<16>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<
-    metal::list<metal::number<'0'>, metal::number<'X'>, tokens...>
->
-{
-    using type = assemble_number<
-        metal::number<16>,
-        parse_digits<metal::list<tokens...>>
-    >;
+struct parse_number<metal::list<metal::number<'0'>, metal::number<'X'>, tokens...>> {
+    using type = assemble_number<metal::number<16>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<
-    metal::list<metal::number<'0'>, metal::number<'b'>, tokens...>
->
-{
-    using type = assemble_number<
-        metal::number<2>,
-        parse_digits<metal::list<tokens...>>
-    >;
+struct parse_number<metal::list<metal::number<'0'>, metal::number<'b'>, tokens...>> {
+    using type = assemble_number<metal::number<2>, parse_digits<metal::list<tokens...>>>;
 };
 
 template<typename... tokens>
-struct parse_number_impl<
-    metal::list<metal::number<'0'>, metal::number<'B'>, tokens...>
->
-{
-    using type = assemble_number<
-        metal::number<2>,
-        parse_digits<metal::list<tokens...>>
-    >;
+struct parse_number<metal::list<metal::number<'0'>, metal::number<'B'>, tokens...>> {
+    using type = assemble_number<metal::number<2>, parse_digits<metal::list<tokens...>>>;
 };
-
-template<typename tokens>
-using parse_number = typename parse_number_impl<tokens>::type;
 ///[parse_number]
 
 ///[_c]
 template<char... cs>
 constexpr auto operator ""/**/_c()
-    -> parse_number<metal::numbers<cs...>> {
+    -> metal::eval<parse_number<metal::numbers<cs...>>> {
     return {};
 }
 ///[_c]
 
 ///[_c_ex1]
-IS_SAME(
-    decltype(01234567_c), //octal
-    metal::number<342391>
-);
-
-IS_SAME(
-    decltype(123456789_c), //decimal
-    metal::number<123456789>
-);
-
-IS_SAME(
-    decltype(0xABCDEF_c), //hexadecimal
-    metal::number<11259375>
-);
+IS_SAME(decltype(01234567_c), metal::number<342391>); //octal
+IS_SAME(decltype(123456789_c), metal::number<123456789>); //decimal
+IS_SAME(decltype(0xABCDEF_c), metal::number<11259375>); //hexadecimal
 ///[_c_ex1]
 
-IS_SAME(
-    decltype(0Xabcdef_c),
-    metal::number<11259375>
-);
+IS_SAME(decltype(0Xabcdef_c), metal::number<11259375>);
 
-#if !defined(METAL_COMPAT_MODE)
+#if !defined(METAL_WORKAROUND)
 
 ///[_c_ex2]
 IS_SAME(
@@ -278,15 +203,12 @@ IS_SAME(
 );
 
 ///[_c_ex3]
-IS_SAME(
-    decltype(1'2'3'4'5'6'7'8'9_c),
-    metal::number<123456789>
-);
+IS_SAME(decltype(1'2'3'4'5'6'7'8'9_c), metal::number<123456789>);
 ///[_c_ex3]
 
 #endif
 
-#if defined(METAL_COMPAT_MODE)
+#if defined(METAL_WORKAROUND)
 template<typename... T>
 struct AugmentedTuple :
     std::tuple<T...>

@@ -20,7 +20,7 @@ namespace metal
     /// \ingroup lambda
     ///
     /// ### Description
-    /// Partially invokes a \lambda with some \values.
+    /// Partially [invokes](\ref invoke) a \lambda with some \values.
     ///
     /// ### Usage
     /// For any \lambda `lbd` and \values `val_0, ..., val_n-1`
@@ -44,20 +44,34 @@ namespace metal
     /// \snippet lambda.cpp partial
     ///
     /// ### See Also
-    /// \see lambda, invoke, bind, quote
+    /// \see lambda, invoke, bind, always
     template<typename lbd, typename... vals>
     using partial = typename detail::_partial<lbd, vals...>::type;
 }
 
 #include <metal/lambda/lambda.hpp>
-#include <metal/lambda/invoke.hpp>
+#include <metal/value/same.hpp>
+
+#include <metal/detail/sfinae.hpp>
 
 namespace metal
 {
     /// \cond
     namespace detail
     {
-        template<typename lbd, typename... vals>
+        template<typename... vals>
+        struct _partial_impl
+        {
+            template<template<typename...> class expr>
+            using type =
+#if defined(METAL_WORKAROUND)
+                call<expr, vals...>;
+#else
+                expr<vals...>;
+#endif
+        };
+
+        template<typename lbd, typename... leading>
         struct _partial
         {};
 
@@ -65,7 +79,19 @@ namespace metal
         struct _partial<lambda<expr>, leading...>
         {
             template<typename... trailing>
-            using impl = invoke<lambda<expr>, leading..., trailing...>;
+            using impl = forward<
+                _partial_impl<leading..., trailing...>::template type,
+                expr
+            >;
+
+            using type = lambda<impl>;
+        };
+
+        template<typename x>
+        struct _partial<lambda<same>, x>
+        {
+            template<typename y>
+            using impl = same<x, y>;
 
             using type = lambda<impl>;
         };

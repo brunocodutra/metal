@@ -24,10 +24,7 @@ IS_SAME(metal::is_value<val>, metal::true_);
 
 HIDE(
 /// [val3]
-struct val
-{
-    //...
-};
+struct val { /*...*/ };
 /// [val3]
 
 IS_SAME(metal::is_value<val>, metal::true_);
@@ -39,7 +36,7 @@ int not_a_val;
 /// [not_a_val1]
 )
 
-#if !defined(METAL_COMPAT_MODE)
+#if !defined(METAL_WORKAROUND)
 
 HIDE(
 static constexpr
@@ -53,14 +50,9 @@ decltype(auto) not_a_val = 3.14;
 HIDE(
 /// [not_a_val3]
 template<typename...>
-struct not_a_val
-{
-    //...
-};
+struct not_a_val { /*...*/ };
 /// [not_a_val3]
 )
-
-#if !defined(METAL_COMPAT_MODE)
 
 HIDE(
 /// [value]
@@ -68,7 +60,7 @@ using num = metal::number<42>;
 IS_SAME(metal::is_number<metal::value<num>>, metal::false_);
 IS_SAME(metal::value<num>::type, num);
 
-using lbd = metal::lambda<std::add_pointer_t>;
+using lbd = metal::lambda<metal::identity>;
 IS_SAME(metal::is_lambda<metal::value<lbd>>, metal::false_);
 IS_SAME(metal::value<lbd>::type, lbd);
 
@@ -77,8 +69,6 @@ IS_SAME(metal::is_list<metal::value<list>>, metal::false_);
 IS_SAME(metal::value<list>::type, list);
 /// [value]
 )
-
-#endif
 
 HIDE(
 /// [is_value]
@@ -102,6 +92,33 @@ IS_SAME(has_type<metal::value<>>, metal::false_);
 )
 
 HIDE(
+/// [eval]
+IS_SAME(metal::eval<metal::value<void>>, void);
+IS_SAME(metal::eval<std::add_pointer<void>>, void*);
+/// [eval]
+)
+
+HIDE(
+/// [identity]
+IS_SAME(metal::identity<void>, void);
+IS_SAME(metal::invoke<metal::lambda<metal::identity>, void>, void);
+
+template<typename pred, typename lbd, typename seq>
+using transform_if = metal::transform<
+    metal::bind<metal::lambda<metal::if_>, pred, lbd, metal::lambda<metal::identity>>,
+    seq
+>;
+
+using l = metal::list<short, int, long, float, double, void>;
+
+IS_SAME(
+    transform_if<metal::trait<std::is_integral>, metal::lazy<std::add_pointer>, l>,
+    metal::list<short*, int*, long*, float, double, void>
+);
+/// [identity]
+)
+
+HIDE(
 /// [same]
 IS_SAME(metal::same<>, metal::true_);
 IS_SAME(metal::same<void>, metal::true_);
@@ -119,4 +136,32 @@ IS_SAME(metal::distinct<void, void, void, void, void>, metal::false_);
 IS_SAME(metal::distinct<void, void*, void, void, void>, metal::false_);
 IS_SAME(metal::distinct<void, void*, void**, void***, void****>, metal::true_);
 /// [distinct]
+)
+
+HIDE(
+/// [fold_left]
+template<typename x, typename y>
+struct f {};
+
+using lbd = metal::lambda<f>;
+
+IS_SAME(
+    metal::fold_left<lbd, short, int, long, float, double, void>,
+    f<f<f<f<f<short, int>, long>, float>, double>, void>
+);
+/// [fold_left]
+)
+
+HIDE(
+/// [fold_right]
+template<typename x, typename y>
+struct f {};
+
+using lbd = metal::lambda<f>;
+
+IS_SAME(
+    metal::fold_right<lbd, short, int, long, float, double, void>,
+    f<short, f<int, f<long, f<float, f<double, void>>>>>
+);
+/// [fold_right]
 )

@@ -40,6 +40,17 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
+        env: CXXVER=4.7
+        addons:
+            apt:
+                packages:
+                  - *ubuntu_packages
+                  - g++-4.7
+                sources: *ubuntu_sources
+
+      - os: linux
+        dist: trusty
+        compiler: g++
         env: CXXVER=4.8
         addons:
             apt:

@@ -8,8 +8,6 @@
 
 // NOTE: keep in sync with the README
 
-#if !defined(METAL_COMPAT_MODE)
-
 /// [tutorial]
 #include <metal.hpp>
 
@@ -40,14 +38,8 @@ static_assert(metal::same<metal::back<l3>, z>::value, "");
 static_assert(metal::same<metal::at<l3, metal::number<1>>, y>::value, "");
 
 // count those that satisfy a predicate...
-template<typename T>
-using is_class = metal::as_number<std::is_class<T>>;
-
-template<typename T>
-using is_union = metal::as_number<std::is_union<T>>;
-
-static_assert(metal::count_if<l3, metal::lambda<is_class>>::value == 2, "");
-static_assert(metal::count_if<l3, metal::lambda<is_union>>::value == 1, "");
+static_assert(metal::count_if<l3, metal::trait<std::is_class>>::value == 2, "");
+static_assert(metal::count_if<l3, metal::trait<std::is_union>>::value == 1, "");
 
 // We can create new Lists by removing elements...
 using l0_ = metal::drop<l3, metal::number<3>>;
@@ -65,8 +57,8 @@ static_assert(metal::same<metal::reverse<l2>, metal::list<z, x>>::value, "");
 static_assert(metal::same<metal::reverse<l3>, metal::list<z, y, x>>::value, "");
 
 // by transforming the elements...
-using l2ptrs = metal::transform<metal::lambda<std::add_pointer_t>, l2>;
-using l3refs = metal::transform<metal::lambda<std::add_lvalue_reference_t>, l3>;
+using l2ptrs = metal::transform<metal::lazy<std::add_pointer>, l2>;
+using l3refs = metal::transform<metal::lazy<std::add_lvalue_reference>, l3>;
 
 static_assert(metal::same<l2ptrs, metal::list<x*, z*>>::value, "");
 static_assert(metal::same<l3refs, metal::list<x&, y&, z&>>::value, "");
@@ -81,5 +73,3 @@ static_assert(metal::same<sorted, metal::list<y, z, x>>::value, "");
 
 // that and much more!
 /// [tutorial]
-
-#endif

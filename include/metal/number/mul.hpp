@@ -7,6 +7,8 @@
 
 #include <metal/config.hpp>
 
+#include <metal/detail/sfinae.hpp>
+
 namespace metal
 {
     /// \cond
@@ -40,14 +42,12 @@ namespace metal
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, sub, div, mod, pow
     template<typename... nums>
-    using mul = typename detail::_mul<nums...>::type;
+    using mul = detail::call<detail::_mul<nums...>::template type>;
 }
 
 #include <metal/number/number.hpp>
-#include <metal/number/numbers.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/list/accumulate.hpp>
-#include <metal/list/list.hpp>
+#include <metal/value/fold_left.hpp>
 
 #include <initializer_list>
 
@@ -60,39 +60,35 @@ namespace metal
         struct _mul
         {};
 
-        template<>
-        struct _mul<> :
-            number<1>
-        {};
+#if defined(METAL_WORKAROUND)
+        template<typename x, typename y>
+        using mul_impl = number<x::value * y::value>;
 
-        template<int_ x>
-        struct _mul<number<x>> :
-            number<x>
-        {};
-
-        template<int_ x, int_ y>
-        struct _mul<number<x>, number<y>> :
-            number<x * y>
-        {};
-
-#if defined(METAL_COMPAT_MODE)
-        template<int_ x, int_ y, int_... tail>
-        struct _mul<number<x>, number<y>, number<tail>...> :
-            _accumulate<lambda<mul>, number<x>, numbers<y, tail...>>
-        {};
+        template<int_... ns>
+        struct _mul<number<ns>...>
+        {
+            template<typename... _>
+            using type = fold_left<lambda<mul_impl>, number<ns>..., _...>;
+        };
 #else
         template<typename... _>
-        constexpr int_ imul(int_ head, _... tail) {
-            int_ ret = head;
-            void(std::initializer_list<int_>{(ret *= tail)...});
-            return ret;
+        constexpr int_ mul_impl(int_ head, _... tail) {
+            return void(std::initializer_list<int_>{(head *= tail)...}), head;
         }
 
-        template<int_ x, int_ y, int_... tail>
-        struct _mul<number<x>, number<y>, number<tail>...> :
-            number<imul(x, y, tail...)>
-        {};
+        template<int_... ns>
+        struct _mul<number<ns>...>
+        {
+            template<typename... _>
+            using type = number<mul_impl((void(sizeof...(_)), ns)...)>;
+        };
 #endif
+        template<>
+        struct _mul<>
+        {
+            template<typename...>
+            using type = number<1>;
+        };
     }
     /// \endcond
 }
