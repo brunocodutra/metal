@@ -10,8 +10,7 @@
 #include <metal/map/order.hpp>
 #include <metal/list/erase.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup map
     ///
     /// ### Description

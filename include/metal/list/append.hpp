@@ -10,8 +10,7 @@
 #include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

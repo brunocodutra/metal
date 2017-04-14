@@ -9,8 +9,7 @@
 
 #include <metal/list/replace_if.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

@@ -12,8 +12,7 @@
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/or.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

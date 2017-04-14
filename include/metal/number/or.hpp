@@ -11,8 +11,7 @@
 #include <metal/number/not.hpp>
 #include <metal/value/same.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup number
     ///
     /// ### Description

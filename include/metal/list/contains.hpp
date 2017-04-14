@@ -13,8 +13,7 @@
 #include <metal/lambda/partial.hpp>
 #include <metal/value/same.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

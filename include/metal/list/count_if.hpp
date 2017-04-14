@@ -13,8 +13,7 @@
 #include <metal/number/number.hpp>
 #include <metal/number/add.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

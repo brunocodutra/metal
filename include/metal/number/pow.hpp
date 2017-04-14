@@ -9,11 +9,9 @@
 
 #include <metal/detail/sfinae.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... nums>
         struct _pow;
     }
@@ -57,11 +55,9 @@ namespace metal
 #include <metal/lambda/lambda.hpp>
 #include <metal/value/fold_left.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename base, typename exp, typename ret = number<1>>
         struct _pow_impl
         {};

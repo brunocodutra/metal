@@ -11,8 +11,7 @@
 #include <metal/list/remove_if.hpp>
 #include <metal/pair/pair.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

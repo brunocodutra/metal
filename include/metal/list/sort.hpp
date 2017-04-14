@@ -9,11 +9,9 @@
 
 #include <metal/detail/sfinae.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename lbd>
         struct _sort;
     }
@@ -61,11 +59,9 @@ namespace metal
 #include <metal/number/number.hpp>
 #include <metal/number/if.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename>
         struct cons
         {};

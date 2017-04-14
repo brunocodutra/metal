@@ -9,11 +9,9 @@
 
 #include <metal/number/number.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename, typename, typename>
         struct _iota;
     }
@@ -68,11 +66,9 @@ namespace metal
 #   endif
 #endif
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<int_... ns>
         struct enumeration
         {};

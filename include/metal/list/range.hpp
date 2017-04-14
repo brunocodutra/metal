@@ -14,11 +14,9 @@
 #include <metal/number/number.hpp>
 #include <metal/number/greater.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename seq, typename beg, typename end>
         struct _range;
 
@@ -72,11 +70,9 @@ namespace metal
 #include <metal/number/max.hpp>
 #include <metal/number/min.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<std::size_t n>
         struct skipper :
             skipper<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>

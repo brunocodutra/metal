@@ -13,8 +13,7 @@
 #include <metal/list/transpose.hpp>
 #include <metal/pair/pair.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup map
     ///
     /// ### Description

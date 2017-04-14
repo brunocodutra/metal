@@ -14,8 +14,7 @@
 #include <metal/number/max.hpp>
 #include <metal/number/inc.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

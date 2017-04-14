@@ -9,11 +9,9 @@
 
 #include <metal/detail/sfinae.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename lbd>
         struct _accumulate;
     }
@@ -62,11 +60,9 @@ namespace metal
 #include <metal/value/same.hpp>
 #include <metal/value/fold_left.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename state, typename num, typename... seqs>
         struct accumulator_impl
         {

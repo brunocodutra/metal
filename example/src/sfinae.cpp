@@ -60,8 +60,7 @@ auto array_of_tuples =  make_array(tup1, tup2, tup3);
 #include <boost/hana/unpack.hpp>
 #include <boost/hana/zip.hpp>
 
-namespace hana
-{
+namespace hana {
 /// [hana_common_tuple_t]
 template<typename... xs>
 using hana_common_tuple_t = typename decltype(

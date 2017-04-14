@@ -9,8 +9,7 @@
 
 #include <metal/number/less.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup number
     ///
     /// ### Description

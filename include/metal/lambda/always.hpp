@@ -7,11 +7,9 @@
 
 #include <metal/config.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _always;
     }
@@ -53,11 +51,9 @@ namespace metal
 #include <metal/lambda/lambda.hpp>
 #include <metal/value/identity.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _always
         {

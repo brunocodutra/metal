@@ -7,8 +7,7 @@
 
 #include "test/preprocessor.hpp"
 
-namespace test
-{
+namespace test {
     using num0  = metal::number<0>;
     using num1  = metal::number<1>;
     using num2  = metal::number<2>;

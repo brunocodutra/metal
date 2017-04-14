@@ -11,8 +11,7 @@
 #include <metal/list/iota.hpp>
 #include <metal/number/number.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

@@ -7,11 +7,9 @@
 
 #include <metal/config.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... vals>
         struct _same;
     }
@@ -52,11 +50,9 @@ namespace metal
 #include <metal/value/value.hpp>
 #include <metal/number/number.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename...>
         struct _same_impl :
             false_

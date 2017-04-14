@@ -8,8 +8,7 @@
 #include "test/numbers.hpp"
 #include "test/preprocessor.hpp"
 
-namespace test
-{
+namespace test {
     template<typename...>
     union expr_;
 

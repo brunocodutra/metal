@@ -7,11 +7,9 @@
 
 #include <metal/config.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename seq, typename num>
         struct _rotate;
     }
@@ -52,11 +50,9 @@ namespace metal
 
 #include <cstddef>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<std::size_t n>
         struct rotator :
             rotator<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>

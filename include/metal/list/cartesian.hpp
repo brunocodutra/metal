@@ -11,11 +11,9 @@
 
 #include <cstddef>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<std::size_t n>
         struct cartesianer;
 
@@ -61,11 +59,9 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         struct cartesianer_impl_0
         {
             template<typename... vals>

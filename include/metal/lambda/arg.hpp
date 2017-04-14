@@ -9,11 +9,9 @@
 
 #include <cstddef>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<std::size_t n>
         struct _arg;
     }
@@ -53,11 +51,9 @@ namespace metal
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<std::size_t n>
         struct _arg
         {

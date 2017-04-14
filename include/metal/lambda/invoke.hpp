@@ -9,8 +9,7 @@
 
 #include <metal/lambda/apply.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup lambda
     ///
     /// ### Description

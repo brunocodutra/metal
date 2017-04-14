@@ -9,11 +9,9 @@
 
 #include <metal/list/transform.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename, typename, typename...>
         struct _replace_if;
     }
@@ -59,11 +57,9 @@ namespace metal
 #include <metal/number/if.hpp>
 #include <metal/number/number.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename vals, typename vs, typename...>
         struct _replace_if
         {};

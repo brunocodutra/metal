@@ -7,11 +7,9 @@
 
 #include <metal/config.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _from_mpl;
     }
@@ -87,11 +85,9 @@ namespace metal
 #include <boost/mpl/is_sequence.hpp>
 #include <boost/mpl/fold.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         same<typename val::tag, boost::mpl::integral_c_tag>
             number_like_impl(number<val::value>*);

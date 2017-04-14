@@ -14,11 +14,9 @@
 
 #include <type_traits>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename lbd, typename... vals>
         struct _is_invocable;
     }

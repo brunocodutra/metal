@@ -10,8 +10,7 @@
 #include <metal/value/eval.hpp>
 #include <metal/value/value.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup value
     ///
     /// ### Description

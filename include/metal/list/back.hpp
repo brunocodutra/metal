@@ -11,8 +11,7 @@
 #include <metal/list/size.hpp>
 #include <metal/number/dec.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

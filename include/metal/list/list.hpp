@@ -7,11 +7,9 @@
 
 #include <metal/config.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _is_list;
 
@@ -98,11 +96,9 @@ namespace metal
 
 #include <metal/number/number.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _is_list :
             false_

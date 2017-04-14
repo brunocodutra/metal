@@ -11,11 +11,9 @@
 
 #include <cstddef>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<std::size_t n>
         struct joiner;
     }
@@ -55,11 +53,9 @@ namespace metal
 
 #include <metal/list/list.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<
             typename = list<>, typename = list<>, typename = list<>,
             typename = list<>, typename = list<>, typename = list<>,

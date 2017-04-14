@@ -9,11 +9,9 @@
 
 #include <metal/number/number.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         struct na;
 
 #if defined(METAL_WORKAROUND)
@@ -125,8 +123,7 @@ namespace metal
     template<>
     struct value<detail::na> {};
 
-    namespace detail
-    {
+    namespace detail {
 #if defined(METAL_WORKAROUND)
         template<typename val>
         struct _is_value

@@ -11,8 +11,7 @@
 #include <metal/list/front.hpp>
 #include <metal/number/if.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup pair
     ///
     /// ### Description

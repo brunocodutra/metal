@@ -11,8 +11,7 @@
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/number.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup lambda
     ///
     /// ### Description

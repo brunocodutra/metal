@@ -9,11 +9,9 @@
 
 #include <metal/list/transform.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename seq>
         struct _find_if;
     }
@@ -63,11 +61,9 @@ namespace metal
 
 #include <initializer_list>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename seq>
         struct _find_if
         {};

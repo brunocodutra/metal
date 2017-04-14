@@ -9,11 +9,9 @@
 
 #include <metal/detail/sfinae.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename lbd>
         struct _transform;
     }
@@ -63,11 +61,9 @@ namespace metal
 #include <metal/number/if.hpp>
 #include <metal/value/same.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename num, typename... seqs>
         struct transformer_impl
         {

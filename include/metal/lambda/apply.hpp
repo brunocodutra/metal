@@ -9,11 +9,9 @@
 
 #include <metal/detail/sfinae.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename lbd>
         struct _apply;
     }
@@ -49,11 +47,9 @@ namespace metal
 #include <metal/lambda/lambda.hpp>
 #include <metal/list/list.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename seq>
         struct _apply_impl
         {};

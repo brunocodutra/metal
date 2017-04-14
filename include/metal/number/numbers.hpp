@@ -12,11 +12,9 @@
 
 #include <type_traits>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
 #if defined(METAL_WORKAROUND)
         template<int_... vs>
         struct _numbers;
@@ -43,8 +41,7 @@ namespace metal
 #endif
 
     /// \cond
-    namespace detail
-    {
+    namespace detail {
 #if defined(METAL_WORKAROUND)
         template<int_... vs>
         struct _numbers

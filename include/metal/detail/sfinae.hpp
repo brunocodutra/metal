@@ -14,11 +14,9 @@
 
 #include <type_traits>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<
             template<template<typename...> class...> class,
             template<typename...> class...

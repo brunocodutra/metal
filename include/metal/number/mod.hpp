@@ -9,11 +9,9 @@
 
 #include <metal/detail/sfinae.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... mod>
         struct _mod;
     }
@@ -53,11 +51,9 @@ namespace metal
 
 #include <initializer_list>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... nums>
         struct _mod
         {};

@@ -14,11 +14,9 @@
 #include <metal/lambda/apply.hpp>
 #include <metal/number/if.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _is_map;
     }
@@ -107,11 +105,9 @@ namespace metal
 #include <metal/number/number.hpp>
 #include <metal/value/distinct.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _is_map :
             false_

@@ -11,8 +11,7 @@
 #include <metal/number/max.hpp>
 #include <metal/number/neg.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup number
     ///
     /// ### Description

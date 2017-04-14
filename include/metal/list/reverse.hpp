@@ -7,11 +7,9 @@
 
 #include <metal/config.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename seq>
         struct _reverse;
     }
@@ -48,11 +46,9 @@ namespace metal
 
 #include <cstddef>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... vals>
         struct reverser_impl
         {

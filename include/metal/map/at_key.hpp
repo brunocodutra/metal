@@ -12,8 +12,7 @@
 
 #include <metal/detail/lookup.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup map
     ///
     /// ### Description

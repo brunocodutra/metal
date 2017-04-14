@@ -11,8 +11,7 @@
 #include <metal/list/drop.hpp>
 #include <metal/list/take.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

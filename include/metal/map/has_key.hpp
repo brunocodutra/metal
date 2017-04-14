@@ -10,8 +10,7 @@
 #include <metal/map/keys.hpp>
 #include <metal/list/contains.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup map
     ///
     /// ### Description

@@ -20,11 +20,9 @@
 #   endif
 #endif
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename, typename>
         struct entry {};
 

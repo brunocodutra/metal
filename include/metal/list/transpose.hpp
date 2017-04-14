@@ -13,8 +13,7 @@
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/apply.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

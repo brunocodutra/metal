@@ -7,11 +7,9 @@
 
 #include <metal/config.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... vals>
         struct _distinct;
     }
@@ -56,11 +54,9 @@ namespace metal
 
 #include <metal/detail/declptr.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename, typename base>
         struct inherit_second :
             base

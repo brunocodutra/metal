@@ -10,8 +10,7 @@
 #include <metal/number/number.hpp>
 #include <metal/number/sub.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup number
     ///
     /// ### Description

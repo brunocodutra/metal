@@ -7,8 +7,7 @@
 
 #include "test/preprocessor.hpp"
 
-namespace test
-{
+namespace test {
     struct val0 {enum {value};};
     struct val1 {static int const value = 1;};
     struct val2 {static int value;};

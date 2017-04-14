@@ -10,8 +10,7 @@
 #include <metal/list/any_of.hpp>
 #include <metal/number/not.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

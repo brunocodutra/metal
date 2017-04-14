@@ -10,11 +10,9 @@
 #include <cstdint>
 #include <type_traits>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _is_number;
 
@@ -123,8 +121,7 @@ namespace metal
     using as_number = typename detail::_as_number<val>::type;
 
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _is_number :
             false_

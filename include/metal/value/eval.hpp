@@ -7,8 +7,7 @@
 
 #include <metal/config.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup value
     ///
     /// ### Description

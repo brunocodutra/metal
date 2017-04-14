@@ -9,11 +9,9 @@
 
 #include <metal/detail/sfinae.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename lbd>
         struct _fold_right;
     }
@@ -52,11 +50,9 @@ namespace metal
 
 #include <metal/lambda/lambda.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<
             typename state,
             typename _00, typename _01, typename _02, typename _03,

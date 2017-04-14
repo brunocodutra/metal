@@ -11,11 +11,9 @@
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/apply.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _is_pair;
     }
@@ -96,11 +94,9 @@ namespace metal
 
 #include <metal/number/number.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _is_pair :
             false_

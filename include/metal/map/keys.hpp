@@ -13,8 +13,7 @@
 #include <metal/lambda/lambda.hpp>
 #include <metal/number/if.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup map
     ///
     /// ### Description

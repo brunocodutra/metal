@@ -10,8 +10,7 @@
 #include <metal/list/range.hpp>
 #include <metal/list/size.hpp>
 
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description
