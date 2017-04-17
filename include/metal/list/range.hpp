@@ -73,16 +73,16 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<std::size_t n>
-        struct skipper :
-            skipper<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
+        template<int_ n>
+        struct dropper :
+            dropper<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
         {};
 
         template<>
-        struct skipper<100>
+        struct dropper<100>
         {
             template<
-                std::size_t n,
+                int_ n,
                 typename, typename, typename, typename, typename, typename,
                 typename, typename, typename, typename, typename, typename,
                 typename, typename, typename, typename, typename, typename,
@@ -101,52 +101,55 @@ namespace metal {
                 typename, typename, typename, typename, typename, typename,
                 typename, typename, typename, typename, typename... tail
             >
-            using type = typename skipper<(n - 100)>::template type<
+            using type = typename dropper<(n - 100)>::template type<
                 (n - 100), tail...
             >;
         };
 
         template<>
-        struct skipper<10>
+        struct dropper<10>
         {
             template<
-                std::size_t n,
+                int_ n,
                 typename, typename, typename, typename, typename, typename,
                 typename, typename, typename, typename, typename... tail
             >
-            using type = typename skipper<(n - 10)>::template type<
+            using type = typename dropper<(n - 10)>::template type<
                 (n - 10), tail...
             >;
         };
 
         template<>
-        struct skipper<1>
+        struct dropper<1>
         {
-            template<std::size_t n, typename, typename... tail>
-            using type = typename skipper<(n - 1)>::template type<
+            template<int_ n, typename, typename... tail>
+            using type = typename dropper<(n - 1)>::template type<
                 (n - 1), tail...
             >;
         };
 
         template<>
-        struct skipper<0>
+        struct dropper<0>
         {
-            template<std::size_t, typename... vals>
+            template<int_, typename... vals>
             using type = list<vals...>;
         };
 
         template<typename seq, typename num>
-        struct _skip
+        struct _drop
         {};
 
         template<typename... vals, int_ n>
-        struct _skip<list<vals...>, number<n>>
+        struct _drop<list<vals...>, number<n>>
         {
-            using type = typename skipper<n>::template type<n, vals...>;
+            using type = typename dropper<n>::template type<n, vals...>;
         };
 
         template<typename seq, typename num>
-        using skip = typename _skip<seq, num>::type;
+        using drop = typename _drop<seq, num>::type;
+
+        template<typename seq, typename num>
+        using take = drop<rotate<seq, num>, sub<size<seq>, num>>;
 
         template<typename seq, typename beg, typename end>
         struct _range
@@ -164,13 +167,13 @@ namespace metal {
         template<typename seq, typename num>
         struct _range<seq, number<0>, num>
         {
-            using type = skip<rotate<seq, num>, sub<size<seq>, num>>;
+            using type = take<seq, num>;
         };
 
         template<typename seq, typename num>
         struct _range<seq, num, size<seq>>
         {
-            using type = skip<seq, num>;
+            using type = drop<seq, num>;
         };
 
         template<typename seq>

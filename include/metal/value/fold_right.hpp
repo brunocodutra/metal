@@ -50,6 +50,8 @@ namespace metal {
 
 #include <metal/lambda/lambda.hpp>
 
+#include <cstddef>
+
 namespace metal {
     /// \cond
     namespace detail {
@@ -151,7 +153,7 @@ namespace metal {
 #endif
         };
 
-        template<int_ n>
+        template<std::size_t n>
         struct _fold_right_impl :
             _fold_right_impl<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
         {};

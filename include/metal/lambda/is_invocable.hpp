@@ -15,13 +15,6 @@
 #include <type_traits>
 
 namespace metal {
-    /// \cond
-    namespace detail {
-        template<typename lbd, typename... vals>
-        struct _is_invocable;
-    }
-    /// \endcond
-
     /// \ingroup lambda
     ///
     /// ### Description

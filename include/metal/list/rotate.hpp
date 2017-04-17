@@ -48,12 +48,10 @@ namespace metal {
 #include <metal/list/list.hpp>
 #include <metal/number/number.hpp>
 
-#include <cstddef>
-
 namespace metal {
     /// \cond
     namespace detail {
-        template<std::size_t n>
+        template<int_ n>
         struct rotator :
             rotator<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
         {};
@@ -62,7 +60,7 @@ namespace metal {
         struct rotator<100>
         {
             template<
-                std::size_t n,
+                int_ n,
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename _10, typename _11,
@@ -110,7 +108,7 @@ namespace metal {
         struct rotator<10>
         {
             template<
-                std::size_t n,
+                int_ n,
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename... tail
@@ -124,7 +122,7 @@ namespace metal {
         template<>
         struct rotator<1>
         {
-            template<std::size_t n, typename head, typename... tail>
+            template<int_ n, typename head, typename... tail>
             using type = typename rotator<(n - 1)>::template type<
                 (n - 1), tail..., head
             >;
@@ -133,7 +131,7 @@ namespace metal {
         template<>
         struct rotator<0>
         {
-            template<std::size_t, typename... vals>
+            template<int_, typename... vals>
             using type = list<vals...>;
         };
 

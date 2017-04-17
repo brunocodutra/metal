@@ -8,6 +8,7 @@
 #include <metal/config.hpp>
 
 #include <metal/lambda/apply.hpp>
+#include <metal/list/list.hpp>
 
 namespace metal {
     /// \ingroup lambda

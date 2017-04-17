@@ -59,7 +59,7 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename... vals>
-        struct grouper_impl
+        struct prepender
         {
             template<template<typename...> class expr, typename... _>
             using type = expr<_..., vals...>;
@@ -103,7 +103,7 @@ namespace metal {
             >
             using type = typename grouper<sizeof...(tail)>
                 ::template type<tail...>::template type<
-                    grouper_impl,
+                    prepender,
                     _at<list<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09>>,
                     _at<list<_10, _11, _12, _13, _14, _15, _16, _17, _18, _19>>,
                     _at<list<_20, _21, _22, _23, _24, _25, _26, _27, _28, _29>>,
@@ -127,7 +127,7 @@ namespace metal {
             >
             using type = typename grouper<sizeof...(tail)>
                 ::template type<tail...>::template type<
-                    grouper_impl,
+                    prepender,
                     _at<list<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09>>
                 >;
         };
@@ -136,14 +136,14 @@ namespace metal {
         struct grouper<1>
         {
             template<typename... vals>
-            using type = grouper_impl<_at<list<vals...>>>;
+            using type = prepender<_at<list<vals...>>>;
         };
 
         template<>
         struct grouper<0>
         {
             template<typename...>
-            using type = grouper_impl<>;
+            using type = prepender<>;
         };
 
         template<typename num, typename = true_>

@@ -50,7 +50,7 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename... vals>
-        struct reverser_impl
+        struct appender
         {
             template<template<typename...> class expr, typename... _>
             using type = expr<vals..., _...>;
@@ -94,7 +94,7 @@ namespace metal {
             >
             using type = typename reverser<sizeof...(tail)>
                 ::template type<tail...>::template type<
-                    reverser_impl,
+                    appender,
                     _99, _98, _97, _96, _95, _94, _93, _92, _91, _90,
                     _89, _88, _87, _86, _85, _84, _83, _82, _81, _80,
                     _79, _78, _77, _76, _75, _74, _73, _72, _71, _70,
@@ -118,7 +118,7 @@ namespace metal {
             >
             using type = typename reverser<sizeof...(tail)>
                 ::template type<tail...>::template type<
-                    reverser_impl,
+                    appender,
                     _09, _08, _07, _06, _05, _04, _03, _02, _01, _00
                 >;
         };
@@ -128,14 +128,14 @@ namespace metal {
         {
             template<typename _00, typename... tail>
             using type = typename reverser<sizeof...(tail)>
-                ::template type<tail...>::template type<reverser_impl, _00>;
+                ::template type<tail...>::template type<appender, _00>;
         };
 
         template<>
         struct reverser<0>
         {
             template<typename...>
-            using type = reverser_impl<>;
+            using type = appender<>;
         };
 
         template<typename seq>
