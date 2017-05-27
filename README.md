@@ -95,6 +95,7 @@ Don't worry, all your favourite compilers are continuously tested at
 | GCC               | 4.9       | Ubuntu 14.04 LTS
 | GCC               | 5         | Ubuntu 14.04 LTS
 | GCC               | 6         | Ubuntu 14.04 LTS
+| GCC               | 7         | Ubuntu 14.04 LTS
 | Clang             | 3.4       | Ubuntu 14.04 LTS
 | Clang             | 3.5       | Ubuntu 14.04 LTS
 | Clang             | 3.6       | Ubuntu 14.04 LTS

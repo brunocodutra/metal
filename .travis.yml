@@ -88,6 +88,17 @@ matrix:
 
       - os: linux
         dist: trusty
+        compiler: g++
+        env: CXXVER=7
+        addons:
+            apt:
+                packages:
+                  - *pkgs
+                  - g++-7
+                sources: *srcs
+
+      - os: linux
+        dist: trusty
         compiler: clang++
         env: CXXVER=3.4
         addons:
