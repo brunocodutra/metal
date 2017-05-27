@@ -12,13 +12,10 @@ env:
     global:
       - secure: "DuBGzmeKiWMm5m0+uZhutjzCffB2PbixmuMm3IZWUi7/uAam4PPI37oeqVTIytxxfpgRvfR2ah75eJyU6ab72MBoHxGkHem10RAvhC/vPYbLZu545qfSGatyTI9R6NfERUxi7YIxjs6D8c4D/5k3gMoCbMUkU1Lze1708lknh5U="
 
-    matrix:
-      - BOGUS_JOB
-
 addons:
     apt:
-        packages: &ubuntu_packages
-        sources: &ubuntu_sources
+        packages: &pkgs
+        sources: &srcs
           - ubuntu-toolchain-r-test
 
 cache:
@@ -26,9 +23,6 @@ cache:
     - deps/boost
 
 matrix:
-    exclude:
-      - env: BOGUS_JOB
-
     include:
       - os: linux
         dist: trusty
@@ -44,9 +38,9 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - g++-4.7
-                sources: *ubuntu_sources
+                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -55,9 +49,9 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - g++-4.8
-                sources: *ubuntu_sources
+                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -66,9 +60,9 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - g++-4.9
-                sources: *ubuntu_sources
+                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -77,9 +71,9 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - g++-5
-                sources: *ubuntu_sources
+                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -88,9 +82,9 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - g++-6
-                sources: *ubuntu_sources
+                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -99,12 +93,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-3.4
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
@@ -115,12 +109,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-3.5
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.5 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
@@ -131,12 +125,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-3.6
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
@@ -163,12 +157,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-3.8
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
@@ -179,12 +173,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-3.9
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
@@ -195,12 +189,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-4.0
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
@@ -211,12 +205,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-5.0
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
