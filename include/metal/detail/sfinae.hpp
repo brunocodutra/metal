@@ -21,58 +21,49 @@ namespace metal {
             template<template<typename...> class...> class,
             template<typename...> class...
         >
-        struct forwarder {};
+        struct forwarder;
 
         template<
             template<template<typename...> class...> class tmpl,
             template<typename...> class... exprs,
             eval<std::enable_if<is_value<tmpl<exprs...>>::value>>* = nullptr
         >
-        value<tmpl<exprs...>> sfinae_impl(forwarder<tmpl, exprs...>*);
+        value<tmpl<exprs...>> sfinae(forwarder<tmpl, exprs...>*);
 
         template<template<typename...> class expr, typename... vals>
-        struct caller {};
+        struct caller;
 
         template<
             template<typename...> class expr,
             typename... vals,
             eval<std::enable_if<is_value<expr<vals...>>::value>>* = nullptr
         >
-        value<expr<vals...>> sfinae_impl(caller<expr, vals...>*);
+        value<expr<vals...>> sfinae(caller<expr, vals...>*);
 
-        value<> sfinae_impl(...);
+        value<> sfinae(...);
 
-        template<
+                template<
             template<template<typename...> class...> class tmpl,
             template<typename...> class... exprs
         >
-        decltype(sfinae_impl(declptr<forwarder<tmpl, exprs...>>())) sfinae();
+        struct forwarder :
+            decltype(sfinae(declptr<forwarder<tmpl, exprs...>>()))
+        {};
 
         template<template<typename...> class expr, typename... vals>
-        decltype(sfinae_impl(declptr<caller<expr, vals...>>())) sfinae();
+        struct caller :
+            decltype(sfinae(declptr<caller<expr, vals...>>()))
+        {};
 
 #if defined(METAL_WORKAROUND)
         template<
             template<template<typename...> class...> class tmpl,
             template<typename...> class... exprs
         >
-        struct _forward :
-            decltype(sfinae_impl(declptr<forwarder<tmpl, exprs...>>()))
-        {};
-
-        template<
-            template<template<typename...> class...> class tmpl,
-            template<typename...> class... exprs
-        >
-        using forward = typename _forward<tmpl, exprs...>::type;
+        using forward = typename forwarder<tmpl, exprs...>::type;
 
         template<template<typename...> class expr, typename... vals>
-        struct _call :
-            decltype(sfinae_impl(declptr<caller<expr, vals...>>()))
-        {};
-
-        template<template<typename...> class expr, typename... vals>
-        using call = typename _call<expr, vals...>::type;
+        using call = typename caller<expr, vals...>::type;
 #else
         template<
             template<template<typename...> class...> class tmpl,

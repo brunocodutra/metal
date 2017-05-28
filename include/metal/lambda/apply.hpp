@@ -58,7 +58,12 @@ namespace metal {
         struct _apply_impl<list<vals...>>
         {
             template<template<typename...> class expr>
-            using type = call<expr, vals...>;
+            using type =
+#if defined(METAL_WORKAROUND)
+                call<expr, vals...>;
+#else
+                expr<vals...>;
+#endif
         };
 
         template<typename lbd>

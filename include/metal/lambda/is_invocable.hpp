@@ -48,7 +48,7 @@ namespace metal {
         std::false_type,
         typename std::is_base_of<
             value<>,
-            decltype(detail::sfinae<invoke, lbd, vals...>())
+            detail::caller<invoke, lbd, vals...>
         >::type
     >;
 }
