@@ -5,12 +5,13 @@
 function(deploy _pkg)
     get_target_property(name ${_pkg} NAME)
     get_target_property(version ${_pkg} INTERFACE_LIB_VERSION)
+    get_target_property(features ${_pkg} INTERFACE_COMPILE_FEATURES)
     get_target_property(include_dirs ${_pkg} INTERFACE_INCLUDE_DIRECTORIES)
 
     if(WIN32 AND NOT CYGWIN)
         set(cmake_install_dir CMake)
     else()
-        set(cmake_install_dir lib/cmake/${CMAKE_PROJECT_NAME})
+        set(cmake_install_dir share/cmake/${CMAKE_PROJECT_NAME})
     endif()
 
     set(include_install_dir include)
@@ -25,10 +26,14 @@ function(deploy _pkg)
     file(WRITE ${config_file} "\
 # ${name} configuration file
 #
-# Defines:
-#   ${name}_INCLUDE_DIR - ${name} include directory
+# Defines the CMake target ${name}
 
-set(${name}_INCLUDE_DIR \"\${CMAKE_CURRENT_LIST_DIR}/${relative_include_install_dir}\")
+add_library(${name} INTERFACE IMPORTED)
+set_target_properties(${name} PROPERTIES
+    INTERFACE_LIB_VERSION ${version}
+    INTERFACE_COMPILE_FEATURES ${features}
+    INTERFACE_INCLUDE_DIRECTORIES \"\${CMAKE_CURRENT_LIST_DIR}/${relative_include_install_dir}/\"
+)
 "
     )
 
@@ -48,13 +53,28 @@ endif()
 "
     )
 
-    foreach(dir ${include_dirs})
-        install(DIRECTORY ${dir} DESTINATION ${include_install_dir})
-    endforeach()
+    set(dist "${CMAKE_CURRENT_BINARY_DIR}/dist/")
+    set(dist_cmake "${dist}/${cmake_install_dir}/")
+    set(dist_include "${dist}/${include_install_dir}/")
 
-    install(FILES ${config_file} ${version_file}
-        DESTINATION ${cmake_install_dir}
+    add_custom_target(${name}.deploy
+        COMMAND ${CMAKE_COMMAND} -E remove_directory ${dist}
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${dist_cmake}
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${dist_include}
+        COMMAND ${CMAKE_COMMAND} -E copy ${config_file} ${dist_cmake}
+        COMMAND ${CMAKE_COMMAND} -E copy ${version_file} ${dist_cmake}
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${include_dirs} ${dist_include}
+        COMMENT "deploying ${name}..."
+        DEPENDS ${_lib}
     )
+
+    install(DIRECTORY ${dist} DESTINATION .)
+
+    if(NOT TARGET deploy)
+        add_custom_target(deploy)
+    endif()
+
+    add_dependencies(deploy ${_lib}.deploy)
 endfunction()
 
 include(ExternalProject)
@@ -70,8 +90,8 @@ function(test_deployment _target _pkg _header)
 cmake_minimum_required(VERSION ${CMAKE_VERSION})
 project(external CXX)
 find_package(${name} ${version} EXACT REQUIRED)
-include_directories(\${${name}_INCLUDE_DIR})
 add_executable(external main.cpp)
+target_link_libraries(external ${name})
 "
     )
 
@@ -87,7 +107,6 @@ add_executable(external main.cpp)
         CMAKE_GENERATOR ${CMAKE_GENERATOR}
         CMAKE_ARGS
             -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-            -DCMAKE_CXX_STANDARD=14
             -DCMAKE_PREFIX_PATH=${CMAKE_CURRENT_BINARY_DIR}/install
         INSTALL_COMMAND ""
     )
