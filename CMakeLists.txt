@@ -40,8 +40,11 @@ message(STATUS "Configuring Metal ${METAL_VERSION}")
 add_library(Metal INTERFACE)
 set_target_properties(Metal PROPERTIES
     INTERFACE_LIB_VERSION ${METAL_VERSION}
+    INTERFACE_COMPILE_FEATURES cxx_std_14
     INTERFACE_INCLUDE_DIRECTORIES ${METAL_INCLUDE_DIR}
 )
+
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 target_compile_flags(Metal INTERFACE -W)
 target_compile_flags(Metal INTERFACE -Wextra)
@@ -66,12 +69,6 @@ if(METAL_VERBOSE)
 endif()
 
 target_compile_flags(Metal INTERFACE -stdlib=libc++ LIBS c++ c++abi)
-
-target_compile_flags(Metal INTERFACE /std:c++latest)
-
-target_compile_flags(Metal INTERFACE -std=c++17
-    FALLBACK -std=c++1z -std=c++14 -std=c++1y -std=c++11 -std=c++0x
-)
 
 deploy(Metal)
 
