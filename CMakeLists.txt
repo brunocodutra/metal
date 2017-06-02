@@ -17,6 +17,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 include(Deploy)
 include(Flags)
+include(Singlify)
 include(Test)
 
 set(METAL_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/")
@@ -37,11 +38,10 @@ set(METAL_VERSION "${METAL_MAJOR}.${METAL_MINOR}.${METAL_PATCH}")
 
 message(STATUS "Configuring Metal ${METAL_VERSION}")
 
-add_library(Metal INTERFACE)
+add_header_library(Metal "${METAL_INCLUDE_DIR}/metal.hpp")
 set_target_properties(Metal PROPERTIES
     INTERFACE_LIB_VERSION ${METAL_VERSION}
     INTERFACE_COMPILE_FEATURES cxx_std_14
-    INTERFACE_INCLUDE_DIRECTORIES ${METAL_INCLUDE_DIR}
 )
 
 deploy(Metal)
