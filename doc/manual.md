@@ -589,10 +589,9 @@ guarantees provided by Metal.
 Migrating from Boost.MPL {#MPL}
 ================================================================================
 
-Metal was heavily influenced by Boost.MPL and at a quick glance they even look
-very similar, however, because Metal leverages modern language features that
-were not available at the time Boost.MPL was developed, there are fundamental
-differences between these libraries that one must keep in mind.
+A quick glance Metal and Boost.MPL might look very similar, but because Metal
+leverages modern language features that were not available at the time Boost.MPL
+was developed, they are in fact fundamentally distinct.
 
 ### Metafunctions
 
@@ -653,23 +652,6 @@ you just have to wrap regular metafunctions using `metal::lambda` instead
 \snippet mpl.cpp eager_lambda
 
 It's that simple.
-
-### metal::from_mpl
-
-Even though Metal cannot interoperate with natively with Boost.MPL types, it is
-always possible to translate Boost.MPL concepts to their equivalents in Metal,
-that is _Sequences_ to [Lists], _Metafunction Classes_ to [Lambdas] and
-_Integral Constants_ to [Numbers], but it's not always trivial to do so in a
-portable way. For this reason, Metal provides a helper `metal::from_mpl`,
-which takes any type that follows Boost.MPL conventions and returns the semantic
-equivalent in Metal. All you have to do is include `metal/external/mpl.hpp` to
-make it available.
-
-\snippet mpl.cpp number
-\snippet mpl.cpp list
-\snippet mpl.cpp vector
-\snippet mpl.cpp map
-\snippet mpl.cpp lambda
 
 Getting Started {#getting_started}
 ================================================================================
