@@ -5,12 +5,11 @@
 #ifndef METAL_LIST_REMOVE_HPP
 #define METAL_LIST_REMOVE_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/remove_if.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/partial.hpp>
-#include <metal/value/same.hpp>
+#include "../config.hpp"
+#include "../list/remove_if.hpp"
+#include "../lambda/lambda.hpp"
+#include "../lambda/partial.hpp"
+#include "../value/same.hpp"
 
 namespace metal {
     /// \ingroup list

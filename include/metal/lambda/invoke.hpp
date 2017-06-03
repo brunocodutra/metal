@@ -5,10 +5,9 @@
 #ifndef METAL_LAMBDA_INVOKE_HPP
 #define METAL_LAMBDA_INVOKE_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/lambda/apply.hpp>
-#include <metal/list/list.hpp>
+#include "../config.hpp"
+#include "../lambda/apply.hpp"
+#include "../list/list.hpp"
 
 namespace metal {
     /// \ingroup lambda

@@ -5,9 +5,8 @@
 #ifndef METAL_LIST_TRANSFORM_HPP
 #define METAL_LIST_TRANSFORM_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
@@ -53,13 +52,13 @@ namespace metal {
         detail::call<detail::_transform<lbd>::template type, seqs...>;
 }
 
-#include <metal/list/at.hpp>
-#include <metal/list/size.hpp>
-#include <metal/list/list.hpp>
-#include <metal/list/indices.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/if.hpp>
-#include <metal/value/same.hpp>
+#include "../list/at.hpp"
+#include "../list/size.hpp"
+#include "../list/list.hpp"
+#include "../list/indices.hpp"
+#include "../lambda/lambda.hpp"
+#include "../number/if.hpp"
+#include "../value/same.hpp"
 
 namespace metal {
     /// \cond

@@ -5,9 +5,8 @@
 #ifndef METAL_NUMBER_POW_HPP
 #define METAL_NUMBER_POW_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
@@ -51,9 +50,9 @@ namespace metal {
     using pow = detail::call<detail::_pow<nums...>::template type>;
 }
 
-#include <metal/number/number.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/value/fold_left.hpp>
+#include "../number/number.hpp"
+#include "../lambda/lambda.hpp"
+#include "../value/fold_left.hpp"
 
 namespace metal {
     /// \cond

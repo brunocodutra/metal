@@ -5,9 +5,8 @@
 #ifndef METAL_NUMBER_DIV_HPP
 #define METAL_NUMBER_DIV_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
@@ -45,9 +44,9 @@ namespace metal {
     using div = detail::call<detail::_div<nums...>::template type>;
 }
 
-#include <metal/number/number.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/value/fold_left.hpp>
+#include "../number/number.hpp"
+#include "../lambda/lambda.hpp"
+#include "../value/fold_left.hpp"
 
 #include <initializer_list>
 

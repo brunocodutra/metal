@@ -5,9 +5,8 @@
 #ifndef METAL_NUMBER_MAX_HPP
 #define METAL_NUMBER_MAX_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
@@ -45,11 +44,11 @@ namespace metal {
     using max = detail::call<detail::_max<nums...>::template type>;
 }
 
-#include <metal/number/if.hpp>
-#include <metal/number/number.hpp>
-#include <metal/number/greater.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/value/fold_left.hpp>
+#include "../number/if.hpp"
+#include "../number/number.hpp"
+#include "../number/greater.hpp"
+#include "../lambda/lambda.hpp"
+#include "../value/fold_left.hpp"
 
 #include <initializer_list>
 

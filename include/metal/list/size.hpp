@@ -5,7 +5,7 @@
 #ifndef METAL_LIST_SIZE_HPP
 #define METAL_LIST_SIZE_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
 namespace metal {
     /// \cond
@@ -42,8 +42,8 @@ namespace metal {
     using size = typename detail::_size<seq>::type;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/number/number.hpp>
+#include "../list/list.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \cond

@@ -5,7 +5,7 @@
 #ifndef METAL_NUMBER_LESS_HPP
 #define METAL_NUMBER_LESS_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
 namespace metal {
     /// \cond
@@ -41,7 +41,7 @@ namespace metal {
     using less = typename detail::_less<x, y>::type;
 }
 
-#include <metal/number/number.hpp>
+#include "../number/number.hpp"
 
 namespace metal {
     /// \cond

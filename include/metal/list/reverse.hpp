@@ -5,12 +5,11 @@
 #ifndef METAL_LIST_REVERSE_HPP
 #define METAL_LIST_REVERSE_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/list.hpp>
-#include <metal/list/size.hpp>
-#include <metal/list/range.hpp>
-#include <metal/number/number.hpp>
+#include "../config.hpp"
+#include "../list/list.hpp"
+#include "../list/size.hpp"
+#include "../list/range.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \ingroup list

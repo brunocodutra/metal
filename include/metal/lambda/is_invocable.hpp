@@ -5,12 +5,10 @@
 #ifndef METAL_LAMBDA_IS_INVOCABLE_HPP
 #define METAL_LAMBDA_IS_INVOCABLE_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/lambda/invoke.hpp>
-#include <metal/value/same.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../lambda/invoke.hpp"
+#include "../value/same.hpp"
+#include "../detail/sfinae.hpp"
 
 #include <type_traits>
 

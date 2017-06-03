@@ -5,11 +5,10 @@
 #ifndef METAL_LAMBDA_TRAIT_HPP
 #define METAL_LAMBDA_TRAIT_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/number.hpp>
+#include "../config.hpp"
+#include "../lambda/bind.hpp"
+#include "../lambda/lambda.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \ingroup lambda

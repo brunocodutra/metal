@@ -5,12 +5,11 @@
 #ifndef METAL_LIST_FIND_HPP
 #define METAL_LIST_FIND_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/find_if.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/partial.hpp>
-#include <metal/value/same.hpp>
+#include "../config.hpp"
+#include "../list/find_if.hpp"
+#include "../lambda/lambda.hpp"
+#include "../lambda/partial.hpp"
+#include "../value/same.hpp"
 
 namespace metal {
     /// \ingroup list

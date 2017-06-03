@@ -5,7 +5,7 @@
 #ifndef METAL_VALUE_SAME_HPP
 #define METAL_VALUE_SAME_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
 namespace metal {
     /// \cond
@@ -47,8 +47,8 @@ namespace metal {
     using same = typename detail::_same<vals...>::type;
 }
 
-#include <metal/value/value.hpp>
-#include <metal/number/number.hpp>
+#include "../value/value.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \cond

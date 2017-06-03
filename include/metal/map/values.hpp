@@ -5,13 +5,12 @@
 #ifndef METAL_MAP_VALUES_HPP
 #define METAL_MAP_VALUES_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/map/map.hpp>
-#include <metal/pair/second.hpp>
-#include <metal/list/transform.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/if.hpp>
+#include "../config.hpp"
+#include "../map/map.hpp"
+#include "../pair/second.hpp"
+#include "../list/transform.hpp"
+#include "../lambda/lambda.hpp"
+#include "../number/if.hpp"
 
 namespace metal {
     /// \ingroup map

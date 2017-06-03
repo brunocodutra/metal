@@ -5,11 +5,10 @@
 #ifndef METAL_NUMBER_ABS_HPP
 #define METAL_NUMBER_ABS_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/number/number.hpp>
-#include <metal/number/max.hpp>
-#include <metal/number/neg.hpp>
+#include "../config.hpp"
+#include "../number/number.hpp"
+#include "../number/max.hpp"
+#include "../number/neg.hpp"
 
 namespace metal {
     /// \ingroup number

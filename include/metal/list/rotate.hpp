@@ -5,7 +5,7 @@
 #ifndef METAL_LIST_ROTATE_HPP
 #define METAL_LIST_ROTATE_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
 namespace metal {
     /// \cond
@@ -45,8 +45,8 @@ namespace metal {
     using rotate = typename detail::_rotate<seq, num>::type;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/number/number.hpp>
+#include "../list/list.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \cond

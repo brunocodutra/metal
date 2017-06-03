@@ -5,10 +5,9 @@
 #ifndef METAL_MAP_HAS_KEY_HPP
 #define METAL_MAP_HAS_KEY_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/map/keys.hpp>
-#include <metal/list/contains.hpp>
+#include "../config.hpp"
+#include "../map/keys.hpp"
+#include "../list/contains.hpp"
 
 namespace metal {
     /// \ingroup map

@@ -5,14 +5,13 @@
 #ifndef METAL_MAP_MAP_HPP
 #define METAL_MAP_MAP_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/list.hpp>
-#include <metal/list/transform.hpp>
-#include <metal/pair/pair.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/apply.hpp>
-#include <metal/number/if.hpp>
+#include "../config.hpp"
+#include "../list/list.hpp"
+#include "../list/transform.hpp"
+#include "../pair/pair.hpp"
+#include "../lambda/lambda.hpp"
+#include "../lambda/apply.hpp"
+#include "../number/if.hpp"
 
 namespace metal {
     /// \cond
@@ -102,8 +101,8 @@ namespace metal {
     >;
 }
 
-#include <metal/number/number.hpp>
-#include <metal/value/distinct.hpp>
+#include "../number/number.hpp"
+#include "../value/distinct.hpp"
 
 namespace metal {
     /// \cond

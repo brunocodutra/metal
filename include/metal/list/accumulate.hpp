@@ -5,9 +5,9 @@
 #ifndef METAL_LIST_ACCUMULATE_HPP
 #define METAL_LIST_ACCUMULATE_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
-#include <metal/detail/sfinae.hpp>
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
@@ -51,14 +51,14 @@ namespace metal {
         detail::call<detail::_accumulate<lbd>::template type, state, seqs...>;
 }
 
-#include <metal/list/at.hpp>
-#include <metal/list/list.hpp>
-#include <metal/list/size.hpp>
-#include <metal/list/indices.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/if.hpp>
-#include <metal/value/same.hpp>
-#include <metal/value/fold_left.hpp>
+#include "../list/at.hpp"
+#include "../list/list.hpp"
+#include "../list/size.hpp"
+#include "../list/indices.hpp"
+#include "../lambda/lambda.hpp"
+#include "../number/if.hpp"
+#include "../value/same.hpp"
+#include "../value/fold_left.hpp"
 
 namespace metal {
     /// \cond

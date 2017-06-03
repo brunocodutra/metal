@@ -5,8 +5,7 @@
 #ifndef METAL_NUMBER_NUMBER_HPP
 #define METAL_NUMBER_NUMBER_HPP
 
-#include <metal/config.hpp>
-
+#include "../config.hpp"
 #include <cstdint>
 #include <type_traits>
 

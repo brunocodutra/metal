@@ -5,14 +5,13 @@
 #ifndef METAL_LIST_ERASE_HPP
 #define METAL_LIST_ERASE_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/join.hpp>
-#include <metal/list/drop.hpp>
-#include <metal/list/take.hpp>
-#include <metal/number/min.hpp>
-#include <metal/number/max.hpp>
-#include <metal/number/inc.hpp>
+#include "../config.hpp"
+#include "../list/join.hpp"
+#include "../list/drop.hpp"
+#include "../list/take.hpp"
+#include "../number/min.hpp"
+#include "../number/max.hpp"
+#include "../number/inc.hpp"
 
 namespace metal {
     /// \ingroup list

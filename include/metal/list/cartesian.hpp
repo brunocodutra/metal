@@ -5,9 +5,8 @@
 #ifndef METAL_LIST_CARTESIAN_HPP
 #define METAL_LIST_CARTESIAN_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 #include <cstddef>
 
@@ -56,8 +55,8 @@ namespace metal {
     >;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/list/join.hpp>
+#include "../list/list.hpp"
+#include "../list/join.hpp"
 
 namespace metal {
     /// \cond

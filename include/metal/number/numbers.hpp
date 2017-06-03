@@ -5,10 +5,9 @@
 #ifndef METAL_NUMBER_NUMBERS_HPP
 #define METAL_NUMBER_NUMBERS_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/number/number.hpp>
-#include <metal/list/list.hpp>
+#include "../config.hpp"
+#include "../number/number.hpp"
+#include "../list/list.hpp"
 
 #include <type_traits>
 

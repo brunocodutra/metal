@@ -5,10 +5,9 @@
 #ifndef METAL_LIST_FRONT_HPP
 #define METAL_LIST_FRONT_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/at.hpp>
-#include <metal/number/number.hpp>
+#include "../config.hpp"
+#include "../list/at.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \ingroup list

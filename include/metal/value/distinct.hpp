@@ -5,7 +5,7 @@
 #ifndef METAL_VALUE_DISTINCT_HPP
 #define METAL_VALUE_DISTINCT_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
 namespace metal {
     /// \cond
@@ -47,12 +47,11 @@ namespace metal {
     using distinct = typename detail::_distinct<vals...>::type;
 }
 
-#include <metal/value/value.hpp>
-#include <metal/list/list.hpp>
-#include <metal/list/indices.hpp>
-#include <metal/number/number.hpp>
-
-#include <metal/detail/declptr.hpp>
+#include "../value/value.hpp"
+#include "../list/list.hpp"
+#include "../list/indices.hpp"
+#include "../number/number.hpp"
+#include "../detail/declptr.hpp"
 
 namespace metal {
     /// \cond

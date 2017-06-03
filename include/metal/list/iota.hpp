@@ -5,9 +5,8 @@
 #ifndef METAL_NUMBER_IOTA_HPP
 #define METAL_NUMBER_IOTA_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/number/number.hpp>
+#include "../config.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \cond
@@ -56,9 +55,9 @@ namespace metal {
     using iota = typename detail::_iota<start, size, stride>::type;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/number/if.hpp>
-#include <metal/number/numbers.hpp>
+#include "../list/list.hpp"
+#include "../number/if.hpp"
+#include "../number/numbers.hpp"
 
 #if defined(__has_builtin)
 #   if __has_builtin(__make_integer_seq)

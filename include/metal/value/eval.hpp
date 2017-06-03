@@ -5,7 +5,7 @@
 #ifndef METAL_VALUE_EVAL_HPP
 #define METAL_VALUE_EVAL_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
 namespace metal {
     /// \ingroup value

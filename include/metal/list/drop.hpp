@@ -5,10 +5,9 @@
 #ifndef METAL_LIST_DROP_HPP
 #define METAL_LIST_DROP_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/range.hpp>
-#include <metal/list/size.hpp>
+#include "../config.hpp"
+#include "../list/range.hpp"
+#include "../list/size.hpp"
 
 namespace metal {
     /// \ingroup list

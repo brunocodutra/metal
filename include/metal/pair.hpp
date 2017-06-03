@@ -5,11 +5,10 @@
 #ifndef METAL_PAIR_HPP
 #define METAL_PAIR_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/pair/first.hpp>
-#include <metal/pair/pair.hpp>
-#include <metal/pair/second.hpp>
+#include "config.hpp"
+#include "pair/first.hpp"
+#include "pair/pair.hpp"
+#include "pair/second.hpp"
 
 /// \defgroup pair Pair
 /// \ingroup metal

@@ -5,12 +5,11 @@
 #ifndef METAL_LIST_COPY_IF_HPP
 #define METAL_LIST_COPY_IF_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/remove_if.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/not.hpp>
+#include "../config.hpp"
+#include "../list/remove_if.hpp"
+#include "../lambda/bind.hpp"
+#include "../lambda/lambda.hpp"
+#include "../number/not.hpp"
 
 namespace metal {
     /// \ingroup list

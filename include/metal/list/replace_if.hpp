@@ -5,9 +5,8 @@
 #ifndef METAL_LIST_REPLACE_IF_HPP
 #define METAL_LIST_REPLACE_IF_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/transform.hpp>
+#include "../config.hpp"
+#include "../list/transform.hpp"
 
 namespace metal {
     /// \cond
@@ -52,10 +51,10 @@ namespace metal {
         typename detail::_replace_if<seq, transform<lbd, seq>, vals...>::type;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/list/join.hpp>
-#include <metal/number/if.hpp>
-#include <metal/number/number.hpp>
+#include "../list/list.hpp"
+#include "../list/join.hpp"
+#include "../number/if.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \cond

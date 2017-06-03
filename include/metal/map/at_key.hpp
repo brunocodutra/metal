@@ -5,7 +5,7 @@
 #ifndef METAL_MAP_AT_KEY_HPP
 #define METAL_MAP_AT_KEY_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
 namespace metal {
     /// \cond
@@ -43,12 +43,11 @@ namespace metal {
     using at_key = typename detail::_at_key<seq, key>::type;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/number/number.hpp>
-#include <metal/value/distinct.hpp>
-#include <metal/value/value.hpp>
-
-#include <metal/detail/declptr.hpp>
+#include "../list/list.hpp"
+#include "../number/number.hpp"
+#include "../value/distinct.hpp"
+#include "../value/value.hpp"
+#include "../detail/declptr.hpp"
 
 namespace metal {
     /// \cond

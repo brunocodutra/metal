@@ -5,12 +5,11 @@
 #ifndef METAL_LIST_ALL_OF_HPP
 #define METAL_LIST_ALL_OF_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/transform.hpp>
-#include <metal/lambda/apply.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/and.hpp>
+#include "../config.hpp"
+#include "../list/transform.hpp"
+#include "../lambda/apply.hpp"
+#include "../lambda/lambda.hpp"
+#include "../number/and.hpp"
 
 namespace metal {
     /// \ingroup list

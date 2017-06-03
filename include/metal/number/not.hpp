@@ -5,10 +5,9 @@
 #ifndef METAL_NUMBER_NOT_HPP
 #define METAL_NUMBER_NOT_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/number/number.hpp>
-#include <metal/number/if.hpp>
+#include "../config.hpp"
+#include "../number/number.hpp"
+#include "../number/if.hpp"
 
 namespace metal {
     /// \ingroup number

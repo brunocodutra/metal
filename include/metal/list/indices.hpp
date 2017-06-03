@@ -5,11 +5,10 @@
 #ifndef METAL_LIST_INDICES_HPP
 #define METAL_LIST_INDICES_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/size.hpp>
-#include <metal/list/iota.hpp>
-#include <metal/number/number.hpp>
+#include "../config.hpp"
+#include "../list/size.hpp"
+#include "../list/iota.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \ingroup list

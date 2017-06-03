@@ -5,13 +5,12 @@
 #ifndef METAL_LIST_TRANSPOSE_HPP
 #define METAL_LIST_TRANSPOSE_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/list.hpp>
-#include <metal/list/transform.hpp>
-#include <metal/lambda/partial.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/apply.hpp>
+#include "../config.hpp"
+#include "../list/list.hpp"
+#include "../list/transform.hpp"
+#include "../lambda/partial.hpp"
+#include "../lambda/lambda.hpp"
+#include "../lambda/apply.hpp"
 
 namespace metal {
     /// \ingroup list

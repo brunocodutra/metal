@@ -5,7 +5,7 @@
 #ifndef METAL_NUMBER_IF_HPP
 #define METAL_NUMBER_IF_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
 namespace metal {
     /// \cond
@@ -51,7 +51,7 @@ namespace metal {
     using if_ = typename detail::_if_<cond, then_, else_...>::type;
 }
 
-#include <metal/number/number.hpp>
+#include "../number/number.hpp"
 
 namespace metal {
     /// \cond

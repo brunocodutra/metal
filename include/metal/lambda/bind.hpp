@@ -5,7 +5,7 @@
 #ifndef METAL_LAMBDA_BIND_HPP
 #define METAL_LAMBDA_BIND_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
 namespace metal {
     /// \cond
@@ -50,9 +50,8 @@ namespace metal {
     using bind = typename detail::_bind<lbd, vals...>::type;
 }
 
-#include <metal/lambda/lambda.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../lambda/lambda.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond

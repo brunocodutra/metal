@@ -5,8 +5,7 @@
 #ifndef METAL_LAMBDA_ARG_HPP
 #define METAL_LAMBDA_ARG_HPP
 
-#include <metal/config.hpp>
-
+#include "../config.hpp"
 #include <cstddef>
 
 namespace metal {
@@ -46,10 +45,10 @@ namespace metal {
     using arg = typename detail::_arg<n>::type;
 }
 
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/at.hpp>
-#include <metal/list/list.hpp>
-#include <metal/number/number.hpp>
+#include "../lambda/lambda.hpp"
+#include "../list/at.hpp"
+#include "../list/list.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \cond

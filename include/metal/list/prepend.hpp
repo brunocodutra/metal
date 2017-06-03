@@ -5,10 +5,9 @@
 #ifndef METAL_LIST_PREPEND_HPP
 #define METAL_LIST_PREPEND_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/list.hpp>
-#include <metal/list/join.hpp>
+#include "../config.hpp"
+#include "../list/list.hpp"
+#include "../list/join.hpp"
 
 namespace metal {
     /// \ingroup list

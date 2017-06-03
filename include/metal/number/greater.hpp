@@ -5,9 +5,8 @@
 #ifndef METAL_NUMBER_GREATER_HPP
 #define METAL_NUMBER_GREATER_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/number/less.hpp>
+#include "../config.hpp"
+#include "../number/less.hpp"
 
 namespace metal {
     /// \ingroup number

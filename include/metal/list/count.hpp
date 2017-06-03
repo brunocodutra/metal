@@ -5,12 +5,11 @@
 #ifndef METAL_LIST_COUNT_HPP
 #define METAL_LIST_COUNT_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/count_if.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/partial.hpp>
-#include <metal/value/same.hpp>
+#include "../config.hpp"
+#include "../list/count_if.hpp"
+#include "../lambda/lambda.hpp"
+#include "../lambda/partial.hpp"
+#include "../value/same.hpp"
 
 namespace metal {
     /// \ingroup list

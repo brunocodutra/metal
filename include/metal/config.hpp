@@ -5,8 +5,8 @@
 #ifndef METAL_CONFIG_HPP
 #define METAL_CONFIG_HPP
 
-#include <metal/config/config.hpp>
-#include <metal/config/version.hpp>
+#include "config/config.hpp"
+#include "config/version.hpp"
 
 /// \defgroup config Config
 /// \ingroup metal

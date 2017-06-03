@@ -5,7 +5,7 @@
 #ifndef METAL_LIST_LIST_HPP
 #define METAL_LIST_LIST_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
 namespace metal {
     /// \cond
@@ -94,7 +94,7 @@ namespace metal {
 #endif
 }
 
-#include <metal/number/number.hpp>
+#include "../number/number.hpp"
 
 namespace metal {
     /// \cond

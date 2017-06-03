@@ -5,9 +5,8 @@
 #ifndef METAL_LIST_FIND_IF_HPP
 #define METAL_LIST_FIND_IF_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/transform.hpp>
+#include "../config.hpp"
+#include "../list/transform.hpp"
 
 namespace metal {
     /// \cond
@@ -52,12 +51,12 @@ namespace metal {
     using find_if = typename detail::_find_if<transform<lbd, seq>>::type;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/list/join.hpp>
-#include <metal/list/front.hpp>
-#include <metal/list/indices.hpp>
-#include <metal/number/number.hpp>
-#include <metal/number/if.hpp>
+#include "../list/list.hpp"
+#include "../list/join.hpp"
+#include "../list/front.hpp"
+#include "../list/indices.hpp"
+#include "../number/number.hpp"
+#include "../number/if.hpp"
 
 #include <initializer_list>
 

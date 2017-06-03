@@ -5,16 +5,15 @@
 #ifndef METAL_LIST_SLICE_HPP
 #define METAL_LIST_SLICE_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/at.hpp>
-#include <metal/list/list.hpp>
-#include <metal/list/iota.hpp>
-#include <metal/list/transform.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/partial.hpp>
-#include <metal/number/if.hpp>
-#include <metal/number/number.hpp>
+#include "../config.hpp"
+#include "../list/at.hpp"
+#include "../list/list.hpp"
+#include "../list/iota.hpp"
+#include "../list/transform.hpp"
+#include "../lambda/lambda.hpp"
+#include "../lambda/partial.hpp"
+#include "../number/if.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \ingroup list

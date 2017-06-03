@@ -5,13 +5,12 @@
 #ifndef METAL_MAP_ORDER_HPP
 #define METAL_MAP_ORDER_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/map/keys.hpp>
-#include <metal/map/at_key.hpp>
-#include <metal/list/indices.hpp>
-#include <metal/list/transpose.hpp>
-#include <metal/pair/pair.hpp>
+#include "../config.hpp"
+#include "../map/keys.hpp"
+#include "../map/at_key.hpp"
+#include "../list/indices.hpp"
+#include "../list/transpose.hpp"
+#include "../pair/pair.hpp"
 
 namespace metal {
     /// \ingroup map

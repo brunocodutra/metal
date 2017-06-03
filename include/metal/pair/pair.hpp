@@ -5,11 +5,10 @@
 #ifndef METAL_PAIR_PAIR_HPP
 #define METAL_PAIR_PAIR_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/list.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/apply.hpp>
+#include "../config.hpp"
+#include "../list/list.hpp"
+#include "../lambda/lambda.hpp"
+#include "../lambda/apply.hpp"
 
 namespace metal {
     /// \cond
@@ -92,7 +91,7 @@ namespace metal {
         metal::apply<metal::lambda<metal::pair>, metal::as_list<val>>;
 }
 
-#include <metal/number/number.hpp>
+#include "../number/number.hpp"
 
 namespace metal {
     /// \cond

@@ -5,9 +5,8 @@
 #ifndef METAL_LIST_REMOVE_IF_HPP
 #define METAL_LIST_REMOVE_IF_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/replace_if.hpp>
+#include "../config.hpp"
+#include "../list/replace_if.hpp"
 
 namespace metal {
     /// \ingroup list

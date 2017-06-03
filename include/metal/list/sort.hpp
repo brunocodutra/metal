@@ -5,9 +5,8 @@
 #ifndef METAL_LIST_SORT_HPP
 #define METAL_LIST_SORT_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
@@ -53,11 +52,11 @@ namespace metal {
     using sort = detail::call<detail::_sort<lbd>::template type, seq>;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/list/range.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/number.hpp>
-#include <metal/number/if.hpp>
+#include "../list/list.hpp"
+#include "../list/range.hpp"
+#include "../lambda/lambda.hpp"
+#include "../number/number.hpp"
+#include "../number/if.hpp"
 
 namespace metal {
     /// \cond

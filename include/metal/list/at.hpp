@@ -5,9 +5,8 @@
 #ifndef METAL_LIST_AT_HPP
 #define METAL_LIST_AT_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
@@ -46,8 +45,8 @@ namespace metal {
     using at = detail::call<detail::_at<seq>::template type, num>;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/number/number.hpp>
+#include "../list/list.hpp"
+#include "../number/number.hpp"
 
 #if defined(__has_builtin)
 #   if __has_builtin(__type_pack_element)

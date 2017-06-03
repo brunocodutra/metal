@@ -5,9 +5,8 @@
 #ifndef METAL_LIST_JOIN_HPP
 #define METAL_LIST_JOIN_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 #include <cstddef>
 
@@ -51,7 +50,7 @@ namespace metal {
     >;
 }
 
-#include <metal/list/list.hpp>
+#include "../list/list.hpp"
 
 namespace metal {
     /// \cond

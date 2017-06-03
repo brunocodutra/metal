@@ -5,9 +5,8 @@
 #ifndef METAL_NUMBER_MOD_HPP
 #define METAL_NUMBER_MOD_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
@@ -45,9 +44,9 @@ namespace metal {
     using mod = detail::call<detail::_mod<nums...>::template type>;
 }
 
-#include <metal/number/number.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/value/fold_left.hpp>
+#include "../number/number.hpp"
+#include "../lambda/lambda.hpp"
+#include "../value/fold_left.hpp"
 
 #include <initializer_list>
 

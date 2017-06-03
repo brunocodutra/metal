@@ -5,9 +5,8 @@
 #ifndef METAL_LAMBDA_APPLY_HPP
 #define METAL_LAMBDA_APPLY_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
@@ -44,8 +43,8 @@ namespace metal {
     using apply = detail::call<detail::_apply<lbd>::template type, seq>;
 }
 
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/list.hpp>
+#include "../lambda/lambda.hpp"
+#include "../list/list.hpp"
 
 namespace metal {
     /// \cond

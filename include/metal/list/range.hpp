@@ -5,14 +5,13 @@
 #ifndef METAL_LIST_RANGE_HPP
 #define METAL_LIST_RANGE_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/size.hpp>
-#include <metal/number/if.hpp>
-#include <metal/number/or.hpp>
-#include <metal/number/not.hpp>
-#include <metal/number/number.hpp>
-#include <metal/number/greater.hpp>
+#include "../config.hpp"
+#include "../list/size.hpp"
+#include "../number/if.hpp"
+#include "../number/or.hpp"
+#include "../number/not.hpp"
+#include "../number/number.hpp"
+#include "../number/greater.hpp"
 
 namespace metal {
     /// \cond
@@ -63,12 +62,12 @@ namespace metal {
     >;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/list/rotate.hpp>
-#include <metal/list/reverse.hpp>
-#include <metal/number/sub.hpp>
-#include <metal/number/max.hpp>
-#include <metal/number/min.hpp>
+#include "../list/list.hpp"
+#include "../list/rotate.hpp"
+#include "../list/reverse.hpp"
+#include "../number/sub.hpp"
+#include "../number/max.hpp"
+#include "../number/min.hpp"
 
 #include <cstddef>
 

@@ -5,7 +5,7 @@
 #ifndef METAL_LAMBDA_PARTIAL_HPP
 #define METAL_LAMBDA_PARTIAL_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
 namespace metal {
     /// \cond
@@ -47,10 +47,9 @@ namespace metal {
     using partial = typename detail::_partial<lbd, vals...>::type;
 }
 
-#include <metal/lambda/lambda.hpp>
-#include <metal/value/same.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../lambda/lambda.hpp"
+#include "../value/same.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond

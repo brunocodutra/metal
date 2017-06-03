@@ -5,9 +5,8 @@
 #ifndef METAL_VALUE_FOLD_RIGHT_HPP
 #define METAL_VALUE_FOLD_RIGHT_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
@@ -48,7 +47,7 @@ namespace metal {
         detail::call<detail::_fold_right<lbd>::template type, vals...>;
 }
 
-#include <metal/lambda/lambda.hpp>
+#include "../lambda/lambda.hpp"
 
 #include <cstddef>
 

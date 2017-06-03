@@ -5,11 +5,10 @@
 #ifndef METAL_LIST_BACK_HPP
 #define METAL_LIST_BACK_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/list/at.hpp>
-#include <metal/list/size.hpp>
-#include <metal/number/dec.hpp>
+#include "../config.hpp"
+#include "../list/at.hpp"
+#include "../list/size.hpp"
+#include "../number/dec.hpp"
 
 namespace metal {
     /// \ingroup list

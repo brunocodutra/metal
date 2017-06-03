@@ -5,12 +5,11 @@
 #ifndef METAL_MAP_INSERT_KEY_HPP
 #define METAL_MAP_INSERT_KEY_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/map/has_key.hpp>
-#include <metal/list/append.hpp>
-#include <metal/pair/pair.hpp>
-#include <metal/number/if.hpp>
+#include "../config.hpp"
+#include "../map/has_key.hpp"
+#include "../list/append.hpp"
+#include "../pair/pair.hpp"
+#include "../number/if.hpp"
 
 namespace metal {
     /// \ingroup map
