@@ -10,14 +10,14 @@ endif()
 
 project(Metal CXX)
 
-option(METAL_STRICT                 "treat compiler warnings as errors"     OFF)
-option(METAL_VERBOSE                "increase output verbosity"             OFF)
+option(METAL_STRICT  "treat compiler warnings as errors" OFF)
+option(METAL_VERBOSE "increase output verbosity"         OFF)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 include(Deploy)
-include(TestTree)
-include(CompileFlags)
+include(Flags)
+include(Test)
 
 set(METAL_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
@@ -25,9 +25,9 @@ file(STRINGS "${METAL_INCLUDE_DIR}/metal/config/version.hpp"
     METAL_CONFIG_VERSION_HPP REGEX "METAL_[A-Z]+ [0-9]+" LIMIT_COUNT 3
 )
 
-LIST(GET METAL_CONFIG_VERSION_HPP 0 METAL_MAJOR)
-LIST(GET METAL_CONFIG_VERSION_HPP 1 METAL_MINOR)
-LIST(GET METAL_CONFIG_VERSION_HPP 2 METAL_PATCH)
+list(GET METAL_CONFIG_VERSION_HPP 0 METAL_MAJOR)
+list(GET METAL_CONFIG_VERSION_HPP 1 METAL_MINOR)
+list(GET METAL_CONFIG_VERSION_HPP 2 METAL_PATCH)
 
 string(REGEX REPLACE ".*MAJOR ([0-9]+).*" "\\1" METAL_MAJOR "${METAL_MAJOR}")
 string(REGEX REPLACE ".*MINOR ([0-9]+).*" "\\1" METAL_MINOR "${METAL_MINOR}")
@@ -43,6 +43,8 @@ set_target_properties(Metal PROPERTIES
     INTERFACE_COMPILE_FEATURES cxx_std_14
     INTERFACE_INCLUDE_DIRECTORIES ${METAL_INCLUDE_DIR}
 )
+
+deploy(Metal)
 
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -69,12 +71,6 @@ if(METAL_VERBOSE)
 endif()
 
 target_compile_flags(Metal INTERFACE -stdlib=libc++ LIBS c++ c++abi)
-
-deploy(Metal)
-
-enable_testing()
-
-find_package(Boost)
 
 add_subdirectory(doc)
 add_subdirectory(example)

@@ -2,11 +2,11 @@
 # Distributed under the Boost Software License, Version 1.0.
 # See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-function(deploy _pkg)
-    get_target_property(name ${_pkg} NAME)
-    get_target_property(version ${_pkg} INTERFACE_LIB_VERSION)
-    get_target_property(features ${_pkg} INTERFACE_COMPILE_FEATURES)
-    get_target_property(include_dirs ${_pkg} INTERFACE_INCLUDE_DIRECTORIES)
+function(deploy _lib)
+    get_target_property(name ${_lib} NAME)
+    get_target_property(version ${_lib} INTERFACE_LIB_VERSION)
+    get_target_property(features ${_lib} INTERFACE_COMPILE_FEATURES)
+    get_target_property(include_dirs ${_lib} INTERFACE_INCLUDE_DIRECTORIES)
 
     if(WIN32 AND NOT CYGWIN)
         set(cmake_install_dir CMake)
@@ -78,36 +78,37 @@ endif()
 endfunction()
 
 include(ExternalProject)
-function(test_deployment _target _pkg _header)
-    get_target_property(name ${_pkg} NAME)
-    get_target_property(version ${_pkg} INTERFACE_LIB_VERSION)
+function(test_deployment _target _lib _entry)
+    get_target_property(name ${_lib} NAME)
+    get_target_property(version ${_lib} INTERFACE_LIB_VERSION)
 
-    set(prefix "${CMAKE_CURRENT_BINARY_DIR}/external")
+    set(prefix "${CMAKE_CURRENT_BINARY_DIR}/dependent")
     set(src_dir "${prefix}/src/${_target}")
     set(bin_dir "${src_dir}-build")
 
     file(WRITE "${src_dir}/CMakeLists.txt" "\
 cmake_minimum_required(VERSION ${CMAKE_VERSION})
-project(external CXX)
+project(dependent CXX)
 find_package(${name} ${version} EXACT REQUIRED)
-add_executable(external main.cpp)
-target_link_libraries(external ${name})
+add_executable(dependent main.cpp)
+target_link_libraries(dependent ${name})
 "
     )
 
     file(WRITE "${src_dir}/main.cpp"
-        "#include <${_header}>\nint main(){return 0;}\n"
+        "#include <${_entry}>\nint main(){return 0;}\n"
     )
 
     ExternalProject_Add(${_target}
         URL ""
+        DEPENDS ${_lib}
         BUILD_ALWAYS 1
         EXCLUDE_FROM_ALL 1
         PREFIX ${prefix}
         CMAKE_GENERATOR ${CMAKE_GENERATOR}
         CMAKE_ARGS
             -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-            -DCMAKE_PREFIX_PATH=${CMAKE_CURRENT_BINARY_DIR}/install
+            -DCMAKE_PREFIX_PATH=${CMAKE_CURRENT_BINARY_DIR}/fakeroot
         INSTALL_COMMAND ""
     )
 
@@ -115,9 +116,9 @@ target_link_libraries(external ${name})
         ALWAYS 1
         EXCLUDE_FROM_ALL 1
         DEPENDERS configure
-        COMMAND ${CMAKE_COMMAND} -E remove_directory install
+        COMMAND ${CMAKE_COMMAND} -E remove_directory fakeroot
         COMMAND ${CMAKE_COMMAND}
-            -DCMAKE_INSTALL_PREFIX=install
+            -DCMAKE_INSTALL_PREFIX=fakeroot
             -P ${CMAKE_BINARY_DIR}/cmake_install.cmake
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     )
@@ -129,4 +130,6 @@ target_link_libraries(external ${name})
         COMMAND ${CMAKE_COMMAND} --build ${bin_dir} --target clean
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     )
+
+    test(${_target})
 endfunction()

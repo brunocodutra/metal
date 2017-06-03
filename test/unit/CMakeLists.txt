@@ -8,5 +8,4 @@ add_definitions(-DEXPECTED_METAL_MAJOR=${METAL_MAJOR})
 add_definitions(-DEXPECTED_METAL_MINOR=${METAL_MINOR})
 add_definitions(-DEXPECTED_METAL_PATCH=${METAL_PATCH})
 
-add_custom_target(test.unit)
-unit_test_tree(Metal test.unit "${CMAKE_CURRENT_SOURCE_DIR}/src" EXCLUDE ${EXCLUDE})
+test_units(test.unit Metal "${CMAKE_CURRENT_SOURCE_DIR}/src")
