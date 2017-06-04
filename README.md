@@ -90,7 +90,6 @@ Don't worry, all your favourite compilers are continuously tested at
 
 | Compiler          | Version   | Operating System
 |-------------------|-----------|-----------------------
-| GCC               | 4.7       | Ubuntu 14.04 LTS
 | GCC               | 4.8       | Ubuntu 14.04 LTS
 | GCC               | 4.9       | Ubuntu 14.04 LTS
 | GCC               | 5         | Ubuntu 14.04 LTS

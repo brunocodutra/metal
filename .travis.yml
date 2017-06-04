@@ -34,17 +34,6 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=4.7
-        addons:
-            apt:
-                packages:
-                  - *pkgs
-                  - g++-4.7
-                sources: *srcs
-
-      - os: linux
-        dist: trusty
-        compiler: g++
         env: CXXVER=4.8
         addons:
             apt:

@@ -711,7 +711,7 @@ The following compilers are tested in continuous integration using
 
 | Compiler          | Version
 |-------------------|-----------
-| GCC               | &ge; 4.7
+| GCC               | &ge; 4.8
 | Clang             | &ge; 3.4
 | Xcode             | &ge; 6.4
 | Visual Studio     | &ge; 14 (2015)
