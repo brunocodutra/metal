@@ -191,3 +191,57 @@ function(test_formatting _root _lib _prefix)
         endif()
     endforeach()
 endfunction()
+
+include(ExternalProject)
+function(test_deployment _target _lib _version _entry)
+    set(prefix "${CMAKE_CURRENT_BINARY_DIR}/dependent")
+    set(src_dir "${prefix}/src/${_target}")
+    set(bin_dir "${src_dir}-build")
+
+    file(WRITE "${src_dir}/CMakeLists.txt" "\
+cmake_minimum_required(VERSION ${CMAKE_VERSION})
+project(dependent CXX)
+find_package(${_lib} ${_version} EXACT REQUIRED)
+add_executable(dependent main.cpp)
+target_link_libraries(dependent ${_lib})
+"
+    )
+
+    file(WRITE "${src_dir}/main.cpp"
+        "#include <${_entry}>\nint main(){return 0;}\n"
+    )
+
+    ExternalProject_Add(${_target}
+        URL ""
+        DEPENDS deploy
+        BUILD_ALWAYS 1
+        EXCLUDE_FROM_ALL 1
+        PREFIX ${prefix}
+        CMAKE_GENERATOR ${CMAKE_GENERATOR}
+        CMAKE_ARGS
+            -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+            -DCMAKE_PREFIX_PATH=${CMAKE_CURRENT_BINARY_DIR}/fakeroot
+        INSTALL_COMMAND ""
+    )
+
+    ExternalProject_Add_Step(${_target} deploy
+        ALWAYS 1
+        EXCLUDE_FROM_ALL 1
+        DEPENDERS configure
+        COMMAND ${CMAKE_COMMAND} -E remove_directory fakeroot
+        COMMAND ${CMAKE_COMMAND}
+            -DCMAKE_INSTALL_PREFIX=fakeroot
+            -P ${CMAKE_BINARY_DIR}/cmake_install.cmake
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+
+    ExternalProject_Add_Step(${_target} clean
+        ALWAYS 1
+        EXCLUDE_FROM_ALL 1
+        DEPENDEES configure
+        COMMAND ${CMAKE_COMMAND} --build ${bin_dir} --target clean
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+
+    test(${_target})
+endfunction()

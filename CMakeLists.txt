@@ -17,7 +17,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 include(Deploy)
 include(Flags)
-include(Singlify)
 include(Test)
 
 set(METAL_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/")
@@ -44,7 +43,7 @@ set_target_properties(Metal PROPERTIES
     INTERFACE_COMPILE_FEATURES cxx_std_14
 )
 
-deploy(Metal)
+deploy_header_library(Metal)
 
 set(CMAKE_CXX_EXTENSIONS OFF)
 
