@@ -26,7 +26,15 @@ matrix:
     include:
       - os: linux
         dist: trusty
-        env: BUILD_DOC=true
+        env: DEPLOY=true
+        addons:
+            apt:
+                packages:
+                  - tree
+
+      - os: linux
+        dist: trusty
+        env: CHECK_DOC=true
 
       - os: linux
         dist: trusty
@@ -225,7 +233,7 @@ matrix:
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: osx
-        env: BUILD_DOC=true
+        env: CHECK_DOC=true
 
       - os: osx
         osx_image: xcode6.4
@@ -254,6 +262,9 @@ before_install:
   - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
   - mkdir -p "${DEPS_PATH}"
 
+  - GITHUB_PATH="${TRAVIS_BUILD_DIR}/github"
+  - mkdir -p "${GITHUB_PATH}"
+
 install:
   - |
     if [[ "${TRAVIS_OS_NAME}" == "linux" ]]
@@ -262,30 +273,23 @@ install:
         mkdir -p "${DEPS_PATH}/cmake"
         travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit 1
         export PATH=${DEPS_PATH}/cmake/bin:${PATH}
+
+        # download the latest doxygen available
+        DOXYGEN_FTP="ftp://ftp.stack.nl/pub/users/dimitri/"
+        DOXYGEN_PKG=$(travis_retry curl -Ls "${DOXYGEN_FTP}" | grep -Eo "doxygen-[0-9.]+linux[.]bin[.]tar[.]gz" | sort -V | tail -1)
+        DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_PKG}"
+        mkdir -p "${DEPS_PATH}/doxygen"
+        travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" || exit 1
+        export PATH="${DEPS_PATH}/doxygen/bin:${PATH}"
     else
         CMAKE_URL="http://www.cmake.org/files/v3.8/cmake-3.8.0-Darwin-x86_64.tar.gz"
         mkdir -p "${DEPS_PATH}/cmake"
         travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit 1
         export PATH=${DEPS_PATH}/cmake/CMake.app/Contents/bin:${PATH}
-    fi
 
-  - |
-    if [[ "${BUILD_DOC}" == "true" ]]
-    then
-        if [[ "${TRAVIS_OS_NAME}" == "linux" ]]
-        then
-            # download the latest doxygen available
-            DOXYGEN_FTP="ftp://ftp.stack.nl/pub/users/dimitri/"
-            DOXYGEN_PKG=$(travis_retry curl -Ls "${DOXYGEN_FTP}" | grep -Eo "doxygen-[0-9.]+linux[.]bin[.]tar[.]gz" | sort -V | tail -1)
-            DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_PKG}"
-            mkdir -p "${DEPS_PATH}/doxygen"
-            travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" || exit 1
-            export PATH="${DEPS_PATH}/doxygen/bin:${PATH}"
-        else
-            brew update
-            brew unlink doxygen
-            brew install doxygen
-        fi
+        brew update
+        brew unlink doxygen
+        brew install doxygen
     fi
 
   - |
@@ -319,22 +323,32 @@ before_script:
 
   - (cd "${METAL_BUILD_PATH}" && cmake ${CMAKE_ARGS[@]})
 
+  - |
+    function publish {
+        git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=$2 "${GITHUB_PATH}/$2" &> /dev/null || return 1
+        cp -r "${GITHUB_PATH}/$2/.git/" $1                                                                                        &> /dev/null || return 2
+        git -C $1 add --all .                                                                                                     &> /dev/null || return 3
+        git -C $1 commit --allow-empty -m "update to $(git -C ${METAL_SOURCE_PATH} rev-parse --short HEAD)"                       &> /dev/null || return 4
+        git -C $1 push origin $2                                                                                                  &> /dev/null || return 5
+    }
+
 script:
   - |
-    if [[ "${BUILD_DOC}" == "true" ]]
+    if [[ "${DEPLOY}" == "true" ]]
     then
-        (cd "${METAL_BUILD_PATH}" && ! make doc 2>&1 | grep --color -iE "warning|error") || exit 1
-        if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_OS_NAME}" == "linux" ]]
+        cmake --build "${METAL_BUILD_PATH}" --target deploy && tree "${METAL_BUILD_PATH}/dist/" || exit 1
+        if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" ]]
         then
-            git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages "${METAL_BUILD_PATH}/doc/gh-pages" &> /dev/null || exit 1
-            cp -r "${METAL_BUILD_PATH}/doc/gh-pages/.git/" "${METAL_BUILD_PATH}/doc/html/" &> /dev/null || exit 1
-            git -C "${METAL_BUILD_PATH}/doc/html/" add --all . &> /dev/null || exit 1
-            git -C "${METAL_BUILD_PATH}/doc/html/" commit --allow-empty -m "update to $(git -C ${METAL_SOURCE_PATH} rev-parse --short HEAD)" &> /dev/null || exit 1
-            git -C "${METAL_BUILD_PATH}/doc/html/" push origin gh-pages &> /dev/null || exit 1
+            publish "${METAL_BUILD_PATH}/dist/share/Metal/doc" gh-pages || exit $?
+            publish "${METAL_BUILD_PATH}/dist/include/" standalone || exit $?
         fi
+    elif [[ "${CHECK_DOC}" == "true" ]]
+    then
+        ! cmake --build "${METAL_BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error" || exit 1
     elif [[ -n "${CHECK_FORMATTING}" ]]
     then
         (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
     else
         (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure -E ^test.format)
     fi
+

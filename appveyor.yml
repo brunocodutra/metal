@@ -6,7 +6,7 @@ shallow_clone: true
 
 environment:
     matrix:
-      - BUILD_DOC: true
+      - CHECK_DOC: true
 
       - COMPILER: Visual Studio 14 2015
         GENERATOR: "Visual Studio 14 2015"
@@ -34,7 +34,7 @@ configuration:
   - Debug
 
 install:
-  - if "%BUILD_DOC%" equ "true" (choco install doxygen.portable)
+  - if "%CHECK_DOC%" equ "true" (choco install doxygen.portable)
 
 before_build:
   - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
@@ -53,7 +53,7 @@ before_build:
   - pushd "%METAL_BUILD_PATH%" && cmake %CMAKE_ARGS% & popd
 
 build_script:
-  - if "%BUILD_DOC%" equ "true" (
+  - if "%CHECK_DOC%" equ "true" (
         cmake --build "%METAL_BUILD_PATH%" --target doc --config "%CONFIGURATION%"
     ) else (
         pushd "%METAL_BUILD_PATH%" && ctest -C "%CONFIGURATION%" --output-on-failure -E ^test.format & popd
