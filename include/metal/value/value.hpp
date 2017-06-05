@@ -85,7 +85,9 @@ namespace metal {
     /// \see is_value, nil
     template<typename val = detail::na>
 #if defined(METAL_DOXYGENATING)
-    using value = { using type = val; };
+    using value = struct {
+        using type = val;
+    };
 #else
     struct value;
 #endif
@@ -114,8 +116,7 @@ namespace metal {
 
     /// \cond
     template<typename val>
-    struct value
-    {
+    struct value {
         using type = val;
     };
 
@@ -125,8 +126,7 @@ namespace metal {
     namespace detail {
 #if defined(METAL_WORKAROUND)
         template<typename val>
-        struct _is_value
-        {
+        struct _is_value {
             using type = true_;
         };
 #endif
@@ -135,4 +135,3 @@ namespace metal {
 }
 
 #endif
-

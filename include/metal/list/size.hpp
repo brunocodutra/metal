@@ -49,13 +49,10 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename seq>
-        struct _size
-        {};
+        struct _size {};
 
         template<typename... vals>
-        struct _size<list<vals...>> :
-            number<sizeof...(vals)>
-        {};
+        struct _size<list<vals...>> : number<sizeof...(vals)> {};
     }
     /// \endcond
 }

@@ -28,8 +28,18 @@ matrix:
         dist: trusty
         env: BUILD_DOC=true
 
-      - os: osx
-        env: BUILD_DOC=true
+      - os: linux
+        dist: trusty
+        env: CHECK_FORMATTING=/usr/bin/clang-format-5.0
+        addons:
+            apt:
+                packages:
+                  - *pkgs
+                  - clang-format-5.0
+                sources:
+                  - *srcs
+                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty main'
+                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: linux
         dist: trusty
@@ -215,6 +225,9 @@ matrix:
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: osx
+        env: BUILD_DOC=true
+
+      - os: osx
         osx_image: xcode6.4
 
       - os: osx
@@ -295,6 +308,12 @@ before_script:
         CMAKE_ARGS+=("-DCMAKE_CXX_COMPILER=${CXX}-${CXXVER}")
     fi
 
+  - |
+    if [[ -n "${CHECK_FORMATTING}" ]]
+    then
+        CMAKE_ARGS+=("-DCLANG_FORMAT=${CHECK_FORMATTING}")
+    fi
+
     CMAKE_ARGS+=("-DCMAKE_CXX_FLAGS=-DMETAL_TEST_GEN_LIMIT=9")
     CMAKE_ARGS+=("-DBOOST_ROOT=${DEPS_PATH}/boost")
 
@@ -313,6 +332,9 @@ script:
             git -C "${METAL_BUILD_PATH}/doc/html/" commit --allow-empty -m "update to $(git -C ${METAL_SOURCE_PATH} rev-parse --short HEAD)" &> /dev/null || exit 1
             git -C "${METAL_BUILD_PATH}/doc/html/" push origin gh-pages &> /dev/null || exit 1
         fi
+    elif [[ -n "${CHECK_FORMATTING}" ]]
+    then
+        (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
     else
-        (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure)
+        (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure -E ^test.format)
     fi

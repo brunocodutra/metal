@@ -6,9 +6,9 @@
 #define METAL_LIST_FLATTEN_HPP
 
 #include "../config.hpp"
-#include "../list/join.hpp"
 #include "../lambda/apply.hpp"
 #include "../lambda/lambda.hpp"
+#include "../list/join.hpp"
 
 namespace metal {
     /// \ingroup list

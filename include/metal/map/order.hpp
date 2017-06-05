@@ -6,10 +6,10 @@
 #define METAL_MAP_ORDER_HPP
 
 #include "../config.hpp"
-#include "../map/keys.hpp"
-#include "../map/at_key.hpp"
 #include "../list/indices.hpp"
 #include "../list/transpose.hpp"
+#include "../map/at_key.hpp"
+#include "../map/keys.hpp"
 #include "../pair/pair.hpp"
 
 namespace metal {
@@ -39,8 +39,7 @@ namespace metal {
     template<typename seq, typename key>
     using order = metal::at_key<
         metal::transpose<metal::pair<metal::keys<seq>, metal::indices<seq>>>,
-        key
-    >;
+        key>;
 }
 
 #endif

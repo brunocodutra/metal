@@ -6,9 +6,9 @@
 #define METAL_LIST_COUNT_HPP
 
 #include "../config.hpp"
-#include "../list/count_if.hpp"
 #include "../lambda/lambda.hpp"
 #include "../lambda/partial.hpp"
+#include "../list/count_if.hpp"
 #include "../value/same.hpp"
 
 namespace metal {

@@ -6,8 +6,8 @@
 #define METAL_LIST_SPLICE_HPP
 
 #include "../config.hpp"
-#include "../list/join.hpp"
 #include "../list/drop.hpp"
+#include "../list/join.hpp"
 #include "../list/take.hpp"
 
 namespace metal {

@@ -6,9 +6,9 @@
 #define METAL_NUMBER_ABS_HPP
 
 #include "../config.hpp"
-#include "../number/number.hpp"
 #include "../number/max.hpp"
 #include "../number/neg.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \ingroup number

@@ -6,11 +6,11 @@
 #define METAL_LIST_COUNT_IF_HPP
 
 #include "../config.hpp"
-#include "../list/transform.hpp"
 #include "../lambda/apply.hpp"
 #include "../lambda/lambda.hpp"
-#include "../number/number.hpp"
+#include "../list/transform.hpp"
 #include "../number/add.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \ingroup list

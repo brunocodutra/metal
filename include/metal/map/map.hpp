@@ -6,12 +6,12 @@
 #define METAL_MAP_MAP_HPP
 
 #include "../config.hpp"
+#include "../lambda/apply.hpp"
+#include "../lambda/lambda.hpp"
 #include "../list/list.hpp"
 #include "../list/transform.hpp"
-#include "../pair/pair.hpp"
-#include "../lambda/lambda.hpp"
-#include "../lambda/apply.hpp"
 #include "../number/if.hpp"
+#include "../pair/pair.hpp"
 
 namespace metal {
     /// \cond
@@ -68,10 +68,8 @@ namespace metal {
     /// ### See Also
     /// \see is_map
     template<typename... pairs>
-    using map = metal::if_<
-        metal::is_map<metal::list<pairs...>>,
-        metal::list<pairs...>
-    >;
+    using map =
+        metal::if_<metal::is_map<metal::list<pairs...>>, metal::list<pairs...>>;
 
     /// \ingroup map
     ///
@@ -97,8 +95,7 @@ namespace metal {
     template<typename val>
     using as_map = metal::apply<
         metal::lambda<metal::map>,
-        metal::transform<metal::lambda<metal::as_pair>, metal::as_list<val>>
-    >;
+        metal::transform<metal::lambda<metal::as_pair>, metal::as_list<val>>>;
 }
 
 #include "../number/number.hpp"
@@ -108,19 +105,13 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename val>
-        struct _is_map :
-            false_
-        {};
+        struct _is_map : false_ {};
 
         template<>
-        struct _is_map<list<>> :
-            true_
-        {};
+        struct _is_map<list<>> : true_ {};
 
         template<typename... keys, typename... vals>
-        struct _is_map<list<list<keys, vals>...>> :
-            distinct<keys...>
-        {};
+        struct _is_map<list<list<keys, vals>...>> : distinct<keys...> {};
     }
     /// \endcond
 }

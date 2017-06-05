@@ -6,9 +6,9 @@
 #define METAL_LIST_REPLACE_HPP
 
 #include "../config.hpp"
-#include "../list/replace_if.hpp"
 #include "../lambda/lambda.hpp"
 #include "../lambda/partial.hpp"
+#include "../list/replace_if.hpp"
 #include "../value/same.hpp"
 
 namespace metal {
@@ -40,8 +40,7 @@ namespace metal {
     /// \see list, replace_if, copy, remove
     template<typename seq, typename val, typename... vals>
     using replace = metal::replace_if<
-        seq, metal::partial<metal::lambda<metal::same>, val>, vals...
-    >;
+        seq, metal::partial<metal::lambda<metal::same>, val>, vals...>;
 }
 
 #endif

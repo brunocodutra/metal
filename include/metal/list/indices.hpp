@@ -6,8 +6,8 @@
 #define METAL_LIST_INDICES_HPP
 
 #include "../config.hpp"
-#include "../list/size.hpp"
 #include "../list/iota.hpp"
+#include "../list/size.hpp"
 #include "../number/number.hpp"
 
 namespace metal {

@@ -52,11 +52,11 @@ namespace metal {
         detail::call<detail::_transform<lbd>::template type, seqs...>;
 }
 
-#include "../list/at.hpp"
-#include "../list/size.hpp"
-#include "../list/list.hpp"
-#include "../list/indices.hpp"
 #include "../lambda/lambda.hpp"
+#include "../list/at.hpp"
+#include "../list/indices.hpp"
+#include "../list/list.hpp"
+#include "../list/size.hpp"
 #include "../number/if.hpp"
 #include "../value/same.hpp"
 
@@ -64,64 +64,54 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename num, typename... seqs>
-        struct transformer_impl
-        {
+        struct transformer_impl {
             template<template<typename...> class expr>
             using type = expr<at<seqs, num>...>;
         };
 
         template<template<typename...> class expr, typename... seqs>
-        struct transformer
-        {
+        struct transformer {
             template<typename num>
             using type =
                 forward<transformer_impl<num, seqs...>::template type, expr>;
         };
 
         template<typename head, typename... tail>
-        struct _transform_impl
-        {
+        struct _transform_impl {
             template<template<typename...> class expr>
             using type = forward<
                 _transform_impl<indices<head>>::template type,
-                transformer<expr, head, tail...>::template type
-            >;
+                transformer<expr, head, tail...>::template type>;
         };
 
         template<typename... xs, typename... ys, typename... zs>
-        struct _transform_impl<list<xs...>, list<ys...>, list<zs...>>
-        {
+        struct _transform_impl<list<xs...>, list<ys...>, list<zs...>> {
             template<template<typename...> class expr>
             using type = list<expr<xs, ys, zs>...>;
         };
 
         template<typename... xs, typename... ys>
-        struct _transform_impl<list<xs...>, list<ys...>>
-        {
+        struct _transform_impl<list<xs...>, list<ys...>> {
             template<template<typename...> class expr>
             using type = list<expr<xs, ys>...>;
         };
 
         template<typename... xs>
-        struct _transform_impl<list<xs...>>
-        {
+        struct _transform_impl<list<xs...>> {
             template<template<typename...> class expr>
             using type = list<expr<xs>...>;
         };
 
         template<typename lbd>
-        struct _transform
-        {};
+        struct _transform {};
 
         template<template<typename...> class expr>
-        struct _transform<lambda<expr>>
-        {
+        struct _transform<lambda<expr>> {
             template<typename... seqs>
             using type = forward<
-                if_<same<size<seqs>...>, _transform_impl<seqs...>>
-                    ::template type,
-                expr
-            >;
+                if_<same<size<seqs>...>,
+                    _transform_impl<seqs...>>::template type,
+                expr>;
         };
     }
     /// \endcond

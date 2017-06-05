@@ -6,9 +6,9 @@
 #define METAL_PAIR_SECOND_HPP
 
 #include "../config.hpp"
-#include "../pair/pair.hpp"
 #include "../list/back.hpp"
 #include "../number/if.hpp"
+#include "../pair/pair.hpp"
 
 namespace metal {
     /// \ingroup pair

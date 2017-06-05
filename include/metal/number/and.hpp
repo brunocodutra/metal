@@ -6,8 +6,8 @@
 #define METAL_NUMBER_AND_HPP
 
 #include "../config.hpp"
-#include "../number/number.hpp"
 #include "../number/not.hpp"
+#include "../number/number.hpp"
 #include "../value/same.hpp"
 
 namespace metal {

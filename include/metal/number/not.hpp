@@ -6,8 +6,8 @@
 #define METAL_NUMBER_NOT_HPP
 
 #include "../config.hpp"
-#include "../number/number.hpp"
 #include "../number/if.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \ingroup number

@@ -10,8 +10,8 @@
 #include "lambda/apply.hpp"
 #include "lambda/arg.hpp"
 #include "lambda/bind.hpp"
-#include "lambda/is_invocable.hpp"
 #include "lambda/invoke.hpp"
+#include "lambda/is_invocable.hpp"
 #include "lambda/lambda.hpp"
 #include "lambda/lazy.hpp"
 #include "lambda/partial.hpp"
@@ -21,4 +21,3 @@
 /// \ingroup metal
 
 #endif
-

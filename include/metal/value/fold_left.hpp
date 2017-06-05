@@ -56,6 +56,7 @@ namespace metal {
     namespace detail {
         template<
             typename state,
+            /* clang-format off */
             typename _00, typename _01, typename _02, typename _03,
             typename _04, typename _05, typename _06, typename _07,
             typename _08, typename _09, typename _10, typename _11,
@@ -81,11 +82,12 @@ namespace metal {
             typename _88, typename _89, typename _90, typename _91,
             typename _92, typename _93, typename _94, typename _95,
             typename _96, typename _97, typename _98, typename _99
-        >
-        struct left_folder_100
-        {
+            /* clang-format on */
+            >
+        struct left_folder_100 {
             template<template<typename...> class expr>
             using type =
+                /* clang-format off */
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<
@@ -106,38 +108,41 @@ namespace metal {
                 _60>, _61>, _62>, _63>, _64>, _65>, _66>, _67>, _68>, _69>,
                 _70>, _71>, _72>, _73>, _74>, _75>, _76>, _77>, _78>, _79>,
                 _80>, _81>, _82>, _83>, _84>, _85>, _86>, _87>, _88>, _89>,
-                _90>, _91>, _92>, _93>, _94>, _95>, _96>, _97>, _98>, _99>;
+                _90>, _91>, _92>, _93>, _94>, _95>, _96>, _97>, _98>, _99>
+                /* clang-format on */
+                ;
         };
 
         template<
             typename state,
+            /* clang-format off */
             typename _00, typename _01, typename _02, typename _03,
             typename _04, typename _05, typename _06, typename _07,
             typename _08, typename _09
-        >
-        struct left_folder_10
-        {
+            /* clang-format on */
+            >
+        struct left_folder_10 {
             template<template<typename...> class expr>
             using type =
+                /* clang-format off */
                 expr<expr<expr<expr<expr<expr<expr<expr<expr<expr<
                     forward<state::template type, expr>,
-                _00>, _01>, _02>, _03>, _04>, _05>, _06>, _07>, _08>, _09>;
+                _00>, _01>, _02>, _03>, _04>, _05>, _06>, _07>, _08>, _09>
+                /* clang-format on */
+                ;
         };
 
         template<typename state, typename _00>
-        struct left_folder_1
-        {
+        struct left_folder_1 {
             template<template<typename...> class expr>
             using type = expr<forward<state::template type, expr>, _00>;
         };
 
         template<typename state>
-        struct left_folder_0
-        {
+        struct left_folder_0 {
 #if defined(METAL_WORKAROUND)
             template<template<typename...> class>
-            struct impl
-            {
+            struct impl {
                 using type = state;
             };
 
@@ -150,15 +155,14 @@ namespace metal {
         };
 
         template<std::size_t n>
-        struct _fold_left_impl :
-            _fold_left_impl<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
-        {};
+        struct _fold_left_impl
+            : _fold_left_impl<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)> {};
 
         template<>
-        struct _fold_left_impl<100>
-        {
+        struct _fold_left_impl<100> {
             template<
                 typename state,
+                /* clang-format off */
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename _10, typename _11,
@@ -184,12 +188,13 @@ namespace metal {
                 typename _88, typename _89, typename _90, typename _91,
                 typename _92, typename _93, typename _94, typename _95,
                 typename _96, typename _97, typename _98, typename _99,
-                typename... tail
-            >
-            using type = typename _fold_left_impl<sizeof...(tail)>
-                ::template type<
+                /* clang-format on */
+                typename... tail>
+            using type =
+                typename _fold_left_impl<sizeof...(tail)>::template type<
                     left_folder_100<
                         state,
+                        /* clang-format off */
                         _00, _01, _02, _03, _04, _05, _06, _07, _08, _09,
                         _10, _11, _12, _13, _14, _15, _16, _17, _18, _19,
                         _20, _21, _22, _23, _24, _25, _26, _27, _28, _29,
@@ -200,62 +205,54 @@ namespace metal {
                         _70, _71, _72, _73, _74, _75, _76, _77, _78, _79,
                         _80, _81, _82, _83, _84, _85, _86, _87, _88, _89,
                         _90, _91, _92, _93, _94, _95, _96, _97, _98, _99
-                    >,
-                    tail...
-                >;
+                        /* clang-format on */
+                        >,
+                    tail...>;
         };
 
         template<>
-        struct _fold_left_impl<10>
-        {
+        struct _fold_left_impl<10> {
             template<
                 typename state,
+                /* clang-format off */
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename... tail
-            >
-            using type = typename _fold_left_impl<sizeof...(tail)>
-                ::template type<
+                /* clang-format on */
+                >
+            using type =
+                typename _fold_left_impl<sizeof...(tail)>::template type<
                     left_folder_10<
-                        state, _00, _01, _02, _03, _04, _05, _06, _07, _08, _09
-                    >,
-                    tail...
-                >;
+                        state, _00, _01, _02, _03, _04, _05, _06, _07, _08,
+                        _09>,
+                    tail...>;
         };
 
         template<>
-        struct _fold_left_impl<1>
-        {
+        struct _fold_left_impl<1> {
             template<typename state, typename _00, typename... tail>
-            using type = typename _fold_left_impl<sizeof...(tail)>
-                ::template type<left_folder_1<state, _00>, tail...>;
+            using type = typename _fold_left_impl<sizeof...(
+                tail)>::template type<left_folder_1<state, _00>, tail...>;
         };
 
         template<>
-        struct _fold_left_impl<0>
-        {
+        struct _fold_left_impl<0> {
             template<typename state, typename...>
             using type = state;
         };
 
         template<typename state, typename... vals>
-        struct left_folder :
-            _fold_left_impl<sizeof...(vals)>
-                ::template type<left_folder_0<state>, vals...>
-        {};
+        struct left_folder
+            : _fold_left_impl<sizeof...(
+                  vals)>::template type<left_folder_0<state>, vals...> {};
 
         template<typename lbd>
-        struct _fold_left
-        {};
+        struct _fold_left {};
 
         template<template<typename...> class expr>
-        struct _fold_left<lambda<expr>>
-        {
+        struct _fold_left<lambda<expr>> {
             template<typename... vals>
-            using type = forward<
-                left_folder<vals...>::template type,
-                expr
-            >;
+            using type = forward<left_folder<vals...>::template type, expr>;
         };
     }
     /// \endcond

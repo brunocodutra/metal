@@ -88,9 +88,11 @@ namespace metal {
     /// \see is_lambda
     template<template<typename...> class expr>
 #if defined(METAL_DOXYGENATING)
-    using lambda = {};
+    using lambda = struct {
+    };
 #else
-    struct lambda {};
+    struct lambda {
+    };
 #endif
 }
 
@@ -100,22 +102,16 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename val>
-        struct _is_lambda :
-            false_
-        {};
+        struct _is_lambda : false_ {};
 
         template<template<typename...> class expr>
-        struct _is_lambda<lambda<expr>> :
-            true_
-        {};
+        struct _is_lambda<lambda<expr>> : true_ {};
 
         template<typename val>
-        struct _as_lambda
-        {};
+        struct _as_lambda {};
 
         template<template<typename...> class expr, typename... vals>
-        struct _as_lambda<expr<vals...>>
-        {
+        struct _as_lambda<expr<vals...>> {
             using type = lambda<expr>;
         };
     }

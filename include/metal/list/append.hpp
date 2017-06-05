@@ -6,8 +6,8 @@
 #define METAL_LIST_APPEND_HPP
 
 #include "../config.hpp"
-#include "../list/list.hpp"
 #include "../list/join.hpp"
+#include "../list/list.hpp"
 
 namespace metal {
     /// \ingroup list

@@ -47,48 +47,43 @@ namespace metal {
     using distinct = typename detail::_distinct<vals...>::type;
 }
 
-#include "../value/value.hpp"
-#include "../list/list.hpp"
 #include "../list/indices.hpp"
+#include "../list/list.hpp"
 #include "../number/number.hpp"
+#include "../value/value.hpp"
 #include "../detail/declptr.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
         template<typename, typename base>
-        struct inherit_second :
-            base
-        {};
+        struct inherit_second : base {};
 
         template<typename, typename...>
-        struct inherit_impl
-        {};
+        struct inherit_impl {};
 
         template<typename... _, typename... bases>
-        struct inherit_impl<list<_...>, bases...> :
-            inherit_second<_, bases>...
-        {};
+        struct inherit_impl<list<_...>, bases...>
+            : inherit_second<_, bases>... {};
 
         template<typename... bases>
-        struct inherit :
-            inherit_impl<indices<list<bases...>>, bases...>
-        {};
+        struct inherit : inherit_impl<indices<list<bases...>>, bases...> {};
 
         template<typename... bases>
         true_ disambiguate(bases*...);
 
         template<typename derived, typename... bases>
-        auto _distinct_impl(derived* _) ->
-            decltype(disambiguate<bases...>((declptr<bases>(), void(), _)...));
+        auto _distinct_impl(derived* _) -> decltype(
+            disambiguate<bases...>((declptr<bases>(), void(), _)...));
 
         template<typename...>
         false_ _distinct_impl(...);
 
         template<typename... vals>
-        struct _distinct :
-            decltype(_distinct_impl<inherit<value<vals>...>, value<vals>...>(0))
-        {};
+        struct _distinct
+            : decltype(
+                  _distinct_impl<inherit<value<vals>...>, value<vals>...>(0)) {
+        };
     }
     /// \endcond
 }

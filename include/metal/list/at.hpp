@@ -49,29 +49,25 @@ namespace metal {
 #include "../number/number.hpp"
 
 #if defined(__has_builtin)
-#   if __has_builtin(__type_pack_element)
-#       define METAL_USE_BUILTIN_TYPE_PACK_ELEMENT
-#   endif
+#if __has_builtin(__type_pack_element)
+#define METAL_USE_BUILTIN_TYPE_PACK_ELEMENT
+#endif
 #endif
 
 namespace metal {
     /// \cond
     namespace detail {
         template<typename... vals>
-        struct prepender
-        {
+        struct prepender {
             template<template<typename...> class expr, typename... _>
             using type = expr<_..., vals...>;
         };
 
         template<std::size_t n>
-        struct grouper :
-            grouper<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
-        {};
+        struct grouper : grouper<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)> {};
 
         template<>
-        struct grouper<100>
-        {
+        struct grouper<100> {
             template<
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
@@ -98,11 +94,11 @@ namespace metal {
                 typename _88, typename _89, typename _90, typename _91,
                 typename _92, typename _93, typename _94, typename _95,
                 typename _96, typename _97, typename _98, typename _99,
-                typename... tail
-            >
-            using type = typename grouper<sizeof...(tail)>
-                ::template type<tail...>::template type<
+                typename... tail>
+            using type = typename grouper<sizeof...(tail)>::
+                template type<tail...>::template type<
                     prepender,
+                    /* clang-format off */
                     _at<list<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09>>,
                     _at<list<_10, _11, _12, _13, _14, _15, _16, _17, _18, _19>>,
                     _at<list<_20, _21, _22, _23, _24, _25, _26, _27, _28, _29>>,
@@ -113,155 +109,130 @@ namespace metal {
                     _at<list<_70, _71, _72, _73, _74, _75, _76, _77, _78, _79>>,
                     _at<list<_80, _81, _82, _83, _84, _85, _86, _87, _88, _89>>,
                     _at<list<_90, _91, _92, _93, _94, _95, _96, _97, _98, _99>>
-                >;
+                    /* clang-format on */
+                    >;
         };
 
         template<>
-        struct grouper<10>
-        {
+        struct grouper<10> {
             template<
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
-                typename _08, typename _09, typename... tail
-            >
-            using type = typename grouper<sizeof...(tail)>
-                ::template type<tail...>::template type<
+                typename _08, typename _09, typename... tail>
+            using type = typename grouper<sizeof...(tail)>::
+                template type<tail...>::template type<
                     prepender,
-                    _at<list<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09>>
-                >;
+                    _at<list<
+                        _00, _01, _02, _03, _04, _05, _06, _07, _08, _09>>>;
         };
 
         template<>
-        struct grouper<1>
-        {
+        struct grouper<1> {
             template<typename... vals>
             using type = prepender<_at<list<vals...>>>;
         };
 
         template<>
-        struct grouper<0>
-        {
+        struct grouper<0> {
             template<typename...>
             using type = prepender<>;
         };
 
         template<typename num, typename = true_>
-        struct _at_impl
-        {};
+        struct _at_impl {};
 
         template<int_ n>
-        struct _at_impl<number<n>, number<(n > 9)>>
-        {
+        struct _at_impl<number<n>, number<(n > 9)>> {
             template<typename... vals>
-            using type = typename grouper<sizeof...(vals)>
-                ::template type<vals...>
-                    ::template type<_at_impl<number<n/10>>::template type>
-                        ::template type<number<n%10>>;
+            using type =
+                typename grouper<sizeof...(vals)>::template type<vals...>::
+                    template type<_at_impl<number<n / 10>>::template type>::
+                        template type<number<n % 10>>;
         };
 
         template<>
-        struct _at_impl<number<9>>
-        {
+        struct _at_impl<number<9>> {
             template<
                 typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename val, typename...
-            >
+                typename, typename, typename, typename val, typename...>
             using type = val;
         };
 
         template<>
-        struct _at_impl<number<8>>
-        {
+        struct _at_impl<number<8>> {
             template<
                 typename, typename, typename, typename, typename, typename,
-                typename, typename, typename val, typename...
-            >
+                typename, typename, typename val, typename...>
             using type = val;
         };
 
         template<>
-        struct _at_impl<number<7>>
-        {
+        struct _at_impl<number<7>> {
             template<
                 typename, typename, typename, typename, typename, typename,
-                typename, typename val, typename...
-            >
+                typename, typename val, typename...>
             using type = val;
         };
 
         template<>
-        struct _at_impl<number<6>>
-        {
+        struct _at_impl<number<6>> {
             template<
                 typename, typename, typename, typename, typename, typename,
-                typename val, typename...
-            >
+                typename val, typename...>
             using type = val;
         };
 
         template<>
-        struct _at_impl<number<5>>
-        {
+        struct _at_impl<number<5>> {
             template<
                 typename, typename, typename, typename, typename, typename val,
-                typename...
-            >
+                typename...>
             using type = val;
         };
 
         template<>
-        struct _at_impl<number<4>>
-        {
+        struct _at_impl<number<4>> {
             template<
                 typename, typename, typename, typename, typename val,
-                typename...
-            >
+                typename...>
             using type = val;
         };
 
         template<>
-        struct _at_impl<number<3>>
-        {
+        struct _at_impl<number<3>> {
             template<typename, typename, typename, typename val, typename...>
             using type = val;
         };
 
         template<>
-        struct _at_impl<number<2>>
-        {
+        struct _at_impl<number<2>> {
             template<typename, typename, typename val, typename...>
             using type = val;
         };
 
         template<>
-        struct _at_impl<number<1>>
-        {
+        struct _at_impl<number<1>> {
             template<typename, typename val, typename...>
             using type = val;
         };
 
         template<>
-        struct _at_impl<number<0>>
-        {
+        struct _at_impl<number<0>> {
             template<typename val, typename...>
             using type = val;
         };
 
         template<typename seq>
-        struct _at
-        {};
+        struct _at {};
 
         template<typename... vals>
-        struct _at<list<vals...>>
-        {
+        struct _at<list<vals...>> {
 #if defined(METAL_USE_BUILTIN_TYPE_PACK_ELEMENT)
             template<typename, typename = true_>
-            struct impl
-            {};
+            struct impl {};
 
             template<int_ n>
-            struct impl<number<n>, number<(n >= 0 && n < sizeof...(vals))>>
-            {
+            struct impl<number<n>, number<(n >= 0 && n < sizeof...(vals))>> {
                 using type = __type_pack_element<n, vals...>;
             };
 

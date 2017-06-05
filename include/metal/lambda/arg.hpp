@@ -54,8 +54,7 @@ namespace metal {
     /// \cond
     namespace detail {
         template<std::size_t n>
-        struct _arg
-        {
+        struct _arg {
             template<typename... vals>
             using impl = at<list<vals...>, number<n - 1>>;
 
@@ -63,8 +62,7 @@ namespace metal {
         };
 
         template<>
-        struct _arg<0U>
-        {};
+        struct _arg<0U> {};
     }
     /// \endcond
 

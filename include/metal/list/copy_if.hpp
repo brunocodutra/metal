@@ -6,9 +6,9 @@
 #define METAL_LIST_COPY_IF_HPP
 
 #include "../config.hpp"
-#include "../list/remove_if.hpp"
 #include "../lambda/bind.hpp"
 #include "../lambda/lambda.hpp"
+#include "../list/remove_if.hpp"
 #include "../number/not.hpp"
 
 namespace metal {

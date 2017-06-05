@@ -6,9 +6,9 @@
 #define METAL_LIST_ALL_OF_HPP
 
 #include "../config.hpp"
-#include "../list/transform.hpp"
 #include "../lambda/apply.hpp"
 #include "../lambda/lambda.hpp"
+#include "../list/transform.hpp"
 #include "../number/and.hpp"
 
 namespace metal {

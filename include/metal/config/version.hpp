@@ -43,7 +43,7 @@
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
 #define METAL_SEMVER(MAJOR, MINOR, PATCH) \
-    (((MAJOR) * 1000000) + ((MINOR) * 10000) + (PATCH))
+    (((MAJOR)*1000000) + ((MINOR)*10000) + (PATCH))
 
 /// \ingroup config
 /// Expands to the full version of Metal.

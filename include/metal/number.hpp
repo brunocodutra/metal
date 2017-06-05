@@ -31,4 +31,3 @@
 /// \ingroup metal
 
 #endif
-

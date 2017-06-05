@@ -6,8 +6,8 @@
 #define METAL_NUMBER_NUMBERS_HPP
 
 #include "../config.hpp"
-#include "../number/number.hpp"
 #include "../list/list.hpp"
+#include "../number/number.hpp"
 
 #include <type_traits>
 
@@ -43,8 +43,7 @@ namespace metal {
     namespace detail {
 #if defined(METAL_WORKAROUND)
         template<int_... vs>
-        struct _numbers
-        {
+        struct _numbers {
             using type = list<std::integral_constant<int_, vs>...>;
         };
 #endif

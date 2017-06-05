@@ -47,13 +47,10 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename x, typename y>
-        struct _less
-        {};
+        struct _less {};
 
         template<int_ x, int_ y>
-        struct _less<number<x>, number<y>> :
-            number<(x < y)>
-        {};
+        struct _less<number<x>, number<y>> : number<(x < y)> {};
     }
     /// \endcond
 }

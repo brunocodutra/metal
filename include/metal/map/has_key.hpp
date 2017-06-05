@@ -6,8 +6,8 @@
 #define METAL_MAP_HAS_KEY_HPP
 
 #include "../config.hpp"
-#include "../map/keys.hpp"
 #include "../list/contains.hpp"
+#include "../map/keys.hpp"
 
 namespace metal {
     /// \ingroup map

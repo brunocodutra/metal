@@ -6,9 +6,9 @@
 #define METAL_LIST_FIND_HPP
 
 #include "../config.hpp"
-#include "../list/find_if.hpp"
 #include "../lambda/lambda.hpp"
 #include "../lambda/partial.hpp"
+#include "../list/find_if.hpp"
 #include "../value/same.hpp"
 
 namespace metal {

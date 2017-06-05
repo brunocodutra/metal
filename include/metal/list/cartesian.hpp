@@ -50,33 +50,27 @@ namespace metal {
     template<typename... seqs>
     using cartesian = detail::call<
         detail::cartesianer<sizeof...(seqs)>::template type,
-        detail::cartesianer_impl_0,
-        seqs...
-    >;
+        detail::cartesianer_impl_0, seqs...>;
 }
 
-#include "../list/list.hpp"
 #include "../list/join.hpp"
+#include "../list/list.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        struct cartesianer_impl_0
-        {
+        struct cartesianer_impl_0 {
             template<typename... vals>
             using type = list<list<vals...>>;
         };
 
         template<typename next, typename seq>
-        struct cartesianer_impl
-        {};
+        struct cartesianer_impl {};
 
         template<typename next, typename... vals>
-        struct cartesianer_impl<next, list<vals...>>
-        {
+        struct cartesianer_impl<next, list<vals...>> {
             template<template<typename...> class expr, typename... _>
-            struct impl
-            {
+            struct impl {
                 using type = join<expr<vals, _...>...>;
             };
 
@@ -85,24 +79,18 @@ namespace metal {
         };
 
         template<std::size_t n>
-        struct cartesianer :
-            cartesianer<(n > 0)>
-        {};
+        struct cartesianer : cartesianer<(n > 0)> {};
 
         template<>
-        struct cartesianer<1>
-        {
+        struct cartesianer<1> {
             template<typename next, typename head, typename... tail>
             using type = call<
                 cartesianer<sizeof...(tail)>::template type,
-                cartesianer_impl<next, head>,
-                tail...
-            >;
+                cartesianer_impl<next, head>, tail...>;
         };
 
         template<>
-        struct cartesianer<0>
-        {
+        struct cartesianer<0> {
             template<typename next>
             using type = typename next::template type<>;
         };

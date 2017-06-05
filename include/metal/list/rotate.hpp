@@ -52,15 +52,13 @@ namespace metal {
     /// \cond
     namespace detail {
         template<int_ n>
-        struct rotator :
-            rotator<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
-        {};
+        struct rotator : rotator<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)> {};
 
         template<>
-        struct rotator<100>
-        {
+        struct rotator<100> {
             template<
                 int_ n,
+                /* clang-format off */
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename _10, typename _11,
@@ -86,11 +84,11 @@ namespace metal {
                 typename _88, typename _89, typename _90, typename _91,
                 typename _92, typename _93, typename _94, typename _95,
                 typename _96, typename _97, typename _98, typename _99,
-                typename... tail
-            >
+                /* clang-format on */
+                typename... tail>
             using type = typename rotator<(n - 100)>::template type<
-                (n - 100),
-                tail...,
+                (n - 100), tail...,
+                /* clang-format off */
                 _00, _01, _02, _03, _04, _05, _06, _07, _08, _09,
                 _10, _11, _12, _13, _14, _15, _16, _17, _18, _19,
                 _20, _21, _22, _23, _24, _25, _26, _27, _28, _29,
@@ -101,56 +99,51 @@ namespace metal {
                 _70, _71, _72, _73, _74, _75, _76, _77, _78, _79,
                 _80, _81, _82, _83, _84, _85, _86, _87, _88, _89,
                 _90, _91, _92, _93, _94, _95, _96, _97, _98, _99
-            >;
+                /* clang-format on */
+                >;
         };
 
         template<>
-        struct rotator<10>
-        {
+        struct rotator<10> {
             template<
                 int_ n,
+                /* clang-format off */
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename... tail
-            >
+                /* clang-format on */
+                >
             using type = typename rotator<(n - 10)>::template type<
-                (n - 10),
-                tail..., _00, _01, _02, _03, _04, _05, _06, _07, _08, _09
-            >;
+                (n - 10), tail..., _00, _01, _02, _03, _04, _05, _06, _07, _08,
+                _09>;
         };
 
         template<>
-        struct rotator<1>
-        {
+        struct rotator<1> {
             template<int_ n, typename head, typename... tail>
-            using type = typename rotator<(n - 1)>::template type<
-                (n - 1), tail..., head
-            >;
+            using type = typename rotator<(
+                n - 1)>::template type<(n - 1), tail..., head>;
         };
 
         template<>
-        struct rotator<0>
-        {
+        struct rotator<0> {
             template<int_, typename... vals>
             using type = list<vals...>;
         };
 
         template<typename seq, typename num>
-        struct _rotate
-        {};
+        struct _rotate {};
 
         template<typename... vals, int_ n>
-        struct _rotate<list<vals...>, number<n>>
-        {
+        struct _rotate<list<vals...>, number<n>> {
             enum : int_ { size = sizeof...(vals) };
-            enum : std::size_t { m = ((n % size) + size*(n < 0)) };
+            enum : std::size_t { m = ((n % size) + size * (n < 0)) };
 
             using type = typename rotator<m>::template type<m, vals...>;
         };
 
         template<int_ n>
-        struct _rotate<list<>, number<n>>
-        {
+        struct _rotate<list<>, number<n>> {
             using type = list<>;
         };
     }

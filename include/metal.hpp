@@ -6,8 +6,8 @@
 #define METAL_HPP
 
 #include "metal/config.hpp"
-#include "metal/list.hpp"
 #include "metal/lambda.hpp"
+#include "metal/list.hpp"
 #include "metal/map.hpp"
 #include "metal/number.hpp"
 #include "metal/pair.hpp"

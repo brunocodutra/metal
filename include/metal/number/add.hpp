@@ -42,8 +42,8 @@ namespace metal {
     using add = detail::call<detail::_add<nums...>::template type>;
 }
 
-#include "../number/number.hpp"
 #include "../lambda/lambda.hpp"
+#include "../number/number.hpp"
 #include "../value/fold_left.hpp"
 
 #include <initializer_list>
@@ -52,16 +52,14 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename... nums>
-        struct _add
-        {};
+        struct _add {};
 
 #if defined(METAL_WORKAROUND)
         template<typename x, typename y>
         using add_impl = number<x::value + y::value>;
 
         template<int_... ns>
-        struct _add<number<ns>...>
-        {
+        struct _add<number<ns>...> {
             template<typename... _>
             using type = fold_left<lambda<add_impl>, number<ns>..., _...>;
         };
@@ -72,15 +70,13 @@ namespace metal {
         }
 
         template<int_... ns>
-        struct _add<number<ns>...>
-        {
+        struct _add<number<ns>...> {
             template<typename... _>
             using type = number<add_impl((void(sizeof...(_)), ns)...)>;
         };
 #endif
         template<>
-        struct _add<>
-        {
+        struct _add<> {
             template<typename...>
             using type = number<0>;
         };

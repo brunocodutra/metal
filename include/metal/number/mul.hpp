@@ -42,8 +42,8 @@ namespace metal {
     using mul = detail::call<detail::_mul<nums...>::template type>;
 }
 
-#include "../number/number.hpp"
 #include "../lambda/lambda.hpp"
+#include "../number/number.hpp"
 #include "../value/fold_left.hpp"
 
 #include <initializer_list>
@@ -52,16 +52,14 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename... nums>
-        struct _mul
-        {};
+        struct _mul {};
 
 #if defined(METAL_WORKAROUND)
         template<typename x, typename y>
         using mul_impl = number<x::value * y::value>;
 
         template<int_... ns>
-        struct _mul<number<ns>...>
-        {
+        struct _mul<number<ns>...> {
             template<typename... _>
             using type = fold_left<lambda<mul_impl>, number<ns>..., _...>;
         };
@@ -72,15 +70,13 @@ namespace metal {
         }
 
         template<int_... ns>
-        struct _mul<number<ns>...>
-        {
+        struct _mul<number<ns>...> {
             template<typename... _>
             using type = number<mul_impl((void(sizeof...(_)), ns)...)>;
         };
 #endif
         template<>
-        struct _mul<>
-        {
+        struct _mul<> {
             template<typename...>
             using type = number<1>;
         };

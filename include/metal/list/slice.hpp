@@ -6,12 +6,12 @@
 #define METAL_LIST_SLICE_HPP
 
 #include "../config.hpp"
-#include "../list/at.hpp"
-#include "../list/list.hpp"
-#include "../list/iota.hpp"
-#include "../list/transform.hpp"
 #include "../lambda/lambda.hpp"
 #include "../lambda/partial.hpp"
+#include "../list/at.hpp"
+#include "../list/iota.hpp"
+#include "../list/list.hpp"
+#include "../list/transform.hpp"
 #include "../number/if.hpp"
 #include "../number/number.hpp"
 
@@ -44,16 +44,12 @@ namespace metal {
     /// ### See Also
     /// \see list, range
     template<
-        typename seq,
-        typename start, typename size, typename stride = number<1>
-    >
+        typename seq, typename start, typename size,
+        typename stride = number<1>>
     using slice = metal::transform<
         metal::partial<
-            metal::lambda<metal::at>,
-            metal::if_<metal::is_list<seq>, seq>
-        >,
-        metal::iota<start, size, stride>
-    >;
+            metal::lambda<metal::at>, metal::if_<metal::is_list<seq>, seq>>,
+        metal::iota<start, size, stride>>;
 }
 
 #endif

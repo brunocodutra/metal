@@ -6,9 +6,9 @@
 #define METAL_LIST_COPY_HPP
 
 #include "../config.hpp"
-#include "../list/copy_if.hpp"
 #include "../lambda/lambda.hpp"
 #include "../lambda/partial.hpp"
+#include "../list/copy_if.hpp"
 #include "../value/same.hpp"
 
 namespace metal {

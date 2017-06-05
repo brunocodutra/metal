@@ -57,12 +57,10 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename... vals>
-        struct _bind_impl
-        {
+        struct _bind_impl {
             template<
                 template<typename...> class expr,
-                template<typename...> class... params
-            >
+                template<typename...> class... params>
             using type =
 #if defined(METAL_WORKAROUND)
                 call<expr, call<params, vals...>...>;
@@ -72,21 +70,15 @@ namespace metal {
         };
 
         template<typename lbd, typename... vals>
-        struct _bind
-        {};
+        struct _bind {};
 
         template<
             template<typename...> class expr,
-            template<typename...> class... params
-        >
-        struct _bind<lambda<expr>, lambda<params>...>
-        {
+            template<typename...> class... params>
+        struct _bind<lambda<expr>, lambda<params>...> {
             template<typename... vals>
-            using impl = forward<
-                _bind_impl<vals...>::template type,
-                expr,
-                params...
-            >;
+            using impl =
+                forward<_bind_impl<vals...>::template type, expr, params...>;
 
             using type = lambda<impl>;
         };

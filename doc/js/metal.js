@@ -2,7 +2,7 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-$(function(){
+$(function() {
   var page = window.location.pathname.split("/").pop();
   if(!page.length)
     page = "index.html";
@@ -11,47 +11,39 @@ $(function(){
   if(/[^_]+__[^_.]+.html/.test(section))
     section = "group__metal.html";
 
-  $("#sections > #menu a[href='" + section +"']").each(function(){
+  $("#sections > #menu a[href='" + section + "']").each(function() {
     $(this).parent().addClass("active");
     $("#sections #name").html($(this).html());
   });
 
-  if(/namespacemembers(_type)?\.html$/.test(page)){
+  if(/namespacemembers(_type)?\.html$/.test(page)) {
     var $entries = $("h3").addClass("index-entry");
 
-    $entries
-      .find("> a")
-      .each(function(){
-        var entry = $(this).attr("id").replace(/index_(.+)/g, "$1");
-        $(this)
-          .addClass("anchor")
-          .attr("id", entry)
-          .attr("href", "#" + entry);
-      });
+    $entries.find("> a").each(function() {
+      var entry = $(this).attr("id").replace(/index_(.+)/g, "$1");
+      $(this).addClass("anchor").attr("id", entry).attr("href", "#" + entry);
+    });
 
-    $entries
-      .find("+ ul")
-      .addClass("list-inline")
-      .find("> li")
-      .each(function(){
-        var text = $(this).text().match(/^([_a-zA-Z0-9]+)/g);
-        $(this).html($("> a", this).html(text));
-      });
+    $entries.find("+ ul").addClass("list-inline").find("> li").each(function() {
+      var text = $(this).text().match(/^([_a-zA-Z0-9]+)/g);
+      $(this).html($("> a", this).html(text));
+    });
 
-    $entries.contents().each(function(){
+    $entries.contents().each(function() {
       if(this.nodeType == 3)
         this.data = this.data.replace(/- (.+) -/g, "$1");
     })
   }
 
-  $("a[href^='" + page + "#']").each(function(){
+  $("a[href^='" + page + "#']").each(function() {
     $(this).attr("href", $(this).attr("href").replace(/.*(#.+)/g, "$1"));
   });
 
-  $(".levels, .arrow, .heading, .memtitle, .memSeparator, [class^='separator\\:']").remove();
+  $(".levels, .arrow, .heading, .memtitle, .memSeparator, [class^='separator\\:']")
+    .remove();
 
   $("div.header")
-    .each(function(){
+    .each(function() {
       $("> div.headertitle > div.title", this)
         .wrapInner("<h1>")
         .contents()
@@ -63,7 +55,7 @@ $(function(){
   $("h1.page-header > .ingroups")
     .removeClass("ingroups")
     .addClass("sub-page-header")
-    .each(function(){
+    .each(function() {
       $(this).parent().after(this);
     });
 
@@ -82,29 +74,24 @@ $(function(){
     .addClass("panel-heading")
     .attr("data-toggle", "collapse-next")
     .attr("role", "button")
-    .each(function(){
+    .each(function() {
       $("<i class='octicon octicon-chevron-down'>").appendTo(this);
 
       $("<div class='panel-title'>")
         .append($(".memtemplate", this).append("<br>").contents())
         .append($(".memname td", this).contents())
         .prependTo(this)
-        .each(function(){
-          if(/.*=[^=]*detail::[^=]*/.test($(this).text())){
+        .each(function() {
+          if(/.*=[^=]*detail::[^=]*/.test($(this).text())) {
             $(this).html(
-              $(this).html().replace(
-                /(.+=) typedef.+/,
-                "$1 unspecified"
-              )
-            );
+              $(this).html().replace(/(.+=) typedef.+/, "$1 unspecified"));
           }
         })
         .contents()
-        .each(function(){
-          if(this.nodeType == 3){
-            this.data = this.data
-              .replace(/= typedef/, "=")
-              .replace(/detail::[_a-zA-Z0-9_]+/, "unspecified");
+        .each(function() {
+          if(this.nodeType == 3) {
+            this.data = this.data.replace(/= typedef/, "=")
+                          .replace(/detail::[_a-zA-Z0-9_]+/, "unspecified");
           }
         });
 
@@ -116,19 +103,15 @@ $(function(){
     .addClass("panel-body")
     .wrap("<div class='panel-collapse collapse'>")
     .find("> p:first-child > code:contains('#include')")
-    .each(function(){
-      var baseURL =
-        "http://github.com/brunocodutra/metal/blob/master/include/";
+    .each(function() {
+      var baseURL = "http://github.com/brunocodutra/metal/blob/master/include/";
 
-      $(this).html(
-        $(this).text().replace(
-          /^#include <([^>]+)>$/g,
-          "#include <<a href='" + baseURL + "$1'>$1</a>>"
-        )
-      );
+      $(this).html($(this).text().replace(
+        /^#include <([^>]+)>$/g,
+        "#include <<a href='" + baseURL + "$1'>$1</a>>"));
     });
 
-  $("a + .memitem").prev().addClass("anchor").each(function(){
+  $("a + .memitem").prev().addClass("anchor").each(function() {
     $("+ .memitem .panel-title", this).prepend(this);
   });
 
@@ -137,7 +120,7 @@ $(function(){
   $("table.memberdecls")
     .addClass("table table-striped")
     .find("td.memItemLeft, td.memTemplItemLeft")
-    .each(function(){
+    .each(function() {
       $("+ td", this).contents().appendTo(this);
       $("+ td", this);
     })
@@ -149,36 +132,33 @@ $(function(){
     .addClass("table table-condensed table-bordered")
     .wrap("<div class='table-responsive'>")
 
-  $("dl.section.see").replaceWith(function(){
+  $("dl.section.see").replaceWith(function() {
     return $(this).find("dd").contents();
   });
 
-  $("div.fragment").replaceWith(function(){
+  $("div.fragment").replaceWith(function() {
     return $(this).wrapInner("<pre class='fragment'>").contents();
   });
 
   $("span.comment").addClass("text-muted");
   $("code a").removeClass("el");
-  $("a.el")
-    .contents()
-    .each(function(){
-      if(this.nodeType == 3)
-        this.data = this.data.replace(/metal::/g, "");
-    });
+  $("a.el").contents().each(function() {
+    if(this.nodeType == 3)
+      this.data = this.data.replace(/metal::/g, "");
+  });
 
   $("a.el").wrapInner("<strong>");
-  $("a.anchor").each(function(){
+  $("a.anchor").each(function() {
     $(this).attr("href", "#" + $(this).attr("id"));
   });
 
-  $("a[href^='#']").click(function(){
+  $("a[href^='#']").click(function() {
     var href = "#" + $.attr(this, "href").split("#").pop();
-    if(href.length > 1){
-      $("html, body").animate({
-        scrollTop: $(href).offset().top
-      }, 300, function(){
-        window.location.hash = href;
-      });
+    if(href.length > 1) {
+      $("html, body")
+        .animate({scrollTop: $(href).offset().top}, 300, function() {
+          window.location.hash = href;
+        });
 
       return false;
     }
@@ -188,24 +168,22 @@ $(function(){
 
   $("body")
     .on(
-      'click.collapse-next.data-api',
-      '[data-toggle=collapse-next]',
-      function(){
+      "click.collapse-next.data-api",
+      "[data-toggle=collapse-next]",
+      function() {
         var $chevron = $("> i", this);
-        if($chevron.hasClass("octicon-chevron-up")){
-          $chevron
-            .removeClass("octicon-chevron-up")
+        if($chevron.hasClass("octicon-chevron-up")) {
+          $chevron.removeClass("octicon-chevron-up")
             .addClass("octicon-chevron-down");
         } else {
-          $chevron
-            .removeClass("octicon-chevron-down")
+          $chevron.removeClass("octicon-chevron-down")
             .addClass("octicon-chevron-up");
         }
 
         var $target = $(this).next();
-        $target.data('bs.collapse') ?
-          $target.collapse('toggle') : $target.collapse();
-      }
-    )
+        $target.data("bs.collapse")
+            ? $target.collapse("toggle")
+            : $target.collapse();
+      })
     .fadeIn(150);
 });

@@ -17,47 +17,38 @@ namespace metal {
     namespace detail {
         template<
             template<template<typename...> class...> class,
-            template<typename...> class...
-        >
+            template<typename...> class...>
         struct forwarder;
 
         template<
             template<template<typename...> class...> class tmpl,
             template<typename...> class... exprs,
-            eval<std::enable_if<is_value<tmpl<exprs...>>::value>>* = nullptr
-        >
+            eval<std::enable_if<is_value<tmpl<exprs...>>::value>>* = nullptr>
         value<tmpl<exprs...>> sfinae(forwarder<tmpl, exprs...>*);
 
         template<template<typename...> class expr, typename... vals>
         struct caller;
 
         template<
-            template<typename...> class expr,
-            typename... vals,
-            eval<std::enable_if<is_value<expr<vals...>>::value>>* = nullptr
-        >
+            template<typename...> class expr, typename... vals,
+            eval<std::enable_if<is_value<expr<vals...>>::value>>* = nullptr>
         value<expr<vals...>> sfinae(caller<expr, vals...>*);
 
         value<> sfinae(...);
 
-                template<
+        template<
             template<template<typename...> class...> class tmpl,
-            template<typename...> class... exprs
-        >
-        struct forwarder :
-            decltype(sfinae(declptr<forwarder<tmpl, exprs...>>()))
-        {};
+            template<typename...> class... exprs>
+        struct forwarder
+            : decltype(sfinae(declptr<forwarder<tmpl, exprs...>>())) {};
 
         template<template<typename...> class expr, typename... vals>
-        struct caller :
-            decltype(sfinae(declptr<caller<expr, vals...>>()))
-        {};
+        struct caller : decltype(sfinae(declptr<caller<expr, vals...>>())) {};
 
 #if defined(METAL_WORKAROUND)
         template<
             template<template<typename...> class...> class tmpl,
-            template<typename...> class... exprs
-        >
+            template<typename...> class... exprs>
         using forward = typename forwarder<tmpl, exprs...>::type;
 
         template<template<typename...> class expr, typename... vals>
@@ -65,8 +56,7 @@ namespace metal {
 #else
         template<
             template<template<typename...> class...> class tmpl,
-            template<typename...> class... exprs
-        >
+            template<typename...> class... exprs>
         using forward = tmpl<exprs...>;
 
         template<template<typename...> class expr, typename... vals>

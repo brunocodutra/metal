@@ -50,12 +50,10 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename seq>
-        struct _apply_impl
-        {};
+        struct _apply_impl {};
 
         template<typename... vals>
-        struct _apply_impl<list<vals...>>
-        {
+        struct _apply_impl<list<vals...>> {
             template<template<typename...> class expr>
             using type =
 #if defined(METAL_WORKAROUND)
@@ -66,12 +64,10 @@ namespace metal {
         };
 
         template<typename lbd>
-        struct _apply
-        {};
+        struct _apply {};
 
         template<template<typename...> class expr>
-        struct _apply<lambda<expr>>
-        {
+        struct _apply<lambda<expr>> {
             template<typename seq>
             using type = forward<_apply_impl<seq>::template type, expr>;
         };
@@ -80,4 +76,3 @@ namespace metal {
 }
 
 #endif
-

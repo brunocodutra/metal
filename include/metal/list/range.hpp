@@ -7,11 +7,11 @@
 
 #include "../config.hpp"
 #include "../list/size.hpp"
+#include "../number/greater.hpp"
 #include "../number/if.hpp"
-#include "../number/or.hpp"
 #include "../number/not.hpp"
 #include "../number/number.hpp"
-#include "../number/greater.hpp"
+#include "../number/or.hpp"
 
 namespace metal {
     /// \cond
@@ -58,16 +58,15 @@ namespace metal {
     using range = detail::range<
         seq,
         if_<not_<or_<greater<number<0>, beg>, greater<beg, size<seq>>>>, beg>,
-        if_<not_<or_<greater<number<0>, end>, greater<end, size<seq>>>>, end>
-    >;
+        if_<not_<or_<greater<number<0>, end>, greater<end, size<seq>>>>, end>>;
 }
 
 #include "../list/list.hpp"
-#include "../list/rotate.hpp"
 #include "../list/reverse.hpp"
-#include "../number/sub.hpp"
+#include "../list/rotate.hpp"
 #include "../number/max.hpp"
 #include "../number/min.hpp"
+#include "../number/sub.hpp"
 
 #include <cstddef>
 
@@ -75,20 +74,17 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename... vals>
-        struct appender
-        {
+        struct appender {
             template<template<typename...> class expr, typename... _>
             using type = expr<vals..., _...>;
         };
 
         template<std::size_t n>
-        struct reverser :
-            reverser<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
-        {};
+        struct reverser
+            : reverser<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)> {};
 
         template<>
-        struct reverser<100>
-        {
+        struct reverser<100> {
             template<
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
@@ -115,11 +111,11 @@ namespace metal {
                 typename _88, typename _89, typename _90, typename _91,
                 typename _92, typename _93, typename _94, typename _95,
                 typename _96, typename _97, typename _98, typename _99,
-                typename... tail
-            >
-            using type = typename reverser<sizeof...(tail)>
-                ::template type<tail...>::template type<
+                typename... tail>
+            using type = typename reverser<sizeof...(tail)>::
+                template type<tail...>::template type<
                     appender,
+                    /* clang-format off */
                     _99, _98, _97, _96, _95, _94, _93, _92, _91, _90,
                     _89, _88, _87, _86, _85, _84, _83, _82, _81, _80,
                     _79, _78, _77, _76, _75, _74, _73, _72, _71, _70,
@@ -130,63 +126,54 @@ namespace metal {
                     _29, _28, _27, _26, _25, _24, _23, _22, _21, _20,
                     _19, _18, _17, _16, _15, _14, _13, _12, _11, _10,
                     _09, _08, _07, _06, _05, _04, _03, _02, _01, _00
-                >;
+                    /* clang-format on */
+                    >;
         };
 
         template<>
-        struct reverser<10>
-        {
+        struct reverser<10> {
             template<
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
-                typename _08, typename _09, typename... tail
-            >
-            using type = typename reverser<sizeof...(tail)>
-                ::template type<tail...>::template type<
-                    appender,
-                    _09, _08, _07, _06, _05, _04, _03, _02, _01, _00
-                >;
+                typename _08, typename _09, typename... tail>
+            using type = typename reverser<sizeof...(tail)>::
+                template type<tail...>::template type<
+                    appender, _09, _08, _07, _06, _05, _04, _03, _02, _01, _00>;
         };
 
         template<>
-        struct reverser<1>
-        {
+        struct reverser<1> {
             template<typename _00, typename... tail>
-            using type = typename reverser<sizeof...(tail)>
-                ::template type<tail...>::template type<appender, _00>;
+            using type = typename reverser<sizeof...(
+                tail)>::template type<tail...>::template type<appender, _00>;
         };
 
         template<>
-        struct reverser<0>
-        {
+        struct reverser<0> {
             template<typename...>
             using type = appender<>;
         };
 
         template<typename seq>
-        struct _reverse
-        {};
+        struct _reverse {};
 
         template<typename... vals>
-        struct _reverse<list<vals...>>
-        {
-            using type = typename reverser<sizeof...(vals)>
-                ::template type<vals...>::template type<list>;
+        struct _reverse<list<vals...>> {
+            using type = typename reverser<sizeof...(
+                vals)>::template type<vals...>::template type<list>;
         };
 
         template<typename seq>
         using reverse = typename _reverse<seq>::type;
 
         template<int_ n>
-        struct dropper :
-            dropper<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)>
-        {};
+        struct dropper : dropper<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)> {};
 
         template<>
-        struct dropper<100>
-        {
+        struct dropper<100> {
             template<
                 int_ n,
+                /* clang-format off */
                 typename, typename, typename, typename, typename, typename,
                 typename, typename, typename, typename, typename, typename,
                 typename, typename, typename, typename, typename, typename,
@@ -204,48 +191,43 @@ namespace metal {
                 typename, typename, typename, typename, typename, typename,
                 typename, typename, typename, typename, typename, typename,
                 typename, typename, typename, typename, typename... tail
-            >
-            using type = typename dropper<(n - 100)>::template type<
-                (n - 100), tail...
-            >;
+                /* clang-format on */
+                >
+            using type =
+                typename dropper<(n - 100)>::template type<(n - 100), tail...>;
         };
 
         template<>
-        struct dropper<10>
-        {
+        struct dropper<10> {
             template<
                 int_ n,
+                /* clang-format off */
                 typename, typename, typename, typename, typename, typename,
                 typename, typename, typename, typename, typename... tail
-            >
-            using type = typename dropper<(n - 10)>::template type<
-                (n - 10), tail...
-            >;
+                /* clang-format on */
+                >
+            using type =
+                typename dropper<(n - 10)>::template type<(n - 10), tail...>;
         };
 
         template<>
-        struct dropper<1>
-        {
+        struct dropper<1> {
             template<int_ n, typename, typename... tail>
-            using type = typename dropper<(n - 1)>::template type<
-                (n - 1), tail...
-            >;
+            using type =
+                typename dropper<(n - 1)>::template type<(n - 1), tail...>;
         };
 
         template<>
-        struct dropper<0>
-        {
+        struct dropper<0> {
             template<int_, typename... vals>
             using type = list<vals...>;
         };
 
         template<typename seq, typename num>
-        struct _drop
-        {};
+        struct _drop {};
 
         template<typename... vals, int_ n>
-        struct _drop<list<vals...>, number<n>>
-        {
+        struct _drop<list<vals...>, number<n>> {
             using type = typename dropper<n>::template type<n, vals...>;
         };
 
@@ -256,45 +238,37 @@ namespace metal {
         using take = drop<rotate<seq, num>, sub<size<seq>, num>>;
 
         template<typename seq, typename beg, typename end>
-        struct _range
-        {
+        struct _range {
             using b = min<beg, end>;
             using e = max<beg, end>;
 
             using type = range<
-                range<range<seq, number<0>, e>, b, e>,
-                sub<beg, b>,
-                sub<end, b>
-            >;
+                range<range<seq, number<0>, e>, b, e>, sub<beg, b>,
+                sub<end, b>>;
         };
 
         template<typename seq, typename num>
-        struct _range<seq, number<0>, num>
-        {
+        struct _range<seq, number<0>, num> {
             using type = take<seq, num>;
         };
 
         template<typename seq, typename num>
-        struct _range<seq, num, size<seq>>
-        {
+        struct _range<seq, num, size<seq>> {
             using type = drop<seq, num>;
         };
 
         template<typename seq>
-        struct _range<seq, number<0>, size<seq>>
-        {
+        struct _range<seq, number<0>, size<seq>> {
             using type = seq;
         };
 
         template<typename seq>
-        struct _range<seq, size<seq>, number<0>>
-        {
+        struct _range<seq, size<seq>, number<0>> {
             using type = reverse<seq>;
         };
 
         template<>
-        struct _range<list<>, number<0>, number<0>>
-        {
+        struct _range<list<>, number<0>, number<0>> {
             using type = list<>;
         };
     }

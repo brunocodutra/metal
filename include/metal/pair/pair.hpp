@@ -6,9 +6,9 @@
 #define METAL_PAIR_PAIR_HPP
 
 #include "../config.hpp"
-#include "../list/list.hpp"
-#include "../lambda/lambda.hpp"
 #include "../lambda/apply.hpp"
+#include "../lambda/lambda.hpp"
+#include "../list/list.hpp"
 
 namespace metal {
     /// \cond
@@ -97,14 +97,10 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename val>
-        struct _is_pair :
-            false_
-        {};
+        struct _is_pair : false_ {};
 
         template<typename x, typename y>
-        struct _is_pair<list<x, y>> :
-            true_
-        {};
+        struct _is_pair<list<x, y>> : true_ {};
     }
     /// \endcond
 }

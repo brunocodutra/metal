@@ -55,8 +55,7 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename val>
-        struct _always
-        {
+        struct _always {
             template<typename...>
             using impl = identity<val>;
 

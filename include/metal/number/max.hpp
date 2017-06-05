@@ -44,10 +44,10 @@ namespace metal {
     using max = detail::call<detail::_max<nums...>::template type>;
 }
 
+#include "../lambda/lambda.hpp"
+#include "../number/greater.hpp"
 #include "../number/if.hpp"
 #include "../number/number.hpp"
-#include "../number/greater.hpp"
-#include "../lambda/lambda.hpp"
 #include "../value/fold_left.hpp"
 
 #include <initializer_list>
@@ -56,30 +56,26 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename... nums>
-        struct _max
-        {};
+        struct _max {};
 
 #if defined(METAL_WORKAROUND)
         template<typename x, typename y>
         using max_impl = if_<greater<x, y>, x, y>;
 
         template<int_... ns>
-        struct _max<number<ns>...>
-        {
+        struct _max<number<ns>...> {
             template<typename... _>
             using type = fold_left<lambda<max_impl>, number<ns>..., _...>;
         };
 #else
         template<typename... _>
         constexpr int_ max_impl(int_ head, _... tail) {
-            return void(std::initializer_list<int_>{
-                (head = (tail > head) ? tail : head)...
-            }), head;
+            using expand = std::initializer_list<int_>;
+            return void(expand{(head = (tail > head) ? tail : head)...}), head;
         }
 
         template<int_... ns>
-        struct _max<number<ns>...>
-        {
+        struct _max<number<ns>...> {
             template<typename... _>
             using type = number<max_impl((void(sizeof...(_)), ns)...)>;
         };

@@ -55,8 +55,7 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename... vals>
-        struct _partial_impl
-        {
+        struct _partial_impl {
             template<template<typename...> class expr>
             using type =
 #if defined(METAL_WORKAROUND)
@@ -67,24 +66,19 @@ namespace metal {
         };
 
         template<typename lbd, typename... leading>
-        struct _partial
-        {};
+        struct _partial {};
 
         template<template<typename...> class expr, typename... leading>
-        struct _partial<lambda<expr>, leading...>
-        {
+        struct _partial<lambda<expr>, leading...> {
             template<typename... trailing>
             using impl = forward<
-                _partial_impl<leading..., trailing...>::template type,
-                expr
-            >;
+                _partial_impl<leading..., trailing...>::template type, expr>;
 
             using type = lambda<impl>;
         };
 
         template<typename x>
-        struct _partial<lambda<same>, x>
-        {
+        struct _partial<lambda<same>, x> {
             template<typename y>
             using impl = same<x, y>;
 
@@ -92,8 +86,7 @@ namespace metal {
         };
 
         template<template<typename...> class expr>
-        struct _partial<lambda<expr>>
-        {
+        struct _partial<lambda<expr>> {
             using type = lambda<expr>;
         };
     }

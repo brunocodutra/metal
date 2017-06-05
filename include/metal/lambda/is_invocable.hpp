@@ -45,10 +45,7 @@ namespace metal {
     using is_invocable = same<
         std::false_type,
         typename std::is_base_of<
-            value<>,
-            detail::caller<invoke, lbd, vals...>
-        >::type
-    >;
+            value<>, detail::caller<invoke, lbd, vals...>>::type>;
 }
 
 #endif

@@ -133,3 +133,61 @@ function(test_headers _root _lib _prefix)
         endif()
     endforeach()
 endfunction()
+
+find_program(CLANG_FORMAT NAMES clang-format)
+function(test_formatting _root _lib _prefix)
+    set(options)
+    set(one_value_args)
+    set(multi_value_args EXCLUDE)
+    cmake_parse_arguments(ARGS "${options}" "${one_value_args}" "${multi_value_args}" ${ARGN})
+
+    if(NOT ARGS_EXCLUDE)
+        set(ARGS_EXCLUDE "^$")
+    else()
+        string(REPLACE ";" "|" ARGS_EXCLUDE "${ARGS_EXCLUDE}")
+    endif()
+
+    if(NOT IS_ABSOLUTE ${_prefix})
+        set(_prefix "${CMAKE_CURRENT_SOURCE_DIR}/${_prefix}")
+    endif()
+
+    if(NOT IS_DIRECTORY ${_prefix} OR NOT EXISTS ${_prefix})
+        message(FATAL_ERROR "'${_prefix}' is not a valid directory.")
+    endif()
+
+    if(NOT TARGET ${_root})
+        add_custom_target(${_root})
+    endif()
+
+    get_tree_nodes(${_prefix} nodes)
+    foreach(node ${nodes})
+        if(node MATCHES ${ARGS_EXCLUDE})
+            continue()
+        endif()
+
+        set(target ${_root}.${node})
+        set(formatted "${CMAKE_CURRENT_BINARY_DIR}/${node}.formatted.hpp")
+        set(node "${_prefix}/${node}")
+        set(original "${node}.hpp")
+        if(EXISTS ${original})
+            file(RELATIVE_PATH comment ${PROJECT_SOURCE_DIR} ${original})
+            set(comment "checking whether '${comment}' is well formatted...")
+
+            add_custom_target(${target}
+                COMMAND ${CLANG_FORMAT} ${original} > ${formatted}
+                COMMAND ${CMAKE_COMMAND} -E compare_files ${original} ${formatted}
+                WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+                COMMENT ${comment}
+            )
+        endif()
+
+        if(IS_DIRECTORY ${node})
+            test_formatting(${target} ${_lib} ${node} ${ARGN})
+        endif()
+
+        if(TARGET ${target})
+            add_dependencies(${_root} ${target})
+            test(${target})
+        endif()
+    endforeach()
+endfunction()

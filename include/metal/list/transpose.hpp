@@ -6,11 +6,11 @@
 #define METAL_LIST_TRANSPOSE_HPP
 
 #include "../config.hpp"
+#include "../lambda/apply.hpp"
+#include "../lambda/lambda.hpp"
+#include "../lambda/partial.hpp"
 #include "../list/list.hpp"
 #include "../list/transform.hpp"
-#include "../lambda/partial.hpp"
-#include "../lambda/lambda.hpp"
-#include "../lambda/apply.hpp"
 
 namespace metal {
     /// \ingroup list
@@ -45,11 +45,8 @@ namespace metal {
     template<typename seq>
     using transpose = metal::apply<
         metal::partial<
-            metal::lambda<metal::transform>,
-            metal::lambda<metal::list>
-        >,
-        seq
-    >;
+            metal::lambda<metal::transform>, metal::lambda<metal::list>>,
+        seq>;
 }
 
 #endif

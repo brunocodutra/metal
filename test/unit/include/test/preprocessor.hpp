@@ -72,7 +72,7 @@
 #define CMPL_IMPL(N) CMPL_##N
 #define CMPL(N) CMPL_IMPL(N)
 
-#define NOT_0  _, 1
+#define NOT_0 _, 1
 #define NOT(N) SECOND(CAT(NOT_, N), 0, _)
 
 #define IF_0(T, F) T

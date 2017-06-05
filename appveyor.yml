@@ -56,5 +56,5 @@ build_script:
   - if "%BUILD_DOC%" equ "true" (
         cmake --build "%METAL_BUILD_PATH%" --target doc --config "%CONFIGURATION%"
     ) else (
-        pushd "%METAL_BUILD_PATH%" && ctest -C "%CONFIGURATION%" --output-on-failure & popd
+        pushd "%METAL_BUILD_PATH%" && ctest -C "%CONFIGURATION%" --output-on-failure -E ^test.format & popd
     )

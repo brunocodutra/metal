@@ -51,8 +51,8 @@ namespace metal {
         typename detail::_replace_if<seq, transform<lbd, seq>, vals...>::type;
 }
 
-#include "../list/list.hpp"
 #include "../list/join.hpp"
+#include "../list/list.hpp"
 #include "../number/if.hpp"
 #include "../number/number.hpp"
 
@@ -60,45 +60,36 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename vals, typename vs, typename...>
-        struct _replace_if
-        {};
+        struct _replace_if {};
 
         template<
-            typename... vals, int_... vs,
-            typename x, typename y, typename... t
-        >
-        struct _replace_if<list<vals...>, list<number<vs>...>, x, y, t...>
-        {
+            typename... vals, int_... vs, typename x, typename y, typename... t>
+        struct _replace_if<list<vals...>, list<number<vs>...>, x, y, t...> {
             using type = join<if_<number<vs>, list<x, y, t...>, list<vals>>...>;
         };
 
         template<typename... vals, int_... vs, typename x>
-        struct _replace_if<list<vals...>, list<number<vs>...>, x>
-        {
+        struct _replace_if<list<vals...>, list<number<vs>...>, x> {
             using type = list<if_<number<vs>, x, vals>...>;
         };
 
         template<typename... vals, int_... vs>
-        struct _replace_if<list<vals...>, list<number<vs>...>>
-        {
+        struct _replace_if<list<vals...>, list<number<vs>...>> {
             using type = join<if_<number<vs>, list<>, list<vals>>...>;
         };
 
         template<typename x, typename y, typename... t>
-        struct _replace_if<list<>, list<>, x, y, t...>
-        {
+        struct _replace_if<list<>, list<>, x, y, t...> {
             using type = list<>;
         };
 
         template<typename x>
-        struct _replace_if<list<>, list<>, x>
-        {
+        struct _replace_if<list<>, list<>, x> {
             using type = list<>;
         };
 
         template<>
-        struct _replace_if<list<>, list<>>
-        {
+        struct _replace_if<list<>, list<>> {
             using type = list<>;
         };
     }

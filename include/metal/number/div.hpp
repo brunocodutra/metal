@@ -44,8 +44,8 @@ namespace metal {
     using div = detail::call<detail::_div<nums...>::template type>;
 }
 
-#include "../number/number.hpp"
 #include "../lambda/lambda.hpp"
+#include "../number/number.hpp"
 #include "../value/fold_left.hpp"
 
 #include <initializer_list>
@@ -54,29 +54,23 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename... nums>
-        struct _div
-        {};
+        struct _div {};
 
 #if defined(METAL_WORKAROUND)
         template<typename x, typename y>
-        struct _div_impl
-        {};
+        struct _div_impl {};
 
         template<int_ x, int_ y>
-        struct _div_impl<number<x>, number<y>> :
-            number<x / y>
-        {};
+        struct _div_impl<number<x>, number<y>> : number<x / y> {};
 
         template<int_ x>
-        struct _div_impl<number<x>, number<0>>
-        {};
+        struct _div_impl<number<x>, number<0>> {};
 
         template<typename x, typename y>
         using div_impl = typename _div_impl<x, y>::type;
 
         template<int_... ns>
-        struct _div<number<ns>...>
-        {
+        struct _div<number<ns>...> {
             template<typename... _>
             using type = fold_left<lambda<div_impl>, number<ns>..., _...>;
         };
@@ -87,8 +81,7 @@ namespace metal {
         }
 
         template<int_... ns>
-        struct _div<number<ns>...>
-        {
+        struct _div<number<ns>...> {
             template<typename... _>
             using type = number<div_impl((void(sizeof...(_)), ns)...)>;
         };

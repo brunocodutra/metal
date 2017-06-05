@@ -6,8 +6,8 @@
 #define METAL_MAP_ERASE_KEY_HPP
 
 #include "../config.hpp"
-#include "../map/order.hpp"
 #include "../list/erase.hpp"
+#include "../map/order.hpp"
 
 namespace metal {
     /// \ingroup map

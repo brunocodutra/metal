@@ -6,10 +6,10 @@
 #define METAL_LIST_CONTAINS_HPP
 
 #include "../config.hpp"
-#include "../list/any_of.hpp"
 #include "../lambda/arg.hpp"
 #include "../lambda/lambda.hpp"
 #include "../lambda/partial.hpp"
+#include "../list/any_of.hpp"
 #include "../value/same.hpp"
 
 namespace metal {

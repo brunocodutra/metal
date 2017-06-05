@@ -53,17 +53,14 @@ namespace metal {
     /// \cond
     namespace detail {
         template<typename, typename = true_>
-        struct table
-        {};
+        struct table {};
 
         template<typename... keys, typename... vals>
-        struct table<list<list<keys, vals>...>, distinct<list<keys, vals>...>> :
-            list<keys, vals>...
-        {};
+        struct table<list<list<keys, vals>...>, distinct<list<keys, vals>...>>
+            : list<keys, vals>... {};
 
         template<>
-        struct table<list<>>
-        {};
+        struct table<list<>> {};
 
         template<typename key, typename val>
         value<val> lookup(list<key, val>*);
@@ -72,9 +69,7 @@ namespace metal {
         value<> lookup(...);
 
         template<typename seq, typename key>
-        struct _at_key :
-            decltype(lookup<key>(declptr<table<seq>>()))
-        {};
+        struct _at_key : decltype(lookup<key>(declptr<table<seq>>())) {};
     }
     /// \endcond
 }

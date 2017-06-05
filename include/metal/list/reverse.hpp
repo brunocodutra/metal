@@ -7,8 +7,8 @@
 
 #include "../config.hpp"
 #include "../list/list.hpp"
-#include "../list/size.hpp"
 #include "../list/range.hpp"
+#include "../list/size.hpp"
 #include "../number/number.hpp"
 
 namespace metal {
