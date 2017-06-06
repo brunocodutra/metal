@@ -15,8 +15,8 @@ option(METAL_VERBOSE "increase output verbosity"         OFF)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
+include(Configure)
 include(Deploy)
-include(Flags)
 include(Test)
 
 set(METAL_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/")
