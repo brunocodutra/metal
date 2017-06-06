@@ -176,3 +176,32 @@ endif()
 
     add_dependencies(deploy ${name}.deploy)
 endfunction()
+
+function(deploy_doc _lib _doc)
+    get_target_property(name ${_lib} NAME)
+    get_target_property(doc ${_doc} OUTPUT)
+
+    if(WIN32 AND NOT CYGWIN)
+        set(doc_install_dir "${name}/doc")
+    else()
+        set(doc_install_dir "share/${name}/doc")
+    endif()
+
+    set(dist "${PROJECT_BINARY_DIR}/dist/")
+    set(dist_doc "${dist}/${doc_install_dir}/")
+
+    add_custom_target(${_doc}.deploy
+        COMMAND ${CMAKE_COMMAND} -E remove_directory ${dist_doc}
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${doc} ${dist_doc}
+        COMMENT "deploying ${name} docs..."
+        DEPENDS ${_doc}
+    )
+
+    install(DIRECTORY ${dist} DESTINATION .)
+
+    if(NOT TARGET deploy)
+        add_custom_target(deploy)
+    endif()
+
+    add_dependencies(deploy ${_doc}.deploy)
+endfunction()
