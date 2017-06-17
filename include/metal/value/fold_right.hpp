@@ -48,6 +48,7 @@ namespace metal {
 }
 
 #include "../lambda/lambda.hpp"
+#include "../value/identity.hpp"
 
 #include <cstddef>
 
@@ -143,18 +144,8 @@ namespace metal {
 
         template<typename state>
         struct right_folder_0 {
-#if defined(METAL_WORKAROUND)
             template<template<typename...> class>
-            struct impl {
-                using type = state;
-            };
-
-            template<template<typename...> class expr>
-            using type = typename impl<expr>::type;
-#else
-            template<template<typename...> class>
-            using type = state;
-#endif
+            using type = identity<state>;
         };
 
         template<std::size_t n>
