@@ -28,6 +28,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<(x{} < y{})>;
     ///     \endcode

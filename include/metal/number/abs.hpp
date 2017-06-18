@@ -24,6 +24,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<(num{} > 0) ? num{} : -num{}>;
     ///     \endcode
