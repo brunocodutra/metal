@@ -37,6 +37,7 @@
 #include "list/range.hpp"
 #include "list/remove.hpp"
 #include "list/remove_if.hpp"
+#include "list/repeat.hpp"
 #include "list/replace.hpp"
 #include "list/replace_if.hpp"
 #include "list/reverse.hpp"

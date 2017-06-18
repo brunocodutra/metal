@@ -50,7 +50,7 @@ namespace metal {
     /// \snippet list.cpp iota
     ///
     /// ### See Also
-    /// \see numbers
+    /// \see list, repeat, numbers
     template<typename start, typename size, typename stride = number<1>>
     using iota = typename detail::_iota<start, size, stride>::type;
 }

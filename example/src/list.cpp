@@ -423,6 +423,13 @@ IS_SAME(
 )
 
 HIDE(
+/// [repeat]
+IS_SAME(metal::repeat<char, metal::number<0>>, metal::list<>);
+IS_SAME(metal::repeat<char, metal::number<3>>, metal::list<char, char, char>);
+/// [repeat]
+)
+
+HIDE(
 /// [slice]
 using l = metal::list<short, int, long, float, double, void>;
 
