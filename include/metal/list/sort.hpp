@@ -76,30 +76,38 @@ namespace metal {
         template<typename seq>
         using tail = typename cons<seq>::tail;
 
-        template<typename x, typename y, typename... zs>
-        struct _merge {
-            template<template<typename...> class expr>
-            using type = typename if_<
-                expr<head<y>, head<x>>, _merge<x, tail<y>, zs..., head<y>>,
-                _merge<tail<x>, y, zs..., head<x>>>::template type<expr>;
-        };
+        template<
+            typename, typename, typename, template<typename...> class,
+            typename = true_>
+        struct _merge {};
 
-        template<typename... xs, typename... zs>
-        struct _merge<list<xs...>, list<>, zs...> {
-            template<template<typename...> class>
+        template<
+            typename x, typename y, typename... zs,
+            template<typename...> class e>
+        struct _merge<
+            x, y, list<zs...>, e, if_<call<e, head<y>, head<x>>, true_, false_>>
+            : _merge<x, tail<y>, list<zs..., head<y>>, e> {};
+
+        template<
+            typename x, typename y, typename... zs,
+            template<typename...> class e>
+        struct _merge<
+            x, y, list<zs...>, e, if_<call<e, head<y>, head<x>>, false_, true_>>
+            : _merge<tail<x>, y, list<zs..., head<x>>, e> {};
+
+        template<typename... xs, typename... zs, template<typename...> class e>
+        struct _merge<list<xs...>, list<>, list<zs...>, e> {
             using type = list<zs..., xs...>;
         };
 
-        template<typename... ys, typename... zs>
-        struct _merge<list<>, list<ys...>, zs...> {
-            template<template<typename...> class>
+        template<typename... ys, typename... zs, template<typename...> class e>
+        struct _merge<list<>, list<ys...>, list<zs...>, e> {
             using type = list<zs..., ys...>;
         };
 
-        template<typename... zs>
-        struct _merge<list<>, list<>, zs...> {
-            template<template<typename...> class>
-            using type = list<zs...>;
+        template<typename z, template<typename...> class e>
+        struct _merge<list<>, list<>, z, e> {
+            using type = z;
         };
 
         template<typename seq>
@@ -112,13 +120,11 @@ namespace metal {
             using mid = number<sizeof...(vals) / 2>;
             using end = number<sizeof...(vals)>;
 
-            using x = _sort_impl<range<seq, beg, mid>>;
-            using y = _sort_impl<range<seq, mid, end>>;
-
             template<template<typename...> class expr>
             using type = typename _merge<
-                forward<x::template type, expr>,
-                forward<y::template type, expr>>::template type<expr>;
+                forward<_sort_impl<range<seq, beg, mid>>::template type, expr>,
+                forward<_sort_impl<range<seq, mid, end>>::template type, expr>,
+                list<>, expr>::type;
         };
 
         template<typename x, typename y>
