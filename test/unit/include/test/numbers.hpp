@@ -7,19 +7,6 @@
 
 #include "test/preprocessor.hpp"
 
-namespace test {
-    using num0 = metal::number<0>;
-    using num1 = metal::number<1>;
-    using num2 = metal::number<2>;
-    using num3 = metal::number<3>;
-    using num4 = metal::number<4>;
-    using num5 = metal::number<5>;
-    using num6 = metal::number<6>;
-    using num7 = metal::number<7>;
-    using num8 = metal::number<8>;
-    using num9 = metal::number<9>;
-}
-
 #define FACT_0 1
 #define FACT_1 1
 #define FACT_2 FACT_1 * 2
@@ -32,10 +19,10 @@ namespace test {
 #define FACT_9 FACT_7 * 9
 #define FACT(N) (CAT(FACT_, N))
 
-#define NUMBER(N) CAT(test::num, N)
+#define NUMBER(N) metal::number<N>
 #define NUMBERS(N) ENUM(N, NUMBER)
 
-#define BOOL(B) metal::number<(B)>
+#define BOOL(B) metal::number<!!(B)>
 #define TRUE BOOL(true)
 #define FALSE BOOL(false)
 

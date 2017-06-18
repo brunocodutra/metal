@@ -6,7 +6,7 @@
 
 #include "test.hpp"
 
-#define ENTRY(N, A, B) metal::number<A*N + B>
+#define ENTRY(N, A, B) NUMBER(A*N + B)
 
 #define MATRIX(M, N) \
     CHECK((metal::is_invocable<metal::lambda<metal::iota>, VALUE(M), VALUE(N), VALUE(N)>), (FALSE)); \
@@ -60,13 +60,13 @@
     CHECK((metal::is_invocable<metal::lambda<metal::iota>, LAMBDA(_), LAMBDA(_), LAMBDA(N)>), (FALSE)); \
     CHECK((metal::iota<NUMBER(M), NUMBER(N)>), (metal::list<ENUM(N, ENTRY, 1, M)>)); \
     CHECK((metal::iota<NUMBER(M), NUMBER(N), NUMBER(M)>), (metal::list<ENUM(N, ENTRY, M, M)>)); \
-    CHECK((metal::iota<NUMBER(M), metal::number<-N>, metal::number<-M>>), (metal::list<ENUM(N, ENTRY, M, M)>)); \
-    CHECK((metal::iota<metal::number<-M>, NUMBER(N)>), (metal::list<ENUM(N, ENTRY, 1, -M)>)); \
-    CHECK((metal::iota<metal::number<-M>, NUMBER(N), NUMBER(M)>), (metal::list<ENUM(N, ENTRY, M, -M)>)); \
-    CHECK((metal::iota<metal::number<-M>, metal::number<-N>>), (metal::list<ENUM(N, ENTRY, -1, -M)>)); \
-    CHECK((metal::iota<metal::number<-M>, metal::number<-N>, NUMBER(M)>), (metal::list<ENUM(N, ENTRY, -M, -M)>)); \
-    CHECK((metal::iota<metal::number<-M>, NUMBER(N), metal::number<-M>>), (metal::list<ENUM(N, ENTRY, -M, -M)>)); \
-    CHECK((metal::iota<metal::number<-M>, metal::number<-N>, metal::number<-M>>), (metal::list<ENUM(N, ENTRY, M, -M)>)); \
+    CHECK((metal::iota<NUMBER(M), NUMBER(-N), NUMBER(-M)>), (metal::list<ENUM(N, ENTRY, M, M)>)); \
+    CHECK((metal::iota<NUMBER(-M), NUMBER(N)>), (metal::list<ENUM(N, ENTRY, 1, -M)>)); \
+    CHECK((metal::iota<NUMBER(-M), NUMBER(N), NUMBER(M)>), (metal::list<ENUM(N, ENTRY, M, -M)>)); \
+    CHECK((metal::iota<NUMBER(-M), NUMBER(-N)>), (metal::list<ENUM(N, ENTRY, -1, -M)>)); \
+    CHECK((metal::iota<NUMBER(-M), NUMBER(-N), NUMBER(M)>), (metal::list<ENUM(N, ENTRY, -M, -M)>)); \
+    CHECK((metal::iota<NUMBER(-M), NUMBER(N), NUMBER(-M)>), (metal::list<ENUM(N, ENTRY, -M, -M)>)); \
+    CHECK((metal::iota<NUMBER(-M), NUMBER(-N), NUMBER(-M)>), (metal::list<ENUM(N, ENTRY, M, -M)>)); \
 /**/
 
 GEN(MATRIX)

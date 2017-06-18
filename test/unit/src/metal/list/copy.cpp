@@ -56,8 +56,8 @@
     CHECK((metal::is_invocable<metal::lambda<metal::copy>, LAMBDA(_), MAP(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::copy>, LAMBDA(_), LAMBDA(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::copy>, LAMBDA(_), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::copy<PAIR(M), VALUE(N)>), (metal::if_<metal::number<M == N>, metal::list<VALUE(M)>, metal::list<>>)); \
-    CHECK((metal::copy<PAIR(M), NUMBER(N)>), (metal::if_<metal::number<M == N>, metal::list<NUMBER(M)>, metal::list<>>)); \
+    CHECK((metal::copy<PAIR(M), VALUE(N)>), (metal::if_<BOOL(M == N), metal::list<VALUE(M)>, metal::list<>>)); \
+    CHECK((metal::copy<PAIR(M), NUMBER(N)>), (metal::if_<BOOL(M == N), metal::list<NUMBER(M)>, metal::list<>>)); \
     CHECK((metal::copy<metal::list<VALUES(M) COMMA(AND(M, N)) ENUM(N, VALUE FIX(M))>, VALUE(M)>), (metal::list<ENUM(N, VALUE FIX(M))>)); \
 /**/
 

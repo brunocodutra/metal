@@ -49,7 +49,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::add>, LAMBDA(_) COMMA(N) LISTS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::add>, LAMBDA(_) COMMA(N) MAPS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::add>, LAMBDA(_) COMMA(N) LAMBDAS(N)>), (FALSE)); \
-    CHECK((metal::add<NUMBERS(M) COMMA(AND(M, N)) NUMBERS(N)>), (metal::number<M*(M - 1)/2 + N*(N - 1)/2>)); \
+    CHECK((metal::add<NUMBERS(M) COMMA(AND(M, N)) NUMBERS(N)>), (NUMBER(M*(M - 1)/2 + N*(N - 1)/2))); \
 /**/
 
 GEN(MATRIX)

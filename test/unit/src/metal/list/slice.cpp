@@ -58,7 +58,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::slice>, LAMBDA(_), LAMBDA(_), NUMBER(1)>), (FALSE)); \
     CHECK((metal::slice<LIST(INF), NUMBER(0), NUMBER(M)>), (LIST(M))); \
     CHECK((metal::slice<LIST(INF), NUMBER(M), NUMBER(N), NUMBER(0)>), (metal::list<ENUM(N, VALUE FIX(M))>)); \
-    CHECK((metal::slice<LIST(INF), NUMBER(M), NUMBER(M), metal::number<-1>>), (metal::list<RENUM(M, VALUE LIFT(INC))>)); \
+    CHECK((metal::slice<LIST(INF), NUMBER(M), NUMBER(M), NUMBER(-1)>), (metal::list<RENUM(M, VALUE LIFT(INC))>)); \
 /**/
 
 GEN(MATRIX)

@@ -56,12 +56,12 @@
     CHECK((metal::is_invocable<metal::lambda<metal::at>, LAMBDA(_), MAP(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::at>, LAMBDA(_), LAMBDA(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::at>, LAMBDA(_), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::at>, LIST(M), metal::number<-N>>), (BOOL(M && !N))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::at>, LIST(M), NUMBER(-N)>), (BOOL(M && !N))); \
     CHECK((metal::at<PAIR(M), NUMBER(0)>), (NUMBER(M))); \
     CHECK((metal::at<PAIR(M), NUMBER(1)>), (VALUE(M))); \
     CHECK((metal::at<LIST(INF), NUMBER(M)>), (VALUE(M))); \
     CHECK((metal::at<MAP(INF), NUMBER(M)>), (PAIR(M))); \
-    CHECK((metal::at<metal::list<TAGSX20(M) COMMA(M) VALUES(INC(N))>, metal::number<20*M + N>>), (VALUE(N))); \
+    CHECK((metal::at<metal::list<TAGSX20(M) COMMA(M) VALUES(INC(N))>, NUMBER(20*M + N)>), (VALUE(N))); \
 /**/
 
 GEN(MATRIX)
