@@ -14,6 +14,7 @@
 #include "list/back.hpp"
 #include "list/cartesian.hpp"
 #include "list/cascade.hpp"
+#include "list/combine.hpp"
 #include "list/contains.hpp"
 #include "list/copy.hpp"
 #include "list/copy_if.hpp"

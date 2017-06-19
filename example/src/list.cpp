@@ -586,6 +586,27 @@ IS_SAME(
 /// [cascade]
 )
 
+HIDE(
+/// [combine]
+struct a; struct b; struct c; struct d;
+
+using tree = metal::list<
+    metal::list<metal::list<a>, metal::list<b>>,
+    metal::list<metal::list<c>, metal::list<d>>
+>;
+
+IS_SAME(
+    metal::combine<metal::list<a, b, c, d>, metal::number<2>>,
+    metal::list<
+        metal::list<a, a>, metal::list<a, b>, metal::list<a, c>, metal::list<a, d>,
+        metal::list<b, a>, metal::list<b, b>, metal::list<b, c>, metal::list<b, d>,
+        metal::list<c, a>, metal::list<c, b>, metal::list<c, c>, metal::list<c, d>,
+        metal::list<d, a>, metal::list<d, b>, metal::list<d, c>, metal::list<d, d>
+    >
+);
+/// [combine]
+)
+
 #if !defined(METAL_WORKAROUND)
 
 HIDE(
