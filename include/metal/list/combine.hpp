@@ -41,7 +41,7 @@ namespace metal {
     /// \snippet list.cpp combine
     ///
     /// ### See Also
-    /// \see list, cartesian, cascade
+    /// \see list, powerset, cartesian, cascade
     template<typename seq, typename num = metal::size<seq>>
     using combine = metal::apply<
         metal::lambda<metal::cartesian>,

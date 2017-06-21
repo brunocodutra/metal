@@ -34,6 +34,7 @@
 #include "list/list.hpp"
 #include "list/none_of.hpp"
 #include "list/partition.hpp"
+#include "list/powerset.hpp"
 #include "list/prepend.hpp"
 #include "list/range.hpp"
 #include "list/remove.hpp"

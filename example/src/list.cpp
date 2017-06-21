@@ -607,6 +607,23 @@ IS_SAME(
 /// [combine]
 )
 
+HIDE(
+/// [powerset]
+struct a; struct b; struct c; struct d;
+
+IS_SAME(
+    metal::powerset<metal::list<a, b, c, d>>,
+    metal::list<
+        metal::list<>, metal::list<a>, metal::list<b>, metal::list<a, b>,
+        metal::list<c>, metal::list<a, c>, metal::list<b, c>, metal::list<a, b, c>,
+        metal::list<d>, metal::list<a, d>, metal::list<b, d>, metal::list<a, b, d>,
+        metal::list<c, d>, metal::list<a, c, d>, metal::list<b, c, d>,
+        metal::list<a, b, c, d>
+    >
+);
+/// [powerset]
+)
+
 #if !defined(METAL_WORKAROUND)
 
 HIDE(
