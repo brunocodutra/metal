@@ -559,6 +559,26 @@ IS_SAME(
 /// [cartesian]
 )
 
+HIDE(
+/// [cascade]
+struct a; struct b; struct c; struct d;
+
+template<typename...> struct f {};
+template<typename...> struct g {};
+template<typename...> struct h {};
+
+using tree = metal::list<
+    metal::list<metal::list<a>, metal::list<b>>,
+    metal::list<metal::list<c>, metal::list<d>>
+>;
+
+IS_SAME(
+    metal::cascade<tree, metal::lambda<f>, metal::lambda<g>, metal::lambda<h>>,
+    f<g<h<a>, h<b>>, g<h<c>, h<d>>>
+);
+/// [cascade]
+)
+
 #if !defined(METAL_WORKAROUND)
 
 HIDE(

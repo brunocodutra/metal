@@ -47,32 +47,20 @@ namespace metal {
     using partial = typename detail::_partial<lbd, vals...>::type;
 }
 
+#include "../lambda/invoke.hpp"
 #include "../lambda/lambda.hpp"
 #include "../value/same.hpp"
-#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... vals>
-        struct _partial_impl {
-            template<template<typename...> class expr>
-            using type =
-#if defined(METAL_WORKAROUND)
-                call<expr, vals...>;
-#else
-                expr<vals...>;
-#endif
-        };
-
         template<typename lbd, typename... leading>
         struct _partial {};
 
         template<template<typename...> class expr, typename... leading>
         struct _partial<lambda<expr>, leading...> {
             template<typename... trailing>
-            using impl = forward<
-                _partial_impl<leading..., trailing...>::template type, expr>;
+            using impl = invoke<lambda<expr>, leading..., trailing...>;
 
             using type = lambda<impl>;
         };

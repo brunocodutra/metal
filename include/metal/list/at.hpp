@@ -236,11 +236,11 @@ namespace metal {
                 using type = __type_pack_element<n, vals...>;
             };
 
-            template<typename num>
-            using type = typename impl<num>::type;
+            template<typename... num>
+            using type = typename impl<num...>::type;
 #else
-            template<typename num>
-            using type = call<_at_impl<num>::template type, vals...>;
+            template<typename... num>
+            using type = call<_at_impl<num...>::template type, vals...>;
 #endif
         };
     }

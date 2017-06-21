@@ -6,12 +6,11 @@
 #define METAL_LAMBDA_APPLY_HPP
 
 #include "../config.hpp"
-#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename lbd>
+        template<typename lbd, typename seq>
         struct _apply;
     }
     /// \endcond
@@ -40,37 +39,29 @@ namespace metal {
     /// ### See Also
     /// \see lambda, invoke, list
     template<typename lbd, typename seq>
-    using apply = detail::call<detail::_apply<lbd>::template type, seq>;
+    using apply = typename detail::_apply<lbd, seq>::type;
 }
 
 #include "../lambda/lambda.hpp"
 #include "../list/list.hpp"
+#include "../number/number.hpp"
+#include "../value/value.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename seq>
+        template<typename lbd, typename seq, typename = true_>
         struct _apply_impl {};
 
-        template<typename... vals>
-        struct _apply_impl<list<vals...>> {
-            template<template<typename...> class expr>
-            using type =
-#if defined(METAL_WORKAROUND)
-                call<expr, vals...>;
-#else
-                expr<vals...>;
-#endif
+        template<template<typename...> class expr, typename... vals>
+        struct _apply_impl<
+            lambda<expr>, list<vals...>, is_value<call<expr, vals...>>> {
+            using type = expr<vals...>;
         };
 
-        template<typename lbd>
-        struct _apply {};
-
-        template<template<typename...> class expr>
-        struct _apply<lambda<expr>> {
-            template<typename seq>
-            using type = forward<_apply_impl<seq>::template type, expr>;
-        };
+        template<typename lbd, typename seq>
+        struct _apply : _apply_impl<lbd, seq> {};
     }
     /// \endcond
 }

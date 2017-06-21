@@ -150,8 +150,8 @@ namespace metal {
 
         template<template<typename...> class expr>
         struct _sort<lambda<expr>> {
-            template<typename seq>
-            using type = forward<_sort_impl<seq>::template type, expr>;
+            template<typename... seq>
+            using type = forward<_sort_impl<seq...>::template type, expr>;
         };
     }
     /// \endcond
