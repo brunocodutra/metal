@@ -14,6 +14,7 @@ There is a myriad of C++ metaprogramming libraries out there so why Metal?
 * **Blazing fast** - browse up to date benchmarks at [metaben.ch].
 * **SFINAE-Friendly** - [control overload resolution](#SFINAE) and make the most
 out of function templates.
+* **Trivial Integration** - [try it online][godbolt.metal]!
 
 In a Glimpse {#in_a_glimpse}
 ================================================================================
@@ -747,6 +748,8 @@ the binary representation of numerical values is entirely irrelevant.
 [literal operator]: http://en.cppreference.com/w/cpp/language/user_literal
 [SFINAE]:           http://en.cppreference.com/w/cpp/language/sfinae
 [RAII]:             http://en.cppreference.com/w/cpp/language/raii
+
+[godbolt.metal]:    https://godbolt.org/g/JN13FQ
 
 [travis.metal]:     http://travis-ci.org/brunocodutra/metal
 [appveyor.metal]:   http://ci.appveyor.com/project/brunocodutra/metal
