@@ -586,6 +586,16 @@ but also for numerical values
 Again, this only works as expected because of the strict SFINAE-friendliness
 guarantees provided by Metal.
 
+Getting Started {#getting_started}
+================================================================================
+
+Metal is distributed as a drop-in standalone header file, so integrating it in
+your project is as easy as it gets:
+
+1. Download the [latest release][Metal.releases]
+2. `# include </path/to/metal.hpp>`
+3. Done
+
 Migrating from Boost.MPL {#MPL}
 ================================================================================
 
