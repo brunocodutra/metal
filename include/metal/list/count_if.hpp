@@ -5,16 +5,14 @@
 #ifndef METAL_LIST_COUNT_IF_HPP
 #define METAL_LIST_COUNT_IF_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../lambda/apply.hpp"
+#include "../lambda/lambda.hpp"
+#include "../list/transform.hpp"
+#include "../number/add.hpp"
+#include "../number/number.hpp"
 
-#include <metal/list/transform.hpp>
-#include <metal/lambda/apply.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/number.hpp>
-#include <metal/number/add.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

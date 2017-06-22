@@ -5,13 +5,11 @@
 #ifndef METAL_LIST_LIST_HPP
 #define METAL_LIST_LIST_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _is_list;
 
@@ -90,36 +88,30 @@ namespace metal
     /// \see is_list
     template<typename... vals>
 #if defined(METAL_DOXYGENATING)
-    using list = {};
+    using list = struct {
+    };
 #else
-    struct list {};
+    struct list {
+    };
 #endif
 }
 
-#include <metal/number/number.hpp>
+#include "../number/number.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
-        struct _is_list :
-            false_
-        {};
+        struct _is_list : false_ {};
 
         template<typename... vals>
-        struct _is_list<list<vals...>> :
-            true_
-        {};
+        struct _is_list<list<vals...>> : true_ {};
 
         template<typename val>
-        struct _as_list
-        {};
+        struct _as_list {};
 
         template<template<typename...> class seq, typename... vals>
-        struct _as_list<seq<vals...>>
-        {
+        struct _as_list<seq<vals...>> {
             using type = list<vals...>;
         };
     }

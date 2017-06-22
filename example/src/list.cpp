@@ -423,6 +423,13 @@ IS_SAME(
 )
 
 HIDE(
+/// [repeat]
+IS_SAME(metal::repeat<char, metal::number<0>>, metal::list<>);
+IS_SAME(metal::repeat<char, metal::number<3>>, metal::list<char, char, char>);
+/// [repeat]
+)
+
+HIDE(
 /// [slice]
 using l = metal::list<short, int, long, float, double, void>;
 
@@ -543,20 +550,78 @@ struct a; struct b; struct c;
 struct d; struct e;
 struct f; struct g;
 
-using x = metal::list<a, b, c>;
-using y = metal::list<d, e>;
-using z = metal::list<f, g>;
+using x = metal::list<a, b>;
+using y = metal::list<c, d>;
+using z = metal::list<e, f, g>;
 
 IS_SAME(
     metal::cartesian<x, y, z>,
     metal::list<
-        metal::list<a, d, f>, metal::list<b, d, f>, metal::list<c, d, f>,
-        metal::list<a, e, f>, metal::list<b, e, f>, metal::list<c, e, f>,
-        metal::list<a, d, g>, metal::list<b, d, g>, metal::list<c, d, g>,
-        metal::list<a, e, g>, metal::list<b, e, g>, metal::list<c, e, g>
+        metal::list<a, c, e>, metal::list<a, c, f>, metal::list<a, c, g>,
+        metal::list<a, d, e>, metal::list<a, d, f>, metal::list<a, d, g>,
+        metal::list<b, c, e>, metal::list<b, c, f>, metal::list<b, c, g>,
+        metal::list<b, d, e>, metal::list<b, d, f>, metal::list<b, d, g>
     >
 );
 /// [cartesian]
+)
+
+HIDE(
+/// [cascade]
+struct a; struct b; struct c; struct d;
+
+template<typename...> struct f {};
+template<typename...> struct g {};
+template<typename...> struct h {};
+
+using tree = metal::list<
+    metal::list<metal::list<a>, metal::list<b>>,
+    metal::list<metal::list<c>, metal::list<d>>
+>;
+
+IS_SAME(
+    metal::cascade<tree, metal::lambda<f>, metal::lambda<g>, metal::lambda<h>>,
+    f<g<h<a>, h<b>>, g<h<c>, h<d>>>
+);
+/// [cascade]
+)
+
+HIDE(
+/// [combine]
+struct a; struct b; struct c; struct d;
+
+using tree = metal::list<
+    metal::list<metal::list<a>, metal::list<b>>,
+    metal::list<metal::list<c>, metal::list<d>>
+>;
+
+IS_SAME(
+    metal::combine<metal::list<a, b, c, d>, metal::number<2>>,
+    metal::list<
+        metal::list<a, a>, metal::list<a, b>, metal::list<a, c>, metal::list<a, d>,
+        metal::list<b, a>, metal::list<b, b>, metal::list<b, c>, metal::list<b, d>,
+        metal::list<c, a>, metal::list<c, b>, metal::list<c, c>, metal::list<c, d>,
+        metal::list<d, a>, metal::list<d, b>, metal::list<d, c>, metal::list<d, d>
+    >
+);
+/// [combine]
+)
+
+HIDE(
+/// [powerset]
+struct a; struct b; struct c; struct d;
+
+IS_SAME(
+    metal::powerset<metal::list<a, b, c, d>>,
+    metal::list<
+        metal::list<>, metal::list<a>, metal::list<b>, metal::list<a, b>,
+        metal::list<c>, metal::list<a, c>, metal::list<b, c>, metal::list<a, b, c>,
+        metal::list<d>, metal::list<a, d>, metal::list<b, d>, metal::list<a, b, d>,
+        metal::list<c, d>, metal::list<a, c, d>, metal::list<b, c, d>,
+        metal::list<a, b, c, d>
+    >
+);
+/// [powerset]
 )
 
 #if !defined(METAL_WORKAROUND)

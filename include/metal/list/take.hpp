@@ -5,13 +5,11 @@
 #ifndef METAL_LIST_TAKE_HPP
 #define METAL_LIST_TAKE_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../list/range.hpp"
+#include "../number/number.hpp"
 
-#include <metal/list/range.hpp>
-#include <metal/number/number.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

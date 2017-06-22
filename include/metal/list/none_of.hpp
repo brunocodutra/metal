@@ -5,13 +5,11 @@
 #ifndef METAL_LIST_NONE_OF_HPP
 #define METAL_LIST_NONE_OF_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../list/any_of.hpp"
+#include "../number/not.hpp"
 
-#include <metal/list/any_of.hpp>
-#include <metal/number/not.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

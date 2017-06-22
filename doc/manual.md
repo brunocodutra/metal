@@ -10,8 +10,10 @@ algorithms that mimic the Standard Algorithms Library, hence
 There is a myriad of C++ metaprogramming libraries out there so why Metal?
 
 * **Portable** - compatible with the
-[most popular compilers](#supported_compilers).
+[most popular compilers][Metal.portable].
 * **Blazing fast** - browse up to date benchmarks at [metaben.ch].
+* **Trivial Integration** - everything you need in a single self-contained 
+header file [`metal.hpp`][Metal.standalone].
 * **SFINAE-Friendly** - [control overload resolution](#SFINAE) and make the most
 out of function templates.
 
@@ -20,13 +22,15 @@ In a Glimpse {#in_a_glimpse}
 
 \snippet tutorial.cpp tutorial
 
-Be sure to take a look at the [examples](#examples) below.
+**[Try it online][godbolt.metal]!**
+
+Be sure to also have a look at the [examples](#examples) below.
 
 Definitions {#definitions}
 ================================================================================
 
-Template metaprogramming may be seen as a language of its own right.
-It shares the usual syntax of C++ templates, but has unique semantics.
+Template metaprogramming may be seen as a language of its own right,
+it shares the usual syntax of C++ templates, but has its own unique semantics.
 Because constructs assume different meanings in its context it is useful to
 define a few key concepts.
 
@@ -586,13 +590,21 @@ but also for numerical values
 Again, this only works as expected because of the strict SFINAE-friendliness
 guarantees provided by Metal.
 
+Getting Started {#getting_started}
+================================================================================
+
+Metal is distributed as a drop-in standalone header file and integrating it in
+your project is as easy as it gets:
+
+1. Download the [latest release][Metal.releases]
+2. `# include </path/to/metal.hpp>`
+
 Migrating from Boost.MPL {#MPL}
 ================================================================================
 
-Metal was heavily influenced by Boost.MPL and at a quick glance they even look
-very similar, however, because Metal leverages modern language features that
-were not available at the time Boost.MPL was developed, there are fundamental
-differences between these libraries that one must keep in mind.
+A quick glance Metal and Boost.MPL might look very similar, but because Metal
+leverages modern language features that were not available at the time Boost.MPL
+was developed, they are in fact fundamentally distinct.
 
 ### Metafunctions
 
@@ -653,100 +665,6 @@ you just have to wrap regular metafunctions using `metal::lambda` instead
 \snippet mpl.cpp eager_lambda
 
 It's that simple.
-
-### metal::from_mpl
-
-Even though Metal cannot interoperate with natively with Boost.MPL types, it is
-always possible to translate Boost.MPL concepts to their equivalents in Metal,
-that is _Sequences_ to [Lists], _Metafunction Classes_ to [Lambdas] and
-_Integral Constants_ to [Numbers], but it's not always trivial to do so in a
-portable way. For this reason, Metal provides a helper `metal::from_mpl`,
-which takes any type that follows Boost.MPL conventions and returns the semantic
-equivalent in Metal. All you have to do is include `metal/external/mpl.hpp` to
-make it available.
-
-\snippet mpl.cpp number
-\snippet mpl.cpp list
-\snippet mpl.cpp vector
-\snippet mpl.cpp map
-\snippet mpl.cpp lambda
-
-Getting Started {#getting_started}
-================================================================================
-
-Download {#download}
---------------------------------------------------------------------------------
-
-There are a few ways to get Metal, the easiest might be to simply
-[download the latest release][Metal.releases] as a compressed package.
-
-If you have git installed and would rather have the latest stable Metal,
-you may consider cloning branch `master` from GitHub.
-
-    git clone https://github.com/brunocodutra/metal
-
-Likewise, the bleeding edge development version can be obtained by cloning
-branch `develop` instead.
-
-    git clone https://github.com/brunocodutra/metal --branch=develop
-
-Install (optional) {#install}
---------------------------------------------------------------------------------
-
-Metal may optionally be installed system-wide to ease integration with external
-projects. If you'd rather use Metal locally, you can skip to the
-[next section](#integration).
-
-Make sure to have CMake v3.4 or newer installed on your system, then,
-from within an empty directory, issue the following commands.
-
-    cmake /path/to/Metal
-    cmake --build . --target install
-
-At this point Metal's include tree will be installed in
-`/usr/local/include` on Posix systems and `C:\Program Files\Metal\include`
-on Windows.
-
-Integration {#integration}
---------------------------------------------------------------------------------
-
-If you chose to [install Metal system-wide](#install), you just have to make
-sure the installation prefix is looked up by your compiler.
-
-Using CMake it suffices to add the following to your `CMakeLists.txt`.
-
-    find_package(Metal REQUIRED)
-    include_directories(${Metal_INCLUDE_DIR})
-
-To use your local copy of Metal instead, just add its `include/` sub-directory
-to the include search paths of your project and you are all set.
-
-Supported Compilers {#supported_compilers}
---------------------------------------------------------------------------------
-
-The following compilers are tested in continuous integration using
-[Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
-
-| Compiler          | Version
-|-------------------|-----------
-| GCC               | &ge; 4.7
-| Clang             | &ge; 3.4
-| Xcode             | &ge; 6.4
-| Visual Studio     | &ge; 14 (2015)
-| MinGW             | &ge; 5
-
-Project Organization {#project_organization}
---------------------------------------------------------------------------------
-
-Header files are divided in modules named after each [concept](#definitions).
-Modules are organized in directories and contain algorithms that operate on
-models of that [concept](#definitions). The complete hierarchy of modules and
-headers is available on [Metal's repository][Metal.headers] on GitHub.
-
-\tip{
-    You may simply include `metal.hpp` and get access to all that Metal has to
-    offer without concerning yourself with which specific headers to include.
-}
 
 Frequently Asked Questions {#FAQ}
 ================================================================================
@@ -833,10 +751,14 @@ the binary representation of numerical values is entirely irrelevant.
 [SFINAE]:           http://en.cppreference.com/w/cpp/language/sfinae
 [RAII]:             http://en.cppreference.com/w/cpp/language/raii
 
+[godbolt.metal]:    https://godbolt.org/g/JN13FQ
+
 [travis.metal]:     http://travis-ci.org/brunocodutra/metal
 [appveyor.metal]:   http://ci.appveyor.com/project/brunocodutra/metal
 
+[Metal.portable]:   http://github.com/brunocodutra/metal#portable
 [Metal.releases]:   http://github.com/brunocodutra/metal/releases
 [Metal.headers]:    http://github.com/brunocodutra/metal/tree/master/include
+[Metal.standalone]: http://github.com/brunocodutra/metal/blob/standalone/metal.hpp
 
 [metaben.ch]:       http://metaben.ch/

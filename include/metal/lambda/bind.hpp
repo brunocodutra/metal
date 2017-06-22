@@ -5,13 +5,11 @@
 #ifndef METAL_LAMBDA_BIND_HPP
 #define METAL_LAMBDA_BIND_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename lbd, typename... vals>
         struct _bind;
     }
@@ -52,22 +50,17 @@ namespace metal
     using bind = typename detail::_bind<lbd, vals...>::type;
 }
 
-#include <metal/lambda/lambda.hpp>
+#include "../lambda/lambda.hpp"
+#include "../detail/sfinae.hpp"
 
-#include <metal/detail/sfinae.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... vals>
-        struct _bind_impl
-        {
+        struct _bind_impl {
             template<
                 template<typename...> class expr,
-                template<typename...> class... params
-            >
+                template<typename...> class... params>
             using type =
 #if defined(METAL_WORKAROUND)
                 call<expr, call<params, vals...>...>;
@@ -77,21 +70,15 @@ namespace metal
         };
 
         template<typename lbd, typename... vals>
-        struct _bind
-        {};
+        struct _bind {};
 
         template<
             template<typename...> class expr,
-            template<typename...> class... params
-        >
-        struct _bind<lambda<expr>, lambda<params>...>
-        {
+            template<typename...> class... params>
+        struct _bind<lambda<expr>, lambda<params>...> {
             template<typename... vals>
-            using impl = forward<
-                _bind_impl<vals...>::template type,
-                expr,
-                params...
-            >;
+            using impl =
+                forward<_bind_impl<vals...>::template type, expr, params...>;
 
             using type = lambda<impl>;
         };

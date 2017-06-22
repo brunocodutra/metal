@@ -5,13 +5,11 @@
 #ifndef METAL_MAP_ERASE_KEY_HPP
 #define METAL_MAP_ERASE_KEY_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../list/erase.hpp"
+#include "../map/order.hpp"
 
-#include <metal/map/order.hpp>
-#include <metal/list/erase.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup map
     ///
     /// ### Description

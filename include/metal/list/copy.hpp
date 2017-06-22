@@ -5,15 +5,13 @@
 #ifndef METAL_LIST_COPY_HPP
 #define METAL_LIST_COPY_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../lambda/lambda.hpp"
+#include "../lambda/partial.hpp"
+#include "../list/copy_if.hpp"
+#include "../value/same.hpp"
 
-#include <metal/list/copy_if.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/partial.hpp>
-#include <metal/value/same.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

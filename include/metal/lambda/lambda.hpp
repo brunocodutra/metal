@@ -5,13 +5,11 @@
 #ifndef METAL_LAMBDA_LAMBDA_HPP
 #define METAL_LAMBDA_LAMBDA_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _is_lambda;
 
@@ -90,36 +88,30 @@ namespace metal
     /// \see is_lambda
     template<template<typename...> class expr>
 #if defined(METAL_DOXYGENATING)
-    using lambda = {};
+    using lambda = struct {
+    };
 #else
-    struct lambda {};
+    struct lambda {
+    };
 #endif
 }
 
-#include <metal/number/number.hpp>
+#include "../number/number.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
-        struct _is_lambda :
-            false_
-        {};
+        struct _is_lambda : false_ {};
 
         template<template<typename...> class expr>
-        struct _is_lambda<lambda<expr>> :
-            true_
-        {};
+        struct _is_lambda<lambda<expr>> : true_ {};
 
         template<typename val>
-        struct _as_lambda
-        {};
+        struct _as_lambda {};
 
         template<template<typename...> class expr, typename... vals>
-        struct _as_lambda<expr<vals...>>
-        {
+        struct _as_lambda<expr<vals...>> {
             using type = lambda<expr>;
         };
     }

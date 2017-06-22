@@ -5,15 +5,12 @@
 #ifndef METAL_NUMBER_ADD_HPP
 #define METAL_NUMBER_ADD_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
-#include <metal/detail/sfinae.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... nums>
         struct _add;
     }
@@ -32,6 +29,7 @@ namespace metal
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<num_0{} + ... + num_n-1{}>;
     ///     \endcode
@@ -45,28 +43,24 @@ namespace metal
     using add = detail::call<detail::_add<nums...>::template type>;
 }
 
-#include <metal/number/number.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/value/fold_left.hpp>
+#include "../lambda/lambda.hpp"
+#include "../number/number.hpp"
+#include "../value/fold_left.hpp"
 
 #include <initializer_list>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... nums>
-        struct _add
-        {};
+        struct _add {};
 
 #if defined(METAL_WORKAROUND)
         template<typename x, typename y>
         using add_impl = number<x::value + y::value>;
 
         template<int_... ns>
-        struct _add<number<ns>...>
-        {
+        struct _add<number<ns>...> {
             template<typename... _>
             using type = fold_left<lambda<add_impl>, number<ns>..., _...>;
         };
@@ -77,15 +71,13 @@ namespace metal
         }
 
         template<int_... ns>
-        struct _add<number<ns>...>
-        {
+        struct _add<number<ns>...> {
             template<typename... _>
             using type = number<add_impl((void(sizeof...(_)), ns)...)>;
         };
 #endif
         template<>
-        struct _add<>
-        {
+        struct _add<> {
             template<typename...>
             using type = number<0>;
         };

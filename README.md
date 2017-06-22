@@ -7,6 +7,8 @@
 Metal is a header-only C++14 library designed to make template metaprogramming
 intuitive.
 
+__[Try it online][godbolt.metal]__
+
 ## Modern
 
 ```.cpp
@@ -90,11 +92,11 @@ Don't worry, all your favourite compilers are continuously tested at
 
 | Compiler          | Version   | Operating System
 |-------------------|-----------|-----------------------
-| GCC               | 4.7       | Ubuntu 14.04 LTS
 | GCC               | 4.8       | Ubuntu 14.04 LTS
 | GCC               | 4.9       | Ubuntu 14.04 LTS
 | GCC               | 5         | Ubuntu 14.04 LTS
 | GCC               | 6         | Ubuntu 14.04 LTS
+| GCC               | 7         | Ubuntu 14.04 LTS
 | Clang             | 3.4       | Ubuntu 14.04 LTS
 | Clang             | 3.5       | Ubuntu 14.04 LTS
 | Clang             | 3.6       | Ubuntu 14.04 LTS
@@ -117,18 +119,6 @@ Don't worry, all your favourite compilers are continuously tested at
 
 The complete up to date documentation is available [online][documentation].
 
-Alternatively, an offline copy may be obtained by either cloning branch
-`gh-pages`
-
-    git clone https://github.com/brunocodutra/metal.git --branch=gh-pages doc/html
-
-or locally building target `doc` ([CMake] and [Doxygen] required)
-
-    cmake /path/to/Metal
-    cmake --build . --target doc
-
-Either way, just open `doc/html/index.html` on your favourite web browser.
-
 ## License
 
 Metal is distributed under the
@@ -136,6 +126,8 @@ Metal is distributed under the
 
 [version]:          http://badge.fury.io/gh/brunocodutra%2Fmetal.svg
 [semver]:           http://semver.org
+
+[godbolt.metal]:    https://godbolt.org/g/JN13FQ
 
 [travis.metal]:     http://travis-ci.org/brunocodutra/metal
 [travis.badge]:     http://travis-ci.org/brunocodutra/metal.svg?branch=master

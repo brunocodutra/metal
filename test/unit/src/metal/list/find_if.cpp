@@ -56,18 +56,18 @@
     CHECK((metal::is_invocable<metal::lambda<metal::find_if>, LAMBDA(_), MAP(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::find_if>, LAMBDA(_), LAMBDA(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::find_if>, LAMBDA(_), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::find_if<PAIR(M), metal::lambda<metal::is_number>>), (metal::number<0>)); \
-    CHECK((metal::find_if<LIST(M), metal::lambda<metal::is_number>>), (metal::number<M>)); \
-    CHECK((metal::find_if<MAP(M), metal::lambda<metal::is_number>>), (metal::number<M>)); \
-    CHECK((metal::find_if<PAIR(M), metal::lambda<metal::is_pair>>), (metal::number<2>)); \
-    CHECK((metal::find_if<LIST(M), metal::lambda<metal::is_pair>>), (metal::number<M>)); \
-    CHECK((metal::find_if<MAP(M), metal::lambda<metal::is_pair>>), (metal::number<0>)); \
-    CHECK((metal::find_if<PAIR(M), metal::lambda<metal::is_lambda>>), (metal::number<2>)); \
-    CHECK((metal::find_if<LIST(M), metal::lambda<metal::is_lambda>>), (metal::number<M>)); \
-    CHECK((metal::find_if<MAP(M), metal::lambda<metal::is_lambda>>), (metal::number<M>)); \
-    CHECK((metal::find_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_number>>), (metal::number<0>)); \
-    CHECK((metal::find_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_pair>>), (metal::number<M ? 1 : 0>)); \
-    CHECK((metal::find_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_lambda>>), (metal::number<M ? 2 : 0>)); \
+    CHECK((metal::find_if<PAIR(M), metal::lambda<metal::is_number>>), (NUMBER(0))); \
+    CHECK((metal::find_if<LIST(M), metal::lambda<metal::is_number>>), (NUMBER(M))); \
+    CHECK((metal::find_if<MAP(M), metal::lambda<metal::is_number>>), (NUMBER(M))); \
+    CHECK((metal::find_if<PAIR(M), metal::lambda<metal::is_pair>>), (NUMBER(2))); \
+    CHECK((metal::find_if<LIST(M), metal::lambda<metal::is_pair>>), (NUMBER(M))); \
+    CHECK((metal::find_if<MAP(M), metal::lambda<metal::is_pair>>), (NUMBER(0))); \
+    CHECK((metal::find_if<PAIR(M), metal::lambda<metal::is_lambda>>), (NUMBER(2))); \
+    CHECK((metal::find_if<LIST(M), metal::lambda<metal::is_lambda>>), (NUMBER(M))); \
+    CHECK((metal::find_if<MAP(M), metal::lambda<metal::is_lambda>>), (NUMBER(M))); \
+    CHECK((metal::find_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_number>>), (NUMBER(0))); \
+    CHECK((metal::find_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_pair>>), (BOOL(M))); \
+    CHECK((metal::find_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_lambda>>), (NUMBER(IF(M)(2, 0)))); \
 /**/
 
 GEN(MATRIX)

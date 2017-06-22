@@ -5,15 +5,12 @@
 #ifndef METAL_NUMBER_IOTA_HPP
 #define METAL_NUMBER_IOTA_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../number/number.hpp"
 
-#include <metal/number/number.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename, typename, typename>
         struct _iota;
     }
@@ -53,29 +50,26 @@ namespace metal
     /// \snippet list.cpp iota
     ///
     /// ### See Also
-    /// \see numbers
+    /// \see list, repeat, numbers
     template<typename start, typename size, typename stride = number<1>>
     using iota = typename detail::_iota<start, size, stride>::type;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/number/if.hpp>
-#include <metal/number/numbers.hpp>
+#include "../list/list.hpp"
+#include "../number/if.hpp"
+#include "../number/numbers.hpp"
 
 #if defined(__has_builtin)
-#   if __has_builtin(__make_integer_seq)
-#       define METAL_USE_BUILTIN_MAKE_INTEGER_SEQ
-#   endif
+#if __has_builtin(__make_integer_seq)
+#define METAL_USE_BUILTIN_MAKE_INTEGER_SEQ
+#endif
 #endif
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<int_... ns>
-        struct enumeration
-        {};
+        struct enumeration {};
 
 #if defined(METAL_USE_BUILTIN_MAKE_INTEGER_SEQ)
         template<typename int_, int_... ns>
@@ -85,24 +79,20 @@ namespace metal
         using enumerate = __make_integer_seq<enumerator, int_, n>;
 #else
         template<typename ns>
-        struct _even
-        {};
+        struct _even {};
 
         template<int_... ns>
-        struct _even<enumeration<ns...>>
-        {
+        struct _even<enumeration<ns...>> {
             using type = enumeration<ns..., (sizeof...(ns) + ns)...>;
         };
 
         template<typename ns>
-        struct _odd
-        {};
+        struct _odd {};
 
         template<int_... ns>
-        struct _odd<enumeration<ns...>>
-        {
+        struct _odd<enumeration<ns...>> {
             using type =
-                enumeration<ns..., (sizeof...(ns) + ns)..., 2*sizeof...(ns)>;
+                enumeration<ns..., (sizeof...(ns) + ns)..., 2 * sizeof...(ns)>;
         };
 
         template<int_ n>
@@ -112,38 +102,31 @@ namespace metal
         using enumerate = typename _enumerate<n>::type;
 
         template<int_ n>
-        struct _enumerate :
-            if_<number<n%2>, _odd<enumerate<n/2>>, _even<enumerate<n/2>>>
-        {};
+        struct _enumerate
+            : if_<number<n % 2>, _odd<enumerate<n / 2>>,
+                  _even<enumerate<n / 2>>> {};
 
         template<>
-        struct _enumerate<0>
-        {
+        struct _enumerate<0> {
             using type = enumeration<>;
         };
 #endif
         template<typename, int_ a, int_ b>
-        struct _iota_impl
-        {};
+        struct _iota_impl {};
 
         template<int_... vs, int_ a, int_ b>
-        struct _iota_impl<enumeration<vs...>, a, b>
-        {
-            using type = numbers<(b + a*vs)...>;
+        struct _iota_impl<enumeration<vs...>, a, b> {
+            using type = numbers<(b + a * vs)...>;
         };
 
         template<typename, typename, typename>
-        struct _iota
-        {};
+        struct _iota {};
 
         template<int_ st, int_ sz, int_ sd>
-        struct _iota<number<st>, number<sz>, number<sd>> :
-            _iota_impl<
-                enumerate<(sz < 0) ? (0 - sz) : sz>,
-                (sz < 0) ? (0 - sd) : sd,
-                st
-            >
-        {};
+        struct _iota<number<st>, number<sz>, number<sd>>
+            : _iota_impl<
+                  enumerate<(sz < 0) ? (0 - sz) : sz>, (sz < 0) ? (0 - sd) : sd,
+                  st> {};
     }
     /// \endcond
 }

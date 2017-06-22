@@ -5,19 +5,17 @@
 #ifndef METAL_LIST_SLICE_HPP
 #define METAL_LIST_SLICE_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../lambda/lambda.hpp"
+#include "../lambda/partial.hpp"
+#include "../list/at.hpp"
+#include "../list/iota.hpp"
+#include "../list/list.hpp"
+#include "../list/transform.hpp"
+#include "../number/if.hpp"
+#include "../number/number.hpp"
 
-#include <metal/list/at.hpp>
-#include <metal/list/list.hpp>
-#include <metal/list/iota.hpp>
-#include <metal/list/transform.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/partial.hpp>
-#include <metal/number/if.hpp>
-#include <metal/number/number.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description
@@ -46,16 +44,12 @@ namespace metal
     /// ### See Also
     /// \see list, range
     template<
-        typename seq,
-        typename start, typename size, typename stride = number<1>
-    >
+        typename seq, typename start, typename size,
+        typename stride = number<1>>
     using slice = metal::transform<
         metal::partial<
-            metal::lambda<metal::at>,
-            metal::if_<metal::is_list<seq>, seq>
-        >,
-        metal::iota<start, size, stride>
-    >;
+            metal::lambda<metal::at>, metal::if_<metal::is_list<seq>, seq>>,
+        metal::iota<start, size, stride>>;
 }
 
 #endif

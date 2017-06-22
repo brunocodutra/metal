@@ -5,17 +5,14 @@
 #ifndef METAL_LIST_JOIN_HPP
 #define METAL_LIST_JOIN_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 #include <cstddef>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<std::size_t n>
         struct joiner;
     }
@@ -47,19 +44,15 @@ namespace metal
     /// ### See Also
     /// \see list, flatten
     template<typename... seqs>
-    using join = detail::call<
-        detail::joiner<sizeof...(seqs)>::template type,
-        seqs...
-    >;
+    using join =
+        detail::call<detail::joiner<sizeof...(seqs)>::template type, seqs...>;
 }
 
-#include <metal/list/list.hpp>
+#include "../list/list.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<
             typename = list<>, typename = list<>, typename = list<>,
             typename = list<>, typename = list<>, typename = list<>,
@@ -94,10 +87,8 @@ namespace metal
             typename = list<>, typename = list<>, typename = list<>,
             typename = list<>, typename = list<>, typename = list<>,
             typename = list<>, typename = list<>, typename = list<>,
-            typename = list<>, typename = list<>
-        >
-        struct _join_impl
-        {};
+            typename = list<>, typename = list<>>
+        struct _join_impl {};
 
         template<
             typename... _00, typename... _01, typename... _02, typename... _03,
@@ -125,8 +116,7 @@ namespace metal
             typename... _88, typename... _89, typename... _90, typename... _91,
             typename... _92, typename... _93, typename... _94, typename... _95,
             typename... _96, typename... _97, typename... _98, typename... _99,
-            typename... _
-        >
+            typename... _>
         struct _join_impl<
             list<_00...>, list<_01...>, list<_02...>, list<_03...>,
             list<_04...>, list<_05...>, list<_06...>, list<_07...>,
@@ -152,9 +142,8 @@ namespace metal
             list<_84...>, list<_85...>, list<_86...>, list<_87...>,
             list<_88...>, list<_89...>, list<_90...>, list<_91...>,
             list<_92...>, list<_93...>, list<_94...>, list<_95...>,
-            list<_96...>, list<_97...>, list<_98...>, list<_99...>, list<_...>
-        >
-        {
+            list<_96...>, list<_97...>, list<_98...>, list<_99...>,
+            list<_...>> {
             using type = list<
                 _00..., _01..., _02..., _03..., _04..., _05..., _06..., _07...,
                 _08..., _09..., _10..., _11..., _12..., _13..., _14..., _15...,
@@ -168,21 +157,17 @@ namespace metal
                 _72..., _73..., _74..., _75..., _76..., _77..., _78..., _79...,
                 _80..., _81..., _82..., _83..., _84..., _85..., _86..., _87...,
                 _88..., _89..., _90..., _91..., _92..., _93..., _94..., _95...,
-                _96..., _97..., _98..., _99..., _...
-            >;
+                _96..., _97..., _98..., _99..., _...>;
         };
 
         template<typename... seqs>
         using join_impl = typename _join_impl<seqs...>::type;
 
         template<std::size_t n>
-        struct joiner :
-            joiner<(n > 100) ? 100 : 0>
-        {};
+        struct joiner : joiner<(n > 100) ? 100 : 0> {};
 
         template<>
-        struct joiner<100>
-        {
+        struct joiner<100> {
             template<
                 typename _00, typename _01, typename _02, typename _03,
                 typename _04, typename _05, typename _06, typename _07,
@@ -209,9 +194,9 @@ namespace metal
                 typename _88, typename _89, typename _90, typename _91,
                 typename _92, typename _93, typename _94, typename _95,
                 typename _96, typename _97, typename _98, typename _99,
-                typename... tail
-            >
+                typename... tail>
             using type = join_impl<
+                /* clang-format off */
                 _00, _01, _02, _03, _04, _05, _06, _07, _08, _09,
                 _10, _11, _12, _13, _14, _15, _16, _17, _18, _19,
                 _20, _21, _22, _23, _24, _25, _26, _27, _28, _29,
@@ -222,13 +207,12 @@ namespace metal
                 _70, _71, _72, _73, _74, _75, _76, _77, _78, _79,
                 _80, _81, _82, _83, _84, _85, _86, _87, _88, _89,
                 _90, _91, _92, _93, _94, _95, _96, _97, _98, _99,
-                typename joiner<sizeof...(tail)>::template type<tail...>
-            >;
+                /* clang-format on */
+                typename joiner<sizeof...(tail)>::template type<tail...>>;
         };
 
         template<>
-        struct joiner<0>
-        {
+        struct joiner<0> {
             template<typename... seqs>
             using type = join_impl<seqs...>;
         };

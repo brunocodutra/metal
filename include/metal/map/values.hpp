@@ -5,16 +5,14 @@
 #ifndef METAL_MAP_VALUES_HPP
 #define METAL_MAP_VALUES_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../lambda/lambda.hpp"
+#include "../list/transform.hpp"
+#include "../map/map.hpp"
+#include "../number/if.hpp"
+#include "../pair/second.hpp"
 
-#include <metal/map/map.hpp>
-#include <metal/pair/second.hpp>
-#include <metal/list/transform.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/if.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup map
     ///
     /// ### Description
@@ -42,8 +40,7 @@ namespace metal
     template<typename seq>
     using values = metal::if_<
         metal::is_map<seq>,
-        metal::transform<metal::lambda<metal::second>, seq>
-    >;
+        metal::transform<metal::lambda<metal::second>, seq>>;
 }
 
 #endif

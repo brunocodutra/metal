@@ -5,13 +5,11 @@
 #ifndef METAL_NUMBER_INC_HPP
 #define METAL_NUMBER_INC_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../number/add.hpp"
+#include "../number/number.hpp"
 
-#include <metal/number/number.hpp>
-#include <metal/number/add.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup number
     ///
     /// ### Description
@@ -25,6 +23,7 @@ namespace metal
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<num::{} + 1>;
     ///     \endcode

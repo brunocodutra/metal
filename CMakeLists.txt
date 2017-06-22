@@ -2,7 +2,7 @@
 # Distributed under the Boost Software License, Version 1.0.
 # See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.8)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING "")
@@ -10,14 +10,14 @@ endif()
 
 project(Metal CXX)
 
-option(METAL_STRICT                 "treat compiler warnings as errors"     OFF)
-option(METAL_VERBOSE                "increase output verbosity"             OFF)
+option(METAL_STRICT  "treat compiler warnings as errors" OFF)
+option(METAL_VERBOSE "increase output verbosity"         OFF)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
+include(Configure)
 include(Deploy)
-include(TestTree)
-include(CompileFlags)
+include(Test)
 
 set(METAL_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
@@ -25,9 +25,9 @@ file(STRINGS "${METAL_INCLUDE_DIR}/metal/config/version.hpp"
     METAL_CONFIG_VERSION_HPP REGEX "METAL_[A-Z]+ [0-9]+" LIMIT_COUNT 3
 )
 
-LIST(GET METAL_CONFIG_VERSION_HPP 0 METAL_MAJOR)
-LIST(GET METAL_CONFIG_VERSION_HPP 1 METAL_MINOR)
-LIST(GET METAL_CONFIG_VERSION_HPP 2 METAL_PATCH)
+list(GET METAL_CONFIG_VERSION_HPP 0 METAL_MAJOR)
+list(GET METAL_CONFIG_VERSION_HPP 1 METAL_MINOR)
+list(GET METAL_CONFIG_VERSION_HPP 2 METAL_PATCH)
 
 string(REGEX REPLACE ".*MAJOR ([0-9]+).*" "\\1" METAL_MAJOR "${METAL_MAJOR}")
 string(REGEX REPLACE ".*MINOR ([0-9]+).*" "\\1" METAL_MINOR "${METAL_MINOR}")
@@ -37,11 +37,15 @@ set(METAL_VERSION "${METAL_MAJOR}.${METAL_MINOR}.${METAL_PATCH}")
 
 message(STATUS "Configuring Metal ${METAL_VERSION}")
 
-add_library(Metal INTERFACE)
+add_header_library(Metal "${METAL_INCLUDE_DIR}/metal.hpp")
 set_target_properties(Metal PROPERTIES
     INTERFACE_LIB_VERSION ${METAL_VERSION}
-    INTERFACE_INCLUDE_DIRECTORIES ${METAL_INCLUDE_DIR}
+    INTERFACE_COMPILE_FEATURES cxx_std_14
 )
+
+deploy_header_library(Metal)
+
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 target_compile_flags(Metal INTERFACE -W)
 target_compile_flags(Metal INTERFACE -Wextra)
@@ -66,18 +70,6 @@ if(METAL_VERBOSE)
 endif()
 
 target_compile_flags(Metal INTERFACE -stdlib=libc++ LIBS c++ c++abi)
-
-target_compile_flags(Metal INTERFACE /std:c++latest)
-
-target_compile_flags(Metal INTERFACE -std=c++17
-    FALLBACK -std=c++1z -std=c++14 -std=c++1y -std=c++11 -std=c++0x
-)
-
-deploy(Metal)
-
-enable_testing()
-
-find_package(Boost)
 
 add_subdirectory(doc)
 add_subdirectory(example)

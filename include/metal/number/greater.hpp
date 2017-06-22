@@ -5,12 +5,10 @@
 #ifndef METAL_NUMBER_GREATER_HPP
 #define METAL_NUMBER_GREATER_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../number/less.hpp"
 
-#include <metal/number/less.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup number
     ///
     /// ### Description
@@ -24,6 +22,7 @@ namespace metal
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<(x{} > y{})>;
     ///     \endcode

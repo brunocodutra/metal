@@ -12,13 +12,10 @@ env:
     global:
       - secure: "DuBGzmeKiWMm5m0+uZhutjzCffB2PbixmuMm3IZWUi7/uAam4PPI37oeqVTIytxxfpgRvfR2ah75eJyU6ab72MBoHxGkHem10RAvhC/vPYbLZu545qfSGatyTI9R6NfERUxi7YIxjs6D8c4D/5k3gMoCbMUkU1Lze1708lknh5U="
 
-    matrix:
-      - BOGUS_JOB
-
 addons:
     apt:
-        packages: &ubuntu_packages
-        sources: &ubuntu_sources
+        packages: &pkgs
+        sources: &srcs
           - ubuntu-toolchain-r-test
 
 cache:
@@ -26,27 +23,31 @@ cache:
     - deps/boost
 
 matrix:
-    exclude:
-      - env: BOGUS_JOB
-
     include:
       - os: linux
         dist: trusty
-        env: BUILD_DOC=true
-
-      - os: osx
-        env: BUILD_DOC=true
-
-      - os: linux
-        dist: trusty
-        compiler: g++
-        env: CXXVER=4.7
+        env: DEPLOY=true
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
-                  - g++-4.7
-                sources: *ubuntu_sources
+                  - tree
+
+      - os: linux
+        dist: trusty
+        env: CHECK_DOC=true
+
+      - os: linux
+        dist: trusty
+        env: CHECK_FORMATTING=/usr/bin/clang-format-5.0
+        addons:
+            apt:
+                packages:
+                  - *pkgs
+                  - clang-format-5.0
+                sources:
+                  - *srcs
+                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty main'
+                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: linux
         dist: trusty
@@ -55,9 +56,9 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - g++-4.8
-                sources: *ubuntu_sources
+                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -66,9 +67,9 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - g++-4.9
-                sources: *ubuntu_sources
+                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -77,9 +78,9 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - g++-5
-                sources: *ubuntu_sources
+                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -88,9 +89,20 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - g++-6
-                sources: *ubuntu_sources
+                sources: *srcs
+
+      - os: linux
+        dist: trusty
+        compiler: g++
+        env: CXXVER=7
+        addons:
+            apt:
+                packages:
+                  - *pkgs
+                  - g++-7
+                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -99,12 +111,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-3.4
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
@@ -115,12 +127,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-3.5
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.5 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
@@ -131,12 +143,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-3.6
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
@@ -163,12 +175,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-3.8
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
@@ -179,12 +191,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-3.9
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
@@ -195,12 +207,12 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-4.0
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
@@ -211,14 +223,17 @@ matrix:
         addons:
             apt:
                 packages:
-                  - *ubuntu_packages
+                  - *pkgs
                   - clang-5.0
                   - libc++-dev
                   - libc++abi-dev
                 sources:
-                  - *ubuntu_sources
+                  - *srcs
                   - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+
+      - os: osx
+        env: CHECK_DOC=true
 
       - os: osx
         osx_image: xcode6.4
@@ -247,38 +262,34 @@ before_install:
   - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
   - mkdir -p "${DEPS_PATH}"
 
+  - GITHUB_PATH="${TRAVIS_BUILD_DIR}/github"
+  - mkdir -p "${GITHUB_PATH}"
+
 install:
   - |
     if [[ "${TRAVIS_OS_NAME}" == "linux" ]]
     then
-        CMAKE_URL="http://www.cmake.org/files/v3.4/cmake-3.4.0-Linux-x86_64.tar.gz"
+        CMAKE_URL="http://www.cmake.org/files/v3.8/cmake-3.8.0-Linux-x86_64.tar.gz"
         mkdir -p "${DEPS_PATH}/cmake"
         travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit 1
         export PATH=${DEPS_PATH}/cmake/bin:${PATH}
+
+        # download the latest doxygen available
+        DOXYGEN_FTP="ftp://ftp.stack.nl/pub/users/dimitri/"
+        DOXYGEN_PKG=$(travis_retry curl -Ls "${DOXYGEN_FTP}" | grep -Eo "doxygen-[0-9.]+linux[.]bin[.]tar[.]gz" | sort -V | tail -1)
+        DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_PKG}"
+        mkdir -p "${DEPS_PATH}/doxygen"
+        travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" || exit 1
+        export PATH="${DEPS_PATH}/doxygen/bin:${PATH}"
     else
-        CMAKE_URL="http://www.cmake.org/files/v3.4/cmake-3.4.0-Darwin-x86_64.tar.gz"
+        CMAKE_URL="http://www.cmake.org/files/v3.8/cmake-3.8.0-Darwin-x86_64.tar.gz"
         mkdir -p "${DEPS_PATH}/cmake"
         travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit 1
         export PATH=${DEPS_PATH}/cmake/CMake.app/Contents/bin:${PATH}
-    fi
 
-  - |
-    if [[ "${BUILD_DOC}" == "true" ]]
-    then
-        if [[ "${TRAVIS_OS_NAME}" == "linux" ]]
-        then
-            # download the latest doxygen available
-            DOXYGEN_FTP="ftp://ftp.stack.nl/pub/users/dimitri/"
-            DOXYGEN_PKG=$(travis_retry curl -Ls "${DOXYGEN_FTP}" | grep -Eo "doxygen-[0-9.]+linux[.]bin[.]tar[.]gz" | sort -V | tail -1)
-            DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_PKG}"
-            mkdir -p "${DEPS_PATH}/doxygen"
-            travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" || exit 1
-            export PATH="${DEPS_PATH}/doxygen/bin:${PATH}"
-        else
-            brew update
-            brew unlink doxygen
-            brew install doxygen
-        fi
+        brew update
+        brew unlink doxygen
+        brew install doxygen
     fi
 
   - |
@@ -301,24 +312,43 @@ before_script:
         CMAKE_ARGS+=("-DCMAKE_CXX_COMPILER=${CXX}-${CXXVER}")
     fi
 
+  - |
+    if [[ -n "${CHECK_FORMATTING}" ]]
+    then
+        CMAKE_ARGS+=("-DCLANG_FORMAT=${CHECK_FORMATTING}")
+    fi
+
     CMAKE_ARGS+=("-DCMAKE_CXX_FLAGS=-DMETAL_TEST_GEN_LIMIT=9")
     CMAKE_ARGS+=("-DBOOST_ROOT=${DEPS_PATH}/boost")
 
   - (cd "${METAL_BUILD_PATH}" && cmake ${CMAKE_ARGS[@]})
 
+  - |
+    function publish {
+        git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=$2 "${GITHUB_PATH}/$2" &> /dev/null || return 1
+        cp -r "${GITHUB_PATH}/$2/.git/" $1                                                                                        &> /dev/null || return 2
+        git -C $1 add --all .                                                                                                     &> /dev/null || return 3
+        git -C $1 commit --allow-empty -m "update to $(git -C ${METAL_SOURCE_PATH} rev-parse --short HEAD)"                       &> /dev/null || return 4
+        git -C $1 push origin $2                                                                                                  &> /dev/null || return 5
+    }
+
 script:
   - |
-    if [[ "${BUILD_DOC}" == "true" ]]
+    if [[ "${DEPLOY}" == "true" ]]
     then
-        (cd "${METAL_BUILD_PATH}" && ! make doc 2>&1 | grep --color -iE "warning|error") || exit 1
-        if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_OS_NAME}" == "linux" ]]
+        cmake --build "${METAL_BUILD_PATH}" --target deploy && tree "${METAL_BUILD_PATH}/dist/" || exit 1
+        if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" ]]
         then
-            git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=gh-pages "${METAL_BUILD_PATH}/doc/gh-pages" &> /dev/null || exit 1
-            cp -r "${METAL_BUILD_PATH}/doc/gh-pages/.git/" "${METAL_BUILD_PATH}/doc/html/" &> /dev/null || exit 1
-            git -C "${METAL_BUILD_PATH}/doc/html/" add --all . &> /dev/null || exit 1
-            git -C "${METAL_BUILD_PATH}/doc/html/" commit --allow-empty -m "update to $(git -C ${METAL_SOURCE_PATH} rev-parse --short HEAD)" &> /dev/null || exit 1
-            git -C "${METAL_BUILD_PATH}/doc/html/" push origin gh-pages &> /dev/null || exit 1
+            publish "${METAL_BUILD_PATH}/dist/share/Metal/doc" gh-pages || exit $?
+            publish "${METAL_BUILD_PATH}/dist/include/" standalone || exit $?
         fi
+    elif [[ "${CHECK_DOC}" == "true" ]]
+    then
+        ! cmake --build "${METAL_BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error" || exit 1
+    elif [[ -n "${CHECK_FORMATTING}" ]]
+    then
+        (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
     else
-        (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure)
+        (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure -E ^test.format)
     fi
+

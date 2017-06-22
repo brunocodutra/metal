@@ -5,14 +5,12 @@
 #ifndef METAL_NUMBER_OR_HPP
 #define METAL_NUMBER_OR_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../number/not.hpp"
+#include "../number/number.hpp"
+#include "../value/same.hpp"
 
-#include <metal/number/number.hpp>
-#include <metal/number/not.hpp>
-#include <metal/value/same.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup number
     ///
     /// ### Description
@@ -26,6 +24,7 @@ namespace metal
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<num_0{} || ... || num_n-1{}>;
     ///     \endcode

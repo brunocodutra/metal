@@ -5,17 +5,14 @@
 #ifndef METAL_PAIR_PAIR_HPP
 #define METAL_PAIR_PAIR_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../lambda/apply.hpp"
+#include "../lambda/lambda.hpp"
+#include "../list/list.hpp"
 
-#include <metal/list/list.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/apply.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _is_pair;
     }
@@ -94,22 +91,16 @@ namespace metal
         metal::apply<metal::lambda<metal::pair>, metal::as_list<val>>;
 }
 
-#include <metal/number/number.hpp>
+#include "../number/number.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
-        struct _is_pair :
-            false_
-        {};
+        struct _is_pair : false_ {};
 
         template<typename x, typename y>
-        struct _is_pair<list<x, y>> :
-            true_
-        {};
+        struct _is_pair<list<x, y>> : true_ {};
     }
     /// \endcond
 }

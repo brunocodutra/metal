@@ -5,14 +5,12 @@
 #ifndef METAL_PAIR_SECOND_HPP
 #define METAL_PAIR_SECOND_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../list/back.hpp"
+#include "../number/if.hpp"
+#include "../pair/pair.hpp"
 
-#include <metal/pair/pair.hpp>
-#include <metal/list/back.hpp>
-#include <metal/number/if.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup pair
     ///
     /// ### Description

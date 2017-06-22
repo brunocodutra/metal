@@ -56,8 +56,8 @@
     CHECK((metal::is_invocable<metal::lambda<metal::order>, LAMBDA(_), MAP(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::order>, LAMBDA(_), LAMBDA(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::order>, LAMBDA(_), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::order<MAP(INC(N)), NUMBER(N)>), (metal::number<N>)); \
-    CHECK((metal::order<metal::list<PAIRS(N) COMMA(N) metal::list<NUMBER(N), LAMBDA(N)>>, NUMBER(N)>), (metal::number<N>)); \
+    CHECK((metal::order<MAP(INC(N)), NUMBER(N)>), (NUMBER(N))); \
+    CHECK((metal::order<metal::list<PAIRS(N) COMMA(N) metal::list<NUMBER(N), LAMBDA(N)>>, NUMBER(N)>), (NUMBER(N))); \
 /**/
 
 GEN(MATRIX)

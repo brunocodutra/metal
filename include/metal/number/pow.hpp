@@ -5,15 +5,12 @@
 #ifndef METAL_NUMBER_POW_HPP
 #define METAL_NUMBER_POW_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
-#include <metal/detail/sfinae.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... nums>
         struct _pow;
     }
@@ -53,53 +50,42 @@ namespace metal
     using pow = detail::call<detail::_pow<nums...>::template type>;
 }
 
-#include <metal/number/number.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/value/fold_left.hpp>
+#include "../lambda/lambda.hpp"
+#include "../number/number.hpp"
+#include "../value/fold_left.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename base, typename exp, typename ret = number<1>>
-        struct _pow_impl
-        {};
+        struct _pow_impl {};
 
         template<int_ b, int_ e, int_ r>
-        struct _pow_impl<number<b>, number<e>, number<r>> :
-            _pow_impl<number<b*b>, number<e/2>, number<(e%2 ? b*r : r)>>
-        {};
+        struct _pow_impl<number<b>, number<e>, number<r>>
+            : _pow_impl<
+                  number<b * b>, number<e / 2>, number<(e % 2 ? b * r : r)>> {};
 
         template<int_ b, int_ r>
-        struct _pow_impl<number<b>, number<0>, number<r>> :
-            number<1>
-        {};
+        struct _pow_impl<number<b>, number<0>, number<r>> : number<1> {};
 
         template<int_ b, int_ r>
-        struct _pow_impl<number<b>, number<1>, number<r>> :
-            number<b*r>
-        {};
+        struct _pow_impl<number<b>, number<1>, number<r>> : number<b * r> {};
 
         template<int_ b, int_ r>
-        struct _pow_impl<number<b>, number<-1>, number<r>> :
-            number<1/(b*r)>
-        {};
+        struct _pow_impl<number<b>, number<-1>, number<r>>
+            : number<1 / (b * r)> {};
 
         template<int_ r>
-        struct _pow_impl<number<0>, number<-1>, number<r>>
-        {};
+        struct _pow_impl<number<0>, number<-1>, number<r>> {};
 
         template<typename x, typename y>
         using pow_impl = typename _pow_impl<x, y>::type;
 
         template<typename... nums>
-        struct _pow
-        {};
+        struct _pow {};
 
         template<int_... ns>
-        struct _pow<number<ns>...>
-        {
+        struct _pow<number<ns>...> {
             template<typename... _>
             using type = fold_left<lambda<pow_impl>, number<ns>..., _...>;
         };

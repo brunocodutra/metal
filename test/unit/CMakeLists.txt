@@ -8,12 +8,4 @@ add_definitions(-DEXPECTED_METAL_MAJOR=${METAL_MAJOR})
 add_definitions(-DEXPECTED_METAL_MINOR=${METAL_MINOR})
 add_definitions(-DEXPECTED_METAL_PATCH=${METAL_PATCH})
 
-set(EXCLUDE)
-if(NOT Boost_FOUND)
-    list(APPEND EXCLUDE "mpl")
-else()
-    include_directories(${Boost_INCLUDE_DIRS})
-endif()
-
-add_custom_target(test.unit)
-unit_test_tree(Metal test.unit "${CMAKE_CURRENT_SOURCE_DIR}/src" EXCLUDE ${EXCLUDE})
+test_units(test.unit Metal "${CMAKE_CURRENT_SOURCE_DIR}/src")

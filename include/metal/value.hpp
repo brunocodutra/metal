@@ -5,18 +5,16 @@
 #ifndef METAL_VALUE_HPP
 #define METAL_VALUE_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/value/identity.hpp>
-#include <metal/value/eval.hpp>
-#include <metal/value/distinct.hpp>
-#include <metal/value/fold_left.hpp>
-#include <metal/value/fold_right.hpp>
-#include <metal/value/same.hpp>
-#include <metal/value/value.hpp>
+#include "config.hpp"
+#include "value/distinct.hpp"
+#include "value/eval.hpp"
+#include "value/fold_left.hpp"
+#include "value/fold_right.hpp"
+#include "value/identity.hpp"
+#include "value/same.hpp"
+#include "value/value.hpp"
 
 /// \defgroup value Value
 /// \ingroup metal
 
 #endif
-

@@ -5,13 +5,11 @@
 #ifndef METAL_NUMBER_IF_HPP
 #define METAL_NUMBER_IF_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename...>
         struct _if_;
     }
@@ -53,31 +51,24 @@ namespace metal
     using if_ = typename detail::_if_<cond, then_, else_...>::type;
 }
 
-#include <metal/number/number.hpp>
+#include "../number/number.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename...>
-        struct _if_
-        {};
+        struct _if_ {};
 
         template<typename then_, typename... else_>
-        struct _if_<false_, then_, else_...> :
-            _if_<else_...>
-        {};
+        struct _if_<false_, then_, else_...> : _if_<else_...> {};
 
         template<typename then_, typename else_>
-        struct _if_<false_, then_, else_>
-        {
+        struct _if_<false_, then_, else_> {
             using type = else_;
         };
 
         template<int_ v, typename then_, typename... else_>
-        struct _if_<number<v>, then_, else_...>
-        {
+        struct _if_<number<v>, then_, else_...> {
             using type = then_;
         };
     }

@@ -5,13 +5,11 @@
 #ifndef METAL_LIST_SIZE_HPP
 #define METAL_LIST_SIZE_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename seq>
         struct _size;
     }
@@ -44,22 +42,17 @@ namespace metal
     using size = typename detail::_size<seq>::type;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/number/number.hpp>
+#include "../list/list.hpp"
+#include "../number/number.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename seq>
-        struct _size
-        {};
+        struct _size {};
 
         template<typename... vals>
-        struct _size<list<vals...>> :
-            number<sizeof...(vals)>
-        {};
+        struct _size<list<vals...>> : number<sizeof...(vals)> {};
     }
     /// \endcond
 }

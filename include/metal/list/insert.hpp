@@ -5,13 +5,11 @@
 #ifndef METAL_LIST_INSERT_HPP
 #define METAL_LIST_INSERT_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../list/list.hpp"
+#include "../list/splice.hpp"
 
-#include <metal/list/list.hpp>
-#include <metal/list/splice.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

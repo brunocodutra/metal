@@ -5,14 +5,12 @@
 #ifndef METAL_LIST_PARTITION_HPP
 #define METAL_LIST_PARTITION_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../list/copy_if.hpp"
+#include "../list/remove_if.hpp"
+#include "../pair/pair.hpp"
 
-#include <metal/list/copy_if.hpp>
-#include <metal/list/remove_if.hpp>
-#include <metal/pair/pair.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

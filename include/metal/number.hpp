@@ -5,31 +5,29 @@
 #ifndef METAL_NUMBER_HPP
 #define METAL_NUMBER_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/number/abs.hpp>
-#include <metal/number/add.hpp>
-#include <metal/number/and.hpp>
-#include <metal/number/dec.hpp>
-#include <metal/number/div.hpp>
-#include <metal/number/greater.hpp>
-#include <metal/number/if.hpp>
-#include <metal/number/inc.hpp>
-#include <metal/number/less.hpp>
-#include <metal/number/max.hpp>
-#include <metal/number/min.hpp>
-#include <metal/number/mod.hpp>
-#include <metal/number/mul.hpp>
-#include <metal/number/neg.hpp>
-#include <metal/number/not.hpp>
-#include <metal/number/number.hpp>
-#include <metal/number/numbers.hpp>
-#include <metal/number/or.hpp>
-#include <metal/number/pow.hpp>
-#include <metal/number/sub.hpp>
+#include "config.hpp"
+#include "number/abs.hpp"
+#include "number/add.hpp"
+#include "number/and.hpp"
+#include "number/dec.hpp"
+#include "number/div.hpp"
+#include "number/greater.hpp"
+#include "number/if.hpp"
+#include "number/inc.hpp"
+#include "number/less.hpp"
+#include "number/max.hpp"
+#include "number/min.hpp"
+#include "number/mod.hpp"
+#include "number/mul.hpp"
+#include "number/neg.hpp"
+#include "number/not.hpp"
+#include "number/number.hpp"
+#include "number/numbers.hpp"
+#include "number/or.hpp"
+#include "number/pow.hpp"
+#include "number/sub.hpp"
 
 /// \defgroup number Number
 /// \ingroup metal
 
 #endif
-

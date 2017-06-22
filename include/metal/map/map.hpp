@@ -5,20 +5,17 @@
 #ifndef METAL_MAP_MAP_HPP
 #define METAL_MAP_MAP_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../lambda/apply.hpp"
+#include "../lambda/lambda.hpp"
+#include "../list/list.hpp"
+#include "../list/transform.hpp"
+#include "../number/if.hpp"
+#include "../pair/pair.hpp"
 
-#include <metal/list/list.hpp>
-#include <metal/list/transform.hpp>
-#include <metal/pair/pair.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/apply.hpp>
-#include <metal/number/if.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _is_map;
     }
@@ -71,10 +68,8 @@ namespace metal
     /// ### See Also
     /// \see is_map
     template<typename... pairs>
-    using map = metal::if_<
-        metal::is_map<metal::list<pairs...>>,
-        metal::list<pairs...>
-    >;
+    using map =
+        metal::if_<metal::is_map<metal::list<pairs...>>, metal::list<pairs...>>;
 
     /// \ingroup map
     ///
@@ -100,32 +95,23 @@ namespace metal
     template<typename val>
     using as_map = metal::apply<
         metal::lambda<metal::map>,
-        metal::transform<metal::lambda<metal::as_pair>, metal::as_list<val>>
-    >;
+        metal::transform<metal::lambda<metal::as_pair>, metal::as_list<val>>>;
 }
 
-#include <metal/number/number.hpp>
-#include <metal/value/distinct.hpp>
+#include "../number/number.hpp"
+#include "../value/distinct.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
-        struct _is_map :
-            false_
-        {};
+        struct _is_map : false_ {};
 
         template<>
-        struct _is_map<list<>> :
-            true_
-        {};
+        struct _is_map<list<>> : true_ {};
 
         template<typename... keys, typename... vals>
-        struct _is_map<list<list<keys, vals>...>> :
-            distinct<keys...>
-        {};
+        struct _is_map<list<list<keys, vals>...>> : distinct<keys...> {};
     }
     /// \endcond
 }

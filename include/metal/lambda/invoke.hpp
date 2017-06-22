@@ -5,12 +5,11 @@
 #ifndef METAL_LAMBDA_INVOKE_HPP
 #define METAL_LAMBDA_INVOKE_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../lambda/apply.hpp"
+#include "../list/list.hpp"
 
-#include <metal/lambda/apply.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup lambda
     ///
     /// ### Description

@@ -5,13 +5,11 @@
 #ifndef METAL_LAMBDA_ALWAYS_HPP
 #define METAL_LAMBDA_ALWAYS_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
         struct _always;
     }
@@ -50,17 +48,14 @@ namespace metal
     using always = typename detail::_always<val>::type;
 }
 
-#include <metal/lambda/lambda.hpp>
-#include <metal/value/identity.hpp>
+#include "../lambda/lambda.hpp"
+#include "../value/identity.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename val>
-        struct _always
-        {
+        struct _always {
             template<typename...>
             using impl = identity<val>;
 

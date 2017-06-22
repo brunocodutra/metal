@@ -5,13 +5,11 @@
 #ifndef METAL_DETAIL_DECLPTR_HPP
 #define METAL_DETAIL_DECLPTR_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename T>
         T* declptr();
     }
@@ -19,4 +17,3 @@ namespace metal
 }
 
 #endif
-

@@ -5,15 +5,12 @@
 #ifndef METAL_NUMBER_MOD_HPP
 #define METAL_NUMBER_MOD_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
-#include <metal/detail/sfinae.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... mod>
         struct _mod;
     }
@@ -47,41 +44,33 @@ namespace metal
     using mod = detail::call<detail::_mod<nums...>::template type>;
 }
 
-#include <metal/number/number.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/value/fold_left.hpp>
+#include "../lambda/lambda.hpp"
+#include "../number/number.hpp"
+#include "../value/fold_left.hpp"
 
 #include <initializer_list>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... nums>
-        struct _mod
-        {};
+        struct _mod {};
 
 #if defined(METAL_WORKAROUND)
         template<typename x, typename y>
-        struct _mod_impl
-        {};
+        struct _mod_impl {};
 
         template<int_ x, int_ y>
-        struct _mod_impl<number<x>, number<y>> :
-            number<x % y>
-        {};
+        struct _mod_impl<number<x>, number<y>> : number<x % y> {};
 
         template<int_ x>
-        struct _mod_impl<number<x>, number<0>>
-        {};
+        struct _mod_impl<number<x>, number<0>> {};
 
         template<typename x, typename y>
         using mod_impl = typename _mod_impl<x, y>::type;
 
         template<int_... ns>
-        struct _mod<number<ns>...>
-        {
+        struct _mod<number<ns>...> {
             template<typename... _>
             using type = fold_left<lambda<mod_impl>, number<ns>..., _...>;
         };
@@ -92,8 +81,7 @@ namespace metal
         }
 
         template<int_... ns>
-        struct _mod<number<ns>...>
-        {
+        struct _mod<number<ns>...> {
             template<typename... _>
             using type = number<mod_impl((void(sizeof...(_)), ns)...)>;
         };

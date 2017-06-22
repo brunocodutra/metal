@@ -5,16 +5,14 @@
 #ifndef METAL_MAP_ORDER_HPP
 #define METAL_MAP_ORDER_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../list/indices.hpp"
+#include "../list/transpose.hpp"
+#include "../map/at_key.hpp"
+#include "../map/keys.hpp"
+#include "../pair/pair.hpp"
 
-#include <metal/map/keys.hpp>
-#include <metal/map/at_key.hpp>
-#include <metal/list/indices.hpp>
-#include <metal/list/transpose.hpp>
-#include <metal/pair/pair.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup map
     ///
     /// ### Description
@@ -41,8 +39,7 @@ namespace metal
     template<typename seq, typename key>
     using order = metal::at_key<
         metal::transpose<metal::pair<metal::keys<seq>, metal::indices<seq>>>,
-        key
-    >;
+        key>;
 }
 
 #endif

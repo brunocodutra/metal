@@ -5,14 +5,12 @@
 #ifndef METAL_NUMBER_ABS_HPP
 #define METAL_NUMBER_ABS_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../number/max.hpp"
+#include "../number/neg.hpp"
+#include "../number/number.hpp"
 
-#include <metal/number/number.hpp>
-#include <metal/number/max.hpp>
-#include <metal/number/neg.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup number
     ///
     /// ### Description
@@ -26,6 +24,7 @@ namespace metal
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<(num{} > 0) ? num{} : -num{}>;
     ///     \endcode

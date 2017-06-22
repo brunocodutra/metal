@@ -5,13 +5,11 @@
 #ifndef METAL_VALUE_IDENTITY_HPP
 #define METAL_VALUE_IDENTITY_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../value/eval.hpp"
+#include "../value/value.hpp"
 
-#include <metal/value/eval.hpp>
-#include <metal/value/value.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup value
     ///
     /// ### Description
@@ -45,4 +43,3 @@ namespace metal
 }
 
 #endif
-

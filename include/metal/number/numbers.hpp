@@ -5,18 +5,15 @@
 #ifndef METAL_NUMBER_NUMBERS_HPP
 #define METAL_NUMBER_NUMBERS_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/number/number.hpp>
-#include <metal/list/list.hpp>
+#include "../config.hpp"
+#include "../list/list.hpp"
+#include "../number/number.hpp"
 
 #include <type_traits>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
 #if defined(METAL_WORKAROUND)
         template<int_... vs>
         struct _numbers;
@@ -43,12 +40,10 @@ namespace metal
 #endif
 
     /// \cond
-    namespace detail
-    {
+    namespace detail {
 #if defined(METAL_WORKAROUND)
         template<int_... vs>
-        struct _numbers
-        {
+        struct _numbers {
             using type = list<std::integral_constant<int_, vs>...>;
         };
 #endif

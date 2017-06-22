@@ -5,15 +5,12 @@
 #ifndef METAL_LAMBDA_ARG_HPP
 #define METAL_LAMBDA_ARG_HPP
 
-#include <metal/config.hpp>
-
+#include "../config.hpp"
 #include <cstddef>
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<std::size_t n>
         struct _arg;
     }
@@ -48,19 +45,16 @@ namespace metal
     using arg = typename detail::_arg<n>::type;
 }
 
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/at.hpp>
-#include <metal/list/list.hpp>
-#include <metal/number/number.hpp>
+#include "../lambda/lambda.hpp"
+#include "../list/at.hpp"
+#include "../list/list.hpp"
+#include "../number/number.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<std::size_t n>
-        struct _arg
-        {
+        struct _arg {
             template<typename... vals>
             using impl = at<list<vals...>, number<n - 1>>;
 
@@ -68,8 +62,7 @@ namespace metal
         };
 
         template<>
-        struct _arg<0U>
-        {};
+        struct _arg<0U> {};
     }
     /// \endcond
 

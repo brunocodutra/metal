@@ -71,26 +71,28 @@ IS_SAME(
     decltype(generate_test_cases<containers, types, sizes>()),
     test_cases<
         test_case<metal::lambda<std::forward_list>, A, metal::number<MIN_SIZE>>,
-        test_case<metal::lambda<std::list>,         A, metal::number<MIN_SIZE>>,
-        test_case<metal::lambda<std::vector>,       A, metal::number<MIN_SIZE>>,
-
         /* ... */
-
-        test_case<metal::lambda<std::forward_list>, Z, metal::number<MIN_SIZE>>,
-        test_case<metal::lambda<std::list>,         Z, metal::number<MIN_SIZE>>,
-        test_case<metal::lambda<std::vector>,       Z, metal::number<MIN_SIZE>>,
-
-        /* ... */
-
         test_case<metal::lambda<std::forward_list>, A, metal::number<MAX_SIZE>>,
-        test_case<metal::lambda<std::list>,         A, metal::number<MAX_SIZE>>,
-        test_case<metal::lambda<std::vector>,       A, metal::number<MAX_SIZE>>,
-
         /* ... */
-
+        test_case<metal::lambda<std::forward_list>, Z, metal::number<MIN_SIZE>>,
+        /* ... */
         test_case<metal::lambda<std::forward_list>, Z, metal::number<MAX_SIZE>>,
-        test_case<metal::lambda<std::list>,         Z, metal::number<MAX_SIZE>>,
-        test_case<metal::lambda<std::vector>,       Z, metal::number<MAX_SIZE>>
+
+        test_case<metal::lambda<std::list>, A, metal::number<MIN_SIZE>>,
+        /* ... */
+        test_case<metal::lambda<std::list>, A, metal::number<MAX_SIZE>>,
+        /* ... */
+        test_case<metal::lambda<std::list>, Z, metal::number<MIN_SIZE>>,
+        /* ... */
+        test_case<metal::lambda<std::list>, Z, metal::number<MAX_SIZE>>,
+
+        test_case<metal::lambda<std::vector>, A, metal::number<MIN_SIZE>>,
+        /* ... */
+        test_case<metal::lambda<std::vector>, A, metal::number<MAX_SIZE>>,
+        /* ... */
+        test_case<metal::lambda<std::vector>, Z, metal::number<MIN_SIZE>>,
+        /* ... */
+        test_case<metal::lambda<std::vector>, Z, metal::number<MAX_SIZE>>
     >
 );
 /// [inspect]

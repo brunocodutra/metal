@@ -5,15 +5,13 @@
 #ifndef METAL_MAP_INSERT_KEY_HPP
 #define METAL_MAP_INSERT_KEY_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../list/append.hpp"
+#include "../map/has_key.hpp"
+#include "../number/if.hpp"
+#include "../pair/pair.hpp"
 
-#include <metal/map/has_key.hpp>
-#include <metal/list/append.hpp>
-#include <metal/pair/pair.hpp>
-#include <metal/number/if.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup map
     ///
     /// ### Description
@@ -47,8 +45,7 @@ namespace metal
     template<typename seq, typename key, typename val>
     using insert_key = metal::if_<
         metal::not_<metal::has_key<seq, key>>,
-        metal::append<seq, metal::pair<key, val>>
-    >;
+        metal::append<seq, metal::pair<key, val>>>;
 }
 
 #endif

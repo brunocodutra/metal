@@ -14,7 +14,7 @@
     CHECK((metal::is_invocable<metal::lambda<metal::neg>, MAP(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::neg>, LAMBDA(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::neg>, LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::neg<NUMBER(M)>), (metal::number<-M>)); \
+    CHECK((metal::neg<NUMBER(M)>), (NUMBER(-M))); \
 /**/
 
 GEN(MATRIX)

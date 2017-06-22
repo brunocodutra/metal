@@ -5,13 +5,11 @@
 #ifndef METAL_NUMBER_LESS_HPP
 #define METAL_NUMBER_LESS_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename x, typename y>
         struct _less;
     }
@@ -30,6 +28,7 @@ namespace metal
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<(x{} < y{})>;
     ///     \endcode
@@ -43,21 +42,16 @@ namespace metal
     using less = typename detail::_less<x, y>::type;
 }
 
-#include <metal/number/number.hpp>
+#include "../number/number.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename x, typename y>
-        struct _less
-        {};
+        struct _less {};
 
         template<int_ x, int_ y>
-        struct _less<number<x>, number<y>> :
-            number<(x < y)>
-        {};
+        struct _less<number<x>, number<y>> : number<(x < y)> {};
     }
     /// \endcond
 }

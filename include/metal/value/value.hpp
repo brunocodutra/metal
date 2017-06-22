@@ -5,15 +5,12 @@
 #ifndef METAL_VALUE_VALUE_HPP
 #define METAL_VALUE_VALUE_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../number/number.hpp"
 
-#include <metal/number/number.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         struct na;
 
 #if defined(METAL_WORKAROUND)
@@ -88,7 +85,9 @@ namespace metal
     /// \see is_value, nil
     template<typename val = detail::na>
 #if defined(METAL_DOXYGENATING)
-    using value = { using type = val; };
+    using value = struct {
+        using type = val;
+    };
 #else
     struct value;
 #endif
@@ -117,20 +116,17 @@ namespace metal
 
     /// \cond
     template<typename val>
-    struct value
-    {
+    struct value {
         using type = val;
     };
 
     template<>
     struct value<detail::na> {};
 
-    namespace detail
-    {
+    namespace detail {
 #if defined(METAL_WORKAROUND)
         template<typename val>
-        struct _is_value
-        {
+        struct _is_value {
             using type = true_;
         };
 #endif
@@ -139,4 +135,3 @@ namespace metal
 }
 
 #endif
-

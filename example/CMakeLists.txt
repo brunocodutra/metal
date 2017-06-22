@@ -4,17 +4,16 @@
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
-set(EXCLUDE)
-if(NOT Boost_FOUND)
-    list(APPEND EXCLUDE "mpl" "sfinae")
+find_package(Boost)
+
+set(exclude)
+if(NOT Boost_FOUND OR Boost_MINOR_VERSION LESS 61)
+    list(APPEND exclude "sfinae")
+    message(WARNING "boost not found - target 'example.sfinae' will be unavailable.")
 else()
-    if(Boost_MINOR_VERSION LESS 61)
-        list(APPEND EXCLUDE "sfinae")
-    endif()
     include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
-add_custom_target(example)
-unit_test_tree(Metal example "${CMAKE_CURRENT_SOURCE_DIR}/src/" EXCLUDE ${EXCLUDE})
+test_units(example Metal "${CMAKE_CURRENT_SOURCE_DIR}/src/" EXCLUDE ${exclude})
 
 add_custom_target(examples DEPENDS example)

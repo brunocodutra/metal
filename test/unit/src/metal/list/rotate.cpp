@@ -56,10 +56,10 @@
     CHECK((metal::is_invocable<metal::lambda<metal::rotate>, LAMBDA(_), MAP(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::rotate>, LAMBDA(_), LAMBDA(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::rotate>, LAMBDA(_), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::rotate<LIST(M), metal::number<M*N>>), (LIST(M))); \
-    CHECK((metal::rotate<LIST(INF), metal::number<M + N*INF>>), (metal::rotate<LIST(INF), metal::number<M - N*INF>>)); \
+    CHECK((metal::rotate<LIST(M), NUMBER(M*N)>), (LIST(M))); \
+    CHECK((metal::rotate<LIST(INF), NUMBER(M + N*INF)>), (metal::rotate<LIST(INF), NUMBER(M - N*INF)>)); \
     CHECK((metal::rotate<metal::list<VALUES(M) COMMA(AND(M, N)) VALUES(N)>, NUMBER(M)>), (metal::list<VALUES(N) COMMA(AND(M, N)) VALUES(M)>)); \
-    CHECK((metal::rotate<metal::list<TAGSX20(M) COMMA(AND(M, N)) TAGSX20(N)>, metal::number<20*M>>), (metal::list<TAGSX20(N) COMMA(AND(M, N)) TAGSX20(M)>)); \
+    CHECK((metal::rotate<metal::list<TAGSX20(M) COMMA(AND(M, N)) TAGSX20(N)>, NUMBER(20*M)>), (metal::list<TAGSX20(N) COMMA(AND(M, N)) TAGSX20(M)>)); \
 /**/
 
 GEN(MATRIX)

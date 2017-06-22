@@ -5,14 +5,12 @@
 #ifndef METAL_LIST_FLATTEN_HPP
 #define METAL_LIST_FLATTEN_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../lambda/apply.hpp"
+#include "../lambda/lambda.hpp"
+#include "../list/join.hpp"
 
-#include <metal/list/join.hpp>
-#include <metal/lambda/apply.hpp>
-#include <metal/lambda/lambda.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description

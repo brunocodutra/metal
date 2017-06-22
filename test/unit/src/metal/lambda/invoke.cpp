@@ -25,6 +25,12 @@
     CHECK((metal::is_invocable<metal::lambda<metal::invoke>, PAIR(M) COMMA(N) LISTS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::invoke>, PAIR(M) COMMA(N) MAPS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::invoke>, PAIR(M) COMMA(N) LAMBDAS(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::invoke>, LIST(M) COMMA(N) VALUES(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::invoke>, LIST(M) COMMA(N) NUMBERS(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::invoke>, LIST(M) COMMA(N) PAIRS(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::invoke>, LIST(M) COMMA(N) LISTS(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::invoke>, LIST(M) COMMA(N) MAPS(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::invoke>, LIST(M) COMMA(N) LAMBDAS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::invoke>, MAP(M) COMMA(N) VALUES(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::invoke>, MAP(M) COMMA(N) NUMBERS(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::invoke>, MAP(M) COMMA(N) PAIRS(N)>), (FALSE)); \

@@ -5,15 +5,16 @@
 #ifndef METAL_MAP_AT_KEY_HPP
 #define METAL_MAP_AT_KEY_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
-#include <metal/map/keys.hpp>
-#include <metal/map/values.hpp>
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename seq, typename key>
+        struct _at_key;
+    }
+    /// \endcond
 
-#include <metal/detail/lookup.hpp>
-
-namespace metal
-{
     /// \ingroup map
     ///
     /// ### Description
@@ -39,7 +40,38 @@ namespace metal
     /// ### See Also
     /// \see map, has_key, insert_key, erase_key
     template<typename seq, typename key>
-    using at_key = detail::lookup<values<seq>, keys<seq>, key>;
+    using at_key = typename detail::_at_key<seq, key>::type;
+}
+
+#include "../list/list.hpp"
+#include "../number/number.hpp"
+#include "../value/distinct.hpp"
+#include "../value/value.hpp"
+#include "../detail/declptr.hpp"
+
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename, typename = true_>
+        struct table {};
+
+        template<typename... keys, typename... vals>
+        struct table<list<list<keys, vals>...>, distinct<list<keys, vals>...>>
+            : list<keys, vals>... {};
+
+        template<>
+        struct table<list<>> {};
+
+        template<typename key, typename val>
+        value<val> lookup(list<key, val>*);
+
+        template<typename>
+        value<> lookup(...);
+
+        template<typename seq, typename key>
+        struct _at_key : decltype(lookup<key>(declptr<table<seq>>())) {};
+    }
+    /// \endcond
 }
 
 #endif

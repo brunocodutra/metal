@@ -5,13 +5,11 @@
 #ifndef METAL_LAMBDA_PARTIAL_HPP
 #define METAL_LAMBDA_PARTIAL_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename lbd, typename... vals>
         struct _partial;
     }
@@ -49,47 +47,26 @@ namespace metal
     using partial = typename detail::_partial<lbd, vals...>::type;
 }
 
-#include <metal/lambda/lambda.hpp>
-#include <metal/value/same.hpp>
+#include "../lambda/invoke.hpp"
+#include "../lambda/lambda.hpp"
+#include "../value/same.hpp"
 
-#include <metal/detail/sfinae.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
-        template<typename... vals>
-        struct _partial_impl
-        {
-            template<template<typename...> class expr>
-            using type =
-#if defined(METAL_WORKAROUND)
-                call<expr, vals...>;
-#else
-                expr<vals...>;
-#endif
-        };
-
+    namespace detail {
         template<typename lbd, typename... leading>
-        struct _partial
-        {};
+        struct _partial {};
 
         template<template<typename...> class expr, typename... leading>
-        struct _partial<lambda<expr>, leading...>
-        {
+        struct _partial<lambda<expr>, leading...> {
             template<typename... trailing>
-            using impl = forward<
-                _partial_impl<leading..., trailing...>::template type,
-                expr
-            >;
+            using impl = invoke<lambda<expr>, leading..., trailing...>;
 
             using type = lambda<impl>;
         };
 
         template<typename x>
-        struct _partial<lambda<same>, x>
-        {
+        struct _partial<lambda<same>, x> {
             template<typename y>
             using impl = same<x, y>;
 
@@ -97,8 +74,7 @@ namespace metal
         };
 
         template<template<typename...> class expr>
-        struct _partial<lambda<expr>>
-        {
+        struct _partial<lambda<expr>> {
             using type = lambda<expr>;
         };
     }

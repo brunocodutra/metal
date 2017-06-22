@@ -5,14 +5,12 @@
 #ifndef METAL_PAIR_FIRST_HPP
 #define METAL_PAIR_FIRST_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../list/front.hpp"
+#include "../number/if.hpp"
+#include "../pair/pair.hpp"
 
-#include <metal/pair/pair.hpp>
-#include <metal/list/front.hpp>
-#include <metal/number/if.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup pair
     ///
     /// ### Description

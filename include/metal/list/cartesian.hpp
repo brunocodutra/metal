@@ -5,21 +5,19 @@
 #ifndef METAL_LIST_CARTESIAN_HPP
 #define METAL_LIST_CARTESIAN_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../lambda/lambda.hpp"
+#include "../list/list.hpp"
+#include "../value/fold_left.hpp"
 
-#include <metal/detail/sfinae.hpp>
-
-#include <cstddef>
-
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
-        template<std::size_t n>
-        struct cartesianer;
+    namespace detail {
+        template<typename, typename>
+        struct _product;
 
-        struct cartesianer_impl_0;
+        template<typename seqs, typename seq>
+        using product = typename _product<seqs, seq>::type;
     }
     /// \endcond
 
@@ -51,65 +49,31 @@ namespace metal
     /// ### See Also
     /// \see list, transpose
     template<typename... seqs>
-    using cartesian = detail::call<
-        detail::cartesianer<sizeof...(seqs)>::template type,
-        detail::cartesianer_impl_0,
-        seqs...
-    >;
+    using cartesian = fold_left<lambda<detail::product>, list<list<>>, seqs...>;
 }
 
-#include <metal/list/list.hpp>
-#include <metal/list/join.hpp>
+#include "../list/join.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
-        struct cartesianer_impl_0
-        {
-            template<typename... vals>
-            using type = list<list<vals...>>;
+    namespace detail {
+        template<typename, typename>
+        struct _product_impl {};
+
+        template<typename... xs, typename... ys>
+        struct _product_impl<list<xs...>, list<ys...>> {
+            using type = list<list<xs..., ys>...>;
         };
 
-        template<typename next, typename seq>
-        struct cartesianer_impl
-        {};
+        template<typename seqs, typename seq>
+        using product_impl = typename _product_impl<seqs, seq>::type;
 
-        template<typename next, typename... vals>
-        struct cartesianer_impl<next, list<vals...>>
-        {
-            template<template<typename...> class expr, typename... _>
-            struct impl
-            {
-                using type = join<expr<vals, _...>...>;
-            };
+        template<typename, typename>
+        struct _product {};
 
-            template<typename... _>
-            using type = typename impl<next::template type, _...>::type;
-        };
-
-        template<std::size_t n>
-        struct cartesianer :
-            cartesianer<(n > 0)>
-        {};
-
-        template<>
-        struct cartesianer<1>
-        {
-            template<typename next, typename head, typename... tail>
-            using type = call<
-                cartesianer<sizeof...(tail)>::template type,
-                cartesianer_impl<next, head>,
-                tail...
-            >;
-        };
-
-        template<>
-        struct cartesianer<0>
-        {
-            template<typename next>
-            using type = typename next::template type<>;
+        template<typename... seqs, typename... vals>
+        struct _product<list<seqs...>, list<vals...>> {
+            using type = join<product_impl<seqs, list<vals...>>...>;
         };
     }
     /// \endcond

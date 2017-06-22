@@ -5,25 +5,14 @@
 #ifndef METAL_LAMBDA_IS_INVOCABLE_HPP
 #define METAL_LAMBDA_IS_INVOCABLE_HPP
 
-#include <metal/config.hpp>
-
-#include <metal/lambda/invoke.hpp>
-#include <metal/value/same.hpp>
-
-#include <metal/detail/sfinae.hpp>
+#include "../config.hpp"
+#include "../lambda/invoke.hpp"
+#include "../value/same.hpp"
+#include "../detail/sfinae.hpp"
 
 #include <type_traits>
 
-namespace metal
-{
-    /// \cond
-    namespace detail
-    {
-        template<typename lbd, typename... vals>
-        struct _is_invocable;
-    }
-    /// \endcond
-
+namespace metal {
     /// \ingroup lambda
     ///
     /// ### Description
@@ -56,10 +45,7 @@ namespace metal
     using is_invocable = same<
         std::false_type,
         typename std::is_base_of<
-            value<>,
-            decltype(detail::sfinae<invoke, lbd, vals...>())
-        >::type
-    >;
+            value<>, detail::caller<invoke, lbd, vals...>>::type>;
 }
 
 #endif

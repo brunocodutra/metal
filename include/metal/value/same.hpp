@@ -5,13 +5,11 @@
 #ifndef METAL_VALUE_SAME_HPP
 #define METAL_VALUE_SAME_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename... vals>
         struct _same;
     }
@@ -49,48 +47,32 @@ namespace metal
     using same = typename detail::_same<vals...>::type;
 }
 
-#include <metal/value/value.hpp>
-#include <metal/number/number.hpp>
+#include "../number/number.hpp"
+#include "../value/value.hpp"
 
-namespace metal
-{
+namespace metal {
     /// \cond
-    namespace detail
-    {
+    namespace detail {
         template<typename...>
-        struct _same_impl :
-            false_
-        {};
+        struct _same_impl : false_ {};
 
         template<template<typename> class... _, typename val>
-        struct _same_impl<_<val>...> :
-            true_
-        {};
+        struct _same_impl<_<val>...> : true_ {};
 
         template<typename... vals>
-        struct _same :
-            _same_impl<value<vals>...>
-        {};
+        struct _same : _same_impl<value<vals>...> {};
 
         template<typename x, typename y>
-        struct _same<x, y> :
-            false_
-        {};
+        struct _same<x, y> : false_ {};
 
         template<typename x>
-        struct _same<x, x> :
-            true_
-        {};
+        struct _same<x, x> : true_ {};
 
         template<typename x>
-        struct _same<x> :
-            true_
-        {};
+        struct _same<x> : true_ {};
 
         template<>
-        struct _same<> :
-            true_
-        {};
+        struct _same<> : true_ {};
     }
     /// \endcond
 }

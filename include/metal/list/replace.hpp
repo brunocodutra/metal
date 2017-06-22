@@ -5,15 +5,13 @@
 #ifndef METAL_LIST_REPLACE_HPP
 #define METAL_LIST_REPLACE_HPP
 
-#include <metal/config.hpp>
+#include "../config.hpp"
+#include "../lambda/lambda.hpp"
+#include "../lambda/partial.hpp"
+#include "../list/replace_if.hpp"
+#include "../value/same.hpp"
 
-#include <metal/list/replace_if.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/partial.hpp>
-#include <metal/value/same.hpp>
-
-namespace metal
-{
+namespace metal {
     /// \ingroup list
     ///
     /// ### Description
@@ -42,8 +40,7 @@ namespace metal
     /// \see list, replace_if, copy, remove
     template<typename seq, typename val, typename... vals>
     using replace = metal::replace_if<
-        seq, metal::partial<metal::lambda<metal::same>, val>, vals...
-    >;
+        seq, metal::partial<metal::lambda<metal::same>, val>, vals...>;
 }
 
 #endif

@@ -49,8 +49,9 @@
     CHECK((metal::is_invocable<metal::lambda<metal::range>, LAMBDA(_), LIST(0), LIST(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::range>, LAMBDA(_), MAP(0), MAP(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::range>, LAMBDA(_), LAMBDA(0), LAMBDA(N)>), (FALSE)); \
+    CHECK((metal::is_invocable<metal::lambda<metal::range>, LIST(INF), NUMBER(-M), NUMBER(N)>), (BOOL(!M))); \
+    CHECK((metal::is_invocable<metal::lambda<metal::range>, LIST(INF), NUMBER(M), NUMBER(-N)>), (BOOL(!N))); \
     CHECK((metal::is_invocable<metal::lambda<metal::range>, LIST(INF), NUMBER(M), NUMBER(N)>), (TRUE)); \
-    CHECK((metal::is_invocable<metal::lambda<metal::range>, MAP(INF), NUMBER(M), NUMBER(N)>), (TRUE)); \
     CHECK((metal::range<LIST(M), NUMBER(0), NUMBER(M)>), (LIST(M))); \
     CHECK((metal::range<LIST(M), NUMBER(M), NUMBER(0)>), (metal::list<RENUM(M, VALUE)>)); \
     CHECK((metal::range<LIST(INF), NUMBER(M), NUMBER(INC(M))>), (metal::list<VALUE(M)>)); \

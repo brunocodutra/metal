@@ -56,18 +56,18 @@
     CHECK((metal::is_invocable<metal::lambda<metal::count_if>, LAMBDA(_), MAP(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::count_if>, LAMBDA(_), LAMBDA(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::count_if>, LAMBDA(_), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::count_if<PAIR(M), metal::lambda<metal::is_number>>), (metal::number<1>)); \
-    CHECK((metal::count_if<LIST(M), metal::lambda<metal::is_number>>), (metal::number<0>)); \
-    CHECK((metal::count_if<MAP(M), metal::lambda<metal::is_number>>), (metal::number<0>)); \
-    CHECK((metal::count_if<PAIR(M), metal::lambda<metal::is_pair>>), (metal::number<0>)); \
-    CHECK((metal::count_if<LIST(M), metal::lambda<metal::is_pair>>), (metal::number<0>)); \
-    CHECK((metal::count_if<MAP(M), metal::lambda<metal::is_pair>>), (metal::number<M>)); \
-    CHECK((metal::count_if<PAIR(M), metal::lambda<metal::is_lambda>>), (metal::number<0>)); \
-    CHECK((metal::count_if<LIST(M), metal::lambda<metal::is_lambda>>), (metal::number<0>)); \
-    CHECK((metal::count_if<MAP(M), metal::lambda<metal::is_lambda>>), (metal::number<0>)); \
-    CHECK((metal::count_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_number>>), (metal::number<M>)); \
-    CHECK((metal::count_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_pair>>), (metal::number<M>)); \
-    CHECK((metal::count_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_lambda>>), (metal::number<M>)); \
+    CHECK((metal::count_if<PAIR(M), metal::lambda<metal::is_number>>), (NUMBER(1))); \
+    CHECK((metal::count_if<LIST(M), metal::lambda<metal::is_number>>), (NUMBER(0))); \
+    CHECK((metal::count_if<MAP(M), metal::lambda<metal::is_number>>), (NUMBER(0))); \
+    CHECK((metal::count_if<PAIR(M), metal::lambda<metal::is_pair>>), (NUMBER(0))); \
+    CHECK((metal::count_if<LIST(M), metal::lambda<metal::is_pair>>), (NUMBER(0))); \
+    CHECK((metal::count_if<MAP(M), metal::lambda<metal::is_pair>>), (NUMBER(M))); \
+    CHECK((metal::count_if<PAIR(M), metal::lambda<metal::is_lambda>>), (NUMBER(0))); \
+    CHECK((metal::count_if<LIST(M), metal::lambda<metal::is_lambda>>), (NUMBER(0))); \
+    CHECK((metal::count_if<MAP(M), metal::lambda<metal::is_lambda>>), (NUMBER(0))); \
+    CHECK((metal::count_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_number>>), (NUMBER(M))); \
+    CHECK((metal::count_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_pair>>), (NUMBER(M))); \
+    CHECK((metal::count_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_lambda>>), (NUMBER(M))); \
 /**/
 
 GEN(MATRIX)
