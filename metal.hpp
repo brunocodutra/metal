@@ -39,7 +39,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_MINOR 6
+#define METAL_MINOR 7
 /// \ingroup config
 ///
 /// ### Description
@@ -590,75 +590,10 @@ namespace metal {
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LAMBDA_APPLY_HPP
 #define METAL_LAMBDA_APPLY_HPP
-// Copyright Bruno Dutra 2015-2017
-// Distributed under the Boost Software License, Version 1.0.
-// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
-#ifndef METAL_DETAIL_SFINAE_HPP
-#define METAL_DETAIL_SFINAE_HPP
-// Copyright Bruno Dutra 2015-2017
-// Distributed under the Boost Software License, Version 1.0.
-// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
-#ifndef METAL_DETAIL_DECLPTR_HPP
-#define METAL_DETAIL_DECLPTR_HPP
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename T>
-        T* declptr();
-    }
-    /// \endcond
-}
-#endif
-#include <type_traits>
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<
-            template<template<typename...> class...> class,
-            template<typename...> class...>
-        struct forwarder;
-        template<
-            template<template<typename...> class...> class tmpl,
-            template<typename...> class... exprs,
-            eval<std::enable_if<is_value<tmpl<exprs...>>::value>>* = nullptr>
-        value<tmpl<exprs...>> sfinae(forwarder<tmpl, exprs...>*);
-        template<template<typename...> class expr, typename... vals>
-        struct caller;
-        template<
-            template<typename...> class expr, typename... vals,
-            eval<std::enable_if<is_value<expr<vals...>>::value>>* = nullptr>
-        value<expr<vals...>> sfinae(caller<expr, vals...>*);
-        value<> sfinae(...);
-        template<
-            template<template<typename...> class...> class tmpl,
-            template<typename...> class... exprs>
-        struct forwarder
-            : decltype(sfinae(declptr<forwarder<tmpl, exprs...>>())) {};
-        template<template<typename...> class expr, typename... vals>
-        struct caller : decltype(sfinae(declptr<caller<expr, vals...>>())) {};
-#if defined(METAL_WORKAROUND)
-        template<
-            template<template<typename...> class...> class tmpl,
-            template<typename...> class... exprs>
-        using forward = typename forwarder<tmpl, exprs...>::type;
-        template<template<typename...> class expr, typename... vals>
-        using call = typename caller<expr, vals...>::type;
-#else
-        template<
-            template<template<typename...> class...> class tmpl,
-            template<typename...> class... exprs>
-        using forward = tmpl<exprs...>;
-        template<template<typename...> class expr, typename... vals>
-        using call = expr<vals...>;
-#endif
-    }
-    /// \endcond
-}
-#endif
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<typename lbd>
+        template<typename lbd, typename seq>
         struct _apply;
     }
     /// \endcond
@@ -686,7 +621,7 @@ namespace metal {
     /// ### See Also
     /// \see lambda, invoke, list
     template<typename lbd, typename seq>
-    using apply = detail::call<detail::_apply<lbd>::template type, seq>;
+    using apply = typename detail::_apply<lbd, seq>::type;
 }
 // Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
@@ -794,28 +729,83 @@ namespace metal {
     /// \endcond
 }
 #endif
+// Copyright Bruno Dutra 2015-2017
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
+#ifndef METAL_DETAIL_SFINAE_HPP
+#define METAL_DETAIL_SFINAE_HPP
+// Copyright Bruno Dutra 2015-2017
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
+#ifndef METAL_DETAIL_DECLPTR_HPP
+#define METAL_DETAIL_DECLPTR_HPP
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename seq>
-        struct _apply_impl {};
-        template<typename... vals>
-        struct _apply_impl<list<vals...>> {
-            template<template<typename...> class expr>
-            using type =
-#if defined(METAL_WORKAROUND)
-                call<expr, vals...>;
-#else
-                expr<vals...>;
+        template<typename T>
+        T* declptr();
+    }
+    /// \endcond
+}
 #endif
+#include <type_traits>
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<
+            template<template<typename...> class...> class,
+            template<typename...> class...>
+        struct forwarder;
+        template<
+            template<template<typename...> class...> class tmpl,
+            template<typename...> class... exprs,
+            eval<std::enable_if<is_value<tmpl<exprs...>>::value>>* = nullptr>
+        value<tmpl<exprs...>> sfinae(forwarder<tmpl, exprs...>*);
+        template<template<typename...> class expr, typename... vals>
+        struct caller;
+        template<
+            template<typename...> class expr, typename... vals,
+            eval<std::enable_if<is_value<expr<vals...>>::value>>* = nullptr>
+        value<expr<vals...>> sfinae(caller<expr, vals...>*);
+        value<> sfinae(...);
+        template<
+            template<template<typename...> class...> class tmpl,
+            template<typename...> class... exprs>
+        struct forwarder
+            : decltype(sfinae(declptr<forwarder<tmpl, exprs...>>())) {};
+        template<template<typename...> class expr, typename... vals>
+        struct caller : decltype(sfinae(declptr<caller<expr, vals...>>())) {};
+#if defined(METAL_WORKAROUND)
+        template<
+            template<template<typename...> class...> class tmpl,
+            template<typename...> class... exprs>
+        using forward = typename forwarder<tmpl, exprs...>::type;
+        template<template<typename...> class expr, typename... vals>
+        using call = typename caller<expr, vals...>::type;
+#else
+        template<
+            template<template<typename...> class...> class tmpl,
+            template<typename...> class... exprs>
+        using forward = tmpl<exprs...>;
+        template<template<typename...> class expr, typename... vals>
+        using call = expr<vals...>;
+#endif
+    }
+    /// \endcond
+}
+#endif
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename lbd, typename seq, typename = true_>
+        struct _apply_impl {};
+        template<template<typename...> class expr, typename... vals>
+        struct _apply_impl<
+            lambda<expr>, list<vals...>, is_value<call<expr, vals...>>> {
+            using type = expr<vals...>;
         };
-        template<typename lbd>
-        struct _apply {};
-        template<template<typename...> class expr>
-        struct _apply<lambda<expr>> {
-            template<typename seq>
-            using type = forward<_apply_impl<seq>::template type, expr>;
-        };
+        template<typename lbd, typename seq>
+        struct _apply : _apply_impl<lbd, seq> {};
     }
     /// \endcond
 }
@@ -1067,11 +1057,11 @@ namespace metal {
             struct impl<number<n>, number<(n >= 0 && n < sizeof...(vals))>> {
                 using type = __type_pack_element<n, vals...>;
             };
-            template<typename num>
-            using type = typename impl<num>::type;
+            template<typename... num>
+            using type = typename impl<num...>::type;
 #else
-            template<typename num>
-            using type = call<_at_impl<num>::template type, vals...>;
+            template<typename... num>
+            using type = call<_at_impl<num...>::template type, vals...>;
 #endif
         };
     }
@@ -1408,23 +1398,12 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... vals>
-        struct _partial_impl {
-            template<template<typename...> class expr>
-            using type =
-#if defined(METAL_WORKAROUND)
-                call<expr, vals...>;
-#else
-                expr<vals...>;
-#endif
-        };
         template<typename lbd, typename... leading>
         struct _partial {};
         template<template<typename...> class expr, typename... leading>
         struct _partial<lambda<expr>, leading...> {
             template<typename... trailing>
-            using impl = forward<
-                _partial_impl<leading..., trailing...>::template type, expr>;
+            using impl = invoke<lambda<expr>, leading..., trailing...>;
             using type = lambda<impl>;
         };
         template<typename x>
@@ -1586,7 +1565,7 @@ namespace metal {
     /// \snippet list.cpp iota
     ///
     /// ### See Also
-    /// \see numbers
+    /// \see list, repeat, numbers
     template<typename start, typename size, typename stride = number<1>>
     using iota = typename detail::_iota<start, size, stride>::type;
 }
@@ -1967,17 +1946,8 @@ namespace metal {
         };
         template<typename state>
         struct left_folder_0 {
-#if defined(METAL_WORKAROUND)
             template<template<typename...> class>
-            struct impl {
-                using type = state;
-            };
-            template<template<typename...> class expr>
-            using type = typename impl<expr>::type;
-#else
-            template<template<typename...> class>
-            using type = state;
-#endif
+            using type = identity<state>;
         };
         template<std::size_t n>
         struct _fold_left_impl
@@ -2242,6 +2212,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<!num{}>;
     ///     \endcode
@@ -2269,6 +2240,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<num_0{} && ... && num_n-1{}>;
     ///     \endcode
@@ -2342,6 +2314,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<num_0{} || ... || num_n-1{}>;
     ///     \endcode
@@ -2668,6 +2641,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<num_0{} - ... - num_n-1{}>;
     ///     \endcode
@@ -2723,6 +2697,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<num{} - 1>;
     ///     \endcode
@@ -2769,13 +2744,13 @@ namespace metal {
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_CARTESIAN_HPP
 #define METAL_LIST_CARTESIAN_HPP
-#include <cstddef>
 namespace metal {
     /// \cond
     namespace detail {
-        template<std::size_t n>
-        struct cartesianer;
-        struct cartesianer_impl_0;
+        template<typename, typename>
+        struct _product;
+        template<typename seqs, typename seq>
+        using product = typename _product<seqs, seq>::type;
     }
     /// \endcond
     /// \ingroup list
@@ -2806,44 +2781,394 @@ namespace metal {
     /// ### See Also
     /// \see list, transpose
     template<typename... seqs>
-    using cartesian = detail::call<
-        detail::cartesianer<sizeof...(seqs)>::template type,
-        detail::cartesianer_impl_0, seqs...>;
+    using cartesian = fold_left<lambda<detail::product>, list<list<>>, seqs...>;
 }
 namespace metal {
     /// \cond
     namespace detail {
-        struct cartesianer_impl_0 {
-            template<typename... vals>
-            using type = list<list<vals...>>;
+        template<typename, typename>
+        struct _product_impl {};
+        template<typename... xs, typename... ys>
+        struct _product_impl<list<xs...>, list<ys...>> {
+            using type = list<list<xs..., ys>...>;
         };
-        template<typename next, typename seq>
-        struct cartesianer_impl {};
-        template<typename next, typename... vals>
-        struct cartesianer_impl<next, list<vals...>> {
-            template<template<typename...> class expr, typename... _>
-            struct impl {
-                using type = join<expr<vals, _...>...>;
-            };
-            template<typename... _>
-            using type = typename impl<next::template type, _...>::type;
-        };
-        template<std::size_t n>
-        struct cartesianer : cartesianer<(n > 0)> {};
-        template<>
-        struct cartesianer<1> {
-            template<typename next, typename head, typename... tail>
-            using type = call<
-                cartesianer<sizeof...(tail)>::template type,
-                cartesianer_impl<next, head>, tail...>;
-        };
-        template<>
-        struct cartesianer<0> {
-            template<typename next>
-            using type = typename next::template type<>;
+        template<typename seqs, typename seq>
+        using product_impl = typename _product_impl<seqs, seq>::type;
+        template<typename, typename>
+        struct _product {};
+        template<typename... seqs, typename... vals>
+        struct _product<list<seqs...>, list<vals...>> {
+            using type = join<product_impl<seqs, list<vals...>>...>;
         };
     }
     /// \endcond
+}
+#endif
+// Copyright Bruno Dutra 2015-2017
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
+#ifndef METAL_LIST_CASCADE_HPP
+#define METAL_LIST_CASCADE_HPP
+// Copyright Bruno Dutra 2015-2017
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
+#ifndef METAL_VALUE_FOLD_RIGHT_HPP
+#define METAL_VALUE_FOLD_RIGHT_HPP
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename lbd>
+        struct _fold_right;
+    }
+    /// \endcond
+    /// \ingroup value
+    ///
+    /// ### Description
+    /// Computes the recursive invocation of a binary \lambda with the result of
+    /// the previous invocation and each \value, from the last to the first.
+    ///
+    /// ### Usage
+    /// For any \lambda `lbd`, and \values `val_0, ..., val_n-1`
+    /// \code
+    ///     using result = metal::fold_right<lbd, val_0, ..., val_n-1>;
+    /// \endcode
+    ///
+    /// \returns: \value
+    /// \semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         using result =
+    ///             lbd(val_0, ..., lbd(val_n-3, lbd(val_n-2, val_n-1)), ...)
+    ///     \endcode
+    ///     where `lbd(x, y)` stands for `metal::invoke<lbd, x, y>`.
+    ///
+    /// ### Example
+    /// \snippet value.cpp fold_right
+    ///
+    /// ### See Also
+    /// \see fold_right
+    template<typename lbd, typename... vals>
+    using fold_right =
+        detail::call<detail::_fold_right<lbd>::template type, vals...>;
+}
+#include <cstddef>
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<
+            typename state,
+            /* clang-format off */
+            typename _00, typename _01, typename _02, typename _03,
+            typename _04, typename _05, typename _06, typename _07,
+            typename _08, typename _09, typename _10, typename _11,
+            typename _12, typename _13, typename _14, typename _15,
+            typename _16, typename _17, typename _18, typename _19,
+            typename _20, typename _21, typename _22, typename _23,
+            typename _24, typename _25, typename _26, typename _27,
+            typename _28, typename _29, typename _30, typename _31,
+            typename _32, typename _33, typename _34, typename _35,
+            typename _36, typename _37, typename _38, typename _39,
+            typename _40, typename _41, typename _42, typename _43,
+            typename _44, typename _45, typename _46, typename _47,
+            typename _48, typename _49, typename _50, typename _51,
+            typename _52, typename _53, typename _54, typename _55,
+            typename _56, typename _57, typename _58, typename _59,
+            typename _60, typename _61, typename _62, typename _63,
+            typename _64, typename _65, typename _66, typename _67,
+            typename _68, typename _69, typename _70, typename _71,
+            typename _72, typename _73, typename _74, typename _75,
+            typename _76, typename _77, typename _78, typename _79,
+            typename _80, typename _81, typename _82, typename _83,
+            typename _84, typename _85, typename _86, typename _87,
+            typename _88, typename _89, typename _90, typename _91,
+            typename _92, typename _93, typename _94, typename _95,
+            typename _96, typename _97, typename _98, typename _99
+            /* clang-format on */
+            >
+        struct right_folder_100 {
+            template<template<typename...> class expr>
+            using type =
+                /* clang-format off */
+                expr<_00, expr<_01, expr<_02, expr<_03, expr<_04,
+                expr<_05, expr<_06, expr<_07, expr<_08, expr<_09,
+                expr<_10, expr<_11, expr<_12, expr<_13, expr<_14,
+                expr<_15, expr<_16, expr<_17, expr<_18, expr<_19,
+                expr<_20, expr<_21, expr<_22, expr<_23, expr<_24,
+                expr<_25, expr<_26, expr<_27, expr<_28, expr<_29,
+                expr<_30, expr<_31, expr<_32, expr<_33, expr<_34,
+                expr<_35, expr<_36, expr<_37, expr<_38, expr<_39,
+                expr<_40, expr<_41, expr<_42, expr<_43, expr<_44,
+                expr<_45, expr<_46, expr<_47, expr<_48, expr<_49,
+                expr<_50, expr<_51, expr<_52, expr<_53, expr<_54,
+                expr<_55, expr<_56, expr<_57, expr<_58, expr<_59,
+                expr<_60, expr<_61, expr<_62, expr<_63, expr<_64,
+                expr<_65, expr<_66, expr<_67, expr<_68, expr<_69,
+                expr<_70, expr<_71, expr<_72, expr<_73, expr<_74,
+                expr<_75, expr<_76, expr<_77, expr<_78, expr<_79,
+                expr<_80, expr<_81, expr<_82, expr<_83, expr<_84,
+                expr<_85, expr<_86, expr<_87, expr<_88, expr<_89,
+                expr<_90, expr<_91, expr<_92, expr<_93, expr<_94,
+                expr<_95, expr<_96, expr<_97, expr<_98, expr<_99,
+                    forward<state::template type, expr>
+                >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                /* clang-format on */
+                ;
+        };
+        template<
+            typename state,
+            /* clang-format off */
+            typename _00, typename _01, typename _02, typename _03,
+            typename _04, typename _05, typename _06, typename _07,
+            typename _08, typename _09
+            /* clang-format on */
+            >
+        struct right_folder_10 {
+            template<template<typename...> class expr>
+            using type =
+                /* clang-format off */
+                expr<_00, expr<_01, expr<_02, expr<_03, expr<_04,
+                expr<_05, expr<_06, expr<_07, expr<_08, expr<_09,
+                    forward<state::template type, expr>
+                >>>>>>>>>>
+                /* clang-format on */
+                ;
+        };
+        template<typename state, typename _00>
+        struct right_folder_1 {
+            template<template<typename...> class expr>
+            using type = expr<_00, forward<state::template type, expr>>;
+        };
+        template<typename state>
+        struct right_folder_0 {
+            template<template<typename...> class>
+            using type = identity<state>;
+        };
+        template<std::size_t n>
+        struct _fold_right_impl
+            : _fold_right_impl<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)> {};
+        template<>
+        struct _fold_right_impl<100> {
+            template<
+                typename _00, typename _01, typename _02, typename _03,
+                typename _04, typename _05, typename _06, typename _07,
+                typename _08, typename _09, typename _10, typename _11,
+                typename _12, typename _13, typename _14, typename _15,
+                typename _16, typename _17, typename _18, typename _19,
+                typename _20, typename _21, typename _22, typename _23,
+                typename _24, typename _25, typename _26, typename _27,
+                typename _28, typename _29, typename _30, typename _31,
+                typename _32, typename _33, typename _34, typename _35,
+                typename _36, typename _37, typename _38, typename _39,
+                typename _40, typename _41, typename _42, typename _43,
+                typename _44, typename _45, typename _46, typename _47,
+                typename _48, typename _49, typename _50, typename _51,
+                typename _52, typename _53, typename _54, typename _55,
+                typename _56, typename _57, typename _58, typename _59,
+                typename _60, typename _61, typename _62, typename _63,
+                typename _64, typename _65, typename _66, typename _67,
+                typename _68, typename _69, typename _70, typename _71,
+                typename _72, typename _73, typename _74, typename _75,
+                typename _76, typename _77, typename _78, typename _79,
+                typename _80, typename _81, typename _82, typename _83,
+                typename _84, typename _85, typename _86, typename _87,
+                typename _88, typename _89, typename _90, typename _91,
+                typename _92, typename _93, typename _94, typename _95,
+                typename _96, typename _97, typename _98, typename _99,
+                typename... tail>
+            using type = right_folder_100<
+                typename _fold_right_impl<sizeof...(tail) - 1>::template type<
+                    tail...>,
+                /* clang-format off */
+                _00, _01, _02, _03, _04, _05, _06, _07, _08, _09,
+                _10, _11, _12, _13, _14, _15, _16, _17, _18, _19,
+                _20, _21, _22, _23, _24, _25, _26, _27, _28, _29,
+                _30, _31, _32, _33, _34, _35, _36, _37, _38, _39,
+                _40, _41, _42, _43, _44, _45, _46, _47, _48, _49,
+                _50, _51, _52, _53, _54, _55, _56, _57, _58, _59,
+                _60, _61, _62, _63, _64, _65, _66, _67, _68, _69,
+                _70, _71, _72, _73, _74, _75, _76, _77, _78, _79,
+                _80, _81, _82, _83, _84, _85, _86, _87, _88, _89,
+                _90, _91, _92, _93, _94, _95, _96, _97, _98, _99
+                /* clang-format on */
+                >;
+        };
+        template<>
+        struct _fold_right_impl<10> {
+            template<
+                typename _00, typename _01, typename _02, typename _03,
+                typename _04, typename _05, typename _06, typename _07,
+                typename _08, typename _09, typename... tail>
+            using type = right_folder_10<
+                typename _fold_right_impl<sizeof...(tail) - 1>::template type<
+                    tail...>,
+                _00, _01, _02, _03, _04, _05, _06, _07, _08, _09>;
+        };
+        template<>
+        struct _fold_right_impl<1> {
+            template<typename _00, typename... tail>
+            using type = right_folder_1<
+                typename _fold_right_impl<sizeof...(tail) - 1>::template type<
+                    tail...>,
+                _00>;
+        };
+        template<>
+        struct _fold_right_impl<0> {
+            template<typename _00>
+            using type = right_folder_0<_00>;
+        };
+        template<typename state, typename... vals>
+        struct right_folder
+            : _fold_right_impl<sizeof...(vals)>::template type<state, vals...> {
+        };
+        template<typename lbd>
+        struct _fold_right {};
+        template<template<typename...> class expr>
+        struct _fold_right<lambda<expr>> {
+            template<typename... vals>
+            using type = forward<right_folder<vals...>::template type, expr>;
+        };
+    }
+    /// \endcond
+}
+#endif
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename outer, typename inner>
+        struct _cascader;
+        template<typename outer, typename inner>
+        using cascader = typename _cascader<outer, inner>::type;
+    }
+    /// \endcond
+    /// \ingroup list
+    ///
+    /// ### Description
+    /// Recursively applies \lambdas to nested \lists of \lists.
+    ///
+    /// ### Usage
+    /// For any \list `l` and \lambdas `lbd_0, ..., lbd_n-1`, where `n > 0`,
+    /// \code
+    ///     using result = metal::cascade<l, lbd_0, ..., lbd_n-1>;
+    /// \endcode
+    ///
+    /// \returns: \value
+    /// \semantics:
+    ///     If `n == 1`, then
+    ///     \code
+    ///         using result = metal::apply<lbd_0, l>;
+    ///     \endcode
+    ///     otherwise, if `l` contains elements `l[0], ..., l[m-1]`, then
+    ///     \code
+    ///         using result = metal::invoke<
+    ///             lbd_0,
+    ///             metal::cascade<l[0], lbd_1, ..., lbd_n-1>>,
+    ///             metal::cascade<l[1], lbd_1, ..., lbd_n-1>>,
+    ///             ...,
+    ///             metal::cascade<l[m-1], lbd_1, ..., lbd_n-1>>
+    ///         >;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp cascade
+    ///
+    /// ### See Also
+    /// \see list, cartesian
+    template<typename seq, typename... lbds>
+    using cascade = apply<fold_right<lambda<detail::cascader>, lbds...>, seq>;
+}
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename outer, typename inner>
+        struct _cascader {};
+        template<
+            template<typename...> class outer,
+            template<typename...> class inner>
+        struct _cascader<lambda<outer>, lambda<inner>> {
+            template<typename... seqs>
+            using impl = invoke<lambda<outer>, apply<lambda<inner>, seqs>...>;
+            using type = lambda<impl>;
+        };
+    }
+    /// \endcond
+}
+#endif
+// Copyright Bruno Dutra 2015-2017
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
+#ifndef METAL_LIST_COMBINE_HPP
+#define METAL_LIST_COMBINE_HPP
+// Copyright Bruno Dutra 2015-2017
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
+#ifndef METAL_LIST_REPEAT_HPP
+#define METAL_LIST_REPEAT_HPP
+namespace metal {
+    /// \ingroup list
+    ///
+    /// ### Description
+    /// Returns a \list that contains a \number of copies of the same \value.
+    ///
+    /// ### Usage
+    /// For any \value `val` and \number `num`
+    /// \code
+    ///     using result = metal::repeat<val, num>;
+    /// \endcode
+    ///
+    /// \returns: \list
+    /// \semantics:
+    ///     If `num` holds the constant `n`, then
+    ///     \code
+    ///         using result = metal::list<val_0, ..., val_n-1>;
+    ///     \endcode
+    ///     where `val_0, ..., val_n-1` are all identical to `val`.
+    ///
+    /// ### Example
+    /// \snippet list.cpp repeat
+    ///
+    /// ### See Also
+    /// \see list, iota
+    template<typename val, typename num>
+    using repeat = metal::transform<
+        metal::always<val>,
+        metal::iota<metal::number<0>, num, metal::number<0>>>;
+}
+#endif
+namespace metal {
+    /// \ingroup list
+    ///
+    /// ### Description
+    /// Computes all possible combinations (with repetition) from the
+    /// elements in a \list.
+    ///
+    /// ### Usage
+    /// For any \list `l` and \number `num`
+    /// \code
+    ///     using result = metal::combine<l, num>;
+    /// \endcode
+    ///
+    /// \returns: \list
+    /// \semantics:
+    ///     If `l` contains elements `l[0], ..., l[m-1]` and `num` holds the
+    ///     constant `n`, then
+    ///     \code
+    ///         using result = metal::list<
+    ///             metal::list<l[x_0], ...[...], l[x_n-1]>,
+    ///         >;
+    ///     \endcode
+    ///     where each `x` in `x_0, ..., x_n-1` varies independently from `0` to
+    ///     `m-1`.
+    ///
+    /// ### Example
+    /// \snippet list.cpp combine
+    ///
+    /// ### See Also
+    /// \see list, powerset, cartesian, cascade
+    template<typename seq, typename num = metal::size<seq>>
+    using combine = metal::apply<
+        metal::lambda<metal::cartesian>,
+        metal::repeat<metal::if_<metal::is_list<seq>, seq>, num>>;
 }
 #endif
 // Copyright Bruno Dutra 2015-2017
@@ -3112,6 +3437,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<num_0{} + ... + num_n-1{}>;
     ///     \endcode
@@ -3261,6 +3587,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<(x{} < y{})>;
     ///     \endcode
@@ -3298,6 +3625,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<(x{} > y{})>;
     ///     \endcode
@@ -3971,6 +4299,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<num::{} + 1>;
     ///     \endcode
@@ -4461,6 +4790,72 @@ namespace metal {
 // Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
+#ifndef METAL_LIST_POWERSET_HPP
+#define METAL_LIST_POWERSET_HPP
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename, typename>
+        struct _power;
+        template<typename seqs, typename val>
+        using power = typename _power<seqs, val>::type;
+    }
+    /// \endcond
+    /// \ingroup list
+    ///
+    /// ### Description
+    /// Computes the powerset of a \list.
+    ///
+    /// ### Usage
+    /// For any \list `l`
+    /// \code
+    ///     using result = metal::powerset<l>;
+    /// \endcode
+    ///
+    /// \returns: \list
+    /// \semantics:
+    ///     If `l` contains elements `l[0], ..., l[m-1]`, then
+    ///     \code
+    ///         using result = metal::list<metal::list<l[2^m]>...>;
+    ///     \endcode
+    ///     where the notation `l[2^m]` stands for the expansion of all elements
+    ///     in `l`, whose indices correspond to _1-bits_ of the number `2^m`
+    ///     written in binary base and `metal::list<l[2^m]>...` stands for the
+    ///     expansion for all numbers in `0...2^m`.
+    ///
+    /// ### Example
+    /// \snippet list.cpp powerset
+    ///
+    /// ### See Also
+    /// \see list, combine, cartesian, cascade
+    template<typename seq>
+    using powerset =
+        accumulate<lambda<detail::power>, list<list<>>, metal::reverse<seq>>;
+}
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename, typename>
+        struct _power_impl {};
+        template<typename... xs, typename y>
+        struct _power_impl<list<xs...>, y> {
+            using type = list<list<xs...>, list<y, xs...>>;
+        };
+        template<typename xs, typename y>
+        using power_impl = typename _power_impl<xs, y>::type;
+        template<typename, typename>
+        struct _power {};
+        template<typename... seqs, typename val>
+        struct _power<list<seqs...>, val> {
+            using type = join<power_impl<seqs, val>...>;
+        };
+    }
+    /// \endcond
+}
+#endif
+// Copyright Bruno Dutra 2015-2017
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_PREPEND_HPP
 #define METAL_LIST_PREPEND_HPP
 namespace metal {
@@ -4669,27 +5064,33 @@ namespace metal {
         using head = typename cons<seq>::head;
         template<typename seq>
         using tail = typename cons<seq>::tail;
-        template<typename x, typename y, typename... zs>
-        struct _merge {
-            template<template<typename...> class expr>
-            using type = typename if_<
-                expr<head<y>, head<x>>, _merge<x, tail<y>, zs..., head<y>>,
-                _merge<tail<x>, y, zs..., head<x>>>::template type<expr>;
-        };
-        template<typename... xs, typename... zs>
-        struct _merge<list<xs...>, list<>, zs...> {
-            template<template<typename...> class>
+        template<
+            typename, typename, typename, template<typename...> class,
+            typename = true_>
+        struct _merge {};
+        template<
+            typename x, typename y, typename... zs,
+            template<typename...> class e>
+        struct _merge<
+            x, y, list<zs...>, e, if_<call<e, head<y>, head<x>>, true_, false_>>
+            : _merge<x, tail<y>, list<zs..., head<y>>, e> {};
+        template<
+            typename x, typename y, typename... zs,
+            template<typename...> class e>
+        struct _merge<
+            x, y, list<zs...>, e, if_<call<e, head<y>, head<x>>, false_, true_>>
+            : _merge<tail<x>, y, list<zs..., head<x>>, e> {};
+        template<typename... xs, typename... zs, template<typename...> class e>
+        struct _merge<list<xs...>, list<>, list<zs...>, e> {
             using type = list<zs..., xs...>;
         };
-        template<typename... ys, typename... zs>
-        struct _merge<list<>, list<ys...>, zs...> {
-            template<template<typename...> class>
+        template<typename... ys, typename... zs, template<typename...> class e>
+        struct _merge<list<>, list<ys...>, list<zs...>, e> {
             using type = list<zs..., ys...>;
         };
-        template<typename... zs>
-        struct _merge<list<>, list<>, zs...> {
-            template<template<typename...> class>
-            using type = list<zs...>;
+        template<typename z, template<typename...> class e>
+        struct _merge<list<>, list<>, z, e> {
+            using type = z;
         };
         template<typename seq>
         struct _sort_impl {};
@@ -4699,12 +5100,11 @@ namespace metal {
             using beg = number<0>;
             using mid = number<sizeof...(vals) / 2>;
             using end = number<sizeof...(vals)>;
-            using x = _sort_impl<range<seq, beg, mid>>;
-            using y = _sort_impl<range<seq, mid, end>>;
             template<template<typename...> class expr>
             using type = typename _merge<
-                forward<x::template type, expr>,
-                forward<y::template type, expr>>::template type<expr>;
+                forward<_sort_impl<range<seq, beg, mid>>::template type, expr>,
+                forward<_sort_impl<range<seq, mid, end>>::template type, expr>,
+                list<>, expr>::type;
         };
         template<typename x, typename y>
         struct _sort_impl<list<x, y>> {
@@ -4725,8 +5125,8 @@ namespace metal {
         struct _sort {};
         template<template<typename...> class expr>
         struct _sort<lambda<expr>> {
-            template<typename seq>
-            using type = forward<_sort_impl<seq>::template type, expr>;
+            template<typename... seq>
+            using type = forward<_sort_impl<seq...>::template type, expr>;
         };
     }
     /// \endcond
@@ -5330,6 +5730,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<-num{}>;
     ///     \endcode
@@ -5357,6 +5758,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<(num{} > 0) ? num{} : -num{}>;
     ///     \endcode
@@ -5543,6 +5945,7 @@ namespace metal {
     ///
     /// \returns: \number
     /// \semantics:
+    ///     Equivalent to
     ///     \code
     ///         using result = metal::number<num_0{} * ... * num_n-1{}>;
     ///     \endcode
@@ -5681,238 +6084,6 @@ namespace metal {
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_VALUE_HPP
 #define METAL_VALUE_HPP
-// Copyright Bruno Dutra 2015-2017
-// Distributed under the Boost Software License, Version 1.0.
-// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
-#ifndef METAL_VALUE_FOLD_RIGHT_HPP
-#define METAL_VALUE_FOLD_RIGHT_HPP
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<typename lbd>
-        struct _fold_right;
-    }
-    /// \endcond
-    /// \ingroup value
-    ///
-    /// ### Description
-    /// Computes the recursive invocation of a binary \lambda with the result of
-    /// the previous invocation and each \value, from the last to the first.
-    ///
-    /// ### Usage
-    /// For any \lambda `lbd`, and \values `val_0, ..., val_n-1`
-    /// \code
-    ///     using result = metal::fold_right<lbd, val_0, ..., val_n-1>;
-    /// \endcode
-    ///
-    /// \returns: \value
-    /// \semantics:
-    ///     Equivalent to
-    ///     \code
-    ///         using result =
-    ///             lbd(val_0, ..., lbd(val_n-3, lbd(val_n-2, val_n-1)), ...)
-    ///     \endcode
-    ///     where `lbd(x, y)` stands for `metal::invoke<lbd, x, y>`.
-    ///
-    /// ### Example
-    /// \snippet value.cpp fold_right
-    ///
-    /// ### See Also
-    /// \see fold_right
-    template<typename lbd, typename... vals>
-    using fold_right =
-        detail::call<detail::_fold_right<lbd>::template type, vals...>;
-}
-#include <cstddef>
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<
-            typename state,
-            /* clang-format off */
-            typename _00, typename _01, typename _02, typename _03,
-            typename _04, typename _05, typename _06, typename _07,
-            typename _08, typename _09, typename _10, typename _11,
-            typename _12, typename _13, typename _14, typename _15,
-            typename _16, typename _17, typename _18, typename _19,
-            typename _20, typename _21, typename _22, typename _23,
-            typename _24, typename _25, typename _26, typename _27,
-            typename _28, typename _29, typename _30, typename _31,
-            typename _32, typename _33, typename _34, typename _35,
-            typename _36, typename _37, typename _38, typename _39,
-            typename _40, typename _41, typename _42, typename _43,
-            typename _44, typename _45, typename _46, typename _47,
-            typename _48, typename _49, typename _50, typename _51,
-            typename _52, typename _53, typename _54, typename _55,
-            typename _56, typename _57, typename _58, typename _59,
-            typename _60, typename _61, typename _62, typename _63,
-            typename _64, typename _65, typename _66, typename _67,
-            typename _68, typename _69, typename _70, typename _71,
-            typename _72, typename _73, typename _74, typename _75,
-            typename _76, typename _77, typename _78, typename _79,
-            typename _80, typename _81, typename _82, typename _83,
-            typename _84, typename _85, typename _86, typename _87,
-            typename _88, typename _89, typename _90, typename _91,
-            typename _92, typename _93, typename _94, typename _95,
-            typename _96, typename _97, typename _98, typename _99
-            /* clang-format on */
-            >
-        struct right_folder_100 {
-            template<template<typename...> class expr>
-            using type =
-                /* clang-format off */
-                expr<_00, expr<_01, expr<_02, expr<_03, expr<_04,
-                expr<_05, expr<_06, expr<_07, expr<_08, expr<_09,
-                expr<_10, expr<_11, expr<_12, expr<_13, expr<_14,
-                expr<_15, expr<_16, expr<_17, expr<_18, expr<_19,
-                expr<_20, expr<_21, expr<_22, expr<_23, expr<_24,
-                expr<_25, expr<_26, expr<_27, expr<_28, expr<_29,
-                expr<_30, expr<_31, expr<_32, expr<_33, expr<_34,
-                expr<_35, expr<_36, expr<_37, expr<_38, expr<_39,
-                expr<_40, expr<_41, expr<_42, expr<_43, expr<_44,
-                expr<_45, expr<_46, expr<_47, expr<_48, expr<_49,
-                expr<_50, expr<_51, expr<_52, expr<_53, expr<_54,
-                expr<_55, expr<_56, expr<_57, expr<_58, expr<_59,
-                expr<_60, expr<_61, expr<_62, expr<_63, expr<_64,
-                expr<_65, expr<_66, expr<_67, expr<_68, expr<_69,
-                expr<_70, expr<_71, expr<_72, expr<_73, expr<_74,
-                expr<_75, expr<_76, expr<_77, expr<_78, expr<_79,
-                expr<_80, expr<_81, expr<_82, expr<_83, expr<_84,
-                expr<_85, expr<_86, expr<_87, expr<_88, expr<_89,
-                expr<_90, expr<_91, expr<_92, expr<_93, expr<_94,
-                expr<_95, expr<_96, expr<_97, expr<_98, expr<_99,
-                    forward<state::template type, expr>
-                >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                /* clang-format on */
-                ;
-        };
-        template<
-            typename state,
-            /* clang-format off */
-            typename _00, typename _01, typename _02, typename _03,
-            typename _04, typename _05, typename _06, typename _07,
-            typename _08, typename _09
-            /* clang-format on */
-            >
-        struct right_folder_10 {
-            template<template<typename...> class expr>
-            using type =
-                /* clang-format off */
-                expr<_00, expr<_01, expr<_02, expr<_03, expr<_04,
-                expr<_05, expr<_06, expr<_07, expr<_08, expr<_09,
-                    forward<state::template type, expr>
-                >>>>>>>>>>
-                /* clang-format on */
-                ;
-        };
-        template<typename state, typename _00>
-        struct right_folder_1 {
-            template<template<typename...> class expr>
-            using type = expr<_00, forward<state::template type, expr>>;
-        };
-        template<typename state>
-        struct right_folder_0 {
-#if defined(METAL_WORKAROUND)
-            template<template<typename...> class>
-            struct impl {
-                using type = state;
-            };
-            template<template<typename...> class expr>
-            using type = typename impl<expr>::type;
-#else
-            template<template<typename...> class>
-            using type = state;
-#endif
-        };
-        template<std::size_t n>
-        struct _fold_right_impl
-            : _fold_right_impl<(n > 100) ? 100 : (n > 10) ? 10 : (n > 1)> {};
-        template<>
-        struct _fold_right_impl<100> {
-            template<
-                typename _00, typename _01, typename _02, typename _03,
-                typename _04, typename _05, typename _06, typename _07,
-                typename _08, typename _09, typename _10, typename _11,
-                typename _12, typename _13, typename _14, typename _15,
-                typename _16, typename _17, typename _18, typename _19,
-                typename _20, typename _21, typename _22, typename _23,
-                typename _24, typename _25, typename _26, typename _27,
-                typename _28, typename _29, typename _30, typename _31,
-                typename _32, typename _33, typename _34, typename _35,
-                typename _36, typename _37, typename _38, typename _39,
-                typename _40, typename _41, typename _42, typename _43,
-                typename _44, typename _45, typename _46, typename _47,
-                typename _48, typename _49, typename _50, typename _51,
-                typename _52, typename _53, typename _54, typename _55,
-                typename _56, typename _57, typename _58, typename _59,
-                typename _60, typename _61, typename _62, typename _63,
-                typename _64, typename _65, typename _66, typename _67,
-                typename _68, typename _69, typename _70, typename _71,
-                typename _72, typename _73, typename _74, typename _75,
-                typename _76, typename _77, typename _78, typename _79,
-                typename _80, typename _81, typename _82, typename _83,
-                typename _84, typename _85, typename _86, typename _87,
-                typename _88, typename _89, typename _90, typename _91,
-                typename _92, typename _93, typename _94, typename _95,
-                typename _96, typename _97, typename _98, typename _99,
-                typename... tail>
-            using type = right_folder_100<
-                typename _fold_right_impl<sizeof...(tail) - 1>::template type<
-                    tail...>,
-                /* clang-format off */
-                _00, _01, _02, _03, _04, _05, _06, _07, _08, _09,
-                _10, _11, _12, _13, _14, _15, _16, _17, _18, _19,
-                _20, _21, _22, _23, _24, _25, _26, _27, _28, _29,
-                _30, _31, _32, _33, _34, _35, _36, _37, _38, _39,
-                _40, _41, _42, _43, _44, _45, _46, _47, _48, _49,
-                _50, _51, _52, _53, _54, _55, _56, _57, _58, _59,
-                _60, _61, _62, _63, _64, _65, _66, _67, _68, _69,
-                _70, _71, _72, _73, _74, _75, _76, _77, _78, _79,
-                _80, _81, _82, _83, _84, _85, _86, _87, _88, _89,
-                _90, _91, _92, _93, _94, _95, _96, _97, _98, _99
-                /* clang-format on */
-                >;
-        };
-        template<>
-        struct _fold_right_impl<10> {
-            template<
-                typename _00, typename _01, typename _02, typename _03,
-                typename _04, typename _05, typename _06, typename _07,
-                typename _08, typename _09, typename... tail>
-            using type = right_folder_10<
-                typename _fold_right_impl<sizeof...(tail) - 1>::template type<
-                    tail...>,
-                _00, _01, _02, _03, _04, _05, _06, _07, _08, _09>;
-        };
-        template<>
-        struct _fold_right_impl<1> {
-            template<typename _00, typename... tail>
-            using type = right_folder_1<
-                typename _fold_right_impl<sizeof...(tail) - 1>::template type<
-                    tail...>,
-                _00>;
-        };
-        template<>
-        struct _fold_right_impl<0> {
-            template<typename _00>
-            using type = right_folder_0<_00>;
-        };
-        template<typename state, typename... vals>
-        struct right_folder
-            : _fold_right_impl<sizeof...(vals)>::template type<state, vals...> {
-        };
-        template<typename lbd>
-        struct _fold_right {};
-        template<template<typename...> class expr>
-        struct _fold_right<lambda<expr>> {
-            template<typename... vals>
-            using type = forward<right_folder<vals...>::template type, expr>;
-        };
-    }
-    /// \endcond
-}
-#endif
 /// \defgroup value Value
 /// \ingroup metal
 #endif
