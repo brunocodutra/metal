@@ -10,24 +10,27 @@ algorithms that mimic the Standard Algorithms Library, hence
 There is a myriad of C++ metaprogramming libraries out there so why Metal?
 
 * **Portable** - compatible with the
-[most popular compilers](#supported_compilers).
+[most popular compilers][Metal.portable].
 * **Blazing fast** - browse up to date benchmarks at [metaben.ch].
+* **Trivial Integration** - everything you need in a single self-contained 
+header file [`metal.hpp`][Metal.standalone].
 * **SFINAE-Friendly** - [control overload resolution](#SFINAE) and make the most
 out of function templates.
-* **Trivial Integration** - [try it online][godbolt.metal]!
 
 In a Glimpse {#in_a_glimpse}
 ================================================================================
 
 \snippet tutorial.cpp tutorial
 
-Be sure to take a look at the [examples](#examples) below.
+**[Try it online][godbolt.metal]!**
+
+Be sure to also have a look at the [examples](#examples) below.
 
 Definitions {#definitions}
 ================================================================================
 
-Template metaprogramming may be seen as a language of its own right.
-It shares the usual syntax of C++ templates, but has unique semantics.
+Template metaprogramming may be seen as a language of its own right,
+it shares the usual syntax of C++ templates, but has its own unique semantics.
 Because constructs assume different meanings in its context it is useful to
 define a few key concepts.
 
@@ -590,12 +593,11 @@ guarantees provided by Metal.
 Getting Started {#getting_started}
 ================================================================================
 
-Metal is distributed as a drop-in standalone header file, so integrating it in
+Metal is distributed as a drop-in standalone header file and integrating it in
 your project is as easy as it gets:
 
 1. Download the [latest release][Metal.releases]
 2. `# include </path/to/metal.hpp>`
-3. Done
 
 Migrating from Boost.MPL {#MPL}
 ================================================================================
@@ -754,7 +756,9 @@ the binary representation of numerical values is entirely irrelevant.
 [travis.metal]:     http://travis-ci.org/brunocodutra/metal
 [appveyor.metal]:   http://ci.appveyor.com/project/brunocodutra/metal
 
+[Metal.portable]:   http://github.com/brunocodutra/metal#portable
 [Metal.releases]:   http://github.com/brunocodutra/metal/releases
 [Metal.headers]:    http://github.com/brunocodutra/metal/tree/master/include
+[Metal.standalone]: http://github.com/brunocodutra/metal/blob/standalone/metal.hpp
 
 [metaben.ch]:       http://metaben.ch/
