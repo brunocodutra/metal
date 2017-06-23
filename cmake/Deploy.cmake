@@ -171,7 +171,7 @@ endif()
     install(DIRECTORY ${dist} DESTINATION .)
 
     if(NOT TARGET deploy)
-        add_custom_target(deploy)
+        add_custom_target(deploy ALL)
     endif()
 
     add_dependencies(deploy ${name}.deploy)
