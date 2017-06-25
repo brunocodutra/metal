@@ -213,7 +213,6 @@ target_link_libraries(dependent ${_lib})
 
     ExternalProject_Add(${_target}
         URL ""
-        DEPENDS deploy
         BUILD_ALWAYS 1
         EXCLUDE_FROM_ALL 1
         PREFIX ${prefix}

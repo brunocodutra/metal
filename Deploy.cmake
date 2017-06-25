@@ -70,13 +70,13 @@ endfunction()
 
 function(add_header_library _name _entry)
     get_filename_component(output ${_entry} NAME)
-    set(output_dir "${CMAKE_CURRENT_BINARY_DIR}/singlified/${_name}")
+    set(output_dir "${CMAKE_BINARY_DIR}/singlified/${_name}")
     set(output "${output_dir}/${output}")
 
     get_filename_component(include_dir ${_entry} DIRECTORY)
     file(GLOB_RECURSE headers "${include_dir}/*.hpp")
 
-    set(singlify_cmake "${CMAKE_CURRENT_BINARY_DIR}/${_name}.singlify.cmake")
+    set(singlify_cmake "${CMAKE_BINARY_DIR}/${_name}.singlify.cmake")
     file(WRITE ${singlify_cmake} "\
 cmake_minimum_required(VERSION ${CMAKE_VERSION})
 include(${THIS_FILE})
@@ -94,18 +94,20 @@ file(WRITE \"${output}\" \"\${single}\")
     add_custom_target(${_name}.singlify DEPENDS ${output} SOURCES ${headers})
 
     add_library(${_name} INTERFACE)
-    set_target_properties(${_name} PROPERTIES
-        INTERFACE_INCLUDE_DIRECTORIES ${output_dir}
-    )
+    target_include_directories(${_name} INTERFACE $<BUILD_INTERFACE:${output_dir}>)
 
     add_dependencies(${_name} ${_name}.singlify)
 endfunction()
+
+include(CMakePackageConfigHelpers)
 
 function(deploy_header_library _lib)
     get_target_property(name ${_lib} NAME)
     get_target_property(version ${_lib} INTERFACE_LIB_VERSION)
     get_target_property(features ${_lib} INTERFACE_COMPILE_FEATURES)
     get_target_property(include_dirs ${_lib} INTERFACE_INCLUDE_DIRECTORIES)
+
+    target_include_directories(${_lib} INTERFACE $<INSTALL_INTERFACE:include>)
 
     if(WIN32 AND NOT CYGWIN)
         set(cmake_install_dir CMake)
@@ -115,66 +117,33 @@ function(deploy_header_library _lib)
         set(include_install_dir include)
     endif()
 
-    file(RELATIVE_PATH relative_include_install_dir
-        /${cmake_install_dir} /${include_install_dir}
-    )
-
-    set(config_file "${CMAKE_CURRENT_BINARY_DIR}/${name}Config.cmake")
-    set(version_file "${CMAKE_CURRENT_BINARY_DIR}/${name}ConfigVersion.cmake")
+    set(config_file "${CMAKE_BINARY_DIR}/${name}Config.cmake")
+    set(version_file "${CMAKE_BINARY_DIR}/${name}ConfigVersion.cmake")
 
     file(WRITE ${config_file} "\
-# ${name} configuration file
-#
-# Defines the CMake target ${name}
-
-add_library(${name} INTERFACE IMPORTED)
-set_target_properties(${name} PROPERTIES
-    INTERFACE_LIB_VERSION ${version}
-    INTERFACE_COMPILE_FEATURES ${features}
-    INTERFACE_INCLUDE_DIRECTORIES \"\${CMAKE_CURRENT_LIST_DIR}/${relative_include_install_dir}/\"
-)
+get_filename_component(${name}_CMAKE_DIR \"\${CMAKE_CURRENT_LIST_FILE}\" PATH)
+include(\"\${${name}_CMAKE_DIR}/${name}Targets.cmake\")
 "
     )
 
-    file(WRITE ${version_file} "\
-# ${name} version file
-
-set(PACKAGE_VERSION ${version})
-
-if(PACKAGE_VERSION VERSION_LESS PACKAGE_FIND_VERSION)
-    set(PACKAGE_VERSION_COMPATIBLE FALSE)
-else()
-    set(PACKAGE_VERSION_COMPATIBLE TRUE)
-    if(PACKAGE_VERSION VERSION_EQUAL PACKAGE_FIND_VERSION)
-        set(PACKAGE_VERSION_EXACT TRUE)
-    endif()
-endif()
-"
+    write_basic_package_version_file(${version_file}
+        VERSION ${version}
+        COMPATIBILITY AnyNewerVersion
     )
 
-    set(dist "${PROJECT_BINARY_DIR}/dist/")
-    set(dist_cmake "${dist}/${cmake_install_dir}/")
-    set(dist_include "${dist}/${include_install_dir}/")
+    install(TARGETS ${_lib} EXPORT ${name}Targets)
+    install(EXPORT ${name}Targets DESTINATION ${cmake_install_dir})
+    install(FILES ${config_file} ${version_file} DESTINATION ${cmake_install_dir})
 
-    add_custom_target(${name}.deploy
-        COMMAND ${CMAKE_COMMAND} -E remove_directory ${dist_cmake}
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${dist_cmake}
-        COMMAND ${CMAKE_COMMAND} -E copy ${config_file} ${dist_cmake}
-        COMMAND ${CMAKE_COMMAND} -E copy ${version_file} ${dist_cmake}
-        COMMAND ${CMAKE_COMMAND} -E remove_directory ${dist_include}
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${dist_include}
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${include_dirs} ${dist_include}
-        COMMENT "deploying ${name}..."
-        DEPENDS ${_lib}
-    )
-
-    install(DIRECTORY ${dist} DESTINATION .)
+    foreach(dir ${include_dirs})
+        install(DIRECTORY ${dir}/ DESTINATION ${include_install_dir})
+    endforeach()
 
     if(NOT TARGET deploy)
         add_custom_target(deploy ALL)
     endif()
 
-    add_dependencies(deploy ${name}.deploy)
+    add_dependencies(deploy ${_lib})
 endfunction()
 
 function(deploy_doc _lib _doc)
