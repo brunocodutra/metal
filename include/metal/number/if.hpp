@@ -6,11 +6,12 @@
 #define METAL_NUMBER_IF_HPP
 
 #include "../config.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename...>
+        template<typename cond>
         struct _if_;
     }
     /// \endcond
@@ -18,37 +19,34 @@ namespace metal {
     /// \ingroup number
     ///
     /// ### Description
-    /// A multi-clause conditional expression.
+    /// A conditional expression.
     ///
     /// ### Usage
-    /// For any \numbers `num_0, ..., num_n-1` and \values `val_0, ..., val_n`
+    /// For any \number `num` and \values `x, y`
     /// \code
-    ///     using result = metal::if<
-    ///         num_0, val_0,
-    ///         ...,
-    ///         num_n-1, val_n-1,
-    ///         val_n
-    ///     >;
+    ///     using result = metal::if<num, x, y>;
     /// \endcode
     ///
     /// \returns: \value
     /// \semantics:
-    ///     If `num_i{} != false` and `num_j{} == false` for all `j < i`, then
+    ///     If `num{} != false`, then
     ///     \code
-    ///         using result = val_i;
+    ///         using result = x;
     ///     \endcode
-    ///     otherwise, if `num_i{} == false` for all `i` in `[0, n-1]`, then
+    ///     otherwise
     ///     \code
-    ///         using result = val_n;
+    ///         using result = y;
     ///     \endcode
+    ///
+    /// \tip{If `num{} != false`, `y` may be omitted.}
     ///
     /// ### Example
     /// \snippet number.cpp if_
     ///
     /// ### See Also
     /// \see number
-    template<typename cond, typename then_, typename... else_>
-    using if_ = typename detail::_if_<cond, then_, else_...>::type;
+    template<typename cond, typename... then>
+    using if_ = detail::call<detail::_if_<cond>::template type, then...>;
 }
 
 #include "../number/number.hpp"
@@ -56,20 +54,19 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename...>
+        template<typename>
         struct _if_ {};
 
-        template<typename then_, typename... else_>
-        struct _if_<false_, then_, else_...> : _if_<else_...> {};
-
-        template<typename then_, typename else_>
-        struct _if_<false_, then_, else_> {
-            using type = else_;
+        template<int_ v>
+        struct _if_<number<v>> {
+            template<typename val, typename = void>
+            using type = val;
         };
 
-        template<int_ v, typename then_, typename... else_>
-        struct _if_<number<v>, then_, else_...> {
-            using type = then_;
+        template<>
+        struct _if_<false_> {
+            template<typename, typename val>
+            using type = val;
         };
     }
     /// \endcond

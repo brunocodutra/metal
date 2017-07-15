@@ -54,31 +54,35 @@ IS_SAME(metal::remove<tokens, metal::number<'\''>>, metal::numbers<'3', '7', '1'
 #endif
 
 ///[parse_digit]
-template<typename c>
-using parse_digit = metal::if_<
-    metal::same<c, metal::number<'0'>>, metal::number<0>,
-    metal::same<c, metal::number<'1'>>, metal::number<1>,
-    metal::same<c, metal::number<'2'>>, metal::number<2>,
-    metal::same<c, metal::number<'3'>>, metal::number<3>,
-    metal::same<c, metal::number<'4'>>, metal::number<4>,
-    metal::same<c, metal::number<'5'>>, metal::number<5>,
-    metal::same<c, metal::number<'6'>>, metal::number<6>,
-    metal::same<c, metal::number<'7'>>, metal::number<7>,
-    metal::same<c, metal::number<'8'>>, metal::number<8>,
-    metal::same<c, metal::number<'9'>>, metal::number<9>,
-    metal::same<c, metal::number<'a'>>, metal::number<10>,
-    metal::same<c, metal::number<'b'>>, metal::number<11>,
-    metal::same<c, metal::number<'c'>>, metal::number<12>,
-    metal::same<c, metal::number<'d'>>, metal::number<13>,
-    metal::same<c, metal::number<'e'>>, metal::number<14>,
-    metal::same<c, metal::number<'f'>>, metal::number<15>,
-    metal::same<c, metal::number<'A'>>, metal::number<10>,
-    metal::same<c, metal::number<'B'>>, metal::number<11>,
-    metal::same<c, metal::number<'C'>>, metal::number<12>,
-    metal::same<c, metal::number<'D'>>, metal::number<13>,
-    metal::same<c, metal::number<'E'>>, metal::number<14>,
-    metal::same<c, metal::number<'F'>>, metal::number<15>
+template<typename token>
+using parse_digit = metal::at_key<
+    metal::map<
+        metal::pair<metal::number<'0'>, metal::number<0>>,
+        metal::pair<metal::number<'1'>, metal::number<1>>,
+        metal::pair<metal::number<'2'>, metal::number<2>>,
+        metal::pair<metal::number<'3'>, metal::number<3>>,
+        metal::pair<metal::number<'4'>, metal::number<4>>,
+        metal::pair<metal::number<'5'>, metal::number<5>>,
+        metal::pair<metal::number<'6'>, metal::number<6>>,
+        metal::pair<metal::number<'7'>, metal::number<7>>,
+        metal::pair<metal::number<'8'>, metal::number<8>>,
+        metal::pair<metal::number<'9'>, metal::number<9>>,
+        metal::pair<metal::number<'a'>, metal::number<10>>,
+        metal::pair<metal::number<'b'>, metal::number<11>>,
+        metal::pair<metal::number<'c'>, metal::number<12>>,
+        metal::pair<metal::number<'d'>, metal::number<13>>,
+        metal::pair<metal::number<'e'>, metal::number<14>>,
+        metal::pair<metal::number<'f'>, metal::number<15>>,
+        metal::pair<metal::number<'A'>, metal::number<10>>,
+        metal::pair<metal::number<'B'>, metal::number<11>>,
+        metal::pair<metal::number<'C'>, metal::number<12>>,
+        metal::pair<metal::number<'D'>, metal::number<13>>,
+        metal::pair<metal::number<'E'>, metal::number<14>>,
+        metal::pair<metal::number<'F'>, metal::number<15>>
+    >,
+    token
 >;
+
 ///[parse_digit]
 
 HIDE(

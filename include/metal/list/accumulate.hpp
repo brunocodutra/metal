@@ -6,6 +6,9 @@
 #define METAL_LIST_ACCUMULATE_HPP
 
 #include "../config.hpp"
+#include "../list/size.hpp"
+#include "../number/if.hpp"
+#include "../value/same.hpp"
 #include "../detail/sfinae.hpp"
 
 namespace metal {
@@ -46,18 +49,16 @@ namespace metal {
     /// ### See Also
     /// \see list, transform, fold_left
     template<typename lbd, typename state, typename... seqs>
-    using accumulate =
-        detail::call<detail::_accumulate<lbd>::template type, state, seqs...>;
+    using accumulate = detail::call<
+        if_<same<size<seqs>...>, detail::_accumulate<lbd>>::template type,
+        state, seqs...>;
 }
 
 #include "../lambda/lambda.hpp"
 #include "../list/at.hpp"
 #include "../list/indices.hpp"
 #include "../list/list.hpp"
-#include "../list/size.hpp"
-#include "../number/if.hpp"
 #include "../value/fold_left.hpp"
-#include "../value/same.hpp"
 
 namespace metal {
     /// \cond
@@ -95,10 +96,8 @@ namespace metal {
         template<template<typename...> class expr>
         struct _accumulate<lambda<expr>> {
             template<typename state, typename... seqs>
-            using type = forward<
-                if_<same<size<seqs>...>,
-                    _accumulate_impl<state, seqs...>>::template type,
-                expr>;
+            using type =
+                forward<_accumulate_impl<state, seqs...>::template type, expr>;
         };
     }
     /// \endcond
