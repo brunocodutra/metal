@@ -6,13 +6,18 @@
 #define METAL_NUMBER_SUB_HPP
 
 #include "../config.hpp"
-#include "../detail/sfinae.hpp"
+#include "../lambda/lambda.hpp"
+#include "../number/number.hpp"
+#include "../value/fold_left.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _sub;
+
+        template<typename x, typename y>
+        using sub = typename _sub<x, y>::type;
     }
     /// \endcond
 
@@ -40,42 +45,17 @@ namespace metal {
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, mul, div, mod, pow
     template<typename... nums>
-    using sub = detail::call<detail::_sub<nums...>::template type>;
-}
+    using sub = fold_left<lambda<detail::sub>, nums..., number<0>>;
 
-#include "../lambda/lambda.hpp"
-#include "../number/number.hpp"
-#include "../value/fold_left.hpp"
-
-#include <initializer_list>
-
-namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _sub {};
 
-#if defined(METAL_WORKAROUND)
-        template<typename x, typename y>
-        using sub_impl = number<x::value - y::value>;
-
-        template<int_... ns>
-        struct _sub<number<ns>...> {
-            template<typename... _>
-            using type = fold_left<lambda<sub_impl>, number<ns>..., _...>;
+        template<int_ x, int_ y>
+        struct _sub<number<x>, number<y>> {
+            using type = number<x - y>;
         };
-#else
-        template<typename... _>
-        constexpr int_ sub_impl(int_ head, _... tail) {
-            return void(std::initializer_list<int_>{(head -= tail)...}), head;
-        }
-
-        template<int_... ns>
-        struct _sub<number<ns>...> {
-            template<typename... _>
-            using type = number<sub_impl((void(sizeof...(_)), ns)...)>;
-        };
-#endif
     }
     /// \endcond
 }

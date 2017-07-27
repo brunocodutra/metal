@@ -58,18 +58,9 @@ namespace metal {
 #include "../number/if.hpp"
 #include "../number/number.hpp"
 
-#include <initializer_list>
-
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename seq>
-        struct _find_if {};
-
-        template<>
-        struct _find_if<list<>> : number<0> {};
-
-#if defined(METAL_WORKAROUND)
         template<typename seq, typename = indices<seq>>
         struct _find_index {};
 
@@ -78,25 +69,15 @@ namespace metal {
             using type = front<join<if_<number<vs>, list<is>, list<>>...>>;
         };
 
+        template<typename seq>
+        struct _find_if {};
+
+        template<>
+        struct _find_if<list<>> : number<0> {};
+
         template<int_... vs>
         struct _find_if<list<number<vs>...>>
             : _find_index<list<number<vs>..., true_>> {};
-#else
-        template<typename... _>
-        constexpr int_ find_index(_... vs) {
-            int_ ret = 0;
-            for(int_ x : std::initializer_list<int_>{vs...}) {
-                if(x)
-                    break;
-                else
-                    ++ret;
-            }
-            return ret;
-        }
-
-        template<int_... vs>
-        struct _find_if<list<number<vs>...>> : number<find_index(vs...)> {};
-#endif
     }
     /// \endcond
 }
