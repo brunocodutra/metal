@@ -2,8 +2,8 @@
 
 \tableofcontents
 
-Metal is a header-only C++14 library designed to make template metaprogramming
-intuitive. It provides a powerful high-level abstraction for compile-time
+Metal is a single header C++11 library designed to make template metaprogramming
+convenient. It provides a powerful high-level abstraction for compile-time
 algorithms that mimic the Standard Algorithms Library, hence
 **Metal** - <b>Meta</b>programming <b>Al</b>gorithms.
 
@@ -12,7 +12,7 @@ There is a myriad of C++ metaprogramming libraries out there so why Metal?
 * **Portable** - compatible with the
 [most popular compilers][Metal.portable].
 * **Blazing fast** - browse up to date benchmarks at [metaben.ch].
-* **Trivial Integration** - everything you need in a single self-contained 
+* **Trivial Integration** - everything you need in a single self-contained
 header file [`metal.hpp`][Metal.standalone].
 * **SFINAE-Friendly** - [control overload resolution](#SFINAE) and make the most
 out of function templates.
@@ -234,7 +234,7 @@ you might have come up with something like this
 \snippet literal.cpp naive_1
 }
 
-only to realize the hard way that this is simply not valid C++14.
+only to realize the hard way that this is simply not valid C++.
 
 > error: non-type template argument is not a constant expression
 
@@ -731,15 +731,12 @@ the binary representation of numerical values is entirely irrelevant.
 [Map]:              #map
 [Maps]:             #map
 
-[C++14]:            http://en.wikipedia.org/wiki/C%2B%2B14
-[JavaScript]:       http://en.wikipedia.org/wiki/JavaScript
 [higher-order]:     http://en.wikipedia.org/wiki/Higher-order_function
 [first-class]:      http://en.wikipedia.org/wiki/First-class_citizen
 [fold]:             http://en.wikipedia.org/wiki/Fold_(higher-order_function)
 [church]:           http://en.wikipedia.org/wiki/Church_encoding#Church_Booleans
 [lambda notation]:  http://en.wikipedia.org/wiki/Lambda_calculus
 
-[algorithm]:        http://en.cppreference.com/w/cpp/algorithm
 [alias templates]:  http://en.cppreference.com/w/cpp/language/type_alias
 [constexpr]:        http://en.cppreference.com/w/cpp/language/constexpr
 [tuple]:            http://en.cppreference.com/w/cpp/utility/tuple
