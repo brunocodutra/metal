@@ -138,6 +138,7 @@ IS_SAME(metal::distinct<void, void*, void**, void***, void****>, metal::true_);
 /// [distinct]
 )
 
+#if !defined(METAL_WORKAROUND)
 HIDE(
 /// [fold_left]
 template<typename x, typename y>
@@ -165,3 +166,4 @@ IS_SAME(
 );
 /// [fold_right]
 )
+#endif
