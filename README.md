@@ -1,4 +1,4 @@
-# Metal [![version]][semver] [![travis.badge]][travis.metal] [![appveyor.badge]][appveyor.metal] [![gitter.badge]][gitter.metal]
+# Metal [![version]][semver] [![travis.badge]][travis.metal] [![appveyor.badge]][appveyor.metal] [![gitter.badge]][gitter.metal] [![godbolt.badge]][godbolt.metal]
 
 Metal is a single header C++11 library designed to make you love template
 metaprogramming.
@@ -134,6 +134,9 @@ Metal is distributed under the
 
 [gitter.metal]:     http://gitter.im/brunocodutra/metal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [gitter.badge]:     http://badges.gitter.im/brunocodutra/metal.svg
+
+[godbolt.metal]:    http://godbolt.org/g/RFwvic
+[godbolt.badge]:    http://img.shields.io/badge/try%20it-on%20godbolt-222266.svg
 
 [boost.license]:    http://boost.org/LICENSE_1_0.txt
 
