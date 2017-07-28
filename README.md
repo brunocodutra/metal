@@ -1,11 +1,9 @@
 # Metal [![version]][semver] [![travis.badge]][travis.metal] [![appveyor.badge]][appveyor.metal] [![gitter.badge]][gitter.metal]
 
-Metal is a singe header C++11 library designed to make template metaprogramming
-convenient.
+Metal is a single header C++11 library designed to make you love template
+metaprogramming.
 
-__[Try it online][godbolt.metal]__
-
-## Modern
+## Overview
 
 ```.cpp
 #include <metal.hpp>
@@ -73,17 +71,19 @@ static_assert(metal::same<sorted, metal::list<y, z, x>>::value, "");
 // that and much more!
 ```
 
-Check out [more examples][examples].
+## Quick Start
+
+1. Download [metal.hpp][releases]
+2. `# include </path/to/metal.hpp>`
+3. Love template metaprogramming
 
 ## Blazing Fast
-
-Minutes-long compile times are a thing of the past!
 
 You don't have to just take my word for it, see for yourself at [metaben.ch].
 
 ## Portable
 
-Don't worry, all your favourite compilers are continuously tested at
+The following compilers are continuously tested at
 [Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
 
 | Compiler          | Version   | Operating System
@@ -141,6 +141,7 @@ Metal is distributed under the
 [Doxygen]:          http://doxygen.org/
 [metaben.ch]:       http://metaben.ch/
 
+[releases]:         http://github.com/brunocodutra/metal/releases
 [documentation]:    http://brunocodutra.github.io/metal
 [examples]:         http://brunocodutra.github.io/metal/#examples
 [SFINAE]:           http://brunocodutra.github.io/metal/#SFINAE

@@ -2,10 +2,8 @@
 
 \tableofcontents
 
-Metal is a single header C++11 library designed to make template metaprogramming
-convenient. It provides a powerful high-level abstraction for compile-time
-algorithms that mimic the Standard Algorithms Library, hence
-**Metal** - <b>Meta</b>programming <b>Al</b>gorithms.
+Metal is a single header C++11 library designed to make you love template
+metaprogramming.
 
 There is a myriad of C++ metaprogramming libraries out there so why Metal?
 
@@ -17,14 +15,10 @@ header file [`metal.hpp`][Metal.standalone].
 * **SFINAE-Friendly** - [control overload resolution](#SFINAE) and make the most
 out of function templates.
 
-In a Glimpse {#in_a_glimpse}
+Overview {#overview}
 ================================================================================
 
 \snippet tutorial.cpp tutorial
-
-**[Try it online][godbolt.metal]!**
-
-Be sure to also have a look at the [examples](#examples) below.
 
 Definitions {#definitions}
 ================================================================================
@@ -590,14 +584,12 @@ but also for numerical values
 Again, this only works as expected because of the strict SFINAE-friendliness
 guarantees provided by Metal.
 
-Getting Started {#getting_started}
+Quick Start {#quick_start}
 ================================================================================
 
-Metal is distributed as a drop-in standalone header file and integrating it in
-your project is as easy as it gets:
-
-1. Download the [latest release][Metal.releases]
+1. Download [metal.hpp][Metal.releases]
 2. `# include </path/to/metal.hpp>`
+3. Love template metaprogramming
 
 Migrating from Boost.MPL {#MPL}
 ================================================================================
@@ -747,8 +739,6 @@ the binary representation of numerical values is entirely irrelevant.
 [literal operator]: http://en.cppreference.com/w/cpp/language/user_literal
 [SFINAE]:           http://en.cppreference.com/w/cpp/language/sfinae
 [RAII]:             http://en.cppreference.com/w/cpp/language/raii
-
-[godbolt.metal]:    https://godbolt.org/g/JN13FQ
 
 [travis.metal]:     http://travis-ci.org/brunocodutra/metal
 [appveyor.metal]:   http://ci.appveyor.com/project/brunocodutra/metal

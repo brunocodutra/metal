@@ -16,6 +16,6 @@
 /// \defgroup metal Metal
 
 /// \namespace metal
-/// \brief Metaprogramming algorithms.
+/// \brief Metal
 
 #endif
