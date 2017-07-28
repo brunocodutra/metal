@@ -1,8 +1,4 @@
-# Metal - Metaprogramming Algorithms
-
-[![version]][semver]
-[![travis.badge]][travis.metal]
-[![appveyor.badge]][appveyor.metal]
+# Metal [![version]][semver] [![travis.badge]][travis.metal] [![appveyor.badge]][appveyor.metal] [![gitter.badge]][gitter.metal]
 
 Metal is a singe header C++11 library designed to make template metaprogramming
 convenient.
@@ -135,6 +131,9 @@ Metal is distributed under the
 
 [appveyor.metal]:   http://ci.appveyor.com/project/brunocodutra/metal
 [appveyor.badge]:   http://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/master?svg=true
+
+[gitter.metal]:     http://gitter.im/brunocodutra/metal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+[gitter.badge]:     http://badges.gitter.im/brunocodutra/metal.svg
 
 [boost.license]:    http://boost.org/LICENSE_1_0.txt
 
