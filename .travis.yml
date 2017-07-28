@@ -363,3 +363,8 @@ script:
         (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure -E ^test.format)
     fi
 
+notifications:
+  webhooks:
+    urls: https://webhooks.gitter.im/e/f0433b6f1de0942ea9a8
+    on_success: change
+    on_failure: always
