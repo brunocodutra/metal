@@ -12,7 +12,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_MAJOR 0
+#define METAL_MAJOR 1
 
 /// \ingroup config
 ///
@@ -21,7 +21,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_MINOR 7
+#define METAL_MINOR 0
 
 /// \ingroup config
 ///
