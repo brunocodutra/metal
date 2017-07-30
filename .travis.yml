@@ -46,7 +46,7 @@ matrix:
                   - clang-format-5.0
                 sources:
                   - *srcs
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty main'
+                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: linux
@@ -240,7 +240,7 @@ matrix:
                   - libc++abi-dev
                 sources:
                   - *srcs
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty main'
+                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: osx
