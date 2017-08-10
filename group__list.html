@@ -47,7 +47,7 @@
         <div class="container">
           <div class="navbar-header">
             <a class="navbar-brand" href="#">
-              Metal <small>0.7.0</small>
+              Metal <small>1.0.0</small>
             </a>
           </div>
           <ul class="nav navbar-nav navbar-left">
@@ -62,7 +62,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/releases/download/v0.7.0/metal.hpp">
+              <a id="download" aria-label="Download from GitHub" href="https://github.com/brunocodutra/metal/releases/download/v1.0.0/metal.hpp">
                 <span class="hidden-xs">Download</span>
                 <span class="hidden-xs octicon octicon-cloud-download" aria-hidden="true"></span>
                 <span class="visible-xs-block mega-octicon octicon-cloud-download" aria-hidden="true"></span>
@@ -89,8 +89,8 @@
 </div><!--header-->
 <div class="contents">
 <h2 class="groupheader"> </h2>
-<a id="ga1e03d826c138b221c1cdada5b5d88437"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1e03d826c138b221c1cdada5b5d88437">&#9670;&nbsp;</a></span>accumulate</h2>
+<a id="ga7ec65fe0246335a5e1c549af98c5d7c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7ec65fe0246335a5e1c549af98c5d7c3">&#9670;&nbsp;</a></span>accumulate</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -98,7 +98,7 @@
 template&lt;typename lbd , typename state , typename... seqs&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga1e03d826c138b221c1cdada5b5d88437">metal::accumulate</a> = typedef detail::call&lt;detail::_accumulate&lt;lbd&gt;::template type, state, seqs...&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga7ec65fe0246335a5e1c549af98c5d7c3">metal::accumulate</a> = typedef detail::call&lt; <a class="el" href="group__number.html#gac0c1e174441562e4fec0ccf897ec4574">if_</a>&lt;<a class="el" href="group__value.html#gaa31c68bc893b6d1beaec615c7ab3c3d0">same</a>&lt;<a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">size</a>&lt;seqs&gt;...&gt;, detail::_accumulate&lt;lbd&gt; &gt;::template type, state, seqs...&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -107,12 +107,12 @@ template&lt;typename lbd , typename state , typename... seqs&gt; </div>
 <h3>Description</h3>
 <p>Computes the recursive invocation of a binary <a class="el" href="index.html#lambda">Lambda </a> with the result of the previous invocation and each element of one or more <a class="el" href="index.html#list">Lists</a> traversed in parallel from the beginning to the end.</p>
 <h3>Usage</h3>
-<p>For any <a class="el" href="index.html#lambda">Lambda </a> <code>lbd</code>, <a class="el" href="index.html#value">Value </a> <code>val</code> and <a class="el" href="index.html#list">Lists</a> <code>l_0, ..., l_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__list.html#ga1e03d826c138b221c1cdada5b5d88437">metal::accumulate</a>&lt;lbd, val, l_0, ..., l_n-1&gt;;</div></div><!-- fragment --><dl class="section pre"><dt>Precondition</dt><dd>: <code><a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;l_0&gt;{} == <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;&gt;{}... == <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;l_n-1&gt;{}</code> </dd></dl>
+<p>For any <a class="el" href="index.html#lambda">Lambda </a> <code>lbd</code>, <a class="el" href="index.html#value">Value </a> <code>val</code> and <a class="el" href="index.html#list">Lists</a> <code>l_0, ..., l_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__list.html#ga7ec65fe0246335a5e1c549af98c5d7c3">metal::accumulate</a>&lt;lbd, val, l_0, ..., l_n-1&gt;;</div></div><!-- fragment --><dl class="section pre"><dt>Precondition</dt><dd>: <code><a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;l_0&gt;{} == <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;&gt;{}... == <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;l_n-1&gt;{}</code> </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#value">Value </a> </dd></dl>
 <dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result =</div><div class="line">    lbd(... lbd(lbd(val, l[0]...), l[1]...), ..., l[m-1]...)</div></div><!-- fragment --> where <code>l[N]...</code> stands for <code>l_0[N], ...[N], l_n-1[N]</code> and <code>lbd(x, y)</code> stands for <code><a class="el" href="group__lambda.html#gab55bec3884b050822e67739389d9f7a4">metal::invoke</a>&lt;lbd, x, y&gt;</code>.</dd></dl>
 <h3>Example</h3>
-<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> val, <span class="keyword">typename</span> num&gt;</div><div class="line"><span class="keyword">using</span> add_extent = val[<a class="code" href="group__value.html#ga07db04c3ea0fe7965e933fa0119c9b93">num::value</a>];</div><div class="line"></div><div class="line"><span class="keyword">using</span> ext = <a class="code" href="group__number.html#gaa21f095617c7a254cf4e95c9a5377fa9">metal::numbers&lt;3, 5, 2&gt;</a>;</div><div class="line"></div><div class="line">IS_SAME(<a class="code" href="group__list.html#ga1e03d826c138b221c1cdada5b5d88437">metal::accumulate</a>&lt;<a class="code" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda&lt;add_extent&gt;</a>, <span class="keywordtype">char</span>, ext&gt;, <span class="keywordtype">char</span>[2][5][3]);</div><div class="line"></div><div class="line"><span class="keyword">using</span> a = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;int, int&amp;, int*, int[]&gt;</a>;</div><div class="line"><span class="keyword">using</span> b = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;char, char&amp;, char*, char[]&gt;</a>;</div><div class="line"><span class="keyword">using</span> c = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;float, float&amp;, float*, float[]&gt;</a>;</div><div class="line"></div><div class="line">IS_SAME(</div><div class="line">    <a class="code" href="group__list.html#ga1e03d826c138b221c1cdada5b5d88437">metal::accumulate</a>&lt;<a class="code" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda&lt;metal::append&gt;</a>, <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;&gt;</a>, a, b, c&gt;,</div><div class="line">    <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list</a>&lt;</div><div class="line">        <span class="keywordtype">int</span>, <span class="keywordtype">char</span>, <span class="keywordtype">float</span>,</div><div class="line">        <span class="keywordtype">int</span>&amp;, <span class="keywordtype">char</span>&amp;, <span class="keywordtype">float</span>&amp;,</div><div class="line">        <span class="keywordtype">int</span>*, <span class="keywordtype">char</span>*, <span class="keywordtype">float</span>*,</div><div class="line">        <span class="keywordtype">int</span>[], <span class="keywordtype">char</span>[], <span class="keywordtype">float</span>[]</div><div class="line">    &gt;</div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">list</a>, <a class="el" href="group__list.html#ga428917280ab5c482b380106c91a6a958">transform</a>, <a class="el" href="group__value.html#ga73dd45528d3a238848ddb5156e737af3">fold_left</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> val, <span class="keyword">typename</span> num&gt;</div><div class="line"><span class="keyword">using</span> add_extent = val[<a class="code" href="group__value.html#ga07db04c3ea0fe7965e933fa0119c9b93">num::value</a>];</div><div class="line"></div><div class="line"><span class="keyword">using</span> ext = <a class="code" href="group__number.html#gaa21f095617c7a254cf4e95c9a5377fa9">metal::numbers&lt;3, 5, 2&gt;</a>;</div><div class="line"></div><div class="line">IS_SAME(<a class="code" href="group__list.html#ga7ec65fe0246335a5e1c549af98c5d7c3">metal::accumulate</a>&lt;<a class="code" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda&lt;add_extent&gt;</a>, <span class="keywordtype">char</span>, ext&gt;, <span class="keywordtype">char</span>[2][5][3]);</div><div class="line"></div><div class="line"><span class="keyword">using</span> a = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;int, int&amp;, int*, int[]&gt;</a>;</div><div class="line"><span class="keyword">using</span> b = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;char, char&amp;, char*, char[]&gt;</a>;</div><div class="line"><span class="keyword">using</span> c = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;float, float&amp;, float*, float[]&gt;</a>;</div><div class="line"></div><div class="line">IS_SAME(</div><div class="line">    <a class="code" href="group__list.html#ga7ec65fe0246335a5e1c549af98c5d7c3">metal::accumulate</a>&lt;<a class="code" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda&lt;metal::append&gt;</a>, <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;&gt;</a>, a, b, c&gt;,</div><div class="line">    <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list</a>&lt;</div><div class="line">        <span class="keywordtype">int</span>, <span class="keywordtype">char</span>, <span class="keywordtype">float</span>,</div><div class="line">        <span class="keywordtype">int</span>&amp;, <span class="keywordtype">char</span>&amp;, <span class="keywordtype">float</span>&amp;,</div><div class="line">        <span class="keywordtype">int</span>*, <span class="keywordtype">char</span>*, <span class="keywordtype">float</span>*,</div><div class="line">        <span class="keywordtype">int</span>[], <span class="keywordtype">char</span>[], <span class="keywordtype">float</span>[]</div><div class="line">    &gt;</div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">list</a>, <a class="el" href="group__list.html#ga3ff690c103354f4efc985449a6c57eed">transform</a>, <a class="el" href="group__value.html#ga73dd45528d3a238848ddb5156e737af3">fold_left</a> </dd></dl>
 
 </div>
 </div>
@@ -125,7 +125,7 @@ template&lt;typename lbd , typename state , typename... seqs&gt; </div>
 template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga387660acf35cbb1dda784ad18ed32a76">metal::all_of</a> = typedef <a class="el" href="group__lambda.html#ga104b294f047004a8d790863d4292116d">metal::apply</a>&lt;<a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__number.html#ga73d6aa92adfac6cfacb2e935f5b37fb9">metal::and_</a>&gt;, <a class="el" href="group__list.html#ga428917280ab5c482b380106c91a6a958">metal::transform</a>&lt;lbd, seq&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga387660acf35cbb1dda784ad18ed32a76">metal::all_of</a> = typedef <a class="el" href="group__lambda.html#ga104b294f047004a8d790863d4292116d">metal::apply</a>&lt;<a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__number.html#ga73d6aa92adfac6cfacb2e935f5b37fb9">metal::and_</a>&gt;, <a class="el" href="group__list.html#ga3ff690c103354f4efc985449a6c57eed">metal::transform</a>&lt;lbd, seq&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -152,7 +152,7 @@ template&lt;typename seq , typename lbd &gt; </div>
 template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gae21b7baaccf24a65afb550099f59990a">metal::any_of</a> = typedef <a class="el" href="group__lambda.html#ga104b294f047004a8d790863d4292116d">metal::apply</a>&lt;<a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__number.html#ga1411f87040458a68c28936123887ac09">metal::or_</a>&gt;, <a class="el" href="group__list.html#ga428917280ab5c482b380106c91a6a958">metal::transform</a>&lt;lbd, seq&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gae21b7baaccf24a65afb550099f59990a">metal::any_of</a> = typedef <a class="el" href="group__lambda.html#ga104b294f047004a8d790863d4292116d">metal::apply</a>&lt;<a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__number.html#ga1411f87040458a68c28936123887ac09">metal::or_</a>&gt;, <a class="el" href="group__list.html#ga3ff690c103354f4efc985449a6c57eed">metal::transform</a>&lt;lbd, seq&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -335,7 +335,7 @@ template&lt;typename seq , typename... lbds&gt; </div>
 template&lt;typename seq , typename num  = metal::size&lt;seq&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gaa7aec53a6765e9592f7fd68e75a7b06e">metal::combine</a> = typedef <a class="el" href="group__lambda.html#ga104b294f047004a8d790863d4292116d">metal::apply</a>&lt; <a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__list.html#ga911c8d82275a42ef12a161e9dc54ac54">metal::cartesian</a>&gt;, <a class="el" href="group__list.html#ga8974cb9a82f883436281baaba635ffc6">metal::repeat</a>&lt;<a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">metal::if_</a>&lt;<a class="el" href="group__list.html#ga0d35b093a78a38d60906901eb78a5946">metal::is_list</a>&lt;seq&gt;, seq&gt;, num&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gaa7aec53a6765e9592f7fd68e75a7b06e">metal::combine</a> = typedef <a class="el" href="group__lambda.html#ga104b294f047004a8d790863d4292116d">metal::apply</a>&lt; <a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__list.html#ga911c8d82275a42ef12a161e9dc54ac54">metal::cartesian</a>&gt;, <a class="el" href="group__list.html#ga8974cb9a82f883436281baaba635ffc6">metal::repeat</a>&lt;<a class="el" href="group__number.html#gac0c1e174441562e4fec0ccf897ec4574">metal::if_</a>&lt;<a class="el" href="group__list.html#ga0d35b093a78a38d60906901eb78a5946">metal::is_list</a>&lt;seq&gt;, seq&gt;, num&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -466,7 +466,7 @@ template&lt;typename seq , typename val &gt; </div>
 template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga3cc168935e99a9ef8063a6c1422c02da">metal::count_if</a> = typedef <a class="el" href="group__lambda.html#ga104b294f047004a8d790863d4292116d">metal::apply</a>&lt;<a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__number.html#ga9be14c029f6b65c261ae445bf614d976">metal::add</a>&gt;, <a class="el" href="group__list.html#ga428917280ab5c482b380106c91a6a958">metal::transform</a>&lt;lbd, seq&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga3cc168935e99a9ef8063a6c1422c02da">metal::count_if</a> = typedef <a class="el" href="group__lambda.html#ga104b294f047004a8d790863d4292116d">metal::apply</a>&lt;<a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__number.html#ga7b0c4a9e92c03313a87716d6a839c5f6">metal::add</a>&gt;, <a class="el" href="group__list.html#ga3ff690c103354f4efc985449a6c57eed">metal::transform</a>&lt;lbd, seq&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -546,7 +546,7 @@ template&lt;typename seq &gt; </div>
 template&lt;typename seq , typename beg , typename end  = inc&lt;beg&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga0b4fbd5e9fb3fc1140bc03805a24f150">metal::erase</a> = typedef <a class="el" href="group__list.html#gae24234d7433befce0b7b14cc8b121e70">metal::join</a>&lt; <a class="el" href="group__list.html#gabc4aaa8d90a0aee48fe187f405b3bc38">metal::take</a>&lt;seq, <a class="el" href="group__number.html#ga9a55e0a60d47c8dd5a53e2a321f95ae3">metal::min</a>&lt;beg, end&gt; &gt;, <a class="el" href="group__list.html#ga95318f943fd0516222dee490515a388a">metal::drop</a>&lt;seq, <a class="el" href="group__number.html#ga267111b2f64aa1ee71541eca67ca1de8">metal::max</a>&lt;beg, end&gt; &gt;&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga0b4fbd5e9fb3fc1140bc03805a24f150">metal::erase</a> = typedef <a class="el" href="group__list.html#gae24234d7433befce0b7b14cc8b121e70">metal::join</a>&lt; <a class="el" href="group__list.html#gabc4aaa8d90a0aee48fe187f405b3bc38">metal::take</a>&lt;seq, <a class="el" href="group__number.html#ga3d1feca4ace03947cb86cc4701fd1a72">metal::min</a>&lt;beg, end&gt; &gt;, <a class="el" href="group__list.html#ga95318f943fd0516222dee490515a388a">metal::drop</a>&lt;seq, <a class="el" href="group__number.html#gacd496381a192d9a0e47000737c049bf9">metal::max</a>&lt;beg, end&gt; &gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -599,7 +599,7 @@ template&lt;typename seq , typename val &gt; </div>
 template&lt;typename seq , typename lbd &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga9d370d7116c27f7feb96ae75d22ae4c2">metal::find_if</a> = typedef typename detail::_find_if&lt;<a class="el" href="group__list.html#ga428917280ab5c482b380106c91a6a958">transform</a>&lt;lbd, seq&gt; &gt;::type</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga9d370d7116c27f7feb96ae75d22ae4c2">metal::find_if</a> = typedef typename detail::_find_if&lt;<a class="el" href="group__list.html#ga3ff690c103354f4efc985449a6c57eed">transform</a>&lt;lbd, seq&gt; &gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -887,7 +887,7 @@ template&lt;typename seq , typename lbd &gt; </div>
 template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gaec9b8493b840320f96f19fc558f5bda2">metal::powerset</a> = typedef <a class="el" href="group__list.html#ga1e03d826c138b221c1cdada5b5d88437">accumulate</a>&lt;<a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">lambda</a>&lt;detail::power&gt;, <a class="el" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">list</a>&lt;<a class="el" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">list</a>&lt;&gt; &gt;, <a class="el" href="group__list.html#ga05f32e37bf27cc5da074db9434b66b08">metal::reverse</a>&lt;seq&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gaec9b8493b840320f96f19fc558f5bda2">metal::powerset</a> = typedef <a class="el" href="group__list.html#ga7ec65fe0246335a5e1c549af98c5d7c3">accumulate</a>&lt;<a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">lambda</a>&lt;detail::power&gt;, <a class="el" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">list</a>&lt;<a class="el" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">list</a>&lt;&gt; &gt;, <a class="el" href="group__list.html#ga05f32e37bf27cc5da074db9434b66b08">metal::reverse</a>&lt;seq&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -939,7 +939,7 @@ template&lt;typename seq , typename... vals&gt; </div>
 template&lt;typename seq , typename beg , typename end &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga7cb25fdf976bf4997421227f6477a203">metal::range</a> = typedef detail::range&lt; seq, <a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">if_</a>&lt;<a class="el" href="group__number.html#ga3131b106df71656a0f4b06c9fd182b75">not_</a>&lt;<a class="el" href="group__number.html#ga1411f87040458a68c28936123887ac09">or_</a>&lt;<a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>&lt;<a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>&lt;0&gt;, beg&gt;, <a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>&lt;beg, <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">size</a>&lt;seq&gt; &gt;&gt; &gt;, beg&gt;, <a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">if_</a>&lt;<a class="el" href="group__number.html#ga3131b106df71656a0f4b06c9fd182b75">not_</a>&lt;<a class="el" href="group__number.html#ga1411f87040458a68c28936123887ac09">or_</a>&lt;<a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>&lt;<a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>&lt;0&gt;, end&gt;, <a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>&lt;end, <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">size</a>&lt;seq&gt; &gt;&gt; &gt;, end&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga7cb25fdf976bf4997421227f6477a203">metal::range</a> = typedef detail::range&lt; seq, <a class="el" href="group__number.html#gac0c1e174441562e4fec0ccf897ec4574">if_</a>&lt;<a class="el" href="group__number.html#ga3131b106df71656a0f4b06c9fd182b75">not_</a>&lt;<a class="el" href="group__number.html#ga1411f87040458a68c28936123887ac09">or_</a>&lt;<a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>&lt;<a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>&lt;0&gt;, beg&gt;, <a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>&lt;beg, <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">size</a>&lt;seq&gt; &gt;&gt; &gt;, beg&gt;, <a class="el" href="group__number.html#gac0c1e174441562e4fec0ccf897ec4574">if_</a>&lt;<a class="el" href="group__number.html#ga3131b106df71656a0f4b06c9fd182b75">not_</a>&lt;<a class="el" href="group__number.html#ga1411f87040458a68c28936123887ac09">or_</a>&lt;<a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>&lt;<a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">number</a>&lt;0&gt;, end&gt;, <a class="el" href="group__number.html#ga9766f890d06e0bed382d0cee83fff8d9">greater</a>&lt;end, <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">size</a>&lt;seq&gt; &gt;&gt; &gt;, end&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1019,7 +1019,7 @@ template&lt;typename seq , typename lbd &gt; </div>
 template&lt;typename val , typename num &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga8974cb9a82f883436281baaba635ffc6">metal::repeat</a> = typedef <a class="el" href="group__list.html#ga428917280ab5c482b380106c91a6a958">metal::transform</a>&lt; <a class="el" href="group__lambda.html#ga028cc0f27debcdd281430676951f61bf">metal::always</a>&lt;val&gt;, <a class="el" href="group__list.html#ga952dca828320985d9204b41c0320c1eb">metal::iota</a>&lt;<a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;0&gt;, num, <a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;0&gt; &gt;&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga8974cb9a82f883436281baaba635ffc6">metal::repeat</a> = typedef <a class="el" href="group__list.html#ga3ff690c103354f4efc985449a6c57eed">metal::transform</a>&lt; <a class="el" href="group__lambda.html#ga028cc0f27debcdd281430676951f61bf">metal::always</a>&lt;val&gt;, <a class="el" href="group__list.html#ga952dca828320985d9204b41c0320c1eb">metal::iota</a>&lt;<a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;0&gt;, num, <a class="el" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number</a>&lt;0&gt; &gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1031,7 +1031,7 @@ template&lt;typename val , typename num &gt; </div>
 <p>For any <a class="el" href="index.html#value">Value </a> <code>val</code> and <a class="el" href="index.html#number">Number </a> <code>num</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__list.html#ga8974cb9a82f883436281baaba635ffc6">metal::repeat&lt;val, num&gt;</a>;</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#list">List </a> </dd></dl>
 <dl class="section user"><dt>Semantics:</dt><dd>If <code>num</code> holds the constant <code>n</code>, then <div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list</a>&lt;val_0, ..., val_n-1&gt;;</div></div><!-- fragment --> where <code>val_0, ..., val_n-1</code> are all identical to <code>val</code>.</dd></dl>
 <h3>Example</h3>
-<div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__list.html#ga8974cb9a82f883436281baaba635ffc6">metal::repeat</a>&lt;<span class="keywordtype">char</span>, metal::number&lt;0&gt;&gt;, <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;&gt;</a>);</div><div class="line">IS_SAME(<a class="code" href="group__list.html#ga8974cb9a82f883436281baaba635ffc6">metal::repeat</a>&lt;<span class="keywordtype">char</span>, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;3&gt;</a>&gt;, <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;char, char, char&gt;</a>);</div></div><!-- fragment --> <h3>See Also</h3>
+<div class="fragment"><div class="line">IS_SAME(<a class="code" href="group__list.html#ga8974cb9a82f883436281baaba635ffc6">metal::repeat</a>&lt;<span class="keywordtype">void</span>, metal::number&lt;0&gt;&gt;, <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;&gt;</a>);</div><div class="line">IS_SAME(<a class="code" href="group__list.html#ga8974cb9a82f883436281baaba635ffc6">metal::repeat</a>&lt;<span class="keywordtype">void</span>, <a class="code" href="group__number.html#gac411a92d2f7b7b88a16c8050151bce1b">metal::number&lt;3&gt;</a>&gt;, <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;void, void, void&gt;</a>);</div></div><!-- fragment --> <h3>See Also</h3>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">list</a>, <a class="el" href="group__list.html#ga952dca828320985d9204b41c0320c1eb">iota</a> </dd></dl>
 
 </div>
@@ -1071,7 +1071,7 @@ template&lt;typename seq , typename val , typename... vals&gt; </div>
 template&lt;typename seq , typename lbd , typename... vals&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga6c1678c657db3f416e02514dd95fd6f6">metal::replace_if</a> = typedef typename detail::_replace_if&lt;seq, <a class="el" href="group__list.html#ga428917280ab5c482b380106c91a6a958">transform</a>&lt;lbd, seq&gt;, vals...&gt;::type</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga6c1678c657db3f416e02514dd95fd6f6">metal::replace_if</a> = typedef typename detail::_replace_if&lt;seq, <a class="el" href="group__list.html#ga3ff690c103354f4efc985449a6c57eed">transform</a>&lt;lbd, seq&gt;, vals...&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1176,7 +1176,7 @@ template&lt;typename seq &gt; </div>
 template&lt;typename seq , typename start , typename size , typename stride  = number&lt;1&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga1d5a13c745bf70b67e7eed42849e8ee6">metal::slice</a> = typedef <a class="el" href="group__list.html#ga428917280ab5c482b380106c91a6a958">metal::transform</a>&lt; <a class="el" href="group__lambda.html#gadfe33a637ed67318cebb9f1cf3a630b3">metal::partial</a>&lt; <a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__list.html#ga464360c13ed9ace9b434aa535da8ac0f">metal::at</a>&gt;, <a class="el" href="group__number.html#ga2415cf2aee5bcc168a636139ec18a93f">metal::if_</a>&lt;<a class="el" href="group__list.html#ga0d35b093a78a38d60906901eb78a5946">metal::is_list</a>&lt;seq&gt;, seq&gt; &gt;, <a class="el" href="group__list.html#ga952dca828320985d9204b41c0320c1eb">metal::iota</a>&lt;start, <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">size</a>, stride&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga1d5a13c745bf70b67e7eed42849e8ee6">metal::slice</a> = typedef <a class="el" href="group__list.html#ga3ff690c103354f4efc985449a6c57eed">metal::transform</a>&lt; <a class="el" href="group__lambda.html#gadfe33a637ed67318cebb9f1cf3a630b3">metal::partial</a>&lt; <a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__list.html#ga464360c13ed9ace9b434aa535da8ac0f">metal::at</a>&gt;, <a class="el" href="group__number.html#gac0c1e174441562e4fec0ccf897ec4574">metal::if_</a>&lt;<a class="el" href="group__list.html#ga0d35b093a78a38d60906901eb78a5946">metal::is_list</a>&lt;seq&gt;, seq&gt; &gt;, <a class="el" href="group__list.html#ga952dca828320985d9204b41c0320c1eb">metal::iota</a>&lt;start, <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">size</a>, stride&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1275,8 +1275,8 @@ template&lt;typename seq , typename n &gt; </div>
 
 </div>
 </div>
-<a id="ga428917280ab5c482b380106c91a6a958"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga428917280ab5c482b380106c91a6a958">&#9670;&nbsp;</a></span>transform</h2>
+<a id="ga3ff690c103354f4efc985449a6c57eed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3ff690c103354f4efc985449a6c57eed">&#9670;&nbsp;</a></span>transform</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1284,7 +1284,7 @@ template&lt;typename seq , typename n &gt; </div>
 template&lt;typename lbd , typename... seqs&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#ga428917280ab5c482b380106c91a6a958">metal::transform</a> = typedef detail::call&lt;detail::_transform&lt;lbd&gt;::template type, seqs...&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#ga3ff690c103354f4efc985449a6c57eed">metal::transform</a> = typedef detail::call&lt; <a class="el" href="group__number.html#gac0c1e174441562e4fec0ccf897ec4574">if_</a>&lt;<a class="el" href="group__value.html#gaa31c68bc893b6d1beaec615c7ab3c3d0">same</a>&lt;<a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">size</a>&lt;seqs&gt;...&gt;, detail::_transform&lt;lbd&gt; &gt;::template type, seqs...&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1293,12 +1293,12 @@ template&lt;typename lbd , typename... seqs&gt; </div>
 <h3>Description</h3>
 <p>Transforms one or more <a class="el" href="index.html#list">Lists</a> into a new <a class="el" href="index.html#list">List </a> through an arbitrary n-ary <a class="el" href="index.html#lambda">Lambda </a>.</p>
 <h3>Usage</h3>
-<p>For any <a class="el" href="index.html#lambda">Lambda </a> <code>lbd</code> and <a class="el" href="index.html#list">Lists</a> <code>l_0, ..., l_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__list.html#ga428917280ab5c482b380106c91a6a958">metal::transform</a>&lt;lbd, l_0, ..., l_n-1&gt;;</div></div><!-- fragment --><dl class="section pre"><dt>Precondition</dt><dd>: <code><a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;l_0&gt;{} == <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;&gt;{}... == <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;l_n-1&gt;{}</code> </dd></dl>
+<p>For any <a class="el" href="index.html#lambda">Lambda </a> <code>lbd</code> and <a class="el" href="index.html#list">Lists</a> <code>l_0, ..., l_n-1</code> </p><div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__list.html#ga3ff690c103354f4efc985449a6c57eed">metal::transform</a>&lt;lbd, l_0, ..., l_n-1&gt;;</div></div><!-- fragment --><dl class="section pre"><dt>Precondition</dt><dd>: <code><a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;l_0&gt;{} == <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;&gt;{}... == <a class="el" href="group__list.html#ga85e9d81c96ec58af9ac5fddeed68d516">metal::size</a>&lt;l_n-1&gt;{}</code> </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>: <a class="el" href="index.html#list">List </a> </dd></dl>
 <dl class="section user"><dt>Semantics:</dt><dd>Equivalent to <div class="fragment"><div class="line"><span class="keyword">using</span> result = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list</a>&lt;</div><div class="line">    <a class="code" href="group__lambda.html#gab55bec3884b050822e67739389d9f7a4">metal::invoke</a>&lt;lbd, l[0]...&gt;,</div><div class="line">    <a class="code" href="group__lambda.html#gab55bec3884b050822e67739389d9f7a4">metal::invoke</a>&lt;lbd, l[1]...&gt;,</div><div class="line">    ...,</div><div class="line">    <a class="code" href="group__lambda.html#gab55bec3884b050822e67739389d9f7a4">metal::invoke</a>&lt;lbd, l[m-1]...&gt;,</div><div class="line">&gt;;</div></div><!-- fragment --> where <code>l[N]...</code> stands for <code>l_0[N], ...[N], l_n-1[N]</code>.</dd></dl>
 <h3>Example</h3>
-<div class="fragment"><div class="line"><span class="keyword">using</span> a = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;void(),    int,   bool, void*&gt;</a>;</div><div class="line"><span class="keyword">using</span> b = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;void(*)(), int&amp; , char, char*&gt;</a>;</div><div class="line"><span class="keyword">using</span> c = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;void(&amp;)(), int&amp;&amp;, long, long*&gt;</a>;</div><div class="line"></div><div class="line">IS_SAME(</div><div class="line">    <a class="code" href="group__list.html#ga428917280ab5c482b380106c91a6a958">metal::transform</a>&lt;<a class="code" href="group__lambda.html#ga00420618cd4689ece80838e596897d36">metal::lazy&lt;std::common_type&gt;</a>, a, b, c&gt;,</div><div class="line">    <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list</a>&lt;<span class="keywordtype">void</span>(*)(), <span class="keywordtype">int</span>, <span class="keywordtype">long</span>, <span class="keywordtype">void</span>*&gt;</div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">list</a>, <a class="el" href="group__list.html#ga1e03d826c138b221c1cdada5b5d88437">accumulate</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">using</span> a = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;void(),    int,   bool, void*&gt;</a>;</div><div class="line"><span class="keyword">using</span> b = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;void(*)(), int&amp; , char, char*&gt;</a>;</div><div class="line"><span class="keyword">using</span> c = <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list&lt;void(&amp;)(), int&amp;&amp;, long, long*&gt;</a>;</div><div class="line"></div><div class="line">IS_SAME(</div><div class="line">    <a class="code" href="group__list.html#ga3ff690c103354f4efc985449a6c57eed">metal::transform</a>&lt;<a class="code" href="group__lambda.html#ga00420618cd4689ece80838e596897d36">metal::lazy&lt;std::common_type&gt;</a>, a, b, c&gt;,</div><div class="line">    <a class="code" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list</a>&lt;<span class="keywordtype">void</span>(*)(), <span class="keywordtype">int</span>, <span class="keywordtype">long</span>, <span class="keywordtype">void</span>*&gt;</div><div class="line">);</div></div><!-- fragment --> <h3>See Also</h3>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">list</a>, <a class="el" href="group__list.html#ga7ec65fe0246335a5e1c549af98c5d7c3">accumulate</a> </dd></dl>
 
 </div>
 </div>
@@ -1311,7 +1311,7 @@ template&lt;typename lbd , typename... seqs&gt; </div>
 template&lt;typename seq &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__list.html#gad391a80179548ce79a623eb12ce5d49e">metal::transpose</a> = typedef <a class="el" href="group__lambda.html#ga104b294f047004a8d790863d4292116d">metal::apply</a>&lt; <a class="el" href="group__lambda.html#gadfe33a637ed67318cebb9f1cf3a630b3">metal::partial</a>&lt; <a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__list.html#ga428917280ab5c482b380106c91a6a958">metal::transform</a>&gt;, <a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list</a>&gt; &gt;, seq&gt;</td>
+          <td class="memname">using <a class="el" href="group__list.html#gad391a80179548ce79a623eb12ce5d49e">metal::transpose</a> = typedef <a class="el" href="group__lambda.html#ga104b294f047004a8d790863d4292116d">metal::apply</a>&lt; <a class="el" href="group__lambda.html#gadfe33a637ed67318cebb9f1cf3a630b3">metal::partial</a>&lt; <a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__list.html#ga3ff690c103354f4efc985449a6c57eed">metal::transform</a>&gt;, <a class="el" href="group__lambda.html#gaeea7c9ee303b80696b07eb8c6c8ee53c">metal::lambda</a>&lt;<a class="el" href="group__list.html#gaf9f79a6875bebc18e071641747908e07">metal::list</a>&gt; &gt;, seq&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
