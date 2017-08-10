@@ -91,9 +91,9 @@ IS_SAME(
 
 HIDE(
 /// [if_]
-IS_SAME(metal::if_<metal::false_, int, metal::number<0>, int*, void>, void);
-IS_SAME(metal::if_<metal::false_,  int, metal::number<1>, int*, void>, int*);
-IS_SAME(metal::if_<metal::true_,  int, metal::number<1>, int*, void>, int);
+IS_SAME(metal::if_<metal::true_, int>, int);
+IS_SAME(metal::if_<metal::true_, int, void>, int);
+IS_SAME(metal::if_<metal::false_, int, void>, void);
 /// [if_]
 )
 

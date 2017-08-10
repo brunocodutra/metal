@@ -6,13 +6,18 @@
 #define METAL_NUMBER_DIV_HPP
 
 #include "../config.hpp"
-#include "../detail/sfinae.hpp"
+#include "../lambda/lambda.hpp"
+#include "../number/number.hpp"
+#include "../value/fold_left.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _div;
+
+        template<typename x, typename y>
+        using div = typename _div<x, y>::type;
     }
     /// \endcond
 
@@ -41,51 +46,20 @@ namespace metal {
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, sub, mul, mod, pow
     template<typename... nums>
-    using div = detail::call<detail::_div<nums...>::template type>;
-}
+    using div = fold_left<lambda<detail::div>, nums..., number<1>>;
 
-#include "../lambda/lambda.hpp"
-#include "../number/number.hpp"
-#include "../value/fold_left.hpp"
-
-#include <initializer_list>
-
-namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _div {};
 
-#if defined(METAL_WORKAROUND)
-        template<typename x, typename y>
-        struct _div_impl {};
+        template<int_ x>
+        struct _div<number<x>, number<0>> {};
 
         template<int_ x, int_ y>
-        struct _div_impl<number<x>, number<y>> : number<x / y> {};
-
-        template<int_ x>
-        struct _div_impl<number<x>, number<0>> {};
-
-        template<typename x, typename y>
-        using div_impl = typename _div_impl<x, y>::type;
-
-        template<int_... ns>
-        struct _div<number<ns>...> {
-            template<typename... _>
-            using type = fold_left<lambda<div_impl>, number<ns>..., _...>;
+        struct _div<number<x>, number<y>> {
+            using type = number<x / y>;
         };
-#else
-        template<typename... _>
-        constexpr int_ div_impl(int_ head, _... tail) {
-            return void(std::initializer_list<int_>{(head /= tail)...}), head;
-        }
-
-        template<int_... ns>
-        struct _div<number<ns>...> {
-            template<typename... _>
-            using type = number<div_impl((void(sizeof...(_)), ns)...)>;
-        };
-#endif
     }
     /// \endcond
 }

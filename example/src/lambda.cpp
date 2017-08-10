@@ -14,7 +14,10 @@
 
 HIDE(
 /// [lbd1]
-using lbd = metal::lambda<std::add_pointer_t>;
+template<typename T>
+using expr = T*;
+
+using lbd = metal::lambda<expr>;
 /// [lbd1]
 
 IS_SAME(metal::is_lambda<lbd>, metal::true_);
@@ -22,8 +25,11 @@ IS_SAME(metal::is_lambda<lbd>, metal::true_);
 
 HIDE(
 /// [is_lambda]
+template<typename T>
+using expr = T*;
+
 IS_SAME(metal::is_lambda<void>, metal::false_);
-IS_SAME(metal::is_lambda<metal::lambda<std::add_pointer_t>>, metal::true_);
+IS_SAME(metal::is_lambda<metal::lambda<expr>>, metal::true_);
 IS_SAME(metal::is_lambda<metal::trait<std::is_pointer>>, metal::true_);
 IS_SAME(metal::is_lambda<metal::lazy<std::add_pointer>>, metal::true_);
 /// [is_lambda]
@@ -99,7 +105,7 @@ IS_SAME(metal::invoke<metal::arg<4>, bool, char, long, float>, float);
 
 HIDE(
 /// [invoke]
-using lbd = metal::lambda<std::common_type_t>;
+using lbd = metal::lazy<std::common_type>;
 
 IS_SAME(metal::invoke<lbd, bool, char, long, float>, float);
 /// [invoke]
@@ -107,7 +113,7 @@ IS_SAME(metal::invoke<lbd, bool, char, long, float>, float);
 
 HIDE(
 /// [apply]
-using lbd = metal::lambda<std::common_type_t>;
+using lbd = metal::lazy<std::common_type>;
 
 IS_SAME(metal::apply<lbd, metal::list<bool, char, long, float>>, float);
 /// [apply]
@@ -115,7 +121,7 @@ IS_SAME(metal::apply<lbd, metal::list<bool, char, long, float>>, float);
 
 HIDE(
 /// [partial]
-using promote = metal::partial<metal::lambda<std::common_type_t>, int>;
+using promote = metal::partial<metal::lazy<std::common_type>, int>;
 
 IS_SAME(metal::invoke<promote, char>, int);
 IS_SAME(metal::invoke<promote, short>, int);
@@ -126,7 +132,7 @@ IS_SAME(metal::invoke<promote, long>, long);
 HIDE(
 /// [bind]
 using promote = metal::bind<
-    metal::lambda<std::common_type_t>,
+    metal::lazy<std::common_type>,
     metal::always<int>,
     metal::_1 // equivalent to metal::arg<1>
 >;
@@ -136,7 +142,7 @@ IS_SAME(metal::invoke<promote, short>, int);
 IS_SAME(metal::invoke<promote, long>, long);
 
 using uac = metal::bind< // usual arithmetic conversion
-    metal::lambda<std::common_type_t>,
+    metal::lazy<std::common_type>,
     metal::bind<promote, metal::_1>,
     metal::bind<promote, metal::_2>
 >;

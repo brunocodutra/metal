@@ -46,8 +46,19 @@ matrix:
                   - clang-format-5.0
                 sources:
                   - *srcs
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty main'
+                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+
+      - os: linux
+        dist: trusty
+        compiler: g++
+        env: CXXVER=4.7
+        addons:
+            apt:
+                packages:
+                  - *pkgs
+                  - g++-4.7
+                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -229,7 +240,7 @@ matrix:
                   - libc++abi-dev
                 sources:
                   - *srcs
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty main'
+                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: osx
@@ -352,3 +363,8 @@ script:
         (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure -E ^test.format)
     fi
 
+notifications:
+  webhooks:
+    urls: https://webhooks.gitter.im/e/f0433b6f1de0942ea9a8
+    on_success: change
+    on_failure: always

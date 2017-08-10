@@ -15,5 +15,13 @@ else()
 endif()
 
 test_units(example Metal "${CMAKE_CURRENT_SOURCE_DIR}/src/" EXCLUDE ${exclude})
+foreach(target example.literal example.sfinae)
+    if(TARGET ${target})
+        set_target_properties(${target} PROPERTIES
+            CXX_STANDARD 14
+            CXX_STANDARD_REQUIRED OFF
+        )
+    endif()
+endforeach()
 
 add_custom_target(examples DEPENDS example)

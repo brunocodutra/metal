@@ -6,13 +6,18 @@
 #define METAL_NUMBER_ADD_HPP
 
 #include "../config.hpp"
-#include "../detail/sfinae.hpp"
+#include "../lambda/lambda.hpp"
+#include "../number/number.hpp"
+#include "../value/fold_left.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _add;
+
+        template<typename x, typename y>
+        using add = typename _add<x, y>::type;
     }
     /// \endcond
 
@@ -40,46 +45,16 @@ namespace metal {
     /// ### See Also
     /// \see number, abs, inc, dec, neg, sub, mul, div, mod, pow
     template<typename... nums>
-    using add = detail::call<detail::_add<nums...>::template type>;
-}
+    using add = fold_left<lambda<detail::add>, nums..., number<0>>;
 
-#include "../lambda/lambda.hpp"
-#include "../number/number.hpp"
-#include "../value/fold_left.hpp"
-
-#include <initializer_list>
-
-namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _add {};
 
-#if defined(METAL_WORKAROUND)
-        template<typename x, typename y>
-        using add_impl = number<x::value + y::value>;
-
-        template<int_... ns>
-        struct _add<number<ns>...> {
-            template<typename... _>
-            using type = fold_left<lambda<add_impl>, number<ns>..., _...>;
-        };
-#else
-        template<typename... _>
-        constexpr int_ add_impl(int_ head, _... tail) {
-            return void(std::initializer_list<int_>{(head += tail)...}), head;
-        }
-
-        template<int_... ns>
-        struct _add<number<ns>...> {
-            template<typename... _>
-            using type = number<add_impl((void(sizeof...(_)), ns)...)>;
-        };
-#endif
-        template<>
-        struct _add<> {
-            template<typename...>
-            using type = number<0>;
+        template<int_ x, int_ y>
+        struct _add<number<x>, number<y>> {
+            using type = number<x + y>;
         };
     }
     /// \endcond

@@ -59,25 +59,12 @@ namespace metal {
 #include "../number/if.hpp"
 #include "../number/numbers.hpp"
 
-#if defined(__has_builtin)
-#if __has_builtin(__make_integer_seq)
-#define METAL_USE_BUILTIN_MAKE_INTEGER_SEQ
-#endif
-#endif
-
 namespace metal {
     /// \cond
     namespace detail {
         template<int_... ns>
         struct enumeration {};
 
-#if defined(METAL_USE_BUILTIN_MAKE_INTEGER_SEQ)
-        template<typename int_, int_... ns>
-        using enumerator = enumeration<ns...>;
-
-        template<int_ n>
-        using enumerate = __make_integer_seq<enumerator, int_, n>;
-#else
         template<typename ns>
         struct _even {};
 
@@ -110,7 +97,7 @@ namespace metal {
         struct _enumerate<0> {
             using type = enumeration<>;
         };
-#endif
+
         template<typename, int_ a, int_ b>
         struct _iota_impl {};
 

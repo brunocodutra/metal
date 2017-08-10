@@ -424,8 +424,8 @@ IS_SAME(
 
 HIDE(
 /// [repeat]
-IS_SAME(metal::repeat<char, metal::number<0>>, metal::list<>);
-IS_SAME(metal::repeat<char, metal::number<3>>, metal::list<char, char, char>);
+IS_SAME(metal::repeat<void, metal::number<0>>, metal::list<>);
+IS_SAME(metal::repeat<void, metal::number<3>>, metal::list<void, void, void>);
 /// [repeat]
 )
 
@@ -661,6 +661,7 @@ IS_SAME(
 /// [transpose]
 )
 
+#if !defined(METAL_WORKAROUND)
 HIDE(
 /// [accumulate]
 template<typename val, typename num>
@@ -685,3 +686,4 @@ IS_SAME(
 );
 /// [accumulate]
 )
+#endif

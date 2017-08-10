@@ -6,13 +6,19 @@
 #define METAL_NUMBER_MOD_HPP
 
 #include "../config.hpp"
-#include "../detail/sfinae.hpp"
+#include "../lambda/lambda.hpp"
+#include "../number/if.hpp"
+#include "../number/number.hpp"
+#include "../value/fold_left.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... mod>
+        template<typename x, typename y>
         struct _mod;
+
+        template<typename x, typename y>
+        using mod = typename _mod<x, y>::type;
     }
     /// \endcond
 
@@ -41,51 +47,20 @@ namespace metal {
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, sub, mul, div, pow
     template<typename... nums>
-    using mod = detail::call<detail::_mod<nums...>::template type>;
-}
+    using mod = fold_left<lambda<detail::mod>, if_<is_number<nums>, nums>...>;
 
-#include "../lambda/lambda.hpp"
-#include "../number/number.hpp"
-#include "../value/fold_left.hpp"
-
-#include <initializer_list>
-
-namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _mod {};
 
-#if defined(METAL_WORKAROUND)
-        template<typename x, typename y>
-        struct _mod_impl {};
+        template<int_ x>
+        struct _mod<number<x>, number<0>> {};
 
         template<int_ x, int_ y>
-        struct _mod_impl<number<x>, number<y>> : number<x % y> {};
-
-        template<int_ x>
-        struct _mod_impl<number<x>, number<0>> {};
-
-        template<typename x, typename y>
-        using mod_impl = typename _mod_impl<x, y>::type;
-
-        template<int_... ns>
-        struct _mod<number<ns>...> {
-            template<typename... _>
-            using type = fold_left<lambda<mod_impl>, number<ns>..., _...>;
+        struct _mod<number<x>, number<y>> {
+            using type = number<x % y>;
         };
-#else
-        template<typename... _>
-        constexpr int_ mod_impl(int_ head, _... tail) {
-            return void(std::initializer_list<int_>{(head %= tail)...}), head;
-        }
-
-        template<int_... ns>
-        struct _mod<number<ns>...> {
-            template<typename... _>
-            using type = number<mod_impl((void(sizeof...(_)), ns)...)>;
-        };
-#endif
     }
     /// \endcond
 }

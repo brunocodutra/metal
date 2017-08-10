@@ -40,7 +40,7 @@ message(STATUS "Configuring Metal ${METAL_VERSION}")
 add_header_library(Metal "${METAL_INCLUDE_DIR}/metal.hpp")
 set_target_properties(Metal PROPERTIES
     INTERFACE_LIB_VERSION ${METAL_VERSION}
-    INTERFACE_COMPILE_FEATURES cxx_std_14
+    INTERFACE_COMPILE_FEATURES cxx_std_11
 )
 
 deploy_header_library(Metal)

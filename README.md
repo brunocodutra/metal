@@ -1,15 +1,9 @@
-# Metal - Metaprogramming Algorithms
+# Metal [![version]][semver] [![travis.badge]][travis.metal] [![appveyor.badge]][appveyor.metal] [![gitter.badge]][gitter.metal] [![godbolt.badge]][godbolt.metal]
 
-[![version]][semver]
-[![travis.badge]][travis.metal]
-[![appveyor.badge]][appveyor.metal]
+Metal is a single header C++11 library designed to make you love template
+metaprogramming.
 
-Metal is a header-only C++14 library designed to make template metaprogramming
-intuitive.
-
-__[Try it online][godbolt.metal]__
-
-## Modern
+## Overview
 
 ```.cpp
 #include <metal.hpp>
@@ -77,21 +71,24 @@ static_assert(metal::same<sorted, metal::list<y, z, x>>::value, "");
 // that and much more!
 ```
 
-Check out [more examples][examples].
+## Quick Start
+
+1. Download [metal.hpp][releases]
+2. `# include </path/to/metal.hpp>`
+3. Love template metaprogramming
 
 ## Blazing Fast
-
-Minutes-long compile times are a thing of the past!
 
 You don't have to just take my word for it, see for yourself at [metaben.ch].
 
 ## Portable
 
-Don't worry, all your favourite compilers are continuously tested at
+The following compilers are continuously tested at
 [Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
 
 | Compiler          | Version   | Operating System
 |-------------------|-----------|-----------------------
+| GCC               | 4.7       | Ubuntu 14.04 LTS
 | GCC               | 4.8       | Ubuntu 14.04 LTS
 | GCC               | 4.9       | Ubuntu 14.04 LTS
 | GCC               | 5         | Ubuntu 14.04 LTS
@@ -135,12 +132,19 @@ Metal is distributed under the
 [appveyor.metal]:   http://ci.appveyor.com/project/brunocodutra/metal
 [appveyor.badge]:   http://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/master?svg=true
 
+[gitter.metal]:     http://gitter.im/brunocodutra/metal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+[gitter.badge]:     http://badges.gitter.im/brunocodutra/metal.svg
+
+[godbolt.metal]:    http://godbolt.org/g/RFwvic
+[godbolt.badge]:    http://img.shields.io/badge/try%20it-on%20godbolt-222266.svg
+
 [boost.license]:    http://boost.org/LICENSE_1_0.txt
 
 [CMake]:            http://cmake.org/
 [Doxygen]:          http://doxygen.org/
 [metaben.ch]:       http://metaben.ch/
 
+[releases]:         http://github.com/brunocodutra/metal/releases
 [documentation]:    http://brunocodutra.github.io/metal
 [examples]:         http://brunocodutra.github.io/metal/#examples
 [SFINAE]:           http://brunocodutra.github.io/metal/#SFINAE

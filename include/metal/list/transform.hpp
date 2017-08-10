@@ -6,6 +6,9 @@
 #define METAL_LIST_TRANSFORM_HPP
 
 #include "../config.hpp"
+#include "../list/size.hpp"
+#include "../number/if.hpp"
+#include "../value/same.hpp"
 #include "../detail/sfinae.hpp"
 
 namespace metal {
@@ -48,17 +51,15 @@ namespace metal {
     /// ### See Also
     /// \see list, accumulate
     template<typename lbd, typename... seqs>
-    using transform =
-        detail::call<detail::_transform<lbd>::template type, seqs...>;
+    using transform = detail::call<
+        if_<same<size<seqs>...>, detail::_transform<lbd>>::template type,
+        seqs...>;
 }
 
 #include "../lambda/lambda.hpp"
 #include "../list/at.hpp"
 #include "../list/indices.hpp"
 #include "../list/list.hpp"
-#include "../list/size.hpp"
-#include "../number/if.hpp"
-#include "../value/same.hpp"
 
 namespace metal {
     /// \cond
@@ -108,10 +109,7 @@ namespace metal {
         template<template<typename...> class expr>
         struct _transform<lambda<expr>> {
             template<typename... seqs>
-            using type = forward<
-                if_<same<size<seqs>...>,
-                    _transform_impl<seqs...>>::template type,
-                expr>;
+            using type = forward<_transform_impl<seqs...>::template type, expr>;
         };
     }
     /// \endcond
