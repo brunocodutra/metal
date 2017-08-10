@@ -31,7 +31,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_MAJOR 0
+#define METAL_MAJOR 1
 /// \ingroup config
 ///
 /// ### Description
@@ -39,7 +39,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_MINOR 7
+#define METAL_MINOR 0
 /// \ingroup config
 ///
 /// ### Description
@@ -1474,6 +1474,118 @@ namespace metal {
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_ACCUMULATE_HPP
 #define METAL_LIST_ACCUMULATE_HPP
+// Copyright Bruno Dutra 2015-2017
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
+#ifndef METAL_LIST_SIZE_HPP
+#define METAL_LIST_SIZE_HPP
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename seq>
+        struct _size;
+    }
+    /// \endcond
+    /// \ingroup list
+    ///
+    /// ### Description
+    /// Returns the number of elements in a \list.
+    ///
+    /// ### Usage
+    /// For any \list `l`
+    /// \code
+    ///     using result = metal::size<l>;
+    /// \endcode
+    ///
+    /// \returns: \number
+    /// \semantics:
+    ///     If `l` contains elements `l[0], ..., l[m-1]`, then
+    ///     \code
+    ///         using result = metal::number<m>;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet list.cpp size
+    ///
+    /// ### See Also
+    /// \see list, empty
+    template<typename seq>
+    using size = typename detail::_size<seq>::type;
+}
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename seq>
+        struct _size {};
+        template<typename... vals>
+        struct _size<list<vals...>> : number<sizeof...(vals)> {};
+    }
+    /// \endcond
+}
+#endif
+// Copyright Bruno Dutra 2015-2017
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
+#ifndef METAL_NUMBER_IF_HPP
+#define METAL_NUMBER_IF_HPP
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename cond>
+        struct _if_;
+    }
+    /// \endcond
+    /// \ingroup number
+    ///
+    /// ### Description
+    /// A conditional expression.
+    ///
+    /// ### Usage
+    /// For any \number `num` and \values `x, y`
+    /// \code
+    ///     using result = metal::if<num, x, y>;
+    /// \endcode
+    ///
+    /// \returns: \value
+    /// \semantics:
+    ///     If `num{} != false`, then
+    ///     \code
+    ///         using result = x;
+    ///     \endcode
+    ///     otherwise
+    ///     \code
+    ///         using result = y;
+    ///     \endcode
+    ///
+    /// \tip{If `num{} != false`, `y` may be omitted.}
+    ///
+    /// ### Example
+    /// \snippet number.cpp if_
+    ///
+    /// ### See Also
+    /// \see number
+    template<typename cond, typename... then>
+    using if_ = detail::call<detail::_if_<cond>::template type, then...>;
+}
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename>
+        struct _if_ {};
+        template<int_ v>
+        struct _if_<number<v>> {
+            template<typename val, typename = void>
+            using type = val;
+        };
+        template<>
+        struct _if_<false_> {
+            template<typename, typename val>
+            using type = val;
+        };
+    }
+    /// \endcond
+}
+#endif
 namespace metal {
     /// \cond
     namespace detail {
@@ -1511,8 +1623,9 @@ namespace metal {
     /// ### See Also
     /// \see list, transform, fold_left
     template<typename lbd, typename state, typename... seqs>
-    using accumulate =
-        detail::call<detail::_accumulate<lbd>::template type, state, seqs...>;
+    using accumulate = detail::call<
+        if_<same<size<seqs>...>, detail::_accumulate<lbd>>::template type,
+        state, seqs...>;
 }
 // Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
@@ -1572,72 +1685,6 @@ namespace metal {
 // Copyright Bruno Dutra 2015-2017
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
-#ifndef METAL_NUMBER_IF_HPP
-#define METAL_NUMBER_IF_HPP
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<typename...>
-        struct _if_;
-    }
-    /// \endcond
-    /// \ingroup number
-    ///
-    /// ### Description
-    /// A multi-clause conditional expression.
-    ///
-    /// ### Usage
-    /// For any \numbers `num_0, ..., num_n-1` and \values `val_0, ..., val_n`
-    /// \code
-    ///     using result = metal::if<
-    ///         num_0, val_0,
-    ///         ...,
-    ///         num_n-1, val_n-1,
-    ///         val_n
-    ///     >;
-    /// \endcode
-    ///
-    /// \returns: \value
-    /// \semantics:
-    ///     If `num_i{} != false` and `num_j{} == false` for all `j < i`, then
-    ///     \code
-    ///         using result = val_i;
-    ///     \endcode
-    ///     otherwise, if `num_i{} == false` for all `i` in `[0, n-1]`, then
-    ///     \code
-    ///         using result = val_n;
-    ///     \endcode
-    ///
-    /// ### Example
-    /// \snippet number.cpp if_
-    ///
-    /// ### See Also
-    /// \see number
-    template<typename cond, typename then_, typename... else_>
-    using if_ = typename detail::_if_<cond, then_, else_...>::type;
-}
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<typename...>
-        struct _if_ {};
-        template<typename then_, typename... else_>
-        struct _if_<false_, then_, else_...> : _if_<else_...> {};
-        template<typename then_, typename else_>
-        struct _if_<false_, then_, else_> {
-            using type = else_;
-        };
-        template<int_ v, typename then_, typename... else_>
-        struct _if_<number<v>, then_, else_...> {
-            using type = then_;
-        };
-    }
-    /// \endcond
-}
-#endif
-// Copyright Bruno Dutra 2015-2017
-// Distributed under the Boost Software License, Version 1.0.
-// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_NUMBERS_HPP
 #define METAL_NUMBER_NUMBERS_HPP
 #include <type_traits>
@@ -1679,22 +1726,11 @@ namespace metal {
     /// \endcond
 }
 #endif
-#if defined(__has_builtin)
-#if __has_builtin(__make_integer_seq)
-#define METAL_USE_BUILTIN_MAKE_INTEGER_SEQ
-#endif
-#endif
 namespace metal {
     /// \cond
     namespace detail {
         template<int_... ns>
         struct enumeration {};
-#if defined(METAL_USE_BUILTIN_MAKE_INTEGER_SEQ)
-        template<typename int_, int_... ns>
-        using enumerator = enumeration<ns...>;
-        template<int_ n>
-        using enumerate = __make_integer_seq<enumerator, int_, n>;
-#else
         template<typename ns>
         struct _even {};
         template<int_... ns>
@@ -1720,7 +1756,6 @@ namespace metal {
         struct _enumerate<0> {
             using type = enumeration<>;
         };
-#endif
         template<typename, int_ a, int_ b>
         struct _iota_impl {};
         template<int_... vs, int_ a, int_ b>
@@ -1734,55 +1769,6 @@ namespace metal {
             : _iota_impl<
                   enumerate<(sz < 0) ? (0 - sz) : sz>, (sz < 0) ? (0 - sd) : sd,
                   st> {};
-    }
-    /// \endcond
-}
-#endif
-// Copyright Bruno Dutra 2015-2017
-// Distributed under the Boost Software License, Version 1.0.
-// See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
-#ifndef METAL_LIST_SIZE_HPP
-#define METAL_LIST_SIZE_HPP
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<typename seq>
-        struct _size;
-    }
-    /// \endcond
-    /// \ingroup list
-    ///
-    /// ### Description
-    /// Returns the number of elements in a \list.
-    ///
-    /// ### Usage
-    /// For any \list `l`
-    /// \code
-    ///     using result = metal::size<l>;
-    /// \endcode
-    ///
-    /// \returns: \number
-    /// \semantics:
-    ///     If `l` contains elements `l[0], ..., l[m-1]`, then
-    ///     \code
-    ///         using result = metal::number<m>;
-    ///     \endcode
-    ///
-    /// ### Example
-    /// \snippet list.cpp size
-    ///
-    /// ### See Also
-    /// \see list, empty
-    template<typename seq>
-    using size = typename detail::_size<seq>::type;
-}
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<typename seq>
-        struct _size {};
-        template<typename... vals>
-        struct _size<list<vals...>> : number<sizeof...(vals)> {};
     }
     /// \endcond
 }
@@ -2077,10 +2063,8 @@ namespace metal {
         template<template<typename...> class expr>
         struct _accumulate<lambda<expr>> {
             template<typename state, typename... seqs>
-            using type = forward<
-                if_<same<size<seqs>...>,
-                    _accumulate_impl<state, seqs...>>::template type,
-                expr>;
+            using type =
+                forward<_accumulate_impl<state, seqs...>::template type, expr>;
         };
     }
     /// \endcond
@@ -2135,8 +2119,9 @@ namespace metal {
     /// ### See Also
     /// \see list, accumulate
     template<typename lbd, typename... seqs>
-    using transform =
-        detail::call<detail::_transform<lbd>::template type, seqs...>;
+    using transform = detail::call<
+        if_<same<size<seqs>...>, detail::_transform<lbd>>::template type,
+        seqs...>;
 }
 namespace metal {
     /// \cond
@@ -2179,10 +2164,7 @@ namespace metal {
         template<template<typename...> class expr>
         struct _transform<lambda<expr>> {
             template<typename... seqs>
-            using type = forward<
-                if_<same<size<seqs>...>,
-                    _transform_impl<seqs...>>::template type,
-                expr>;
+            using type = forward<_transform_impl<seqs...>::template type, expr>;
         };
     }
     /// \endcond
@@ -2624,8 +2606,10 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _sub;
+        template<typename x, typename y>
+        using sub = typename _sub<x, y>::type;
     }
     /// \endcond
     /// \ingroup number
@@ -2652,33 +2636,15 @@ namespace metal {
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, mul, div, mod, pow
     template<typename... nums>
-    using sub = detail::call<detail::_sub<nums...>::template type>;
-}
-#include <initializer_list>
-namespace metal {
+    using sub = fold_left<lambda<detail::sub>, nums..., number<0>>;
     /// \cond
     namespace detail {
-        template<typename... nums>
-        struct _sub {};
-#if defined(METAL_WORKAROUND)
         template<typename x, typename y>
-        using sub_impl = number<x::value - y::value>;
-        template<int_... ns>
-        struct _sub<number<ns>...> {
-            template<typename... _>
-            using type = fold_left<lambda<sub_impl>, number<ns>..., _...>;
+        struct _sub {};
+        template<int_ x, int_ y>
+        struct _sub<number<x>, number<y>> {
+            using type = number<x - y>;
         };
-#else
-        template<typename... _>
-        constexpr int_ sub_impl(int_ head, _... tail) {
-            return void(std::initializer_list<int_>{(head -= tail)...}), head;
-        }
-        template<int_... ns>
-        struct _sub<number<ns>...> {
-            template<typename... _>
-            using type = number<sub_impl((void(sizeof...(_)), ns)...)>;
-        };
-#endif
     }
     /// \endcond
 }
@@ -3420,8 +3386,10 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _add;
+        template<typename x, typename y>
+        using add = typename _add<x, y>::type;
     }
     /// \endcond
     /// \ingroup number
@@ -3448,37 +3416,14 @@ namespace metal {
     /// ### See Also
     /// \see number, abs, inc, dec, neg, sub, mul, div, mod, pow
     template<typename... nums>
-    using add = detail::call<detail::_add<nums...>::template type>;
-}
-#include <initializer_list>
-namespace metal {
+    using add = fold_left<lambda<detail::add>, nums..., number<0>>;
     /// \cond
     namespace detail {
-        template<typename... nums>
-        struct _add {};
-#if defined(METAL_WORKAROUND)
         template<typename x, typename y>
-        using add_impl = number<x::value + y::value>;
-        template<int_... ns>
-        struct _add<number<ns>...> {
-            template<typename... _>
-            using type = fold_left<lambda<add_impl>, number<ns>..., _...>;
-        };
-#else
-        template<typename... _>
-        constexpr int_ add_impl(int_ head, _... tail) {
-            return void(std::initializer_list<int_>{(head += tail)...}), head;
-        }
-        template<int_... ns>
-        struct _add<number<ns>...> {
-            template<typename... _>
-            using type = number<add_impl((void(sizeof...(_)), ns)...)>;
-        };
-#endif
-        template<>
-        struct _add<> {
-            template<typename...>
-            using type = number<0>;
+        struct _add {};
+        template<int_ x, int_ y>
+        struct _add<number<x>, number<y>> {
+            using type = number<x + y>;
         };
     }
     /// \endcond
@@ -3860,8 +3805,8 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
-        struct _max;
+        template<typename x, typename y>
+        using max = if_<greater<x, y>, x, y>;
     }
     /// \endcond
     /// \ingroup number
@@ -3889,36 +3834,7 @@ namespace metal {
     /// ### See Also
     /// \see number, greater, less, min
     template<typename... nums>
-    using max = detail::call<detail::_max<nums...>::template type>;
-}
-#include <initializer_list>
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<typename... nums>
-        struct _max {};
-#if defined(METAL_WORKAROUND)
-        template<typename x, typename y>
-        using max_impl = if_<greater<x, y>, x, y>;
-        template<int_... ns>
-        struct _max<number<ns>...> {
-            template<typename... _>
-            using type = fold_left<lambda<max_impl>, number<ns>..., _...>;
-        };
-#else
-        template<typename... _>
-        constexpr int_ max_impl(int_ head, _... tail) {
-            using expand = std::initializer_list<int_>;
-            return void(expand{(head = (tail > head) ? tail : head)...}), head;
-        }
-        template<int_... ns>
-        struct _max<number<ns>...> {
-            template<typename... _>
-            using type = number<max_impl((void(sizeof...(_)), ns)...)>;
-        };
-#endif
-    }
-    /// \endcond
+    using max = fold_left<lambda<detail::max>, if_<is_number<nums>, nums>...>;
 }
 #endif
 // Copyright Bruno Dutra 2015-2017
@@ -3929,8 +3845,8 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
-        struct _min;
+        template<typename x, typename y>
+        using min = if_<less<x, y>, x, y>;
     }
     /// \endcond
     /// \ingroup number
@@ -3958,36 +3874,7 @@ namespace metal {
     /// ### See Also
     /// \see number, greater, less, max
     template<typename... nums>
-    using min = detail::call<detail::_min<nums...>::template type>;
-}
-#include <initializer_list>
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<typename... nums>
-        struct _min {};
-#if defined(METAL_WORKAROUND)
-        template<typename x, typename y>
-        using min_impl = if_<less<x, y>, x, y>;
-        template<int_... ns>
-        struct _min<number<ns>...> {
-            template<typename... _>
-            using type = fold_left<lambda<min_impl>, number<ns>..., _...>;
-        };
-#else
-        template<typename... _>
-        constexpr int_ min_impl(int_ head, _... tail) {
-            using expand = std::initializer_list<int_>;
-            return void(expand{(head = (tail < head) ? tail : head)...}), head;
-        }
-        template<int_... ns>
-        struct _min<number<ns>...> {
-            template<typename... _>
-            using type = number<min_impl((void(sizeof...(_)), ns)...)>;
-        };
-#endif
-    }
-    /// \endcond
+    using min = fold_left<lambda<detail::min>, if_<is_number<nums>, nums>...>;
 }
 #endif
 #include <cstddef>
@@ -4433,39 +4320,22 @@ namespace metal {
     using front = metal::at<seq, metal::number<0>>;
 }
 #endif
-#include <initializer_list>
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename seq>
-        struct _find_if {};
-        template<>
-        struct _find_if<list<>> : number<0> {};
-#if defined(METAL_WORKAROUND)
         template<typename seq, typename = indices<seq>>
         struct _find_index {};
         template<int_... vs, typename... is>
         struct _find_index<list<number<vs>...>, list<is...>> {
             using type = front<join<if_<number<vs>, list<is>, list<>>...>>;
         };
+        template<typename seq>
+        struct _find_if {};
+        template<>
+        struct _find_if<list<>> : number<0> {};
         template<int_... vs>
         struct _find_if<list<number<vs>...>>
             : _find_index<list<number<vs>..., true_>> {};
-#else
-        template<typename... _>
-        constexpr int_ find_index(_... vs) {
-            int_ ret = 0;
-            for(int_ x : std::initializer_list<int_>{vs...}) {
-                if(x)
-                    break;
-                else
-                    ++ret;
-            }
-            return ret;
-        }
-        template<int_... vs>
-        struct _find_if<list<number<vs>...>> : number<find_index(vs...)> {};
-#endif
     }
     /// \endcond
 }
@@ -5780,8 +5650,10 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _div;
+        template<typename x, typename y>
+        using div = typename _div<x, y>::type;
     }
     /// \endcond
     /// \ingroup number
@@ -5809,39 +5681,17 @@ namespace metal {
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, sub, mul, mod, pow
     template<typename... nums>
-    using div = detail::call<detail::_div<nums...>::template type>;
-}
-#include <initializer_list>
-namespace metal {
+    using div = fold_left<lambda<detail::div>, nums..., number<1>>;
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _div {};
-#if defined(METAL_WORKAROUND)
-        template<typename x, typename y>
-        struct _div_impl {};
-        template<int_ x, int_ y>
-        struct _div_impl<number<x>, number<y>> : number<x / y> {};
         template<int_ x>
-        struct _div_impl<number<x>, number<0>> {};
-        template<typename x, typename y>
-        using div_impl = typename _div_impl<x, y>::type;
-        template<int_... ns>
-        struct _div<number<ns>...> {
-            template<typename... _>
-            using type = fold_left<lambda<div_impl>, number<ns>..., _...>;
+        struct _div<number<x>, number<0>> {};
+        template<int_ x, int_ y>
+        struct _div<number<x>, number<y>> {
+            using type = number<x / y>;
         };
-#else
-        template<typename... _>
-        constexpr int_ div_impl(int_ head, _... tail) {
-            return void(std::initializer_list<int_>{(head /= tail)...}), head;
-        }
-        template<int_... ns>
-        struct _div<number<ns>...> {
-            template<typename... _>
-            using type = number<div_impl((void(sizeof...(_)), ns)...)>;
-        };
-#endif
     }
     /// \endcond
 }
@@ -5854,8 +5704,10 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... mod>
+        template<typename x, typename y>
         struct _mod;
+        template<typename x, typename y>
+        using mod = typename _mod<x, y>::type;
     }
     /// \endcond
     /// \ingroup number
@@ -5883,39 +5735,17 @@ namespace metal {
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, sub, mul, div, pow
     template<typename... nums>
-    using mod = detail::call<detail::_mod<nums...>::template type>;
-}
-#include <initializer_list>
-namespace metal {
+    using mod = fold_left<lambda<detail::mod>, if_<is_number<nums>, nums>...>;
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _mod {};
-#if defined(METAL_WORKAROUND)
-        template<typename x, typename y>
-        struct _mod_impl {};
-        template<int_ x, int_ y>
-        struct _mod_impl<number<x>, number<y>> : number<x % y> {};
         template<int_ x>
-        struct _mod_impl<number<x>, number<0>> {};
-        template<typename x, typename y>
-        using mod_impl = typename _mod_impl<x, y>::type;
-        template<int_... ns>
-        struct _mod<number<ns>...> {
-            template<typename... _>
-            using type = fold_left<lambda<mod_impl>, number<ns>..., _...>;
+        struct _mod<number<x>, number<0>> {};
+        template<int_ x, int_ y>
+        struct _mod<number<x>, number<y>> {
+            using type = number<x % y>;
         };
-#else
-        template<typename... _>
-        constexpr int_ mod_impl(int_ head, _... tail) {
-            return void(std::initializer_list<int_>{(head %= tail)...}), head;
-        }
-        template<int_... ns>
-        struct _mod<number<ns>...> {
-            template<typename... _>
-            using type = number<mod_impl((void(sizeof...(_)), ns)...)>;
-        };
-#endif
     }
     /// \endcond
 }
@@ -5928,8 +5758,10 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename x, typename y>
         struct _mul;
+        template<typename x, typename y>
+        using mul = typename _mul<x, y>::type;
     }
     /// \endcond
     /// \ingroup number
@@ -5956,37 +5788,14 @@ namespace metal {
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, sub, div, mod, pow
     template<typename... nums>
-    using mul = detail::call<detail::_mul<nums...>::template type>;
-}
-#include <initializer_list>
-namespace metal {
+    using mul = fold_left<lambda<detail::mul>, nums..., number<1>>;
     /// \cond
     namespace detail {
-        template<typename... nums>
-        struct _mul {};
-#if defined(METAL_WORKAROUND)
         template<typename x, typename y>
-        using mul_impl = number<x::value * y::value>;
-        template<int_... ns>
-        struct _mul<number<ns>...> {
-            template<typename... _>
-            using type = fold_left<lambda<mul_impl>, number<ns>..., _...>;
-        };
-#else
-        template<typename... _>
-        constexpr int_ mul_impl(int_ head, _... tail) {
-            return void(std::initializer_list<int_>{(head *= tail)...}), head;
-        }
-        template<int_... ns>
-        struct _mul<number<ns>...> {
-            template<typename... _>
-            using type = number<mul_impl((void(sizeof...(_)), ns)...)>;
-        };
-#endif
-        template<>
-        struct _mul<> {
-            template<typename...>
-            using type = number<1>;
+        struct _mul {};
+        template<int_ x, int_ y>
+        struct _mul<number<x>, number<y>> {
+            using type = number<x * y>;
         };
     }
     /// \endcond
@@ -6000,8 +5809,10 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... nums>
+        template<typename base, typename exp, typename ret = number<1>>
         struct _pow;
+        template<typename base, typename exp>
+        using pow = typename _pow<base, exp>::type;
     }
     /// \endcond
     /// \ingroup number
@@ -6035,35 +5846,23 @@ namespace metal {
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, sub, mul, div, mod
     template<typename... nums>
-    using pow = detail::call<detail::_pow<nums...>::template type>;
-}
-namespace metal {
+    using pow = fold_left<lambda<detail::pow>, nums..., number<1>>;
     /// \cond
     namespace detail {
-        template<typename base, typename exp, typename ret = number<1>>
-        struct _pow_impl {};
-        template<int_ b, int_ e, int_ r>
-        struct _pow_impl<number<b>, number<e>, number<r>>
-            : _pow_impl<
-                  number<b * b>, number<e / 2>, number<(e % 2 ? b * r : r)>> {};
-        template<int_ b, int_ r>
-        struct _pow_impl<number<b>, number<0>, number<r>> : number<1> {};
-        template<int_ b, int_ r>
-        struct _pow_impl<number<b>, number<1>, number<r>> : number<b * r> {};
-        template<int_ b, int_ r>
-        struct _pow_impl<number<b>, number<-1>, number<r>>
-            : number<1 / (b * r)> {};
-        template<int_ r>
-        struct _pow_impl<number<0>, number<-1>, number<r>> {};
-        template<typename x, typename y>
-        using pow_impl = typename _pow_impl<x, y>::type;
-        template<typename... nums>
+        template<typename base, typename exp, typename ret>
         struct _pow {};
-        template<int_... ns>
-        struct _pow<number<ns>...> {
-            template<typename... _>
-            using type = fold_left<lambda<pow_impl>, number<ns>..., _...>;
+        template<int_ b, int_ e, int_ r>
+        struct _pow<number<b>, number<e>, number<r>>
+            : _pow<number<b * b>, number<e / 2>, number<(e % 2 ? b * r : r)>> {
         };
+        template<int_ b, int_ r>
+        struct _pow<number<b>, number<0>, number<r>> : number<1> {};
+        template<int_ b, int_ r>
+        struct _pow<number<b>, number<1>, number<r>> : number<b * r> {};
+        template<int_ b, int_ r>
+        struct _pow<number<b>, number<-1>, number<r>> : number<1 / (b * r)> {};
+        template<int_ r>
+        struct _pow<number<0>, number<-1>, number<r>> {};
     }
     /// \endcond
 }
@@ -6089,5 +5888,5 @@ namespace metal {
 #endif
 /// \defgroup metal Metal
 /// \namespace metal
-/// \brief Metaprogramming algorithms.
+/// \brief Metal
 #endif
