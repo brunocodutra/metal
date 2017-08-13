@@ -78,6 +78,7 @@ function(test_units _root _lib _prefix)
         endif()
 
         if(TARGET ${target})
+            add_dependencies(${target} ${_lib})
             add_dependencies(${_root} ${target})
             test(${target})
         endif()
@@ -128,6 +129,7 @@ function(test_headers _root _lib _prefix)
         endif()
 
         if(TARGET ${target})
+            add_dependencies(${target} ${_lib})
             add_dependencies(${_root} ${target})
             test(${target})
         endif()
@@ -213,6 +215,7 @@ target_link_libraries(dependent ${_lib})
 
     ExternalProject_Add(${_target}
         URL ""
+        DEPENDS ${_lib}
         BUILD_ALWAYS 1
         EXCLUDE_FROM_ALL 1
         PREFIX ${prefix}
