@@ -136,6 +136,61 @@ function(test_headers _root _lib _prefix)
     endforeach()
 endfunction()
 
+function(test_linking _root _lib _prefix)
+    set(options)
+    set(one_value_args)
+    set(multi_value_args EXCLUDE)
+    cmake_parse_arguments(ARGS "${options}" "${one_value_args}" "${multi_value_args}" ${ARGN})
+
+    if(NOT ARGS_EXCLUDE)
+        set(ARGS_EXCLUDE "^$")
+    else()
+        string(REPLACE ";" "|" ARGS_EXCLUDE "${ARGS_EXCLUDE}")
+    endif()
+
+    if(NOT IS_ABSOLUTE ${_prefix})
+        set(_prefix "${CMAKE_CURRENT_SOURCE_DIR}/${_prefix}")
+    endif()
+
+    if(NOT IS_DIRECTORY ${_prefix} OR NOT EXISTS ${_prefix})
+        message(FATAL_ERROR "'${_prefix}' is not a valid directory.")
+    endif()
+
+    if(NOT TARGET ${_root})
+        add_custom_target(${_root})
+    endif()
+
+    get_tree_nodes(${_prefix} nodes)
+    foreach(node ${nodes})
+        if(node MATCHES ${ARGS_EXCLUDE})
+            continue()
+        endif()
+
+        set(target ${_root}.${node})
+        set(node "${_prefix}/${node}")
+        if(EXISTS "${node}.hpp")
+            set(src_a "${CMAKE_CURRENT_BINARY_DIR}/${target}.a.cpp")
+            set(src_b "${CMAKE_CURRENT_BINARY_DIR}/${target}.b.cpp")
+
+            file(WRITE ${src_a} "#include \"${node}.hpp\"")
+            file(WRITE ${src_b} "#include \"${node}.hpp\"")
+
+            add_library(${target} SHARED EXCLUDE_FROM_ALL ${src_a} ${src_b})
+            target_link_libraries(${target} ${_lib})
+        endif()
+
+        if(IS_DIRECTORY ${node})
+            test_linking(${target} ${_lib} ${node} ${ARGN})
+        endif()
+
+        if(TARGET ${target})
+            add_dependencies(${target} ${_lib})
+            add_dependencies(${_root} ${target})
+            test(${target})
+        endif()
+    endforeach()
+endfunction()
+
 find_program(CLANG_FORMAT NAMES clang-format)
 function(test_formatting _root _lib _prefix)
     set(options)
