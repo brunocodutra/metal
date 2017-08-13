@@ -166,7 +166,7 @@ function(test_formatting _root _lib _prefix)
         endif()
 
         set(target ${_root}.${node})
-        set(formatted "${CMAKE_CURRENT_BINARY_DIR}/${node}.formatted.hpp")
+        set(formatted "${CMAKE_CURRENT_BINARY_DIR}/${target}.hpp")
         set(node "${_prefix}/${node}")
         set(original "${node}.hpp")
         if(EXISTS ${original})
