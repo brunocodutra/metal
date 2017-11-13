@@ -4,7 +4,7 @@
 
 set(THIS_FILE ${CMAKE_CURRENT_LIST_FILE})
 
-function(singlify _entry _output)
+function(bundle _entry _output)
     set(options)
     set(one_value_args EXCLUDED)
     set(multi_value_args EXCLUDE INCLUDE_DIRS)
@@ -50,7 +50,7 @@ function(singlify _entry _output)
         if(next)
             if(NOT next IN_LIST exclude)
                 list(APPEND exclude ${next})
-                singlify(${next} output
+                bundle(${next} output
                     EXCLUDE ${exclude}
                     EXCLUDED exclude
                     INCLUDE_DIRS ${ARGS_INCLUDE_DIRS}
@@ -70,33 +70,34 @@ endfunction()
 
 function(add_header_library _name _entry)
     get_filename_component(output ${_entry} NAME)
-    set(output_dir "${CMAKE_BINARY_DIR}/singlified/${_name}")
+    set(output_dir "${CMAKE_BINARY_DIR}/bundle/${_name}")
     set(output "${output_dir}/${output}")
 
     get_filename_component(include_dir ${_entry} DIRECTORY)
     file(GLOB_RECURSE headers "${include_dir}/*.hpp")
 
-    set(singlify_cmake "${CMAKE_BINARY_DIR}/${_name}.singlify.cmake")
-    file(WRITE ${singlify_cmake} "\
+    set(bundle_cmake "${CMAKE_BINARY_DIR}/${_name}.bundle.cmake")
+    file(WRITE ${bundle_cmake} "\
 cmake_minimum_required(VERSION ${CMAKE_VERSION})
 include(${THIS_FILE})
-singlify(${_entry} single INCLUDE_DIRS ${include_dir})
+bundle(${_entry} single INCLUDE_DIRS ${include_dir})
 file(WRITE \"${output}\" \"\${single}\")
 "
     )
 
-    add_custom_command(OUTPUT ${output}
-        COMMAND ${CMAKE_COMMAND} -P ${singlify_cmake}
-        COMMENT "singlifying ${_name}..."
+    add_custom_command(
+        OUTPUT ${output}
+        COMMAND ${CMAKE_COMMAND} -P ${bundle_cmake}
+        COMMENT "bundling ${_name}..."
         DEPENDS ${headers}
     )
 
-    add_custom_target(${_name}.singlify ALL DEPENDS ${output} SOURCES ${headers})
+    add_custom_target(${_name}.bundle ALL DEPENDS ${output} SOURCES ${headers})
 
     add_library(${_name} INTERFACE)
     target_include_directories(${_name} INTERFACE $<BUILD_INTERFACE:${output_dir}>)
 
-    add_dependencies(${_name} ${_name}.singlify)
+    add_dependencies(${_name} ${_name}.bundle)
 endfunction()
 
 include(CMakePackageConfigHelpers)
