@@ -128,7 +128,7 @@ include(\"\${${name}_CMAKE_DIR}/${name}Targets.cmake\")
 
     write_basic_package_version_file(${version_file}
         VERSION ${version}
-        COMPATIBILITY AnyNewerVersion
+        COMPATIBILITY SameMajorVersion
     )
 
     install(TARGETS ${_lib} EXPORT ${name}Targets)
