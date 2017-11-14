@@ -70,14 +70,14 @@ endfunction()
 
 function(add_header_library _name _entry)
     get_filename_component(output ${_entry} NAME)
-    set(output_dir "${CMAKE_BINARY_DIR}/bundle/${_name}")
+    set(output_dir "${CMAKE_BINARY_DIR}/${_name}/include")
     set(output "${output_dir}/${output}")
 
     get_filename_component(include_dir ${_entry} DIRECTORY)
     file(GLOB_RECURSE headers "${include_dir}/*.hpp")
 
-    set(bundle_cmake "${CMAKE_BINARY_DIR}/${_name}.bundle.cmake")
-    file(WRITE ${bundle_cmake} "\
+    set(bundle "${CMAKE_BINARY_DIR}/${_name}/bundle.cmake")
+    file(WRITE ${bundle} "\
 cmake_minimum_required(VERSION ${CMAKE_VERSION})
 include(${THIS_FILE})
 bundle(${_entry} single INCLUDE_DIRS ${include_dir})
@@ -87,7 +87,7 @@ file(WRITE \"${output}\" \"\${single}\")
 
     add_custom_command(
         OUTPUT ${output}
-        COMMAND ${CMAKE_COMMAND} -P ${bundle_cmake}
+        COMMAND ${CMAKE_COMMAND} -P ${bundle}
         COMMENT "bundling ${_name}..."
         DEPENDS ${headers}
     )
@@ -109,9 +109,10 @@ function(deploy_header_library _lib)
 
     set(include_dest "include")
     set(cmake_dest "lib/cmake/${name}")
+    set(cmake_src "${CMAKE_BINARY_DIR}/${name}/${cmake_dest}")
 
-    set(config_file "${CMAKE_BINARY_DIR}/${name}Config.cmake")
-    set(version_file "${CMAKE_BINARY_DIR}/${name}ConfigVersion.cmake")
+    set(config_file "${cmake_src}/${name}Config.cmake")
+    set(version_file "${cmake_src}/${name}ConfigVersion.cmake")
 
     file(WRITE ${config_file} "include(\${CMAKE_CURRENT_LIST_DIR}/${name}Targets.cmake)")
 
