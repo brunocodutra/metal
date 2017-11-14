@@ -2,24 +2,44 @@
 # Distributed under the Boost Software License, Version 1.0.
 # See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
+include(Configure)
+
 enable_testing()
 
 function(test _target)
+    set(driver ${_target})
     get_target_property(target_type ${_target} TYPE)
+
+    if(target_type STREQUAL "EXECUTABLE"
+    OR target_type STREQUAL "STATIC_LIBRARY"
+    OR target_type STREQUAL "SHARED_LIBRARY")
+        target_compile_flags(${_target} PRIVATE -W)
+        target_compile_flags(${_target} PRIVATE -Wextra)
+        target_compile_flags(${_target} PRIVATE -Wpedantic)
+
+        if(NOT MSVC)
+            target_compile_flags(${_target} PRIVATE -Wall)
+        endif()
+
+        add_custom_target(${_target}.build
+            COMMAND ${CMAKE_COMMAND} --build . --target ${_target} --config $<CONFIG>
+            WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+        )
+        add_dependencies(${_target}.build ${_target})
+        set(driver ${_target}.build)
+    endif()
+
     if(target_type STREQUAL "EXECUTABLE")
-        add_custom_target(${_target}.driver
-            COMMAND ${CMAKE_COMMAND} --build . --target ${_target} --config ${CMAKE_BUILD_TYPE}
+        add_custom_target(${_target}.run
             COMMAND "$<TARGET_FILE:${_target}>"
             WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         )
-    else()
-        add_custom_target(${_target}.driver
-            COMMAND ${CMAKE_COMMAND} --build . --target ${_target} --config ${CMAKE_BUILD_TYPE}
-            WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-        )
+        add_dependencies(${_target}.run ${_target}.build)
+        set(driver ${_target}.run)
     endif()
+
     add_test(NAME ${_target}
-        COMMAND ${CMAKE_COMMAND} --build . --target ${_target}.driver
+        COMMAND ${CMAKE_COMMAND} --build . --target ${driver}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     )
 endfunction()
@@ -70,7 +90,7 @@ function(test_units _root _lib _prefix)
         set(node "${_prefix}/${node}")
         if(EXISTS "${node}.cpp")
             add_executable(${target} EXCLUDE_FROM_ALL "${node}.cpp")
-            target_link_libraries(${target} ${_lib})
+            target_link_libraries(${target} PRIVATE ${_lib})
         endif()
 
         if(IS_DIRECTORY ${node})
@@ -121,7 +141,7 @@ function(test_headers _root _lib _prefix)
             set(src "${CMAKE_CURRENT_BINARY_DIR}/${target}.cpp")
             file(WRITE ${src} "#include \"${node}.hpp\"")
             add_library(${target} STATIC EXCLUDE_FROM_ALL ${src})
-            target_link_libraries(${target} ${_lib})
+            target_link_libraries(${target} PRIVATE ${_lib})
         endif()
 
         if(IS_DIRECTORY ${node})
@@ -176,7 +196,7 @@ function(test_linking _root _lib _prefix)
             file(WRITE ${src_b} "#include \"${node}.hpp\"")
 
             add_library(${target} SHARED EXCLUDE_FROM_ALL ${src_a} ${src_b})
-            target_link_libraries(${target} ${_lib})
+            target_link_libraries(${target} PRIVATE ${_lib})
         endif()
 
         if(IS_DIRECTORY ${node})
@@ -260,7 +280,7 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION})
 project(dependent CXX)
 find_package(${_lib} ${_version} EXACT REQUIRED)
 add_executable(dependent main.cpp)
-target_link_libraries(dependent ${_lib})
+target_link_libraries(dependent PRIVATE ${_lib})
 "
     )
 
