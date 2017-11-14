@@ -105,39 +105,27 @@ include(CMakePackageConfigHelpers)
 function(deploy_header_library _lib)
     get_target_property(name ${_lib} NAME)
     get_target_property(version ${_lib} INTERFACE_LIB_VERSION)
-    get_target_property(features ${_lib} INTERFACE_COMPILE_FEATURES)
-    get_target_property(include_dirs ${_lib} INTERFACE_INCLUDE_DIRECTORIES)
+    get_target_property(dirs ${_lib} INTERFACE_INCLUDE_DIRECTORIES)
 
-    target_include_directories(${_lib} INTERFACE $<INSTALL_INTERFACE:include>)
-
-    if(WIN32 AND NOT CYGWIN)
-        set(cmake_install_dir CMake)
-        set(include_install_dir "${name}/include")
-    else()
-        set(cmake_install_dir "share/cmake/${name}")
-        set(include_install_dir include)
-    endif()
+    set(include_dest "include")
+    set(cmake_dest "lib/cmake/${name}")
 
     set(config_file "${CMAKE_BINARY_DIR}/${name}Config.cmake")
     set(version_file "${CMAKE_BINARY_DIR}/${name}ConfigVersion.cmake")
 
-    file(WRITE ${config_file} "\
-get_filename_component(${name}_CMAKE_DIR \"\${CMAKE_CURRENT_LIST_FILE}\" PATH)
-include(\"\${${name}_CMAKE_DIR}/${name}Targets.cmake\")
-"
-    )
+    file(WRITE ${config_file} "include(\${CMAKE_CURRENT_LIST_DIR}/${name}Targets.cmake)")
 
     write_basic_package_version_file(${version_file}
         VERSION ${version}
         COMPATIBILITY SameMajorVersion
     )
 
-    install(TARGETS ${_lib} EXPORT ${name}Targets)
-    install(EXPORT ${name}Targets DESTINATION ${cmake_install_dir})
-    install(FILES ${config_file} ${version_file} DESTINATION ${cmake_install_dir})
+    install(TARGETS ${_lib} EXPORT ${name}Targets INCLUDES DESTINATION ${include_dest})
+    install(EXPORT ${name}Targets DESTINATION ${cmake_dest})
+    install(FILES ${config_file} ${version_file} DESTINATION ${cmake_dest})
 
-    foreach(dir ${include_dirs})
-        install(DIRECTORY ${dir}/ DESTINATION ${include_install_dir})
+    foreach(dir ${dirs})
+        install(DIRECTORY ${dir}/ DESTINATION ${include_dest})
     endforeach()
 endfunction()
 
