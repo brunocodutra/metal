@@ -113,6 +113,7 @@ function(deploy_header_library _lib)
 
     set(config_file "${cmake_src}/${name}Config.cmake")
     set(version_file "${cmake_src}/${name}ConfigVersion.cmake")
+    set(targets_file "${cmake_src}/${name}Targets.cmake")
 
     file(WRITE ${config_file} "include(\${CMAKE_CURRENT_LIST_DIR}/${name}Targets.cmake)")
 
@@ -121,9 +122,10 @@ function(deploy_header_library _lib)
         COMPATIBILITY SameMajorVersion
     )
 
+    install(FILES ${config_file} ${version_file} DESTINATION ${cmake_dest})
     install(TARGETS ${_lib} EXPORT ${name}Targets INCLUDES DESTINATION ${include_dest})
     install(EXPORT ${name}Targets DESTINATION ${cmake_dest})
-    install(FILES ${config_file} ${version_file} DESTINATION ${cmake_dest})
+    export(TARGETS ${_lib} FILE ${targets_file})
 
     foreach(dir ${dirs})
         install(DIRECTORY ${dir}/ DESTINATION ${include_dest})
