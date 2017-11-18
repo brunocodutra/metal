@@ -91,7 +91,7 @@ file(WRITE \"${output}\" \"\${single}\")
         DEPENDS ${headers}
     )
 
-    add_custom_target(${_name}.singlify DEPENDS ${output} SOURCES ${headers})
+    add_custom_target(${_name}.singlify ALL DEPENDS ${output} SOURCES ${headers})
 
     add_library(${_name} INTERFACE)
     target_include_directories(${_name} INTERFACE $<BUILD_INTERFACE:${output_dir}>)
@@ -138,12 +138,6 @@ include(\"\${${name}_CMAKE_DIR}/${name}Targets.cmake\")
     foreach(dir ${include_dirs})
         install(DIRECTORY ${dir}/ DESTINATION ${include_install_dir})
     endforeach()
-
-    if(NOT TARGET deploy)
-        add_custom_target(deploy ALL)
-    endif()
-
-    add_dependencies(deploy ${_lib})
 endfunction()
 
 function(deploy_doc _lib _doc)
@@ -157,10 +151,4 @@ function(deploy_doc _lib _doc)
     endif()
 
     install(DIRECTORY ${dir}/ DESTINATION ${install_dir} OPTIONAL)
-
-    if(NOT TARGET deploy)
-        add_custom_target(deploy)
-    endif()
-
-    add_dependencies(deploy ${_doc})
 endfunction()
