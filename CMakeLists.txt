@@ -12,7 +12,6 @@ project(Metal CXX)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-include(Configure)
 include(Deploy)
 include(Test)
 
@@ -41,8 +40,6 @@ set_target_properties(Metal PROPERTIES
 )
 
 deploy_header_library(Metal)
-
-target_compile_flags(Metal INTERFACE -stdlib=libc++ LIBS c++ c++abi)
 
 add_subdirectory(doc)
 add_subdirectory(example)

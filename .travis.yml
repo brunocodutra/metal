@@ -52,7 +52,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=4.7
+        env: VERSION=4.7 CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -63,7 +63,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=4.8
+        env: VERSION=4.8 CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -74,7 +74,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=4.9
+        env: VERSION=4.9 CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -85,7 +85,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=5
+        env: VERSION=5 CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -96,7 +96,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=6
+        env: VERSION=6 CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -107,7 +107,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=7
+        env: VERSION=7 CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -118,7 +118,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=3.4
+        env: VERSION=3.4 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -134,7 +134,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=3.5
+        env: VERSION=3.5 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -150,7 +150,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=3.6
+        env: VERSION=3.6 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -166,7 +166,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=3.7
+        env: VERSION=3.7 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -182,7 +182,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=3.8
+        env: VERSION=3.8 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -198,7 +198,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=3.9
+        env: VERSION=3.9 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -214,7 +214,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=4.0
+        env: VERSION=4.0 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -230,7 +230,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=5.0
+        env: VERSION=5.0 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
         addons:
             apt:
                 packages:
@@ -244,21 +244,32 @@ matrix:
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: osx
+        compiler: clang++
         env: CHECK_DOC=true
 
       - os: osx
+        compiler: clang++
+        env: CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
         osx_image: xcode6.4
 
       - os: osx
+        compiler: clang++
+        env: CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
         osx_image: xcode7.3
 
       - os: osx
+        compiler: clang++
+        env: CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
         osx_image: xcode8
 
       - os: osx
+        compiler: clang++
+        env: CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
         osx_image: xcode8.1
 
       - os: osx
+        compiler: clang++
+        env: CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
         osx_image: xcode8.2
 
 before_install:
@@ -278,6 +289,22 @@ before_install:
 
   - GITHUB_PATH="${TRAVIS_BUILD_DIR}/github/"
   - mkdir -p "${GITHUB_PATH}"
+
+  - |
+    if [[ -n "${VERSION}" ]]
+    then
+        export CC="${CC}-${VERSION}"
+        export CXX="${CXX}-${VERSION}"
+    fi
+
+  - |
+    function publish {
+        git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=$2 "${GITHUB_PATH}/$2" &> /dev/null || return 1
+        cp -r "${GITHUB_PATH}/$2/.git/" $1                                                                                        &> /dev/null || return 2
+        git -C $1 add --all .                                                                                                     &> /dev/null || return 3
+        git -C $1 commit --allow-empty -m "update to $(git -C ${SOURCE_PATH} rev-parse --short HEAD)"                             &> /dev/null || return 4
+        git -C $1 push origin $2                                                                                                  &> /dev/null || return 5
+    }
 
 install:
   - |
@@ -315,17 +342,12 @@ install:
         travis_retry git clone --depth 1 --recursive --quiet ${BOOST_URL} ${DEPS_PATH}/boost || exit 1
     fi
 
-    (cd "${DEPS_PATH}/boost" && ./bootstrap.sh && ./b2 headers)
+  - (cd "${DEPS_PATH}/boost" && ./bootstrap.sh && ./b2 headers)
 
 before_script:
-  - CMAKE_ARGS=("${SOURCE_PATH}")
+  - CMAKE_ARGS+=("${SOURCE_PATH}")
   - CMAKE_ARGS+=("-DCMAKE_INSTALL_PREFIX=${INSTALL_PATH}")
-
-  - |
-    if [[ -n "${CXX}" && -n "${CXXVER}" ]]
-    then
-        CMAKE_ARGS+=("-DCMAKE_CXX_COMPILER=${CXX}-${CXXVER}")
-    fi
+  - CMAKE_ARGS+=("-DBOOST_ROOT=${DEPS_PATH}/boost")
 
   - |
     if [[ -n "${CHECK_FORMATTING}" ]]
@@ -333,19 +355,7 @@ before_script:
         CMAKE_ARGS+=("-DCLANG_FORMAT=${CHECK_FORMATTING}")
     fi
 
-    CMAKE_ARGS+=("-DCMAKE_CXX_FLAGS=-DMETAL_TEST_GEN_LIMIT=9")
-    CMAKE_ARGS+=("-DBOOST_ROOT=${DEPS_PATH}/boost")
-
   - (cd "${BUILD_PATH}" && cmake ${CMAKE_ARGS[@]})
-
-  - |
-    function publish {
-        git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=$2 "${GITHUB_PATH}/$2" &> /dev/null || return 1
-        cp -r "${GITHUB_PATH}/$2/.git/" $1                                                                                        &> /dev/null || return 2
-        git -C $1 add --all .                                                                                                     &> /dev/null || return 3
-        git -C $1 commit --allow-empty -m "update to $(git -C ${SOURCE_PATH} rev-parse --short HEAD)"                       &> /dev/null || return 4
-        git -C $1 push origin $2                                                                                                  &> /dev/null || return 5
-    }
 
 script:
   - |
