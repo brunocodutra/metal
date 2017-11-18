@@ -4,6 +4,7 @@
 
 environment:
     matrix:
+      - DEPLOY: true
       - CHECK_DOC: true
 
       - COMPILER: Visual Studio 14 2015
@@ -41,10 +42,14 @@ before_build:
   - if defined BINDIR (set "PATH=%BINDIR%;%PATH%")
 
   - set "SOURCE_PATH=%APPVEYOR_BUILD_FOLDER%"
+
   - set "BUILD_PATH=%APPVEYOR_BUILD_FOLDER%\build"
   - mkdir "%BUILD_PATH%"
 
-  - set "CMAKE_ARGS=%SOURCE_PATH%"
+  - set "INSTALL_PATH=%APPVEYOR_BUILD_FOLDER%\install"
+  - mkdir "%INSTALL_PATH%"
+
+  - set "CMAKE_ARGS=%SOURCE_PATH% -DCMAKE_INSTALL_PREFIX="%INSTALL_PATH%""
   - if defined GENERATOR (set "CMAKE_ARGS=%CMAKE_ARGS% -G"%GENERATOR%"")
   - set "CMAKE_ARGS=%CMAKE_ARGS% -DCMAKE_BUILD_TYPE=%CONFIGURATION% -DBOOST_ROOT=C:/Libraries/boost/"
 
@@ -53,7 +58,9 @@ before_build:
   - pushd "%BUILD_PATH%" && cmake %CMAKE_ARGS% & popd
 
 build_script:
-  - if "%CHECK_DOC%" equ "true" (
+  - if "%DEPLOY%" equ "true" (
+        cmake --build "%BUILD_PATH%" --target install --config "%CONFIGURATION%"
+    ) else if "%CHECK_DOC%" equ "true" (
         cmake --build "%BUILD_PATH%" --target doc --config "%CONFIGURATION%"
     ) else (
         pushd "%BUILD_PATH%" && ctest -C "%CONFIGURATION%" --output-on-failure -E ^test.format & popd
