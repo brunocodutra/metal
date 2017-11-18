@@ -42,16 +42,6 @@ set_target_properties(Metal PROPERTIES
 
 deploy_header_library(Metal)
 
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-target_compile_flags(Metal INTERFACE -W)
-target_compile_flags(Metal INTERFACE -Wextra)
-target_compile_flags(Metal INTERFACE -pedantic)
-
-if(NOT MSVC)
-    target_compile_flags(Metal INTERFACE -Wall)
-endif()
-
 target_compile_flags(Metal INTERFACE -stdlib=libc++ LIBS c++ c++abi)
 
 add_subdirectory(doc)
