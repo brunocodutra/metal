@@ -15,7 +15,7 @@ if(CLANG_FORMAT)
 endif()
 
 include(CheckCXXCompilerFlag)
-function(target_compile_flags _target _visibility _flag)
+function(target_weak_compile_options _target _visibility _flag)
     set(result "has${_flag}")
     string(REGEX REPLACE "[ ]" "" result "${result}")
     string(REGEX REPLACE "[+]" "x" result "${result}")
@@ -34,12 +34,12 @@ function(test _target)
     if(target_type STREQUAL "EXECUTABLE"
     OR target_type STREQUAL "STATIC_LIBRARY"
     OR target_type STREQUAL "SHARED_LIBRARY")
-        target_compile_flags(${_target} PRIVATE -W)
-        target_compile_flags(${_target} PRIVATE -Wextra)
-        target_compile_flags(${_target} PRIVATE -Wpedantic)
+        target_weak_compile_options(${_target} PRIVATE -W)
+        target_weak_compile_options(${_target} PRIVATE -Wextra)
+        target_weak_compile_options(${_target} PRIVATE -Wpedantic)
 
         if(NOT MSVC)
-            target_compile_flags(${_target} PRIVATE -Wall)
+            target_weak_compile_options(${_target} PRIVATE -Wall)
         endif()
 
         if(CLANG_TIDY)
