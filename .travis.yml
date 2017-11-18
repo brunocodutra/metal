@@ -52,7 +52,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: VERSION=4.7 CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=4.7
         addons:
             apt:
                 packages:
@@ -63,7 +63,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: VERSION=4.8 CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=4.8
         addons:
             apt:
                 packages:
@@ -74,7 +74,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: VERSION=4.9 CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=4.9
         addons:
             apt:
                 packages:
@@ -85,7 +85,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: VERSION=5 CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=5
         addons:
             apt:
                 packages:
@@ -96,7 +96,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: VERSION=6 CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=6
         addons:
             apt:
                 packages:
@@ -107,7 +107,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: VERSION=7 CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=7
         addons:
             apt:
                 packages:
@@ -118,7 +118,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: VERSION=3.4 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=3.4 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -134,7 +134,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: VERSION=3.5 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=3.5 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -150,7 +150,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: VERSION=3.6 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=3.6 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -166,7 +166,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: VERSION=3.7 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=3.7 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -182,7 +182,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: VERSION=3.8 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=3.8 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -198,7 +198,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: VERSION=3.9 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=3.9 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -214,7 +214,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: VERSION=4.0 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=4.0 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -230,7 +230,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: VERSION=5.0 CXXFLAGS="-stdlib=libc++ -DMETAL_TEST_GEN_LIMIT=9"
+        env: VERSION=5.0 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -249,27 +249,27 @@ matrix:
 
       - os: osx
         compiler: clang++
-        env: CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
+        env:
         osx_image: xcode6.4
 
       - os: osx
         compiler: clang++
-        env: CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
+        env:
         osx_image: xcode7.3
 
       - os: osx
         compiler: clang++
-        env: CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
+        env:
         osx_image: xcode8
 
       - os: osx
         compiler: clang++
-        env: CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
+        env:
         osx_image: xcode8.1
 
       - os: osx
         compiler: clang++
-        env: CXXFLAGS="-DMETAL_TEST_GEN_LIMIT=9"
+        env:
         osx_image: xcode8.2
 
 before_install:
