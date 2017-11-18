@@ -2,8 +2,6 @@
 # Distributed under the Boost Software License, Version 1.0.
 # See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 
-include(Configure)
-
 enable_testing()
 
 find_program(CLANG_TIDY NAMES clang-tidy)
@@ -15,6 +13,19 @@ find_program(CLANG_FORMAT NAMES clang-format)
 if(CLANG_FORMAT)
     message(STATUS "which clang-format: ${CLANG_FORMAT}")
 endif()
+
+include(CheckCXXCompilerFlag)
+function(target_compile_flags _target _visibility _flag)
+    set(result "has${_flag}")
+    string(REGEX REPLACE "[ ]" "" result "${result}")
+    string(REGEX REPLACE "[+]" "x" result "${result}")
+    string(REGEX REPLACE "[^a-zA-Z0-9_]" "_" result "${result}")
+
+    check_cxx_compiler_flag(${_flag} ${result})
+    if(${result})
+        target_compile_options(${_target} ${_visibility} ${_flag})
+    endif()
+endfunction()
 
 function(test _target)
     set(driver ${_target})
