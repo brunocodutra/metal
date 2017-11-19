@@ -249,28 +249,35 @@ matrix:
 
       - os: osx
         compiler: clang++
-        env:
         osx_image: xcode6.4
 
       - os: osx
         compiler: clang++
-        env:
         osx_image: xcode7.3
 
       - os: osx
         compiler: clang++
-        env:
         osx_image: xcode8
 
       - os: osx
         compiler: clang++
-        env:
         osx_image: xcode8.1
 
       - os: osx
         compiler: clang++
-        env:
         osx_image: xcode8.2
+
+      - os: osx
+        compiler: clang++
+        osx_image: xcode8.3
+
+      - os: osx
+        compiler: clang++
+        osx_image: xcode9
+
+      - os: osx
+        compiler: clang++
+        osx_image: xcode9.1
 
 before_install:
   - git config --global user.name "Travis Bot"
