@@ -75,8 +75,10 @@ namespace metal {
     namespace detail {
         template<typename... vals>
         struct appender {
-            template<template<typename...> class expr, typename... _>
-            using type = expr<vals..., _...>;
+            template<typename... _>
+            using append = appender<vals..., _...>;
+
+            using type = list<vals...>;
         };
 
         template<std::size_t n>
@@ -113,8 +115,7 @@ namespace metal {
                 typename _96, typename _97, typename _98, typename _99,
                 typename... tail>
             using type = typename reverser<sizeof...(tail)>::
-                template type<tail...>::template type<
-                    appender,
+                template type<tail...>::template append<
                     /* clang-format off */
                     _99, _98, _97, _96, _95, _94, _93, _92, _91, _90,
                     _89, _88, _87, _86, _85, _84, _83, _82, _81, _80,
@@ -137,15 +138,15 @@ namespace metal {
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename... tail>
             using type = typename reverser<sizeof...(tail)>::
-                template type<tail...>::template type<
-                    appender, _09, _08, _07, _06, _05, _04, _03, _02, _01, _00>;
+                template type<tail...>::template append<
+                    _09, _08, _07, _06, _05, _04, _03, _02, _01, _00>;
         };
 
         template<>
         struct reverser<1> {
             template<typename _00, typename... tail>
             using type = typename reverser<sizeof...(
-                tail)>::template type<tail...>::template type<appender, _00>;
+                tail)>::template type<tail...>::template append<_00>;
         };
 
         template<>
@@ -160,7 +161,7 @@ namespace metal {
         template<typename... vals>
         struct _reverse<list<vals...>> {
             using type = typename reverser<sizeof...(
-                vals)>::template type<vals...>::template type<list>;
+                vals)>::template type<vals...>::type;
         };
 
         template<typename seq>
