@@ -28,7 +28,7 @@ function(target_weak_compile_options _target _visibility _flag)
 endfunction()
 
 function(test _target)
-    set(driver ${_target})
+
     get_target_property(target_type ${_target} TYPE)
 
     if(target_type STREQUAL "EXECUTABLE"
@@ -47,21 +47,15 @@ function(test _target)
                 CXX_CLANG_TIDY "${CLANG_TIDY};-checks=-clang-diagnostic-unused-command-line-argument"
             )
         endif()
-
-        add_custom_target(${_target}.build
-            COMMAND ${CMAKE_COMMAND} --build . --target ${_target} --config $<CONFIG>
-            WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-        )
-        add_dependencies(${_target}.build ${_target})
-        set(driver ${_target}.build)
     endif()
 
+    set(driver ${_target})
     if(target_type STREQUAL "EXECUTABLE")
         add_custom_target(${_target}.run
-            COMMAND "$<TARGET_FILE:${_target}>"
+            COMMAND ${_target}
             WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         )
-        add_dependencies(${_target}.run ${_target}.build)
+        add_dependencies(${_target}.run ${_target})
         set(driver ${_target}.run)
     endif()
 
