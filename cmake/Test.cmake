@@ -60,7 +60,7 @@ function(test _target)
     endif()
 
     add_test(NAME ${_target}
-        COMMAND ${CMAKE_COMMAND} --build . --target ${driver}
+        COMMAND ${CMAKE_COMMAND} --build . --config $<CONFIG> --target ${driver}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     )
 endfunction()
