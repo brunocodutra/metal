@@ -61,7 +61,7 @@ build_script:
     ) else if "%CHECK_DOC%" equ "true" (
         cmake --build "%BUILD_PATH%" --target doc --config "%CONFIGURATION%"
     ) else (
-        pushd "%BUILD_PATH%" && ctest -C "%CONFIGURATION%" --output-on-failure -E ^test.format & popd
+        pushd "%BUILD_PATH%" && ctest -C "%CONFIGURATION%" --output-on-failure -E "^test.(format|header)" & popd
     )
 
 notifications:
