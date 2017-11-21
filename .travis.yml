@@ -368,9 +368,9 @@ script:
   - |
     if [[ "${DEPLOY}" == "true" ]]
     then
-        cmake --build "${BUILD_PATH}" --target install || exit $?
-        tree "${INSTALL_PATH}" || exit $?
-        if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" ]]
+        cmake --build "${BUILD_PATH}" --target doc || exit $?
+        cmake --build "${BUILD_PATH}" --target install && tree "${INSTALL_PATH}" || exit $?
+        if [[ "${TRAVIS_OS_NAME}" == "linux" && "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" ]]
         then
             publish "${INSTALL_PATH}/share/Metal/doc" gh-pages || exit $?
             publish "${INSTALL_PATH}/include/" standalone || exit $?
