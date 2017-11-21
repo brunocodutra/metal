@@ -4,20 +4,10 @@
 
 cmake_minimum_required(VERSION 3.8)
 
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "")
-endif()
+include(cmake/Deploy.cmake)
+include(cmake/Test.cmake)
 
 project(Metal CXX)
-
-option(METAL_STRICT  "treat compiler warnings as errors" OFF)
-option(METAL_VERBOSE "increase output verbosity"         OFF)
-
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-
-include(Configure)
-include(Deploy)
-include(Test)
 
 set(METAL_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
@@ -44,32 +34,6 @@ set_target_properties(Metal PROPERTIES
 )
 
 deploy_header_library(Metal)
-
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-target_compile_flags(Metal INTERFACE -W)
-target_compile_flags(Metal INTERFACE -Wextra)
-target_compile_flags(Metal INTERFACE -pedantic)
-
-if(NOT MSVC)
-    target_compile_flags(Metal INTERFACE -Wall)
-endif()
-
-if(METAL_STRICT)
-    target_compile_flags(Metal INTERFACE -pedantic-errors)
-    target_compile_flags(Metal INTERFACE -Werror)
-    target_compile_flags(Metal INTERFACE /Za)
-    target_compile_flags(Metal INTERFACE /WX)
-endif()
-
-if(METAL_VERBOSE)
-    target_compile_flags(Metal INTERFACE -v)
-    target_compile_flags(Metal INTERFACE -ftemplate-backtrace-limit=0)
-    target_compile_flags(Metal INTERFACE -fdiagnostics-show-template-tree)
-    target_compile_flags(Metal INTERFACE -fno-elide-type)
-endif()
-
-target_compile_flags(Metal INTERFACE -stdlib=libc++ LIBS c++ c++abi)
 
 add_subdirectory(doc)
 add_subdirectory(example)

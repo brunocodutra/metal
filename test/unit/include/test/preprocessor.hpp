@@ -6,7 +6,7 @@
 #define METAL_TEST_PREPROCESSOR_HPP
 
 #if !defined(METAL_TEST_GEN_LIMIT)
-#   define METAL_TEST_GEN_LIMIT 5
+#   define METAL_TEST_GEN_LIMIT 9
 #endif
 
 #undef INF

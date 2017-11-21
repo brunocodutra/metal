@@ -10,15 +10,20 @@ endif()
 
 configure_file(Doxyfile.in Doxyfile @ONLY)
 
-add_custom_target(doc
-    COMMAND ${CMAKE_COMMAND} -E remove_directory "html"
+set(output "${CMAKE_CURRENT_BINARY_DIR}/html/")
+
+add_custom_command(
+    OUTPUT ${output}
+    COMMENT "generating docs..."
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${output}
     COMMAND ${DOXYGEN_EXECUTABLE} Doxyfile
     COMMAND ${CMAKE_COMMAND} -E remove
-        "html/*.png" "html/dynsections.js" "html/doxygen.css" "html/tabs.css"
-        "html/dir_*.html" "html/namespacemetal.html" "html/modules.html"
-        "html/namespacemembers_type.html"
+        "${output}/*.png" "${output}/dynsections.js" "${output}/doxygen.css"
+        "${output}/tabs.css" "${output}/dir_*.html" "${output}/namespacemetal.html"
+        "${output}/modules.html" "${output}/namespacemembers_type.html"
 )
 
-set_target_properties(doc PROPERTIES OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/html/")
+add_custom_target(doc DEPENDS ${output})
+set_target_properties(doc PROPERTIES OUTPUT ${output})
 
 deploy_doc(Metal doc)

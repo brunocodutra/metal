@@ -19,6 +19,7 @@ foreach(target example.literal example.sfinae)
     if(TARGET ${target})
         set_target_properties(${target} PROPERTIES
             CXX_STANDARD 14
+            CXX_EXTENSIONS OFF
             CXX_STANDARD_REQUIRED OFF
         )
     endif()

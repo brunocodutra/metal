@@ -59,8 +59,10 @@ namespace metal {
     namespace detail {
         template<typename... vals>
         struct prepender {
-            template<template<typename...> class expr, typename... _>
-            using type = expr<_..., vals...>;
+            template<typename... _>
+            using prepend = prepender<_..., vals...>;
+
+            using type = list<vals...>;
         };
 
         template<std::size_t n>
@@ -96,8 +98,7 @@ namespace metal {
                 typename _96, typename _97, typename _98, typename _99,
                 typename... tail>
             using type = typename grouper<sizeof...(tail)>::
-                template type<tail...>::template type<
-                    prepender,
+                template type<tail...>::template prepend<
                     /* clang-format off */
                     _at<list<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09>>,
                     _at<list<_10, _11, _12, _13, _14, _15, _16, _17, _18, _19>>,
@@ -120,10 +121,8 @@ namespace metal {
                 typename _04, typename _05, typename _06, typename _07,
                 typename _08, typename _09, typename... tail>
             using type = typename grouper<sizeof...(tail)>::
-                template type<tail...>::template type<
-                    prepender,
-                    _at<list<
-                        _00, _01, _02, _03, _04, _05, _06, _07, _08, _09>>>;
+                template type<tail...>::template prepend<_at<
+                    list<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09>>>;
         };
 
         template<>
@@ -138,6 +137,13 @@ namespace metal {
             using type = prepender<>;
         };
 
+        template<typename... vals>
+        using group =
+            typename grouper<sizeof...(vals)>::template type<vals...>::type;
+
+        template<typename groups, typename m, typename n>
+        using select = typename _at<groups>::template type<m>::template type<n>;
+
         template<typename num, typename = true_>
         struct _at_impl {};
 
@@ -145,9 +151,7 @@ namespace metal {
         struct _at_impl<number<n>, number<(n > 9)>> {
             template<typename... vals>
             using type =
-                typename grouper<sizeof...(vals)>::template type<vals...>::
-                    template type<_at_impl<number<n / 10>>::template type>::
-                        template type<number<n % 10>>;
+                select<call<group, vals...>, number<n / 10>, number<n % 10>>;
         };
 
         template<>

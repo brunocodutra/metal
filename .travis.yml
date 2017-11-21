@@ -52,7 +52,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=4.7
+        env: VERSION=4.7
         addons:
             apt:
                 packages:
@@ -63,7 +63,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=4.8
+        env: VERSION=4.8
         addons:
             apt:
                 packages:
@@ -74,7 +74,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=4.9
+        env: VERSION=4.9
         addons:
             apt:
                 packages:
@@ -85,7 +85,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=5
+        env: VERSION=5
         addons:
             apt:
                 packages:
@@ -96,7 +96,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=6
+        env: VERSION=6
         addons:
             apt:
                 packages:
@@ -107,7 +107,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: g++
-        env: CXXVER=7
+        env: VERSION=7
         addons:
             apt:
                 packages:
@@ -118,7 +118,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=3.4
+        env: VERSION=3.4 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -134,7 +134,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=3.5
+        env: VERSION=3.5 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -150,7 +150,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=3.6
+        env: VERSION=3.6 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -166,7 +166,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=3.7
+        env: VERSION=3.7 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -182,7 +182,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=3.8
+        env: VERSION=3.8 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -198,7 +198,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=3.9
+        env: VERSION=3.9 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -214,7 +214,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=4.0
+        env: VERSION=4.0 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -230,7 +230,7 @@ matrix:
       - os: linux
         dist: trusty
         compiler: clang++
-        env: CXXVER=5.0
+        env: VERSION=5.0 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
                 packages:
@@ -244,37 +244,74 @@ matrix:
                     key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: osx
+        compiler: clang++
         env: CHECK_DOC=true
 
       - os: osx
+        compiler: clang++
         osx_image: xcode6.4
 
       - os: osx
+        compiler: clang++
         osx_image: xcode7.3
 
       - os: osx
+        compiler: clang++
         osx_image: xcode8
 
       - os: osx
+        compiler: clang++
         osx_image: xcode8.1
 
       - os: osx
+        compiler: clang++
         osx_image: xcode8.2
+
+      - os: osx
+        compiler: clang++
+        osx_image: xcode8.3
+
+      - os: osx
+        compiler: clang++
+        osx_image: xcode9
+
+      - os: osx
+        compiler: clang++
+        osx_image: xcode9.1
 
 before_install:
   - git config --global user.name "Travis Bot"
   - git config --global user.email "\<\>"
 
-  - METAL_SOURCE_PATH="${TRAVIS_BUILD_DIR}"
+  - SOURCE_PATH="${TRAVIS_BUILD_DIR}"
 
-  - METAL_BUILD_PATH="${TRAVIS_BUILD_DIR}/build"
-  - mkdir -p "${METAL_BUILD_PATH}"
+  - BUILD_PATH="${TRAVIS_BUILD_DIR}/build/"
+  - mkdir -p "${BUILD_PATH}"
 
-  - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps"
+  - INSTALL_PATH="${TRAVIS_BUILD_DIR}/install/"
+  - mkdir -p "${INSTALL_PATH}"
+
+  - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps/"
   - mkdir -p "${DEPS_PATH}"
 
-  - GITHUB_PATH="${TRAVIS_BUILD_DIR}/github"
+  - GITHUB_PATH="${TRAVIS_BUILD_DIR}/github/"
   - mkdir -p "${GITHUB_PATH}"
+
+  - |
+    if [[ -n "${VERSION}" ]]
+    then
+        export CC="${CC}-${VERSION}"
+        export CXX="${CXX}-${VERSION}"
+    fi
+
+  - |
+    function publish {
+        git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=$2 "${GITHUB_PATH}/$2" &> /dev/null || return 1
+        cp -r "${GITHUB_PATH}/$2/.git/" $1                                                                                        &> /dev/null || return 2
+        git -C $1 add --all .                                                                                                     &> /dev/null || return 3
+        git -C $1 commit --allow-empty -m "update to $(git -C ${SOURCE_PATH} rev-parse --short HEAD)"                             &> /dev/null || return 4
+        git -C $1 push origin $2                                                                                                  &> /dev/null || return 5
+    }
 
 install:
   - |
@@ -312,16 +349,12 @@ install:
         travis_retry git clone --depth 1 --recursive --quiet ${BOOST_URL} ${DEPS_PATH}/boost || exit 1
     fi
 
-    (cd "${DEPS_PATH}/boost" && ./bootstrap.sh && ./b2 headers)
+  - (cd "${DEPS_PATH}/boost" && ./bootstrap.sh && ./b2 headers)
 
 before_script:
-  - CMAKE_ARGS=("${METAL_SOURCE_PATH}")
-
-  - |
-    if [[ -n "${CXX}" && -n "${CXXVER}" ]]
-    then
-        CMAKE_ARGS+=("-DCMAKE_CXX_COMPILER=${CXX}-${CXXVER}")
-    fi
+  - CMAKE_ARGS+=("${SOURCE_PATH}")
+  - CMAKE_ARGS+=("-DCMAKE_INSTALL_PREFIX=${INSTALL_PATH}")
+  - CMAKE_ARGS+=("-DBOOST_ROOT=${DEPS_PATH}/boost")
 
   - |
     if [[ -n "${CHECK_FORMATTING}" ]]
@@ -329,38 +362,27 @@ before_script:
         CMAKE_ARGS+=("-DCLANG_FORMAT=${CHECK_FORMATTING}")
     fi
 
-    CMAKE_ARGS+=("-DCMAKE_CXX_FLAGS=-DMETAL_TEST_GEN_LIMIT=9")
-    CMAKE_ARGS+=("-DBOOST_ROOT=${DEPS_PATH}/boost")
-
-  - (cd "${METAL_BUILD_PATH}" && cmake ${CMAKE_ARGS[@]})
-
-  - |
-    function publish {
-        git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=$2 "${GITHUB_PATH}/$2" &> /dev/null || return 1
-        cp -r "${GITHUB_PATH}/$2/.git/" $1                                                                                        &> /dev/null || return 2
-        git -C $1 add --all .                                                                                                     &> /dev/null || return 3
-        git -C $1 commit --allow-empty -m "update to $(git -C ${METAL_SOURCE_PATH} rev-parse --short HEAD)"                       &> /dev/null || return 4
-        git -C $1 push origin $2                                                                                                  &> /dev/null || return 5
-    }
+  - (cd "${BUILD_PATH}" && cmake ${CMAKE_ARGS[@]})
 
 script:
   - |
     if [[ "${DEPLOY}" == "true" ]]
     then
-        cmake --build "${METAL_BUILD_PATH}" --target deploy && tree "${METAL_BUILD_PATH}/dist/" || exit 1
+        cmake --build "${BUILD_PATH}" --target install || exit $?
+        tree "${INSTALL_PATH}" || exit $?
         if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" ]]
         then
-            publish "${METAL_BUILD_PATH}/dist/share/Metal/doc" gh-pages || exit $?
-            publish "${METAL_BUILD_PATH}/dist/include/" standalone || exit $?
+            publish "${INSTALL_PATH}/share/Metal/doc" gh-pages || exit $?
+            publish "${INSTALL_PATH}/include/" standalone || exit $?
         fi
     elif [[ "${CHECK_DOC}" == "true" ]]
     then
-        ! cmake --build "${METAL_BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error" || exit 1
+        ! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error" || exit 1
     elif [[ -n "${CHECK_FORMATTING}" ]]
     then
-        (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
+        (cd "${BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
     else
-        (cd "${METAL_BUILD_PATH}" && ctest --output-on-failure -E ^test.format)
+        (cd "${BUILD_PATH}" && ctest --output-on-failure -E ^test.format)
     fi
 
 notifications:
