@@ -15,8 +15,27 @@ env:
 addons:
     apt:
         packages: &pkgs
+          - tree
         sources: &srcs
           - ubuntu-toolchain-r-test
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.5 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.7 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
 cache:
   directories:
@@ -27,10 +46,6 @@ matrix:
       - os: linux
         dist: trusty
         env: DEPLOY=true
-        addons:
-            apt:
-                packages:
-                  - tree
 
       - os: linux
         dist: trusty
@@ -41,13 +56,10 @@ matrix:
         env: CHECK_FORMATTING=/usr/bin/clang-format-5.0
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - clang-format-5.0
-                sources:
-                  - *srcs
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
-                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: linux
         dist: trusty
@@ -55,10 +67,10 @@ matrix:
         env: VERSION=4.7
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - g++-4.7
-                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -66,10 +78,10 @@ matrix:
         env: VERSION=4.8
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - g++-4.8
-                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -77,10 +89,10 @@ matrix:
         env: VERSION=4.9
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - g++-4.9
-                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -88,10 +100,10 @@ matrix:
         env: VERSION=5
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - g++-5
-                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -99,10 +111,10 @@ matrix:
         env: VERSION=6
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - g++-6
-                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -110,10 +122,10 @@ matrix:
         env: VERSION=7
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - g++-7
-                sources: *srcs
 
       - os: linux
         dist: trusty
@@ -121,15 +133,12 @@ matrix:
         env: VERSION=3.4 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - clang-3.4
                   - libc++-dev
                   - libc++abi-dev
-                sources:
-                  - *srcs
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main'
-                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: linux
         dist: trusty
@@ -137,15 +146,12 @@ matrix:
         env: VERSION=3.5 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - clang-3.5
                   - libc++-dev
                   - libc++abi-dev
-                sources:
-                  - *srcs
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.5 main'
-                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: linux
         dist: trusty
@@ -153,15 +159,12 @@ matrix:
         env: VERSION=3.6 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - clang-3.6
                   - libc++-dev
                   - libc++abi-dev
-                sources:
-                  - *srcs
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main'
-                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: linux
         dist: trusty
@@ -169,15 +172,12 @@ matrix:
         env: VERSION=3.7 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *ubuntu_packages
                   - clang-3.7
                   - libc++-dev
                   - libc++abi-dev
-                sources:
-                  - *ubuntu_sources
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.7 main'
-                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: linux
         dist: trusty
@@ -185,15 +185,12 @@ matrix:
         env: VERSION=3.8 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - clang-3.8
                   - libc++-dev
                   - libc++abi-dev
-                sources:
-                  - *srcs
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main'
-                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: linux
         dist: trusty
@@ -201,15 +198,12 @@ matrix:
         env: VERSION=3.9 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - clang-3.9
                   - libc++-dev
                   - libc++abi-dev
-                sources:
-                  - *srcs
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main'
-                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: linux
         dist: trusty
@@ -217,15 +211,12 @@ matrix:
         env: VERSION=4.0 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - clang-4.0
                   - libc++-dev
                   - libc++abi-dev
-                sources:
-                  - *srcs
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main'
-                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: linux
         dist: trusty
@@ -233,15 +224,12 @@ matrix:
         env: VERSION=5.0 CXXFLAGS="-stdlib=libc++"
         addons:
             apt:
+                sources: *srcs
                 packages:
                   - *pkgs
                   - clang-5.0
                   - libc++-dev
                   - libc++abi-dev
-                sources:
-                  - *srcs
-                  - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
-                    key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
       - os: osx
         compiler: clang++
