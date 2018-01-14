@@ -307,34 +307,32 @@ install:
     then
         CMAKE_URL="http://www.cmake.org/files/v3.8/cmake-3.8.0-Linux-x86_64.tar.gz"
         mkdir -p "${DEPS_PATH}/cmake"
-        travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit 1
+        travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit $?
         export PATH=${DEPS_PATH}/cmake/bin:${PATH}
 
-        # download the latest doxygen available
-        DOXYGEN_FTP="ftp://ftp.stack.nl/pub/users/dimitri/"
-        DOXYGEN_PKG=$(travis_retry curl -Ls "${DOXYGEN_FTP}" | grep -Eo "doxygen-[0-9.]+linux[.]bin[.]tar[.]gz" | sort -V | tail -1)
-        DOXYGEN_URL="${DOXYGEN_FTP}/${DOXYGEN_PKG}"
-        mkdir -p "${DEPS_PATH}/doxygen"
-        travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" || exit 1
-        export PATH="${DEPS_PATH}/doxygen/bin:${PATH}"
+        DOXYGEN_URL="https://github.com/doxygen/doxygen.git"
+        travis_retry git clone --depth 1 --recursive --quiet ${DOXYGEN_URL} "${DEPS_PATH}/doxygen" || exit $?
+        cmake -H"${DEPS_PATH}/doxygen" -B"${DEPS_PATH}/doxygen/build" || exit $?
+        cmake --build "${DEPS_PATH}/doxygen/build" -- -j || exit $?
+        export PATH="${DEPS_PATH}/doxygen/build/bin:${PATH}"
     else
         CMAKE_URL="http://www.cmake.org/files/v3.8/cmake-3.8.0-Darwin-x86_64.tar.gz"
         mkdir -p "${DEPS_PATH}/cmake"
-        travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit 1
+        travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit $?
         export PATH=${DEPS_PATH}/cmake/CMake.app/Contents/bin:${PATH}
 
         brew update
         brew unlink doxygen
-        brew install doxygen
+        brew install doxygen || exit $?
     fi
 
   - |
     if [[ -d "${DEPS_PATH}/boost/.git" ]]
     then
-        (cd "${DEPS_PATH}/boost" && git submodule update --recursive) || exit
+        git -C "${DEPS_PATH}/boost" submodule update --recursive || exit $?
     else
-        BOOST_URL="http://github.com/boostorg/boost.git"
-        travis_retry git clone --depth 1 --recursive --quiet ${BOOST_URL} ${DEPS_PATH}/boost || exit 1
+        BOOST_URL="https://github.com/boostorg/boost.git"
+        travis_retry git clone --depth 1 --recursive --quiet ${BOOST_URL} "${DEPS_PATH}/boost" || exit $?
     fi
 
   - (cd "${DEPS_PATH}/boost" && ./bootstrap.sh && ./b2 headers)
