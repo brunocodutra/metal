@@ -41,28 +41,56 @@ cache:
   directories:
     - deps/boost
 
-matrix:
+jobs:
     include:
-      - os: linux
-        dist: trusty
-        env: DEPLOY=true
+      - os: osx
+        stage: test
+        compiler: clang++
+        osx_image: xcode6.4
 
-      - os: linux
-        dist: trusty
+      - os: osx
+        stage: test
+        compiler: clang++
+        osx_image: xcode7.3
+
+      - os: osx
+        stage: test
+        compiler: clang++
+        osx_image: xcode8
+
+      - os: osx
+        stage: test
+        compiler: clang++
+        osx_image: xcode8.1
+
+      - os: osx
+        stage: test
+        compiler: clang++
+        osx_image: xcode8.2
+
+      - os: osx
+        stage: test
+        compiler: clang++
+        osx_image: xcode8.3
+
+      - os: osx
+        stage: test
+        compiler: clang++
+        osx_image: xcode9
+
+      - os: osx
+        stage: test
+        compiler: clang++
+        osx_image: xcode9.1
+
+      - os: osx
+        stage: test
+        compiler: clang++
         env: CHECK_DOC=true
 
       - os: linux
         dist: trusty
-        env: CHECK_FORMATTING=/usr/bin/clang-format-5.0
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - clang-format-5.0
-
-      - os: linux
-        dist: trusty
+        stage: test
         compiler: g++
         env: VERSION=4.7
         addons:
@@ -74,6 +102,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: g++
         env: VERSION=4.8
         addons:
@@ -85,6 +114,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: g++
         env: VERSION=4.9
         addons:
@@ -96,6 +126,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: g++
         env: VERSION=5
         addons:
@@ -107,6 +138,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: g++
         env: VERSION=6
         addons:
@@ -118,6 +150,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: g++
         env: VERSION=7
         addons:
@@ -129,6 +162,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: clang++
         env: VERSION=3.4 CXXFLAGS="-stdlib=libc++"
         addons:
@@ -142,6 +176,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: clang++
         env: VERSION=3.5 CXXFLAGS="-stdlib=libc++"
         addons:
@@ -155,6 +190,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: clang++
         env: VERSION=3.6 CXXFLAGS="-stdlib=libc++"
         addons:
@@ -168,6 +204,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: clang++
         env: VERSION=3.7 CXXFLAGS="-stdlib=libc++"
         addons:
@@ -181,6 +218,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: clang++
         env: VERSION=3.8 CXXFLAGS="-stdlib=libc++"
         addons:
@@ -194,6 +232,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: clang++
         env: VERSION=3.9 CXXFLAGS="-stdlib=libc++"
         addons:
@@ -207,6 +246,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: clang++
         env: VERSION=4.0 CXXFLAGS="-stdlib=libc++"
         addons:
@@ -220,6 +260,7 @@ matrix:
 
       - os: linux
         dist: trusty
+        stage: test
         compiler: clang++
         env: VERSION=5.0 CXXFLAGS="-stdlib=libc++"
         addons:
@@ -231,46 +272,50 @@ matrix:
                   - libc++-dev
                   - libc++abi-dev
 
-      - os: osx
-        compiler: clang++
+      - os: linux
+        dist: trusty
+        stage: test
         env: CHECK_DOC=true
 
-      - os: osx
-        compiler: clang++
-        osx_image: xcode6.4
+      - os: linux
+        dist: trusty
+        stage: test
+        env: CHECK_FORMATTING=true
+        addons:
+            apt:
+                sources: *srcs
+                packages:
+                  - *pkgs
+                  - clang-format-5.0
 
-      - os: osx
-        compiler: clang++
-        osx_image: xcode7.3
-
-      - os: osx
-        compiler: clang++
-        osx_image: xcode8
-
-      - os: osx
-        compiler: clang++
-        osx_image: xcode8.1
-
-      - os: osx
-        compiler: clang++
-        osx_image: xcode8.2
-
-      - os: osx
-        compiler: clang++
-        osx_image: xcode8.3
-
-      - os: osx
-        compiler: clang++
-        osx_image: xcode9
-
-      - os: osx
-        compiler: clang++
-        osx_image: xcode9.1
+      - os: linux
+        dist: trusty
+        stage: deploy
+        script:
+          - cmake --build "${BUILD_PATH}" --target doc
+          - cmake --build "${BUILD_PATH}" --target install
+          - tree "${INSTALL_PATH}"
+        deploy:
+          - provider: pages
+            target-branch: standalone
+            github-token: $GITHUB_TOKEN
+            skip-cleanup: true
+            keep-history: true
+            allow-empty-commit: true
+            local-dir: ${INSTALL_PATH}/include
+            on:
+                branch: master
+          - provider: pages
+            target-branch: gh-pages
+            github-token: $GITHUB_TOKEN
+            skip-cleanup: true
+            keep-history: true
+            allow-empty-commit: true
+            local-dir: ${INSTALL_PATH}/share/Metal/doc
+            on:
+                branch: master
 
 before_install:
-  - git config --global user.name "Travis Bot"
-  - git config --global user.email "\<\>"
-
   - SOURCE_PATH="${TRAVIS_BUILD_DIR}"
 
   - BUILD_PATH="${TRAVIS_BUILD_DIR}/build/"
@@ -292,16 +337,8 @@ before_install:
         export CXX="${CXX}-${VERSION}"
     fi
 
-  - |
-    function publish {
-        git clone https://brunocodutra:${GITHUB_TOKEN}@github.com/brunocodutra/metal -q --depth 1 --branch=$2 "${GITHUB_PATH}/$2" &> /dev/null || return 1
-        cp -r "${GITHUB_PATH}/$2/.git/" $1                                                                                        &> /dev/null || return 2
-        git -C $1 add --all .                                                                                                     &> /dev/null || return 3
-        git -C $1 commit --allow-empty -m "update to $(git -C ${SOURCE_PATH} rev-parse --short HEAD)"                             &> /dev/null || return 4
-        git -C $1 push origin $2                                                                                                  &> /dev/null || return 5
-    }
-
 install:
+  # CMake & Doxygen
   - |
     if [[ "${TRAVIS_OS_NAME}" == "linux" ]]
     then
@@ -326,6 +363,7 @@ install:
         brew install doxygen || exit $?
     fi
 
+  # Boost
   - |
     if [[ -d "${DEPS_PATH}/boost/.git" ]]
     then
@@ -338,33 +376,25 @@ install:
   - (cd "${DEPS_PATH}/boost" && ./bootstrap.sh && ./b2 headers)
 
 before_script:
-  - CMAKE_ARGS+=("${SOURCE_PATH}")
+  - CMAKE_ARGS+=("-H${SOURCE_PATH}")
+  - CMAKE_ARGS+=("-B${BUILD_PATH}")
   - CMAKE_ARGS+=("-DCMAKE_INSTALL_PREFIX=${INSTALL_PATH}")
   - CMAKE_ARGS+=("-DBOOST_ROOT=${DEPS_PATH}/boost")
 
   - |
-    if [[ -n "${CHECK_FORMATTING}" ]]
+    if [[ "${CHECK_FORMATTING}" == "true" ]]
     then
-        CMAKE_ARGS+=("-DCLANG_FORMAT=${CHECK_FORMATTING}")
+        CMAKE_ARGS+=("-DCLANG_FORMAT=/usr/bin/clang-format-5.0")
     fi
 
-  - (cd "${BUILD_PATH}" && cmake ${CMAKE_ARGS[@]})
+  - cmake ${CMAKE_ARGS[@]}
 
 script:
   - |
-    if [[ "${DEPLOY}" == "true" ]]
-    then
-        cmake --build "${BUILD_PATH}" --target doc || exit $?
-        cmake --build "${BUILD_PATH}" --target install && tree "${INSTALL_PATH}" || exit $?
-        if [[ "${TRAVIS_OS_NAME}" == "linux" && "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_PULL_REQUEST}" == "false" ]]
-        then
-            publish "${INSTALL_PATH}/share/Metal/doc" gh-pages || exit $?
-            publish "${INSTALL_PATH}/include/" standalone || exit $?
-        fi
-    elif [[ "${CHECK_DOC}" == "true" ]]
+    if [[ "${CHECK_DOC}" == "true" ]]
     then
         ! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error" || exit 1
-    elif [[ -n "${CHECK_FORMATTING}" ]]
+    elif [[ "${CHECK_FORMATTING}" == "true" ]]
     then
         (cd "${BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
     else
