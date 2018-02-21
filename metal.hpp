@@ -1,14 +1,14 @@
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_HPP
 #define METAL_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_CONFIG_HPP
 #define METAL_CONFIG_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_CONFIG_CONFIG_HPP
@@ -19,7 +19,7 @@
 #endif
 #endif
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_CONFIG_VERSION_HPP
@@ -47,7 +47,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_PATCH 1
+#define METAL_PATCH 2
 /// \ingroup config
 /// \hideinitializer
 ///
@@ -69,12 +69,12 @@
 /// \defgroup config Config
 /// \ingroup metal
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LAMBDA_HPP
 #define METAL_LAMBDA_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LAMBDA_ALWAYS_HPP
@@ -118,7 +118,7 @@ namespace metal {
     template<typename val>
     using always = typename detail::_always<val>::type;
 }
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LAMBDA_LAMBDA_HPP
@@ -207,7 +207,7 @@ namespace metal {
     };
 #endif
 }
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_NUMBER_HPP
@@ -377,12 +377,12 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_VALUE_IDENTITY_HPP
 #define METAL_VALUE_IDENTITY_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_VALUE_EVAL_HPP
@@ -415,7 +415,7 @@ namespace metal {
     using eval = typename val::type;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_VALUE_VALUE_HPP
@@ -585,7 +585,7 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LAMBDA_APPLY_HPP
@@ -623,7 +623,7 @@ namespace metal {
     template<typename lbd, typename seq>
     using apply = typename detail::_apply<lbd, seq>::type;
 }
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_LIST_HPP
@@ -729,12 +729,12 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_DETAIL_SFINAE_HPP
 #define METAL_DETAIL_SFINAE_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_DETAIL_DECLPTR_HPP
@@ -810,7 +810,7 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LAMBDA_ARG_HPP
@@ -851,7 +851,7 @@ namespace metal {
     template<std::size_t n>
     using arg = typename detail::_arg<n>::type;
 }
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_AT_HPP
@@ -1099,7 +1099,7 @@ namespace metal {
     /// \}
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LAMBDA_BIND_HPP
@@ -1175,7 +1175,7 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LAMBDA_INVOKE_HPP
@@ -1208,12 +1208,12 @@ namespace metal {
     using invoke = metal::apply<lbd, metal::list<vals...>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LAMBDA_IS_INVOCABLE_HPP
 #define METAL_LAMBDA_IS_INVOCABLE_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_VALUE_SAME_HPP
@@ -1314,7 +1314,7 @@ namespace metal {
             value<>, detail::caller<invoke, lbd, vals...>>::type>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LAMBDA_LAZY_HPP
@@ -1353,7 +1353,7 @@ namespace metal {
     using lazy = metal::bind<metal::lambda<metal::eval>, metal::lambda<expr>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LAMBDA_PARTIAL_HPP
@@ -1421,7 +1421,7 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LAMBDA_TRAIT_HPP
@@ -1465,17 +1465,17 @@ namespace metal {
 /// \defgroup lambda Lambda
 /// \ingroup metal
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_HPP
 #define METAL_LIST_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_ACCUMULATE_HPP
 #define METAL_LIST_ACCUMULATE_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_SIZE_HPP
@@ -1524,7 +1524,7 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_IF_HPP
@@ -1628,12 +1628,12 @@ namespace metal {
         if_<same<size<seqs>...>, detail::_accumulate<lbd>>::template type,
         state, seqs...>;
 }
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_INDICES_HPP
 #define METAL_LIST_INDICES_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_IOTA_HPP
@@ -1683,7 +1683,7 @@ namespace metal {
     template<typename start, typename size, typename stride = number<1>>
     using iota = typename detail::_iota<start, size, stride>::type;
 }
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_NUMBERS_HPP
@@ -1804,7 +1804,7 @@ namespace metal {
     using indices = metal::iota<metal::number<0>, metal::size<seq>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_VALUE_FOLD_LEFT_HPP
@@ -2071,12 +2071,12 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_ALL_OF_HPP
 #define METAL_LIST_ALL_OF_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_TRANSFORM_HPP
@@ -2171,12 +2171,12 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_AND_HPP
 #define METAL_NUMBER_AND_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_NOT_HPP
@@ -2273,12 +2273,12 @@ namespace metal {
         metal::apply<metal::lambda<metal::and_>, metal::transform<lbd, seq>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_ANY_OF_HPP
 #define METAL_LIST_ANY_OF_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_OR_HPP
@@ -2347,12 +2347,12 @@ namespace metal {
         metal::apply<metal::lambda<metal::or_>, metal::transform<lbd, seq>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_APPEND_HPP
 #define METAL_LIST_APPEND_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_JOIN_HPP
@@ -2589,17 +2589,17 @@ namespace metal {
     using append = metal::join<seq, metal::list<vals...>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_BACK_HPP
 #define METAL_LIST_BACK_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_DEC_HPP
 #define METAL_NUMBER_DEC_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_SUB_HPP
@@ -2706,7 +2706,7 @@ namespace metal {
     using back = metal::at<seq, metal::dec<metal::size<seq>>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_CARTESIAN_HPP
@@ -2771,12 +2771,12 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_CASCADE_HPP
 #define METAL_LIST_CASCADE_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_VALUE_FOLD_RIGHT_HPP
@@ -3061,12 +3061,12 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_COMBINE_HPP
 #define METAL_LIST_COMBINE_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_REPEAT_HPP
@@ -3138,7 +3138,7 @@ namespace metal {
         metal::repeat<metal::if_<metal::is_list<seq>, seq>, num>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_CONTAINS_HPP
@@ -3176,22 +3176,22 @@ namespace metal {
         metal::any_of<seq, metal::partial<metal::lambda<metal::same>, val>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_COPY_HPP
 #define METAL_LIST_COPY_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_COPY_IF_HPP
 #define METAL_LIST_COPY_IF_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_REMOVE_IF_HPP
 #define METAL_LIST_REMOVE_IF_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_REPLACE_IF_HPP
@@ -3369,17 +3369,17 @@ namespace metal {
         metal::copy_if<seq, metal::partial<metal::lambda<metal::same>, val>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_COUNT_HPP
 #define METAL_LIST_COUNT_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_COUNT_IF_HPP
 #define METAL_LIST_COUNT_IF_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_ADD_HPP
@@ -3493,22 +3493,22 @@ namespace metal {
         metal::count_if<seq, metal::partial<metal::lambda<metal::same>, val>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_DROP_HPP
 #define METAL_LIST_DROP_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_RANGE_HPP
 #define METAL_LIST_RANGE_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_GREATER_HPP
 #define METAL_NUMBER_GREATER_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_LESS_HPP
@@ -3630,7 +3630,7 @@ namespace metal {
         if_<not_<or_<greater<number<0>, beg>, greater<beg, size<seq>>>>, beg>,
         if_<not_<or_<greater<number<0>, end>, greater<end, size<seq>>>>, end>>;
 }
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_REVERSE_HPP
@@ -3663,7 +3663,7 @@ namespace metal {
     using reverse = metal::range<seq, metal::size<seq>, metal::number<0>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_ROTATE_HPP
@@ -3798,7 +3798,7 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_MAX_HPP
@@ -3838,7 +3838,7 @@ namespace metal {
     using max = fold_left<lambda<detail::max>, if_<is_number<nums>, nums>...>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_MIN_HPP
@@ -4091,7 +4091,7 @@ namespace metal {
     using drop = metal::range<seq, n, metal::size<seq>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_EMPTY_HPP
@@ -4128,12 +4128,12 @@ namespace metal {
     using empty = metal::not_<metal::size<seq>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_ERASE_HPP
 #define METAL_LIST_ERASE_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_TAKE_HPP
@@ -4168,7 +4168,7 @@ namespace metal {
     using take = metal::range<seq, metal::number<0>, n>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_INC_HPP
@@ -4237,12 +4237,12 @@ namespace metal {
         metal::drop<seq, metal::max<beg, end>>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_FIND_HPP
 #define METAL_LIST_FIND_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_FIND_IF_HPP
@@ -4288,7 +4288,7 @@ namespace metal {
     template<typename seq, typename lbd>
     using find_if = typename detail::_find_if<transform<lbd, seq>>::type;
 }
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_FRONT_HPP
@@ -4375,7 +4375,7 @@ namespace metal {
         metal::find_if<seq, metal::partial<metal::lambda<metal::same>, val>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_FLATTEN_HPP
@@ -4411,12 +4411,12 @@ namespace metal {
     using flatten = metal::apply<metal::lambda<metal::join>, seq>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_INSERT_HPP
 #define METAL_LIST_INSERT_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_SPLICE_HPP
@@ -4486,7 +4486,7 @@ namespace metal {
     using insert = metal::splice<seq, num, metal::list<vals...>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_NONE_OF_HPP
@@ -4526,12 +4526,12 @@ namespace metal {
     using none_of = metal::not_<metal::any_of<seq, lbd>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_PARTITION_HPP
 #define METAL_LIST_PARTITION_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_PAIR_PAIR_HPP
@@ -4658,7 +4658,7 @@ namespace metal {
         metal::pair<metal::copy_if<seq, lbd>, metal::remove_if<seq, lbd>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_POWERSET_HPP
@@ -4724,7 +4724,7 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_PREPEND_HPP
@@ -4759,7 +4759,7 @@ namespace metal {
     using prepend = metal::join<metal::list<vals...>, seq>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_REMOVE_HPP
@@ -4795,7 +4795,7 @@ namespace metal {
         metal::remove_if<seq, metal::partial<metal::lambda<metal::same>, val>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_REPLACE_HPP
@@ -4832,7 +4832,7 @@ namespace metal {
         seq, metal::partial<metal::lambda<metal::same>, val>, vals...>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_SLICE_HPP
@@ -4874,7 +4874,7 @@ namespace metal {
         metal::iota<start, size, stride>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_SORT_HPP
@@ -5003,7 +5003,7 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_LIST_TRANSPOSE_HPP
@@ -5048,12 +5048,12 @@ namespace metal {
 /// \defgroup list List
 /// \ingroup metal
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_MAP_HPP
 #define METAL_MAP_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_MAP_AT_KEY_HPP
@@ -5092,7 +5092,7 @@ namespace metal {
     template<typename seq, typename key>
     using at_key = typename detail::_at_key<seq, key>::type;
 }
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_VALUE_DISTINCT_HPP
@@ -5183,22 +5183,22 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_MAP_ERASE_KEY_HPP
 #define METAL_MAP_ERASE_KEY_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_MAP_ORDER_HPP
 #define METAL_MAP_ORDER_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_MAP_KEYS_HPP
 #define METAL_MAP_KEYS_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_MAP_MAP_HPP
@@ -5297,7 +5297,7 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_PAIR_FIRST_HPP
@@ -5421,7 +5421,7 @@ namespace metal {
     using erase_key = metal::erase<seq, metal::order<seq, key>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_MAP_HAS_KEY_HPP
@@ -5458,7 +5458,7 @@ namespace metal {
     using has_key = metal::contains<metal::keys<seq>, key>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_MAP_INSERT_KEY_HPP
@@ -5500,12 +5500,12 @@ namespace metal {
         metal::append<seq, metal::pair<key, val>>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_MAP_VALUES_HPP
 #define METAL_MAP_VALUES_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_PAIR_SECOND_HPP
@@ -5572,17 +5572,17 @@ namespace metal {
 /// \defgroup map Map
 /// \ingroup metal
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_HPP
 #define METAL_NUMBER_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_ABS_HPP
 #define METAL_NUMBER_ABS_HPP
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_NEG_HPP
@@ -5643,7 +5643,7 @@ namespace metal {
     using abs = metal::max<num, metal::neg<num>>;
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_DIV_HPP
@@ -5697,7 +5697,7 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_MOD_HPP
@@ -5751,7 +5751,7 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_MUL_HPP
@@ -5802,7 +5802,7 @@ namespace metal {
     /// \endcond
 }
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_NUMBER_POW_HPP
@@ -5871,7 +5871,7 @@ namespace metal {
 /// \defgroup number Number
 /// \ingroup metal
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_PAIR_HPP
@@ -5879,7 +5879,7 @@ namespace metal {
 /// \defgroup pair Pair
 /// \ingroup metal
 #endif
-// Copyright Bruno Dutra 2015-2017
+// Copyright Bruno Dutra 2015-2018
 // Distributed under the Boost Software License, Version 1.0.
 // See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
 #ifndef METAL_VALUE_HPP
