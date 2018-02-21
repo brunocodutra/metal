@@ -302,7 +302,7 @@ jobs:
             skip-cleanup: true
             keep-history: true
             allow-empty-commit: true
-            local-dir: ${INSTALL_PATH}/include
+            local-dir: install/include
             on:
                 branch: master
           - provider: pages
@@ -311,7 +311,7 @@ jobs:
             skip-cleanup: true
             keep-history: true
             allow-empty-commit: true
-            local-dir: ${INSTALL_PATH}/share/Metal/doc
+            local-dir: install/share/Metal/doc
             on:
                 branch: master
 
