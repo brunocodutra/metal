@@ -8,7 +8,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_MAJOR 1
+#define METAL_MAJOR 2
 
 /// \ingroup config
 ///
@@ -26,7 +26,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_PATCH 2
+#define METAL_PATCH 0
 
 /// \ingroup config
 /// \hideinitializer
