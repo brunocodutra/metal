@@ -119,10 +119,10 @@ The following compilers are continuously tested at
 
 The complete up to date documentation is available [online][documentation].
 
+
 ## License
 
-Metal is distributed under the
-[Boost Software License, Version 1.0][boost.license].
+This project is licensed under the [MIT][license].
 
 [version]:          http://badge.fury.io/gh/brunocodutra%2Fmetal.svg
 [semver]:           http://semver.org
@@ -141,12 +141,11 @@ Metal is distributed under the
 [godbolt.metal]:    http://godbolt.org/g/RFwvic
 [godbolt.badge]:    http://img.shields.io/badge/try%20it-on%20godbolt-222266.svg
 
-[boost.license]:    http://boost.org/LICENSE_1_0.txt
-
 [CMake]:            http://cmake.org/
 [Doxygen]:          http://doxygen.org/
 [metaben.ch]:       http://metaben.ch/
 
+[license]:          https://github.com/brunocodutra/metal/blob/master/LICENSE
 [releases]:         http://github.com/brunocodutra/metal/releases
 [documentation]:    http://brunocodutra.github.io/metal
 [examples]:         http://brunocodutra.github.io/metal/#examples
