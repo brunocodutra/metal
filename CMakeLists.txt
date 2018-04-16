@@ -1,7 +1,3 @@
-# Copyright Bruno Dutra 2015-2018
-# Distributed under the Boost Software License, Version 1.0.
-# See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt
-
 cmake_minimum_required(VERSION 3.8)
 
 include(cmake/Deploy.cmake)
@@ -27,7 +23,7 @@ set(METAL_VERSION "${METAL_MAJOR}.${METAL_MINOR}.${METAL_PATCH}")
 
 message(STATUS "Configuring Metal ${METAL_VERSION}")
 
-add_header_library(Metal "${METAL_INCLUDE_DIR}/metal.hpp")
+add_header_library(Metal "${METAL_INCLUDE_DIR}/metal.hpp" "LICENSE")
 set_target_properties(Metal PROPERTIES
     INTERFACE_LIB_VERSION ${METAL_VERSION}
     INTERFACE_COMPILE_FEATURES cxx_std_11
