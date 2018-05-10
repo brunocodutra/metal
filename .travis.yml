@@ -5,400 +5,442 @@ git:
   depth: 1
 
 env:
-    global:
-      - secure: "DuBGzmeKiWMm5m0+uZhutjzCffB2PbixmuMm3IZWUi7/uAam4PPI37oeqVTIytxxfpgRvfR2ah75eJyU6ab72MBoHxGkHem10RAvhC/vPYbLZu545qfSGatyTI9R6NfERUxi7YIxjs6D8c4D/5k3gMoCbMUkU1Lze1708lknh5U="
+  global:
+  - secure: "DuBGzmeKiWMm5m0+uZhutjzCffB2PbixmuMm3IZWUi7/uAam4PPI37oeqVTIytxxfpgRvfR2ah75eJyU6ab72MBoHxGkHem10RAvhC/vPYbLZu545qfSGatyTI9R6NfERUxi7YIxjs6D8c4D/5k3gMoCbMUkU1Lze1708lknh5U="
 
 addons:
-    apt:
-        packages: &pkgs
-          - tree
-        sources: &srcs
-          - ubuntu-toolchain-r-test
-          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main'
-            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.5 main'
-            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main'
-            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.7 main'
-            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main'
-            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main'
-            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main'
-            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
-            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main'
-            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+  apt:
+    packages: &pkgs
+    - tree
+    sources: &srcs
+    - ubuntu-toolchain-r-test
+    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main'
+      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.5 main'
+      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main'
+      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.7 main'
+      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main'
+      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main'
+      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main'
+      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
+      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main'
+      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
 cache:
   directories:
-    - deps/boost
+  - deps/boost
+
+stages:
+- test
+- lint
+- deploy
 
 jobs:
-    include:
-      - os: osx
-        stage: test
-        compiler: clang++
-        osx_image: xcode6.4
+  include:
+  - os: osx
+    stage: test
+    compiler: clang++
+    osx_image: xcode6.4
 
-      - os: osx
-        stage: test
-        compiler: clang++
-        osx_image: xcode7.3
+  - os: osx
+    stage: test
+    compiler: clang++
+    osx_image: xcode7.3
 
-      - os: osx
-        stage: test
-        compiler: clang++
-        osx_image: xcode8
+  - os: osx
+    stage: test
+    compiler: clang++
+    osx_image: xcode8
 
-      - os: osx
-        stage: test
-        compiler: clang++
-        osx_image: xcode8.1
+  - os: osx
+    stage: test
+    compiler: clang++
+    osx_image: xcode8.1
 
-      - os: osx
-        stage: test
-        compiler: clang++
-        osx_image: xcode8.2
+  - os: osx
+    stage: test
+    compiler: clang++
+    osx_image: xcode8.2
 
-      - os: osx
-        stage: test
-        compiler: clang++
-        osx_image: xcode8.3
+  - os: osx
+    stage: test
+    compiler: clang++
+    osx_image: xcode8.3
 
-      - os: osx
-        stage: test
-        compiler: clang++
-        osx_image: xcode9
+  - os: osx
+    stage: test
+    compiler: clang++
+    osx_image: xcode9
 
-      - os: osx
-        stage: test
-        compiler: clang++
-        osx_image: xcode9.1
+  - os: osx
+    stage: test
+    compiler: clang++
+    osx_image: xcode9.1
 
-      - os: osx
-        stage: test
-        compiler: clang++
-        env: CHECK_DOC=true
+  - os: osx
+    stage: test
+    compiler: clang++
+    osx_image: xcode9.2
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: g++
-        env: VERSION=4.7
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - g++-4.7
+  - os: osx
+    stage: test
+    compiler: clang++
+    osx_image: xcode9.3
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: g++
-        env: VERSION=4.8
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - g++-4.8
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: g++
+    env: VERSION=4.7
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - cppcheck
+          - g++-4.7
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: g++
-        env: VERSION=4.9
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - g++-4.9
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: g++
+    env: VERSION=4.8
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - cppcheck
+          - g++-4.8
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: g++
-        env: VERSION=5
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - g++-5
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: g++
+    env: VERSION=4.9
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - cppcheck
+          - g++-4.9
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: g++
-        env: VERSION=6
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - g++-6
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: g++
+    env: VERSION=5
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - cppcheck
+          - g++-5
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: g++
-        env: VERSION=7
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - g++-7
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: g++
+    env: VERSION=6
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - cppcheck
+          - g++-6
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: clang++
-        env: VERSION=3.4 CXXFLAGS="-stdlib=libc++"
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - clang-3.4
-                  - libc++-dev
-                  - libc++abi-dev
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: g++
+    env: VERSION=7
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - cppcheck
+          - g++-7
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: clang++
-        env: VERSION=3.5 CXXFLAGS="-stdlib=libc++"
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - clang-3.5
-                  - libc++-dev
-                  - libc++abi-dev
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: g++
+    env: VERSION=8
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - cppcheck
+          - g++-8
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: clang++
-        env: VERSION=3.6 CXXFLAGS="-stdlib=libc++"
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - clang-3.6
-                  - libc++-dev
-                  - libc++abi-dev
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: clang++
+    env: VERSION=3.4 CXXFLAGS="-stdlib=libc++"
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - clang-3.4
+          - libc++-dev
+          - libc++abi-dev
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: clang++
-        env: VERSION=3.7 CXXFLAGS="-stdlib=libc++"
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *ubuntu_packages
-                  - clang-3.7
-                  - libc++-dev
-                  - libc++abi-dev
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: clang++
+    env: VERSION=3.5 CXXFLAGS="-stdlib=libc++"
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - clang-3.5
+          - libc++-dev
+          - libc++abi-dev
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: clang++
-        env: VERSION=3.8 CXXFLAGS="-stdlib=libc++"
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - clang-3.8
-                  - libc++-dev
-                  - libc++abi-dev
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: clang++
+    env: VERSION=3.6 CXXFLAGS="-stdlib=libc++"
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - clang-3.6
+          - libc++-dev
+          - libc++abi-dev
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: clang++
-        env: VERSION=3.9 CXXFLAGS="-stdlib=libc++"
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - clang-3.9
-                  - libc++-dev
-                  - libc++abi-dev
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: clang++
+    env: VERSION=3.7 CXXFLAGS="-stdlib=libc++"
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *ubuntu_packages
+          - clang-3.7
+          - libc++-dev
+          - libc++abi-dev
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: clang++
-        env: VERSION=4.0 CXXFLAGS="-stdlib=libc++"
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - clang-4.0
-                  - libc++-dev
-                  - libc++abi-dev
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: clang++
+    env: VERSION=3.8 CXXFLAGS="-stdlib=libc++"
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - clang-3.8
+          - libc++-dev
+          - libc++abi-dev
 
-      - os: linux
-        dist: trusty
-        stage: test
-        compiler: clang++
-        env: VERSION=5.0 CXXFLAGS="-stdlib=libc++"
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - clang-5.0
-                  - libc++-dev
-                  - libc++abi-dev
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: clang++
+    env: VERSION=3.9 CXXFLAGS="-stdlib=libc++"
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - clang-3.9
+          - libc++-dev
+          - libc++abi-dev
 
-      - os: linux
-        dist: trusty
-        stage: test
-        env: CHECK_DOC=true
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: clang++
+    env: VERSION=4.0 CXXFLAGS="-stdlib=libc++"
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - clang-4.0
+          - libc++-dev
+          - libc++abi-dev
 
-      - os: linux
-        dist: trusty
-        stage: test
-        env: CHECK_FORMATTING=true
-        addons:
-            apt:
-                sources: *srcs
-                packages:
-                  - *pkgs
-                  - clang-format-5.0
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: clang++
+    env: VERSION=5.0 CXXFLAGS="-stdlib=libc++"
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - clang-5.0
+          - libc++-dev
+          - libc++abi-dev
 
-      - os: linux
-        dist: trusty
-        stage: deploy
-        script:
-          - cmake --build "${BUILD_PATH}" --target doc
-          - cmake --build "${BUILD_PATH}" --target install
-          - tree "${INSTALL_PATH}"
-        deploy:
-          - provider: pages
-            target-branch: standalone
-            github-token: $GITHUB_TOKEN
-            skip-cleanup: true
-            keep-history: true
-            allow-empty-commit: true
-            local-dir: install/include
-            on:
-                tags: true
-          - provider: pages
-            target-branch: gh-pages
-            github-token: $GITHUB_TOKEN
-            skip-cleanup: true
-            keep-history: true
-            allow-empty-commit: true
-            local-dir: install/share/Metal/doc
-            on:
-                tags: true
+  - os: linux
+    dist: trusty
+    stage: test
+    compiler: clang++
+    env: VERSION=6.0 CXXFLAGS="-stdlib=libc++"
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - clang-6.0
+          - libc++-dev
+          - libc++abi-dev
+
+  - os: osx
+    stage: lint
+    compiler: clang++
+    script: (! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error")
+
+  - os: linux
+    dist: trusty
+    stage: lint
+    script: (! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error")
+
+  - os: linux
+    dist: trusty
+    stage: lint
+    compiler: clang++
+    env: VERSION=6.0
+    script: (cd "${BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - clang-6.0
+          - clang-format-6.0
+
+  - os: linux
+    dist: trusty
+    stage: deploy
+    script:
+    - cmake --build "${BUILD_PATH}" --target doc
+    - cmake --build "${BUILD_PATH}" --target install
+    - tree "${INSTALL_PATH}"
+    deploy:
+    - provider: pages
+      target-branch: standalone
+      github-token: $GITHUB_TOKEN
+      skip-cleanup: true
+      keep-history: true
+      allow-empty-commit: true
+      local-dir: install/include
+      on:
+        tags: true
+
+    - provider: pages
+      target-branch: gh-pages
+      github-token: $GITHUB_TOKEN
+      skip-cleanup: true
+      keep-history: true
+      allow-empty-commit: true
+      local-dir: install/share/Metal/doc
+      on:
+        tags: true
 
 before_install:
-  - SOURCE_PATH="${TRAVIS_BUILD_DIR}"
+- SOURCE_PATH="${TRAVIS_BUILD_DIR}"
 
-  - BUILD_PATH="${TRAVIS_BUILD_DIR}/build/"
-  - mkdir -p "${BUILD_PATH}"
+- BUILD_PATH="${TRAVIS_BUILD_DIR}/build/"
+- mkdir -p "${BUILD_PATH}"
 
-  - INSTALL_PATH="${TRAVIS_BUILD_DIR}/install/"
-  - mkdir -p "${INSTALL_PATH}"
+- INSTALL_PATH="${TRAVIS_BUILD_DIR}/install/"
+- mkdir -p "${INSTALL_PATH}"
 
-  - DEPS_PATH="${TRAVIS_BUILD_DIR}/deps/"
-  - mkdir -p "${DEPS_PATH}"
+- DEPS_PATH="${TRAVIS_BUILD_DIR}/deps/"
+- mkdir -p "${DEPS_PATH}"
 
-  - GITHUB_PATH="${TRAVIS_BUILD_DIR}/github/"
-  - mkdir -p "${GITHUB_PATH}"
-
-  - |
-    if [[ -n "${VERSION}" ]]
-    then
-        export CC="${CC}-${VERSION}"
-        export CXX="${CXX}-${VERSION}"
-    fi
+- |
+  if [[ -n "${VERSION}" ]]
+  then
+    export CC="${CC}-${VERSION}"
+    export CXX="${CXX}-${VERSION}"
+  fi
 
 install:
-  # CMake & Doxygen
-  - |
-    if [[ "${TRAVIS_OS_NAME}" == "linux" ]]
-    then
-        CMAKE_URL="http://www.cmake.org/files/v3.8/cmake-3.8.0-Linux-x86_64.tar.gz"
-        mkdir -p "${DEPS_PATH}/cmake"
-        travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit $?
-        export PATH=${DEPS_PATH}/cmake/bin:${PATH}
+# CMake
+- |
+  if [[ "${TRAVIS_OS_NAME}" == "linux" ]]
+  then
+    CMAKE_URL="http://www.cmake.org/files/v3.9/cmake-3.9.0-Linux-x86_64.tar.gz"
+    mkdir -p "${DEPS_PATH}/cmake"
+    travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit $?
+    export PATH=${DEPS_PATH}/cmake/bin:${PATH}
+  else
+    CMAKE_URL="http://www.cmake.org/files/v3.9/cmake-3.9.0-Darwin-x86_64.tar.gz"
+    mkdir -p "${DEPS_PATH}/cmake"
+    travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit $?
+    export PATH=${DEPS_PATH}/cmake/CMake.app/Contents/bin:${PATH}
+  fi
 
-        DOXYGEN_URL="https://github.com/doxygen/doxygen.git"
-        travis_retry git clone --depth 1 --recursive --quiet ${DOXYGEN_URL} "${DEPS_PATH}/doxygen" || exit $?
-        cmake -H"${DEPS_PATH}/doxygen" -B"${DEPS_PATH}/doxygen/build" || exit $?
-        cmake --build "${DEPS_PATH}/doxygen/build" -- -j || exit $?
-        export PATH="${DEPS_PATH}/doxygen/build/bin:${PATH}"
-    else
-        CMAKE_URL="http://www.cmake.org/files/v3.8/cmake-3.8.0-Darwin-x86_64.tar.gz"
-        mkdir -p "${DEPS_PATH}/cmake"
-        travis_retry curl -L "${CMAKE_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/cmake" || exit $?
-        export PATH=${DEPS_PATH}/cmake/CMake.app/Contents/bin:${PATH}
+# Doxygen
+- |
+  if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Lint" ]]
+  then
+    DOXYGEN_URL="ftp://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.14.src.tar.gz"
+    mkdir -p "${DEPS_PATH}/doxygen"
+    travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" || exit $?
+    cmake -H"${DEPS_PATH}/doxygen" -B"${DEPS_PATH}/doxygen/build" || exit $?
+    cmake --build "${DEPS_PATH}/doxygen/build" -- -j || exit $?
+    export PATH="${DEPS_PATH}/doxygen/build/bin:${PATH}"
+  fi
 
-        brew update
-        brew unlink doxygen
-        brew install doxygen || exit $?
-    fi
+# Boost
+- |
+  if [[ -d "${DEPS_PATH}/boost/.git" ]]
+  then
+    git -C "${DEPS_PATH}/boost" submodule update --recursive || exit $?
+  else
+    BOOST_URL="https://github.com/boostorg/boost.git"
+    travis_retry git clone --depth 1 --recursive --quiet ${BOOST_URL} "${DEPS_PATH}/boost" || exit $?
+  fi
 
-  # Boost
-  - |
-    if [[ -d "${DEPS_PATH}/boost/.git" ]]
-    then
-        git -C "${DEPS_PATH}/boost" submodule update --recursive || exit $?
-    else
-        BOOST_URL="https://github.com/boostorg/boost.git"
-        travis_retry git clone --depth 1 --recursive --quiet ${BOOST_URL} "${DEPS_PATH}/boost" || exit $?
-    fi
-
-  - (cd "${DEPS_PATH}/boost" && ./bootstrap.sh && ./b2 headers)
+- (cd "${DEPS_PATH}/boost" && ./bootstrap.sh && ./b2 headers)
 
 before_script:
-  - CMAKE_ARGS+=("-H${SOURCE_PATH}")
-  - CMAKE_ARGS+=("-B${BUILD_PATH}")
-  - CMAKE_ARGS+=("-DCMAKE_INSTALL_PREFIX=${INSTALL_PATH}")
-  - CMAKE_ARGS+=("-DBOOST_ROOT=${DEPS_PATH}/boost")
+- CMAKE_ARGS+=("-H${SOURCE_PATH}")
+- CMAKE_ARGS+=("-B${BUILD_PATH}")
+- CMAKE_ARGS+=("-DCMAKE_INSTALL_PREFIX=${INSTALL_PATH}")
+- CMAKE_ARGS+=("-DBOOST_ROOT=${DEPS_PATH}/boost")
 
-  - |
-    if [[ "${CHECK_FORMATTING}" == "true" ]]
-    then
-        CMAKE_ARGS+=("-DCLANG_FORMAT=/usr/bin/clang-format-5.0")
-    fi
+- |
+  if [[ ${CC} == clang* && ${CXX} == clang++* ]]
+  then
+    CMAKE_ARGS+=("-DCLANG_FORMAT=/usr/bin/clang-format-${VERSION}")
+  fi
 
-  - cmake ${CMAKE_ARGS[@]}
+- cmake ${CMAKE_ARGS[@]}
 
 script:
-  - |
-    if [[ "${CHECK_DOC}" == "true" ]]
-    then
-        ! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error" || exit 1
-    elif [[ "${CHECK_FORMATTING}" == "true" ]]
-    then
-        (cd "${BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
-    else
-        (cd "${BUILD_PATH}" && ctest --output-on-failure -E ^test.format)
-    fi
+- (cd "${BUILD_PATH}" && ctest --output-on-failure -E ^test.format)
 
 notifications:
   webhooks:
-    urls: https://webhooks.gitter.im/e/f0433b6f1de0942ea9a8
-    on_success: change
-    on_failure: always
+  urls: https://webhooks.gitter.im/e/f0433b6f1de0942ea9a8
+  on_success: change
+  on_failure: always

@@ -79,10 +79,6 @@ A [Number] is a compile-time representation of a numerical value.
 \snippet number.cpp not_a_num1
 \snippet number.cpp not_a_num2
 
-### FAQ
-
-\ref FAQ_numbers
-
 ### See Also
 
 metal::number, metal::is_number, metal::as_number
@@ -661,7 +657,7 @@ It's that simple.
 Frequently Asked Questions {#FAQ}
 ================================================================================
 
-What are some advantages of Metal with respect to Boost.MPL? {#FAQ_MPL}
+What are some advantages of Metal with respect to Boost.MPL?
 --------------------------------------------------------------------------------
 ________________________________________________________________________________
 
@@ -679,7 +675,7 @@ Boost.MPL and other notable metaprogramming libraries. For a brief discussion
 about fundamental design differences between Boost.MPL and Metal, refer to
 \ref MPL.
 
-What are some advantages of Metal with respect to Boost.Hana? {#FAQ_Hana}
+What are some advantages of Metal with respect to Boost.Hana?
 --------------------------------------------------------------------------------
 ________________________________________________________________________________
 
@@ -694,7 +690,7 @@ signatures, it is always safe to use template pattern matching on them to
 partially specialize class templates or overload function templates. In
 contrast, the types of most Boost.Hana objects are left unspecified.
 
-Why isn't std::integral_constant a Number in general? {#FAQ_numbers}
+Why isn't std::integral_constant a Number in general?
 --------------------------------------------------------------------------------
 ________________________________________________________________________________
 
