@@ -43,11 +43,11 @@ namespace metal {
     using distinct = typename detail::_distinct<vals...>::type;
 }
 
+#include "../detail/declptr.hpp"
 #include "../list/indices.hpp"
 #include "../list/list.hpp"
 #include "../number/number.hpp"
 #include "../value/value.hpp"
-#include "../detail/declptr.hpp"
 
 namespace metal {
     /// \cond

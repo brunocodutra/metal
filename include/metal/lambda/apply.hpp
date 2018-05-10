@@ -38,11 +38,11 @@ namespace metal {
     using apply = typename detail::_apply<lbd, seq>::type;
 }
 
+#include "../detail/sfinae.hpp"
 #include "../lambda/lambda.hpp"
 #include "../list/list.hpp"
 #include "../number/number.hpp"
 #include "../value/value.hpp"
-#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond

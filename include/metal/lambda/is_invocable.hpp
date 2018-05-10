@@ -2,9 +2,9 @@
 #define METAL_LAMBDA_IS_INVOCABLE_HPP
 
 #include "../config.hpp"
+#include "../detail/sfinae.hpp"
 #include "../lambda/invoke.hpp"
 #include "../value/same.hpp"
-#include "../detail/sfinae.hpp"
 
 #include <type_traits>
 

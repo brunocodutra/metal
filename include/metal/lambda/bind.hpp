@@ -46,8 +46,8 @@ namespace metal {
     using bind = typename detail::_bind<lbd, vals...>::type;
 }
 
-#include "../lambda/lambda.hpp"
 #include "../detail/sfinae.hpp"
+#include "../lambda/lambda.hpp"
 
 namespace metal {
     /// \cond
