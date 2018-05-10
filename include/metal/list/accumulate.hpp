@@ -2,10 +2,10 @@
 #define METAL_LIST_ACCUMULATE_HPP
 
 #include "../config.hpp"
+#include "../detail/sfinae.hpp"
 #include "../list/size.hpp"
 #include "../number/if.hpp"
 #include "../value/same.hpp"
-#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond

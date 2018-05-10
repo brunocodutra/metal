@@ -2,9 +2,9 @@
 #define METAL_DETAIL_SFINAE_HPP
 
 #include "../config.hpp"
+#include "../detail/declptr.hpp"
 #include "../value/eval.hpp"
 #include "../value/value.hpp"
-#include "../detail/declptr.hpp"
 
 #include <type_traits>
 

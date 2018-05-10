@@ -2,6 +2,7 @@
 #define METAL_NUMBER_NUMBER_HPP
 
 #include "../config.hpp"
+
 #include <cstdint>
 #include <type_traits>
 

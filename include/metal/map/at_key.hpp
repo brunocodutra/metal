@@ -39,11 +39,11 @@ namespace metal {
     using at_key = typename detail::_at_key<seq, key>::type;
 }
 
+#include "../detail/declptr.hpp"
 #include "../list/list.hpp"
 #include "../number/number.hpp"
 #include "../value/distinct.hpp"
 #include "../value/value.hpp"
-#include "../detail/declptr.hpp"
 
 namespace metal {
     /// \cond

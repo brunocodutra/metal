@@ -2,6 +2,7 @@
 #define METAL_LAMBDA_ARG_HPP
 
 #include "../config.hpp"
+
 #include <cstddef>
 
 namespace metal {
