@@ -1,5 +1,10 @@
 enable_testing()
 
+find_program(CPPCHECK NAMES cppcheck)
+if(CPPCHECK)
+    message(STATUS "which cppcheck: ${CPPCHECK}")
+endif()
+
 find_program(CLANG_TIDY NAMES clang-tidy)
 if(CLANG_TIDY)
     message(STATUS "which clang-tidy: ${CLANG_TIDY}")
@@ -38,9 +43,15 @@ function(test _target)
             target_weak_compile_options(${_target} PRIVATE -Wall)
         endif()
 
-        if(CLANG_TIDY)
+        if(CLANG_TIDY AND "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
             set_target_properties(${_target} PROPERTIES
                 CXX_CLANG_TIDY "${CLANG_TIDY};-checks=-clang-diagnostic-unused-command-line-argument"
+            )
+        endif()
+
+        if(CPPCHECK AND "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+            set_target_properties(${_target} PROPERTIES
+                CXX_CPPCHECK "${CPPCHECK};--enable=warning,performance,portability;--template=gcc"
             )
         endif()
     endif()
