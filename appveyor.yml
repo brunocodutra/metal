@@ -29,7 +29,7 @@ configuration:
 install:
   - git -C "%APPVEYOR_BUILD_FOLDER%" submodule update --init --recursive
 
-  - if "%CHECK_DOC%" equ "true" (choco install doxygen.portable)
+  - if "%CHECK_DOC%" equ "true" (choco install doxygen.install)
 
 before_build:
   - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
