@@ -78,7 +78,7 @@ namespace metal {
         template<typename... vals>
         struct _distinct
             : decltype(
-                  _distinct_impl<inherit<value<vals>...>, value<vals>...>(0)) {
+                  _distinct_impl<inherit<maybe<vals>...>, maybe<vals>...>(0)) {
         };
     }
     /// \endcond
