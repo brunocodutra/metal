@@ -9,6 +9,9 @@ namespace metal {
     namespace detail {
         struct na;
 
+        template<typename val>
+        struct maybe;
+
 #if defined(METAL_WORKAROUND)
         template<typename val>
         struct _is_value;
@@ -85,7 +88,7 @@ namespace metal {
         using type = val;
     };
 #else
-    struct value;
+    using value = detail::maybe<val>;
 #endif
 
     /// \ingroup value
@@ -111,15 +114,15 @@ namespace metal {
     using nil = metal::value<>;
 
     /// \cond
-    template<typename val>
-    struct value {
-        using type = val;
-    };
-
-    template<>
-    struct value<detail::na> {};
-
     namespace detail {
+        template<typename val>
+        struct maybe {
+            using type = val;
+        };
+
+        template<>
+        struct maybe<detail::na> {};
+
 #if defined(METAL_WORKAROUND)
         template<typename val>
         struct _is_value {

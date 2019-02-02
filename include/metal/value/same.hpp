@@ -56,7 +56,7 @@ namespace metal {
         struct _same_impl<_<val>...> : true_ {};
 
         template<typename... vals>
-        struct _same : _same_impl<value<vals>...> {};
+        struct _same : _same_impl<maybe<vals>...> {};
 
         template<typename x, typename y>
         struct _same<x, y> : false_ {};
