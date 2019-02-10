@@ -157,6 +157,11 @@
 
 #define FWD(ARG, ...) FWD_ID(DEFER(FWD_IMPL)(ARG, __VA_ARGS__, _))
 
+#define X20(M, N) \
+    M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), \
+    M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N) \
+/**/
+
 #define GEN_I0(I, M)
 #define GEN_I1(I, M) M(I, 0)
 #define GEN_I2(I, M) GEN_I1(I, M) M(I, 1)

@@ -23,11 +23,6 @@ namespace test {
 
 #define TAG(M) test::tag<(M)>
 
-#define X20(M, N) \
-    M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), \
-    M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N), M(N) \
-/**/
-
 #define TAGX20(N) X20(TAG, N)
 #define TAGSX20(N) ENUM(N, FWD, TAGX20)
 
