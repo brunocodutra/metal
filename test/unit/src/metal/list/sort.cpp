@@ -51,8 +51,8 @@
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, LAMBDA(_), MAP(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, LAMBDA(_), LAMBDA(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, LAMBDA(_), LAMBDA(_)>), (FALSE)); \
-    CHECK((metal::sort<metal::list<NUMBERS(M)>, metal::lambda<metal::greater>>), (metal::list<RENUM(M, NUMBER)>)); \
-    CHECK((metal::sort<metal::list<NUMBERS(M)>, metal::lambda<metal::less>>), (metal::list<NUMBERS(M)>)); \
+    CHECK((metal::sort<metal::list<NUMBERSX20(M)>, metal::lambda<metal::greater>>), (metal::list<RENUM(M, FWD, NUMBERX20)>)); \
+    CHECK((metal::sort<metal::list<NUMBERSX20(M)>, metal::lambda<metal::less>>), (metal::list<NUMBERSX20(M)>)); \
     CHECK((metal::sort<metal::list<ENUM(INC(N), NUMBERS FIX(INC(M)))>, metal::lambda<metal::less>>), (metal::list<ENUM(INC(M), FWD, RENUM(INC(N), NUMBER NIL))>)); \
 /**/
 

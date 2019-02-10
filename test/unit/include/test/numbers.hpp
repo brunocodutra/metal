@@ -22,4 +22,7 @@
 #define TRUE BOOL(true)
 #define FALSE BOOL(false)
 
+#define NUMBERX20(N) X20(NUMBER, N)
+#define NUMBERSX20(N) ENUM(N, FWD, NUMBERX20)
+
 #endif
