@@ -57,7 +57,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_PATCH 0
+#define METAL_PATCH 1
 /// \ingroup config
 /// \hideinitializer
 ///
@@ -413,6 +413,8 @@ namespace metal {
     /// \cond
     namespace detail {
         struct na;
+        template<typename val>
+        struct maybe;
 #if defined(METAL_WORKAROUND)
         template<typename val>
         struct _is_value;
@@ -487,7 +489,7 @@ namespace metal {
         using type = val;
     };
 #else
-    struct value;
+    using value = detail::maybe<val>;
 #endif
     /// \ingroup value
     ///
@@ -511,13 +513,13 @@ namespace metal {
     /// \see is_value, value
     using nil = metal::value<>;
     /// \cond
-    template<typename val>
-    struct value {
-        using type = val;
-    };
-    template<>
-    struct value<detail::na> {};
     namespace detail {
+        template<typename val>
+        struct maybe {
+            using type = val;
+        };
+        template<>
+        struct maybe<detail::na> {};
 #if defined(METAL_WORKAROUND)
         template<typename val>
         struct _is_value {
@@ -609,6 +611,65 @@ namespace metal {
     template<typename lbd, typename seq>
     using apply = typename detail::_apply<lbd, seq>::type;
 }
+#ifndef METAL_DETAIL_SFINAE_HPP
+#define METAL_DETAIL_SFINAE_HPP
+#ifndef METAL_DETAIL_DECLPTR_HPP
+#define METAL_DETAIL_DECLPTR_HPP
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename T>
+        T* declptr();
+    }
+    /// \endcond
+}
+#endif
+#include <type_traits>
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<
+            template<template<typename...> class...> class,
+            template<typename...> class...>
+        struct forwarder;
+        template<
+            template<template<typename...> class...> class tmpl,
+            template<typename...> class... exprs,
+            eval<std::enable_if<is_value<tmpl<exprs...>>::value>>* = nullptr>
+        value<tmpl<exprs...>> sfinae(forwarder<tmpl, exprs...>*);
+        template<template<typename...> class expr, typename... vals>
+        struct caller;
+        template<
+            template<typename...> class expr, typename... vals,
+            eval<std::enable_if<is_value<expr<vals...>>::value>>* = nullptr>
+        value<expr<vals...>> sfinae(caller<expr, vals...>*);
+        value<> sfinae(...);
+        template<
+            template<template<typename...> class...> class tmpl,
+            template<typename...> class... exprs>
+        struct forwarder
+            : decltype(sfinae(declptr<forwarder<tmpl, exprs...>>())) {};
+        template<template<typename...> class expr, typename... vals>
+        struct caller : decltype(sfinae(declptr<caller<expr, vals...>>())) {};
+#if defined(METAL_WORKAROUND)
+        template<
+            template<template<typename...> class...> class tmpl,
+            template<typename...> class... exprs>
+        using forward = typename forwarder<tmpl, exprs...>::type;
+        template<template<typename...> class expr, typename... vals>
+        using call = typename caller<expr, vals...>::type;
+#else
+        template<
+            template<template<typename...> class...> class tmpl,
+            template<typename...> class... exprs>
+        using forward = tmpl<exprs...>;
+        template<template<typename...> class expr, typename... vals>
+        using call = expr<vals...>;
+#endif
+    }
+    /// \endcond
+}
+#endif
 #ifndef METAL_LIST_LIST_HPP
 #define METAL_LIST_LIST_HPP
 namespace metal {
@@ -708,65 +769,6 @@ namespace metal {
         struct _as_list<seq<vals...>> {
             using type = list<vals...>;
         };
-    }
-    /// \endcond
-}
-#endif
-#ifndef METAL_DETAIL_SFINAE_HPP
-#define METAL_DETAIL_SFINAE_HPP
-#ifndef METAL_DETAIL_DECLPTR_HPP
-#define METAL_DETAIL_DECLPTR_HPP
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<typename T>
-        T* declptr();
-    }
-    /// \endcond
-}
-#endif
-#include <type_traits>
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<
-            template<template<typename...> class...> class,
-            template<typename...> class...>
-        struct forwarder;
-        template<
-            template<template<typename...> class...> class tmpl,
-            template<typename...> class... exprs,
-            eval<std::enable_if<is_value<tmpl<exprs...>>::value>>* = nullptr>
-        value<tmpl<exprs...>> sfinae(forwarder<tmpl, exprs...>*);
-        template<template<typename...> class expr, typename... vals>
-        struct caller;
-        template<
-            template<typename...> class expr, typename... vals,
-            eval<std::enable_if<is_value<expr<vals...>>::value>>* = nullptr>
-        value<expr<vals...>> sfinae(caller<expr, vals...>*);
-        value<> sfinae(...);
-        template<
-            template<template<typename...> class...> class tmpl,
-            template<typename...> class... exprs>
-        struct forwarder
-            : decltype(sfinae(declptr<forwarder<tmpl, exprs...>>())) {};
-        template<template<typename...> class expr, typename... vals>
-        struct caller : decltype(sfinae(declptr<caller<expr, vals...>>())) {};
-#if defined(METAL_WORKAROUND)
-        template<
-            template<template<typename...> class...> class tmpl,
-            template<typename...> class... exprs>
-        using forward = typename forwarder<tmpl, exprs...>::type;
-        template<template<typename...> class expr, typename... vals>
-        using call = typename caller<expr, vals...>::type;
-#else
-        template<
-            template<template<typename...> class...> class tmpl,
-            template<typename...> class... exprs>
-        using forward = tmpl<exprs...>;
-        template<template<typename...> class expr, typename... vals>
-        using call = expr<vals...>;
-#endif
     }
     /// \endcond
 }
@@ -1223,7 +1225,7 @@ namespace metal {
         template<template<typename> class... _, typename val>
         struct _same_impl<_<val>...> : true_ {};
         template<typename... vals>
-        struct _same : _same_impl<value<vals>...> {};
+        struct _same : _same_impl<maybe<vals>...> {};
         template<typename x, typename y>
         struct _same<x, y> : false_ {};
         template<typename x>
@@ -4692,63 +4694,138 @@ namespace metal {
     /// ### See Also
     /// \see list, reverse, rotate
     template<typename seq, typename lbd>
-    using sort = detail::call<detail::_sort<lbd>::template type, seq>;
+    using sort = detail::call<
+        detail::_sort<lbd>::template type,
+        metal::if_<metal::is_list<seq>, seq>>;
 }
+#ifndef METAL_NUMBER_DIV_HPP
+#define METAL_NUMBER_DIV_HPP
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename>
-        struct cons {};
-        template<typename h, typename... t>
-        struct cons<list<h, t...>> {
-            using head = h;
-            using tail = list<t...>;
+        template<typename x, typename y>
+        struct _div;
+        template<typename x, typename y>
+        using div = typename _div<x, y>::type;
+    }
+    /// \endcond
+    /// \ingroup number
+    ///
+    /// ### Description
+    /// Computes the quotient of the arithmetic division of \numbers.
+    ///
+    /// ### Usage
+    /// For any \numbers `num_0, ..., num_n-1`
+    /// \code
+    ///     using result = metal::div<num_0, ..., num_n-1>;
+    /// \endcode
+    ///
+    /// \pre: All \numbers in `num_1, ..., num_n-1` are nonzero
+    /// \returns: \number
+    /// \semantics:
+    ///     Equivalent to
+    ///     \code
+    ///         using result = metal::number<num_0{} / ... / num_n-1{}>;
+    ///     \endcode
+    ///
+    /// ### Example
+    /// \snippet number.cpp div
+    ///
+    /// ### See Also
+    /// \see number, abs, inc, dec, neg, add, sub, mul, mod, pow
+    template<typename... nums>
+    using div = fold_left<lambda<detail::div>, nums..., number<1>>;
+    /// \cond
+    namespace detail {
+        template<typename x, typename y>
+        struct _div {};
+        template<int_ x>
+        struct _div<number<x>, number<0>> {};
+        template<int_ x, int_ y>
+        struct _div<number<x>, number<y>> {
+            using type = number<x / y>;
         };
-        template<typename seq>
-        using head = typename cons<seq>::head;
-        template<typename seq>
-        using tail = typename cons<seq>::tail;
+    }
+    /// \endcond
+}
+#endif
+namespace metal {
+    /// \cond
+    namespace detail {
+        template<typename x, typename y, typename z = list<>, typename = true_>
+        struct _merge;
         template<
             typename, typename, typename, template<typename...> class,
             typename = true_>
-        struct _merge {};
+        struct _merge_impl {};
         template<
-            typename x, typename y, typename... zs,
-            template<typename...> class e>
-        struct _merge<
-            x, y, list<zs...>, e, if_<call<e, head<y>, head<x>>, true_, false_>>
-            : _merge<x, tail<y>, list<zs..., head<y>>, e> {};
+            typename xh, typename... xt, typename yh, typename... yt,
+            typename... zs, template<typename...> class e>
+        struct _merge_impl<
+            list<xh, xt...>, list<yh, yt...>, list<zs...>, e,
+            if_<call<e, yh, xh>, true_, false_>>
+            : _merge_impl<list<xh, xt...>, list<yt...>, list<zs..., yh>, e> {};
         template<
-            typename x, typename y, typename... zs,
-            template<typename...> class e>
-        struct _merge<
-            x, y, list<zs...>, e, if_<call<e, head<y>, head<x>>, false_, true_>>
-            : _merge<tail<x>, y, list<zs..., head<x>>, e> {};
+            typename xh, typename... xt, typename yh, typename... yt,
+            typename... zs, template<typename...> class e>
+        struct _merge_impl<
+            list<xh, xt...>, list<yh, yt...>, list<zs...>, e,
+            if_<call<e, yh, xh>, false_, true_>>
+            : _merge_impl<list<xt...>, list<yh, yt...>, list<zs..., xh>, e> {};
         template<typename... xs, typename... zs, template<typename...> class e>
-        struct _merge<list<xs...>, list<>, list<zs...>, e> {
+        struct _merge_impl<list<xs...>, list<>, list<zs...>, e> {
+            template<typename x, typename y>
+            using part = typename _merge<
+                prepend<x, xs...>, y, list<zs...>>::template type<e>;
             using type = list<zs..., xs...>;
         };
         template<typename... ys, typename... zs, template<typename...> class e>
-        struct _merge<list<>, list<ys...>, list<zs...>, e> {
+        struct _merge_impl<list<>, list<ys...>, list<zs...>, e> {
+            template<typename x, typename y>
+            using part = typename _merge<
+                x, prepend<y, ys...>, list<zs...>>::template type<e>;
             using type = list<zs..., ys...>;
         };
-        template<typename z, template<typename...> class e>
-        struct _merge<list<>, list<>, z, e> {
-            using type = z;
+        template<typename x, typename y, typename z, typename>
+        struct _merge {
+            using xe = size<x>;
+            using ye = size<y>;
+            using xm = div<inc<xe>, number<2>>;
+            using ym = div<inc<ye>, number<2>>;
+            using xl = range<x, number<0>, xm>;
+            using yl = range<y, number<0>, ym>;
+            using xr = range<x, xm, xe>;
+            using yr = range<y, ym, ye>;
+            using l = _merge<xl, yl, z>;
+            template<template<typename...> class expr>
+            using type = typename l::template type<expr>::template part<xr, yr>;
+        };
+        template<typename x, typename y, typename z>
+        struct _merge<x, y, z, less<add<size<x>, size<y>>, number<100>>> {
+            template<template<typename...> class expr>
+            using type = _merge_impl<x, y, z, expr>;
+        };
+        template<typename x, typename z>
+        struct _merge<x, list<>, z> {
+            template<template<typename...> class expr>
+            using type = _merge_impl<x, list<>, z, expr>;
+        };
+        template<typename y, typename z>
+        struct _merge<list<>, y, z> {
+            template<template<typename...> class expr>
+            using type = _merge_impl<list<>, y, z, expr>;
         };
         template<typename seq>
-        struct _sort_impl {};
-        template<typename... vals>
-        struct _sort_impl<list<vals...>> {
-            using seq = list<vals...>;
+        struct _sort_impl {
             using beg = number<0>;
-            using mid = number<sizeof...(vals) / 2>;
-            using end = number<sizeof...(vals)>;
+            using end = size<seq>;
+            using mid = div<end, number<2>>;
+            using l = _sort_impl<range<seq, beg, mid>>;
+            using r = _sort_impl<range<seq, mid, end>>;
             template<template<typename...> class expr>
             using type = typename _merge<
-                forward<_sort_impl<range<seq, beg, mid>>::template type, expr>,
-                forward<_sort_impl<range<seq, mid, end>>::template type, expr>,
-                list<>, expr>::type;
+                forward<l::template type, expr>,
+                forward<r::template type, expr>>::template type<expr>::type;
         };
         template<typename x, typename y>
         struct _sort_impl<list<x, y>> {
@@ -4918,7 +4995,7 @@ namespace metal {
         template<typename... vals>
         struct _distinct
             : decltype(
-                  _distinct_impl<inherit<value<vals>...>, value<vals>...>(0)) {
+                  _distinct_impl<inherit<maybe<vals>...>, maybe<vals>...>(0)) {
         };
     }
     /// \endcond
@@ -5366,57 +5443,6 @@ namespace metal {
     /// \see number, inc, dec, neg, add, sub, mul, div, mod, pow
     template<typename num>
     using abs = metal::max<num, metal::neg<num>>;
-}
-#endif
-#ifndef METAL_NUMBER_DIV_HPP
-#define METAL_NUMBER_DIV_HPP
-namespace metal {
-    /// \cond
-    namespace detail {
-        template<typename x, typename y>
-        struct _div;
-        template<typename x, typename y>
-        using div = typename _div<x, y>::type;
-    }
-    /// \endcond
-    /// \ingroup number
-    ///
-    /// ### Description
-    /// Computes the quotient of the arithmetic division of \numbers.
-    ///
-    /// ### Usage
-    /// For any \numbers `num_0, ..., num_n-1`
-    /// \code
-    ///     using result = metal::div<num_0, ..., num_n-1>;
-    /// \endcode
-    ///
-    /// \pre: All \numbers in `num_1, ..., num_n-1` are nonzero
-    /// \returns: \number
-    /// \semantics:
-    ///     Equivalent to
-    ///     \code
-    ///         using result = metal::number<num_0{} / ... / num_n-1{}>;
-    ///     \endcode
-    ///
-    /// ### Example
-    /// \snippet number.cpp div
-    ///
-    /// ### See Also
-    /// \see number, abs, inc, dec, neg, add, sub, mul, mod, pow
-    template<typename... nums>
-    using div = fold_left<lambda<detail::div>, nums..., number<1>>;
-    /// \cond
-    namespace detail {
-        template<typename x, typename y>
-        struct _div {};
-        template<int_ x>
-        struct _div<number<x>, number<0>> {};
-        template<int_ x, int_ y>
-        struct _div<number<x>, number<y>> {
-            using type = number<x / y>;
-        };
-    }
-    /// \endcond
 }
 #endif
 #ifndef METAL_NUMBER_MOD_HPP
