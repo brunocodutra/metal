@@ -395,7 +395,7 @@ return respectively the first and second argument with which they are
 \snippet church.cpp bool
 
 Now, using the fact that booleans are themselves \lambdas, it's not too hard to
-realize that invoking a boolean with arguments `<false_, true>` always yields
+realize that invoking a boolean with arguments `<false_, true_>` always yields
 its negation.
 
 \snippet church.cpp not_expr

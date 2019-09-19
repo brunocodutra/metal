@@ -586,11 +586,6 @@ HIDE(
 /// [combine]
 struct a; struct b; struct c; struct d;
 
-using tree = metal::list<
-    metal::list<metal::list<a>, metal::list<b>>,
-    metal::list<metal::list<c>, metal::list<d>>
->;
-
 IS_SAME(
     metal::combine<metal::list<a, b, c, d>, metal::number<2>>,
     metal::list<

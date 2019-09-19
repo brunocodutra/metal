@@ -30,7 +30,7 @@ namespace metal {
     /// \endcode
     ///
     /// \pre: For any two \values `val_i` and `val_j` contained in `l`
-    /// `metal::expr<val_i, val_j>` returns a \number
+    /// `metal::invoke<lbd, val_i, val_j>` returns a \number
     /// \returns: \list
     /// \semantics:
     ///     Equivalent to
@@ -38,7 +38,7 @@ namespace metal {
     ///         using result = metal::list<val_0, ..., val_m-1>;
     ///     \endcode
     ///     where `val_0, ..., val_m-1` is a permutation of the elements in `l`
-    ///     such that `metal::expr<val_i, val_i+1>{} != false` for all
+    ///     such that `metal::invoke<lbd, val_i, val_i+1>{} != false` for all
     ///     `i` in `[0, m-2]`.
     ///
     /// ### Example
