@@ -12,26 +12,6 @@ addons:
   apt:
     packages: &pkgs
     - tree
-    sources: &srcs
-    - ubuntu-toolchain-r-test
-    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main'
-      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.5 main'
-      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main'
-      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.7 main'
-      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main'
-      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main'
-      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main'
-      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
-      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-    - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main'
-      key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
 
 cache:
   directories:
@@ -62,7 +42,10 @@ jobs:
     script: (cd "${BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
           - *pkgs
           - clang-6.0
@@ -125,7 +108,8 @@ jobs:
     env: VERSION=4.7
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
         packages:
           - *pkgs
           - cppcheck
@@ -138,7 +122,8 @@ jobs:
     env: VERSION=4.8
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
         packages:
           - *pkgs
           - cppcheck
@@ -151,7 +136,8 @@ jobs:
     env: VERSION=4.9
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
         packages:
           - *pkgs
           - cppcheck
@@ -164,7 +150,8 @@ jobs:
     env: VERSION=5
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
         packages:
           - *pkgs
           - cppcheck
@@ -177,7 +164,8 @@ jobs:
     env: VERSION=6
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
         packages:
           - *pkgs
           - cppcheck
@@ -190,7 +178,8 @@ jobs:
     env: VERSION=7
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
         packages:
           - *pkgs
           - cppcheck
@@ -203,7 +192,8 @@ jobs:
     env: VERSION=8
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
         packages:
           - *pkgs
           - cppcheck
@@ -216,7 +206,10 @@ jobs:
     env: VERSION=3.4 CXXFLAGS="-stdlib=libc++"
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
           - *pkgs
           - clang-3.4
@@ -230,7 +223,10 @@ jobs:
     env: VERSION=3.5 CXXFLAGS="-stdlib=libc++"
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.5 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
           - *pkgs
           - clang-3.5
@@ -244,7 +240,10 @@ jobs:
     env: VERSION=3.6 CXXFLAGS="-stdlib=libc++"
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
           - *pkgs
           - clang-3.6
@@ -258,7 +257,10 @@ jobs:
     env: VERSION=3.7 CXXFLAGS="-stdlib=libc++"
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.7 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
           - *ubuntu_packages
           - clang-3.7
@@ -272,7 +274,10 @@ jobs:
     env: VERSION=3.8 CXXFLAGS="-stdlib=libc++"
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
           - *pkgs
           - clang-3.8
@@ -286,7 +291,10 @@ jobs:
     env: VERSION=3.9 CXXFLAGS="-stdlib=libc++"
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
           - *pkgs
           - clang-3.9
@@ -300,7 +308,10 @@ jobs:
     env: VERSION=4.0 CXXFLAGS="-stdlib=libc++"
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
           - *pkgs
           - clang-4.0
@@ -314,7 +325,10 @@ jobs:
     env: VERSION=5.0 CXXFLAGS="-stdlib=libc++"
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
           - *pkgs
           - clang-5.0
@@ -328,7 +342,10 @@ jobs:
     env: VERSION=6.0 CXXFLAGS="-stdlib=libc++"
     addons:
       apt:
-        sources: *srcs
+        sources:
+          - ubuntu-toolchain-r-test
+          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main'
+            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
           - *pkgs
           - clang-6.0
