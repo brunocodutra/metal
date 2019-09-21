@@ -16,12 +16,6 @@ stages:
 jobs:
   include:
   - name: "doc"
-    os: osx
-    stage: lint
-    compiler: clang++
-    script: (! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error")
-
-  - name: "doc"
     os: linux
     stage: lint
     script: (! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error")
