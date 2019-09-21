@@ -400,14 +400,12 @@ install:
 
 # Doxygen
 - |
-  if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Lint" ]]
+  if [[ "${TRAVIS_BUILD_STAGE_NAME}" != "Test" ]]
   then
-    DOXYGEN_URL="http://www.doxygen.nl/files/doxygen-1.8.14.src.tar.gz"
+    DOXYGEN_URL="http://doxygen.nl/files/doxygen-1.8.16.linux.bin.tar.gz"
     mkdir -p "${DEPS_PATH}/doxygen"
     travis_retry curl -L "${DOXYGEN_URL}" | tar --strip-components=1 -xz -C "${DEPS_PATH}/doxygen" || exit $?
-    cmake -H"${DEPS_PATH}/doxygen" -B"${DEPS_PATH}/doxygen/build" || exit $?
-    cmake --build "${DEPS_PATH}/doxygen/build" -- -j || exit $?
-    export PATH="${DEPS_PATH}/doxygen/build/bin:${PATH}"
+    export PATH="${DEPS_PATH}/doxygen/bin:${PATH}"
   fi
 
 # Boost

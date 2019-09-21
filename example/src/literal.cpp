@@ -78,7 +78,6 @@ using parse_digit = metal::at_key<
     >,
     token
 >;
-
 ///[parse_digit]
 
 HIDE(
