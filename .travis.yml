@@ -8,11 +8,6 @@ env:
   global:
   - secure: "DuBGzmeKiWMm5m0+uZhutjzCffB2PbixmuMm3IZWUi7/uAam4PPI37oeqVTIytxxfpgRvfR2ah75eJyU6ab72MBoHxGkHem10RAvhC/vPYbLZu545qfSGatyTI9R6NfERUxi7YIxjs6D8c4D/5k3gMoCbMUkU1Lze1708lknh5U="
 
-addons:
-  apt:
-    packages: &pkgs
-    - tree
-
 cache:
   directories:
   - deps/boost
@@ -30,33 +25,20 @@ jobs:
     script: (! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error")
 
   - os: linux
-    dist: trusty
     stage: lint
     script: (! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error")
 
   - os: linux
-    dist: trusty
     stage: lint
     compiler: clang++
-    env: VERSION=6.0
     script: (cd "${BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main'
-            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-        packages:
-          - *pkgs
-          - clang-6.0
-          - clang-format-6.0
 
   - os: osx
     stage: test
     compiler: clang++
 
   - os: linux
-    dist: trusty
+    dist: xenial
     stage: test
     compiler: g++
     env: VERSION=4.7
@@ -65,23 +47,16 @@ jobs:
         sources:
           - ubuntu-toolchain-r-test
         packages:
-          - *pkgs
           - cppcheck
           - g++-4.7
 
   - os: linux
-    dist: trusty
     stage: test
     compiler: g++
-    env: VERSION=8
     addons:
       apt:
-        sources:
-          - ubuntu-toolchain-r-test
         packages:
-          - *pkgs
           - cppcheck
-          - g++-8
 
   - os: linux
     dist: trusty
@@ -95,35 +70,24 @@ jobs:
           - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main'
             key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
-          - *pkgs
           - clang-3.4
           - libc++-dev
           - libc++abi-dev
 
   - os: linux
-    dist: trusty
     stage: test
     compiler: clang++
-    env: VERSION=6.0 CXXFLAGS="-stdlib=libc++"
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-          - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main'
-            key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-        packages:
-          - *pkgs
-          - clang-6.0
-          - libc++-dev
-          - libc++abi-dev
 
   - os: linux
-    dist: trusty
     stage: deploy
     script:
     - cmake --build "${BUILD_PATH}" --target doc
     - cmake --build "${BUILD_PATH}" --target install
     - tree "${INSTALL_PATH}"
+    addons:
+      apt:
+        packages:
+        - tree
     deploy:
     - provider: pages
       target-branch: standalone
@@ -192,13 +156,6 @@ before_script:
 - CMAKE_ARGS+=("-B${BUILD_PATH}")
 - CMAKE_ARGS+=("-DCMAKE_INSTALL_PREFIX=${INSTALL_PATH}")
 - CMAKE_ARGS+=("-DBOOST_ROOT=${DEPS_PATH}/boost")
-
-- |
-  if [[ ${CC} == clang* && ${CXX} == clang++* ]]
-  then
-    CMAKE_ARGS+=("-DCLANG_FORMAT=/usr/bin/clang-format-${VERSION}")
-  fi
-
 - cmake ${CMAKE_ARGS[@]}
 
 script:
