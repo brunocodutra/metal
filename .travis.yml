@@ -15,25 +15,25 @@ stages:
 
 jobs:
   include:
-  - os: osx
+  - name: "doc"
+    os: osx
     stage: lint
     compiler: clang++
     script: (! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error")
 
-  - os: linux
+  - name: "doc"
+    os: linux
     stage: lint
     script: (! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error")
 
-  - os: linux
+  - name: "clang-format"
+    os: linux
     stage: lint
     compiler: clang++
     script: (cd "${BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
 
-  - os: osx
-    stage: test
-    compiler: clang++
-
-  - os: linux
+  - name: "gcc 4.7"
+    os: linux
     dist: xenial
     stage: test
     compiler: g++
@@ -46,7 +46,8 @@ jobs:
           - cppcheck
           - g++-4.7
 
-  - os: linux
+  - name: "gcc"
+    os: linux
     stage: test
     compiler: g++
     addons:
@@ -54,7 +55,8 @@ jobs:
         packages:
           - cppcheck
 
-  - os: linux
+  - name: "clang 3.4"
+    os: linux
     dist: trusty
     stage: test
     compiler: clang++
@@ -70,11 +72,18 @@ jobs:
           - libc++-dev
           - libc++abi-dev
 
-  - os: linux
+  - name: "clang"
+    os: linux
     stage: test
     compiler: clang++
 
-  - os: linux
+  - name: "clang"
+    os: osx
+    stage: test
+    compiler: clang++
+
+  - name: "release"
+    os: linux
     stage: deploy
     script:
     - cmake --build "${BUILD_PATH}" --target doc
