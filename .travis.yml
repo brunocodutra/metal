@@ -38,12 +38,36 @@ cache:
   - deps/boost
 
 stages:
-- test
 - lint
+- test
 - deploy
 
 jobs:
   include:
+  - os: osx
+    stage: lint
+    compiler: clang++
+    script: (! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error")
+
+  - os: linux
+    dist: trusty
+    stage: lint
+    script: (! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error")
+
+  - os: linux
+    dist: trusty
+    stage: lint
+    compiler: clang++
+    env: VERSION=6.0
+    script: (cd "${BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
+    addons:
+      apt:
+        sources: *srcs
+        packages:
+          - *pkgs
+          - clang-6.0
+          - clang-format-6.0
+
   - os: osx
     stage: test
     compiler: clang++
@@ -310,30 +334,6 @@ jobs:
           - clang-6.0
           - libc++-dev
           - libc++abi-dev
-
-  - os: osx
-    stage: lint
-    compiler: clang++
-    script: (! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error")
-
-  - os: linux
-    dist: trusty
-    stage: lint
-    script: (! cmake --build "${BUILD_PATH}" --target doc 2>&1 | grep --color -iE "warning|error")
-
-  - os: linux
-    dist: trusty
-    stage: lint
-    compiler: clang++
-    env: VERSION=6.0
-    script: (cd "${BUILD_PATH}" && ctest --output-on-failure -R ^test.format)
-    addons:
-      apt:
-        sources: *srcs
-        packages:
-          - *pkgs
-          - clang-6.0
-          - clang-format-6.0
 
   - os: linux
     dist: trusty
