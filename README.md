@@ -83,41 +83,8 @@ You don't have to just take my word for it, see for yourself at [metaben.ch].
 
 ## Portable
 
-The following compilers are continuously tested at
-[Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
-
-| Compiler          | Version   | Operating System
-|-------------------|-----------|-----------------------
-| GCC               | 4.7       | Ubuntu 14.04 LTS
-| GCC               | 4.8       | Ubuntu 14.04 LTS
-| GCC               | 4.9       | Ubuntu 14.04 LTS
-| GCC               | 5         | Ubuntu 14.04 LTS
-| GCC               | 6         | Ubuntu 14.04 LTS
-| GCC               | 7         | Ubuntu 14.04 LTS
-| GCC               | 8         | Ubuntu 14.04 LTS
-| Clang             | 3.4       | Ubuntu 14.04 LTS
-| Clang             | 3.5       | Ubuntu 14.04 LTS
-| Clang             | 3.6       | Ubuntu 14.04 LTS
-| Clang             | 3.7       | Ubuntu 14.04 LTS
-| Clang             | 3.8       | Ubuntu 14.04 LTS
-| Clang             | 3.9       | Ubuntu 14.04 LTS
-| Clang             | 4.0       | Ubuntu 14.04 LTS
-| Clang             | 5.0       | Ubuntu 14.04 LTS
-| Clang             | 6.0       | Ubuntu 14.04 LTS
-| Xcode             | 6.4       | OS X 10.10
-| Xcode             | 7.3       | OS X 10.11
-| Xcode             | 8.0       | OS X 10.11
-| Xcode             | 8.1       | OS X 10.12
-| Xcode             | 8.2       | OS X 10.12
-| Xcode             | 8.3       | OS X 10.12
-| Xcode             | 9.0       | OS X 10.12
-| Xcode             | 9.1       | OS X 10.12
-| Xcode             | 9.2       | OS X 10.12
-| Xcode             | 9.3       | OS X 10.13
-| MinGW-w64         | 5         | Windows Server 2012
-| MinGW-w64         | 6         | Windows Server 2012
-| Visual Studio     | 14 (2015) | Windows Server 2012
-| Visual Studio     | 15 (2017) | Windows Server 2016
+Metal is continuously tested on [Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
+It is known to work on GCC 4.7+, Clang 3.4+ and Visual Studio 14 (2015)+.
 
 ## Documentation
 
