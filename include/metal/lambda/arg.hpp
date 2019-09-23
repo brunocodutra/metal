@@ -19,9 +19,9 @@ namespace metal {
     /// A parametric \lambda that selects the n-th argument it is invoked with.
     ///
     /// ### Usage
-    /// For any non negative integral value `m`
+    /// For any nonzero positive integral value `n`
     /// \code
-    ///     using result = metal::arg<m>;
+    ///     using result = metal::arg<n>;
     /// \endcode
     ///
     /// \returns: \lambda
@@ -31,7 +31,7 @@ namespace metal {
     ///         using result = metal::lambda<expr>;
     ///     \endcode
     ///     where `expr` is an \expression such that
-    ///     `expr<val_0, ..., val_m, ..., val_n-1>` yields `val_m`.
+    ///     `expr<val_0, ..., val_n-1, ..., val_m-1>` yields `val_n-1`.
     ///
     /// ### Example
     /// \snippet lambda.cpp arg
