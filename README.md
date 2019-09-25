@@ -1,6 +1,6 @@
 # Metal [![version]][semver] [![travis.badge]][travis.metal] [![appveyor.badge]][appveyor.metal] [![gitter.badge]][gitter.metal] [![godbolt.badge]][godbolt.metal]
 
-Metal is a single header C++11 library designed to make you love template
+Metal is a single-header C++11 library designed to make you love template
 metaprogramming.
 
 ## Overview
@@ -74,12 +74,12 @@ static_assert(metal::same<sorted, metal::list<y, z, x>>::value, "");
 ## Quick Start
 
 1. Download [metal.hpp][releases]
-2. `# include </path/to/metal.hpp>`
+2. `#include </path/to/metal.hpp>`
 3. Love template metaprogramming
 
-## Blazing Fast
+## Blazingly Fast
 
-You don't have to just take my word for it, see for yourself at [metaben.ch].
+You don't need to just take my word for it, see for yourself at [metaben.ch].
 
 ## Portable
 
@@ -88,7 +88,7 @@ It is known to work on GCC 4.7+, Clang 3.4+ and Visual Studio 14 (2015)+.
 
 ## Documentation
 
-The complete up to date documentation is available [online][documentation].
+The complete up-to-date documentation is available [online][documentation].
 
 
 ## License
