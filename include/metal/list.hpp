@@ -29,6 +29,7 @@
 #include "list/join.hpp"
 #include "list/list.hpp"
 #include "list/none_of.hpp"
+#include "list/nth_element_bruteforce.hpp"
 #include "list/partition.hpp"
 #include "list/powerset.hpp"
 #include "list/prepend.hpp"

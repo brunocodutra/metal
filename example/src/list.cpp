@@ -677,4 +677,52 @@ IS_SAME(
 );
 /// [accumulate]
 )
+
+HIDE(
+  IS_SAME(
+    metal::nth_element_bruteforce::nth_element<
+      metal::numbers<7, -2, 4, 1, 9>,
+      metal::number<0>,
+      metal::lambda<metal::less>
+    >,
+    metal::number<-2>
+  );
+
+  IS_SAME(
+    metal::nth_element_bruteforce::nth_element<
+      metal::numbers<7, -2, 4, 1, 9>,
+      metal::number<1>,
+      metal::lambda<metal::less>
+    >,
+    metal::number<1>
+  );
+
+  IS_SAME(
+    metal::nth_element_bruteforce::nth_element<
+      metal::numbers<7, -2, 4, 1, 9>,
+      metal::number<2>,
+      metal::lambda<metal::less>
+    >,
+    metal::number<4>
+  );
+
+  IS_SAME(
+    metal::nth_element_bruteforce::nth_element<
+      metal::numbers<7, -2, 4, 1, 9>,
+      metal::number<3>,
+      metal::lambda<metal::less>
+    >,
+    metal::number<7>
+  );
+  IS_SAME(
+    metal::nth_element_bruteforce::nth_element<
+      metal::numbers<7, -2, 4, 1, 9>,
+      metal::number<4>,
+      metal::lambda<metal::less>
+    >,
+    metal::number<9>
+  );
+/// [nth_element]
+)
+
 #endif
