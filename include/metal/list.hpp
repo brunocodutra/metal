@@ -28,6 +28,7 @@
 #include "list/iota.hpp"
 #include "list/join.hpp"
 #include "list/list.hpp"
+#include "list/min_element.hpp"
 #include "list/none_of.hpp"
 #include "list/partition.hpp"
 #include "list/powerset.hpp"
