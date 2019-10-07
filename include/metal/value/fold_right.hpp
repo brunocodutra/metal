@@ -54,31 +54,26 @@ namespace metal {
         template<
             class state,
             /* clang-format off */
-            class _00, class _01, class _02, class _03,
-            class _04, class _05, class _06, class _07,
-            class _08, class _09, class _10, class _11,
-            class _12, class _13, class _14, class _15,
-            class _16, class _17, class _18, class _19,
-            class _20, class _21, class _22, class _23,
-            class _24, class _25, class _26, class _27,
-            class _28, class _29, class _30, class _31,
-            class _32, class _33, class _34, class _35,
-            class _36, class _37, class _38, class _39,
-            class _40, class _41, class _42, class _43,
-            class _44, class _45, class _46, class _47,
-            class _48, class _49, class _50, class _51,
-            class _52, class _53, class _54, class _55,
-            class _56, class _57, class _58, class _59,
-            class _60, class _61, class _62, class _63,
-            class _64, class _65, class _66, class _67,
-            class _68, class _69, class _70, class _71,
-            class _72, class _73, class _74, class _75,
-            class _76, class _77, class _78, class _79,
-            class _80, class _81, class _82, class _83,
-            class _84, class _85, class _86, class _87,
-            class _88, class _89, class _90, class _91,
-            class _92, class _93, class _94, class _95,
-            class _96, class _97, class _98, class _99
+            class _00, class _01, class _02, class _03, class _04,
+            class _05, class _06, class _07, class _08, class _09,
+            class _10, class _11, class _12, class _13, class _14,
+            class _15, class _16, class _17, class _18, class _19,
+            class _20, class _21, class _22, class _23, class _24,
+            class _25, class _26, class _27, class _28, class _29,
+            class _30, class _31, class _32, class _33, class _34,
+            class _35, class _36, class _37, class _38, class _39,
+            class _40, class _41, class _42, class _43, class _44,
+            class _45, class _46, class _47, class _48, class _49,
+            class _50, class _51, class _52, class _53, class _54,
+            class _55, class _56, class _57, class _58, class _59,
+            class _60, class _61, class _62, class _63, class _64,
+            class _65, class _66, class _67, class _68, class _69,
+            class _70, class _71, class _72, class _73, class _74,
+            class _75, class _76, class _77, class _78, class _79,
+            class _80, class _81, class _82, class _83, class _84,
+            class _85, class _86, class _87, class _88, class _89,
+            class _90, class _91, class _92, class _93, class _94,
+            class _95, class _96, class _97, class _98, class _99
             /* clang-format on */
             >
         struct right_folder_100 {
@@ -115,9 +110,8 @@ namespace metal {
         template<
             class state,
             /* clang-format off */
-            class _00, class _01, class _02, class _03,
-            class _04, class _05, class _06, class _07,
-            class _08, class _09
+            class _00, class _01, class _02, class _03, class _04,
+            class _05, class _06, class _07, class _08, class _09
             /* clang-format on */
             >
         struct right_folder_10 {

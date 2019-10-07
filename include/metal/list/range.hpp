@@ -166,23 +166,18 @@ namespace metal {
             template<
                 int_ n,
                 /* clang-format off */
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class, class,
-                class, class, class, class, class... tail
+                class, class, class, class, class, class, class, class, class,
+                class, class, class, class, class, class, class, class, class,
+                class, class, class, class, class, class, class, class, class,
+                class, class, class, class, class, class, class, class, class,
+                class, class, class, class, class, class, class, class, class,
+                class, class, class, class, class, class, class, class, class,
+                class, class, class, class, class, class, class, class, class,
+                class, class, class, class, class, class, class, class, class,
+                class, class, class, class, class, class, class, class, class,
+                class, class, class, class, class, class, class, class, class,
+                class, class, class, class, class, class, class, class, class,
+                class, class... tail
                 /* clang-format on */
                 >
             using type =
@@ -194,8 +189,8 @@ namespace metal {
             template<
                 int_ n,
                 /* clang-format off */
-                class, class, class, class, class, class,
-                class, class, class, class, class... tail
+                class, class, class, class, class, class, class, class, class,
+                class, class... tail
                 /* clang-format on */
                 >
             using type =
