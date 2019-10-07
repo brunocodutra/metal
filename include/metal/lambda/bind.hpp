@@ -69,8 +69,7 @@ namespace metal {
         struct _bind {};
 
         template<
-            template<class...> class expr,
-            template<class...> class... params>
+            template<class...> class expr, template<class...> class... params>
         struct _bind<lambda<expr>, lambda<params>...> {
             template<class... vals>
             using impl =

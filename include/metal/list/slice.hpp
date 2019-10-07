@@ -39,9 +39,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, range
-    template<
-        class seq, class start, class size,
-        class stride = number<1>>
+    template<class seq, class start, class size, class stride = number<1>>
     using slice = metal::transform<
         metal::partial<
             metal::lambda<metal::at>, metal::if_<metal::is_list<seq>, seq>>,

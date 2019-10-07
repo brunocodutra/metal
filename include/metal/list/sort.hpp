@@ -68,22 +68,20 @@ namespace metal {
         template<class x, class y, class z = list<>, class = true_>
         struct _merge;
 
-        template<
-            class, class, class, template<class...> class,
-            class = true_>
+        template<class, class, class, template<class...> class, class = true_>
         struct _merge_impl {};
 
         template<
-            class xh, class... xt, class yh, class... yt,
-            class... zs, template<class...> class e>
+            class xh, class... xt, class yh, class... yt, class... zs,
+            template<class...> class e>
         struct _merge_impl<
             list<xh, xt...>, list<yh, yt...>, list<zs...>, e,
             if_<call<e, yh, xh>, true_, false_>>
             : _merge_impl<list<xh, xt...>, list<yt...>, list<zs..., yh>, e> {};
 
         template<
-            class xh, class... xt, class yh, class... yt,
-            class... zs, template<class...> class e>
+            class xh, class... xt, class yh, class... yt, class... zs,
+            template<class...> class e>
         struct _merge_impl<
             list<xh, xt...>, list<yh, yt...>, list<zs...>, e,
             if_<call<e, yh, xh>, false_, true_>>

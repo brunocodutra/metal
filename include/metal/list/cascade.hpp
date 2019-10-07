@@ -62,9 +62,7 @@ namespace metal {
         template<class outer, class inner>
         struct _cascader {};
 
-        template<
-            template<class...> class outer,
-            template<class...> class inner>
+        template<template<class...> class outer, template<class...> class inner>
         struct _cascader<lambda<outer>, lambda<inner>> {
             template<class... seqs>
             using impl = invoke<lambda<outer>, apply<lambda<inner>, seqs>...>;

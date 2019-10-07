@@ -58,8 +58,7 @@ namespace metal {
         template<class vals, class vs, class...>
         struct _replace_if {};
 
-        template<
-            class... vals, int_... vs, class x, class y, class... t>
+        template<class... vals, int_... vs, class x, class y, class... t>
         struct _replace_if<list<vals...>, list<number<vs>...>, x, y, t...> {
             using type = join<if_<number<vs>, list<x, y, t...>, list<vals>>...>;
         };
