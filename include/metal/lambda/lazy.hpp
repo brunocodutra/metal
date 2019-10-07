@@ -27,7 +27,7 @@ namespace metal {
     ///     \endcode
     ///     where `eager` is an \expression such that
     ///     \code
-    ///         template<typename... args>
+    ///         template<class... args>
     ///         using eager = typename expr<args...>::type;
     ///     \endcode
     ///
@@ -36,7 +36,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see lambda, eval
-    template<template<typename...> class expr>
+    template<template<class...> class expr>
     using lazy = metal::bind<metal::lambda<metal::eval>, metal::lambda<expr>>;
 }
 

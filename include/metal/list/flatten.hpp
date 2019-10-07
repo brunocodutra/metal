@@ -33,7 +33,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, join
-    template<typename seq>
+    template<class seq>
     using flatten = metal::apply<metal::lambda<metal::join>, seq>;
 }
 

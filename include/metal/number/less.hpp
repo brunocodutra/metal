@@ -6,7 +6,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename x, typename y>
+        template<class x, class y>
         struct _less;
     }
     /// \endcond
@@ -34,7 +34,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see number, greater, max, min
-    template<typename x, typename y>
+    template<class x, class y>
     using less = typename detail::_less<x, y>::type;
 }
 
@@ -43,7 +43,7 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename x, typename y>
+        template<class x, class y>
         struct _less {};
 
         template<int_ x, int_ y>

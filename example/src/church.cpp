@@ -14,7 +14,7 @@ IS_SAME(metal::invoke<false_, false_, true_>, true_);
 
 HIDE(
 /// [not_expr]
-template<typename b>
+template<class b>
 using not_ = metal::invoke<b, false_, true_>;
 
 IS_SAME(not_<true_>, false_);

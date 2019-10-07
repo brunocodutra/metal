@@ -38,7 +38,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, all_of, none_of
-    template<typename seq, typename lbd>
+    template<class seq, class lbd>
     using any_of =
         metal::apply<metal::lambda<metal::or_>, metal::transform<lbd, seq>>;
 }

@@ -30,7 +30,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see number, not_, or_
-    template<typename... nums>
+    template<class... nums>
     using and_ = metal::same<metal::false_, metal::not_<nums>...>;
 }
 

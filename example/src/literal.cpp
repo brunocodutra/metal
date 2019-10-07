@@ -50,7 +50,7 @@ IS_SAME(metal::remove<tokens, metal::number<'\''>>, metal::numbers<'3', '7', '1'
 #endif
 
 ///[parse_digit]
-template<typename token>
+template<class token>
 using parse_digit = metal::at_key<
     metal::map<
         metal::pair<metal::number<'0'>, metal::number<0>>,
@@ -91,7 +91,7 @@ HIDE(
 using radix = metal::number<10>;
 using digits = metal::numbers<3, 7, 1>;
 
-template<typename x, typename y>
+template<class x, class y>
 using expr = metal::add<metal::mul<radix, x>, y>;
 
 using lbd = metal::lambda<expr>;
@@ -116,7 +116,7 @@ IS_SAME(metal::accumulate<lbd, metal::number<0>, digits>, metal::number<371>);
 )
 
 ///[assemble_number]
-template<typename radix, typename digits>
+template<class radix, class digits>
 using assemble_number = metal::accumulate<
     metal::bind<
         metal::lambda<metal::add>,
@@ -129,7 +129,7 @@ using assemble_number = metal::accumulate<
 ///[assemble_number]
 
 ///[parse_digits]
-template<typename tokens>
+template<class tokens>
 using parse_digits = metal::transform<
     metal::lambda<parse_digit>,
     metal::remove<tokens, metal::number<'\''>>
@@ -137,35 +137,35 @@ using parse_digits = metal::transform<
 ///[parse_digits]
 
 ///[parse_number]
-template<typename tokens>
+template<class tokens>
 struct parse_number {};
 
-template<typename... tokens>
+template<class... tokens>
 struct parse_number<metal::list<tokens...>> {
     using type = assemble_number<metal::number<10>, parse_digits<metal::list<tokens...>>>;
 };
 
-template<typename... tokens>
+template<class... tokens>
 struct parse_number<metal::list<metal::number<'0'>, tokens...>> {
     using type = assemble_number<metal::number<8>, parse_digits<metal::list<tokens...>>>;
 };
 
-template<typename... tokens>
+template<class... tokens>
 struct parse_number<metal::list<metal::number<'0'>, metal::number<'x'>, tokens...>> {
     using type = assemble_number<metal::number<16>, parse_digits<metal::list<tokens...>>>;
 };
 
-template<typename... tokens>
+template<class... tokens>
 struct parse_number<metal::list<metal::number<'0'>, metal::number<'X'>, tokens...>> {
     using type = assemble_number<metal::number<16>, parse_digits<metal::list<tokens...>>>;
 };
 
-template<typename... tokens>
+template<class... tokens>
 struct parse_number<metal::list<metal::number<'0'>, metal::number<'b'>, tokens...>> {
     using type = assemble_number<metal::number<2>, parse_digits<metal::list<tokens...>>>;
 };
 
-template<typename... tokens>
+template<class... tokens>
 struct parse_number<metal::list<metal::number<'0'>, metal::number<'B'>, tokens...>> {
     using type = assemble_number<metal::number<2>, parse_digits<metal::list<tokens...>>>;
 };
@@ -208,11 +208,11 @@ IS_SAME(decltype(1'2'3'4'5'6'7'8'9_c), metal::number<123456789>);
 #endif
 
 #if defined(METAL_WORKAROUND)
-template<typename... T>
+template<class... T>
 struct AugmentedTuple :
     std::tuple<T...>
 {
-    template<typename... U>
+    template<class... U>
     constexpr AugmentedTuple(U&&... args) :
         std::tuple<T...>(std::forward<U>(args)...)
     {}
@@ -225,7 +225,7 @@ struct AugmentedTuple :
 };
 #else
 ///[augmented_tuple]
-template<typename... T>
+template<class... T>
 struct AugmentedTuple :
     std::tuple<T...>
 {

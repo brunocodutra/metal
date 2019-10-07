@@ -39,7 +39,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, range, take, drop
-    template<typename seq, typename beg, typename end = inc<beg>>
+    template<class seq, class beg, class end = inc<beg>>
     using erase = metal::join<
         metal::take<seq, metal::min<beg, end>>,
         metal::drop<seq, metal::max<beg, end>>>;

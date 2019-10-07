@@ -6,7 +6,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename seq, typename key>
+        template<class seq, class key>
         struct _at_key;
     }
     /// \endcond
@@ -35,7 +35,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see map, has_key, insert_key, erase_key
-    template<typename seq, typename key>
+    template<class seq, class key>
     using at_key = typename detail::_at_key<seq, key>::type;
 }
 
@@ -48,23 +48,23 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename, typename = true_>
+        template<class, class = true_>
         struct table {};
 
-        template<typename... keys, typename... vals>
+        template<class... keys, class... vals>
         struct table<list<list<keys, vals>...>, distinct<list<keys, vals>...>>
             : list<keys, vals>... {};
 
         template<>
         struct table<list<>> {};
 
-        template<typename key, typename val>
+        template<class key, class val>
         value<val> lookup(list<key, val>*);
 
-        template<typename>
+        template<class>
         value<> lookup(...);
 
-        template<typename seq, typename key>
+        template<class seq, class key>
         struct _at_key : decltype(lookup<key>(declptr<table<seq>>())) {};
     }
     /// \endcond

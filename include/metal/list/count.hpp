@@ -32,7 +32,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, count_if, contains, find
-    template<typename seq, typename val>
+    template<class seq, class val>
     using count =
         metal::count_if<seq, metal::partial<metal::lambda<metal::same>, val>>;
 }

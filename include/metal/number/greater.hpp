@@ -28,7 +28,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see number, less, max, min
-    template<typename x, typename y>
+    template<class x, class y>
     using greater = metal::less<y, x>;
 }
 

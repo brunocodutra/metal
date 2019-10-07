@@ -11,7 +11,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename x, typename y>
+        template<class x, class y>
         using max = if_<greater<x, y>, x, y>;
     }
     /// \endcond
@@ -40,7 +40,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see number, greater, less, min
-    template<typename... nums>
+    template<class... nums>
     using max = fold_left<lambda<detail::max>, if_<is_number<nums>, nums>...>;
 }
 

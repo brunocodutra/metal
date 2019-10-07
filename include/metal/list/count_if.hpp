@@ -36,7 +36,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, count, all, any, none, find_if
-    template<typename seq, typename lbd>
+    template<class seq, class lbd>
     using count_if =
         metal::apply<metal::lambda<metal::add>, metal::transform<lbd, seq>>;
 }

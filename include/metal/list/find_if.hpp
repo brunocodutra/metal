@@ -7,7 +7,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename seq>
+        template<class seq>
         struct _find_if;
     }
     /// \endcond
@@ -43,7 +43,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, find, all, any, none, count_if
-    template<typename seq, typename lbd>
+    template<class seq, class lbd>
     using find_if = typename detail::_find_if<transform<lbd, seq>>::type;
 }
 
@@ -57,15 +57,15 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename seq, typename = indices<seq>>
+        template<class seq, class = indices<seq>>
         struct _find_index {};
 
-        template<int_... vs, typename... is>
+        template<int_... vs, class... is>
         struct _find_index<list<number<vs>...>, list<is...>> {
             using type = front<join<if_<number<vs>, list<is>, list<>>...>>;
         };
 
-        template<typename seq>
+        template<class seq>
         struct _find_if {};
 
         template<>

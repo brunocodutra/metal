@@ -12,10 +12,10 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename seq, typename beg, typename end>
+        template<class seq, class beg, class end>
         struct _range;
 
-        template<typename seq, typename beg, typename end>
+        template<class seq, class beg, class end>
         using range = typename detail::_range<seq, beg, end>::type;
     }
     /// \endcond
@@ -50,7 +50,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, erase, take, drop
-    template<typename seq, typename beg, typename end>
+    template<class seq, class beg, class end>
     using range = detail::range<
         seq,
         if_<not_<or_<greater<number<0>, beg>, greater<beg, size<seq>>>>, beg>,
@@ -69,9 +69,9 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... vals>
+        template<class... vals>
         struct appender {
-            template<typename... _>
+            template<class... _>
             using append = appender<vals..., _...>;
 
             using type = list<vals...>;
@@ -84,32 +84,32 @@ namespace metal {
         template<>
         struct reverser<100> {
             template<
-                typename _00, typename _01, typename _02, typename _03,
-                typename _04, typename _05, typename _06, typename _07,
-                typename _08, typename _09, typename _10, typename _11,
-                typename _12, typename _13, typename _14, typename _15,
-                typename _16, typename _17, typename _18, typename _19,
-                typename _20, typename _21, typename _22, typename _23,
-                typename _24, typename _25, typename _26, typename _27,
-                typename _28, typename _29, typename _30, typename _31,
-                typename _32, typename _33, typename _34, typename _35,
-                typename _36, typename _37, typename _38, typename _39,
-                typename _40, typename _41, typename _42, typename _43,
-                typename _44, typename _45, typename _46, typename _47,
-                typename _48, typename _49, typename _50, typename _51,
-                typename _52, typename _53, typename _54, typename _55,
-                typename _56, typename _57, typename _58, typename _59,
-                typename _60, typename _61, typename _62, typename _63,
-                typename _64, typename _65, typename _66, typename _67,
-                typename _68, typename _69, typename _70, typename _71,
-                typename _72, typename _73, typename _74, typename _75,
-                typename _76, typename _77, typename _78, typename _79,
-                typename _80, typename _81, typename _82, typename _83,
-                typename _84, typename _85, typename _86, typename _87,
-                typename _88, typename _89, typename _90, typename _91,
-                typename _92, typename _93, typename _94, typename _95,
-                typename _96, typename _97, typename _98, typename _99,
-                typename... tail>
+                class _00, class _01, class _02, class _03,
+                class _04, class _05, class _06, class _07,
+                class _08, class _09, class _10, class _11,
+                class _12, class _13, class _14, class _15,
+                class _16, class _17, class _18, class _19,
+                class _20, class _21, class _22, class _23,
+                class _24, class _25, class _26, class _27,
+                class _28, class _29, class _30, class _31,
+                class _32, class _33, class _34, class _35,
+                class _36, class _37, class _38, class _39,
+                class _40, class _41, class _42, class _43,
+                class _44, class _45, class _46, class _47,
+                class _48, class _49, class _50, class _51,
+                class _52, class _53, class _54, class _55,
+                class _56, class _57, class _58, class _59,
+                class _60, class _61, class _62, class _63,
+                class _64, class _65, class _66, class _67,
+                class _68, class _69, class _70, class _71,
+                class _72, class _73, class _74, class _75,
+                class _76, class _77, class _78, class _79,
+                class _80, class _81, class _82, class _83,
+                class _84, class _85, class _86, class _87,
+                class _88, class _89, class _90, class _91,
+                class _92, class _93, class _94, class _95,
+                class _96, class _97, class _98, class _99,
+                class... tail>
             using type = typename reverser<sizeof...(tail)>::
                 template type<tail...>::template append<
                     /* clang-format off */
@@ -130,9 +130,9 @@ namespace metal {
         template<>
         struct reverser<10> {
             template<
-                typename _00, typename _01, typename _02, typename _03,
-                typename _04, typename _05, typename _06, typename _07,
-                typename _08, typename _09, typename... tail>
+                class _00, class _01, class _02, class _03,
+                class _04, class _05, class _06, class _07,
+                class _08, class _09, class... tail>
             using type = typename reverser<sizeof...(tail)>::
                 template type<tail...>::template append<
                     _09, _08, _07, _06, _05, _04, _03, _02, _01, _00>;
@@ -140,27 +140,27 @@ namespace metal {
 
         template<>
         struct reverser<1> {
-            template<typename _00, typename... tail>
+            template<class _00, class... tail>
             using type = typename reverser<sizeof...(
                 tail)>::template type<tail...>::template append<_00>;
         };
 
         template<>
         struct reverser<0> {
-            template<typename...>
+            template<class...>
             using type = appender<>;
         };
 
-        template<typename seq>
+        template<class seq>
         struct _reverse {};
 
-        template<typename... vals>
+        template<class... vals>
         struct _reverse<list<vals...>> {
             using type = typename reverser<sizeof...(
                 vals)>::template type<vals...>::type;
         };
 
-        template<typename seq>
+        template<class seq>
         using reverse = typename _reverse<seq>::type;
 
         template<int_ n>
@@ -171,23 +171,23 @@ namespace metal {
             template<
                 int_ n,
                 /* clang-format off */
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename... tail
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class, class,
+                class, class, class, class, class... tail
                 /* clang-format on */
                 >
             using type =
@@ -199,8 +199,8 @@ namespace metal {
             template<
                 int_ n,
                 /* clang-format off */
-                typename, typename, typename, typename, typename, typename,
-                typename, typename, typename, typename, typename... tail
+                class, class, class, class, class, class,
+                class, class, class, class, class... tail
                 /* clang-format on */
                 >
             using type =
@@ -209,32 +209,32 @@ namespace metal {
 
         template<>
         struct dropper<1> {
-            template<int_ n, typename, typename... tail>
+            template<int_ n, class, class... tail>
             using type =
                 typename dropper<(n - 1)>::template type<(n - 1), tail...>;
         };
 
         template<>
         struct dropper<0> {
-            template<int_, typename... vals>
+            template<int_, class... vals>
             using type = list<vals...>;
         };
 
-        template<typename seq, typename num>
+        template<class seq, class num>
         struct _drop {};
 
-        template<typename... vals, int_ n>
+        template<class... vals, int_ n>
         struct _drop<list<vals...>, number<n>> {
             using type = typename dropper<n>::template type<n, vals...>;
         };
 
-        template<typename seq, typename num>
+        template<class seq, class num>
         using drop = typename _drop<seq, num>::type;
 
-        template<typename seq, typename num>
+        template<class seq, class num>
         using take = drop<rotate<seq, num>, sub<size<seq>, num>>;
 
-        template<typename seq, typename beg, typename end>
+        template<class seq, class beg, class end>
         struct _range {
             using b = min<beg, end>;
             using e = max<beg, end>;
@@ -244,22 +244,22 @@ namespace metal {
                 sub<end, b>>;
         };
 
-        template<typename seq, typename num>
+        template<class seq, class num>
         struct _range<seq, number<0>, num> {
             using type = take<seq, num>;
         };
 
-        template<typename seq, typename num>
+        template<class seq, class num>
         struct _range<seq, num, size<seq>> {
             using type = drop<seq, num>;
         };
 
-        template<typename seq>
+        template<class seq>
         struct _range<seq, number<0>, size<seq>> {
             using type = seq;
         };
 
-        template<typename seq>
+        template<class seq>
         struct _range<seq, size<seq>, number<0>> {
             using type = reverse<seq>;
         };

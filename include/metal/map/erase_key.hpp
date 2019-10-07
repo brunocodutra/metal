@@ -32,7 +32,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see map, has_key, at_key, insert_key
-    template<typename seq, typename key>
+    template<class seq, class key>
     using erase_key = metal::erase<seq, metal::order<seq, key>>;
 }
 

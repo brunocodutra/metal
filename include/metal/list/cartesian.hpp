@@ -9,10 +9,10 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename, typename>
+        template<class, class>
         struct _product;
 
-        template<typename seqs, typename seq>
+        template<class seqs, class seq>
         using product = typename _product<seqs, seq>::type;
     }
     /// \endcond
@@ -44,7 +44,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, transpose
-    template<typename... seqs>
+    template<class... seqs>
     using cartesian = fold_left<lambda<detail::product>, list<list<>>, seqs...>;
 }
 
@@ -53,21 +53,21 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename, typename>
+        template<class, class>
         struct _product_impl {};
 
-        template<typename... xs, typename... ys>
+        template<class... xs, class... ys>
         struct _product_impl<list<xs...>, list<ys...>> {
             using type = list<list<xs..., ys>...>;
         };
 
-        template<typename seqs, typename seq>
+        template<class seqs, class seq>
         using product_impl = typename _product_impl<seqs, seq>::type;
 
-        template<typename, typename>
+        template<class, class>
         struct _product {};
 
-        template<typename... seqs, typename... vals>
+        template<class... seqs, class... vals>
         struct _product<list<seqs...>, list<vals...>> {
             using type = join<product_impl<seqs, list<vals...>>...>;
         };

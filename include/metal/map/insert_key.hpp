@@ -38,7 +38,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see map, has_key, at_key, erase_key
-    template<typename seq, typename key, typename val>
+    template<class seq, class key, class val>
     using insert_key = metal::if_<
         metal::not_<metal::has_key<seq, key>>,
         metal::append<seq, metal::pair<key, val>>>;

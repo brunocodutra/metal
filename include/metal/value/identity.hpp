@@ -29,7 +29,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see value, eval
-    template<typename val>
+    template<class val>
     using identity =
 #if defined(METAL_WORKAROUND)
         eval<value<val>>;

@@ -29,7 +29,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see number, abs, inc, neg, add, sub, mul, div, mod, pow
-    template<typename num>
+    template<class num>
     using dec = metal::sub<num, metal::number<1>>;
 }
 

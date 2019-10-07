@@ -9,10 +9,10 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct _is_number;
 
-        template<typename val>
+        template<class val>
         struct _as_number;
 
         using int_ = std::intmax_t;
@@ -46,7 +46,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see number, is_value, is_lambda, is_pair, is_list, is_map
-    template<typename val>
+    template<class val>
     using is_number = typename detail::_is_number<val>::type;
 
     /// \ingroup number
@@ -113,62 +113,62 @@ namespace metal {
     ///
     /// ### See Also
     /// \see number
-    template<typename val>
+    template<class val>
     using as_number = typename detail::_as_number<val>::type;
 
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct _is_number : false_ {};
 
         template<int_ value>
         struct _is_number<number<value>> : true_ {};
 
-        template<typename val, typename = std::true_type>
+        template<class val, class = std::true_type>
         struct has_enum_value : std::false_type {};
 
-        template<typename val>
+        template<class val>
         struct has_enum_value<
             val, typename std::is_enum<decltype(val::value)>::type>
             : std::true_type {};
 
-        template<typename val>
+        template<class val>
         struct is_pointer_to_const_integral : std::false_type {};
 
-        template<typename val>
+        template<class val>
         struct is_pointer_to_const_integral<val const*>
             : std::is_integral<val> {};
 
-        template<typename val, typename = std::true_type>
+        template<class val, class = std::true_type>
         struct has_integral_value_impl : has_enum_value<val> {};
 
-        template<typename val>
+        template<class val>
         struct has_integral_value_impl<
             val,
             typename is_pointer_to_const_integral<decltype(&val::value)>::type>
             : std::true_type {};
 
-        template<typename val>
+        template<class val>
         struct has_integral_value_impl<
             val, typename std::is_member_pointer<decltype(&val::value)>::type>
             : std::false_type {};
 
-        template<typename val, typename = std::true_type>
+        template<class val, class = std::true_type>
         struct has_integral_value : has_integral_value_impl<val> {};
 
-        template<typename val>
+        template<class val>
         struct has_integral_value<val, typename std::is_enum<val>::type>
             : has_enum_value<val> {};
 
-        template<typename val, typename = std::true_type>
+        template<class val, class = std::true_type>
         struct _as_number_impl {};
 
-        template<typename val>
+        template<class val>
         struct _as_number_impl<val, typename has_integral_value<val>::type> {
             using type = number<val::value>;
         };
 
-        template<typename val>
+        template<class val>
         struct _as_number : _as_number_impl<val> {};
     }
     /// \endcond

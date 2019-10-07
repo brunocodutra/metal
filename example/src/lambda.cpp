@@ -10,7 +10,7 @@
 
 HIDE(
 /// [lbd1]
-template<typename T>
+template<class T>
 using expr = T*;
 
 using lbd = metal::lambda<expr>;
@@ -21,7 +21,7 @@ IS_SAME(metal::is_lambda<lbd>, metal::true_);
 
 HIDE(
 /// [is_lambda]
-template<typename T>
+template<class T>
 using expr = T*;
 
 IS_SAME(metal::is_lambda<void>, metal::false_);
@@ -67,7 +67,7 @@ IS_SAME(metal::invoke<metal::lazy<std::common_type>, int[], void*>, void*);
 
 HIDE(
 /// [is_invocable]
-template<typename val>
+template<class val>
 using array = metal::identity<val[]>; // MSVC friendly
 
 using lbd = metal::lambda<array>;

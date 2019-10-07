@@ -27,7 +27,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see value, lazy, id
-    template<typename val>
+    template<class val>
     using eval = typename val::type;
 }
 

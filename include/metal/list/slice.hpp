@@ -40,8 +40,8 @@ namespace metal {
     /// ### See Also
     /// \see list, range
     template<
-        typename seq, typename start, typename size,
-        typename stride = number<1>>
+        class seq, class start, class size,
+        class stride = number<1>>
     using slice = metal::transform<
         metal::partial<
             metal::lambda<metal::at>, metal::if_<metal::is_list<seq>, seq>>,

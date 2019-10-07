@@ -38,7 +38,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, powerset, cartesian, cascade
-    template<typename seq, typename num = metal::size<seq>>
+    template<class seq, class num = metal::size<seq>>
     using combine = metal::apply<
         metal::lambda<metal::cartesian>,
         metal::repeat<metal::if_<metal::is_list<seq>, seq>, num>>;

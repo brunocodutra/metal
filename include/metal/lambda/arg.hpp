@@ -52,7 +52,7 @@ namespace metal {
     namespace detail {
         template<std::size_t n>
         struct _arg {
-            template<typename... vals>
+            template<class... vals>
             using impl = at<list<vals...>, number<n - 1>>;
 
             using type = lambda<impl>;

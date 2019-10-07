@@ -9,10 +9,10 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename outer, typename inner>
+        template<class outer, class inner>
         struct _cascader;
 
-        template<typename outer, typename inner>
+        template<class outer, class inner>
         using cascader = typename _cascader<outer, inner>::type;
     }
     /// \endcond
@@ -50,7 +50,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, cartesian
-    template<typename seq, typename... lbds>
+    template<class seq, class... lbds>
     using cascade = apply<fold_right<lambda<detail::cascader>, lbds...>, seq>;
 }
 
@@ -59,14 +59,14 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename outer, typename inner>
+        template<class outer, class inner>
         struct _cascader {};
 
         template<
-            template<typename...> class outer,
-            template<typename...> class inner>
+            template<class...> class outer,
+            template<class...> class inner>
         struct _cascader<lambda<outer>, lambda<inner>> {
-            template<typename... seqs>
+            template<class... seqs>
             using impl = invoke<lambda<outer>, apply<lambda<inner>, seqs>...>;
 
             using type = lambda<impl>;

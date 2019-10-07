@@ -12,7 +12,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct _is_map;
     }
     /// \endcond
@@ -44,7 +44,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see map, is_value, is_number, is_lambda, is_pair, is_list
-    template<typename val>
+    template<class val>
     using is_map = typename detail::_is_map<val>::type;
 
     /// \ingroup map
@@ -63,7 +63,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see is_map
-    template<typename... pairs>
+    template<class... pairs>
     using map =
         metal::if_<metal::is_map<metal::list<pairs...>>, metal::list<pairs...>>;
 
@@ -88,7 +88,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see map
-    template<typename val>
+    template<class val>
     using as_map = metal::apply<
         metal::lambda<metal::map>,
         metal::transform<metal::lambda<metal::as_pair>, metal::as_list<val>>>;
@@ -100,13 +100,13 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct _is_map : false_ {};
 
         template<>
         struct _is_map<list<>> : true_ {};
 
-        template<typename... keys, typename... vals>
+        template<class... keys, class... vals>
         struct _is_map<list<list<keys, vals>...>> : distinct<keys...> {};
     }
     /// \endcond
