@@ -104,22 +104,19 @@ namespace metal {
                 class _85, class _86, class _87, class _88, class _89,
                 class _90, class _91, class _92, class _93, class _94,
                 class _95, class _96, class _97, class _98, class _99,
+
                 class... tail>
             using type = typename reverser<sizeof...(tail)>::
                 template type<tail...>::template append<
-                    /* clang-format off */
-                    _99, _98, _97, _96, _95, _94, _93, _92, _91, _90,
-                    _89, _88, _87, _86, _85, _84, _83, _82, _81, _80,
-                    _79, _78, _77, _76, _75, _74, _73, _72, _71, _70,
-                    _69, _68, _67, _66, _65, _64, _63, _62, _61, _60,
-                    _59, _58, _57, _56, _55, _54, _53, _52, _51, _50,
-                    _49, _48, _47, _46, _45, _44, _43, _42, _41, _40,
-                    _39, _38, _37, _36, _35, _34, _33, _32, _31, _30,
-                    _29, _28, _27, _26, _25, _24, _23, _22, _21, _20,
-                    _19, _18, _17, _16, _15, _14, _13, _12, _11, _10,
-                    _09, _08, _07, _06, _05, _04, _03, _02, _01, _00
-                    /* clang-format on */
-                    >;
+                    _99, _98, _97, _96, _95, _94, _93, _92, _91, _90, _89, _88,
+                    _87, _86, _85, _84, _83, _82, _81, _80, _79, _78, _77, _76,
+                    _75, _74, _73, _72, _71, _70, _69, _68, _67, _66, _65, _64,
+                    _63, _62, _61, _60, _59, _58, _57, _56, _55, _54, _53, _52,
+                    _51, _50, _49, _48, _47, _46, _45, _44, _43, _42, _41, _40,
+                    _39, _38, _37, _36, _35, _34, _33, _32, _31, _30, _29, _28,
+                    _27, _26, _25, _24, _23, _22, _21, _20, _19, _18, _17, _16,
+                    _15, _14, _13, _12, _11, _10, _09, _08, _07, _06, _05, _04,
+                    _03, _02, _01, _00>;
         };
 
         template<>
@@ -127,6 +124,7 @@ namespace metal {
             template<
                 class _00, class _01, class _02, class _03, class _04,
                 class _05, class _06, class _07, class _08, class _09,
+
                 class... tail>
             using type = typename reverser<sizeof...(tail)>::
                 template type<tail...>::template append<
@@ -165,7 +163,7 @@ namespace metal {
         struct dropper<100> {
             template<
                 int_ n,
-                /* clang-format off */
+
                 class, class, class, class, class, class, class, class, class,
                 class, class, class, class, class, class, class, class, class,
                 class, class, class, class, class, class, class, class, class,
@@ -177,9 +175,9 @@ namespace metal {
                 class, class, class, class, class, class, class, class, class,
                 class, class, class, class, class, class, class, class, class,
                 class, class, class, class, class, class, class, class, class,
-                class, class... tail
-                /* clang-format on */
-                >
+                class,
+
+                class... tail>
             using type =
                 typename dropper<(n - 100)>::template type<(n - 100), tail...>;
         };
@@ -188,11 +186,11 @@ namespace metal {
         struct dropper<10> {
             template<
                 int_ n,
-                /* clang-format off */
+
                 class, class, class, class, class, class, class, class, class,
-                class, class... tail
-                /* clang-format on */
-                >
+                class,
+
+                class... tail>
             using type =
                 typename dropper<(n - 10)>::template type<(n - 10), tail...>;
         };

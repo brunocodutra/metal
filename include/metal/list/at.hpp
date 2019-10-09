@@ -87,10 +87,10 @@ namespace metal {
                 class _85, class _86, class _87, class _88, class _89,
                 class _90, class _91, class _92, class _93, class _94,
                 class _95, class _96, class _97, class _98, class _99,
+
                 class... tail>
             using type = typename grouper<sizeof...(tail)>::
                 template type<tail...>::template prepend<
-                    /* clang-format off */
                     _at<list<_00, _01, _02, _03, _04, _05, _06, _07, _08, _09>>,
                     _at<list<_10, _11, _12, _13, _14, _15, _16, _17, _18, _19>>,
                     _at<list<_20, _21, _22, _23, _24, _25, _26, _27, _28, _29>>,
@@ -101,7 +101,7 @@ namespace metal {
                     _at<list<_70, _71, _72, _73, _74, _75, _76, _77, _78, _79>>,
                     _at<list<_80, _81, _82, _83, _84, _85, _86, _87, _88, _89>>,
                     _at<list<_90, _91, _92, _93, _94, _95, _96, _97, _98, _99>>
-                    /* clang-format on */
+                    // this comment helps clang-format
                     >;
         };
 
@@ -110,6 +110,7 @@ namespace metal {
             template<
                 class _00, class _01, class _02, class _03, class _04,
                 class _05, class _06, class _07, class _08, class _09,
+
                 class... tail>
             using type = typename grouper<sizeof...(tail)>::
                 template type<tail...>::template prepend<_at<
