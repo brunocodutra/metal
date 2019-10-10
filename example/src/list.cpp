@@ -537,6 +537,11 @@ IS_SAME(
     metal::sort<l, metal::lambda<not_bigger>>, // non-stable sorting
     metal::list<uint8_t, int8_t, uint16_t, int16_t, uint32_t, int32_t>
 );
+
+IS_SAME(
+    metal::sort<metal::numbers<7, -8, -3, 2>>, // use default ordering relation
+    metal::sort<metal::numbers<7, -8, -3, 2>, metal::lambda<metal::less>>
+);
 /// [sort]
 )
 
