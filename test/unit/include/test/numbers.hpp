@@ -12,7 +12,7 @@
 #define FACT_6 FACT_5 * 6
 #define FACT_7 FACT_6 * 7
 #define FACT_8 FACT_7 * 8
-#define FACT_9 FACT_7 * 9
+#define FACT_9 FACT_8 * 9
 #define FACT(N) (CAT(FACT_, N))
 
 #define NUMBER(N) metal::number<N>
