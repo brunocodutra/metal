@@ -42,7 +42,6 @@
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, MAP(M), MAP(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, MAP(M), LAMBDA(N)>), (BOOL(N == 2 || M < 2))); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, MAP(M), LAMBDA(_)>), (BOOL(M < 2))); \
-    CHECK((metal::is_invocable<metal::lambda<metal::sort> COMMA(M) NUMBERS(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, metal::list<NUMBERS(M)>>), (TRUE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, metal::list<NUMBERS(M)>, VALUE(N)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::sort>, metal::list<NUMBERS(M)>, NUMBER(N)>), (FALSE)); \
