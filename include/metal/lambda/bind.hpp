@@ -21,7 +21,7 @@ namespace metal {
     /// ### Usage
     /// For any \lambdas `lbd` and `lbd_0, ..., lbd_n-1`
     /// \code
-    ///     using result = metal::bind<lbd, lbd_0, ..., val_n-1>;
+    ///     using result = metal::bind<lbd, lbd_0, ..., lbd_n-1>;
     /// \endcode
     ///
     /// \returns: \lambda
