@@ -11,7 +11,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<class lbd = metal::lambda<metal::less>>
+        template<class lbd>
         struct _sort;
     }
     /// \endcond
@@ -50,9 +50,9 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, reverse, rotate
-    template<class seq, class... lbd>
+    template<class seq, class lbd = metal::lambda<metal::less>>
     using sort = detail::call<
-        detail::_sort<lbd...>::template type,
+        detail::_sort<lbd>::template type,
         metal::if_<metal::is_list<seq>, seq>>;
 }
 
