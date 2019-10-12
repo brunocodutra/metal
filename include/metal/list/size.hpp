@@ -6,7 +6,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename seq>
+        template<class seq>
         struct _size;
     }
     /// \endcond
@@ -34,7 +34,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, empty
-    template<typename seq>
+    template<class seq>
     using size = typename detail::_size<seq>::type;
 }
 
@@ -44,10 +44,10 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename seq>
+        template<class seq>
         struct _size {};
 
-        template<typename... vals>
+        template<class... vals>
         struct _size<list<vals...>> : number<sizeof...(vals)> {};
     }
     /// \endcond

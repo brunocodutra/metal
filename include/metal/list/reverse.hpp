@@ -31,7 +31,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, rotate, sort
-    template<typename seq>
+    template<class seq>
     using reverse = metal::range<seq, metal::size<seq>, metal::number<0>>;
 }
 

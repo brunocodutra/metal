@@ -8,7 +8,7 @@
 #include <vector>
 
 /// [test_case]
-template<typename Container, typename Type, typename Size>
+template<class Container, class Type, class Size>
 struct test_case {
     metal::invoke<Container, Type, std::allocator<Type>> sequence;
 
@@ -26,7 +26,7 @@ constexpr std::size_t MIN_SIZE = 0;
 constexpr std::size_t MAX_SIZE = 1;
 
 /// [automatic]
-template<typename... Cases>
+template<class... Cases>
 struct test_cases : Cases... {
     void operator()() {
         // call operator () on every base class
@@ -34,7 +34,7 @@ struct test_cases : Cases... {
     }
 };
 
-template<typename Containers, typename Types, typename Sizes>
+template<class Containers, class Types, class Sizes>
 auto generate_test_cases()
     -> metal::apply<
         metal::lambda<test_cases>,

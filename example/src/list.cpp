@@ -522,7 +522,7 @@ HIDE(
 /// [sort]
 using l = metal::list<int16_t, int8_t, uint16_t, int32_t, uint32_t, uint8_t>;
 
-template<typename x, typename y> // strict ordering
+template<class x, class y> // strict ordering
 using smaller = metal::number<sizeof(x) < sizeof(y)>;
 
 IS_SAME(
@@ -530,7 +530,7 @@ IS_SAME(
     metal::list<int8_t, uint8_t, int16_t, uint16_t, int32_t, uint32_t>
 );
 
-template<typename x, typename y> // partial ordering
+template<class x, class y> // partial ordering
 using not_bigger = metal::number<sizeof(x) <= sizeof(y)>;
 
 IS_SAME(
@@ -566,9 +566,9 @@ HIDE(
 /// [cascade]
 struct a; struct b; struct c; struct d;
 
-template<typename...> struct f {};
-template<typename...> struct g {};
-template<typename...> struct h {};
+template<class...> struct f {};
+template<class...> struct g {};
+template<class...> struct h {};
 
 using tree = metal::list<
     metal::list<metal::list<a>, metal::list<b>>,
@@ -655,7 +655,7 @@ IS_SAME(
 #if !defined(METAL_WORKAROUND)
 HIDE(
 /// [accumulate]
-template<typename val, typename num>
+template<class val, class num>
 using add_extent = val[num::value];
 
 using ext = metal::numbers<3, 5, 2>;

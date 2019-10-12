@@ -9,7 +9,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct _is_pair;
     }
     /// \endcond
@@ -41,7 +41,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see pair, is_value, is_number, is_lambda, is_list, is_map
-    template<typename val>
+    template<class val>
     using is_pair = typename detail::_is_pair<val>::type;
 
     /// \ingroup pair
@@ -59,7 +59,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see is_pair
-    template<typename x, typename y>
+    template<class x, class y>
     using pair = metal::list<x, y>;
 
     /// \ingroup pair
@@ -82,7 +82,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see pair
-    template<typename val>
+    template<class val>
     using as_pair =
         metal::apply<metal::lambda<metal::pair>, metal::as_list<val>>;
 }
@@ -92,10 +92,10 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct _is_pair : false_ {};
 
-        template<typename x, typename y>
+        template<class x, class y>
         struct _is_pair<list<x, y>> : true_ {};
     }
     /// \endcond

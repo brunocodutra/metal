@@ -11,7 +11,7 @@ namespace test {
     struct val4 {static int value();};
     union  val5 {int value();};
     union  val6 {struct value {};};
-    union  val7 {template<typename...> struct value {};};
+    union  val7 {template<class...> struct value {};};
     class  val8 final {};
     using  val9 = void;
 

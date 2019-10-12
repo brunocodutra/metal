@@ -35,7 +35,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, copy_if, remove_if
-    template<typename seq, typename lbd>
+    template<class seq, class lbd>
     using partition =
         metal::pair<metal::copy_if<seq, lbd>, metal::remove_if<seq, lbd>>;
 }

@@ -29,7 +29,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, at, back
-    template<typename seq>
+    template<class seq>
     using front = metal::at<seq, metal::number<0>>;
 }
 

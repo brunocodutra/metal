@@ -10,7 +10,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename lbd>
+        template<class lbd>
         struct _accumulate;
     }
     /// \endcond
@@ -44,7 +44,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, transform, fold_left
-    template<typename lbd, typename state, typename... seqs>
+    template<class lbd, class state, class... seqs>
     using accumulate = detail::call<
         if_<same<size<seqs>...>, detail::_accumulate<lbd>>::template type,
         state, seqs...>;
@@ -59,39 +59,39 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename state, typename num, typename... seqs>
+        template<class state, class num, class... seqs>
         struct accumulator_impl {
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = expr<state, at<seqs, num>...>;
         };
 
-        template<template<typename...> class expr, typename... seqs>
+        template<template<class...> class expr, class... seqs>
         struct accumulator {
-            template<typename state, typename num>
+            template<class state, class num>
             using type = forward<
                 accumulator_impl<state, num, seqs...>::template type, expr>;
         };
 
-        template<typename state, typename head, typename... tail>
+        template<class state, class head, class... tail>
         struct _accumulate_impl {
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = forward<
                 _accumulate_impl<state, indices<head>>::template type,
                 accumulator<expr, head, tail...>::template type>;
         };
 
-        template<typename state, typename... vals>
+        template<class state, class... vals>
         struct _accumulate_impl<state, list<vals...>> {
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = fold_left<lambda<expr>, state, vals...>;
         };
 
-        template<typename lbd>
+        template<class lbd>
         struct _accumulate {};
 
-        template<template<typename...> class expr>
+        template<template<class...> class expr>
         struct _accumulate<lambda<expr>> {
-            template<typename state, typename... seqs>
+            template<class state, class... seqs>
             using type =
                 forward<_accumulate_impl<state, seqs...>::template type, expr>;
         };

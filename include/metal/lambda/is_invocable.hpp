@@ -37,7 +37,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see lambda, invoke
-    template<typename lbd, typename... vals>
+    template<class lbd, class... vals>
     using is_invocable = same<
         std::false_type,
         typename std::is_base_of<

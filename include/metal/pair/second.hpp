@@ -30,7 +30,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see pair, first
-    template<typename seq>
+    template<class seq>
     using second = metal::if_<metal::is_pair<seq>, metal::back<seq>>;
 }
 

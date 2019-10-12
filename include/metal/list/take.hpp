@@ -31,7 +31,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, range, erase, drop
-    template<typename seq, typename n>
+    template<class seq, class n>
     using take = metal::range<seq, metal::number<0>, n>;
 }
 

@@ -32,7 +32,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, remove, copy_if, replace_if
-    template<typename seq, typename lbd>
+    template<class seq, class lbd>
     using remove_if = metal::replace_if<seq, lbd>;
 }
 

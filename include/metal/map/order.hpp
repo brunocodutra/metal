@@ -32,7 +32,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see map
-    template<typename seq, typename key>
+    template<class seq, class key>
     using order = metal::at_key<
         metal::transpose<metal::pair<metal::keys<seq>, metal::indices<seq>>>,
         key>;

@@ -6,7 +6,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename T>
+        template<class T>
         T* declptr();
     }
     /// \endcond

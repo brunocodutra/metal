@@ -36,7 +36,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, copy, remove_if, replace_if
-    template<typename seq, typename lbd>
+    template<class seq, class lbd>
     using copy_if =
         metal::remove_if<seq, metal::bind<metal::lambda<metal::not_>, lbd>>;
 }

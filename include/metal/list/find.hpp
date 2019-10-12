@@ -36,7 +36,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, find_if, count, contains
-    template<typename seq, typename val>
+    template<class seq, class val>
     using find =
         metal::find_if<seq, metal::partial<metal::lambda<metal::same>, val>>;
 }

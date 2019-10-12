@@ -29,7 +29,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see number, and_, or_
-    template<typename num>
+    template<class num>
     using not_ = metal::if_<num, metal::false_, metal::true_>;
 }
 

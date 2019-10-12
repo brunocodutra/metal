@@ -34,7 +34,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, copy_if, remove, replace
-    template<typename seq, typename val>
+    template<class seq, class val>
     using copy =
         metal::copy_if<seq, metal::partial<metal::lambda<metal::same>, val>>;
 }

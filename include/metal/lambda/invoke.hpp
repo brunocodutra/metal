@@ -29,7 +29,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see lambda, is_invocable
-    template<typename lbd, typename... vals>
+    template<class lbd, class... vals>
     using invoke = metal::apply<lbd, metal::list<vals...>>;
 }
 

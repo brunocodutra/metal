@@ -6,7 +6,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct _always;
     }
     /// \endcond
@@ -31,7 +31,7 @@ namespace metal {
     ///     \endcode
     ///     where `expr` is an \expression such that
     ///     \code
-    ///         template<typename...>
+    ///         template<class...>
     ///         using expr = val;
     ///     \endcode
     ///
@@ -40,7 +40,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see lambda, invoke, partial, bind
-    template<typename val>
+    template<class val>
     using always = typename detail::_always<val>::type;
 }
 
@@ -50,9 +50,9 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct _always {
-            template<typename...>
+            template<class...>
             using impl = identity<val>;
 
             using type = lambda<impl>;

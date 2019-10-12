@@ -45,7 +45,7 @@ auto not_a_val = 3.14;
 
 HIDE(
 /// [not_a_val3]
-template<typename...>
+template<class...>
 struct not_a_val { /*...*/ };
 /// [not_a_val3]
 )
@@ -68,17 +68,17 @@ IS_SAME(metal::value<list>::type, list);
 
 HIDE(
 /// [is_value]
-template<typename T, typename = metal::true_>
+template<class T, class = metal::true_>
 struct has_type_impl :
     metal::false_
 {};
 
-template<typename T>
+template<class T>
 struct has_type_impl<T, metal::is_value<typename T::type>> :
     metal::true_
 {};
 
-template<typename T>
+template<class T>
 using has_type = typename has_type_impl<T>::type;
 
 
@@ -99,7 +99,7 @@ HIDE(
 IS_SAME(metal::identity<void>, void);
 IS_SAME(metal::invoke<metal::lambda<metal::identity>, void>, void);
 
-template<typename pred, typename lbd, typename seq>
+template<class pred, class lbd, class seq>
 using transform_if = metal::transform<
     metal::bind<metal::lambda<metal::if_>, pred, lbd, metal::lambda<metal::identity>>,
     seq
@@ -137,7 +137,7 @@ IS_SAME(metal::distinct<void, void*, void**, void***, void****>, metal::true_);
 #if !defined(METAL_WORKAROUND)
 HIDE(
 /// [fold_left]
-template<typename x, typename y>
+template<class x, class y>
 struct f {};
 
 using lbd = metal::lambda<f>;
@@ -151,7 +151,7 @@ IS_SAME(
 
 HIDE(
 /// [fold_right]
-template<typename x, typename y>
+template<class x, class y>
 struct f {};
 
 using lbd = metal::lambda<f>;

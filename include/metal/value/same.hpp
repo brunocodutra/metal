@@ -6,7 +6,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... vals>
+        template<class... vals>
         struct _same;
     }
     /// \endcond
@@ -39,7 +39,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see distinct
-    template<typename... vals>
+    template<class... vals>
     using same = typename detail::_same<vals...>::type;
 }
 
@@ -49,22 +49,22 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename...>
+        template<class...>
         struct _same_impl : false_ {};
 
-        template<template<typename> class... _, typename val>
+        template<template<class> class... _, class val>
         struct _same_impl<_<val>...> : true_ {};
 
-        template<typename... vals>
+        template<class... vals>
         struct _same : _same_impl<maybe<vals>...> {};
 
-        template<typename x, typename y>
+        template<class x, class y>
         struct _same<x, y> : false_ {};
 
-        template<typename x>
+        template<class x>
         struct _same<x, x> : true_ {};
 
-        template<typename x>
+        template<class x>
         struct _same<x> : true_ {};
 
         template<>

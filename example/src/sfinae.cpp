@@ -12,8 +12,8 @@
 #include <utility>
 
 /// [make_array]
-template<typename... Xs,
-    typename R = std::array<std::common_type_t<Xs...>, sizeof...(Xs)>
+template<class... Xs,
+    class R = std::array<std::common_type_t<Xs...>, sizeof...(Xs)>
 >
 constexpr R make_array(Xs&&... xs) {
     return R{{std::forward<Xs>(xs)...}};
@@ -58,7 +58,7 @@ auto array_of_tuples =  make_array(tup1, tup2, tup3);
 
 namespace hana {
 /// [hana_common_tuple_t]
-template<typename... xs>
+template<class... xs>
 using hana_common_tuple_t = typename decltype(
     boost::hana::unpack(
         boost::hana::zip_with(
@@ -71,15 +71,15 @@ using hana_common_tuple_t = typename decltype(
 /// [hana_common_tuple_t]
 
 /// [hana_make_array_of_tuples]
-template<typename... Xs,
-    typename R = std::array<std::common_type_t<Xs...>, sizeof...(Xs)>
+template<class... Xs,
+    class R = std::array<std::common_type_t<Xs...>, sizeof...(Xs)>
 >
 constexpr R hana_make_array(Xs&&... xs) {
     return R{{std::forward<Xs>(xs)...}};
 }
 
-template<typename Head, typename... Tail,
-    typename R = std::array<hana_common_tuple_t<std::decay_t<Head>, std::decay_t<Tail>...>, 1 + sizeof...(Tail)>
+template<class Head, class... Tail,
+    class R = std::array<hana_common_tuple_t<std::decay_t<Head>, std::decay_t<Tail>...>, 1 + sizeof...(Tail)>
 >
 constexpr R hana_make_array(Head&& head, Tail&&... tail) {
     return R{{std::forward<Head>(head), std::forward<Tail>(tail)...}};
@@ -105,7 +105,7 @@ IS_SAME(decltype(hana_make_array(42, 42L, 42LL)), std::array<long long, 3>);
 namespace
 {
 /// [common_tuple_t]
-template<typename... xs>
+template<class... xs>
 using common_tuple_t = metal::apply<
     std::common_type_t<metal::lambda<std::tuple>, metal::as_lambda<xs>...>,
     metal::transform<metal::lambda<std::common_type_t>, metal::as_list<xs>...>
@@ -113,15 +113,15 @@ using common_tuple_t = metal::apply<
 /// [common_tuple_t]
 
 /// [make_array_of_tuples]
-template<typename... Xs,
-    typename R = std::array<std::common_type_t<Xs...>, sizeof...(Xs)>
+template<class... Xs,
+    class R = std::array<std::common_type_t<Xs...>, sizeof...(Xs)>
 >
 constexpr R make_array(Xs&&... xs) {
     return R{{std::forward<Xs>(xs)...}};
 }
 
-template<typename Head, typename... Tail,
-    typename R = std::array<common_tuple_t<std::decay_t<Head>, std::decay_t<Tail>...>, 1 + sizeof...(Tail)>
+template<class Head, class... Tail,
+    class R = std::array<common_tuple_t<std::decay_t<Head>, std::decay_t<Tail>...>, 1 + sizeof...(Tail)>
 >
 constexpr R make_array(Head&& head, Tail&&... tail) {
     return R{{std::forward<Head>(head), std::forward<Tail>(tail)...}};

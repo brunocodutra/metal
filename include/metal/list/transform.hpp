@@ -10,7 +10,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename lbd>
+        template<class lbd>
         struct _transform;
     }
     /// \endcond
@@ -46,7 +46,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, accumulate
-    template<typename lbd, typename... seqs>
+    template<class lbd, class... seqs>
     using transform = detail::call<
         if_<same<size<seqs>...>, detail::_transform<lbd>>::template type,
         seqs...>;
@@ -60,51 +60,51 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename num, typename... seqs>
+        template<class num, class... seqs>
         struct transformer_impl {
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = expr<at<seqs, num>...>;
         };
 
-        template<template<typename...> class expr, typename... seqs>
+        template<template<class...> class expr, class... seqs>
         struct transformer {
-            template<typename num>
+            template<class num>
             using type =
                 forward<transformer_impl<num, seqs...>::template type, expr>;
         };
 
-        template<typename head, typename... tail>
+        template<class head, class... tail>
         struct _transform_impl {
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = forward<
                 _transform_impl<indices<head>>::template type,
                 transformer<expr, head, tail...>::template type>;
         };
 
-        template<typename... xs, typename... ys, typename... zs>
+        template<class... xs, class... ys, class... zs>
         struct _transform_impl<list<xs...>, list<ys...>, list<zs...>> {
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = list<expr<xs, ys, zs>...>;
         };
 
-        template<typename... xs, typename... ys>
+        template<class... xs, class... ys>
         struct _transform_impl<list<xs...>, list<ys...>> {
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = list<expr<xs, ys>...>;
         };
 
-        template<typename... xs>
+        template<class... xs>
         struct _transform_impl<list<xs...>> {
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = list<expr<xs>...>;
         };
 
-        template<typename lbd>
+        template<class lbd>
         struct _transform {};
 
-        template<template<typename...> class expr>
+        template<template<class...> class expr>
         struct _transform<lambda<expr>> {
-            template<typename... seqs>
+            template<class... seqs>
             using type = forward<_transform_impl<seqs...>::template type, expr>;
         };
     }
