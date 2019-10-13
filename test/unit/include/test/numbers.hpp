@@ -3,8 +3,8 @@
 
 #include "test/preprocessor.hpp"
 
-#define FACT_0 1
-#define FACT_1 1
+#define FACT_0 1ll
+#define FACT_1 1ll
 #define FACT_2 FACT_1 * 2
 #define FACT_3 FACT_2 * 3
 #define FACT_4 FACT_3 * 4
