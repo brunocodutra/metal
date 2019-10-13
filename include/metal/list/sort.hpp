@@ -7,11 +7,13 @@
 #include "../list/list.hpp"
 #include "../number/if.hpp"
 #include "../number/less.hpp"
+#include "../value/same.hpp"
+#include "../value/value.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<class lbd = metal::lambda<metal::less>>
+        template<class lbd>
         struct _sort;
     }
     /// \endcond
@@ -50,9 +52,11 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, reverse, rotate
-    template<class seq, class... lbd>
+    template<class seq, class lbd = detail::na>
     using sort = detail::call<
-        detail::_sort<lbd...>::template type,
+        detail::_sort<metal::if_<
+            same<lbd, detail::na>, metal::lambda<metal::less>,
+            lbd>>::template type,
         metal::if_<metal::is_list<seq>, seq>>;
 }
 
