@@ -6,7 +6,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... vals>
+        template<class... vals>
         struct _distinct;
     }
     /// \endcond
@@ -39,7 +39,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see same
-    template<typename... vals>
+    template<class... vals>
     using distinct = typename detail::_distinct<vals...>::type;
 }
 
@@ -52,30 +52,30 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename, typename base>
+        template<class, class base>
         struct inherit_second : base {};
 
-        template<typename, typename...>
+        template<class, class...>
         struct inherit_impl {};
 
-        template<typename... _, typename... bases>
+        template<class... _, class... bases>
         struct inherit_impl<list<_...>, bases...>
             : inherit_second<_, bases>... {};
 
-        template<typename... bases>
+        template<class... bases>
         struct inherit : inherit_impl<indices<list<bases...>>, bases...> {};
 
-        template<typename... bases>
+        template<class... bases>
         true_ disambiguate(bases*...);
 
-        template<typename derived, typename... bases>
+        template<class derived, class... bases>
         auto _distinct_impl(derived* _) -> decltype(
             disambiguate<bases...>((declptr<bases>(), void(), _)...));
 
-        template<typename...>
+        template<class...>
         false_ _distinct_impl(...);
 
-        template<typename... vals>
+        template<class... vals>
         struct _distinct
             : decltype(
                   _distinct_impl<inherit<maybe<vals>...>, maybe<vals>...>(0)) {

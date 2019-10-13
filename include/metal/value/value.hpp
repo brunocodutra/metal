@@ -9,11 +9,11 @@ namespace metal {
     namespace detail {
         struct na;
 
-        template<typename val>
+        template<class val>
         struct maybe;
 
 #if defined(METAL_WORKAROUND)
-        template<typename val>
+        template<class val>
         struct _is_value;
 #endif
     }
@@ -44,7 +44,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see value, nil, is_number, is_lambda, is_pair, is_list, is_map
-    template<typename val>
+    template<class val>
     using is_value =
 #if defined(METAL_WORKAROUND)
         typename detail::_is_value<val>::type;
@@ -82,7 +82,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see is_value, nil
-    template<typename val = detail::na>
+    template<class val = detail::na>
 #if defined(METAL_DOXYGENATING)
     using value = struct {
         using type = val;
@@ -115,7 +115,7 @@ namespace metal {
 
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct maybe {
             using type = val;
         };
@@ -124,7 +124,7 @@ namespace metal {
         struct maybe<detail::na> {};
 
 #if defined(METAL_WORKAROUND)
-        template<typename val>
+        template<class val>
         struct _is_value {
             using type = true_;
         };

@@ -7,7 +7,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename cond>
+        template<class cond>
         struct _if_;
     }
     /// \endcond
@@ -41,7 +41,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see number
-    template<typename cond, typename... then>
+    template<class cond, class... then>
     using if_ = detail::call<detail::_if_<cond>::template type, then...>;
 }
 
@@ -50,18 +50,18 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename>
+        template<class>
         struct _if_ {};
 
         template<int_ v>
         struct _if_<number<v>> {
-            template<typename val, typename = void>
+            template<class val, class = void>
             using type = val;
         };
 
         template<>
         struct _if_<false_> {
-            template<typename, typename val>
+            template<class, class val>
             using type = val;
         };
     }

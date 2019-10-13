@@ -6,7 +6,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename lbd, typename... vals>
+        template<class lbd, class... vals>
         struct _bind;
     }
     /// \endcond
@@ -21,7 +21,7 @@ namespace metal {
     /// ### Usage
     /// For any \lambdas `lbd` and `lbd_0, ..., lbd_n-1`
     /// \code
-    ///     using result = metal::bind<lbd, lbd_0, ..., val_n-1>;
+    ///     using result = metal::bind<lbd, lbd_0, ..., lbd_n-1>;
     /// \endcode
     ///
     /// \returns: \lambda
@@ -33,7 +33,7 @@ namespace metal {
     ///     \endcode
     ///     where `g` is an \expression such that
     ///     \code
-    ///         template<typename... args>
+    ///         template<class... args>
     ///         using g = f<f_0<args...>, ...<args...>, f_n-1<args...>>;
     ///     \endcode
     ///
@@ -42,7 +42,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see lambda, invoke, arg, always
-    template<typename lbd, typename... vals>
+    template<class lbd, class... vals>
     using bind = typename detail::_bind<lbd, vals...>::type;
 }
 
@@ -52,11 +52,11 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename... vals>
+        template<class... vals>
         struct _bind_impl {
             template<
-                template<typename...> class expr,
-                template<typename...> class... params>
+                template<class...> class expr,
+                template<class...> class... params>
             using type =
 #if defined(METAL_WORKAROUND)
                 call<expr, call<params, vals...>...>;
@@ -65,14 +65,13 @@ namespace metal {
 #endif
         };
 
-        template<typename lbd, typename... vals>
+        template<class lbd, class... vals>
         struct _bind {};
 
         template<
-            template<typename...> class expr,
-            template<typename...> class... params>
+            template<class...> class expr, template<class...> class... params>
         struct _bind<lambda<expr>, lambda<params>...> {
-            template<typename... vals>
+            template<class... vals>
             using impl =
                 forward<_bind_impl<vals...>::template type, expr, params...>;
 

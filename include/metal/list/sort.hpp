@@ -9,7 +9,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename lbd>
+        template<class lbd>
         struct _sort;
     }
     /// \endcond
@@ -46,7 +46,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, reverse, rotate
-    template<typename seq, typename lbd>
+    template<class seq, class lbd>
     using sort = detail::call<
         detail::_sort<lbd>::template type,
         metal::if_<metal::is_list<seq>, seq>>;
@@ -65,49 +65,47 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename x, typename y, typename z = list<>, typename = true_>
+        template<class x, class y, class z = list<>, class = true_>
         struct _merge;
 
-        template<
-            typename, typename, typename, template<typename...> class,
-            typename = true_>
+        template<class, class, class, template<class...> class, class = true_>
         struct _merge_impl {};
 
         template<
-            typename xh, typename... xt, typename yh, typename... yt,
-            typename... zs, template<typename...> class e>
+            class xh, class... xt, class yh, class... yt, class... zs,
+            template<class...> class e>
         struct _merge_impl<
             list<xh, xt...>, list<yh, yt...>, list<zs...>, e,
             if_<call<e, yh, xh>, true_, false_>>
             : _merge_impl<list<xh, xt...>, list<yt...>, list<zs..., yh>, e> {};
 
         template<
-            typename xh, typename... xt, typename yh, typename... yt,
-            typename... zs, template<typename...> class e>
+            class xh, class... xt, class yh, class... yt, class... zs,
+            template<class...> class e>
         struct _merge_impl<
             list<xh, xt...>, list<yh, yt...>, list<zs...>, e,
             if_<call<e, yh, xh>, false_, true_>>
             : _merge_impl<list<xt...>, list<yh, yt...>, list<zs..., xh>, e> {};
 
-        template<typename... xs, typename... zs, template<typename...> class e>
+        template<class... xs, class... zs, template<class...> class e>
         struct _merge_impl<list<xs...>, list<>, list<zs...>, e> {
-            template<typename x, typename y>
+            template<class x, class y>
             using part = typename _merge<
                 prepend<x, xs...>, y, list<zs...>>::template type<e>;
 
             using type = list<zs..., xs...>;
         };
 
-        template<typename... ys, typename... zs, template<typename...> class e>
+        template<class... ys, class... zs, template<class...> class e>
         struct _merge_impl<list<>, list<ys...>, list<zs...>, e> {
-            template<typename x, typename y>
+            template<class x, class y>
             using part = typename _merge<
                 x, prepend<y, ys...>, list<zs...>>::template type<e>;
 
             using type = list<zs..., ys...>;
         };
 
-        template<typename x, typename y, typename z, typename>
+        template<class x, class y, class z, class>
         struct _merge {
             using xe = size<x>;
             using ye = size<y>;
@@ -123,29 +121,29 @@ namespace metal {
 
             using l = _merge<xl, yl, z>;
 
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = typename l::template type<expr>::template part<xr, yr>;
         };
 
-        template<typename x, typename y, typename z>
+        template<class x, class y, class z>
         struct _merge<x, y, z, less<add<size<x>, size<y>>, number<100>>> {
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = _merge_impl<x, y, z, expr>;
         };
 
-        template<typename x, typename z>
+        template<class x, class z>
         struct _merge<x, list<>, z> {
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = _merge_impl<x, list<>, z, expr>;
         };
 
-        template<typename y, typename z>
+        template<class y, class z>
         struct _merge<list<>, y, z> {
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = _merge_impl<list<>, y, z, expr>;
         };
 
-        template<typename seq>
+        template<class seq>
         struct _sort_impl {
             using beg = number<0>;
             using end = size<seq>;
@@ -154,36 +152,36 @@ namespace metal {
             using l = _sort_impl<range<seq, beg, mid>>;
             using r = _sort_impl<range<seq, mid, end>>;
 
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = typename _merge<
                 forward<l::template type, expr>,
                 forward<r::template type, expr>>::template type<expr>::type;
         };
 
-        template<typename x, typename y>
+        template<class x, class y>
         struct _sort_impl<list<x, y>> {
-            template<template<typename...> class expr>
+            template<template<class...> class expr>
             using type = if_<expr<y, x>, list<y, x>, list<x, y>>;
         };
 
-        template<typename x>
+        template<class x>
         struct _sort_impl<list<x>> {
-            template<template<typename...> class>
+            template<template<class...> class>
             using type = list<x>;
         };
 
         template<>
         struct _sort_impl<list<>> {
-            template<template<typename...> class>
+            template<template<class...> class>
             using type = list<>;
         };
 
-        template<typename lbd>
+        template<class lbd>
         struct _sort {};
 
-        template<template<typename...> class expr>
+        template<template<class...> class expr>
         struct _sort<lambda<expr>> {
-            template<typename... seq>
+            template<class... seq>
             using type = forward<_sort_impl<seq...>::template type, expr>;
         };
     }

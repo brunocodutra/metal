@@ -6,10 +6,10 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct _is_list;
 
-        template<typename val>
+        template<class val>
         struct _as_list;
     }
     /// \endcond
@@ -41,7 +41,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, is_value, is_number, is_lambda, is_pair, is_map
-    template<typename val>
+    template<class val>
     using is_list = typename detail::_is_list<val>::type;
 
     /// \ingroup list
@@ -64,7 +64,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, as_lambda
-    template<typename val>
+    template<class val>
     using as_list = typename detail::_as_list<val>::type;
 
     /// \ingroup list
@@ -82,7 +82,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see is_list
-    template<typename... vals>
+    template<class... vals>
 #if defined(METAL_DOXYGENATING)
     using list = struct {
     };
@@ -97,16 +97,16 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct _is_list : false_ {};
 
-        template<typename... vals>
+        template<class... vals>
         struct _is_list<list<vals...>> : true_ {};
 
-        template<typename val>
+        template<class val>
         struct _as_list {};
 
-        template<template<typename...> class seq, typename... vals>
+        template<template<class...> class seq, class... vals>
         struct _as_list<seq<vals...>> {
             using type = list<vals...>;
         };

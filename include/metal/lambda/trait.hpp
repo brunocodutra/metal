@@ -28,7 +28,7 @@ namespace metal {
     ///     \endcode
     ///     where `pred` is an \expression such that
     ///     \code
-    ///         template<typename... args>
+    ///         template<class... args>
     ///         using pred = metal::number<expr<args...>::value>;
     ///     \endcode
     ///
@@ -37,7 +37,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see lambda, number
-    template<template<typename...> class expr>
+    template<template<class...> class expr>
     using trait =
         metal::bind<metal::lambda<metal::as_number>, metal::lambda<expr>>;
 }

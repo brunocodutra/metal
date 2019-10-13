@@ -7,7 +7,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename, typename, typename>
+        template<class, class, class>
         struct _iota;
     }
     /// \endcond
@@ -47,7 +47,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, repeat, numbers
-    template<typename start, typename size, typename stride = number<1>>
+    template<class start, class size, class stride = number<1>>
     using iota = typename detail::_iota<start, size, stride>::type;
 }
 
@@ -61,7 +61,7 @@ namespace metal {
         template<int_... ns>
         struct enumeration {};
 
-        template<typename ns>
+        template<class ns>
         struct _even {};
 
         template<int_... ns>
@@ -69,7 +69,7 @@ namespace metal {
             using type = enumeration<ns..., (sizeof...(ns) + ns)...>;
         };
 
-        template<typename ns>
+        template<class ns>
         struct _odd {};
 
         template<int_... ns>
@@ -94,7 +94,7 @@ namespace metal {
             using type = enumeration<>;
         };
 
-        template<typename, int_ a, int_ b>
+        template<class, int_ a, int_ b>
         struct _iota_impl {};
 
         template<int_... vs, int_ a, int_ b>
@@ -102,7 +102,7 @@ namespace metal {
             using type = numbers<(b + a * vs)...>;
         };
 
-        template<typename, typename, typename>
+        template<class, class, class>
         struct _iota {};
 
         template<int_ st, int_ sz, int_ sd>

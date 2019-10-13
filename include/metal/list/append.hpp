@@ -31,7 +31,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, insert, prepend
-    template<typename seq, typename... vals>
+    template<class seq, class... vals>
     using append = metal::join<seq, metal::list<vals...>>;
 }
 

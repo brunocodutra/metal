@@ -6,13 +6,13 @@
 /// [lazy_expression]
 struct na {};
 
-template<typename arg_1 = na, typename arg_2 = na, /*...*/ typename arg_n = na>
+template<class arg_1 = na, class arg_2 = na, /*...*/ class arg_n = na>
 struct metafunction
 {
     typedef /*...*/ type;
 };
 
-template<typename arg_1, typename arg_2, /*...*/ typename arg_n>
+template<class arg_1, class arg_2, /*...*/ class arg_n>
 struct compound_metafunction
 {
     typedef typename metafunction<
@@ -25,17 +25,17 @@ struct compound_metafunction
 /// [lazy_expression]
 
 /// [eager_expression]
-template<typename... args>
+template<class... args>
 using metafunction = /*...*/;
 
-template<typename... args>
+template<class... args>
 using compound_metafunction = metafunction<metafunction<args>...>;
 /// [eager_expression]
 
 /// [lazy_lambda]
 struct first_class_metafunction
 {
-    template<typename arg_1, typename arg_2, /*...*/ typename arg_n>
+    template<class arg_1, class arg_2, /*...*/ class arg_n>
     struct apply {
         typedef /*...*/ type;
     };
@@ -43,7 +43,7 @@ struct first_class_metafunction
 /// [lazy_lambda]
 
 /// [eager_lambda]
-template<typename... args>
+template<class... args>
 using metafunction = /*...*/;
 
 using first_class_metafunction = metal::lambda<metafunction>;

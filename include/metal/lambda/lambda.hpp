@@ -6,10 +6,10 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct _is_lambda;
 
-        template<typename val>
+        template<class val>
         struct _as_lambda;
     }
     /// \endcond
@@ -41,7 +41,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see lambda, is_value, is_number, is_pair, is_list, is_map
-    template<typename val>
+    template<class val>
     using is_lambda = typename detail::_is_lambda<val>::type;
 
     /// \ingroup lambda
@@ -64,7 +64,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see lambda, as_list
-    template<typename val>
+    template<class val>
     using as_lambda = typename detail::_as_lambda<val>::type;
 
     /// \ingroup lambda
@@ -82,7 +82,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see is_lambda
-    template<template<typename...> class expr>
+    template<template<class...> class expr>
 #if defined(METAL_DOXYGENATING)
     using lambda = struct {
     };
@@ -97,16 +97,16 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename val>
+        template<class val>
         struct _is_lambda : false_ {};
 
-        template<template<typename...> class expr>
+        template<template<class...> class expr>
         struct _is_lambda<lambda<expr>> : true_ {};
 
-        template<typename val>
+        template<class val>
         struct _as_lambda {};
 
-        template<template<typename...> class expr, typename... vals>
+        template<template<class...> class expr, class... vals>
         struct _as_lambda<expr<vals...>> {
             using type = lambda<expr>;
         };

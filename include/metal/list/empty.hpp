@@ -33,7 +33,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, size
-    template<typename seq>
+    template<class seq>
     using empty = metal::not_<metal::size<seq>>;
 }
 

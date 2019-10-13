@@ -33,7 +33,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see map, keys
-    template<typename seq>
+    template<class seq>
     using values = metal::if_<
         metal::is_map<seq>,
         metal::transform<metal::lambda<metal::second>, seq>>;

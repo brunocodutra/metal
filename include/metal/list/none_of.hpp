@@ -36,7 +36,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, all_of, any_of
-    template<typename seq, typename lbd>
+    template<class seq, class lbd>
     using none_of = metal::not_<metal::any_of<seq, lbd>>;
 }
 

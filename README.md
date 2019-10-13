@@ -61,7 +61,7 @@ static_assert(metal::same<l2ptrs, metal::list<x*, z*>>::value, "");
 static_assert(metal::same<l3refs, metal::list<x&, y&, z&>>::value, "");
 
 // even by sorting them...
-template<typename x, typename y>
+template<class x, class y>
 using smaller = metal::number<(sizeof(x) < sizeof(y))>;
 
 using sorted = metal::sort<l3, metal::lambda<smaller>>;

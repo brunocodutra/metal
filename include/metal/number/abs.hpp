@@ -30,7 +30,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see number, inc, dec, neg, add, sub, mul, div, mod, pow
-    template<typename num>
+    template<class num>
     using abs = metal::max<num, metal::neg<num>>;
 }
 

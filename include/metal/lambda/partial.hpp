@@ -6,7 +6,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename lbd, typename... vals>
+        template<class lbd, class... vals>
         struct _partial;
     }
     /// \endcond
@@ -30,7 +30,7 @@ namespace metal {
     ///     \endcode
     ///     where `g` is an \expression such that
     ///     \code
-    ///         template<typename... args>
+    ///         template<class... args>
     ///         using g = f<val_0, ..., val_n-1, args...>;
     ///     \endcode
     ///
@@ -39,7 +39,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see lambda, invoke, bind, always
-    template<typename lbd, typename... vals>
+    template<class lbd, class... vals>
     using partial = typename detail::_partial<lbd, vals...>::type;
 }
 
@@ -50,26 +50,26 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename lbd, typename... leading>
+        template<class lbd, class... leading>
         struct _partial {};
 
-        template<template<typename...> class expr, typename... leading>
+        template<template<class...> class expr, class... leading>
         struct _partial<lambda<expr>, leading...> {
-            template<typename... trailing>
+            template<class... trailing>
             using impl = invoke<lambda<expr>, leading..., trailing...>;
 
             using type = lambda<impl>;
         };
 
-        template<typename x>
+        template<class x>
         struct _partial<lambda<same>, x> {
-            template<typename y>
+            template<class y>
             using impl = same<x, y>;
 
             using type = lambda<impl>;
         };
 
-        template<template<typename...> class expr>
+        template<template<class...> class expr>
         struct _partial<lambda<expr>> {
             using type = lambda<expr>;
         };

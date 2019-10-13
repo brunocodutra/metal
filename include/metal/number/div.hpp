@@ -9,10 +9,10 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename x, typename y>
+        template<class x, class y>
         struct _div;
 
-        template<typename x, typename y>
+        template<class x, class y>
         using div = typename _div<x, y>::type;
     }
     /// \endcond
@@ -41,12 +41,12 @@ namespace metal {
     ///
     /// ### See Also
     /// \see number, abs, inc, dec, neg, add, sub, mul, mod, pow
-    template<typename... nums>
+    template<class... nums>
     using div = fold_left<lambda<detail::div>, nums..., number<1>>;
 
     /// \cond
     namespace detail {
-        template<typename x, typename y>
+        template<class x, class y>
         struct _div {};
 
         template<int_ x>

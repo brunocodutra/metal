@@ -34,7 +34,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, insert
-    template<typename seq, typename num, typename other>
+    template<class seq, class num, class other>
     using splice =
         metal::join<metal::take<seq, num>, other, metal::drop<seq, num>>;
 }

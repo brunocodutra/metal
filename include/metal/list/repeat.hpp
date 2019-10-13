@@ -31,7 +31,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, iota
-    template<typename val, typename num>
+    template<class val, class num>
     using repeat = metal::transform<
         metal::always<val>,
         metal::iota<metal::number<0>, num, metal::number<0>>>;

@@ -33,7 +33,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, prepend, append, splice
-    template<typename seq, typename num, typename... vals>
+    template<class seq, class num, class... vals>
     using insert = metal::splice<seq, num, metal::list<vals...>>;
 }
 

@@ -30,7 +30,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, at, front
-    template<typename seq>
+    template<class seq>
     using back = metal::at<seq, metal::dec<metal::size<seq>>>;
 }
 

@@ -10,10 +10,10 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename, typename>
+        template<class, class>
         struct _power;
 
-        template<typename seqs, typename val>
+        template<class seqs, class val>
         using power = typename _power<seqs, val>::type;
     }
     /// \endcond
@@ -45,7 +45,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, combine, cartesian, cascade
-    template<typename seq>
+    template<class seq>
     using powerset =
         accumulate<lambda<detail::power>, list<list<>>, metal::reverse<seq>>;
 }
@@ -55,21 +55,21 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-        template<typename, typename>
+        template<class, class>
         struct _power_impl {};
 
-        template<typename... xs, typename y>
+        template<class... xs, class y>
         struct _power_impl<list<xs...>, y> {
             using type = list<list<xs...>, list<y, xs...>>;
         };
 
-        template<typename xs, typename y>
+        template<class xs, class y>
         using power_impl = typename _power_impl<xs, y>::type;
 
-        template<typename, typename>
+        template<class, class>
         struct _power {};
 
-        template<typename... seqs, typename val>
+        template<class... seqs, class val>
         struct _power<list<seqs...>, val> {
             using type = join<power_impl<seqs, val>...>;
         };

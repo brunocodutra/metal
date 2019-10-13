@@ -65,9 +65,9 @@ IS_SAME(metal::is_map<void>, metal::false_);
 
 HIDE(
 /// [as_map]
-template<typename...> struct a {};
-template<typename...> struct b {};
-template<typename...> struct c {};
+template<class...> struct a {};
+template<class...> struct b {};
+template<class...> struct c {};
 
 IS_SAME(
     metal::as_map<a<b<int, int*>, c<char, char*>>>,

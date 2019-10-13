@@ -33,7 +33,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see map, at_key, insert_key, erase_key
-    template<typename seq, typename key>
+    template<class seq, class key>
     using has_key = metal::contains<metal::keys<seq>, key>;
 }
 

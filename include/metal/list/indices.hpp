@@ -32,7 +32,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, iota
-    template<typename seq>
+    template<class seq>
     using indices = metal::iota<metal::number<0>, metal::size<seq>>;
 }
 

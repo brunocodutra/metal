@@ -38,7 +38,7 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, cartesian
-    template<typename seq>
+    template<class seq>
     using transpose = metal::apply<
         metal::partial<
             metal::lambda<metal::transform>, metal::lambda<metal::list>>,
