@@ -3,13 +3,15 @@
 
 #include "../config.hpp"
 #include "../detail/sfinae.hpp"
+#include "../lambda/lambda.hpp"
 #include "../list/list.hpp"
 #include "../number/if.hpp"
+#include "../number/less.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<class lbd>
+        template<class lbd = metal::lambda<metal::less>>
         struct _sort;
     }
     /// \endcond
@@ -19,7 +21,7 @@ namespace metal {
     /// ### Description
     /// Sorts the elements of a \list according to an ordering relation.
     ///
-    /// \tip{The sorting is [stable] if the ordering relation is [strict].}
+    /// \note{The sorting is [stable] if the ordering relation is [strict].}
     /// [stable]: https://en.wikipedia.org/wiki/Sorting_algorithm#Stability
     /// [strict]: https://en.wikipedia.org/wiki/Weak_ordering#Strict_weak_orderings
     ///
@@ -41,15 +43,25 @@ namespace metal {
     ///     such that `metal::invoke<lbd, val_i, val_i+1>{} != false` for all
     ///     `i` in `[0, m-2]`.
     ///
+    /// \tip{`lbd` may be omitted, in which case it defaults to `metal::lambda<metal::less>`.}
+    ///
     /// ### Example
     /// \snippet list.cpp sort
     ///
     /// ### See Also
     /// \see list, reverse, rotate
-    template<class seq, class lbd>
+#if !defined(METAL_WORKAROUND)
+    template<class seq, class lbd = metal::lambda<metal::less>>
     using sort = detail::call<
         detail::_sort<lbd>::template type,
         metal::if_<metal::is_list<seq>, seq>>;
+#else
+    // MSVC 14 has shabby SFINAE support in case of default alias template args
+    template<class seq, class... lbd>
+    using sort = detail::call<
+        detail::_sort<lbd...>::template type,
+        metal::if_<metal::is_list<seq>, seq>>;
+#endif
 }
 
 #include "../lambda/lambda.hpp"
