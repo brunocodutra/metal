@@ -64,7 +64,6 @@ namespace metal {
 #endif
 }
 
-#include "../lambda/lambda.hpp"
 #include "../list/prepend.hpp"
 #include "../list/range.hpp"
 #include "../list/size.hpp"
