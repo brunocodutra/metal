@@ -659,12 +659,12 @@ IS_SAME(
 
 HIDE(
 /// [min_element]
-using vals = metal::list<const char, int, long, char>;
+using vals = metal::list<bool, int, long, char>;
 
 // strict (i.e., irreflexive) ordering: _first_ minimum
 template<class x, class y>
 using smaller = metal::number<(sizeof(x) < sizeof(y))>;
-IS_SAME(metal::min_element<vals, metal::lambda<smaller>>, const char);
+IS_SAME(metal::min_element<vals, metal::lambda<smaller>>, bool);
 
  // reflexive ordering: _last_ minimum
 template<class x, class y>
