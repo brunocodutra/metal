@@ -657,6 +657,27 @@ IS_SAME(
 /// [transpose]
 )
 
+HIDE(
+/// [min_element]
+using vals = metal::list<const char, int, long, char>;
+
+// strict (i.e., irreflexive) ordering: _first_ minimum
+template<class x, class y>
+using smaller = metal::number<(sizeof(x) < sizeof(y))>;
+IS_SAME(metal::min_element<vals, metal::lambda<smaller>>, const char);
+
+ // reflexive ordering: _last_ minimum
+template<class x, class y>
+using not_larger = metal::number<(sizeof(x) <= sizeof(y))>;
+IS_SAME(metal::min_element<vals, metal::lambda<not_larger>>, char);
+
+// can be used with Numbers; more customizable than metal::min
+using nums = metal::numbers<4, 42, 17, 3, 20>;
+IS_SAME(metal::min_element<nums, metal::lambda<metal::less>>, metal::number<3>);
+IS_SAME(metal::min_element<nums>, metal::number<3>); // use default ordering
+/// [min_element]
+)
+
 #if !defined(METAL_WORKAROUND)
 HIDE(
 /// [accumulate]

@@ -49,7 +49,7 @@ namespace metal {
     /// \snippet list.cpp sort
     ///
     /// ### See Also
-    /// \see list, reverse, rotate
+    /// \see list, min_element, reverse, rotate
 #if !defined(METAL_WORKAROUND)
     template<class seq, class lbd = metal::lambda<metal::less>>
     using sort = detail::call<
