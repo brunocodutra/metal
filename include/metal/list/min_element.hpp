@@ -4,6 +4,7 @@
 #include "../config.hpp"
 #include "../detail/sfinae.hpp"
 #include "../lambda/lambda.hpp"
+#include "../number/if.hpp"
 #include "../number/less.hpp"
 
 namespace metal {
@@ -52,18 +53,17 @@ namespace metal {
     /// \see min, sort
 #if !defined(METAL_WORKAROUND)
     template<class seq, class lbd = metal::lambda<metal::less>>
-    using min_element =
-        detail::call<detail::_min_element<seq>::template type, lbd>;
+    using min_element = detail::call<
+        detail::_min_element<seq>::template type, if_<is_lambda<lbd>, lbd>>;
 #else
     // MSVC 14 has shabby SFINAE support in case of default alias template args
     template<class seq, class... lbd>
-    using min_element =
-        detail::call<detail::_min_element<seq>::template type, lbd...>;
+    using min_element = detail::call<
+        detail::_min_element<seq>::template type, if_<is_lambda<lbd>, lbd>...>;
 #endif
 }
 
 #include "../lambda/invoke.hpp"
-#include "../number/if.hpp"
 #include "../value/fold_left.hpp"
 
 namespace metal {
