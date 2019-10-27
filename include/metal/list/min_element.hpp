@@ -10,7 +10,7 @@
 namespace metal {
     /// \cond
     namespace detail {
-        template<class lbd = metal::lambda<metal::less>>
+        template<class lbd>
         struct _min_element;
     }
     /// \endcond
@@ -44,23 +44,16 @@ namespace metal {
     ///       * `metal::invoke<lbd, val_i, val_k>{} == false` for all
     ///         `i` in `(k, m-1]`.
     ///
-    /// \tip{`lbd` may be omitted, in which case it defaults to `metal::lambda<metal::less>`.}
+    /// \tip{TODO `lbd` may be omitted, in which case it defaults to `metal::lambda<metal::less>`.}
     ///
     /// ### Example
     /// \snippet list.cpp min_element
     ///
     /// ### See Also
     /// \see min, sort
-#if !defined(METAL_WORKAROUND)
-    template<class seq, class lbd = metal::lambda<metal::less>>
+    template<class seq, class lbd>
     using min_element = detail::call<
         detail::_min_element<if_<is_lambda<lbd>, lbd>>::template type, seq>;
-#else
-    // MSVC 14 has shabby SFINAE support in case of default alias template args
-    template<class seq, class... lbd>
-    using min_element = detail::call<
-        detail::_min_element<if_<is_lambda<lbd>, lbd>...>::template type, seq>;
-#endif
 }
 
 #include "../lambda/apply.hpp"

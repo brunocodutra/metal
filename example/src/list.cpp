@@ -674,7 +674,6 @@ IS_SAME(metal::min_element<vals, metal::lambda<not_larger>>, char);
 // can be used with Numbers; more customizable than metal::min
 using nums = metal::numbers<4, 42, 17, 3, 20>;
 IS_SAME(metal::min_element<nums, metal::lambda<metal::less>>, metal::number<3>);
-IS_SAME(metal::min_element<nums>, metal::number<3>); // use default ordering
 /// [min_element]
 )
 
