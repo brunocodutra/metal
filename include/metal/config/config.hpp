@@ -1,6 +1,8 @@
 #ifndef METAL_CONFIG_CONFIG_HPP
 #define METAL_CONFIG_CONFIG_HPP
 
+#if !defined(METAL_DOXYGENATING)
 #define METAL_WORKAROUND
+#endif
 
 #endif
