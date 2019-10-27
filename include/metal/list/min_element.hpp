@@ -2,7 +2,7 @@
 #define METAL_LIST_MIN_ELEMENT_HPP
 
 #include "../config.hpp"
-#include "../lambda/apply.hpp"
+#include "../detail/sfinae.hpp"
 #include "../lambda/lambda.hpp"
 #include "../number/if.hpp"
 #include "../number/less.hpp"
@@ -11,7 +11,7 @@ namespace metal {
     /// \cond
     namespace detail {
         template<class lbd = metal::lambda<metal::less>>
-        struct _min_folder;
+        struct _min_element;
     }
     /// \endcond
 
@@ -53,34 +53,32 @@ namespace metal {
     /// \see min, sort
 #if !defined(METAL_WORKAROUND)
     template<class seq, class lbd = metal::lambda<metal::less>>
-    using min_element = apply<
-        lambda<detail::_min_folder<if_<is_lambda<lbd>, lbd>>::template type>,
-        seq>;
+    using min_element = detail::call<
+        detail::_min_element<if_<is_lambda<lbd>, lbd>>::template type, seq>;
 #else
     // MSVC 14 has shabby SFINAE support in case of default alias template args
     template<class seq, class... lbd>
-    using min_element = apply<
-        lambda<detail::_min_folder<if_<is_lambda<lbd>, lbd>...>::template type>,
-        seq>;
+    using min_element = detail::call<
+        detail::_min_element<if_<is_lambda<lbd>, lbd>...>::template type, seq>;
 #endif
 }
 
+#include "../lambda/apply.hpp"
 #include "../lambda/invoke.hpp"
+#include "../lambda/partial.hpp"
 #include "../value/fold_left.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
         template<class lbd>
-        struct _min_folder {
+        struct _min_element {
             template<class x, class y>
             using custom_min = if_<invoke<lbd, y, x>, y, x>;
-            // Must use `invoke` in order to support SFINAE. It is tempting to
-            // pattern-match the `expr` from `lbd` and use `expr<y, x>`, but
-            // the latter approach spoils SFINAE guarantees.
 
-            template<class... vals>
-            using type = fold_left<lambda<custom_min>, vals...>;
+            template<class seq>
+            using type =
+                apply<partial<lambda<fold_left>, lambda<custom_min>>, seq>;
         };
     }
     /// \endcond
