@@ -2,16 +2,15 @@
 #define METAL_LIST_MIN_ELEMENT_HPP
 
 #include "../config.hpp"
-#include "../lambda/apply.hpp"
+#include "../detail/sfinae.hpp"
 #include "../lambda/lambda.hpp"
-#include "../number/if.hpp"
 #include "../number/less.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<class lbd = metal::lambda<metal::less>>
-        struct _min_folder;
+        template<class seq>
+        struct _min_element;
     }
     /// \endcond
 
@@ -53,26 +52,25 @@ namespace metal {
     /// \see min, sort
 #if !defined(METAL_WORKAROUND)
     template<class seq, class lbd = metal::lambda<metal::less>>
-    using min_element = apply<
-        lambda<detail::_min_folder<if_<is_lambda<lbd>, lbd>>::template type>,
-        seq>;
+    using min_element =
+        detail::call<detail::_min_element<seq>::template type, lbd>;
 #else
     // MSVC 14 has shabby SFINAE support in case of default alias template args
     template<class seq, class... lbd>
-    using min_element = apply<
-        lambda<detail::_min_folder<if_<is_lambda<lbd>, lbd>...>::template type>,
-        seq>;
+    using min_element =
+        detail::call<detail::_min_element<seq>::template type, lbd...>;
 #endif
 }
 
 #include "../lambda/invoke.hpp"
+#include "../number/if.hpp"
 #include "../value/fold_left.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<class lbd>
-        struct _min_folder {
+        template<class lbd = metal::lambda<metal::less>>
+        struct _min_element_impl {
             template<class x, class y>
             using custom_min = if_<invoke<lbd, y, x>, y, x>;
             // Must use `invoke` in order to support SFINAE. It is tempting to
@@ -81,6 +79,16 @@ namespace metal {
 
             template<class... vals>
             using type = fold_left<lambda<custom_min>, vals...>;
+        };
+
+        template<class seq>
+        struct _min_element {};
+
+        template<class... vals>
+        struct _min_element<list<vals...>> {
+            template<typename... lbd>
+            using type =
+                call<_min_element_impl<lbd...>::template type, vals...>;
         };
     }
     /// \endcond
