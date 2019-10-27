@@ -50,40 +50,50 @@ namespace metal {
         state, seqs...>;
 }
 
-#include "../lambda/lambda.hpp"
-#include "../list/at.hpp"
-#include "../list/indices.hpp"
+#include "../lambda/apply.hpp"
+#include "../lambda/partial.hpp"
 #include "../list/list.hpp"
+#include "../list/transpose.hpp"
 #include "../value/fold_left.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<class state, class num, class... seqs>
-        struct accumulator_impl {
+        template<class state, class vals>
+        struct accumulator_impl {};
+
+        template<class state, class... vals>
+        struct accumulator_impl<state, list<vals...>> {
             template<template<class...> class expr>
-            using type = expr<state, at<seqs, num>...>;
+            using type = expr<state, vals...>;
         };
 
-        template<template<class...> class expr, class... seqs>
+        template<template<class...> class expr>
         struct accumulator {
-            template<class state, class num>
-            using type = forward<
-                accumulator_impl<state, num, seqs...>::template type, expr>;
+            template<class state, class vals>
+            using type =
+                forward<accumulator_impl<state, vals>::template type, expr>;
         };
 
-        template<class state, class head, class... tail>
+        template<class state, class... seqs>
         struct _accumulate_impl {
             template<template<class...> class expr>
             using type = forward<
-                _accumulate_impl<state, indices<head>>::template type,
-                accumulator<expr, head, tail...>::template type>;
+                _accumulate_impl<
+                    state, transpose<list<seqs...>>>::template type,
+                accumulator<expr>::template type>;
         };
 
         template<class state, class... vals>
         struct _accumulate_impl<state, list<vals...>> {
             template<template<class...> class expr>
             using type = fold_left<lambda<expr>, state, vals...>;
+        };
+
+        template<class state>
+        struct _accumulate_impl<state> {
+            template<template<class...> class expr>
+            using type = state;
         };
 
         template<class lbd>
