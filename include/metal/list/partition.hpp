@@ -3,7 +3,6 @@
 
 #include "../config.hpp"
 #include "../list/transform.hpp"
-#include "../pair/pair.hpp"
 
 namespace metal {
     /// \cond
@@ -51,6 +50,7 @@ namespace metal {
 #include "../list/list.hpp"
 #include "../number/if.hpp"
 #include "../number/number.hpp"
+#include "../pair/pair.hpp"
 
 namespace metal {
     /// \cond
@@ -60,7 +60,7 @@ namespace metal {
 
         template<int_... ns, class... vals>
         struct _partition<list<number<ns>...>, list<vals...>> {
-            using type = list<
+            using type = pair<
                 join<if_<number<ns>, list<vals>, list<>>...>,
                 join<if_<number<ns>, list<>, list<vals>>...>>;
         };
