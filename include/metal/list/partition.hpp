@@ -2,15 +2,13 @@
 #define METAL_LIST_PARTITION_HPP
 
 #include "../config.hpp"
-#include "../detail/sfinae.hpp"
-#include "../list/copy_if.hpp"
-#include "../list/remove_if.hpp"
+#include "../list/transform.hpp"
 #include "../pair/pair.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<class lbd>
+        template<class conds, class seq>
         struct _partition;
     }
     /// \endcond
@@ -43,68 +41,28 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, copy_if, remove_if
-#if !defined(METAL_WORKAROUND)
-    template<class seq, class lbd>
-    using partition = typename detail::_partition<lbd>::template type<seq>;
-#else
     template<class seq, class lbd>
     using partition =
-        metal::pair<metal::copy_if<seq, lbd>, metal::remove_if<seq, lbd>>;
-#endif
+        typename detail::_partition<transform<lbd, seq>, seq>::type;
 }
 
 #include "../lambda/lambda.hpp"
 #include "../list/join.hpp"
 #include "../list/list.hpp"
 #include "../number/if.hpp"
+#include "../number/number.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<bool>
-        struct _partitioner_impl {};
+        template<class conds, class seq>
+        struct _partition {};
 
-        template<>
-        // help memoization; see https://github.com/brunocodutra/metal/pull/100#issuecomment-541343498
-        struct _partitioner_impl<true> {
-            template<template<class...> class expr, class val>
-            using type =
-                if_<expr<val>, list<list<val>, list<>>,
-                    list<list<>, list<val>>>;
-        };
-
-        template<template<class...> class expr>
-        struct _partitioner {
-            template<class val, class... _>
-            using type = typename _partitioner_impl<!sizeof...(
-                _)>::template type<expr, val>;
-        };
-
-        template<class...>
-        struct _partition_joiner;
-
-        template<class... left, class... right>
-        struct _partition_joiner<list<left, right>...> {
-            using type = list<join<left...>, join<right...>>;
-        };
-
-        template<class seq>
-        struct _partition_impl {};
-
-        template<class... vals>
-        struct _partition_impl<list<vals...>> {
-            template<template<class...> class expr>
-            using type = typename _partition_joiner<expr<vals>...>::type;
-        };
-
-        template<class lbd>
-        class _partition {};
-
-        template<template<class...> class expr>
-        struct _partition<lambda<expr>> {
-            template<class seq>
-            using type = typename _partition_impl<seq>::template type<
-                _partitioner<expr>::template type>;
+        template<int_... ns, class... vals>
+        struct _partition<list<number<ns>...>, list<vals...>> {
+            using type = list<
+                join<if_<number<ns>, list<vals>, list<>>...>,
+                join<if_<number<ns>, list<>, list<vals>>...>>;
         };
     }
     /// \endcond
