@@ -3,6 +3,9 @@
 
 #include "../config.hpp"
 #include "../detail/sfinae.hpp"
+#include "../list/copy_if.hpp"
+#include "../list/remove_if.hpp"
+#include "../pair/pair.hpp"
 
 namespace metal {
     /// \cond
@@ -40,8 +43,14 @@ namespace metal {
     ///
     /// ### See Also
     /// \see list, copy_if, remove_if
+#if !defined(METAL_WORKAROUND)
     template<class seq, class lbd>
-    using partition = detail::call<detail::_partition<lbd>::template type, seq>;
+    using partition = typename detail::_partition<lbd>::template type<seq>;
+#else
+    template<class seq, class lbd>
+    using partition =
+        metal::pair<metal::copy_if<seq, lbd>, metal::remove_if<seq, lbd>>;
+#endif
 }
 
 #include "../lambda/lambda.hpp"
@@ -94,8 +103,7 @@ namespace metal {
         template<template<class...> class expr>
         struct _partition<lambda<expr>> {
             template<class seq>
-            using type = forward<
-                _partition_impl<seq>::template type,
+            using type = typename _partition_impl<seq>::template type<
                 _partitioner<expr>::template type>;
         };
     }
