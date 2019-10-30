@@ -76,11 +76,11 @@ namespace metal {
         struct _partition_impl<list<number<ns>...>, list<vals...>> {
 #if defined(METAL_WORKAROUND)
             using type = pair<
-                join<call<_partition_filter<ns>::template type, vals>...>,
+                join<call<_partition_filter<!!ns>::template type, vals>...>,
                 join<call<_partition_filter<!ns>::template type, vals>...>>;
 #else
             using type = pair<
-                join<typename _partition_filter<ns>::template type<vals>...>,
+                join<typename _partition_filter<!!ns>::template type<vals>...>,
                 join<typename _partition_filter<!ns>::template type<vals>...>>;
 #endif
         };
