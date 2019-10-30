@@ -53,18 +53,17 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
-
-        template<bool>
+        template<class>
         struct _partition_filter {};
 
         template<>
-        struct _partition_filter<true> {
+        struct _partition_filter<true_> {
             template<class val>
             using type = list<val>;
         };
 
         template<>
-        struct _partition_filter<false> {
+        struct _partition_filter<false_> {
             template<class val>
             using type = list<>;
         };
@@ -76,12 +75,16 @@ namespace metal {
         struct _partition_impl<list<number<ns>...>, list<vals...>> {
 #if defined(METAL_WORKAROUND)
             using type = pair<
-                join<call<_partition_filter<!!ns>::template type, vals>...>,
-                join<call<_partition_filter<!ns>::template type, vals>...>>;
+                join<call<
+                    _partition_filter<number<!!ns>>::template type, vals>...>,
+                join<call<
+                    _partition_filter<number<!ns>>::template type, vals>...>>;
 #else
             using type = pair<
-                join<typename _partition_filter<!!ns>::template type<vals>...>,
-                join<typename _partition_filter<!ns>::template type<vals>...>>;
+                join<typename _partition_filter<number<!!ns>>::template type<
+                    vals>...>,
+                join<typename _partition_filter<number<!ns>>::template type<
+                    vals>...>>;
 #endif
         };
 
