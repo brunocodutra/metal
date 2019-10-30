@@ -54,15 +54,22 @@ namespace metal {
 namespace metal {
     /// \cond
     namespace detail {
+        template<class...>
+        struct _partition_joiner {};
+
+        template<class... left, class... right>
+        struct _partition_joiner<list<left, right>...> {
+            using type = pair<join<left...>, join<right...>>;
+        };
+
         template<class conds, class seq>
         struct _partitioner {};
 
         template<int_... ns, class... vals>
-        struct _partitioner<list<number<ns>...>, list<vals...>> {
-            using type = pair<
-                join<if_<number<ns>, list<vals>, list<>>...>,
-                join<if_<number<ns>, list<>, list<vals>>...>>;
-        };
+        struct _partitioner<list<number<ns>...>, list<vals...>>
+            : _partition_joiner<
+                  if_<number<ns>, list<list<vals>, list<>>,
+                      list<list<>, list<vals>>>...> {};
 
         template<class seq>
         struct _partition_impl {};
