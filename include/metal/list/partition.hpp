@@ -2,12 +2,12 @@
 #define METAL_LIST_PARTITION_HPP
 
 #include "../config.hpp"
-#include "../list/transform.hpp"
+#include "../detail/sfinae.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<class conds, class seq>
+        template<class lbd>
         struct _partition;
     }
     /// \endcond
@@ -41,8 +41,7 @@ namespace metal {
     /// ### See Also
     /// \see list, copy_if, remove_if
     template<class seq, class lbd>
-    using partition =
-        typename detail::_partition<transform<lbd, seq>, seq>::type;
+    using partition = detail::call<detail::_partition<lbd>::template type, seq>;
 }
 
 #include "../lambda/lambda.hpp"
@@ -56,13 +55,38 @@ namespace metal {
     /// \cond
     namespace detail {
         template<class conds, class seq>
-        struct _partition {};
+        struct _partitioner {};
 
         template<int_... ns, class... vals>
-        struct _partition<list<number<ns>...>, list<vals...>> {
+        struct _partitioner<list<number<ns>...>, list<vals...>> {
             using type = pair<
                 join<if_<number<ns>, list<vals>, list<>>...>,
                 join<if_<number<ns>, list<>, list<vals>>...>>;
+        };
+
+        template<class seq>
+        struct _partition_impl {};
+
+        template<>
+        struct _partition_impl<list<>> {
+            template<template<class...> class>
+            using type = pair<list<>, list<>>;
+        };
+
+        template<class... vals>
+        struct _partition_impl<list<vals...>> {
+            template<template<class...> class expr>
+            using type =
+                typename _partitioner<list<expr<vals>...>, list<vals...>>::type;
+        };
+
+        template<class lbd>
+        struct _partition {};
+
+        template<template<class...> class expr>
+        struct _partition<lambda<expr>> {
+            template<class seq>
+            using type = forward<_partition_impl<seq>::template type, expr>;
         };
     }
     /// \endcond
