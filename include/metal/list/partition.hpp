@@ -50,6 +50,8 @@ namespace metal {
 #include "../number/number.hpp"
 #include "../pair/pair.hpp"
 
+#include <type_traits>
+
 namespace metal {
     /// \cond
     namespace detail {
@@ -78,13 +80,17 @@ namespace metal {
         };
 
         template<int_... ns>
-        struct _partitioner<list<number<ns>...>> {
+        struct _partitioner<list<std::integral_constant<int_, ns>...>> {
             template<class... vals>
             using type = pair<
                 join<call<
-                    _partition_filter<number<!!ns>>::template type, vals>...>,
+                    _partition_filter<
+                        std::integral_constant<int_, !!ns>>::template type,
+                    vals>...>,
                 join<call<
-                    _partition_filter<number<!ns>>::template type, vals>...>>;
+                    _partition_filter<
+                        std::integral_constant<int_, !ns>>::template type,
+                    vals>...>>;
         };
 
         template<class seq>
