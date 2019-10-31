@@ -74,16 +74,16 @@ namespace metal {
             using type = list<list<>, list<val>>;
         };
 
-        template<bool cond, class val>
+        template<int_ n, class val>
         using _partition_filter_t =
-            call<_partition_filter<cond>::template type, val>;
+            call<_partition_filter<!!n>::template type, val>;
 
         template<class conds, class seq>
         struct _partitioner {};
 
         template<int_... ns, class... vals>
         struct _partitioner<list<number<ns>...>, list<vals...>>
-            : _partition_joiner<_partition_filter_t<!!ns, vals>...> {};
+            : _partition_joiner<_partition_filter_t<ns, vals>...> {};
 
         template<class seq>
         struct _partition_impl {};
