@@ -44,16 +44,16 @@ namespace metal {
     using partition = detail::call<detail::_partition<lbd>::template type, seq>;
 }
 
+#include "../lambda/lambda.hpp"
 #include "../list/join.hpp"
 #include "../list/list.hpp"
-#include "../list/transform.hpp"
 #include "../number/number.hpp"
 #include "../pair/pair.hpp"
 
 namespace metal {
     /// \cond
     namespace detail {
-        template<class>
+        template<class cond>
         struct _partition_filter {};
 
         template<>
@@ -68,31 +68,39 @@ namespace metal {
             using type = list<>;
         };
 
-        template<class conds, class seq>
-        struct _partition_impl {};
+        template<class conds>
+        struct _partitioner {};
 
-        template<int_... ns, class... vals>
-        struct _partition_impl<list<number<ns>...>, list<vals...>> {
-#if defined(METAL_WORKAROUND)
+        template<>
+        struct _partitioner<list<>> {
+            template<class...>
+            using type = pair<list<>, list<>>;
+        };
+
+        template<int_... ns>
+        struct _partitioner<list<number<ns>...>> {
+            template<class... vals>
             using type = pair<
                 join<call<
                     _partition_filter<number<!!ns>>::template type, vals>...>,
                 join<call<
                     _partition_filter<number<!ns>>::template type, vals>...>>;
-#else
-            using type = pair<
-                join<typename _partition_filter<number<!!ns>>::template type<
-                    vals>...>,
-                join<typename _partition_filter<number<!ns>>::template type<
-                    vals>...>>;
-#endif
         };
 
-        template<class lbd>
-        struct _partition {
-            template<class seq>
+        template<class seq>
+        struct _partition_impl {};
+
+        template<class... vals>
+        struct _partition_impl<list<vals...>> {
+            template<template<class...> class expr>
             using type =
-                typename _partition_impl<transform<lbd, seq>, seq>::type;
+                call<_partitioner<list<expr<vals>...>>::template type, vals...>;
+        };
+
+        template<template<class...> class expr>
+        struct _partition<lambda<expr>> {
+            template<class seq>
+            using type = forward<_partition_impl<seq>::template type, expr>;
         };
     }
     /// \endcond
