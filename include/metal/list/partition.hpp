@@ -62,21 +62,25 @@ namespace metal {
             using type = pair<join<left...>, join<right...>>;
         };
 
-        template<bool>
-        struct _partition_filter {
+        template<class>
+        struct _partition_filter {};
+
+        template<>
+        struct _partition_filter<true_> {
             template<class val>
             using type = list<list<val>, list<>>;
         };
 
         template<>
-        struct _partition_filter<false> {
+        struct _partition_filter<false_> {
             template<class val>
             using type = list<list<>, list<val>>;
         };
 
         template<int_ n, class val>
-        using _partition_filter_t =
-            call<_partition_filter<!!n>::template type, val>;
+        using _partition_filter_t = call<
+            _partition_filter<number<((n == 0) ? false : true)>>::template type,
+            val>;
 
         template<class conds, class seq>
         struct _partitioner {};
