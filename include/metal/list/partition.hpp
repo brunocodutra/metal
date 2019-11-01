@@ -56,10 +56,7 @@ namespace metal {
     /// \cond
     namespace detail {
         template<class cond>
-        struct _partition_filter {};
-
-        template<>
-        struct _partition_filter<true_> {
+        struct _partition_filter {
             template<class val>
             using type = list<val>;
         };
@@ -69,6 +66,10 @@ namespace metal {
             template<class val>
             using type = list<>;
         };
+
+        template<class cond, class val>
+        using _partition_filter_t =
+            call<_partition_filter<cond>::template type, val>;
 
         template<class conds>
         struct _partitioner {};
