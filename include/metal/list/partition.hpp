@@ -62,11 +62,8 @@ namespace metal {
             using type = pair<join<left...>, join<right...>>;
         };
 
-        template<class>
-        struct _partition_filter {};
-
-        template<>
-        struct _partition_filter<true_> {
+        template<class cond>
+        struct _partition_filter {
             template<class val>
             using type = list<list<val>, list<>>;
         };
