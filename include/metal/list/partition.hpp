@@ -47,6 +47,7 @@ namespace metal {
 #include "../lambda/lambda.hpp"
 #include "../list/join.hpp"
 #include "../list/list.hpp"
+#include "../number/not.hpp"
 #include "../number/number.hpp"
 #include "../pair/pair.hpp"
 
@@ -85,7 +86,7 @@ namespace metal {
             template<class... vals>
             using type = pair<
                 join<_partition_filter_t<number<ns>, vals>...>,
-                join<_partition_filter_t<number<!ns>, vals>...>>;
+                join<_partition_filter_t<not_<number<ns>>, vals>...>>;
         };
 
         template<class seq>
