@@ -81,17 +81,11 @@ namespace metal {
         };
 
         template<int_... ns>
-        struct _partitioner<list<std::integral_constant<int_, ns>...>> {
+        struct _partitioner<list<number<ns>...>> {
             template<class... vals>
             using type = pair<
-                join<call<
-                    _partition_filter<
-                        std::integral_constant<int_, !!ns>>::template type,
-                    vals>...>,
-                join<call<
-                    _partition_filter<
-                        std::integral_constant<int_, !ns>>::template type,
-                    vals>...>>;
+                join<_partition_filter_t<number<ns>, vals>...>,
+                join<_partition_filter_t<number<!ns>, vals>...>>;
         };
 
         template<class seq>
