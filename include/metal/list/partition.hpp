@@ -72,18 +72,16 @@ namespace metal {
         using _partition_filter_t =
             call<_partition_filter<cond>::template type, val>;
 
-        template<class conds>
+        template<class conds, class seq>
         struct _partitioner {};
 
         template<>
-        struct _partitioner<list<>> {
-            template<class...>
+        struct _partitioner<list<>, list<>> {
             using type = pair<list<>, list<>>;
         };
 
-        template<int_... ns>
-        struct _partitioner<list<number<ns>...>> {
-            template<class... vals>
+        template<int_... ns, class... vals>
+        struct _partitioner<list<number<ns>...>, list<vals...>> {
             using type = pair<
                 join<_partition_filter_t<number<ns>, vals>...>,
                 join<_partition_filter_t<not_<number<ns>>, vals>...>>;
@@ -96,7 +94,7 @@ namespace metal {
         struct _partition_impl<list<vals...>> {
             template<template<class...> class expr>
             using type =
-                call<_partitioner<list<expr<vals>...>>::template type, vals...>;
+                typename _partitioner<list<expr<vals>...>, list<vals...>>::type;
         };
 
         template<template<class...> class expr>
