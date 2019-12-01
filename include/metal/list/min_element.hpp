@@ -79,7 +79,7 @@ namespace metal {
         struct _min_element_min {
             template<class x, class y>
             using type =
-                forward<_min_element_min_impl<x, y>::template type, expr>;
+                typename _min_element_min_impl<x, y>::template type<expr>;
         };
 
         template<class seq>
