@@ -52,9 +52,9 @@
     CHECK((metal::is_invocable<metal::lambda<metal::replace_if>, LAMBDA(_), MAP(N) COMMA(M) VALUES(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::replace_if>, LAMBDA(_), LAMBDA(N) COMMA(M) VALUES(M)>), (FALSE)); \
     CHECK((metal::is_invocable<metal::lambda<metal::replace_if>, LAMBDA(_), LAMBDA(_) COMMA(M) VALUES(M)>), (FALSE)); \
-    CHECK((metal::replace_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_number>, VALUE(N)>), (metal::list<ENUM(M, FWD, VALUE(N) NIL, PAIR, LAMBDA)>)); \
+    CHECK((metal::replace_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_number>>), (metal::list<ENUM(M, FWD, PAIR, LAMBDA)>)); \
     CHECK((metal::replace_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_pair>, VALUE(N)>), (metal::list<ENUM(M, FWD, NUMBER, VALUE(N) NIL, LAMBDA)>)); \
-    CHECK((metal::replace_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_lambda>, VALUE(N)>), (metal::list<ENUM(M, FWD, NUMBER, PAIR, VALUE(N) NIL)>)); \
+    CHECK((metal::replace_if<metal::list<ENUM(M, FWD, NUMBER, PAIR, LAMBDA)>, metal::lambda<metal::is_lambda>, VALUE(M), VALUE(N)>), (metal::list<ENUM(M, FWD, NUMBER, PAIR, VALUE(M) NIL, VALUE(N) NIL)>)); \
 /**/
 
 GEN(MATRIX)
