@@ -1,0 +1,141 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  release:
+    types: [published]
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    env:
+      CXX: 'clang++'
+    steps:
+    - uses: actions/checkout@v1
+    - name: install
+      run: |
+        sudo sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -sc)/ llvm-toolchain-$(lsb_release -sc) main"
+        sudo apt-get update
+        sudo apt-get install -y clang clang-format
+    - name: configure
+      run: cmake -H. -Bbuild/
+    - name: lint
+      run: cd build && ctest --output-on-failure -R ^test.format
+
+  gcc:
+    needs: [format]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ['4.7', '']
+
+        include:
+        - version: '4.7'
+          compiler: 'g++-4.7'
+          os: ubuntu-16.04
+
+        - version: ''
+          compiler: 'g++'
+          os: ubuntu-latest
+    env:
+      CXX: "${{ matrix.compiler }}"
+    steps:
+    - uses: actions/checkout@v1
+    - name: install
+      run: |
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        sudo apt-get update
+        sudo apt-get install -y ${{ matrix.compiler }} libboost-dev cppcheck
+    - name: configure
+      run: cmake -H. -Bbuild/
+    - name: test
+      run: cd build && ctest --output-on-failure -E ^test.format
+
+  clang:
+    needs: [format]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ['3.8', '']
+
+        include:
+        - version: '3.8'
+          compiler: "clang++-3.8"
+          os: ubuntu-16.04
+
+        - version: ''
+          compiler: 'clang++'
+          os: ubuntu-latest
+    env:
+      CXX: "${{ matrix.compiler }}"
+    steps:
+    - uses: actions/checkout@v1
+    - name: install
+      run: |
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -sc)/ llvm-toolchain-$(lsb_release -sc)${CXX##*${CXX%-*}} main"
+        sudo apt-get update
+        sudo apt-get install -y clang${CXX##*${CXX%-*}} libboost-dev
+    - name: configure
+      run: cmake -H. -Bbuild/
+    - name: test
+      run: cd build && ctest --output-on-failure -E ^test.format
+
+  xcode:
+    needs: [format]
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: configure
+      run: cmake -H. -Bbuild/
+    - name: test
+      run: cd build && ctest --output-on-failure -E ^test.format
+
+  msvc:
+    needs: [format]
+    runs-on: windows-latest
+    env:
+      CXXFLAGS: '/DMETAL_TEST_GEN_LIMIT=7'
+    steps:
+    - uses: actions/checkout@v1
+    - name: configure
+      run: mkdir build; cd build; cmake ..
+    - name: test
+      run: cd build; ctest -C Release --output-on-failure -E ^test.format
+
+  release:
+    needs: [gcc, clang, xcode, msvc]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: install
+      run: |
+        sudo apt-get install -y tree
+        mkdir doxygen && curl -L "http://doxygen.nl/files/doxygen-1.8.16.linux.bin.tar.gz" | tar --strip-components=1 -xz -C doxygen/
+    - name: configure
+      run: PATH=${PWD}/doxygen/bin:${PATH} cmake -H. -Bbuild/ -DCMAKE_INSTALL_PREFIX=${PWD}/install/
+    - name: test
+      run: (! cmake --build build/ --target doc 2>&1 | grep --color -iE "warning|error")
+    - name: deploy
+      run: cmake --build build/ --target install && tree ${PWD}/install/
+    - name: gh-pages
+      if: github.event_name == 'release'
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: install/share/Metal/doc
+    - name: standalone
+      if: github.event_name == 'release'
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: standalone
+        FOLDER: install/include

@@ -84,7 +84,7 @@ You don't need to just take my word for it, see for yourself at [metaben.ch].
 ## Portable
 
 Metal is continuously tested on [Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
-It is known to work on GCC 4.7+, Clang 3.4+ and Visual Studio 14 (2015)+.
+It is known to work on GCC 4.7+, Clang 3.8+ and on the latest releases of Visual Studio and Xcode.
 
 ## Documentation
 
