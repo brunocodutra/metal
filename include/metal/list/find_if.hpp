@@ -62,7 +62,8 @@ namespace metal {
 
         template<int_... vs, class... is>
         struct _find_index<list<number<vs>...>, list<is...>> {
-            using type = front<join<if_<number<vs>, list<is>, list<>>...>>;
+            using type =
+                front<call<join, if_<number<vs>, list<is>, list<>>...>>;
         };
 
         template<class seq>
