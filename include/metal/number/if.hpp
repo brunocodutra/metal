@@ -42,7 +42,7 @@ namespace metal {
     /// ### See Also
     /// \see number
     template<class cond, class... then>
-    using if_ = detail::call<detail::_if_<cond>::template type, then...>;
+    using if_ = typename detail::_if_<cond>::template type<then...>;
 }
 
 #include "../number/number.hpp"
