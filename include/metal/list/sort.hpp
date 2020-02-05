@@ -142,18 +142,6 @@ namespace metal {
             using type = _merge_impl<x, y, z, expr>;
         };
 
-        template<class x, class z>
-        struct _merge<x, list<>, z> {
-            template<template<class...> class expr>
-            using type = _merge_impl<x, list<>, z, expr>;
-        };
-
-        template<class y, class z>
-        struct _merge<list<>, y, z> {
-            template<template<class...> class expr>
-            using type = _merge_impl<list<>, y, z, expr>;
-        };
-
         template<class seq>
         struct _sort_impl {
             using beg = number<0>;
