@@ -1,4 +1,4 @@
-# Metal [![version]][semver] [![travis.badge]][travis.metal] [![appveyor.badge]][appveyor.metal] [![gitter.badge]][gitter.metal] [![godbolt.badge]][godbolt.metal]
+# Metal [![version]][semver] [![gitter.badge]][gitter.metal] [![godbolt.badge]][godbolt.metal]
 
 Metal is a single-header C++11 library designed to make you love template
 metaprogramming.
@@ -83,8 +83,7 @@ You don't need to just take my word for it, see for yourself at [metaben.ch].
 
 ## Portable
 
-Metal is continuously tested on [Travis CI][travis.metal] and [Appveyor CI][appveyor.metal].
-It is known to work on GCC 4.7+, Clang 3.8+ and on the latest releases of Visual Studio and Xcode.
+Metal is known to work on GCC 4.7+, Clang 3.8+ and on the latest releases of Visual Studio and Xcode.
 
 ## Documentation
 
@@ -99,12 +98,6 @@ This project is licensed under the [MIT][license].
 [semver]:           http://semver.org
 
 [godbolt.metal]:    https://godbolt.org/g/JN13FQ
-
-[travis.metal]:     http://travis-ci.org/brunocodutra/metal
-[travis.badge]:     http://travis-ci.org/brunocodutra/metal.svg?branch=master
-
-[appveyor.metal]:   http://ci.appveyor.com/project/brunocodutra/metal
-[appveyor.badge]:   http://ci.appveyor.com/api/projects/status/85pk8n05n4r5x103/branch/master?svg=true
 
 [gitter.metal]:     http://gitter.im/brunocodutra/metal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [gitter.badge]:     http://badges.gitter.im/brunocodutra/metal.svg
