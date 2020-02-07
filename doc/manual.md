@@ -736,9 +736,6 @@ the binary representation of numerical values is entirely irrelevant.
 [SFINAE]:           http://en.cppreference.com/w/cpp/language/sfinae
 [RAII]:             http://en.cppreference.com/w/cpp/language/raii
 
-[travis.metal]:     http://travis-ci.org/brunocodutra/metal
-[appveyor.metal]:   http://ci.appveyor.com/project/brunocodutra/metal
-
 [Metal.portable]:   http://github.com/brunocodutra/metal#portable
 [Metal.releases]:   http://github.com/brunocodutra/metal/releases
 [Metal.headers]:    http://github.com/brunocodutra/metal/tree/master/include
