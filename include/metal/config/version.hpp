@@ -17,7 +17,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_MINOR 0
+#define METAL_MINOR 1
 
 /// \ingroup config
 ///
@@ -26,7 +26,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_PATCH 1
+#define METAL_PATCH 0
 
 /// \ingroup config
 /// \hideinitializer
