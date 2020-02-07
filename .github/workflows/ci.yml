@@ -118,7 +118,7 @@ jobs:
     - name: install
       run: |
         sudo apt-get install -y tree
-        mkdir doxygen && curl -L "http://doxygen.nl/files/doxygen-1.8.16.linux.bin.tar.gz" | tar --strip-components=1 -xz -C doxygen/
+        mkdir doxygen && curl -L "http://doxygen.nl/files/doxygen-1.8.17.linux.bin.tar.gz" | tar --strip-components=1 -xz -C doxygen/
     - name: configure
       run: PATH=${PWD}/doxygen/bin:${PATH} cmake -H. -Bbuild/ -DCMAKE_INSTALL_PREFIX=${PWD}/install/
     - name: test
