@@ -26,7 +26,7 @@
 ///
 /// ### See Also
 /// \see [Semantic Versioning](http://semver.org/)
-#define METAL_PATCH 0
+#define METAL_PATCH 1
 
 /// \ingroup config
 /// \hideinitializer
