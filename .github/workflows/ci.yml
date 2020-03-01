@@ -3,12 +3,14 @@ name: CI
 on:
   push:
     branches:
-      - master
+    - master
   pull_request:
     branches:
-      - master
+    - master
   release:
     types: [published]
+  schedule:
+  - cron:  '0 6 * * SAT'
 
 jobs:
   format:
