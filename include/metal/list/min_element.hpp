@@ -82,6 +82,21 @@ namespace metal {
                 forward<_min_element_min_impl<x, y>::template type, expr>;
         };
 
+        template<class x, class y>
+        struct _min_element_gcc_4_7_aliaser {
+            template<template<class...> class expr>
+            using type = typename _min_element_min<expr>::template type<x, y>;
+        };
+
+        template<template<class...> class expr>
+        struct _min_element_gcc_4_7_alias {
+            template<class x, class y>
+            using type = typename _min_element_gcc_4_7_aliaser<
+                x, y>::template type<expr>;
+
+            using lbd = lambda<type>;
+        };
+
         template<class seq>
         struct _min_element_impl {};
 
@@ -89,7 +104,7 @@ namespace metal {
         struct _min_element_impl<list<vals...>> {
             template<template<class...> class expr>
             using type = fold_left<
-                lambda<_min_element_min<expr>::template type>, vals...>;
+                typename _min_element_gcc_4_7_alias<expr>::lbd, vals...>;
         };
 
         template<class lbd>
