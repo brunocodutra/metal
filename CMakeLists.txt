@@ -5,6 +5,10 @@ include(cmake/Test.cmake)
 
 project(Metal CXX)
 
+option(METAL_BUILD_DOC "Whether to build the documentation" ON)
+option(METAL_BUILD_EXAMPLES "Whether to build the examples" ON)
+option(METAL_BUILD_TESTS "Whether to build the tests" ON)
+
 set(METAL_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
 file(STRINGS "${METAL_INCLUDE_DIR}/metal/config/version.hpp"
@@ -31,6 +35,12 @@ set_target_properties(Metal PROPERTIES
 
 deploy_header_library(Metal)
 
-add_subdirectory(doc)
-add_subdirectory(example)
-add_subdirectory(test)
+if(METAL_BUILD_DOC)
+    add_subdirectory(doc)
+endif()
+if (METAL_BUILD_EXAMPLES)
+    add_subdirectory(example)
+endif()
+if(METAL_BUILD_TESTS)
+    add_subdirectory(test)
+endif()
