@@ -39,7 +39,7 @@ namespace metal {
     /// \snippet number.cpp min
     ///
     /// ### See Also
-    /// \see number, greater, less, max
+    /// \see number, greater, less, max, min_element
     template<class... nums>
     using min = fold_left<lambda<detail::min>, if_<is_number<nums>, nums>...>;
 }
