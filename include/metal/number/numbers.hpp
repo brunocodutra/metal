@@ -8,43 +8,43 @@
 #include <type_traits>
 
 namespace metal {
-    /// \cond
-    namespace detail {
+/// \cond
+namespace detail {
 #if defined(METAL_WORKAROUND)
-        template<int_... vs>
-        struct _numbers;
+    template <int_... vs>
+    struct _numbers;
 #endif
-    }
-    /// \endcond
+}
+/// \endcond
 
-    /// \ingroup number
-    ///
-    /// ### Description
-    /// Constructs a \list of \numbers out of a sequence of integral values.
-    ///
-    /// ### Example
-    /// \snippet number.cpp numbers
-    ///
-    /// ### See Also
-    /// \see int_, number, list
-    template<int_... vs>
-    using numbers =
+/// \ingroup number
+///
+/// ### Description
+/// Constructs a \list of \numbers out of a sequence of integral values.
+///
+/// ### Example
+/// \snippet number.cpp numbers
+///
+/// ### See Also
+/// \see int_, number, list
+template <int_... vs>
+using numbers =
 #if defined(METAL_WORKAROUND)
-        typename detail::_numbers<vs...>::type;
+    typename detail::_numbers<vs...>::type;
 #else
-        metal::list<metal::number<vs>...>;
+    metal::list<metal::number<vs>...>;
 #endif
 
-    /// \cond
-    namespace detail {
+/// \cond
+namespace detail {
 #if defined(METAL_WORKAROUND)
-        template<int_... vs>
-        struct _numbers {
-            using type = list<std::integral_constant<int_, vs>...>;
-        };
+    template <int_... vs>
+    struct _numbers {
+        using type = list<std::integral_constant<int_, vs>...>;
+    };
 #endif
-    }
-    /// \endcond
+}
+/// \endcond
 }
 
 #endif

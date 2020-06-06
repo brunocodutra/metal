@@ -6,38 +6,38 @@
 #include "../number/not.hpp"
 
 namespace metal {
-    /// \ingroup list
-    ///
-    /// ### Description
-    /// Checks whether a predicate does not hold for any element of a \list.
-    ///
-    /// ### Usage
-    /// For any \list `l` and \lambda `lbd`
-    /// \code
-    ///     using result = metal::none_of<l, lbd>;
-    /// \endcode
-    ///
-    /// \pre: For any element `l[i]` contained in `l`,
-    /// `metal::invoke<lbd, l[i]>` returns a \number
-    /// \returns: \number
-    /// \semantics:
-    ///     If `metal::invoke<lbd, l[i]>{} == false` for all `l[i]` contained in
-    ///     `l`, then
-    ///     \code
-    ///         using result = metal::true_;
-    ///     \endcode
-    ///     otherwise
-    ///     \code
-    ///         using result = metal::false_;
-    ///     \endcode
-    ///
-    /// ### Example
-    /// \snippet list.cpp none_of
-    ///
-    /// ### See Also
-    /// \see list, all_of, any_of
-    template<class seq, class lbd>
-    using none_of = metal::not_<metal::any_of<seq, lbd>>;
+/// \ingroup list
+///
+/// ### Description
+/// Checks whether a predicate does not hold for any element of a \list.
+///
+/// ### Usage
+/// For any \list `l` and \lambda `lbd`
+/// \code
+///     using result = metal::none_of<l, lbd>;
+/// \endcode
+///
+/// \pre: For any element `l[i]` contained in `l`,
+/// `metal::invoke<lbd, l[i]>` returns a \number
+/// \returns: \number
+/// \semantics:
+///     If `metal::invoke<lbd, l[i]>{} == false` for all `l[i]` contained in
+///     `l`, then
+///     \code
+///         using result = metal::true_;
+///     \endcode
+///     otherwise
+///     \code
+///         using result = metal::false_;
+///     \endcode
+///
+/// ### Example
+/// \snippet list.cpp none_of
+///
+/// ### See Also
+/// \see list, all_of, any_of
+template <class seq, class lbd>
+using none_of = metal::not_<metal::any_of<seq, lbd>>;
 }
 
 #endif
