@@ -4,12 +4,12 @@
 #include "../config.hpp"
 
 namespace metal {
-    /// \cond
-    namespace detail {
-        template<class T>
-        T* declptr();
-    }
-    /// \endcond
+/// \cond
+namespace detail {
+    template <class T>
+    T* declptr();
+}
+/// \endcond
 }
 
 #endif

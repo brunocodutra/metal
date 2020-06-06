@@ -4,52 +4,54 @@
 #include "../config.hpp"
 
 namespace metal {
-    /// \cond
-    namespace detail {
-        template<class x, class y>
-        struct _less;
-    }
-    /// \endcond
+/// \cond
+namespace detail {
+    template <class x, class y>
+    struct _less;
+}
+/// \endcond
 
-    /// \ingroup number
-    ///
-    /// ### Description
-    /// Checks whether a \number is less than another.
-    ///
-    /// ### Usage
-    /// For any \numbers `x` and `y`
-    /// \code
-    ///     using result = metal::less<x, y>;
-    /// \endcode
-    ///
-    /// \returns: \number
-    /// \semantics:
-    ///     Equivalent to
-    ///     \code
-    ///         using result = metal::number<(x{} < y{})>;
-    ///     \endcode
-    ///
-    /// ### Example
-    /// \snippet number.cpp less
-    ///
-    /// ### See Also
-    /// \see number, greater, max, min
-    template<class x, class y>
-    using less = typename detail::_less<x, y>::type;
+/// \ingroup number
+///
+/// ### Description
+/// Checks whether a \number is less than another.
+///
+/// ### Usage
+/// For any \numbers `x` and `y`
+/// \code
+///     using result = metal::less<x, y>;
+/// \endcode
+///
+/// \returns: \number
+/// \semantics:
+///     Equivalent to
+///     \code
+///         using result = metal::number<(x{} < y{})>;
+///     \endcode
+///
+/// ### Example
+/// \snippet number.cpp less
+///
+/// ### See Also
+/// \see number, greater, max, min
+template <class x, class y>
+using less = typename detail::_less<x, y>::type;
 }
 
 #include "../number/number.hpp"
 
 namespace metal {
-    /// \cond
-    namespace detail {
-        template<class x, class y>
-        struct _less {};
+/// \cond
+namespace detail {
+    template <class x, class y>
+    struct _less {
+    };
 
-        template<int_ x, int_ y>
-        struct _less<number<x>, number<y>> : number<(x < y)> {};
-    }
-    /// \endcond
+    template <int_ x, int_ y>
+    struct _less<number<x>, number<y>> : number<(x < y)> {
+    };
+}
+/// \endcond
 }
 
 #endif
