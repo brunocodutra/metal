@@ -120,9 +120,11 @@ jobs:
     - name: install
       run: |
         sudo apt-get install -y tree
-        mkdir doxygen && curl -L "http://doxygen.nl/files/doxygen-1.8.18.linux.bin.tar.gz" | tar --strip-components=1 -xz -C doxygen/
+        mkdir doxygen && curl -L "http://doxygen.nl/files/doxygen-1.8.20.src.tar.gz" | tar --strip-components=1 -xz -C doxygen/
+        cmake -Hdoxygen -Bdoxygen/build
+        cmake --build doxygen/build -- -j
     - name: configure
-      run: PATH=${PWD}/doxygen/bin:${PATH} cmake -H. -Bbuild/ -DCMAKE_INSTALL_PREFIX=${PWD}/install/
+      run: PATH=${PWD}/doxygen/build/bin:${PATH} cmake -H. -Bbuild/ -DCMAKE_INSTALL_PREFIX=${PWD}/install/
     - name: test
       run: (! cmake --build build/ --target doc 2>&1 | grep --color -iE "warning|error")
     - name: deploy
