@@ -155,7 +155,7 @@ $("a[href^='#'].el").click(function () {
 function expand() {
   if (window.location.hash.length > 0) {
     var anchor = $(window.location.hash + ".anchor");
-    anchor.parents(".panel").children(".collapse").collapse("show");
+    anchor.parents(".panel-heading").click();
   }
 }
 
