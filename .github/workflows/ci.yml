@@ -117,12 +117,18 @@ jobs:
   doc:
     needs: [gcc, clang, xcode, msvc]
     runs-on: ubuntu-latest
+    env:
+      CXX: 'clang++'
     steps:
     - uses: actions/checkout@v1
     - name: install
       run: |
-        sudo apt-get install -y tree
-        mkdir doxygen && curl -L "http://doxygen.nl/files/doxygen-1.8.20.src.tar.gz" | tar --strip-components=1 -xz -C doxygen/
+        sudo wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+        sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -sc)/ llvm-toolchain-$(lsb_release -sc) main"
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        sudo apt-get update
+        sudo apt-get install -y clang tree
+        mkdir doxygen && curl -L "https://doxygen.nl/files/doxygen-1.9.1.src.tar.gz" | tar --strip-components=1 -xz -C doxygen/
         cmake -Hdoxygen -Bdoxygen/build
         cmake --build doxygen/build -- -j
     - name: configure
