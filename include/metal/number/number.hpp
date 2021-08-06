@@ -79,7 +79,7 @@ using number = std::integral_constant<metal::int_, v>;
 /// \ingroup number
 ///
 /// ### Description
-/// The boolean constant `true`.
+/// A \number that represents the boolean constant `true`.
 ///
 /// ### See Also
 /// \see number, int_
@@ -88,7 +88,7 @@ using true_ = metal::number<true>;
 /// \ingroup number
 ///
 /// ### Description
-/// The boolean constant `false`.
+/// A \number that represents the boolean constant `false`.
 ///
 /// ### See Also
 /// \see number
