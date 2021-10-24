@@ -16,45 +16,23 @@ jobs:
   format:
     runs-on: ubuntu-latest
     env:
-      CXX: 'clang++-10'
+      CXX: 'clang++'
     steps:
     - uses: actions/checkout@v1
-    - name: install
-      run: |
-        sudo wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
-        sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -sc)/ llvm-toolchain-$(lsb_release -sc)-10 main"
-        sudo apt-get update
-        sudo apt-get install -y clang-10 clang-format-10
     - name: configure
-      run: cmake -H. -Bbuild/ -DCLANG_FORMAT=/usr/bin/clang-format-10
+      run: cmake -H. -Bbuild/
     - name: lint
       run: cd build && ctest --output-on-failure -R ^test.format
 
   gcc:
     needs: [format]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        version: ['4.7', '']
-
-        include:
-        - version: '4.7'
-          compiler: 'g++-4.7'
-          os: ubuntu-16.04
-
-        - version: ''
-          compiler: 'g++'
-          os: ubuntu-latest
+    runs-on: ubuntu-latest
     env:
-      CXX: "${{ matrix.compiler }}"
+      CXX: 'g++'
     steps:
     - uses: actions/checkout@v1
     - name: install
-      run: |
-        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-        sudo apt-get update
-        sudo apt-get install -y ${{ matrix.compiler }} libboost-dev cppcheck
+      run: sudo apt-get install -y libboost-dev cppcheck
     - name: configure
       run: cmake -H. -Bbuild/
     - name: test
@@ -62,31 +40,13 @@ jobs:
 
   clang:
     needs: [format]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        version: ['3.8', '']
-
-        include:
-        - version: '3.8'
-          compiler: "clang++-3.8"
-          os: ubuntu-16.04
-
-        - version: ''
-          compiler: 'clang++'
-          os: ubuntu-latest
+    runs-on: ubuntu-latest
     env:
-      CXX: "${{ matrix.compiler }}"
+      CXX: 'clang++'
     steps:
     - uses: actions/checkout@v1
     - name: install
-      run: |
-        sudo wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
-        sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -sc)/ llvm-toolchain-$(lsb_release -sc)${CXX##*${CXX%-*}} main"
-        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-        sudo apt-get update
-        sudo apt-get install -y clang${CXX##*${CXX%-*}} libboost-dev
+      run: sudo apt-get install -y libboost-dev clang-tidy
     - name: configure
       run: cmake -H. -Bbuild/
     - name: test
@@ -123,10 +83,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: install
       run: |
-        sudo wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
-        sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -sc)/ llvm-toolchain-$(lsb_release -sc) main"
-        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-        sudo apt-get update
         sudo apt-get install -y clang tree
         mkdir doxygen && curl -L "https://doxygen.nl/files/doxygen-1.9.1.src.tar.gz" | tar --strip-components=1 -xz -C doxygen/
         cmake -Hdoxygen -Bdoxygen/build

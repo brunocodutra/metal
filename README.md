@@ -83,7 +83,7 @@ You don't need to just take my word for it, see for yourself at [metaben.ch].
 
 ## Portable
 
-Metal is known to work on GCC 4.7+, Clang 3.8+ and on the latest releases of Visual Studio and Xcode.
+Metal is known to work on GCC, Clang, Visual Studio, and Xcode.
 
 ## Documentation
 
