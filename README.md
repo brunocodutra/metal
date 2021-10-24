@@ -1,4 +1,4 @@
-# Metal [![version]][semver] [![gitter.badge]][gitter.metal] [![godbolt.badge]][godbolt.metal]
+# Metal [![version]][semver] [![godbolt.badge]][godbolt.metal]
 
 Metal is a single-header C++11 library designed to make you love template
 metaprogramming.
@@ -94,23 +94,18 @@ The complete up-to-date documentation is available [online][documentation].
 
 This project is licensed under the [MIT][license].
 
-[version]:          http://badge.fury.io/gh/brunocodutra%2Fmetal.svg
-[semver]:           http://semver.org
+[version]:          https://badge.fury.io/gh/brunocodutra%2Fmetal.svg
+[semver]:           https://semver.org
 
-[godbolt.metal]:    https://godbolt.org/g/JN13FQ
+[godbolt.metal]:    https://godbolt.org/z/9Gr5bP5cd
+[godbolt.badge]:    https://img.shields.io/badge/try%20it-on%20godbolt-222266.svg
 
-[gitter.metal]:     http://gitter.im/brunocodutra/metal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
-[gitter.badge]:     http://badges.gitter.im/brunocodutra/metal.svg
-
-[godbolt.metal]:    http://godbolt.org/g/RFwvic
-[godbolt.badge]:    http://img.shields.io/badge/try%20it-on%20godbolt-222266.svg
-
-[CMake]:            http://cmake.org/
-[Doxygen]:          http://doxygen.org/
+[CMake]:            https://cmake.org/
+[Doxygen]:          https://doxygen.org/
 [metaben.ch]:       http://metaben.ch/
 
 [license]:          https://github.com/brunocodutra/metal/blob/master/LICENSE
-[releases]:         http://github.com/brunocodutra/metal/releases
-[documentation]:    http://brunocodutra.github.io/metal
-[examples]:         http://brunocodutra.github.io/metal/#examples
-[SFINAE]:           http://brunocodutra.github.io/metal/#SFINAE
+[releases]:         https://github.com/brunocodutra/metal/releases
+[documentation]:    https://brunocodutra.github.io/metal
+[examples]:         https://brunocodutra.github.io/metal/#examples
+[SFINAE]:           https://brunocodutra.github.io/metal/#SFINAE
