@@ -84,7 +84,7 @@ jobs:
     - name: install
       run: |
         sudo apt-get install -y clang tree
-        mkdir doxygen && curl -L "https://doxygen.nl/files/doxygen-1.9.1.src.tar.gz" | tar --strip-components=1 -xz -C doxygen/
+        mkdir doxygen && curl -L "https://www.doxygen.nl/files/doxygen-1.9.3.src.tar.gz" | tar --strip-components=1 -xz -C doxygen/
         cmake -Hdoxygen -Bdoxygen/build
         cmake --build doxygen/build -- -j
     - name: configure
